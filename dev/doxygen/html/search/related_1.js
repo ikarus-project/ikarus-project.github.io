@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['init_0',['init',['../a01962.html#a4865c52ed9d7e9c0f00e8bd5295ee853',1,'Ikarus::IkarusInstance']]]
+  ['derivative_0',['derivative',['../a01909.html#af9e5d98d20808a3651b0d7ecb05d6c46',1,'Ikarus::DifferentiableFunction&lt; Range(D), DerivativeTraits, F, FF... &gt;']]]
 ];

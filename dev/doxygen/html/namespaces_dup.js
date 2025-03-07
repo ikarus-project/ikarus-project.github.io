@@ -1,9 +1,9 @@
 var namespaces_dup =
 [
-    [ "Dune", "a00434.html", "a00434" ],
-    [ "Eigen", "a00427.html", "a00427" ],
-    [ "Ikarus", "a00411.html", "a00411" ],
-    [ "ikarus", "a00438.html", "a00438" ],
-    [ "Python", "a00436.html", "a00436" ],
-    [ "std", "a00410.html", null ]
+    [ "Dune", "a00437.html", "a00437" ],
+    [ "Eigen", "a00430.html", "a00430" ],
+    [ "Ikarus", "a00414.html", "a00414" ],
+    [ "ikarus", "a00441.html", "a00441" ],
+    [ "Python", "a00439.html", "a00439" ],
+    [ "std", "a00413.html", null ]
 ];

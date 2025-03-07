@@ -1,91 +1,57 @@
-\hypertarget{a00266_source}{}\doxysection{factory.\+hh}
-\label{a00266_source}\index{factory.hh@{factory.hh}}
+\hypertarget{a00266_source}{}\doxysection{fefactory.\+hh}
+\label{a00266_source}\index{fefactory.hh@{fefactory.hh}}
 \mbox{\hyperlink{a00266}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00248}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/arrudaboyce.hh}}>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00251}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/blatzko.hh}}>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00245}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/gent.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03074}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh}}>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00254}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/invariantbased.hh}}>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00263}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/ogden.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03071}{ikarus/finiteelements/mechanics/materials/hyperelastic/interface.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00269}{ikarus/finiteelements/mechanics/materials/hyperelastic/neohooke.hh}}>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00272}{ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/volumetricfunctions.hh}}>}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00233}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00422}{Ikarus::Materials}} \{}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{33 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00422_aa724b5f1275a41f266ad6aae180ed317}{makeBlatzKo}}(\textcolor{keywordtype}{double} mu) \{}
-\DoxyCodeLine{34   \textcolor{keyword}{auto} bk  = \mbox{\hyperlink{a00422_a7c7d4e399e30b088b7253771704bd01b}{BlatzKo}}(mu);}
-\DoxyCodeLine{35   \textcolor{keyword}{auto} dev = \mbox{\hyperlink{a01550}{Deviatoric<decltype(bk)>}}(bk);}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01562}{Hyperelastic}}(dev);}
-\DoxyCodeLine{38 \}}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{55 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} n, PrincipalStretchTags tag, \textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{56 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00422_af8c1c0f27639b0883f98f4e814aca8e5}{makeOgden}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01558_a0164eb06fa929e1608493879f3832c80}{Ogden<n, tag>::MaterialParameters}}\& mu,}
-\DoxyCodeLine{57                       \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01558_a9b01e9124f3fa51d8a1a5881bd842bd9}{Ogden<n, tag>::MaterialExponents}} alpha, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{58                       \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{59   \textcolor{keyword}{auto} ogPre = Ogden<n, tag>(mu, alpha);}
-\DoxyCodeLine{60   \textcolor{keyword}{auto} dev   = Deviatoric(ogPre);}
-\DoxyCodeLine{61   \textcolor{keyword}{auto} vol   = Volumetric(K, vf);}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
-\DoxyCodeLine{64 \}}
-\DoxyCodeLine{80 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} n, \textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{81 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00422_a03ec75f725d4772d6e33532501cd10a8}{makeInvariantBased}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_a6e7eb1d8654cd930230685a6d3e34f96}{InvariantBased<n>::MaterialParameters}}\& mu,}
-\DoxyCodeLine{82                                \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<n>::Exponents}} pex,}
-\DoxyCodeLine{83                                \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<n>::Exponents}} qex, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{84                                \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{85   \textcolor{keyword}{auto} invariantBasedPre = InvariantBased<n>(pex, qex, mu);}
-\DoxyCodeLine{86   \textcolor{keyword}{auto} dev               = Deviatoric(invariantBasedPre);}
-\DoxyCodeLine{87   \textcolor{keyword}{auto} vol               = Volumetric(K, vf);}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
-\DoxyCodeLine{90 \}}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{104 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{105 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00422_a7ac025ab0f41d2021008bd54e51135b1}{makeMooneyRivlin}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_a6e7eb1d8654cd930230685a6d3e34f96}{InvariantBased<2>::MaterialParameters}}\& mu, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{106                              \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{107   \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<2>::Exponents}} pex = \{1, 0\};}
-\DoxyCodeLine{108   \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<2>::Exponents}} qex = \{0, 1\};}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{110   \textcolor{keywordflow}{return} makeInvariantBased<2, VolumetricFunction>(mu, pex, qex, K, vf);}
-\DoxyCodeLine{111 \}}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{125 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{126 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00422_a00567c7322e1a28e7575c67a19631201}{makeYeoh}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_a6e7eb1d8654cd930230685a6d3e34f96}{InvariantBased<3>::MaterialParameters}}\& mu, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{127                      \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{128   \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<3>::Exponents}} pex = \{1, 2, 3\};}
-\DoxyCodeLine{129   \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<3>::Exponents}} qex = \{0, 0, 0\};}
-\DoxyCodeLine{130 }
-\DoxyCodeLine{131   \textcolor{keywordflow}{return} makeInvariantBased<3, VolumetricFunction>(mu, pex, qex, K, vf);}
-\DoxyCodeLine{132 \}}
-\DoxyCodeLine{133 }
-\DoxyCodeLine{146 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{147 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00422_af561f0434312c4d30c22e4438f2c9a1a}{makeArrudaBoyce}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01526}{ArrudaBoyceMatParameters}}\& matPar, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{148                             \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{149   \textcolor{keyword}{auto} abPre = \mbox{\hyperlink{a00422_a70cada02f1f5f294f44c438fb1270982}{ArrudaBoyce}}(matPar);}
-\DoxyCodeLine{150   \textcolor{keyword}{auto} dev   = Deviatoric(abPre);}
-\DoxyCodeLine{151   \textcolor{keyword}{auto} vol   = Volumetric(K, vf);}
-\DoxyCodeLine{152 }
-\DoxyCodeLine{153   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
-\DoxyCodeLine{154 \}}
-\DoxyCodeLine{155 }
-\DoxyCodeLine{168 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{169 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00422_a02bb70b49abcfa023ae81f4f4f1d27de}{makeGent}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01542}{GentMatParameters}}\& matPar, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{170                      \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{171   \textcolor{keyword}{auto} gentPre = \mbox{\hyperlink{a00422_a8d05a34baf0684f0e4e2a10a721bb80d}{Gent}}(matPar);}
-\DoxyCodeLine{172   \textcolor{keyword}{auto} dev     = Deviatoric(gentPre);}
-\DoxyCodeLine{173   \textcolor{keyword}{auto} vol     = Volumetric(K, vf);}
-\DoxyCodeLine{174 }
-\DoxyCodeLine{175   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
-\DoxyCodeLine{176 \}}
-\DoxyCodeLine{177 \} \textcolor{comment}{// namespace Ikarus::Materials}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00257}{ikarus/finiteelements/febase.hh}}>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00414}{Ikarus}} \{}
+\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK, \textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false>}
+\DoxyCodeLine{22 \textcolor{keyword}{struct }\mbox{\hyperlink{a01385}{FEFactory}}}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   \textcolor{keyword}{using }\mbox{\hyperlink{a01385_ae4167551b40097429f804066c4973256}{Skills}} = SK;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{private}:}
+\DoxyCodeLine{27   \textcolor{keyword}{const} BH* basisHandler\_;}
+\DoxyCodeLine{28   SK skills\_;}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{public}:}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SK2 = SK>}
+\DoxyCodeLine{37   \mbox{\hyperlink{a01385_aacbb6c8ee45484144edb78306da79456}{FEFactory}}(\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{const} SK2\& sk)}
+\DoxyCodeLine{38       : basisHandler\_\{\&basisHandler\},}
+\DoxyCodeLine{39         skills\_\{sk\} \{\}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   \textcolor{keyword}{auto} \mbox{\hyperlink{a01385_aa324bf69fc6e9d878cdaf1b2a8667196}{operator()}}() \{}
+\DoxyCodeLine{42     \textcolor{keywordflow}{return} std::apply(}
+\DoxyCodeLine{43         [\&]<\textcolor{keyword}{typename}... Args>(Args\&\&... args) \{}
+\DoxyCodeLine{44           \textcolor{comment}{// the template would not be needed,}}
+\DoxyCodeLine{45           \textcolor{comment}{// when https://www.open-\/std.org/jtc1/sc22/wg21/docs/papers/2019/p1814r0.html}}
+\DoxyCodeLine{46           \textcolor{comment}{// will be implemented in clang. It is already implemented in gcc 12.2}}
+\DoxyCodeLine{47           \textcolor{keyword}{typename} \mbox{\hyperlink{a01377}{PreFE<BH, useFlat, useEigenRef>::template}} \mbox{\hyperlink{a01373}{FE<std::decay\_t<Args>::template}} Skill...> fe(}
+\DoxyCodeLine{48               *basisHandler\_, std::forward<Args>(args)...);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50           \textcolor{keywordflow}{return} fe;}
+\DoxyCodeLine{51         \},}
+\DoxyCodeLine{52         skills\_.args);}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{67 \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false, \textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK>}
+\DoxyCodeLine{68 \textcolor{keyword}{auto} \mbox{\hyperlink{a00414_a59639a9a20f036a4f1c0794f65595662}{makeFE}}(\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{const} SK\& sk) \{}
+\DoxyCodeLine{69   \mbox{\hyperlink{a01385}{FEFactory<BH, SK, useFlat, useEigenRef>}} factory(basisHandler, sk);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   \textcolor{keywordflow}{return} factory();}
+\DoxyCodeLine{72 \}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{84 \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} useEigenRef = false, \textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK>}
+\DoxyCodeLine{85 \textcolor{keyword}{auto} \mbox{\hyperlink{a00414_aa80712fed165a22f02670f195488fe5f}{makeFEWithUnTouchedBasis}}(\textcolor{keyword}{const} BH\& basisHandler, SK\&\& sk) \{}
+\DoxyCodeLine{86   \mbox{\hyperlink{a01385}{FEFactory<BH, SK, false, useEigenRef>}} factory(basisHandler, std::forward<SK>(sk));}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88   \textcolor{keywordflow}{return} factory();}
+\DoxyCodeLine{89 \}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

@@ -1,59 +1,106 @@
-\hypertarget{a00011_source}{}\doxysection{makeenum.\+hh}
-\label{a00011_source}\index{makeenum.hh@{makeenum.hh}}
+\hypertarget{a00011_source}{}\doxysection{differentiablefunctionfactory.\+hh}
+\label{a00011_source}\index{differentiablefunctionfactory.hh@{differentiablefunctionfactory.hh}}
 \mbox{\hyperlink{a00011}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{comment}{// https://www.scs.stanford.edu/\string~dm/blog/va-\/opt.html}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#define PARENS ()}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#define ENUM\_CASE(name) \(\backslash\)}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{  case name:            \(\backslash\)}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{    return \#name;}}
-\DoxyCodeLine{16 \textcolor{comment}{// Limits to 256 items}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#define EXPAND(arg) EXPAND1(EXPAND1(EXPAND1(EXPAND1(arg))))}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#define EXPAND1(arg) EXPAND2(EXPAND2(EXPAND2(EXPAND2(arg))))}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#define EXPAND2(arg) EXPAND3(EXPAND3(EXPAND3(EXPAND3(arg))))}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#define EXPAND3(arg) EXPAND4(EXPAND4(EXPAND4(EXPAND4(arg))))}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#define EXPAND4(arg) arg}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#define FOR\_EACH(macro, ...) \_\_VA\_OPT\_\_(EXPAND(FOR\_EACH\_HELPER(macro, \_\_VA\_ARGS\_\_)))}}
-\DoxyCodeLine{24 \textcolor{preprocessor}{\#define FOR\_EACH\_HELPER(macro, a1, ...) macro(a1) \_\_VA\_OPT\_\_(FOR\_EACH\_AGAIN PARENS(macro, \_\_VA\_ARGS\_\_))}}
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#define FOR\_EACH\_AGAIN() FOR\_EACH\_HELPER}}
-\DoxyCodeLine{26 }
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#define ENUM\_CASE(name) \(\backslash\)}}
-\DoxyCodeLine{28 \textcolor{preprocessor}{  case name:            \(\backslash\)}}
-\DoxyCodeLine{29 \textcolor{preprocessor}{    return \#name;}}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#define MAKE\_ENUM(type, ...)                \(\backslash\)}}
-\DoxyCodeLine{41 \textcolor{preprocessor}{  enum class type                           \(\backslash\)}}
-\DoxyCodeLine{42 \textcolor{preprocessor}{  \{                                         \(\backslash\)}}
-\DoxyCodeLine{43 \textcolor{preprocessor}{    BEGIN,                                  \(\backslash\)}}
-\DoxyCodeLine{44 \textcolor{preprocessor}{    \_\_VA\_ARGS\_\_,                            \(\backslash\)}}
-\DoxyCodeLine{45 \textcolor{preprocessor}{    END                                     \(\backslash\)}}
-\DoxyCodeLine{46 \textcolor{preprocessor}{  \};                                        \(\backslash\)}}
-\DoxyCodeLine{47 \textcolor{preprocessor}{  constexpr std::string toString(type \_e) \{ \(\backslash\)}}
-\DoxyCodeLine{48 \textcolor{preprocessor}{    using enum type;                        \(\backslash\)}}
-\DoxyCodeLine{49 \textcolor{preprocessor}{    switch (\_e) \{                           \(\backslash\)}}
-\DoxyCodeLine{50 \textcolor{preprocessor}{      ENUM\_CASE(BEGIN)                      \(\backslash\)}}
-\DoxyCodeLine{51 \textcolor{preprocessor}{      FOR\_EACH(ENUM\_CASE, \_\_VA\_ARGS\_\_)      \(\backslash\)}}
-\DoxyCodeLine{52 \textcolor{preprocessor}{      ENUM\_CASE(END)                        \(\backslash\)}}
-\DoxyCodeLine{53 \textcolor{preprocessor}{    \}                                       \(\backslash\)}}
-\DoxyCodeLine{54 \textcolor{preprocessor}{    \_\_builtin\_unreachable();                \(\backslash\)}}
-\DoxyCodeLine{55 \textcolor{preprocessor}{  \}}}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57 \textcolor{preprocessor}{\#include <dune/common/exceptions.hh>}}
-\DoxyCodeLine{58 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00411}{Ikarus}} \{}
-\DoxyCodeLine{67 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MessageType>}
-\DoxyCodeLine{68 MessageType\& \mbox{\hyperlink{a00406_ga5db6e8f04892e85e6b17e276cdbd0e54}{increment}}(MessageType\& e) \{}
-\DoxyCodeLine{69   \textcolor{keywordflow}{if} (e == MessageType::END) \{}
-\DoxyCodeLine{70     DUNE\_THROW(Dune::RangeError, \textcolor{stringliteral}{"{}for MessageType\& operator ++ (MessageType\&)"{}});}
-\DoxyCodeLine{71   \}}
-\DoxyCodeLine{72   e = MessageType(\textcolor{keyword}{static\_cast<}typename std::underlying\_type<MessageType>::type\textcolor{keyword}{>}(e) + 1);}
-\DoxyCodeLine{73   \textcolor{keywordflow}{return} e;}
-\DoxyCodeLine{74 \}}
-\DoxyCodeLine{75 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/functions/common/differentiablefunctionfromcallables.hh>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00158}{ikarus/assembler/dirichletbcenforcement.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00251}{ikarus/finiteelements/ferequirements.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00053}{ikarus/utils/derivativetraits.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00050}{ikarus/utils/differentiablefunction.hh}}>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00414}{Ikarus}} \{}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{struct }\mbox{\hyperlink{a01913}{DifferentiableFunctionFactory}}}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Assembler, \textcolor{keyword}{typename}... Affordances>}
+\DoxyCodeLine{25   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01913_aa362a29341818929bae2f15c4271e351}{op}}(Assembler\&\& as, \mbox{\hyperlink{a01389}{AffordanceCollection<Affordances...>}} affordances,}
+\DoxyCodeLine{26                  \mbox{\hyperlink{a00414_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption = \mbox{\hyperlink{a00414_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}}) \{}
+\DoxyCodeLine{27     \textcolor{keyword}{auto} assemblerPtr = [as]() \{}
+\DoxyCodeLine{28       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_pointer\_v<std::remove\_cvref\_t<Assembler>> or}
+\DoxyCodeLine{29                     \mbox{\hyperlink{a02013}{traits::isSharedPtr<std::remove\_cvref\_t<Assembler>}}>::value)}
+\DoxyCodeLine{30         \textcolor{keywordflow}{return} as;}
+\DoxyCodeLine{31       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{32         \textcolor{keywordflow}{return} std::make\_shared<std::remove\_cvref\_t<Assembler>>(std::forward<Assembler>(as));}
+\DoxyCodeLine{33     \}();}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keyword}{using }FERequirement = \textcolor{keyword}{typename} \mbox{\hyperlink{a00440_a472256748675b3006507836bd8034a0e}{traits::remove\_pointer\_t<std::remove\_cvref\_t<Assembler>}}>::FERequirement;}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     [[maybe\_unused]] \textcolor{keyword}{auto} KFunction = [dbcOption, assembler = assemblerPtr,}
+\DoxyCodeLine{38                                        affordances](\textcolor{keyword}{const} FERequirement\& p) -\/> \textcolor{keyword}{auto}\& \{}
+\DoxyCodeLine{39       \textcolor{keywordflow}{return} assembler-\/>matrix(p, affordances.\mbox{\hyperlink{a01389_af7b6303f0ef9cc6677744559786d8966}{matrixAffordance}}(), dbcOption);}
+\DoxyCodeLine{40     \};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42     [[maybe\_unused]] \textcolor{keyword}{auto} residualFunction = [dbcOption, assembler = assemblerPtr,}
+\DoxyCodeLine{43                                               affordances](\textcolor{keyword}{const} FERequirement\& p) -\/> \textcolor{keyword}{auto}\& \{}
+\DoxyCodeLine{44       \textcolor{keywordflow}{return} assembler-\/>vector(p, affordances.\mbox{\hyperlink{a01389_a9e6b82aa35f9d301b9ccdd661dbb8dde}{vectorAffordance}}(), dbcOption);}
+\DoxyCodeLine{45     \};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keyword}{auto} reqArg = FERequirement(); \textcolor{comment}{// This is only created to help  makeDifferentiableFunction deduce the argument type}}
+\DoxyCodeLine{48                                    \textcolor{comment}{// of the functions. therefore, no valid values needed}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (affordances.\mbox{\hyperlink{a01389_abff0c7489d3ce4d83bf7f078e3e6bdfe}{hasScalarAffordance}}) \{}
+\DoxyCodeLine{51       [[maybe\_unused]] \textcolor{keyword}{auto} energyFunction = [assembler = assemblerPtr, affordances](\textcolor{keyword}{const} FERequirement\& p) -\/> \textcolor{keyword}{auto}\& \{}
+\DoxyCodeLine{52         \textcolor{keywordflow}{return} assembler-\/>scalar(p, affordances.\mbox{\hyperlink{a01389_ac56ebfd26cad078d15800d620a9b1e93}{scalarAffordance}}());}
+\DoxyCodeLine{53       \};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00414_a7c304a58fc833d46ac3d8a7dc74f8ed0}{makeDifferentiableFunction}}(\mbox{\hyperlink{a00414_ab787b670f0d338c870988f417cf85f76}{functions}}(energyFunction, residualFunction, KFunction), reqArg);}
+\DoxyCodeLine{56     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{57       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00414_a7c304a58fc833d46ac3d8a7dc74f8ed0}{makeDifferentiableFunction}}(\mbox{\hyperlink{a00414_ab787b670f0d338c870988f417cf85f76}{functions}}(residualFunction, KFunction), reqArg);}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Assembler>}
+\DoxyCodeLine{61   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01913_aa8bd3774b63c814a3feb6d4a7b715045}{op}}(Assembler\&\& as, \mbox{\hyperlink{a00414_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{62     \textcolor{keyword}{auto} ex = []() \{}
+\DoxyCodeLine{63       DUNE\_THROW(Dune::InvalidStateException,}
+\DoxyCodeLine{64                  \textcolor{stringliteral}{"{}Assembler has to be bound to an affordance collection before you can call "{}}}
+\DoxyCodeLine{65                  \textcolor{stringliteral}{"{}this method"{}});}
+\DoxyCodeLine{66     \};}
+\DoxyCodeLine{67     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_pointer\_v<std::remove\_cvref\_t<Assembler>> or}
+\DoxyCodeLine{68                   \mbox{\hyperlink{a02013}{traits::isSharedPtr<std::remove\_cvref\_t<Assembler>}}>::value) \{}
+\DoxyCodeLine{69       \textcolor{keywordflow}{if} (as-\/>boundToAffordanceCollection()) \{}
+\DoxyCodeLine{70         \textcolor{keywordflow}{return} \mbox{\hyperlink{a01913_aa362a29341818929bae2f15c4271e351}{op}}(std::forward<Assembler>(as), as-\/>affordanceCollection(), dbcOption);}
+\DoxyCodeLine{71       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{72         ex();}
+\DoxyCodeLine{73       \}}
+\DoxyCodeLine{74     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{75       \textcolor{keywordflow}{if} (as-\/>boundToAffordanceCollection()) \{}
+\DoxyCodeLine{76         \textcolor{keywordflow}{return} \mbox{\hyperlink{a01913_aa362a29341818929bae2f15c4271e351}{op}}(std::forward<Assembler>(as), as.affordanceCollection(), dbcOption);}
+\DoxyCodeLine{77       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{78         ex();}
+\DoxyCodeLine{79       \}}
+\DoxyCodeLine{80     \}}
+\DoxyCodeLine{81     \_\_builtin\_unreachable();}
+\DoxyCodeLine{82   \}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Assembler>}
+\DoxyCodeLine{85   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01913_a3b1c188a5de2bdd9da826d4c0a9b353d}{op}}(Assembler\&\& as) \{}
+\DoxyCodeLine{86     \textcolor{keyword}{auto} ex = []() \{}
+\DoxyCodeLine{87       DUNE\_THROW(Dune::InvalidStateException,}
+\DoxyCodeLine{88                  \textcolor{stringliteral}{"{}Assembler has to be bound to an affordance collection and to an "{}}}
+\DoxyCodeLine{89                  \textcolor{stringliteral}{"{}DBCOption before you can call "{}}}
+\DoxyCodeLine{90                  \textcolor{stringliteral}{"{}this method"{}});}
+\DoxyCodeLine{91     \};}
+\DoxyCodeLine{92     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_pointer\_v<std::remove\_cvref\_t<Assembler>> or}
+\DoxyCodeLine{93                   \mbox{\hyperlink{a02013}{traits::isSharedPtr<std::remove\_cvref\_t<Assembler>}}>::value) \{}
+\DoxyCodeLine{94       \textcolor{keywordflow}{if} (not(as-\/>boundToAffordanceCollection() and as-\/>boundToDBCOption()))}
+\DoxyCodeLine{95         ex();}
+\DoxyCodeLine{96       \textcolor{keywordflow}{return} \mbox{\hyperlink{a01913_aa362a29341818929bae2f15c4271e351}{op}}(std::forward<Assembler>(as), as-\/>affordanceCollection(), as-\/>dBCOption());}
+\DoxyCodeLine{97     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{98       \textcolor{keywordflow}{if} (not(as-\/>boundToAffordanceCollection() and as-\/>boundToDBCOption()))}
+\DoxyCodeLine{99         ex();}
+\DoxyCodeLine{100       \textcolor{keywordflow}{return} \mbox{\hyperlink{a01913_aa362a29341818929bae2f15c4271e351}{op}}(std::forward<Assembler>(as), as.affordanceCollection(), as.dBCOption());}
+\DoxyCodeLine{101     \}}
+\DoxyCodeLine{102   \}}
+\DoxyCodeLine{103 \};}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: Ikarus::Concepts::DeviatoricFunction Concept Reference</title>
+    <title>ikarus: Ikarus::Concepts::BlockedInterLeavedBasis Concept Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,42 +155,25 @@ $(document).ready(function(){initNavTree('a02068.html',''); initResizable(); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Ikarus::Concepts::DeviatoricFunction Concept Reference</div></div>
+  <div class="headertitle"><div class="title">Ikarus::Concepts::BlockedInterLeavedBasis Concept Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Concept to check if the underlying function is a deviatoric function.  
+<p>Concept to check if a basis uses BlockedInterleaved indexing strategy.  
 <a href="a02068.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a03098_source.html">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03100_source.html">ikarus/utils/concepts.hh</a>&gt;</code></p>
 <h2 class="groupheader">Concept definition</h2>
-<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> DF&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="a02068.html">Ikarus::Concepts::DeviatoricFunction</a> =  <span class="keyword">requires</span>(DF dm, <span class="keyword">const</span> <span class="keyword">typename</span> DF::template PrincipalStretches&lt;&gt;&amp; lambda) {</div>
-<div class="line">  <span class="keyword">typename</span> DF::ScalarType;</div>
-<div class="line"> </div>
-<div class="line">  <span class="keyword">typename</span> DF::template PrincipalStretches&lt;&gt;;</div>
-<div class="line">  <span class="keyword">typename</span> DF::template FirstDerivative&lt;&gt;;</div>
-<div class="line">  <span class="keyword">typename</span> DF::template SecondDerivative&lt;&gt;;</div>
-<div class="line"> </div>
-<div class="line">  <span class="keyword">typename</span> DF::MaterialParameters;</div>
-<div class="line"> </div>
-<div class="line">  <span class="keyword">requires</span> <a class="code hl_concept" href="a02096.html">Concepts::EigenVector&lt;typename DF::template FirstDerivative&lt;&gt;</a>&gt;;</div>
-<div class="line">  <span class="keyword">requires</span> <a class="code hl_concept" href="a02097.html">Concepts::EigenMatrix&lt;typename DF::template SecondDerivative&lt;&gt;</a>&gt;;</div>
-<div class="line">  <span class="keyword">requires</span> std::is_same_v&lt;typename DF::template PrincipalStretches&lt;&gt;, <span class="keyword">typename</span> DF::template FirstDerivative&lt;&gt;&gt;;</div>
-<div class="line"> </div>
-<div class="line">  { dm.storedEnergyImpl(lambda) } -&gt; std::same_as&lt;typename DF::ScalarType&gt;;</div>
-<div class="line">  { dm.firstDerivativeImpl(lambda) } -&gt; std::same_as&lt;typename DF::template FirstDerivative&lt;&gt;&gt;;</div>
-<div class="line">  { dm.secondDerivativeImpl(lambda) } -&gt; std::same_as&lt;typename DF::template SecondDerivative&lt;&gt;&gt;;</div>
-<div class="line">  { dm.materialParametersImpl() } -&gt; std::same_as&lt;typename DF::MaterialParameters&gt;;</div>
-<div class="line">  { dm.name() } -&gt; std::convertible_to&lt;std::string&gt;;</div>
-<div class="line">}</div>
-<div class="ttc" id="aa02068_html"><div class="ttname"><a href="a02068.html">Ikarus::Concepts::DeviatoricFunction</a></div><div class="ttdoc">Concept to check if the underlying function is a deviatoric function.</div><div class="ttdef"><b>Definition:</b> finiteelements/mechanics/materials/hyperelastic/concepts.hh:26</div></div>
-<div class="ttc" id="aa02096_html"><div class="ttname"><a href="a02096.html">Ikarus::Concepts::EigenVector</a></div><div class="ttdoc">Concept defining the requirements for Eigen vectors.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:353</div></div>
-<div class="ttc" id="aa02097_html"><div class="ttname"><a href="a02097.html">Ikarus::Concepts::EigenMatrix</a></div><div class="ttdoc">Concept defining the requirements for Eigen matrices. This also includes Eigen vectors.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:361</div></div>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Basis&gt;</div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="a02068.html">Ikarus::Concepts::BlockedInterLeavedBasis</a> =  <span class="keyword">requires</span> {</div>
+<div class="line">    std::is_same_v&lt;typename Basis::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::BlockedInterleaved&gt;;</div>
+<div class="line">  }</div>
+<div class="ttc" id="aa02068_html"><div class="ttname"><a href="a02068.html">Ikarus::Concepts::BlockedInterLeavedBasis</a></div><div class="ttdoc">Concept to check if a basis uses BlockedInterleaved indexing strategy.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:125</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="tparams"><dt>Template Parameters</dt><dd>
+<div class="textblock"><p >This concept checks if the given Basis type uses BlockedInterleaved indexing strategy.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Type</td><td>of the deviatoric function. </td></tr>
+    <tr><td class="paramname">Basis</td><td>The basis type. </td></tr>
   </table>
   </dd>
 </dl>
@@ -204,7 +187,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="a00411.html">Ikarus</a></li><li class="navelem"><a class="el" href="a00421.html">Concepts</a></li><li class="navelem"><a class="el" href="a02068.html">DeviatoricFunction</a></li>
+        <li class="navelem"><a class="el" href="a00414.html">Ikarus</a></li><li class="navelem"><a class="el" href="a00424.html">Concepts</a></li><li class="navelem"><a class="el" href="a02068.html">BlockedInterLeavedBasis</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

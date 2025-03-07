@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../auxiliaryImages/logo_blue.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5+insiders-4.53.15">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7+insiders-4.53.15">
     
     
       
@@ -855,13 +855,13 @@
   
   
     <li class="md-nav__item">
-      <a href="../../01_framework/nonlinearOperator/" class="md-nav__link">
+      <a href="../../01_framework/differentiablefunction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     
   
-    Nonlinear operator
+    Differentiable Function
   
 
     
@@ -2401,15 +2401,15 @@ The line <span class="arithmatex">\(y=0\)</span> is clamped by applying the Diri
 <p>The finite element requirements are defined by using the affordance <code class="highlight"><span class="n">Ikarus</span><span class="o">::</span><span class="n">AffordanceCollections</span><span class="o">::</span><span class="n">elastoStatics</span></code>.
 This is then used to create functors to get the stiffness matrix, residual vector, and energy value using a sparse assembler.
 A non-linear operator and the linear solver used by the <code>solverType</code> are defined as:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">nonLinOp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Ikarus</span><span class="o">::</span><span class="n">NonLinearOperator</span><span class="p">(</span><span class="n">functions</span><span class="p">(</span><span class="n">energyFunction</span><span class="p">,</span><span class="w"> </span><span class="n">residualFunction</span><span class="p">,</span><span class="w"> </span><span class="n">KFunction</span><span class="p">),</span><span class="w"> </span><span class="n">parameter</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">lambda</span><span class="p">));</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Ikarus</span><span class="o">::</span><span class="n">makeDifferentiableFunction</span><span class="p">(</span><span class="n">functions</span><span class="p">(</span><span class="n">energyFunction</span><span class="p">,</span><span class="w"> </span><span class="n">residualFunction</span><span class="p">,</span><span class="w"> </span><span class="n">KFunction</span><span class="p">),</span><span class="w"> </span><span class="n">d</span><span class="p">);</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">linSolver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Ikarus</span><span class="o">::</span><span class="n">LinearSolver</span><span class="p">(</span><span class="n">Ikarus</span><span class="o">::</span><span class="n">SolverTypeTag</span><span class="o">::</span><span class="n">sd_UmfPackLU</span><span class="p">);</span>
 </code></pre></div>
 <p>An object for the Newton-Raphson method or the trust region method can then be defined as</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#if solverType == 0</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">nr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Ikarus</span><span class="o">::</span><span class="n">makeNewtonRaphson</span><span class="p">(</span><span class="n">nonLinOp</span><span class="p">.</span><span class="n">subOperator</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">linSolver</span><span class="p">));</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">nr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Ikarus</span><span class="o">::</span><span class="n">makeNewtonRaphson</span><span class="p">(</span><span class="n">derivative</span><span class="p">(</span><span class="n">f</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">linSolver</span><span class="p">));</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">#endif</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="cp">#if solverType == 1</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">nr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Ikarus</span><span class="o">::</span><span class="n">makeTrustRegion</span><span class="p">(</span><span class="n">nonLinOp</span><span class="p">);</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">nr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Ikarus</span><span class="o">::</span><span class="n">makeTrustRegion</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="n">nr</span><span class="o">-&gt;</span><span class="n">setup</span><span class="p">({.</span><span class="n">verbosity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">             </span><span class="p">.</span><span class="n">maxiter</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">             </span><span class="p">.</span><span class="n">grad_tol</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-8</span><span class="p">,</span>
@@ -2567,7 +2567,7 @@ to further process our results. For example, we can use <code>ResultEvaluators::
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "content.code.annotate", "navigation.tabs", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.indexes", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.c7c1ca2c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.5a789024.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f807c082.min.js"></script>
       
         <script src="../../javascripts/mathjax.js"></script>
       

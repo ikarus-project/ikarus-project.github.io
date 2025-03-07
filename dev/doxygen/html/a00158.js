@@ -1,9 +1,11 @@
 var a00158 =
 [
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00158.html#a945e022b757e5d054d6bab20a2ca291e", null ],
-    [ "MAKE_MaterialFunction", "a00158.html#a52604789ad84df5cf20d4571f90af39e", null ],
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00158.html#ac81cd08ca4f7222df18c123d422c932d", null ],
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00158.html#a85c1412e5300ac194ff82ebd146c6229", null ],
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00158.html#aab3a7ce35fb7a2f4a8a9e4d6a92e1f31", null ],
-    [ "registerMaterial", "a00158.html#a3a4831265d4a775b43c50c25242a2910", null ]
+    [ "DBCOption", "a00158.html#a9f83fad9f4c149f249165a13f2370eec", [
+      [ "BEGIN", "a00158.html#a9f83fad9f4c149f249165a13f2370eeca19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Raw", "a00158.html#a9f83fad9f4c149f249165a13f2370eeca65e65c8ab0d8609ce12fc68a03cb8e00", null ],
+      [ "Reduced", "a00158.html#a9f83fad9f4c149f249165a13f2370eeca4335949a935758ca1b570689c3c6750b", null ],
+      [ "Full", "a00158.html#a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75", null ],
+      [ "END", "a00158.html#a9f83fad9f4c149f249165a13f2370eecab1a326c06d88bf042f73d70f50197905", null ]
+    ] ],
+    [ "toString", "a00158.html#aef80b6b5b45dcfbea4f722f51a84f53f", null ]
 ];

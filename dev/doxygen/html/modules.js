@@ -1,4 +1,4 @@
 var modules =
 [
-    [ "Ikarus Modules", "a00392.html", "a00392" ]
+    [ "Ikarus Modules", "a00395.html", "a00395" ]
 ];

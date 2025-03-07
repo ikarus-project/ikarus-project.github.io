@@ -1,4 +1,4 @@
 var a00005 =
 [
-    [ "getLinearIndex", "a00005.html#a6cfefe8fc3c51b09b7633cf8397a67e9", null ]
+    [ "ct_sqrt", "a00005.html#ae55d4d0c3478ab3ecf54ce905ddf223b", null ]
 ];

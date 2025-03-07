@@ -1,10 +1,10 @@
 var a00008 =
 [
-    [ "Ikarus::FlatIndexMergingStrategy< IMS >", "a01938.html", "a01938" ],
-    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedInterleaved >", "a01942.html", "a01942" ],
-    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedLexicographic >", "a01946.html", "a01946" ],
-    [ "Ikarus::FlatPreBasis< Dune::Functions::CompositePreBasis< IMS, SPB... > >", "a01950.html", "a01950" ],
-    [ "Ikarus::FlatPreBasis< Dune::Functions::PowerPreBasis< IMS, SPB, C > >", "a01954.html", "a01954" ],
-    [ "FlatPreBasis_t", "a00008.html#a98cbe3aef4b3238ea7de77ee9c4c19ac", null ],
-    [ "flatPreBasis", "a00008.html#ga0728039472747184e9eb2ec0992a4a2b", null ]
+    [ "Ikarus::traits::remove_pointer< T >", "a02017.html", "a02017" ],
+    [ "Ikarus::traits::EigenSparseMatrix", "a02101.html", null ],
+    [ "remove_pointer_t", "a00008.html#a472256748675b3006507836bd8034a0e", null ],
+    [ "ReplaceTypeAtPos_t", "a00008.html#ac903f76dfaaaf40abfe1c532850db3d1", null ],
+    [ "ReturnType", "a00008.html#ga0ba1bf25ee478b1b1d9e96c1dcd831a0", null ],
+    [ "TupleToFunctionType_t", "a00008.html#a6b604914727df9d1b05be9a64c56898c", null ],
+    [ "countType", "a00008.html#ga45ac3fa7e384aa760181de7a1377dc14", null ]
 ];

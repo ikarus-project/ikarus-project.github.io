@@ -1,19 +1,32 @@
-\hypertarget{a02070}{}\doxysection{Ikarus\+::Materials\+::Correct\+Strain\+Size Concept Reference}
-\label{a02070}\index{Ikarus::Materials::CorrectStrainSize@{Ikarus::Materials::CorrectStrainSize}}
+\hypertarget{a02070}{}\doxysection{Ikarus\+::Concepts\+::Dune\+Local\+Basis Concept Reference}
+\label{a02070}\index{Ikarus::Concepts::DuneLocalBasis@{Ikarus::Concepts::DuneLocalBasis}}
 
 
-Template concept for ensuring correct strain size.  
+Concept to check if a local basis is a dune\+Local\+Basis.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/interface.\+hh$>$}
+{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} MAT, \textcolor{keyword}{typename} S>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02070}{Ikarus::Materials::CorrectStrainSize}} =  hasCorrectSize<MAT, S>()}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} DLB>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02070}{Ikarus::Concepts::DuneLocalBasis}} =  \textcolor{keyword}{requires}(DLB\& duneLocalBasis) \{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::RangeType;}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::JacobianType;}
+\DoxyCodeLine{    DLB::Traits::dimDomain;}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::DomainType;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::DomainFieldType;}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::RangeFieldType;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    duneLocalBasis.evaluateFunction(std::declval<typename DLB::Traits::DomainType>(),}
+\DoxyCodeLine{                                    std::declval<std::vector<typename DLB::Traits::RangeType>\&>());}
+\DoxyCodeLine{    duneLocalBasis.evaluateJacobian(std::declval<typename DLB::Traits::DomainType>(),}
+\DoxyCodeLine{                                    std::declval<std::vector<typename DLB::Traits::JacobianType>\&>());}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
 
@@ -21,8 +34,6 @@ Template concept for ensuring correct strain size.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em MAT} & Type of the material. \\
-\hline
-{\em S} & Type of the strains. \\
+{\em DLB} & The dune local basis type . \\
 \hline
 \end{DoxyTemplParams}

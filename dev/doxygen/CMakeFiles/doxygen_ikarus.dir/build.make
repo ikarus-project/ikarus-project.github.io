@@ -153,6 +153,9 @@ docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/autodiffhelper.h
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/basis.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/defaultfunctions.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/derivativetraits.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/differentiablefunction.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/differentiablefunctionfactory.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/dirichletvalues.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/drawing/griddrawer.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/drawing/matplothelper.hh
@@ -166,8 +169,6 @@ docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/init.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/linearalgebrahelper.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/makeenum.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/math.hh
-docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/nonlinearoperator.hh
-docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/nonlinopfactory.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/observer/controllogger.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/observer/controlvtkwriter.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/observer/genericobserver.hh

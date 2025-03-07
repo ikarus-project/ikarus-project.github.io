@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: volumetricfunctions.hh File Reference</title>
+    <title>ikarus: physicshelper.hh File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -158,72 +158,77 @@ $(document).ready(function(){initNavTree('a00272.html',''); initResizable(); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
-  <div class="headertitle"><div class="title">volumetricfunctions.hh File Reference<div class="ingroups"><a class="el" href="a00392.html">Ikarus Modules</a> &raquo; <a class="el" href="a00399.html">Materials</a></div></div></div>
+<a href="#concepts">Concepts</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">physicshelper.hh File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of the volumetric part of a hyperelastic material.  
+<p>Material property functions and conversion utilities.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="a03098_source.html">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03077_source.html">ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/interface.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00194_source.html">ikarus/finiteelements/physicshelper.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00032_source.html">ikarus/utils/tensorutils.hh</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;dune/common/float_cmp.hh&gt;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
 </div>
 <p><a href="a00272_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01574.html">Ikarus::Materials::VF0</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default volumetric function.  <a href="a01574.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01677.html">Ikarus::YoungsModulusAndPoissonsRatio</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">see <a href="https://en.wikipedia.org/wiki/Lam%C3%A9_parameters">https://en.wikipedia.org/wiki/Lam%C3%A9_parameters</a> Structure representing Young's modulus and shear modulus.  <a href="a01677.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01578.html">Ikarus::Materials::VF1</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 1 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01578.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01681.html">Ikarus::YoungsModulusAndShearModulus</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing Young's modulus and bulk modulus.  <a href="a01681.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01582.html">Ikarus::Materials::VF2</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 2 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01582.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html">Ikarus::YoungsModulusAndBulkModulus</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing Young's modulus and Lame's first parameter.  <a href="a01685.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01586.html">Ikarus::Materials::VF3</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 3 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01586.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01689.html">Ikarus::YoungsModulusAndLamesFirstParameter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing bulk modulus and Lame's first parameter.  <a href="a01689.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01590.html">Ikarus::Materials::VF4</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 4 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01590.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01693.html">Ikarus::BulkModulusAndLamesFirstParameter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing Lame's first parameter and shear modulus.  <a href="a01693.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01594.html">Ikarus::Materials::VF5</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 5 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01594.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01697.html">Ikarus::LamesFirstParameterAndShearModulus</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01598.html">Ikarus::Materials::VF6</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 6 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01598.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01602.html">Ikarus::Materials::VF7</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 7 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01602.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html">Ikarus::Materials::VF8</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 8 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01606.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01610.html">Ikarus::Materials::VF9</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 9 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01610.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01614.html">Ikarus::Materials::VF10</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 10 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01614.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01618.html">Ikarus::Materials::VF11</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01570.html" title="Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetri...">Volumetric</a> function No. 11 found in <a class="el" href="a03116.html#CITEREF_hartmann_polyconvexity_2003">[5]</a> Tab. 4.  <a href="a01618.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01701.html">Ikarus::ConvertLameConstants&lt; ValuePair &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion utility for Lame's constants.  <a href="a01701.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00411"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00411.html">Ikarus</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00422"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00422.html">Ikarus::Materials</a></td></tr>
+<tr class="memitem:a00414"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html">Ikarus</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:af2ccffa80ee6f4471c03b826368f425d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00422.html#af2ccffa80ee6f4471c03b826368f425d">Ikarus::Materials::NoVolumetricPart</a> = Volumetric&lt; VF0 &gt;</td></tr>
-<tr class="separator:af2ccffa80ee6f4471c03b826368f425d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
+Concepts</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02062.html">Ikarus::MPTuple</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept for checking if a type is a valid material parameter tuple. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a5e27551f9edaebc557108aa164899b54"><td class="memItemLeft" align="right" valign="top">ConvertLameConstants&lt; YoungsModulusAndPoissonsRatio &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html#a5e27551f9edaebc557108aa164899b54">Ikarus::convertLameConstants</a> (const YoungsModulusAndPoissonsRatio &amp;valuePair)</td></tr>
+<tr class="separator:a5e27551f9edaebc557108aa164899b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a85c01d9e8f0e2adff8035087485109"><td class="memItemLeft" align="right" valign="top">ConvertLameConstants&lt; YoungsModulusAndShearModulus &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html#a6a85c01d9e8f0e2adff8035087485109">Ikarus::convertLameConstants</a> (const YoungsModulusAndShearModulus &amp;valuePair)</td></tr>
+<tr class="separator:a6a85c01d9e8f0e2adff8035087485109"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad80fc80be73cb847542e1b7c5bde5af6"><td class="memItemLeft" align="right" valign="top">ConvertLameConstants&lt; YoungsModulusAndBulkModulus &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html#ad80fc80be73cb847542e1b7c5bde5af6">Ikarus::convertLameConstants</a> (const YoungsModulusAndBulkModulus &amp;valuePair)</td></tr>
+<tr class="separator:ad80fc80be73cb847542e1b7c5bde5af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec5648541007a5e5bb89c1f64ec2da92"><td class="memItemLeft" align="right" valign="top">ConvertLameConstants&lt; LamesFirstParameterAndShearModulus &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html#aec5648541007a5e5bb89c1f64ec2da92">Ikarus::convertLameConstants</a> (const LamesFirstParameterAndShearModulus &amp;valuePair)</td></tr>
+<tr class="separator:aec5648541007a5e5bb89c1f64ec2da92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c72e37743694391da18e64618a7c799"><td class="memItemLeft" align="right" valign="top">ConvertLameConstants&lt; BulkModulusAndLamesFirstParameter &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html#a8c72e37743694391da18e64618a7c799">Ikarus::convertLameConstants</a> (const BulkModulusAndLamesFirstParameter &amp;valuePair)</td></tr>
+<tr class="separator:a8c72e37743694391da18e64618a7c799"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e7b46d2ddcd68dfe864489ffb003ca3"><td class="memItemLeft" align="right" valign="top">ConvertLameConstants&lt; YoungsModulusAndLamesFirstParameter &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html#a4e7b46d2ddcd68dfe864489ffb003ca3">Ikarus::convertLameConstants</a> (const YoungsModulusAndLamesFirstParameter &amp;valuePair)</td></tr>
+<tr class="separator:a4e7b46d2ddcd68dfe864489ffb003ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32940ef922d090491ffcaa9bf2a44aef"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html#a32940ef922d090491ffcaa9bf2a44aef">Ikarus::toLamesFirstParameterAndShearModulus</a> (const YoungsModulusAndPoissonsRatio &amp;matParameter)</td></tr>
+<tr class="memdesc:a32940ef922d090491ffcaa9bf2a44aef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts Young's modulus and Poisson's ratio to Lame's first parameter and shear modulus.  <a href="a00414.html#a32940ef922d090491ffcaa9bf2a44aef">More...</a><br /></td></tr>
+<tr class="separator:a32940ef922d090491ffcaa9bf2a44aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4161393d679e5ec44806e6e911e26dee"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html#a4161393d679e5ec44806e6e911e26dee">Ikarus::toYoungsModulusAndPoissonsRatio</a> (const LamesFirstParameterAndShearModulus &amp;matParameter)</td></tr>
+<tr class="memdesc:a4161393d679e5ec44806e6e911e26dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts Lame's first parameter and shear modulus to Young's modulus and Poisson's ratio.  <a href="a00414.html#a4161393d679e5ec44806e6e911e26dee">More...</a><br /></td></tr>
+<tr class="separator:a4161393d679e5ec44806e6e911e26dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >This file contains material property functions and conversion utilities related to linear elasticity. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
 SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers mueller@ibb.uni-stuttgart.de
@@ -233,7 +238,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="dir_a03d0955ec786907fd5e2d9460a59b20.html">hyperelastic</a></li><li class="navelem"><a class="el" href="dir_e24c925cb0f035293ddb71c6b0ba176b.html">volumetric</a></li><li class="navelem"><a class="el" href="a00272.html">volumetricfunctions.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="a00272.html">physicshelper.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

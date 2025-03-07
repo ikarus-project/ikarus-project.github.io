@@ -1,32 +1,30 @@
-\hypertarget{a00050}{}\doxysection{functionsanitychecks.\+hh File Reference}
-\label{a00050}\index{functionsanitychecks.hh@{functionsanitychecks.hh}}
+\hypertarget{a00050}{}\doxysection{differentiablefunction.\+hh File Reference}
+\label{a00050}\index{differentiablefunction.hh@{differentiablefunction.hh}}
 
 
-Implementation of function sanity checks.  
+Provides a Differentiable\+Function class for handling differentiable Functions.  
 
 
-{\ttfamily \#include \char`\"{}findlinesegment.\+hh\char`\"{}}\newline
-{\ttfamily \#include $<$iostream$>$}\newline
-{\ttfamily \#include $<$dune/common/float\+\_\+cmp.\+hh$>$}\newline
-{\ttfamily \#include $<$spdlog/spdlog.\+h$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$dune/common/hybridutilities.\+hh$>$}\newline
+{\ttfamily \#include $<$dune/functions/common/differentiablefunctionfromcallables.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/derivativetraits.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/traits.\+hh$>$}\newline
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{a01958}{Ikarus\+::utils\+::\+Check\+Flags}}
-\begin{DoxyCompactList}\small\item\em Struct to hold flags for function checks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+class \mbox{\hyperlink{a01909}{Ikarus\+::\+Differentiable\+Function$<$ Range(\+D), Derivative\+Traits, F, FF... $>$}}
+\begin{DoxyCompactList}\small\item\em Differentiable\+Function is a class taking several callables. The function are assumed to be derivatives of each other w.\+r.\+t. the argument. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
-namespace \mbox{\hyperlink{a00411}{Ikarus}}
-\item 
-namespace \mbox{\hyperlink{a00431}{Ikarus\+::utils}}
+namespace \mbox{\hyperlink{a00414}{Ikarus}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Nonlinear\+Operator , typename Update\+Type  = typename Nonlinear\+Operator\+::template Parameter\+Value$<$0$>$$>$ }\\bool \mbox{\hyperlink{a00406_gacb9e813539bfd84df99ad097cabc9de9}{Ikarus\+::utils\+::check\+Gradient}} (Nonlinear\+Operator \&non\+Lin\+Op, Check\+Flags check\+Flags=Check\+Flags(), std\+::function$<$ void(typename Nonlinear\+Operator\+::template Parameter\+Value$<$ 0 $>$ \&, const Update\+Type \&)$>$ p\+\_\+update\+Function=\mbox{[}$\,$\mbox{]}(typename Nonlinear\+Operator\+::template Parameter\+Value$<$ 0 $>$ \&a, const Update\+Type \&b) \{ a+=b;\})
-\begin{DoxyCompactList}\small\item\em Checks the gradient of a nonlinear operator. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Nonlinear\+Operator , typename Update\+Type  = typename Nonlinear\+Operator\+::template Parameter\+Value$<$0$>$$>$ }\\bool \mbox{\hyperlink{a00406_ga553465359c199ef676945832587d2869}{Ikarus\+::utils\+::check\+Jacobian}} (Nonlinear\+Operator \&non\+Lin\+Op, Check\+Flags check\+Flags=Check\+Flags(), std\+::function$<$ void(typename Nonlinear\+Operator\+::template Parameter\+Value$<$ 0 $>$ \&, const Update\+Type \&)$>$ p\+\_\+update\+Function=\mbox{[}$\,$\mbox{]}(typename Nonlinear\+Operator\+::template Parameter\+Value$<$ 0 $>$ \&a, const Update\+Type \&b) \{ a+=b;\})
-\begin{DoxyCompactList}\small\item\em Checks the Jacobian of a nonlinear operator. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Nonlinear\+Operator , typename Update\+Type  = typename Nonlinear\+Operator\+::template Parameter\+Value$<$0$>$$>$ }\\bool \mbox{\hyperlink{a00406_ga5d1a87964a3d6b6ddc994532e93b6798}{Ikarus\+::utils\+::check\+Hessian}} (Nonlinear\+Operator \&non\+Lin\+Op, Check\+Flags check\+Flags=Check\+Flags(), std\+::function$<$ void(typename Nonlinear\+Operator\+::template Parameter\+Value$<$ 0 $>$ \&, const Update\+Type \&)$>$ p\+\_\+update\+Function=\mbox{[}$\,$\mbox{]}(typename Nonlinear\+Operator\+::template Parameter\+Value$<$ 0 $>$ \&a, const Update\+Type \&b) \{ a+=b;\})
-\begin{DoxyCompactList}\small\item\em Checks the Hessian of a nonlinear operator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{a00414_ab787b670f0d338c870988f417cf85f76}{Ikarus\+::functions}} (Args \&\&... args)
+\begin{DoxyCompactList}\small\item\em Creates a Functions object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... F, typename Arg $>$ }\\auto \mbox{\hyperlink{a00414_a7c304a58fc833d46ac3d8a7dc74f8ed0}{Ikarus\+::make\+Differentiable\+Function}} (const Impl\+::\+Functions$<$ F... $>$ \&derivatives\+Functions, const Arg \&parameter)
+\begin{DoxyCompactList}\small\item\em Factory method for Differentiable\+Function It is a function taking several callables and the argument of these functions to derive the correct signatures for the functions (which could be templated lambdas) The function are assumed to be derivatives of each other w.\+r.\+t. the parameter. \end{DoxyCompactList}\end{DoxyCompactItemize}

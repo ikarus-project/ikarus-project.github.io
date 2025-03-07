@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: eigendunetransformations.hh Source File</title>
+    <title>ikarus: functionhelper.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,7 +155,7 @@ $(document).ready(function(){initNavTree('a00071_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">eigendunetransformations.hh</div></div>
+  <div class="headertitle"><div class="title">functionhelper.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00071.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers mueller@ibb.uni-stuttgart.de</span></div>
@@ -163,60 +163,87 @@ $(document).ready(function(){initNavTree('a00071_source.html',''); initResizable
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;assert.h&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;ranges&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;dune/common/diagonalmatrix.hh&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;dune/common/fmatrix.hh&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;dune/common/fvector.hh&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;dune/istl/scaledidmatrix.hh&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00411.html">Ikarus</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST, <span class="keywordtype">int</span> size&gt;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a00411.html#a0fdba7f3ebe4bf1ada6618f450b50221">   30</a></span><a class="code hl_class" href="a01910.html">Dune::FieldVector&lt;ST, size&gt;</a> <a class="code hl_function" href="a00411.html#a0fdba7f3ebe4bf1ada6618f450b50221">toDune</a>(<span class="keyword">const</span> Eigen::Vector&lt;ST, size&gt;&amp; vec) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <a class="code hl_class" href="a01910.html">Dune::FieldVector&lt;ST, size&gt;</a> fieldVector;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i)</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    fieldVector[i] = vec[i];</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keywordflow">return</span> fieldVector;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST, <span class="keywordtype">int</span> rows&gt;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a00411.html#a4e9e21776afdaaa93c4a9d19554976fa">   47</a></span><a class="code hl_class" href="a01910.html">Dune::FieldVector&lt;ST, rows&gt;</a> <a class="code hl_function" href="a00411.html#a0fdba7f3ebe4bf1ada6618f450b50221">toDune</a>(<span class="keyword">const</span> Eigen::Matrix&lt;ST, rows, 0&gt;&amp; vec) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  assert(vec.cols() == 1 &amp;&amp; <span class="stringliteral">&quot;The passed matrix needs to have a single column.&quot;</span>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <a class="code hl_class" href="a01910.html">Dune::FieldVector&lt;ST, rows&gt;</a> fieldVector{0.0};</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; vec.rows(); ++i)</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    fieldVector[i] = vec(i, 0);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keywordflow">return</span> fieldVector;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST, <span class="keywordtype">int</span> rows, <span class="keywordtype">int</span> cols&gt;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a00411.html#a83633e77ee5a35cb31a7cd2f02aedb7f">   66</a></span>Dune::FieldMatrix&lt;ST, rows, cols&gt; <a class="code hl_function" href="a00411.html#a0fdba7f3ebe4bf1ada6618f450b50221">toDune</a>(<span class="keyword">const</span> Eigen::Matrix&lt;ST, rows, cols&gt;&amp; mat) {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  Dune::FieldMatrix&lt;ST, rows, cols&gt; fieldMatrix{0.0};</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; mat.rows(); ++i)</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; mat.cols(); ++j)</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>      fieldMatrix[i][j] = mat(i, j);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="keywordflow">return</span> fieldMatrix;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST, <span class="keywordtype">int</span> size&gt;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a00411.html#aaa7e8e9b8bd8247afecc24cdd54ec658">   83</a></span>Eigen::Map&lt;const Eigen::Vector&lt;ST, size&gt;&gt; <a class="code hl_function" href="a00411.html#aaa7e8e9b8bd8247afecc24cdd54ec658">toEigenMap</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01910.html">Dune::FieldVector&lt;ST, size&gt;</a>&amp; vec) {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  <span class="keywordflow">return</span> {vec.data(), size};</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST, <span class="keywordtype">int</span> size&gt;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a00411.html#aaac71220182c301ee8c864f2a507c3db">   95</a></span>Eigen::Map&lt;Eigen::Vector&lt;ST, size&gt;&gt; <a class="code hl_function" href="a00411.html#aaa7e8e9b8bd8247afecc24cdd54ec658">toEigenMap</a>(<a class="code hl_class" href="a01910.html">Dune::FieldVector&lt;ST, size&gt;</a>&amp; vec) {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="keywordflow">return</span> {vec.data(), size};</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>} <span class="comment">// namespace Ikarus</span></div>
-<div class="ttc" id="aa00411_html"><div class="ttname"><a href="a00411.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa00411_html_a0fdba7f3ebe4bf1ada6618f450b50221"><div class="ttname"><a href="a00411.html#a0fdba7f3ebe4bf1ada6618f450b50221">Ikarus::toDune</a></div><div class="ttdeci">Dune::FieldVector&lt; ST, size &gt; toDune(const Eigen::Vector&lt; ST, size &gt; &amp;vec)</div><div class="ttdoc">Create Eigen::Vector to Dune::FieldVector.</div><div class="ttdef"><b>Definition:</b> eigendunetransformations.hh:30</div></div>
-<div class="ttc" id="aa00411_html_aaa7e8e9b8bd8247afecc24cdd54ec658"><div class="ttname"><a href="a00411.html#aaa7e8e9b8bd8247afecc24cdd54ec658">Ikarus::toEigenMap</a></div><div class="ttdeci">Eigen::Map&lt; const Eigen::Vector&lt; ST, size &gt; &gt; toEigenMap(const Dune::FieldVector&lt; ST, size &gt; &amp;vec)</div><div class="ttdoc">View a Dune::FieldVector as an Eigen::Vector using Map, no copies take place.</div><div class="ttdef"><b>Definition:</b> eigendunetransformations.hh:83</div></div>
-<div class="ttc" id="aa01910_html"><div class="ttname"><a href="a01910.html">Dune::FieldVector</a></div><div class="ttdef"><b>Definition:</b> utils/dirichletvalues.hh:32</div></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;dune/common/float_cmp.hh&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;dune/grid/utility/hierarchicsearch.hh&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a03100.html">ikarus/utils/concepts.hh</a>&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a00020.html">ikarus/utils/traversal.hh</a>&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00434.html">Ikarus::utils</a> {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">template</span> &lt;<span class="keywordtype">int</span> size, <span class="keyword">typename</span> LV&gt;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a00409.html#gae9098182120929a0d21cff1c38f5ca84">   30</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00409.html#gae9098182120929a0d21cff1c38f5ca84">obtainLagrangeGlobalNodePositions</a>(<span class="keyword">const</span> LV&amp; localView,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                                       std::vector&lt;<a class="code hl_class" href="a01917.html">Dune::FieldVector&lt;double, size&gt;</a>&gt;&amp; lagrangeNodeGlobalCoords) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keyword">auto</span> fT = [&amp;]([[maybe_unused]] <span class="keywordtype">int</span> nodeNumber, <a class="code hl_class" href="a01917.html">Dune::FieldVector&lt;double, size&gt;</a>&amp;&amp; localCoordinate) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    lagrangeNodeGlobalCoords.emplace_back(localView.element().geometry().global(localCoordinate));</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  };</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <a class="code hl_function" href="a00434.html#a9bfdb235951b98b7a214704baf9c6f95">forEachLagrangeNodePosition</a>(localView, fT);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">template</span> &lt;<span class="keywordtype">int</span> size, <span class="keyword">typename</span> Basis&gt;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a00409.html#gaa19ed04a701aaa500f7c486addae2d2e">   50</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00409.html#gaa19ed04a701aaa500f7c486addae2d2e">globalIndexFromGlobalPosition</a>(<span class="keyword">const</span> Basis&amp; <a class="code hl_function" href="a00443.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>, <span class="keyword">const</span> <a class="code hl_class" href="a01917.html">Dune::FieldVector&lt;double, size&gt;</a>&amp; pos) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="keyword">static_assert</span>(<a class="code hl_concept" href="a02064.html">Concepts::LagrangeNode</a>&lt;std::remove_cvref_t&lt;<span class="keyword">decltype</span>(<a class="code hl_function" href="a00443.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>.localView().tree().child(0))&gt;&gt;,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                <span class="stringliteral">&quot;globalIndexFromGlobalPosition is only supported for Lagrange basis&quot;</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">constexpr</span> <span class="keywordtype">double</span> tol = 1e-8;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keyword">using </span>LocalView      = std::remove_cvref_t&lt;<span class="keyword">decltype</span>(<a class="code hl_function" href="a00443.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>.localView())&gt;;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keyword">using </span>MultiIndex     = <span class="keyword">typename</span> LocalView::MultiIndex;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  Dune::HierarchicSearch hSearch(<a class="code hl_function" href="a00443.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>.gridView().grid(), <a class="code hl_function" href="a00443.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>.gridView().indexSet());</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ele = hSearch.findEntity(pos);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="keyword">auto</span> localView  = <a class="code hl_function" href="a00443.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>.localView();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  localView.bind(ele);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keyword">const</span> <span class="keyword">auto</span> geo   = localView.element().geometry();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; node = localView.tree();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  std::optional&lt;std::array&lt;MultiIndex, size&gt;&gt; <a class="code hl_function" href="a00418.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keyword">auto</span> fT = [&amp;](<span class="keywordtype">int</span> nodeNumber, <a class="code hl_class" href="a01917.html">Dune::FieldVector&lt;double, size&gt;</a>&amp;&amp; localCoordinate) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">if</span> (Dune::FloatCmp::eq(geo.global(localCoordinate), pos, tol)) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      <a class="code hl_function" href="a00418.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>.emplace();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; size; j++)</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_function" href="a00418.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>.value()[j] = localView.index(node.child(j).localIndex(nodeNumber));</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  };</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <a class="code hl_function" href="a00434.html#a9bfdb235951b98b7a214704baf9c6f95">forEachLagrangeNodePosition</a>(localView, fT);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="keywordflow">if</span> (not <a class="code hl_function" href="a00418.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>.has_value())</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    DUNE_THROW(Dune::InvalidStateException, <span class="stringliteral">&quot;No Lagrange node found at the given position in the grid.&quot;</span>);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="a00418.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>.value();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> FE&gt;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="a00409.html#ga30df35336d19b00bc5db2a0b52ce650e">   88</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00409.html#ga30df35336d19b00bc5db2a0b52ce650e">referenceElementSubEntityPositions</a>(<a class="code hl_class" href="a01373.html">FE</a>&amp; fe, <span class="keywordtype">int</span> codim) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  <span class="keyword">constexpr</span> <span class="keywordtype">int</span> dim            = <a class="code hl_variable" href="a01429.html#ae15b8efa9f66a3caee81d99dd5c648de">FE::Traits::mydim</a>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; element          = fe.<a class="code hl_function" href="a01373.html#ae84fc54bd26077a2edb0ec07361d0716">gridElement</a>();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; referenceElement = Dune::referenceElement&lt;double, dim&gt;(element.type());</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  <span class="keyword">const</span> <span class="keywordtype">int</span> numberOfVertices   = referenceElement.size(codim);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  <span class="keyword">auto</span> getPosition = [=](<span class="keyword">const</span> <span class="keywordtype">int</span> i) { <span class="keywordflow">return</span> referenceElement.position(i, codim); };</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <span class="keywordflow">return</span> std::views::transform(std::views::iota(0, numberOfVertices), getPosition);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>}</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> FE&gt;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a00409.html#ga8c05dce8a66fc4efbe31674b87d18298">  106</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00409.html#ga8c05dce8a66fc4efbe31674b87d18298">referenceElementVertexPositions</a>(<a class="code hl_class" href="a01373.html">FE</a>&amp; fe) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="a00409.html#ga30df35336d19b00bc5db2a0b52ce650e">referenceElementSubEntityPositions</a>(fe, <a class="code hl_variable" href="a01429.html#ae15b8efa9f66a3caee81d99dd5c648de">FE::Traits::mydim</a>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>} <span class="comment">// namespace Ikarus::utils</span></div>
+<div class="ttc" id="aa00020_html"><div class="ttname"><a href="a00020.html">traversal.hh</a></div><div class="ttdoc">Contains functions to traverse through a tree to its different nodes.</div></div>
+<div class="ttc" id="aa00409_html_ga30df35336d19b00bc5db2a0b52ce650e"><div class="ttname"><a href="a00409.html#ga30df35336d19b00bc5db2a0b52ce650e">Ikarus::utils::referenceElementSubEntityPositions</a></div><div class="ttdeci">auto referenceElementSubEntityPositions(FE &amp;fe, int codim)</div><div class="ttdoc">A function to obtain the local coordinates of subentities of an FiniteElement.</div><div class="ttdef"><b>Definition:</b> functionhelper.hh:88</div></div>
+<div class="ttc" id="aa00409_html_ga8c05dce8a66fc4efbe31674b87d18298"><div class="ttname"><a href="a00409.html#ga8c05dce8a66fc4efbe31674b87d18298">Ikarus::utils::referenceElementVertexPositions</a></div><div class="ttdeci">auto referenceElementVertexPositions(FE &amp;fe)</div><div class="ttdoc">A function to obtain the local coordinates the vertices of an FiniteElement.</div><div class="ttdef"><b>Definition:</b> functionhelper.hh:106</div></div>
+<div class="ttc" id="aa00409_html_gaa19ed04a701aaa500f7c486addae2d2e"><div class="ttname"><a href="a00409.html#gaa19ed04a701aaa500f7c486addae2d2e">Ikarus::utils::globalIndexFromGlobalPosition</a></div><div class="ttdeci">auto globalIndexFromGlobalPosition(const Basis &amp;basis, const Dune::FieldVector&lt; double, size &gt; &amp;pos)</div><div class="ttdoc">A helper function to obtain the global index from the global positions for a Lagrange node.</div><div class="ttdef"><b>Definition:</b> functionhelper.hh:50</div></div>
+<div class="ttc" id="aa00409_html_gae9098182120929a0d21cff1c38f5ca84"><div class="ttname"><a href="a00409.html#gae9098182120929a0d21cff1c38f5ca84">Ikarus::utils::obtainLagrangeGlobalNodePositions</a></div><div class="ttdeci">void obtainLagrangeGlobalNodePositions(const LV &amp;localView, std::vector&lt; Dune::FieldVector&lt; double, size &gt; &gt; &amp;lagrangeNodeGlobalCoords)</div><div class="ttdoc">A function to obtain the global positions of the nodes of an element with Lagrangian basis.</div><div class="ttdef"><b>Definition:</b> functionhelper.hh:30</div></div>
+<div class="ttc" id="aa00418_html_a44e16df41148f7e4538be224814a3423"><div class="ttname"><a href="a00418.html#a44e16df41148f7e4538be224814a3423">Ikarus::FEHelper::globalIndices</a></div><div class="ttdeci">void globalIndices(const FiniteElement &amp;fe, std::vector&lt; typename FiniteElement::LocalView::MultiIndex &gt; &amp;globalIndices)</div><div class="ttdoc">Get the global indices for the provided finite element.</div><div class="ttdef"><b>Definition:</b> fehelper.hh:127</div></div>
+<div class="ttc" id="aa00434_html"><div class="ttname"><a href="a00434.html">Ikarus::utils</a></div><div class="ttdef"><b>Definition:</b> algorithms.hh:17</div></div>
+<div class="ttc" id="aa00434_html_a9bfdb235951b98b7a214704baf9c6f95"><div class="ttname"><a href="a00434.html#a9bfdb235951b98b7a214704baf9c6f95">Ikarus::utils::forEachLagrangeNodePosition</a></div><div class="ttdeci">void forEachLagrangeNodePosition(const LV &amp;localView, F &amp;&amp;f)</div><div class="ttdoc">A helper function that helps in traversing over the local coordinates of an element and call a user-d...</div><div class="ttdef"><b>Definition:</b> traversal.hh:65</div></div>
+<div class="ttc" id="aa00443_html_a0f9f04fa9d98e890cb6d4fe62ff889a4"><div class="ttname"><a href="a00443.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">ikarus.basis.basis</a></div><div class="ttdeci">def basis(gv, tree)</div><div class="ttdef"><b>Definition:</b> basis.py:10</div></div>
+<div class="ttc" id="aa01373_html"><div class="ttname"><a href="a01373.html">Ikarus::FE</a></div><div class="ttdoc">FE class is a base class for all finite elements.</div><div class="ttdef"><b>Definition:</b> febase.hh:79</div></div>
+<div class="ttc" id="aa01373_html_ae84fc54bd26077a2edb0ec07361d0716"><div class="ttname"><a href="a01373.html#ae84fc54bd26077a2edb0ec07361d0716">Ikarus::FE::gridElement</a></div><div class="ttdeci">const GridElement &amp; gridElement() const</div><div class="ttdoc">Get the grid element associated with the local view.</div><div class="ttdef"><b>Definition:</b> febase.hh:128</div></div>
+<div class="ttc" id="aa01429_html_ae15b8efa9f66a3caee81d99dd5c648de"><div class="ttname"><a href="a01429.html#ae15b8efa9f66a3caee81d99dd5c648de">Ikarus::FETraits::mydim</a></div><div class="ttdeci">static constexpr int mydim</div><div class="ttdoc">Dimension of the geometry.</div><div class="ttdef"><b>Definition:</b> fetraits.hh:63</div></div>
+<div class="ttc" id="aa01917_html"><div class="ttname"><a href="a01917.html">Dune::FieldVector</a></div><div class="ttdef"><b>Definition:</b> utils/dirichletvalues.hh:32</div></div>
+<div class="ttc" id="aa02064_html"><div class="ttname"><a href="a02064.html">Ikarus::Concepts::LagrangeNode</a></div><div class="ttdoc">Concept to check if a node in a basis tree is a Lagrangian node.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:80</div></div>
+<div class="ttc" id="aa03100_html"><div class="ttname"><a href="a03100.html">concepts.hh</a></div><div class="ttdoc">Several concepts.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -227,7 +254,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a00071.html">eigendunetransformations.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a00071.html">functionhelper.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

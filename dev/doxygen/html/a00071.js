@@ -1,8 +1,7 @@
 var a00071 =
 [
-    [ "toDune", "a00071.html#a4e9e21776afdaaa93c4a9d19554976fa", null ],
-    [ "toDune", "a00071.html#a83633e77ee5a35cb31a7cd2f02aedb7f", null ],
-    [ "toDune", "a00071.html#a0fdba7f3ebe4bf1ada6618f450b50221", null ],
-    [ "toEigenMap", "a00071.html#aaa7e8e9b8bd8247afecc24cdd54ec658", null ],
-    [ "toEigenMap", "a00071.html#aaac71220182c301ee8c864f2a507c3db", null ]
+    [ "globalIndexFromGlobalPosition", "a00071.html#gaa19ed04a701aaa500f7c486addae2d2e", null ],
+    [ "obtainLagrangeGlobalNodePositions", "a00071.html#gae9098182120929a0d21cff1c38f5ca84", null ],
+    [ "referenceElementSubEntityPositions", "a00071.html#ga30df35336d19b00bc5db2a0b52ce650e", null ],
+    [ "referenceElementVertexPositions", "a00071.html#ga8c05dce8a66fc4efbe31674b87d18298", null ]
 ];

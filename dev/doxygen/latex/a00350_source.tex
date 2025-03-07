@@ -1,115 +1,179 @@
-\hypertarget{a00350_source}{}\doxysection{resultfunction.\+hh}
-\label{a00350_source}\index{resultfunction.hh@{resultfunction.hh}}
+\hypertarget{a00350_source}{}\doxysection{truss.\+hh}
+\label{a00350_source}\index{truss.hh@{truss.hh}}
 \mbox{\hyperlink{a00350}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <type\_traits>}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/vtk/function.hh>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/vtk/vtkwriter.hh>}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00197}{ikarus/finiteelements/ferequirements.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03101}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <optional>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/localfefunctions/eigenDuneTransformations.hh>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00263}{ikarus/finiteelements/fehelper.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00251}{ikarus/finiteelements/ferequirements.hh}}>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00414}{Ikarus}} \{}
 \DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00411}{Ikarus}} \{}
-\DoxyCodeLine{22 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{23   \textcolor{keyword}{struct }DefaultUserFunction}
-\DoxyCodeLine{24   \{}
-\DoxyCodeLine{32     \textcolor{keyword}{template} <\textcolor{keyword}{typename} R, \textcolor{keyword}{typename} FiniteElement, \textcolor{keywordtype}{int} dim>}
-\DoxyCodeLine{33     \textcolor{keywordtype}{double} operator()(\textcolor{keyword}{const} R\& resultArray, \textcolor{keyword}{const} \mbox{\hyperlink{a01910}{Dune::FieldVector<double, dim>}}\& pos, \textcolor{keyword}{const} FiniteElement\& fe,}
-\DoxyCodeLine{34                       \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{35       \textcolor{keywordflow}{return} resultArray[comp];}
-\DoxyCodeLine{36     \};}
-\DoxyCodeLine{37   \};}
-\DoxyCodeLine{38 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{60 \textcolor{keyword}{template} <\textcolor{keyword}{typename} AS, \textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT, \textcolor{keyword}{typename} UserFunction = Impl::DefaultUserFunction>}
-\DoxyCodeLine{61 \textcolor{keyword}{requires}(Concepts::FlatAssembler<AS> and Concepts::ResultType<RT>)}
-\DoxyCodeLine{62 \textcolor{keyword}{class} \mbox{\hyperlink{a01742}{ResultFunction}} : \textcolor{keyword}{public} Dune::VTKFunction<typename AS::GridView>}
-\DoxyCodeLine{63 \{}
-\DoxyCodeLine{64 \textcolor{keyword}{public}:}
-\DoxyCodeLine{65   \textcolor{keyword}{using }\mbox{\hyperlink{a01742_ab7712895c055876ce68b119ee5be512b}{Assembler}}         = AS;}
-\DoxyCodeLine{66   \textcolor{keyword}{using }\mbox{\hyperlink{a01742_ae02316521c3591dee26cf26d3cc1aafe}{GridView}}          = \textcolor{keyword}{typename} Assembler::GridView;}
-\DoxyCodeLine{67   \textcolor{keyword}{using }\mbox{\hyperlink{a01742_a04e04c52ed60c19be684faa4767ed795}{FERequirementType}} = \textcolor{keyword}{typename} Assembler::FERequirement;}
-\DoxyCodeLine{68   \textcolor{keyword}{using }\mbox{\hyperlink{a01742_a593fc23022f4622064a1659c0805a44f}{FEContainer}}       = \textcolor{keyword}{typename} Assembler::FEContainer;}
-\DoxyCodeLine{69   \textcolor{keyword}{using }\mbox{\hyperlink{a01742_a8c19ba544b970530a3d2421eef882c72}{FiniteElement}}     = \textcolor{keyword}{typename} std::remove\_cvref\_t<FEContainer>::value\_type;}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71   \textcolor{keyword}{using }\mbox{\hyperlink{a01742_a916f6362e75f7b8f9f8e9b5acd7fb3ae}{ctype}}                  = \textcolor{keyword}{typename} GridView::ctype;}
-\DoxyCodeLine{72   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} griddim = GridView::dimension;}
-\DoxyCodeLine{73   \textcolor{keyword}{using }\mbox{\hyperlink{a01742_a6da0b532274ad8ed0c79e7012fbf81fd}{Entity}}                 = \textcolor{keyword}{typename} GridView::template Codim<0>::Entity;}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{85   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01742_add24f14249cce07c37dd92e3f81cf50c}{evaluate}}(\textcolor{keywordtype}{int} comp, \textcolor{keyword}{const} \mbox{\hyperlink{a01742_a6da0b532274ad8ed0c79e7012fbf81fd}{Entity}}\& e, \textcolor{keyword}{const} \mbox{\hyperlink{a01910}{Dune::FieldVector<ctype, griddim>}}\& local)\textcolor{keyword}{ const override }\{}
-\DoxyCodeLine{86     \textcolor{keyword}{const} \textcolor{keyword}{auto} index = gridView().indexSet().index(e);}
-\DoxyCodeLine{87     \textcolor{keywordflow}{return} evaluateComponent(index, local, comp);}
-\DoxyCodeLine{88   \}}
+\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
+\DoxyCodeLine{22 \textcolor{keyword}{class }Truss;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{a01649}{TrussPre}}}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01649_ac9e7517a9be64fd9c743c1c11dfd30f9}{E}}; \textcolor{comment}{// Young's modulus}}
+\DoxyCodeLine{30   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01649_adebed226744a01c44269cadd0bf9998f}{A}}; \textcolor{comment}{// Cross-\/section area}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32   \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
+\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a01645}{Skill}} = \mbox{\hyperlink{a01645}{Truss<PreFE, FE>}};}
+\DoxyCodeLine{34 \};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{44 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
+\DoxyCodeLine{45 \textcolor{keyword}{class }\mbox{\hyperlink{a01645}{Truss}}}
+\DoxyCodeLine{46     : \textcolor{keyword}{public} \mbox{\hyperlink{a01425}{ResultTypeBase}}<ResultTypes::cauchyAxialForce, ResultTypes::PK2AxialForce, ResultTypes::linearAxialForce>}
+\DoxyCodeLine{47 \{}
+\DoxyCodeLine{48 \textcolor{keyword}{public}:}
+\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{a01429}{Traits}}       = \mbox{\hyperlink{a01377_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};}
+\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{a01645_aa1f84ce75ed79a35a1f3daa0d7ecbb18}{BasisHandler}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a01429_a129085c175bca28f94c71699b734ba04}{Traits::BasisHandler}};}
+\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{a01645_a6417a09910a66224d26c7436b478c0bb}{FlatBasis}}    = \textcolor{keyword}{typename} \mbox{\hyperlink{a01429_a81feef959fedef62b2e1daabbd52b5f2}{Traits::FlatBasis}};}
+\DoxyCodeLine{52   \textcolor{keyword}{using }\mbox{\hyperlink{a01393}{Requirement}}  = \mbox{\hyperlink{a01393}{FERequirements<FESolutions::displacement, FEParameter::loadfactor>}};}
+\DoxyCodeLine{53   \textcolor{keyword}{using }\mbox{\hyperlink{a01645_a2fe6312a266dde582b526f80bab5513e}{LocalView}}    = \textcolor{keyword}{typename} \mbox{\hyperlink{a01429_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}};}
+\DoxyCodeLine{54   \textcolor{keyword}{using }\mbox{\hyperlink{a01645_a612cd26d67f7be9923188c46bfedeba3}{Geometry}}     = \textcolor{keyword}{typename} \mbox{\hyperlink{a01429_a0b7be1104fba2d190e3fed46f291a851}{Traits::Geometry}};}
+\DoxyCodeLine{55   \textcolor{keyword}{using }\mbox{\hyperlink{a01645_a703d7e18265f53bf4e24390a3123f24c}{GridView}}     = \textcolor{keyword}{typename} \mbox{\hyperlink{a01429_a3ec0294824df467074f5070cb58f5a91}{Traits::GridView}};}
+\DoxyCodeLine{56   \textcolor{keyword}{using }\mbox{\hyperlink{a01645_ad953dbda6b497d1e6fe27405d2d74edd}{Element}}      = \textcolor{keyword}{typename} \mbox{\hyperlink{a01429_ac4668b9c9142defdf3b70cca8eeb30c4}{Traits::Element}};}
+\DoxyCodeLine{57   \textcolor{keyword}{using }\mbox{\hyperlink{a01649}{Pre}}          = \mbox{\hyperlink{a01649}{TrussPre}};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01645_ad0e7e96505e71d75eb2f64b079169acb}{myDim}}    = \mbox{\hyperlink{a01429_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}};}
+\DoxyCodeLine{60   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01645_a41e2a568f1739778e2277d5eec69cfce}{worldDim}} = \mbox{\hyperlink{a01429_a5d611e1d48285bac5c5ebd6fda9c7cc7}{Traits::worlddim}};}
+\DoxyCodeLine{61   \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a01645_ad0e7e96505e71d75eb2f64b079169acb}{myDim}} == 1, \textcolor{stringliteral}{"{}Truss elements should have myDim == 1"{}});}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{71   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{72   \textcolor{keyword}{struct }\mbox{\hyperlink{a01653}{KinematicVariables}}}
+\DoxyCodeLine{73   \{}
+\DoxyCodeLine{74     \textcolor{keywordtype}{double} \mbox{\hyperlink{a01653_a05681746b98b7ea4259896cbd87727b5}{L}};                  }
+\DoxyCodeLine{75     ST \mbox{\hyperlink{a01653_a507fe4fbad5adfb4df5f70e690987f27}{l}};                      }
+\DoxyCodeLine{76     ST \mbox{\hyperlink{a01653_a947ad2c350846f2abb6f94aff9106db7}{Elin}};                   }
+\DoxyCodeLine{77     ST \mbox{\hyperlink{a01653_a7d0090ec5c0de738cb936cf8b69d0985}{Egl}};                    }
+\DoxyCodeLine{78     Eigen::VectorX<ST> \mbox{\hyperlink{a01653_adad74786f3a49a82a7cd239aa3065bb0}{dEdu}};   }
+\DoxyCodeLine{79     Eigen::MatrixX<ST> \mbox{\hyperlink{a01653_a0647f4c61cc8ee370d1b3b795a48c8e6}{ddEddu}}; }
+\DoxyCodeLine{80   \};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{86   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01645_a31c3128e6407c9b869b6eb4a3436aae6}{Truss}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01649}{Pre}}\& pre)}
+\DoxyCodeLine{87       : E\{pre.E\},}
+\DoxyCodeLine{88         A\{pre.A\} \{\}}
 \DoxyCodeLine{89 }
-\DoxyCodeLine{97   [[nodiscard]] \textcolor{keywordtype}{int} \mbox{\hyperlink{a01742_a29d17ce2c3a99be49e322d527b42748a}{ncomps}}()\textcolor{keyword}{ const override }\{}
-\DoxyCodeLine{98     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_same\_v<UserFunction, Impl::DefaultUserFunction>) \{}
-\DoxyCodeLine{99       \mbox{\hyperlink{a01910}{Dune::FieldVector<ctype, griddim>}} val(0.0);}
-\DoxyCodeLine{100       \textcolor{keyword}{auto} sigma = finiteElements().at(0).template calculateAt<RT>(requirement(), val).asVec();}
-\DoxyCodeLine{101       \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(sigma.size());}
-\DoxyCodeLine{102     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{103       \textcolor{keywordflow}{return} userFunction\_.ncomps();}
+\DoxyCodeLine{98   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST = \textcolor{keywordtype}{double}>}
+\DoxyCodeLine{99   \textcolor{keyword}{auto} \mbox{\hyperlink{a01645_af6a1883a353d39ea3aee75c1b5b59514}{displacement}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01393}{Requirement}}\& par,}
+\DoxyCodeLine{100                     \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ST>>>\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{101     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& d = par.\mbox{\hyperlink{a01393_a9701fdddf89b019507963dd2f68912da}{globalSolution}}();}
+\DoxyCodeLine{102     \textcolor{keyword}{auto} disp     = Ikarus::FEHelper::localSolutionBlockVector<Traits>(d, underlying().localView(), dx);}
+\DoxyCodeLine{103     \textcolor{keywordflow}{return} disp;}
 \DoxyCodeLine{104   \}}
 \DoxyCodeLine{105 }
-\DoxyCodeLine{113   [[nodiscard]] \textcolor{keyword}{constexpr} std::string \mbox{\hyperlink{a01742_aaefbf5aea92c097023ed3d628a25f2cf}{name}}()\textcolor{keyword}{ const override }\{}
-\DoxyCodeLine{114     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ userFunction\_.name(); \})}
-\DoxyCodeLine{115       \textcolor{keywordflow}{return} userFunction\_.name();}
-\DoxyCodeLine{116     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{117       \textcolor{keywordflow}{return} toString<RT>();}
-\DoxyCodeLine{118   \}}
-\DoxyCodeLine{119 }
-\DoxyCodeLine{128   Dune::VTK::Precision \mbox{\hyperlink{a01742_aa2ce1b66145ac6962be8189061f42d45}{precision}}()\textcolor{keyword}{ const override }\{ \textcolor{keywordflow}{return} prec\_; \}}
+\DoxyCodeLine{115   \textcolor{keyword}{template} <\textcolor{keyword}{class} ST = \textcolor{keywordtype}{double}>}
+\DoxyCodeLine{116   \mbox{\hyperlink{a01653}{KinematicVariables<ST>}} \mbox{\hyperlink{a01645_aeab583c651a9704392133a98e58e6ad4}{computeStrain}}(}
+\DoxyCodeLine{117       \textcolor{keyword}{const} \mbox{\hyperlink{a01393}{Requirement}}\& par,}
+\DoxyCodeLine{118       \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ST>>>\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{119     \mbox{\hyperlink{a01653}{KinematicVariables<ST>}} kin;}
+\DoxyCodeLine{120     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localView    = underlying().localView();}
+\DoxyCodeLine{121     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& tree         = localView.tree();}
+\DoxyCodeLine{122     \textcolor{keyword}{const} \textcolor{keyword}{auto} numberOfNodes = tree.child(0).finiteElement().size();}
+\DoxyCodeLine{123     \textcolor{keyword}{auto}\& ele                = localView.element();}
+\DoxyCodeLine{124     \textcolor{keyword}{const} \textcolor{keyword}{auto} X1            = Dune::toEigen(ele.geometry().corner(0));}
+\DoxyCodeLine{125     \textcolor{keyword}{const} \textcolor{keyword}{auto} X2            = Dune::toEigen(ele.geometry().corner(1));}
+\DoxyCodeLine{126     \textcolor{keyword}{const} \textcolor{keyword}{auto} u             = \mbox{\hyperlink{a00409_gaf9d7cf401f9f03ce1aae728c646ce178}{Dune::viewAsEigenMatrixAsDynFixed}}(\mbox{\hyperlink{a01645_af6a1883a353d39ea3aee75c1b5b59514}{displacement}}(par, dx)).transpose().eval();}
+\DoxyCodeLine{127     \textcolor{keyword}{const} \textcolor{keyword}{auto} A1            = X2 -\/ X1;}
+\DoxyCodeLine{128     \textcolor{keyword}{const} \textcolor{keyword}{auto} ud1           = u.col(1) -\/ u.col(0);}
 \DoxyCodeLine{129 }
-\DoxyCodeLine{140   \textcolor{keyword}{template} <\textcolor{keyword}{typename} UF = UserFunction>}
-\DoxyCodeLine{141   \mbox{\hyperlink{a01742_aa37e3d1ee3abfa48ae5bfd300a01c09b}{ResultFunction}}(std::shared\_ptr<Assembler> assembler, Dune::VTK::Precision prec = Dune::VTK::Precision::float64,}
-\DoxyCodeLine{142                  UF\&\& userFunction = \{\})}
-\DoxyCodeLine{143       : assembler\_(assembler),}
-\DoxyCodeLine{144         prec\_\{prec\},}
-\DoxyCodeLine{145         userFunction\_\{std::forward<UF>(userFunction)\} \{\}}
-\DoxyCodeLine{146 }
-\DoxyCodeLine{147 \textcolor{keyword}{private}:}
-\DoxyCodeLine{148   \textcolor{keywordtype}{double} evaluateComponent(\textcolor{keywordtype}{int} eleID, \textcolor{keyword}{const} \mbox{\hyperlink{a01910}{Dune::FieldVector<ctype, griddim>}}\& local, \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{149     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe = finiteElements().at(eleID);}
-\DoxyCodeLine{150     \textcolor{keyword}{auto} result    = fe.template calculateAt<RT>(requirement(), local).asVec();}
-\DoxyCodeLine{151 }
-\DoxyCodeLine{152     \textcolor{keywordflow}{return} userFunction\_(result, local, fe, comp);}
-\DoxyCodeLine{153   \}}
-\DoxyCodeLine{154 }
-\DoxyCodeLine{155   \textcolor{keyword}{const} FEContainer\& finiteElements()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} assembler\_-\/>finiteElements(); \}}
-\DoxyCodeLine{156   \textcolor{keyword}{const} FERequirementType\& requirement()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} assembler\_-\/>requirement(); \}}
-\DoxyCodeLine{157   \textcolor{keyword}{const} GridView\& gridView()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} assembler\_-\/>gridView(); \}}
+\DoxyCodeLine{130     \textcolor{keyword}{const} Eigen::Vector<ST, worldDim> x1 = X1 + u.col(0);}
+\DoxyCodeLine{131     \textcolor{keyword}{const} Eigen::Vector<ST, worldDim> x2 = X2 + u.col(1);}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133     \textcolor{keyword}{const} \textcolor{keywordtype}{double} Lsquared = A1.squaredNorm();}
+\DoxyCodeLine{134     \textcolor{keyword}{const} ST lsquared     = (x2 -\/ x1).squaredNorm();}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136     kin.\mbox{\hyperlink{a01653_a05681746b98b7ea4259896cbd87727b5}{L}} = sqrt(Lsquared);}
+\DoxyCodeLine{137     kin.\mbox{\hyperlink{a01653_a507fe4fbad5adfb4df5f70e690987f27}{l}} = sqrt(lsquared);}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139     \textcolor{comment}{// Linear strain}}
+\DoxyCodeLine{140     kin.\mbox{\hyperlink{a01653_a947ad2c350846f2abb6f94aff9106db7}{Elin}} = (kin.\mbox{\hyperlink{a01653_a507fe4fbad5adfb4df5f70e690987f27}{l}} -\/ kin.\mbox{\hyperlink{a01653_a05681746b98b7ea4259896cbd87727b5}{L}}) / kin.\mbox{\hyperlink{a01653_a05681746b98b7ea4259896cbd87727b5}{L}};}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142     \textcolor{comment}{// Green-\/Lagrange strains}}
+\DoxyCodeLine{143     kin.\mbox{\hyperlink{a01653_a7d0090ec5c0de738cb936cf8b69d0985}{Egl}} = 0.5 * (lsquared -\/ Lsquared) / Lsquared;}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145     \textcolor{comment}{// First derivative of Egl w.r.t displacements}}
+\DoxyCodeLine{146     kin.\mbox{\hyperlink{a01653_adad74786f3a49a82a7cd239aa3065bb0}{dEdu}}.setZero(\mbox{\hyperlink{a01645_a41e2a568f1739778e2277d5eec69cfce}{worldDim}} * numberOfNodes);}
+\DoxyCodeLine{147     kin.\mbox{\hyperlink{a01653_adad74786f3a49a82a7cd239aa3065bb0}{dEdu}} << -\/A1 -\/ ud1, A1 + ud1;}
+\DoxyCodeLine{148     kin.\mbox{\hyperlink{a01653_adad74786f3a49a82a7cd239aa3065bb0}{dEdu}} /= Lsquared;}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150     \textcolor{comment}{// Second derivative of Egl w.r.t displacements}}
+\DoxyCodeLine{151     kin.\mbox{\hyperlink{a01653_a0647f4c61cc8ee370d1b3b795a48c8e6}{ddEddu}}.setIdentity(\mbox{\hyperlink{a01645_a41e2a568f1739778e2277d5eec69cfce}{worldDim}} * numberOfNodes, \mbox{\hyperlink{a01645_a41e2a568f1739778e2277d5eec69cfce}{worldDim}} * numberOfNodes);}
+\DoxyCodeLine{152     kin.\mbox{\hyperlink{a01653_a0647f4c61cc8ee370d1b3b795a48c8e6}{ddEddu}}.template topRightCorner<worldDim, worldDim>()   = -\/Eigen::Matrix<ST, worldDim, worldDim>::Identity();}
+\DoxyCodeLine{153     kin.\mbox{\hyperlink{a01653_a0647f4c61cc8ee370d1b3b795a48c8e6}{ddEddu}}.template bottomLeftCorner<worldDim, worldDim>() = -\/Eigen::Matrix<ST, worldDim, worldDim>::Identity();}
+\DoxyCodeLine{154     kin.\mbox{\hyperlink{a01653_a0647f4c61cc8ee370d1b3b795a48c8e6}{ddEddu}} /= Lsquared;}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{156     \textcolor{keywordflow}{return} kin;}
+\DoxyCodeLine{157   \}}
 \DoxyCodeLine{158 }
-\DoxyCodeLine{159   std::shared\_ptr<Assembler> assembler\_;}
-\DoxyCodeLine{160 }
-\DoxyCodeLine{161   Dune::VTK::Precision prec\_;}
-\DoxyCodeLine{162   UserFunction userFunction\_;}
-\DoxyCodeLine{163 \};}
-\DoxyCodeLine{164 }
-\DoxyCodeLine{178 \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT, \textcolor{keyword}{typename} UserFunction = Impl::DefaultUserFunction,}
-\DoxyCodeLine{179           Concepts::FlatAssembler AS>}
-\DoxyCodeLine{180 \textcolor{keyword}{auto} \mbox{\hyperlink{a00411_aba0432efad1cef6c956ccf108829682c}{makeResultFunction}}(std::shared\_ptr<AS> assembler, Dune::VTK::Precision prec = Dune::VTK::Precision::float64,}
-\DoxyCodeLine{181                         UserFunction\&\& userFunction = \{\}) \{}
-\DoxyCodeLine{182   \textcolor{keywordflow}{return} std::make\_shared<ResultFunction<AS, RT, UserFunction>>(assembler, prec,}
-\DoxyCodeLine{183                                                                 std::forward<UserFunction>(userFunction));}
-\DoxyCodeLine{184 \}}
-\DoxyCodeLine{185 }
-\DoxyCodeLine{196 \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT, \textcolor{keyword}{typename} UserFunction, Concepts::FlatAssembler AS>}
-\DoxyCodeLine{197 \textcolor{keyword}{auto} \mbox{\hyperlink{a00411_aba0432efad1cef6c956ccf108829682c}{makeResultFunction}}(std::shared\_ptr<AS> assembler, UserFunction\&\& userFunction) \{}
-\DoxyCodeLine{198   \textcolor{keywordflow}{return} makeResultFunction<RT>(assembler, Dune::VTK::Precision::float64, std::forward<UserFunction>(userFunction));}
-\DoxyCodeLine{199 \}}
-\DoxyCodeLine{200 }
-\DoxyCodeLine{217 \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT, \textcolor{keyword}{typename} UserFunction = Impl::DefaultUserFunction,}
-\DoxyCodeLine{218           Concepts::FlatAssembler AS>}
-\DoxyCodeLine{219 \textcolor{keyword}{auto} \mbox{\hyperlink{a00411_ad8472943b9877db27039331c847154f1}{makeResultVtkFunction}}(std::shared\_ptr<AS> assembler, UserFunction\&\& userFunction = \{\}) \{}
-\DoxyCodeLine{220   \textcolor{keywordflow}{return} Dune::Vtk::Function<typename AS::GridView>(std::make\_shared<ResultFunction<AS, RT, UserFunction>>(}
-\DoxyCodeLine{221       assembler, Dune::VTK::Precision::float64, std::forward<UserFunction>(userFunction)));}
-\DoxyCodeLine{222 \}}
+\DoxyCodeLine{159 \textcolor{keyword}{public}:}
+\DoxyCodeLine{170   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT>}
+\DoxyCodeLine{171   \textcolor{keyword}{requires}(supportsResultType<RT>())}
+\DoxyCodeLine{172   \textcolor{keyword}{auto} \mbox{\hyperlink{a01645_a1e7e9cdb036a72153c163cb6e8fd2a18}{calculateAtImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01393}{Requirement}}\& req, [[maybe\_unused]] \textcolor{keyword}{const} \mbox{\hyperlink{a01917}{Dune::FieldVector<double, Traits::mydim>}}\& local,}
+\DoxyCodeLine{173                        Dune::PriorityTag<0>) \textcolor{keyword}{const} \{}
+\DoxyCodeLine{174     \textcolor{keyword}{using }RTWrapper                            = \mbox{\hyperlink{a01413}{ResultWrapper<RT<double, myDim, myDim>}}, \mbox{\hyperlink{a00414_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{ResultShape::Vector}}>;}
+\DoxyCodeLine{175     \textcolor{keyword}{const} \textcolor{keyword}{auto} [L, l, Elin, Egl, dEdu, ddEddu] = \mbox{\hyperlink{a01645_aeab583c651a9704392133a98e58e6ad4}{computeStrain}}(req);}
+\DoxyCodeLine{176     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isSameResultType<RT, ResultTypes::cauchyAxialForce>) \{}
+\DoxyCodeLine{177       \textcolor{keyword}{auto} N = Eigen::Vector<double, 1>\{E * A * Egl * l / L\}; \textcolor{comment}{// Axial force in deformed configuration}}
+\DoxyCodeLine{178       \textcolor{keywordflow}{return} RTWrapper\{N\};}
+\DoxyCodeLine{179     \}}
+\DoxyCodeLine{180     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isSameResultType<RT, ResultTypes::PK2AxialForce>) \{}
+\DoxyCodeLine{181       \textcolor{keyword}{auto} N = Eigen::Vector<double, 1>\{E * A * Egl\}; \textcolor{comment}{// Axial force in undeformed configuration}}
+\DoxyCodeLine{182       \textcolor{keywordflow}{return} RTWrapper\{N\};}
+\DoxyCodeLine{183     \}}
+\DoxyCodeLine{184     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isSameResultType<RT, ResultTypes::linearAxialForce>) \{}
+\DoxyCodeLine{185       \textcolor{keyword}{auto} N = Eigen::Vector<double, 1>\{E * A * Elin\};}
+\DoxyCodeLine{186       \textcolor{keywordflow}{return} RTWrapper\{N\};}
+\DoxyCodeLine{187     \}}
+\DoxyCodeLine{188   \}}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190 \textcolor{keyword}{private}:}
+\DoxyCodeLine{191   \textcolor{comment}{//> CRTP}}
+\DoxyCodeLine{192   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& underlying()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{a01373}{FE}}\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{193   \textcolor{keyword}{auto}\& underlying() \{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}FE\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{194 }
+\DoxyCodeLine{195   \textcolor{keywordtype}{double} E;}
+\DoxyCodeLine{196   \textcolor{keywordtype}{double} A;}
+\DoxyCodeLine{197 }
+\DoxyCodeLine{198 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{199   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{200   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01645_a5955fba6251da3eda818f6c14ef5ca73}{calculateMatrixImpl}}(}
+\DoxyCodeLine{201       \textcolor{keyword}{const} \mbox{\hyperlink{a01393}{Requirement}}\& par, \textcolor{keyword}{const} \mbox{\hyperlink{a00414_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}}\& affordance, \textcolor{keyword}{typename} Traits::template MatrixType<> K,}
+\DoxyCodeLine{202       \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ScalarType>>>\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{203     \textcolor{keyword}{const} \textcolor{keyword}{auto} [L, l, Elin, Egl, dEdu, ddEddu] = \mbox{\hyperlink{a01645_aeab583c651a9704392133a98e58e6ad4}{computeStrain}}(par, dx);}
+\DoxyCodeLine{204     K += E * A * L * (dEdu * dEdu.transpose() + ddEddu * Egl);}
+\DoxyCodeLine{205   \}}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{208   \textcolor{keyword}{auto} \mbox{\hyperlink{a01645_ad11254e9306f1a740bab191314ee3108}{calculateScalarImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01393}{Requirement}}\& par, \mbox{\hyperlink{a00414_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}} affordance,}
+\DoxyCodeLine{209                            \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ScalarType>>>\& dx =}
+\DoxyCodeLine{210                                std::nullopt) \textcolor{keyword}{const} -\/> ScalarType \{}
+\DoxyCodeLine{211     \textcolor{keyword}{const} \textcolor{keyword}{auto} [L, l, Elin, Egl, dEdu, ddEddu] = \mbox{\hyperlink{a01645_aeab583c651a9704392133a98e58e6ad4}{computeStrain}}(par, dx);}
+\DoxyCodeLine{212     \textcolor{keywordflow}{return} 0.5 * E * A * L * Egl * Egl;}
+\DoxyCodeLine{213   \}}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{216   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01645_a1c9876db9b831de421fe04750e11d9ed}{calculateVectorImpl}}(}
+\DoxyCodeLine{217       \textcolor{keyword}{const} \mbox{\hyperlink{a01393}{Requirement}}\& par, \mbox{\hyperlink{a00414_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} affordance, \textcolor{keyword}{typename} Traits::template VectorType<ScalarType> force,}
+\DoxyCodeLine{218       \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ScalarType>>>\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{219     \textcolor{keyword}{const} \textcolor{keyword}{auto} [L, l, Elin, Egl, dEdu, ddEddu] = \mbox{\hyperlink{a01645_aeab583c651a9704392133a98e58e6ad4}{computeStrain}}(par, dx);}
+\DoxyCodeLine{220     force += E * A * Egl * L * dEdu;}
+\DoxyCodeLine{221   \}}
+\DoxyCodeLine{222 \};}
 \DoxyCodeLine{223 }
-\DoxyCodeLine{224 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{230 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00414_a1936b02a190200901c54cc8b1004506e}{truss}}(\textcolor{keyword}{const} \textcolor{keywordtype}{double} E, \textcolor{keyword}{const} \textcolor{keywordtype}{double} A) \{}
+\DoxyCodeLine{231   \mbox{\hyperlink{a01649}{TrussPre}} pre(E, A);}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233   \textcolor{keywordflow}{return} pre;}
+\DoxyCodeLine{234 \}}
+\DoxyCodeLine{235 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

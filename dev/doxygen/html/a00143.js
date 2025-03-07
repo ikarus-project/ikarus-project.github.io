@@ -1,4 +1,8 @@
 var a00143 =
 [
-    [ "registerBoundaryPatch", "a00143.html#a331fd78be5a4155963abe5829282c8f1", null ]
+    [ "Ikarus::NRSettings", "a01801.html", "a01801" ],
+    [ "Ikarus::NewtonRaphsonConfig< LS, UF >", "a01805.html", "a01805" ],
+    [ "createNonlinearSolver", "a00143.html#a504e2e9645fa26419d815df9bd245add", null ],
+    [ "makeNewtonRaphson", "a00143.html#a191d086649c8d24d7fbacf71d1704cb3", null ],
+    [ "NewtonRaphson", "a00143.html#ab2dbf68d1a4f806b32c9f46073602b2c", null ]
 ];

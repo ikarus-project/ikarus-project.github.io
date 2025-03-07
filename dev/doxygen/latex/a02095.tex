@@ -1,8 +1,10 @@
-\hypertarget{a02095}{}\doxysection{Ikarus\+::Concepts\+::Is\+Functor\+With\+Args Concept Reference}
-\label{a02095}\index{Ikarus::Concepts::IsFunctorWithArgs@{Ikarus::Concepts::IsFunctorWithArgs}}
+\hypertarget{a02095}{}\doxysection{Ikarus\+::Concepts\+::Vector\+Flat\+Assembler Concept Reference}
+\label{a02095}\index{Ikarus::Concepts::VectorFlatAssembler@{Ikarus::Concepts::VectorFlatAssembler}}
 
 
-Concept defining the requirements for functors with arguments.  
+Concept representing the requirements for a Vector\+Flat\+Assembler.
+
+A type T satisfies Vector\+Flat\+Assembler if it is a Scalar\+Flat\+Assembler and if it provides the necessary vector() member functions.  
 
 
 
@@ -12,17 +14,15 @@ Concept defining the requirements for functors with arguments.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} Op, \textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02095}{Ikarus::Concepts::IsFunctorWithArgs}} =  \textcolor{keyword}{requires}(Op op, Args... args) \{ op(args...); \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02095}{Ikarus::Concepts::VectorFlatAssembler}} =  \mbox{\hyperlink{a02094}{Concepts::ScalarFlatAssembler<T>}} and}
+\DoxyCodeLine{                                \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{                                         \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00414_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{                                  \{}
+\DoxyCodeLine{                                    t.vector(req, affordance.vectorAffordance(), dbcOption)}
+\DoxyCodeLine{                                  \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{                                  \{ t.vector(dbcOption) \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{                                  \{ t.vector() \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{                                \}}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em Op} & Type of the functor. \\
-\hline
-{\em Args} & Types of the arguments. \\
-\hline
-\end{DoxyTemplParams}

@@ -1,7 +1,6 @@
 var a00050 =
 [
-    [ "Ikarus::utils::CheckFlags", "a01958.html", "a01958" ],
-    [ "checkGradient", "a00050.html#gacb9e813539bfd84df99ad097cabc9de9", null ],
-    [ "checkHessian", "a00050.html#ga5d1a87964a3d6b6ddc994532e93b6798", null ],
-    [ "checkJacobian", "a00050.html#ga553465359c199ef676945832587d2869", null ]
+    [ "Ikarus::DifferentiableFunction< Range(D), DerivativeTraits, F, FF... >", "a01909.html", "a01909" ],
+    [ "functions", "a00050.html#ab787b670f0d338c870988f417cf85f76", null ],
+    [ "makeDifferentiableFunction", "a00050.html#a7c304a58fc833d46ac3d8a7dc74f8ed0", null ]
 ];

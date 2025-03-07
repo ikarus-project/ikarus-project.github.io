@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_2a_0',['operator*',['../a01794.html#a93c93e03a96d5f1cbfa7e74ccb1e190e',1,'ScalarWrapper']]]
+  ['init_0',['init',['../a01969.html#a4865c52ed9d7e9c0f00e8bd5295ee853',1,'Ikarus::IkarusInstance']]]
 ];
