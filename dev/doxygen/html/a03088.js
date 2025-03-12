@@ -1,4 +1,5 @@
 var a03088 =
 [
-    [ "registerVtkWriter", "a03088.html#ga9f62f91fc33b1f9e17756c2ac7b30077", null ]
+    [ "Ikarus::Materials::CorrectStrainSize", "a02074.html", null ],
+    [ "hasCorrectSize", "a03088.html#acd3877457d719128ff83d44c6253ece8", null ]
 ];

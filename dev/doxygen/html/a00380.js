@@ -1,4 +1,4 @@
 var a00380 =
 [
-    [ "addBindingsToUtils", "a00409.html#ga1fbedbac54712740abe25ceab2990472", null ]
+    [ "basis", "a00380.html#a0f9f04fa9d98e890cb6d4fe62ff889a4", null ]
 ];

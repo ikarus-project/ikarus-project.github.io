@@ -1,4 +1,5 @@
 var a00320 =
 [
-    [ "NoVolumetricPart", "a00320.html#af2ccffa80ee6f4471c03b826368f425d", null ]
+    [ "Ikarus::GentMatParameters", "a01542.html", "a01542" ],
+    [ "Gent", "a00320.html#a8d05a34baf0684f0e4e2a10a721bb80d", null ]
 ];

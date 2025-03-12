@@ -116,6 +116,10 @@ docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechani
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/interface.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/linearelasticity.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/materialhelpers.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/muesli/mueslifinite.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/muesli/mueslihelpers.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/muesli/mueslimaterials.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/muesli/mueslismall.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/strainconversions.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/svk.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/tags.hh

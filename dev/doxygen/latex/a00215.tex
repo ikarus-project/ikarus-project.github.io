@@ -2,7 +2,7 @@
 \label{a00215}\index{material.hh@{material.hh}}
 
 
-\mbox{\hyperlink{a00439}{Python}} bindings for materials.  
+\mbox{\hyperlink{a00451}{Python}} bindings for materials.  
 
 
 {\ttfamily \#include $<$dune/common/classname.\+hh$>$}\newline
@@ -15,9 +15,9 @@
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
-namespace \mbox{\hyperlink{a00414}{Ikarus}}
+namespace \mbox{\hyperlink{a00426}{Ikarus}}
 \item 
-namespace \mbox{\hyperlink{a00432}{Ikarus\+::\+Python}}
+namespace \mbox{\hyperlink{a00444}{Ikarus\+::\+Python}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -29,13 +29,13 @@ namespace \mbox{\hyperlink{a00432}{Ikarus\+::\+Python}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Material , size\+\_\+t vec\+Size, class... options$>$ }\\void \mbox{\hyperlink{a00432_a3a4831265d4a775b43c50c25242a2910}{Ikarus\+::\+Python\+::register\+Material}} (pybind11\+::handle scope, pybind11\+::class\+\_\+$<$ Material, options... $>$ cls)
+{\footnotesize template$<$class Material , size\+\_\+t vec\+Size, bool register\+Constructor, class... options$>$ }\\void \mbox{\hyperlink{a00444_a5038c66085a51f4147ef04e880f926dd}{Ikarus\+::\+Python\+::register\+Material}} (pybind11\+::handle scope, pybind11\+::class\+\_\+$<$ Material, options... $>$ cls)
 \item 
-\mbox{\hyperlink{a00432_ac81cd08ca4f7222df18c123d422c932d}{Ikarus\+::\+Python\+::\+MAKE\+\_\+\+MATERIAL\+\_\+\+REGISTRY\+\_\+\+FUNCTION}} (Linear\+Elasticity, 6)
+\mbox{\hyperlink{a00444_ac81cd08ca4f7222df18c123d422c932d}{Ikarus\+::\+Python\+::\+MAKE\+\_\+\+MATERIAL\+\_\+\+REGISTRY\+\_\+\+FUNCTION}} (Linear\+Elasticity, 6)
 \item 
-\mbox{\hyperlink{a00432_aab3a7ce35fb7a2f4a8a9e4d6a92e1f31}{Ikarus\+::\+Python\+::\+MAKE\+\_\+\+MATERIAL\+\_\+\+REGISTRY\+\_\+\+FUNCTION}} (St\+Venant\+Kirchhoff, 6)
+\mbox{\hyperlink{a00444_aab3a7ce35fb7a2f4a8a9e4d6a92e1f31}{Ikarus\+::\+Python\+::\+MAKE\+\_\+\+MATERIAL\+\_\+\+REGISTRY\+\_\+\+FUNCTION}} (St\+Venant\+Kirchhoff, 6)
 \item 
-\mbox{\hyperlink{a00432_a85c1412e5300ac194ff82ebd146c6229}{Ikarus\+::\+Python\+::\+MAKE\+\_\+\+MATERIAL\+\_\+\+REGISTRY\+\_\+\+FUNCTION}} (Neo\+Hooke, 6)
+\mbox{\hyperlink{a00444_a85c1412e5300ac194ff82ebd146c6229}{Ikarus\+::\+Python\+::\+MAKE\+\_\+\+MATERIAL\+\_\+\+REGISTRY\+\_\+\+FUNCTION}} (Neo\+Hooke, 6)
 \end{DoxyCompactItemize}
 
 
@@ -50,7 +50,7 @@ namespace \mbox{\hyperlink{a00432}{Ikarus\+::\+Python}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{class }Material, \textcolor{keyword}{class}... options>                                               \(\backslash\)}
 \DoxyCodeLine{  void \textcolor{keyword}{register}\#\#name(pybind11::handle scope, pybind11::class\_<Material, options...> cls) \{ \(\backslash\)}
-\DoxyCodeLine{    Ikarus::Python::registerMaterial<Material, vecSize>(scope, cls);                        \(\backslash\)}
+\DoxyCodeLine{    Ikarus::Python::registerMaterial<Material, vecSize, true>(scope, cls);                  \(\backslash\)}
 \DoxyCodeLine{  \}}
 
 \end{DoxyCode}
@@ -64,8 +64,8 @@ namespace \mbox{\hyperlink{a00432}{Ikarus\+::\+Python}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  clsName.def(                                                                                                 \(\backslash\)}
 \DoxyCodeLine{      \#functionname,                                                                                           \(\backslash\)}
-\DoxyCodeLine{      [](materialName\& self, \mbox{\hyperlink{a00403_gacef1e451de1a99845c59d7391064fb8f}{StrainTags}} straintag, Eigen::Ref<\textcolor{keyword}{const} Eigen::Vector<double, vecSize>> eVoigt\_) \{ \(\backslash\)}
-\DoxyCodeLine{        if \textcolor{keyword}{constexpr} (not Concepts::IsMaterial<Materials::LinearElasticityT, materialName>) \{                  \(\backslash\)}
+\DoxyCodeLine{      [](materialName\& self, \mbox{\hyperlink{a00415_gacef1e451de1a99845c59d7391064fb8f}{StrainTags}} straintag, Eigen::Ref<\textcolor{keyword}{const} Eigen::Vector<double, vecSize>> eVoigt\_) \{ \(\backslash\)}
+\DoxyCodeLine{        if \textcolor{keyword}{constexpr} (not(materialName::strainTag == StrainTags::linear)) \{                                    \(\backslash\)}
 \DoxyCodeLine{          Eigen::Vector<double, vecSize> eVoigt = eVoigt\_;                                                     \(\backslash\)}
 \DoxyCodeLine{          if (straintag == StrainTags::rightCauchyGreenTensor)                                                 \(\backslash\)}
 \DoxyCodeLine{            return self.template functionname<StrainTags::rightCauchyGreenTensor>(eVoigt);                     \(\backslash\)}
@@ -81,7 +81,7 @@ namespace \mbox{\hyperlink{a00432}{Ikarus\+::\+Python}}
 \DoxyCodeLine{            DUNE\_THROW(Dune::MathError,                                                                        \(\backslash\)}
 \DoxyCodeLine{                       \textcolor{stringliteral}{"{}Passing deformationGradient strain in 6d Voigt notation does not make any sense!"{}});    \(\backslash\)}
 \DoxyCodeLine{          else                                                                                                 \(\backslash\)}
-\DoxyCodeLine{            DUNE\_THROW(Dune::MathError, \mbox{\hyperlink{a00414_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(straintag) + \textcolor{stringliteral}{"{}is not a valid strain tag."{}});                   \(\backslash\)}
+\DoxyCodeLine{            DUNE\_THROW(Dune::MathError, \mbox{\hyperlink{a00426_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(straintag) + \textcolor{stringliteral}{"{}is not a valid strain tag."{}});                   \(\backslash\)}
 \DoxyCodeLine{        \} \textcolor{keywordflow}{else} \{                                                                                               \(\backslash\)}
 \DoxyCodeLine{          Eigen::Vector<double, vecSize> eVoigt = eVoigt\_; \textcolor{comment}{/* Linear elastic path */}                           \(\backslash\)}
 \DoxyCodeLine{          if (straintag == StrainTags::linear)                                                                 \(\backslash\)}

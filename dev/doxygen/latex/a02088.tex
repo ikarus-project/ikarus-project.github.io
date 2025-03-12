@@ -1,8 +1,8 @@
-\hypertarget{a02088}{}\doxysection{Ikarus\+::Concepts\+::Eigen\+Matrix Concept Reference}
-\label{a02088}\index{Ikarus::Concepts::EigenMatrix@{Ikarus::Concepts::EigenMatrix}}
+\hypertarget{a02088}{}\doxysection{Ikarus\+::Concepts\+::Non\+Linear\+Solver\+Check\+For\+Path\+Following Concept Reference}
+\label{a02088}\index{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing@{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}}
 
 
-Concept defining the requirements for \mbox{\hyperlink{a00430}{Eigen}} matrices. This also includes \mbox{\hyperlink{a00430}{Eigen}} vectors.  
+Concept to check if a non-\/linear solver with its non-\/linear operator satisfies requirements for path following.  
 
 
 
@@ -12,8 +12,14 @@ Concept defining the requirements for \mbox{\hyperlink{a00430}{Eigen}} matrices.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02088}{Ikarus::Concepts::EigenMatrix}} =  traits::isSpecializationTypeAndNonTypes<Eigen::Matrix, M>::value}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02088}{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}} =  \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{    not(std::is\_same\_v<typename NLS::DifferentiableFunction::Domain, double> and}
+\DoxyCodeLine{        ((traits::isSpecializationTypeAndNonTypes<}
+\DoxyCodeLine{             Eigen::Matrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value) or}
+\DoxyCodeLine{         (traits::isSpecializationTypeNonTypeAndType<}
+\DoxyCodeLine{             Eigen::SparseMatrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value)));}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
 
@@ -21,6 +27,6 @@ Concept defining the requirements for \mbox{\hyperlink{a00430}{Eigen}} matrices.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em M} & Type representing an \mbox{\hyperlink{a00430}{Eigen}} vector. \\
+{\em NLS} & The non-\/linear solver type. \\
 \hline
 \end{DoxyTemplParams}

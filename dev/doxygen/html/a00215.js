@@ -5,5 +5,5 @@ var a00215 =
     [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00215.html#ac81cd08ca4f7222df18c123d422c932d", null ],
     [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00215.html#a85c1412e5300ac194ff82ebd146c6229", null ],
     [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00215.html#aab3a7ce35fb7a2f4a8a9e4d6a92e1f31", null ],
-    [ "registerMaterial", "a00215.html#a3a4831265d4a775b43c50c25242a2910", null ]
+    [ "registerMaterial", "a00215.html#a5038c66085a51f4147ef04e880f926dd", null ]
 ];

@@ -1,25 +1,23 @@
-\hypertarget{a02075}{}\doxysection{Ikarus\+::Concepts\+::Non\+Linear\+Solver\+Check\+For\+Path\+Following Concept Reference}
-\label{a02075}\index{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing@{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}}
+\hypertarget{a02075}{}\doxysection{Ikarus\+::Concepts\+::MPTuple Concept Reference}
+\label{a02075}\index{Ikarus::Concepts::MPTuple@{Ikarus::Concepts::MPTuple}}
 
 
-Concept to check if a non-\/linear solver with its non-\/linear operator satisfies requirements for path following.  
+Concept for checking if a type is a valid material parameter tuple.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/physicshelper.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02075}{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}} =  \textcolor{keyword}{requires} \{}
-\DoxyCodeLine{    not(std::is\_same\_v<typename NLS::DifferentiableFunction::Domain, double> and}
-\DoxyCodeLine{        ((traits::isSpecializationTypeAndNonTypes<}
-\DoxyCodeLine{             Eigen::Matrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value) or}
-\DoxyCodeLine{         (traits::isSpecializationTypeNonTypeAndType<}
-\DoxyCodeLine{             Eigen::SparseMatrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value)));}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} MP>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02075}{Ikarus::Concepts::MPTuple}} = }
+\DoxyCodeLine{      std::is\_same\_v<MP, YoungsModulusAndPoissonsRatio> or std::is\_same\_v<MP, YoungsModulusAndBulkModulus> or}
+\DoxyCodeLine{      std::is\_same\_v<MP, YoungsModulusAndLamesFirstParameter> or}
+\DoxyCodeLine{      std::is\_same\_v<MP, BulkModulusAndLamesFirstParameter> or std::is\_same\_v<MP, LamesFirstParameterAndShearModulus> or}
+\DoxyCodeLine{      std::is\_same\_v<MP, YoungsModulusAndShearModulus>}
 
 \end{DoxyCode}
 
@@ -27,6 +25,6 @@ Concept to check if a non-\/linear solver with its non-\/linear operator satisfi
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em NLS} & The non-\/linear solver type. \\
+{\em MP} & Type to check. \\
 \hline
 \end{DoxyTemplParams}

@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: dirichletvalues.hh File Reference</title>
+    <title>ikarus: vtkwriter.hh File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -157,46 +157,61 @@ $(document).ready(function(){initNavTree('a03106.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">utils/dirichletvalues.hh File Reference</div></div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">io/vtkwriter.hh File Reference<div class="ingroups"><a class="el" href="a00407.html">Ikarus Modules</a> &raquo; <a class="el" href="a00416.html">IO</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of DirichletValues class for handling Dirichlet boundary conditions.  
+<p><a class="el" href="a00426.html">Ikarus</a> VTK Writer for finite element results.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;concepts&gt;</code><br />
-<code>#include &lt;cstddef&gt;</code><br />
-<code>#include &lt;functional&gt;</code><br />
-<code>#include &lt;type_traits&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;dune/functions/backends/istlvectorbackend.hh&gt;</code><br />
-<code>#include &lt;dune/functions/functionspacebases/boundarydofs.hh&gt;</code><br />
-<code>#include &lt;dune/functions/functionspacebases/flatmultiindex.hh&gt;</code><br />
-<code>#include &lt;dune/functions/functionspacebases/subspacebasis.hh&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
-<code>#include &lt;autodiff/forward/real/real.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03100_source.html">ikarus/utils/concepts.hh</a>&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00152_source.html">vtkdatatag.hh</a>&quot;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;tuple&gt;</code><br />
+<code>#include &quot;dune/functions/functionspacebases/powerbasis.hh&quot;</code><br />
+<code>#include &quot;dune/functions/functionspacebases/subspacebasis.hh&quot;</code><br />
+<code>#include &lt;dune/common/fvector.hh&gt;</code><br />
+<code>#include &lt;dune/functions/gridfunctions/discreteglobalbasisfunction.hh&gt;</code><br />
+<code>#include &lt;dune/grid/yaspgrid.hh&gt;</code><br />
+<code>#include &lt;dune/vtk/vtkwriter.hh&gt;</code><br />
+<code>#include &lt;dune/vtk/writers/unstructuredgridwriter.hh&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00146_source.html">ikarus/io/resultfunction.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03121_source.html">ikarus/utils/concepts.hh</a>&gt;</code><br />
 </div>
 <p><a href="a03106_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html">Ikarus::DeriveSizeType&lt; T &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html">Ikarus::Vtk::Writer&lt; AS, DC, Base &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages writing results using VTK, based on assembler and data collector.  <a href="a01762.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01929.html">Ikarus::DeriveSizeType&lt; std::vector&lt; bool &gt; &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01766.html">Ikarus::Vtk::IsStructured&lt; G &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta type to check whether a grid is structured, inherits from false_type.  <a href="a01766.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01933.html">Ikarus::DirichletValues&lt; B, FC &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for handling Dirichlet boundary conditions in <a class="el" href="a00414.html">Ikarus</a>.  <a href="a01933.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01770.html">Ikarus::Vtk::IsStructured&lt; Dune::YaspGrid&lt; dim, Coordinates &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a01766.html" title="Meta type to check whether a grid is structured, inherits from false_type.">IsStructured</a> for YASPGrids, inherits from true_type.  <a href="a01770.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01774.html">Ikarus::Vtk::DefaultVTKWriterManager&lt; GV &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages the default template parameter for the <code><a class="el" href="a01762.html" title="Manages writing results using VTK, based on assembler and data collector.">Vtk::Writer</a></code>  <a href="a01774.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00437"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00437.html">Dune</a></td></tr>
+<tr class="memitem:a00426"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00426.html">Ikarus</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00414"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html">Ikarus</a></td></tr>
+<tr class="memitem:a00440"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00440.html">Ikarus::Vtk</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6b54a4966e54b45e51358c7b7877a5b5"><td class="memTemplParams" colspan="2">template&lt;typename AS , class... Args&gt; <br />
+requires (<a class="el" href="a02106.html">Ikarus::Concepts::FlatAssembler</a>&lt;AS&gt;)</td></tr>
+<tr class="memitem:a6b54a4966e54b45e51358c7b7877a5b5"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00440.html#a6b54a4966e54b45e51358c7b7877a5b5">Ikarus::Vtk::Writer</a> (std::shared_ptr&lt; AS &gt;, Args...) -&gt; Writer&lt; AS, typename DefaultVTKWriterManager&lt; typename AS::GridView &gt;::DefaultDataCollector, typename DefaultVTKWriterManager&lt; typename AS::GridView &gt;::template DefaultVTKWriter&lt;&gt; &gt;</td></tr>
+<tr class="separator:a6b54a4966e54b45e51358c7b7877a5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a619faa9f2da801ac98217d31ddfa88a3"><td class="memTemplParams" colspan="2">template&lt;typename AS , typename DC , class... Args, Dune::Vtk::IsDataCollector&lt; std::decay_t&lt; DC &gt; &gt;  = true&gt; <br />
+requires (<a class="el" href="a02106.html">Ikarus::Concepts::FlatAssembler</a>&lt;AS&gt;)</td></tr>
+<tr class="memitem:a619faa9f2da801ac98217d31ddfa88a3"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00440.html#a619faa9f2da801ac98217d31ddfa88a3">Ikarus::Vtk::Writer</a> (std::shared_ptr&lt; AS &gt;, DC &amp;&amp;, Args...) -&gt; Writer&lt; AS, std::decay_t&lt; DC &gt;, typename DefaultVTKWriterManager&lt; typename AS::GridView &gt;::template DefaultVTKWriter&lt; std::decay_t&lt; DC &gt; &gt; &gt;</td></tr>
+<tr class="separator:a619faa9f2da801ac98217d31ddfa88a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -208,7 +223,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a03106.html">dirichletvalues.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_cd0257e5a0a5e21e0bd17a30fdd07a18.html">io</a></li><li class="navelem"><a class="el" href="a03106.html">vtkwriter.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /
