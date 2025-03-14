@@ -1,4 +1,6 @@
 var a00380 =
 [
-    [ "basis", "a00380.html#a0f9f04fa9d98e890cb6d4fe62ff889a4", null ]
+    [ "Ikarus::TrussPre", "a01712.html", "a01712" ],
+    [ "Ikarus::Truss< PreFE, FE >::KinematicVariables< ST >", "a01716.html", "a01716" ],
+    [ "truss", "a00380.html#a1936b02a190200901c54cc8b1004506e", null ]
 ];

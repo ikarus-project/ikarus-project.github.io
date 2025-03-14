@@ -1,5 +1,7 @@
 var a00320 =
 [
-    [ "Ikarus::GentMatParameters", "a01542.html", "a01542" ],
-    [ "Gent", "a00320.html#a8d05a34baf0684f0e4e2a10a721bb80d", null ]
+    [ "createDeformationGradient", "a00320.html#ga5293eb09f12e4a45a7aa19a3403a73d1", null ],
+    [ "createGreenLagrangianStrains", "a00320.html#gad5aa30fe829c7316a0a744b3438609f5", null ],
+    [ "createRightCauchyGreen", "a00320.html#gae53e0e7999f565fc94610d1c4ede0d16", null ],
+    [ "transformStrain", "a00320.html#gae9c00f19ce473d7183c87aa84b247f88", null ]
 ];

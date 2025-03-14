@@ -1,5 +1,5 @@
 var a03118 =
 [
-    [ "Ikarus::Concepts::DeviatoricFunction", "a02072.html", null ],
-    [ "Ikarus::Concepts::VolumetricFunction", "a02073.html", null ]
+    [ "Ikarus::Materials::CorrectStrainSize", "a02164.html", null ],
+    [ "hasCorrectSize", "a03118.html#acd3877457d719128ff83d44c6253ece8", null ]
 ];

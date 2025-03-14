@@ -1,4 +1,7 @@
 var a00323 =
 [
-    [ "BlatzKo", "a00323.html#a7c7d4e399e30b088b7253771704bd01b", null ]
+    [ "beamMaterial", "a00323.html#ab89e3a8a28d4e7241ab9dfd41fbbd153", null ],
+    [ "makeVanishingStress", "a00323.html#a3fc342156c1fa3be5bd78c8baffd0df7", null ],
+    [ "planeStress", "a00323.html#aa7b4cfc28796165e32b16cb12ab8ccd4", null ],
+    [ "shellMaterial", "a00323.html#a87bf89dc04e6f4021681129ae4e9a0ee", null ]
 ];

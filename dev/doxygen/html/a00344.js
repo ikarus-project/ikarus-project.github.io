@@ -1,5 +1,4 @@
 var a00344 =
 [
-    [ "Ikarus::EAS::H1E9< GEO >", "a01462.html", "a01462" ],
-    [ "Ikarus::EAS::H1E21< GEO >", "a01466.html", "a01466" ]
+    [ "InvariantBased", "a00344.html#a54eda7633e477c02ff71fa6e3f40a1ab", null ]
 ];

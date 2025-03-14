@@ -1,39 +1,47 @@
-\hypertarget{a00206_source}{}\doxysection{boundarypatch.\+hh}
-\label{a00206_source}\index{boundarypatch.hh@{boundarypatch.hh}}
+\hypertarget{a00206_source}{}\doxysection{genericlistener.\+hh}
+\label{a00206_source}\index{genericlistener.hh@{genericlistener.hh}}
 \mbox{\hyperlink{a00206}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{4 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{5 }
-\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <dune/common/bitsetvector.hh>}}
-\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <dune/python/pybind11/eigen.h>}}
-\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <dune/python/pybind11/functional.h>}}
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl.h>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <spdlog/spdlog.h>}}
 \DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00444}{Ikarus::Python}} \{}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{comment}{// Python wrapper for the BoundaryPatch C++ class}}
-\DoxyCodeLine{15 \textcolor{keyword}{template} <\textcolor{keyword}{class }BoundaryPatch, \textcolor{keyword}{class}... options>}
-\DoxyCodeLine{16 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00444_a331fd78be5a4155963abe5829282c8f1}{registerBoundaryPatch}}(pybind11::handle scope, pybind11::class\_<BoundaryPatch, options...> cls) \{}
-\DoxyCodeLine{17   \textcolor{keyword}{using }pybind11::operator\textcolor{stringliteral}{"{}"{}}\_a;}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{19   \textcolor{keyword}{using }GridView = \textcolor{keyword}{typename} BoundaryPatch::GridView;}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21   cls.def(\mbox{\hyperlink{a00426_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} GridView\& gv, Eigen::Ref<Eigen::VectorX<bool>> vec) \{}
-\DoxyCodeLine{22             Dune::BitSetVector<1> bitSetVector;}
-\DoxyCodeLine{23             bitSetVector.resize(vec.size());}
-\DoxyCodeLine{24             for (\textcolor{keywordtype}{size\_t} i = 0; i < vec.size(); ++i)}
-\DoxyCodeLine{25               bitSetVector[i] = vec[i];}
-\DoxyCodeLine{26             \textcolor{keywordflow}{return} \textcolor{keyword}{new} BoundaryPatch(gv, bitSetVector);}
-\DoxyCodeLine{27           \}),}
-\DoxyCodeLine{28           pybind11::keep\_alive<1, 2>(), pybind11::keep\_alive<1, 3>());}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30   cls.def(\textcolor{stringliteral}{"{}gridView"{}}, \&BoundaryPatch::gridView);}
-\DoxyCodeLine{31 \}}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33 \} \textcolor{comment}{// namespace Ikarus::Python}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00188}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00203}{ikarus/utils/listener/listener.hh}}>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00444}{Ikarus}} \{}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{23 \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
+\DoxyCodeLine{24 \textcolor{keyword}{class }\mbox{\hyperlink{a02080}{GenericListener}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02084}{Listener}}}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26   \textcolor{keyword}{using }Messages = M;}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{keyword}{public}:}
+\DoxyCodeLine{38   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
+\DoxyCodeLine{39   \mbox{\hyperlink{a02080_add78d125acf8d7c8545973b97dfeced4}{GenericListener}}(Messages message, F\&\& f)}
+\DoxyCodeLine{40       : message\_\{message\},}
+\DoxyCodeLine{41         f\_\{f\} \{\}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \textcolor{keyword}{template} <\textcolor{keyword}{typename} BC>}
+\DoxyCodeLine{44   \mbox{\hyperlink{a02080}{GenericListener}}\& \mbox{\hyperlink{a02080_a94e27d86511a5f8ea886301f370f878b}{subscribeTo}}(BC\& bc) \{}
+\DoxyCodeLine{45     this-\/>\mbox{\hyperlink{a02084_a754e8fbe950f23d4610009475e35ed98}{subscribe}}(bc, [\&](M message) \{ this-\/>\mbox{\hyperlink{a02080_a58a0a7529fe7f30b569d6473489bb082}{updateImpl}}(message); \});}
+\DoxyCodeLine{46     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{47   \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02080_a58a0a7529fe7f30b569d6473489bb082}{updateImpl}}(Messages message) \{}
+\DoxyCodeLine{50     \textcolor{keywordflow}{if} (message\_ == message) \{}
+\DoxyCodeLine{51       f\_(step\_);}
+\DoxyCodeLine{52       ++step\_;}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{keyword}{private}:}
+\DoxyCodeLine{57   Messages message\_;}
+\DoxyCodeLine{58   std::function<void(\textcolor{keywordtype}{int})> f\_;}
+\DoxyCodeLine{59   \textcolor{keywordtype}{int} step\_\{0\};}
+\DoxyCodeLine{60 \};}
+\DoxyCodeLine{61 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

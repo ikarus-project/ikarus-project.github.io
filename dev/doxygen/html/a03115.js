@@ -1,5 +1,6 @@
 var a03115 =
 [
-    [ "makeBasis", "a03115.html#aa8350697b25edf5034483b28fb0c3f76", null ],
-    [ "makeBasis", "a03115.html#a9acabb8291c86afe74e8617830e033de", null ]
+    [ "Ikarus::ScalarAssembler< SA, FEC, DV, ST >", "a01332.html", "a01332" ],
+    [ "Ikarus::VectorAssembler< VA, FEC, DV, VT >", "a01336.html", "a01336" ],
+    [ "Ikarus::MatrixAssembler< MA, FEC, DV, MT >", "a01340.html", "a01340" ]
 ];

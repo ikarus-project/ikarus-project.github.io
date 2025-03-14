@@ -1,5 +1,9 @@
 var a03136 =
 [
-    [ "vtkWriter", "a03136.html#a269b94c2da8015cfd6132454386af550", null ],
-    [ "DataCollector", "a03136.html#a5b953cf1a56a5acf930f200f28ad2fe6", null ]
+    [ "Ikarus::Vtk::Writer< AS, DC, Base >", "a01812.html", "a01812" ],
+    [ "Ikarus::Vtk::IsStructured< G >", "a01816.html", null ],
+    [ "Ikarus::Vtk::IsStructured< Dune::YaspGrid< dim, Coordinates > >", "a01820.html", null ],
+    [ "Ikarus::Vtk::DefaultVTKWriterManager< GV >", "a01824.html", "a01824" ],
+    [ "Writer", "a03136.html#a6b54a4966e54b45e51358c7b7877a5b5", null ],
+    [ "Writer", "a03136.html#a619faa9f2da801ac98217d31ddfa88a3", null ]
 ];

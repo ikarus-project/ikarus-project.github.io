@@ -1,5 +1,4 @@
 var a03142 =
 [
-    [ "boundaryPatch", "a03142.html#a7340cb604093dba2860368264f055a76", null ],
-    [ "globalIndexFromGlobalPosition", "a03142.html#adb191bde0042adbfd48bc16a3a661353", null ]
+    [ "registerBasisHandler", "a03142.html#ga2f6146bb687ad25cfb413fbcfd470788", null ]
 ];

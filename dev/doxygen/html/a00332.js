@@ -1,4 +1,5 @@
 var a00332 =
 [
-    [ "NoVolumetricPart", "a00332.html#af2ccffa80ee6f4471c03b826368f425d", null ]
+    [ "Ikarus::ArrudaBoyceMatParameters", "a01576.html", "a01576" ],
+    [ "ArrudaBoyce", "a00332.html#a70cada02f1f5f294f44c438fb1270982", null ]
 ];

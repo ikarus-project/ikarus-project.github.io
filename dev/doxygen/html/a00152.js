@@ -1,11 +1,6 @@
 var a00152 =
 [
-    [ "DataTag", "a00152.html#af59748ac04116ae85cd64ea8675d273b", [
-      [ "BEGIN", "a00152.html#af59748ac04116ae85cd64ea8675d273ba19aad9f2fe3ce0023298ab83f7e75775", null ],
-      [ "asCellData", "a00152.html#af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546", null ],
-      [ "asPointData", "a00152.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b", null ],
-      [ "asCellAndPointData", "a00152.html#af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926", null ],
-      [ "END", "a00152.html#af59748ac04116ae85cd64ea8675d273bab1a326c06d88bf042f73d70f50197905", null ]
-    ] ],
-    [ "toString", "a00152.html#af96368dfca1767b52605f507c5fea4d5", null ]
+    [ "makeResultFunction", "a00152.html#aba0432efad1cef6c956ccf108829682c", null ],
+    [ "makeResultFunction", "a00152.html#aa4430d7f94a172d765fba38d393450a0", null ],
+    [ "makeResultVtkFunction", "a00152.html#ad8472943b9877db27039331c847154f1", null ]
 ];

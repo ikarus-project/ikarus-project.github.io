@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['randompredictionstring_0',['randomPredictionString',['../a01854.html#a84be03aa6ebbd80ab2e6fac5a78aacd3',1,'Ikarus::AlgoInfo']]],
-  ['reasonstring_1',['reasonString',['../a01854.html#a8df37485a1fdbbce8d153a8fadd537bf',1,'Ikarus::AlgoInfo']]],
-  ['residualnorm_2',['residualNorm',['../a01838.html#ab09859737734f97734f20624f9f3c934',1,'Ikarus::NonLinearSolverInformation']]],
-  ['rho_3',['rho',['../a01858.html#a1111f89e925a512bd145b50a8f25c2be',1,'Ikarus::Stats']]],
-  ['rho_5fprime_4',['rho_prime',['../a01842.html#acf36d2743732832643df20a287a9ca91',1,'Ikarus::TRSettings']]],
-  ['rho_5freg_5',['rho_reg',['../a01842.html#a29358b818a3eabe94a0d75218225de0d',1,'Ikarus::TRSettings']]],
-  ['row_6',['row',['../a01630.html#aea06e613d6a158b8e197a5f79ef7f197',1,'Ikarus::Materials::MatrixIndexPair']]]
+  ['randompredictionstring_0',['randomPredictionString',['../a01928.html#a84be03aa6ebbd80ab2e6fac5a78aacd3',1,'Ikarus::AlgoInfo']]],
+  ['reasonstring_1',['reasonString',['../a01928.html#a8df37485a1fdbbce8d153a8fadd537bf',1,'Ikarus::AlgoInfo']]],
+  ['residualnorm_2',['residualNorm',['../a01912.html#ab09859737734f97734f20624f9f3c934',1,'Ikarus::NonLinearSolverInformation']]],
+  ['rho_3',['rho',['../a01932.html#a1111f89e925a512bd145b50a8f25c2be',1,'Ikarus::Stats']]],
+  ['rho_5fprime_4',['rho_prime',['../a01916.html#acf36d2743732832643df20a287a9ca91',1,'Ikarus::TRSettings']]],
+  ['rho_5freg_5',['rho_reg',['../a01916.html#a29358b818a3eabe94a0d75218225de0d',1,'Ikarus::TRSettings']]],
+  ['rnorm_6',['rNorm',['../a01892.html#af81ab1acd711a67863b3dc24eb9d9063',1,'Ikarus::NonlinearSolverState']]],
+  ['row_7',['row',['../a01680.html#aea06e613d6a158b8e197a5f79ef7f197',1,'Ikarus::Materials::MatrixIndexPair']]]
 ];
