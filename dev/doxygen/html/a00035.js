@@ -1,7 +1,5 @@
 var a00035 =
 [
-    [ "calcTransformationMatrix2D", "a00035.html#a7a5b9f5e83f6918ca1726fb4316c3b86", null ],
-    [ "calcTransformationMatrix3D", "a00035.html#a95234ab8588ced83708c6e5a30e2368e", null ],
     [ "dyadic", "a00035.html#gab2cea9ac847cc3635812467c9d96ceb4", null ],
     [ "dyadic", "a00035.html#ga9c5657c8eff4526802c2a67f15135bb8", null ],
     [ "fourthOrderIKJL", "a00035.html#ga8fa2b440586483c1ee0f9b90b9081da2", null ],
@@ -15,5 +13,7 @@ var a00035 =
     [ "tensorView", "a00035.html#ga5cfd9d098384fb067d897b3c0499b447", null ],
     [ "toVoigt", "a00035.html#ga130c456477155bd833fc6fd5b0223fd3", null ],
     [ "toVoigt", "a00035.html#ga8777400d7d11c49d46f3c6be2698722e", null ],
-    [ "toVoigt", "a00035.html#ga4304655095296ce9283e012587817a51", null ]
+    [ "toVoigt", "a00035.html#gaea992dee85d054f8dc1c99d3a7f4fe06", null ],
+    [ "transformationMatrix", "a00035.html#ae05c7db6d3b9b31f0f23f2d62ea52800", null ],
+    [ "transformationMatrix", "a00035.html#afa023fb4493357026f8406d1f0f0bf2d", null ]
 ];

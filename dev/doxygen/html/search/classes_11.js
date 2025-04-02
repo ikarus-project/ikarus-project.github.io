@@ -1,18 +1,18 @@
 var searchData=
 [
-  ['scalarassembler_0',['ScalarAssembler',['../a01332.html',1,'Ikarus']]],
-  ['scalarassembler_3c_20scalarflatassembler_3c_20fec_2c_20dv_20_3e_2c_20fec_2c_20dv_2c_20double_20_3e_1',['ScalarAssembler&lt; ScalarFlatAssembler&lt; FEC, DV &gt;, FEC, DV, double &gt;',['../a01332.html',1,'Ikarus']]],
-  ['scalarflatassembler_2',['ScalarFlatAssembler',['../a01344.html',1,'Ikarus']]],
-  ['scalarmanipulator_3',['ScalarManipulator',['../a01296.html',1,'Ikarus']]],
-  ['scalarwrapper_4',['ScalarWrapper',['../a01844.html',1,'']]],
-  ['skills_5',['Skills',['../a01736.html',1,'Ikarus']]],
-  ['skills_3c_20prefe_2c_20prefe_3a_3atemplate_20fe_3c_20skills_2e_2e_2e_20_3e_20_3e_6',['Skills&lt; PreFE, PreFE::template FE&lt; Skills... &gt; &gt;',['../a01736.html',1,'Ikarus']]],
-  ['solverdefault_7',['SolverDefault',['../a01988.html',1,'Ikarus::utils']]],
-  ['sparseflatassembler_8',['SparseFlatAssembler',['../a01352.html',1,'Ikarus']]],
-  ['sparsematrixbase_9',['SparseMatrixBase',['../a02096.html',1,'Eigen']]],
-  ['sparsematrixwrapper_10',['SparseMatrixWrapper',['../a01840.html',1,'Ikarus::Python']]],
-  ['stats_11',['Stats',['../a01932.html',1,'Ikarus']]],
-  ['stvenantkirchhofft_12',['StVenantKirchhoffT',['../a01684.html',1,'Ikarus::Materials']]],
-  ['stvenantkirchhofft_3c_20scalartype_20_3e_13',['StVenantKirchhoffT&lt; ScalarType &gt;',['../a01684.html',1,'Ikarus::Materials']]],
-  ['subsidiaryargs_14',['SubsidiaryArgs',['../a01412.html',1,'Ikarus']]]
+  ['tcginfo_0',['TCGInfo',['../a01866.html',1,'Eigen']]],
+  ['tcginfo_3c_20double_20_3e_1',['TCGInfo&lt; double &gt;',['../a01866.html',1,'Eigen']]],
+  ['tcginfo_3c_20typename_20m_3a_3arealscalar_20_3e_2',['TCGInfo&lt; typename M::RealScalar &gt;',['../a01866.html',1,'Eigen']]],
+  ['traction_3',['Traction',['../a01538.html',1,'Ikarus']]],
+  ['traits_3c_20truncatedconjugategradient_3c_20matrixtype_5f_2c_20uplo_2c_20preconditioner_5f_20_3e_20_3e_4',['traits&lt; TruncatedConjugateGradient&lt; MatrixType_, UpLo, Preconditioner_ &gt; &gt;',['../a01874.html',1,'Eigen::internal']]],
+  ['triaxiality_5',['Triaxiality',['../a01818.html',1,'Ikarus::ResultEvaluators']]],
+  ['trsettings_6',['TRSettings',['../a01954.html',1,'Ikarus']]],
+  ['truncatedconjugategradient_7',['TruncatedConjugateGradient',['../a01870.html',1,'Eigen']]],
+  ['truncatedconjugategradient_3c_20std_3a_3adecay_5ft_3c_20hessiantype_20_3e_2c_20eigen_3a_3alower_7ceigen_3a_3aupper_2c_20preconditionertype_20_3e_8',['TruncatedConjugateGradient&lt; std::decay_t&lt; HessianType &gt;, Eigen::Lower|Eigen::Upper, PreConditionerType &gt;',['../a01870.html',1,'Eigen']]],
+  ['truss_9',['Truss',['../a01746.html',1,'Ikarus']]],
+  ['trusspre_10',['TrussPre',['../a01750.html',1,'Ikarus']]],
+  ['trustregion_11',['TrustRegion',['../a01962.html',1,'Ikarus']]],
+  ['trustregionconfig_12',['TrustRegionConfig',['../a01958.html',1,'Ikarus']]],
+  ['trustregionsettings_13',['TrustRegionSettings',['../a02252.html',1,'']]],
+  ['tupletofunctiontype_14',['TupleToFunctionType',['../a02194.html',1,'Ikarus::traits']]]
 ];

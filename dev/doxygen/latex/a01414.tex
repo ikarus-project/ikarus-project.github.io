@@ -1,0 +1,158 @@
+\hypertarget{a01414}{}\doxysection{Ikarus\+::Path\+Following\texorpdfstring{$<$}{<} NLS, PF, ASS \texorpdfstring{$>$}{>} Class Template Reference}
+\label{a01414}\index{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}}
+
+
+The \mbox{\hyperlink{a01414}{Path\+Following}} control routine for path-\/following analysis.  
+
+
+
+
+{\ttfamily \#include $<$ikarus/controlroutines/pathfollowing.\+hh$>$}
+
+
+
+Inheritance diagram for Ikarus\+::Path\+Following\texorpdfstring{$<$}{<} NLS, PF, ASS \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01413}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{a01382_a44e1213982ed14a09fdd94318fb31595}{State}} = \mbox{\hyperlink{a00453_a55422e7318ffa2a289aee49663f1e2e1}{Path\+Following\+State\+Type}}$<$ NLS\+::\+Differentiable\+Function $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr auto \mbox{\hyperlink{a01414_a31b9c556cef2540c66676589b230ef5d}{name}} () const
+\begin{DoxyCompactList}\small\item\em The name of the \mbox{\hyperlink{a01414}{Path\+Following}} method. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{a01414_af73474b0eccdddd65e046ebe813566f9}{Path\+Following}} (const std\+::shared\+\_\+ptr$<$ NLS $>$ \&nls, int steps, double step\+Size, PF path\+Following\+Type=\mbox{\hyperlink{a01426}{Arc\+Length}}\{\}, ASS adaptive\+Step\+Sizing=\{\})
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{a01414}{Path\+Following}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{a01378}{Control\+Information}} \mbox{\hyperlink{a01414_a54f969372e829774fbad347b8436a49c}{run}} (typename NLS\+::\+Domain \&d)
+\begin{DoxyCompactList}\small\item\em Executes the \mbox{\hyperlink{a01414}{Path\+Following}} routine. \end{DoxyCompactList}\item 
+NLS \& \mbox{\hyperlink{a01414_a6c40405d18d6dfab95c80b9871905331}{non\+Linear\+Solver}} ()
+\item 
+\mbox{\hyperlink{a01986}{Broadcaster}}$<$ M $>$ \& \mbox{\hyperlink{a01994_abc95263ead8ea6d71c2b017a1ea250be}{station}} ()
+\item 
+const \mbox{\hyperlink{a01986}{Broadcaster}}$<$ M $>$ \& \mbox{\hyperlink{a01994_af25ec90e8c2c7df3d7b033e6e6a06dc1}{station}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename NLS, typename PF = Arc\+Length, typename ASS = Adaptive\+Step\+Sizing\+::\+No\+Op$>$\newline
+requires (Impl\+::check\+Path\+Following\+Templates$<$NLS, PF, ASS$>$())\newline
+class Ikarus\+::\+Path\+Following$<$ NLS, PF, ASS $>$}
+This class represents the \mbox{\hyperlink{a01414}{Path\+Following}} control routine, which utilizes a nonlinear solver, such as Newton\textquotesingle{}s method with scalar subsidiary function, which has to be fulfilled for solving the system along a predefined path.
+
+Consider a non-\/linear system of equations \[\mathbf{R}: \require{cases}\begin{cases}\mathbb{R}^n \times \mathbb{R} &\rightarrow \mathbb{R}^n
+\\ (\mathbf{D},\lambda)
+&\mapsto \mathbf{R}(\mathbf{D},\lambda) \end{cases}.\]
+
+Then in each step $k+1$ of the path following algorithm, the following problem is solved \[ \begin{align}
+\mathbf{R}(\mathbf{D}_k+ \mathrm{D}\mathbf{D}, \lambda_k+ \mathrm{D} \lambda) &= \mathbf{0} \\
+f(\mathrm{D}\mathbf{D}, \mathrm{D} \lambda) &= 0 \end{align} \]
+
+where $\mathrm{D}\mathbf{D}$ is the increment of the solution vector and $\mathrm{D} \lambda$ is the load factor increment. The subsidiary function $f$ is provided by the user and needs to fulfill the concept Concepts\+::\+Path\+Following\+Strategy. This subsidiary function makes the given problem well-\/posed.
+
+Currently the following subsidiary functions are implemented \mbox{\hyperlink{a01430}{Load\+Control\+Subsidiary\+Function}}, \mbox{\hyperlink{a01426}{Arc\+Length}} and \mbox{\hyperlink{a01434}{Displacement\+Control}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em NLS} & Type of the nonlinear solver used in the control routine. \\
+\hline
+{\em PF} & Type of the path-\/following strategy. \\
+\hline
+{\em ASS} & Type of the adaptive step sizing strategy. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{a01382_a44e1213982ed14a09fdd94318fb31595}\label{a01382_a44e1213982ed14a09fdd94318fb31595}} 
+\index{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}!State@{State}}
+\index{State@{State}!Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}}
+\doxysubsubsection{\texorpdfstring{State}{State}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{a01382}{Ikarus\+::\+Control\+Routine\+Base}}$<$ NLS\+::\+Differentiable\+Function , \mbox{\hyperlink{a00453_a55422e7318ffa2a289aee49663f1e2e1}{Path\+Following\+State\+Type}}$<$ NLS\+::\+Differentiable\+Function $>$ , Args $>$\+::\+State =  \mbox{\hyperlink{a00453_a55422e7318ffa2a289aee49663f1e2e1}{Path\+Following\+State\+Type}}$<$ NLS\+::\+Differentiable\+Function $>$\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{a01414_af73474b0eccdddd65e046ebe813566f9}\label{a01414_af73474b0eccdddd65e046ebe813566f9}} 
+\index{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}!PathFollowing@{PathFollowing}}
+\index{PathFollowing@{PathFollowing}!Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}}
+\doxysubsubsection{\texorpdfstring{PathFollowing()}{PathFollowing()}}
+{\footnotesize\ttfamily template$<$typename NLS , typename PF  = Arc\+Length, typename ASS  = Adaptive\+Step\+Sizing\+::\+No\+Op$>$ \\
+\mbox{\hyperlink{a01414}{Ikarus\+::\+Path\+Following}}$<$ NLS, PF, ASS $>$\+::\+Path\+Following (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ NLS $>$ \&}]{nls,  }\item[{int}]{steps,  }\item[{double}]{step\+Size,  }\item[{PF}]{path\+Following\+Type = {\ttfamily \mbox{\hyperlink{a01426}{Arc\+Length}}\{\}},  }\item[{ASS}]{adaptive\+Step\+Sizing = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em nls} & The non linear solver. \\
+\hline
+{\em steps} & Number of steps in the control routine. \\
+\hline
+{\em step\+Size} & Size of each step. \\
+\hline
+{\em path\+Following\+Type} & Type of the path-\/following function. \\
+\hline
+{\em adaptive\+Step\+Sizing} & Type of the adaptive step sizing strategy. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{a01414_a31b9c556cef2540c66676589b230ef5d}\label{a01414_a31b9c556cef2540c66676589b230ef5d}} 
+\index{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}!name@{name}}
+\index{name@{name}!Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily template$<$typename NLS , typename PF  = Arc\+Length, typename ASS  = Adaptive\+Step\+Sizing\+::\+No\+Op$>$ \\
+constexpr auto \mbox{\hyperlink{a01414}{Ikarus\+::\+Path\+Following}}$<$ NLS, PF, ASS $>$\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{a01414_a6c40405d18d6dfab95c80b9871905331}\label{a01414_a6c40405d18d6dfab95c80b9871905331}} 
+\index{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}!nonLinearSolver@{nonLinearSolver}}
+\index{nonLinearSolver@{nonLinearSolver}!Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}}
+\doxysubsubsection{\texorpdfstring{nonLinearSolver()}{nonLinearSolver()}}
+{\footnotesize\ttfamily template$<$typename NLS , typename PF  = Arc\+Length, typename ASS  = Adaptive\+Step\+Sizing\+::\+No\+Op$>$ \\
+NLS \& \mbox{\hyperlink{a01414}{Ikarus\+::\+Path\+Following}}$<$ NLS, PF, ASS $>$\+::non\+Linear\+Solver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{a01414_a54f969372e829774fbad347b8436a49c}\label{a01414_a54f969372e829774fbad347b8436a49c}} 
+\index{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}!run@{run}}
+\index{run@{run}!Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily template$<$typename NLS , typename PF , typename ASS $>$ \newline
+requires (Impl\+::check\+Path\+Following\+Templates$<$NLS, PF, ASS$>$())\\
+\mbox{\hyperlink{a01378}{Control\+Information}} \mbox{\hyperlink{a01414}{Ikarus\+::\+Path\+Following}}$<$ NLS, PF, ASS $>$\+::run (\begin{DoxyParamCaption}\item[{typename NLS\+::\+Domain \&}]{d }\end{DoxyParamCaption})}
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parameters}
+{\em d} & The solution. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{a01378}{Control\+Information}} structure containing information about the control results. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}Initializing solver
+
+Calculate predictor for a particular step\mbox{\Hypertarget{a01994_abc95263ead8ea6d71c2b017a1ea250be}\label{a01994_abc95263ead8ea6d71c2b017a1ea250be}} 
+\index{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}!station@{station}}
+\index{station@{station}!Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}}
+\doxysubsubsection{\texorpdfstring{station()}{station()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{a01986}{Broadcaster}}$<$ M $>$ \& \mbox{\hyperlink{a01994}{Ikarus\+::\+Broadcasters}}$<$ Signatures $>$\+::station (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+\mbox{\Hypertarget{a01994_af25ec90e8c2c7df3d7b033e6e6a06dc1}\label{a01994_af25ec90e8c2c7df3d7b033e6e6a06dc1}} 
+\index{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}!station@{station}}
+\index{station@{station}!Ikarus::PathFollowing$<$ NLS, PF, ASS $>$@{Ikarus::PathFollowing$<$ NLS, PF, ASS $>$}}
+\doxysubsubsection{\texorpdfstring{station()}{station()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{a01986}{Broadcaster}}$<$ M $>$ \& \mbox{\hyperlink{a01994}{Ikarus\+::\+Broadcasters}}$<$ Signatures $>$\+::station (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{a00236}{pathfollowing.\+hh}}\item 
+\mbox{\hyperlink{a00233}{pathfollowing.\+inl}}\end{DoxyCompactItemize}

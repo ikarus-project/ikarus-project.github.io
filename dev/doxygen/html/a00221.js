@@ -1,4 +1,4 @@
 var a00221 =
 [
-    [ "ScalarWrapper< T >", "a01844.html", "a01844" ]
+    [ "ScalarWrapper< T >", "a01882.html", "a01882" ]
 ];

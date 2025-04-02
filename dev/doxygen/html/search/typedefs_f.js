@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['rawscalartype_0',['RawScalarType',['../a01844.html#af539d8935624e801016ecdd02852e493',1,'ScalarWrapper']]],
-  ['realfe_1',['RealFE',['../a01432.html#ac6509944238101aef666b1614df1d443',1,'Ikarus::AutoDiffFE']]],
-  ['realscalar_2',['RealScalar',['../a01832.html#a2dd6b779327fad07144e6a121b12afbf',1,'Eigen::TruncatedConjugateGradient']]],
-  ['remove_5fpointer_5ft_3',['remove_pointer_t',['../a00467.html#a472256748675b3006507836bd8034a0e',1,'Ikarus::traits']]],
-  ['replacetypeatpos_5ft_4',['ReplaceTypeAtPos_t',['../a00467.html#ac903f76dfaaaf40abfe1c532850db3d1',1,'Ikarus::traits']]],
-  ['requirement_5',['Requirement',['../a01432.html#afa810836d72e1475c93b3b5a7122b540',1,'Ikarus::AutoDiffFE::Requirement()'],['../a01528.html#a34173b71113f99846533ab1a7fcf2cf6',1,'Ikarus::EnhancedAssumedStrains::Requirement()'],['../a01536.html#a0c1310ddbd8d3c0d62a6dca6a0680e8a',1,'Ikarus::KirchhoffLoveShell::Requirement()'],['../a01552.html#a06ac444c016db77486ee8a01b57539c4',1,'Ikarus::LinearElastic::Requirement()'],['../a01560.html#ab7c05e9a18ed24726b206e446ec379b8',1,'Ikarus::Traction::Requirement()'],['../a01568.html#aa34ed94dee0db00098059249df472cbf',1,'Ikarus::VolumeLoad::Requirement()'],['../a01700.html#a6302108caed08123cb8e56109ae95383',1,'Ikarus::NonLinearElastic::Requirement()'],['../a01708.html#a22bc8018c889e0cdadf3617ed155bfb6',1,'Ikarus::Truss::Requirement()'],['../a01720.html#a86c0fea1b37e487f3c78cde6facca9c3',1,'Ikarus::FEMixin::Requirement()']]],
-  ['resulttype_6',['ResultType',['../a01476.html#aef0efc55342d144366f8eddbc6fe00f9',1,'Ikarus::ResultWrapper']]],
-  ['returntype_7',['ReturnType',['../a00442.html#ga0ba1bf25ee478b1b1d9e96c1dcd831a0',1,'Ikarus::traits']]]
+  ['parameterspacetype_0',['ParameterSpaceType',['../a01502.html#ac221dbf16d284b783228c103773a6939',1,'Ikarus::FETraits']]],
+  ['parametertype_1',['ParameterType',['../a01466.html#a50a1c42fc0b05811dfc370217fb70169',1,'Ikarus::FERequirements']]],
+  ['pathfollowingstatetype_2',['PathFollowingStateType',['../a00453.html#a55422e7318ffa2a289aee49663f1e2e1',1,'Ikarus']]],
+  ['pf_3',['PF',['../a01418.html#ae8815581a5879dbd1fc9722590d4cdd3',1,'Ikarus::PathFollowingConfig']]],
+  ['pre_4',['Pre',['../a01514.html#a3d32e2197b3cd057366f0adab8c6c86b',1,'Ikarus::KirchhoffLoveShell::Pre()'],['../a01746.html#ab3db78c617c0abe71269a2dfc156ea6e',1,'Ikarus::Truss::Pre()'],['../a01678.html#a91becdb2e38a2e60e5b89ed140326d07',1,'Ikarus::NonLinearElastic::Pre()'],['../a01546.html#ae433e4b77b746f7f7f180e60c43d0259',1,'Ikarus::VolumeLoad::Pre()'],['../a01538.html#a4fcf46b07d3fe447b43fa34052a79361',1,'Ikarus::Traction::Pre()'],['../a01530.html#a64d99adcfa78a98cff5be3c097c1aa12',1,'Ikarus::LinearElastic::Pre()'],['../a01506.html#af4845e8b7f4ffc816d16c62ae492835a',1,'Ikarus::EnhancedAssumedStrains::Pre()']]],
+  ['prebasis_5',['PreBasis',['../a01982.html#af1f06693a1efdf8ecdc58d9d52493a28',1,'Ikarus::BasisHandler']]],
+  ['preconditioner_6',['Preconditioner',['../a01874.html#a6854c22e7816c75ad6495977616aab71',1,'Eigen::internal::traits&lt; TruncatedConjugateGradient&lt; MatrixType_, UpLo, Preconditioner_ &gt; &gt;::Preconditioner()'],['../a01870.html#a636d30963f7a7261054092337269076b',1,'Eigen::TruncatedConjugateGradient::Preconditioner()']]],
+  ['pretuple_7',['PreTuple',['../a01446.html#a327f5479545f9b5d615c07ce535b0007',1,'Ikarus::FE']]],
+  ['principalstretches_8',['PrincipalStretches',['../a01558.html#a1285d903578f2a42247ece4214977a53',1,'Ikarus::Materials::ArrudaBoyceT::PrincipalStretches()'],['../a01562.html#aa1eccfb50a495e833dae09932a25abc2',1,'Ikarus::Materials::BlatzKoT::PrincipalStretches()'],['../a01566.html#a594b1e1baa67392c9a6ed38d0cec9656',1,'Ikarus::Materials::DeviatoricInvariants::PrincipalStretches()'],['../a01574.html#af3f9b5e36aca41ecfa7e05517e10ee50',1,'Ikarus::Materials::GentT::PrincipalStretches()'],['../a01578.html#ab8aa2db12ce7d3afc4747f79c79e9faa',1,'Ikarus::Materials::Deviatoric::PrincipalStretches()'],['../a01582.html#a24bdf403b337bf93cd310a915aba9aa8',1,'Ikarus::Materials::InvariantBasedT::PrincipalStretches()'],['../a01586.html#a2ad1ff72f65e6d792878a06d4dc2bf30',1,'Ikarus::Materials::OgdenT::PrincipalStretches()']]]
 ];

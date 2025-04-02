@@ -1,49 +1,28 @@
 var a00471 =
 [
-    [ "assembler", "a00472.html", [
-      [ "assemblerManipulator", "a00472.html#a497903bfd537eabfe9651a30a18428e6", null ],
-      [ "denseFlatAssembler", "a00472.html#a399ac3379f23173543d4fee0cd87573d", null ],
-      [ "sparseFlatAssembler", "a00472.html#a0631eaaf96eefe3765279943c9c003e4", null ]
-    ] ],
-    [ "basis", "a00473.html", [
-      [ "basis", "a00473.html#a0f9f04fa9d98e890cb6d4fe62ff889a4", null ]
-    ] ],
-    [ "dirichlet_values", "a00474.html", [
-      [ "dirichletValues", "a00474.html#a453691a9a22118c4736e30240481a281", null ]
-    ] ],
-    [ "finite_elements", "a00475.html", [
-      [ "eas", "a00475.html#a9b84873b14dcca77459bfeae3c808fb6", null ],
-      [ "kirchhoffLoveShell", "a00475.html#ae49d79d1210e031e9a6d4c0f534678ed", null ],
-      [ "linearElastic", "a00475.html#a6ad42bf2bf54ce22c621416e0f9a76e3", null ],
-      [ "makeFE", "a00475.html#a3a1060627c31d98766d2fbe24f1897fc", null ],
-      [ "neumannBoundaryLoad", "a00475.html#a07118f7df1c877f8ee73cf56f9e1e627", null ],
-      [ "nonLinearElastic", "a00475.html#a5d5a2d652f842c3d179bd1ec9bf5a123", null ],
-      [ "registerPreElement", "a00475.html#a1d8c10a2e7cb015749a1707172477715", null ],
-      [ "truss", "a00475.html#aa6cf67e1d178d21512278829cc870dd2", null ],
-      [ "volumeLoad", "a00475.html#aebef990fed6a3c9ee196babef4d809ab", null ],
-      [ "volumeLoad1D", "a00475.html#aba3cad6b82a8a02e7d85304cf170bb41", null ],
-      [ "volumeLoad2D", "a00475.html#ac843f3dd666115e6f215a803348dc3b6", null ],
-      [ "volumeLoad3D", "a00475.html#a068cdc2f61f198a0a57e0a4afe14fb6f", null ]
-    ] ],
-    [ "generator", "a00476.html", [
-      [ "decoratePre", "a00476.html#aed4c65416b98831e883ce413eb6e5419", null ],
-      [ "myAttributes", "a00476.html#aebb527e5c0c73be25ff173e2e456ed5d", null ],
-      [ "MySimpleGenerator", "a00476.html#a932fc5dd441c8a8a16bb175cae03f96c", null ]
-    ] ],
-    [ "io", "a00477.html", [
-      [ "vtkWriter", "a00477.html#a269b94c2da8015cfd6132454386af550", null ],
-      [ "DataCollector", "a00477.html#a5b953cf1a56a5acf930f200f28ad2fe6", null ]
-    ] ],
-    [ "materials", "a00478.html", [
-      [ "muesliMaterial", "a00478.html#a1fe2fab6dc71f8677cc433c58124f28e", null ],
-      [ "MuesliFiniteStrain", "a00478.html#a3c6d24dfa7f08fcc6a7907492346f9bf", null ],
-      [ "MuesliSmallStrain", "a00478.html#a060000b17f724fd72ae8e3b0fe6a779a", null ]
-    ] ],
-    [ "utils", "a00479.html", [
-      [ "boundaryPatch", "a00479.html#a7340cb604093dba2860368264f055a76", null ],
-      [ "globalIndexFromGlobalPosition", "a00479.html#adb191bde0042adbfd48bc16a3a661353", null ]
-    ] ],
-    [ "ValueWrapper", "a00471.html#adae188e7353a8e6fcaf3c178c96d6416", null ],
-    [ "moduleName", "a00471.html#accab2501ce940db483da0b3ebe2cf723", null ],
-    [ "modulePath", "a00471.html#a9ebab9199168d32a8ab347a990044552", null ]
+    [ "SparseMatrixWrapper", "a01878.html", "a01878" ],
+    [ "forwardCorrectFunction", "a00471.html#a7f83fd37212b1411d1dbae8f7064882c", null ],
+    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00471.html#ac81cd08ca4f7222df18c123d422c932d", null ],
+    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00471.html#a85c1412e5300ac194ff82ebd146c6229", null ],
+    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00471.html#aab3a7ce35fb7a2f4a8a9e4d6a92e1f31", null ],
+    [ "registerAssemblerManipulator", "a00471.html#aad35f78683b64303a28d3b8b4f83aa37", null ],
+    [ "registerBasisHandler", "a00445.html#ga2f6146bb687ad25cfb413fbcfd470788", null ],
+    [ "registerBoundaryPatch", "a00471.html#a331fd78be5a4155963abe5829282c8f1", null ],
+    [ "registerCalculateAt", "a00471.html#a0c58c17676c73945cb11eff8a80309ae", null ],
+    [ "registerDenseFlatAssembler", "a00471.html#a2b0faffde20690631657489c79ec809b", null ],
+    [ "registerDirichletValues", "a00445.html#ga39b6df6adfe4858b13ac71f5830f29f6", null ],
+    [ "registerEnhancedAssumedStrainsPre", "a00471.html#a79dfab8379c15a5c5da0d3e5a415f0a3", null ],
+    [ "registerFE", "a00445.html#gac8bb4a818dee7342efbc5e174e35b840", null ],
+    [ "registerFERequirement", "a00471.html#a32c3989a8ef1dbc581313ef17a0c6f5b", null ],
+    [ "registerFlatAssembler", "a00445.html#ga87d3c6e620be5df59ba6923751caae86", null ],
+    [ "registerKirchhoffLoveShellPre", "a00471.html#a0ef1ab14030985bd8af2551f51ceeeb6", null ],
+    [ "registerLinearElasticPre", "a00471.html#a04d0c82e615a65a1ba027cb77bbf784d", null ],
+    [ "registerMaterial", "a00471.html#a5038c66085a51f4147ef04e880f926dd", null ],
+    [ "registerNeumannBoundaryLoadPre", "a00471.html#a813121e686b5d64d6ef1e11bd4bfc59b", null ],
+    [ "registerNonLinearElasticPre", "a00471.html#ab45b29a3ca18f1c8bf87263c60d14711", null ],
+    [ "registerSparseFlatAssembler", "a00471.html#aeab1c5f959a22f95b40b0a7576f9c896", null ],
+    [ "registerSparseMatrixWrapper", "a00471.html#a09b4a81e2d6d0619406854f6dc3fc8f7", null ],
+    [ "registerTrussPre", "a00471.html#a5004d72f594d4ceecaebb33ee71f80cf", null ],
+    [ "registerVolumeLoadPre", "a00471.html#a1f597ae7aac82dc24a8a2669f86fc12b", null ],
+    [ "registerVtkWriter", "a00445.html#ga9f62f91fc33b1f9e17756c2ac7b30077", null ]
 ];

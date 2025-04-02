@@ -1,26 +1,44 @@
-\hypertarget{a02200}{}\doxysection{Ikarus\+::Concepts\+::Matrix\+Flat\+Assembler Concept Reference}
-\label{a02200}\index{Ikarus::Concepts::MatrixFlatAssembler@{Ikarus::Concepts::MatrixFlatAssembler}}
+\hypertarget{a02200}{}\doxysection{Ikarus\+::Concepts\+::Deviatoric\+Function Concept Reference}
+\label{a02200}\index{Ikarus::Concepts::DeviatoricFunction@{Ikarus::Concepts::DeviatoricFunction}}
 
 
-Concept representing the requirements for a Matrix\+Flat\+Assembler.
-
-A type T satisfies Matrix\+Flat\+Assembler if it is a Vector\+Flat\+Assembler and if it provides the necessary matrix() member functions.  
+Concept to check if the underlying function is a deviatoric function.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02200}{Ikarus::Concepts::MatrixFlatAssembler}} =  \mbox{\hyperlink{a02199}{Concepts::VectorFlatAssembler<T>}} and}
-\DoxyCodeLine{                                \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
-\DoxyCodeLine{                                         \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00444_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
-\DoxyCodeLine{                                  \{ t.matrix(req, affordance.matrixAffordance(), dbcOption) \};}
-\DoxyCodeLine{                                  \{ t.matrix(dbcOption) \};}
-\DoxyCodeLine{                                  \{ t.matrix() \};}
-\DoxyCodeLine{                                \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} DF>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02200}{Ikarus::Concepts::DeviatoricFunction}} =  \textcolor{keyword}{requires}(DF dm, \textcolor{keyword}{const} \textcolor{keyword}{typename} DF::template PrincipalStretches<>\& lambda) \{}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::ScalarType;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template PrincipalStretches<>;}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template FirstDerivative<>;}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template SecondDerivative<>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::MaterialParameters;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{requires} \mbox{\hyperlink{a02229}{Concepts::EigenVector<typename DF::template FirstDerivative<>}}>;}
+\DoxyCodeLine{  \textcolor{keyword}{requires} \mbox{\hyperlink{a02230}{Concepts::EigenMatrix<typename DF::template SecondDerivative<>}}>;}
+\DoxyCodeLine{  \textcolor{keyword}{requires} std::is\_same\_v<typename DF::template PrincipalStretches<>, \textcolor{keyword}{typename} DF::template FirstDerivative<>>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \{ dm.storedEnergyImpl(lambda) \} -\/> std::same\_as<typename DF::ScalarType>;}
+\DoxyCodeLine{  \{ dm.firstDerivativeImpl(lambda) \} -\/> std::same\_as<typename DF::template FirstDerivative<>>;}
+\DoxyCodeLine{  \{ dm.secondDerivativeImpl(lambda) \} -\/> std::same\_as<typename DF::template SecondDerivative<>>;}
+\DoxyCodeLine{  \{ dm.materialParametersImpl() \} -\/> std::same\_as<typename DF::MaterialParameters>;}
+\DoxyCodeLine{  \{ dm.name() \} -\/> std::convertible\_to<std::string>;}
+\DoxyCodeLine{\}}
 
 \end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & of the deviatoric function. \\
+\hline
+\end{DoxyTemplParams}

@@ -1,5 +1,6 @@
 var a00374 =
 [
-    [ "Ikarus::LinearElasticPre< MAT >", "a01556.html", "a01556" ],
-    [ "linearElastic", "a00374.html#af9e2c0087fa5819ca15d064776034a6f", null ]
+    [ "Ikarus::TrussPre", "a01750.html", "a01750" ],
+    [ "Ikarus::Truss< PreFE, FE >::KinematicVariables< ST >", "a01754.html", "a01754" ],
+    [ "truss", "a00374.html#a1936b02a190200901c54cc8b1004506e", null ]
 ];

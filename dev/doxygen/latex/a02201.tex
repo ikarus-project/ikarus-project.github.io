@@ -1,19 +1,31 @@
-\hypertarget{a02201}{}\doxysection{Ikarus\+::Concepts\+::Data\+Collector Concept Reference}
-\label{a02201}\index{Ikarus::Concepts::DataCollector@{Ikarus::Concepts::DataCollector}}
+\hypertarget{a02201}{}\doxysection{Ikarus\+::Concepts\+::Volumetric\+Function Concept Reference}
+\label{a02201}\index{Ikarus::Concepts::VolumetricFunction@{Ikarus::Concepts::VolumetricFunction}}
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+Concept to check if the underlying function is a volumetric function.  
+
+
+
+
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{class} DC>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02201}{Ikarus::Concepts::DataCollector}} =  \textcolor{keyword}{requires}(DC dc) \{}
-\DoxyCodeLine{    \textcolor{keyword}{typename} DC::GridView;}
-\DoxyCodeLine{    \{ dc.update() \} -\/> std::same\_as<void>;}
-\DoxyCodeLine{    \{ dc.numPoints() \} -\/> std::convertible\_to<std::uint64\_t>;}
-\DoxyCodeLine{    \{ dc.numCells() \} -\/> std::convertible\_to<std::uint64\_t>;}
-\DoxyCodeLine{    \{ dc.gridView() \} -\/> std::same\_as<const typename DC::GridView\&>;}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} VF>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02201}{Ikarus::Concepts::VolumetricFunction}} =  \textcolor{keyword}{requires}(VF vf, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& j) \{}
+\DoxyCodeLine{  \{ vf.storedEnergyImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.firstDerivativeImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.secondDerivativeImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.name() \} -\/> std::convertible\_to<std::string>;}
+\DoxyCodeLine{\}}
 
 \end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Type} & of the volumetric function. \\
+\hline
+\end{DoxyTemplParams}

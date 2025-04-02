@@ -1,27 +1,17 @@
 var a00467 =
 [
-    [ "ChangeArgTypeAtPos", "a02160.html", null ],
-    [ "FunctionTraits", "a02148.html", null ],
-    [ "hasType", "a02104.html", null ],
-    [ "Index", "a02140.html", null ],
-    [ "is_tuple< std::tuple< T... > >", "a02100.html", null ],
-    [ "isSharedPtr", "a02108.html", null ],
-    [ "isSpecialization< U, U< T... > >", "a02120.html", null ],
-    [ "isSpecializationNonTypeAndTypes< Type, Type< T, N... > >", "a02124.html", null ],
-    [ "isSpecializationNonTypeNonTypeAndTypes< Type, Type< T, R, N... > >", "a02128.html", null ],
-    [ "isSpecializationNonTypes< Type, Type< N... > >", "a02136.html", null ],
-    [ "isSpecializationTypeNonTypeAndType< Type, Type< T, M, N > >", "a02132.html", null ],
-    [ "isUniquePtr", "a02112.html", null ],
-    [ "Rebind", "a02144.html", null ],
-    [ "remove_pointer", "a02116.html", "a02116" ],
-    [ "ReplaceTypeAtPos", "a02152.html", null ],
-    [ "TupleToFunctionType", "a02156.html", null ],
-    [ "Pointer", "a02207.html", null ],
-    [ "EigenSparseMatrix", "a02208.html", null ],
-    [ "MaybeDereferencedType", "a00467.html#ac043159fa5129b78437c4cc7616ce706", null ],
-    [ "remove_pointer_t", "a00467.html#a472256748675b3006507836bd8034a0e", null ],
-    [ "ReplaceTypeAtPos_t", "a00467.html#ac903f76dfaaaf40abfe1c532850db3d1", null ],
-    [ "ReturnType", "a00442.html#ga0ba1bf25ee478b1b1d9e96c1dcd831a0", null ],
-    [ "TupleToFunctionType_t", "a00467.html#a6b604914727df9d1b05be9a64c56898c", null ],
-    [ "countType", "a00442.html#ga45ac3fa7e384aa760181de7a1377dc14", null ]
+    [ "DefaultVTKWriterManager", "a01862.html", "a01862" ],
+    [ "IsStructured", "a01854.html", null ],
+    [ "IsStructured< Dune::YaspGrid< dim, Coordinates > >", "a01858.html", null ],
+    [ "Writer", "a01850.html", "a01850" ],
+    [ "DataTag", "a00467.html#af59748ac04116ae85cd64ea8675d273b", [
+      [ "BEGIN", "a00467.html#af59748ac04116ae85cd64ea8675d273ba19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "asCellData", "a00467.html#af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546", null ],
+      [ "asPointData", "a00467.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b", null ],
+      [ "asCellAndPointData", "a00467.html#af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926", null ],
+      [ "END", "a00467.html#af59748ac04116ae85cd64ea8675d273bab1a326c06d88bf042f73d70f50197905", null ]
+    ] ],
+    [ "toString", "a00467.html#af96368dfca1767b52605f507c5fea4d5", null ],
+    [ "Writer", "a00467.html#a6b54a4966e54b45e51358c7b7877a5b5", null ],
+    [ "Writer", "a00467.html#a619faa9f2da801ac98217d31ddfa88a3", null ]
 ];
