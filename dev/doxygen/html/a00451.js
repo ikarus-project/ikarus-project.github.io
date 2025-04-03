@@ -1,17 +1,8 @@
 var a00451 =
 [
-    [ "Ikarus::traits::Pointer", "a02247.html", null ],
-    [ "Ikarus::traits::is_tuple< std::tuple< T... > >", "a02138.html", null ],
-    [ "Ikarus::traits::hasType< T, Tuple >", "a02142.html", null ],
-    [ "Ikarus::traits::isSharedPtr< T >", "a02146.html", null ],
-    [ "Ikarus::traits::isUniquePtr< T >", "a02150.html", null ],
-    [ "Ikarus::traits::isSpecialization< U, U< T... > >", "a02158.html", null ],
-    [ "Ikarus::traits::isSpecializationNonTypeAndTypes< Type, Type< T, N... > >", "a02162.html", null ],
-    [ "Ikarus::traits::isSpecializationNonTypeNonTypeAndTypes< Type, Type< T, R, N... > >", "a02166.html", null ],
-    [ "Ikarus::traits::isSpecializationTypeNonTypeAndType< Type, Type< T, M, N > >", "a02170.html", null ],
-    [ "Ikarus::traits::isSpecializationNonTypes< Type, Type< N... > >", "a02174.html", null ],
-    [ "Ikarus::traits::Index< T, Tuple >", "a02178.html", null ],
-    [ "Ikarus::traits::FunctionTraits< T, typename >", "a02186.html", null ],
-    [ "Ikarus::traits::ReturnType", "a00451.html#ga0ba1bf25ee478b1b1d9e96c1dcd831a0", null ],
-    [ "Ikarus::traits::countType", "a00451.html#ga45ac3fa7e384aa760181de7a1377dc14", null ]
+    [ "Ikarus::Python::registerBasisHandler", "a00451.html#ga2f6146bb687ad25cfb413fbcfd470788", null ],
+    [ "Ikarus::Python::registerDirichletValues", "a00451.html#ga39b6df6adfe4858b13ac71f5830f29f6", null ],
+    [ "Ikarus::Python::registerFE", "a00451.html#gac8bb4a818dee7342efbc5e174e35b840", null ],
+    [ "Ikarus::Python::registerFlatAssembler", "a00451.html#ga87d3c6e620be5df59ba6923751caae86", null ],
+    [ "Ikarus::Python::registerVtkWriter", "a00451.html#ga9f62f91fc33b1f9e17756c2ac7b30077", null ]
 ];

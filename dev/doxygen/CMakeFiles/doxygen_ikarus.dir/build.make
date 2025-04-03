@@ -128,9 +128,12 @@ docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechani
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/membranestrains.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/nonlinearelastic.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easfunctions.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easfunctions/displacementgradient.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easfunctions/displacementgradienttransposed.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easfunctions/greenlagrangestrain.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easfunctions/linearstrain.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easvariants.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easvariants/displacementgradient.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easvariants/helperfunctions.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easvariants/linearandglstrains.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/truss.hh

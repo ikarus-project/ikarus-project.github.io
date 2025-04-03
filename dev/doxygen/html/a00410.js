@@ -1,4 +1,5 @@
 var a00410 =
 [
-    [ "addBindingsToIO", "a00410.html#a1fbf461e39b14b31b02c7629abf2ef15", null ]
+    [ "ENUM_BINDINGS", "a00410.html#acac228915620d154278249b20f193bb4", null ],
+    [ "ENUM_BINDINGS_WITH_MODULE", "a00410.html#a4f679b27b8832c36acea41eab8e0d0bc", null ]
 ];

@@ -1,7 +1,7 @@
 var a00272 =
 [
-    [ "Ikarus::ResultWrapper< RT, storedResultShape >", "a01486.html", "a01486" ],
-    [ "Ikarus::ResultTypeBase< ResultTypes >", "a01498.html", "a01498" ],
+    [ "Ikarus::ResultWrapper< RT, storedResultShape >", "a01492.html", "a01492" ],
+    [ "Ikarus::ResultTypeBase< ResultTypes >", "a01504.html", "a01504" ],
     [ "REGISTER_RESERVED_RESULTTYPE", "a00272.html#a7ce39a7837a7febc8ecb05eac58b2d7d", null ],
     [ "REGISTER_RESULTTYPE", "a00272.html#a60e89b24a05f9724eb4cf2a3683aafeb", null ],
     [ "REGISTER_RESULTTYPE_IMPL", "a00272.html#a8b1463ebff118e1d2513007fb0395a7c", null ],

@@ -1,5 +1,5 @@
 var a03256 =
 [
-    [ "boundaryPatch", "a03256.html#a7340cb604093dba2860368264f055a76", null ],
-    [ "globalIndexFromGlobalPosition", "a03256.html#adb191bde0042adbfd48bc16a3a661353", null ]
+    [ "Ikarus::Materials::CorrectStrainSize", "a02244.html", null ],
+    [ "hasCorrectSize", "a03256.html#acd3877457d719128ff83d44c6253ece8", null ]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['datatag_0',['DataTag',['../a00467.html#af59748ac04116ae85cd64ea8675d273b',1,'Ikarus::Vtk']]],
-  ['dbcoption_1',['DBCOption',['../a00453.html#a9f83fad9f4c149f249165a13f2370eec',1,'Ikarus']]]
+  ['datatag_0',['DataTag',['../a00473.html#af59748ac04116ae85cd64ea8675d273b',1,'Ikarus::Vtk']]],
+  ['dbcoption_1',['DBCOption',['../a00459.html#a9f83fad9f4c149f249165a13f2370eec',1,'Ikarus']]]
 ];

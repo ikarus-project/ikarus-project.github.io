@@ -1,5 +1,5 @@
 var a00338 =
 [
-    [ "Ikarus::GentMatParameters", "a01570.html", "a01570" ],
+    [ "Ikarus::GentMatParameters", "a01576.html", "a01576" ],
     [ "Gent", "a00338.html#a8d05a34baf0684f0e4e2a10a721bb80d", null ]
 ];

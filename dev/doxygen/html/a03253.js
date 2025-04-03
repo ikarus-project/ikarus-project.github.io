@@ -1,6 +1,6 @@
 var a03253 =
 [
-    [ "muesliMaterial", "a03253.html#a1fe2fab6dc71f8677cc433c58124f28e", null ],
-    [ "MuesliFiniteStrain", "a03253.html#a3c6d24dfa7f08fcc6a7907492346f9bf", null ],
-    [ "MuesliSmallStrain", "a03253.html#a060000b17f724fd72ae8e3b0fe6a779a", null ]
+    [ "Ikarus::ScalarAssembler< SA, FEC, DV, ST >", "a01348.html", "a01348" ],
+    [ "Ikarus::VectorAssembler< VA, FEC, DV, VT >", "a01352.html", "a01352" ],
+    [ "Ikarus::MatrixAssembler< MA, FEC, DV, MT >", "a01356.html", "a01356" ]
 ];

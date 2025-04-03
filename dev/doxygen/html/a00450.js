@@ -1,21 +1,30 @@
 var a00450 =
 [
-    [ "Ikarus::utils::any_of", "a00450.html#gab6d955a70ec9215ae9a8f3841582ab49", null ],
-    [ "Ikarus::utils::appendUnique", "a00450.html#ga0ccbb016e46741bd00c69436dc11e2d0", null ],
-    [ "Ikarus::utils::count_if", "a00450.html#gae9a7254f583151ee431db537c9980865", null ],
-    [ "Ikarus::utils::countTypeSpecialization", "a00450.html#gadf919f3a9b0c1d50134f9d041a3ce9f7", null ],
-    [ "Ikarus::utils::filter", "a00450.html#gad9f30d486a3d9151d534ec1b0fad5341", null ],
-    [ "Ikarus::utils::find_if", "a00450.html#gaf75511e781bb89056badd33413222010", null ],
-    [ "Ikarus::utils::findTypeSpecialization", "a00450.html#ga62d8ab565d41e49db75f0641bcdf0740", null ],
-    [ "Ikarus::utils::getSpecialization", "a00450.html#ga05a5ccea0f87d41fc69956f55a2c1dbd", null ],
-    [ "Ikarus::utils::hasTypeSpecialization", "a00450.html#gaec2a5de0482441ef1e1c68fb7ff8a0bc", null ],
-    [ "Ikarus::utils::makeTupleFromTupleIndices", "a00450.html#gaef801f15c9f18ae16e4241a497c33e96", null ],
-    [ "Ikarus::utils::makeTupleSubset", "a00450.html#ga32de94604b9d1a7423134f33f49d613f", null ],
-    [ "Ikarus::utils::makeUniqueAndSort", "a00450.html#ga6e36d8f5163f232e3142ecbd0575e8b4", null ],
-    [ "Ikarus::utils::none_of", "a00450.html#ga33284bcf99d7d3870e0aff06f6651aa2", null ],
-    [ "Ikarus::utils::printContent", "a00450.html#ga2b7954c72a2393ab7494fa0b66d828cd", null ],
-    [ "Ikarus::utils::transformPointerRangeToReferenceRange", "a00450.html#ga83bd9e4f59f0aa9fadd797efefa751d9", null ],
-    [ "Ikarus::utils::transformValueRangeToPointerRange", "a00450.html#ga7f597d87c8f2bcbf4afc65ebc929b680", null ],
-    [ "Ikarus::utils::unique", "a00450.html#ga12de8f77a63ef488a87a5aa8536146ee", null ],
-    [ "Ikarus::utils::countTypeSpecialization_v", "a00450.html#ga62ee166e690831f40395df076e9cdddb", null ]
+    [ "resultevaluators.hh", "a00161.html", null ],
+    [ "Ikarus::ResultEvaluators::VonMises", "a01848.html", [
+      [ "name", "a01848.html#adc5bbea30401fd0a203237199f400872", null ],
+      [ "ncomps", "a01848.html#a4fec0e03332fac9610d1f42a9e412f7f", null ],
+      [ "operator()", "a01848.html#a4a16334a6d486018a77727fb2acca63c", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::HydrostaticStress", "a01852.html", [
+      [ "name", "a01852.html#a1cc516c9e54a36656b693f6ab7e8036f", null ],
+      [ "ncomps", "a01852.html#a7ad4bc9dedac16e50242b7d51d9ea2a0", null ],
+      [ "operator()", "a01852.html#a35c0916886cd68004bedbebe4165fa97", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::PrincipalStress< dim >", "a01856.html", [
+      [ "name", "a01856.html#a0a21ea2d96efed17295f27a0001dcd7c", null ],
+      [ "ncomps", "a01856.html#a34a91abd5ffcb880813bd1fb90b221b6", null ],
+      [ "operator()", "a01856.html#aafc25c13807fda614d68992dcd4923ae", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::Triaxiality", "a01860.html", [
+      [ "name", "a01860.html#a04443562de6bf1cf72a27db2f33b5e16", null ],
+      [ "ncomps", "a01860.html#a2208295b62e03319c06b599b0079bf83", null ],
+      [ "operator()", "a01860.html#a14fd89ab2a84416e5f1024c9930f7371", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::PolarStress", "a01864.html", [
+      [ "PolarStress", "a01864.html#ab7bd86fc0638f4c9b779153c69d917d4", null ],
+      [ "name", "a01864.html#affc08b406cc3750e46dff706eefd7ee6", null ],
+      [ "ncomps", "a01864.html#a2b4c9a468e74dbbb93f6f6613cf07f7d", null ],
+      [ "operator()", "a01864.html#a22590930fe4d5d2d5e5a323cd3085cdb", null ]
+    ] ]
 ];
