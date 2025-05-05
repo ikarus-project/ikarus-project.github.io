@@ -1,10 +1,8 @@
-\hypertarget{a02304}{}\doxysection{Ikarus\+::Concepts\+::Matrix\+Flat\+Assembler Concept Reference}
-\label{a02304}\index{Ikarus::Concepts::MatrixFlatAssembler@{Ikarus::Concepts::MatrixFlatAssembler}}
+\hypertarget{a02304}{}\doxysection{Ikarus\+::Concepts\+::Is\+Material Concept Reference}
+\label{a02304}\index{Ikarus::Concepts::IsMaterial@{Ikarus::Concepts::IsMaterial}}
 
 
-Concept representing the requirements for a Matrix\+Flat\+Assembler.
-
-A type T satisfies Matrix\+Flat\+Assembler if it is a Vector\+Flat\+Assembler and if it provides the necessary matrix() member functions.  
+Concept defining the requirements for a material type.  
 
 
 
@@ -14,13 +12,24 @@ A type T satisfies Matrix\+Flat\+Assembler if it is a Vector\+Flat\+Assembler an
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02304}{Ikarus::Concepts::MatrixFlatAssembler}} =  \mbox{\hyperlink{a02303}{Concepts::VectorFlatAssembler<T>}} and}
-\DoxyCodeLine{                                \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
-\DoxyCodeLine{                                         \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00465_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
-\DoxyCodeLine{                                  \{ t.matrix(req, affordance.matrixAffordance(), dbcOption) \};}
-\DoxyCodeLine{                                  \{ t.matrix(dbcOption) \};}
-\DoxyCodeLine{                                  \{ t.matrix() \};}
-\DoxyCodeLine{                                \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{template}< \textcolor{keyword}{typename}... > \textcolor{keyword}{class }MaterialToCheck, typename \mbox{\hyperlink{a02319}{Material}}>}
+\DoxyCodeLine{concept \mbox{\hyperlink{a00471}{Ikarus}}::\mbox{\hyperlink{a02304}{Concepts::IsMaterial}} =  Impl::isMaterial<MaterialToCheck, Material>()}
 
 \end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Material\+To\+Check} & Template representing the material type to check. \\
+\hline
+{\em Material} & Type representing the material to be checked.\\
+\hline
+\end{DoxyTemplParams}
+A type satisfies the Is\+Material concept if it meets one of the following conditions\+:
+
+
+\begin{DoxyEnumerate}
+\item The material is a specialization of the specified template {\ttfamily Material\+To\+Check}.
+\item The material is a specialization of {\ttfamily Vanishing\+Stress} or {\ttfamily Vanishing\+Strain} (i.\+e. reduced) with an underlying type that is a specialization of the specified template {\ttfamily Material\+To\+Check}. 
+\end{DoxyEnumerate}

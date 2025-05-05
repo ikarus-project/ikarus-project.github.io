@@ -1,30 +1,31 @@
-\hypertarget{a02272}{}\doxysection{Ikarus\+::Concepts\+::Flat\+Lexicographic\+Basis Concept Reference}
-\label{a02272}\index{Ikarus::Concepts::FlatLexicographicBasis@{Ikarus::Concepts::FlatLexicographicBasis}}
+\hypertarget{a02272}{}\doxysection{Ikarus\+::Concepts\+::Volumetric\+Function Concept Reference}
+\label{a02272}\index{Ikarus::Concepts::VolumetricFunction@{Ikarus::Concepts::VolumetricFunction}}
 
 
-Concept to check if a basis uses Flat\+Lexicographic indexing strategy.  
+Concept to check if the underlying function is a volumetric function.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} B>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02272}{Ikarus::Concepts::FlatLexicographicBasis}} =  \textcolor{keyword}{requires} \{}
-\DoxyCodeLine{    std::is\_same\_v<typename B::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::FlatLexicographic>;}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} VF>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02272}{Ikarus::Concepts::VolumetricFunction}} =  \textcolor{keyword}{requires}(VF vf, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& j) \{}
+\DoxyCodeLine{  \{ vf.storedEnergyImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.firstDerivativeImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.secondDerivativeImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.name() \} -\/> std::convertible\_to<std::string>;}
+\DoxyCodeLine{\}}
 
 \end{DoxyCode}
 
 
 \doxysubsection{Detailed Description}
-This concept checks if the given Basis type uses Flat\+Lexicographic indexing strategy.
-
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em B} & The basis type. \\
+{\em Type} & of the volumetric function. \\
 \hline
 \end{DoxyTemplParams}

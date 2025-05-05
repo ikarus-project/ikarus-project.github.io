@@ -1,8 +1,8 @@
-\hypertarget{a02313}{}\doxysection{Ikarus\+::Concepts\+::Eigen\+Value\+Solver Concept Reference}
-\label{a02313}\index{Ikarus::Concepts::EigenValueSolver@{Ikarus::Concepts::EigenValueSolver}}
+\hypertarget{a02313}{}\doxysection{Ikarus\+::Concepts\+::Autodiff\+Scalar Concept Reference}
+\label{a02313}\index{Ikarus::Concepts::AutodiffScalar@{Ikarus::Concepts::AutodiffScalar}}
 
 
-Concept representing an eigenvalue solver interface.  
+Concept to check if the underlying scalar type is a dual type.  
 
 
 
@@ -12,18 +12,15 @@ Concept representing an eigenvalue solver interface.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} ES>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02313}{Ikarus::Concepts::EigenValueSolver}} =  \textcolor{keyword}{requires}(ES es) \{}
-\DoxyCodeLine{    \textcolor{keyword}{typename} ES::MatrixType;}
-\DoxyCodeLine{    \textcolor{keyword}{typename} ES::ScalarType;}
-\DoxyCodeLine{    \{ es.compute() \} -\/> std::same\_as<bool>;}
-\DoxyCodeLine{    \{ es.eigenvalues() \} -\/> std::convertible\_to<Eigen::VectorX<typename ES::ScalarType>>;}
-\DoxyCodeLine{    \{ es.eigenvectors() \} -\/> std::convertible\_to<Eigen::MatrixX<typename ES::ScalarType>>;}
-\DoxyCodeLine{    \{ es.nev() \} -\/> std::convertible\_to<int>;}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02313}{Ikarus::Concepts::AutodiffScalar}} =  Impl::is\_dual<T>::value}
 
 \end{DoxyCode}
 
 
 \doxysubsection{Detailed Description}
-A type ES satisfies Eigen\+Value\+Solver if it provides the necessary member functions and type 
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The scalar type to be checked if it is a dual type. \\
+\hline
+\end{DoxyTemplParams}

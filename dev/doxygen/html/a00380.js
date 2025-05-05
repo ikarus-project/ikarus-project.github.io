@@ -1,14 +1,22 @@
 var a00380 =
 [
-    [ "Ikarus::GeneralizedSymEigenSolver< SolverType, MT >", "a01934.html", null ],
-    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Spectra, MT >", "a01938.html", "a01938" ],
-    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Eigen, MT >", "a01942.html", "a01942" ],
-    [ "Ikarus::PartialGeneralizedSymEigenSolver< MT >", "a01946.html", "a01946" ],
-    [ "EigenValueSolverType", "a00380.html#a76f328509ccf00e93bba2416f01620e4", [
-      [ "BEGIN", "a00380.html#a76f328509ccf00e93bba2416f01620e4a19aad9f2fe3ce0023298ab83f7e75775", null ],
-      [ "Spectra", "a00380.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69", null ],
-      [ "Eigen", "a00380.html#a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833", null ],
-      [ "END", "a00380.html#a76f328509ccf00e93bba2416f01620e4ab1a326c06d88bf042f73d70f50197905", null ]
+    [ "Ikarus::TRSettings", "a02025.html", "a02025" ],
+    [ "Ikarus::TrustRegionConfig< preConditioner, UF >", "a02029.html", "a02029" ],
+    [ "Ikarus::AlgoInfo", "a02037.html", "a02037" ],
+    [ "Ikarus::Stats", "a02041.html", "a02041" ],
+    [ "PreConditioner", "a00380.html#ace28d4868cfc647491f7938f04ef6c66", [
+      [ "IncompleteCholesky", "a00380.html#ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff", null ],
+      [ "IdentityPreconditioner", "a00380.html#ace28d4868cfc647491f7938f04ef6c66a7a93111b975ec3c3824eab230f3ec608", null ],
+      [ "DiagonalPreconditioner", "a00380.html#ace28d4868cfc647491f7938f04ef6c66a3c6b5404db3b7bf45a0302f376a53afc", null ]
     ] ],
-    [ "toString", "a00380.html#acc08b9ea0e95d84b7f5b9cc272eb453f", null ]
+    [ "StopReason", "a00380.html#abd5d0cf356d1ae81f6ee827b0f47c674", [
+      [ "gradientNormTolReached", "a00380.html#abd5d0cf356d1ae81f6ee827b0f47c674a0c4f44592a7ae85baf42cb3fb4a5a3d1", null ],
+      [ "correctionNormTolReached", "a00380.html#abd5d0cf356d1ae81f6ee827b0f47c674ad1c6a6016de417acc66b5ac44a1fdca3", null ],
+      [ "maximumTimeReached", "a00380.html#abd5d0cf356d1ae81f6ee827b0f47c674ad205528fe2a4412b89626ff7eee936f9", null ],
+      [ "maximumIterationsReached", "a00380.html#abd5d0cf356d1ae81f6ee827b0f47c674a5ed07f9461b91dd3a6ba961a0ed5c8fe", null ],
+      [ "dontStop", "a00380.html#abd5d0cf356d1ae81f6ee827b0f47c674a8d2fa9685be8b8f8994bd8a73bfa8c9f", null ]
+    ] ],
+    [ "createNonlinearSolver", "a00380.html#a0dd04e52f828b895e862bdb2edd8b3d1", null ],
+    [ "makeTrustRegion", "a00380.html#a636b23770fcdf4445c218a6da93bbd15", null ],
+    [ "TrustRegion", "a00380.html#a237986b2942b7812d30e6c59766c7742", null ]
 ];

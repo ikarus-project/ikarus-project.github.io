@@ -120,6 +120,7 @@ docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechani
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/muesli/mueslihelpers.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/muesli/mueslimaterials.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/muesli/mueslismall.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/numericalmaterialinversion.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/strainconversions.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/svk.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/tags.hh
@@ -185,6 +186,7 @@ docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/flatprebasis.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/functionhelper.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/functionsanitychecks.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/init.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/lambertw.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/linearalgebrahelper.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/listener/controllogger.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/listener/controlvtkwriter.hh

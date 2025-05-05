@@ -1,10 +1,5 @@
-\hypertarget{a02311}{}\doxysection{Ikarus\+::Concepts\+::Formulations\+::Total\+Lagrangian Concept Reference}
-\label{a02311}\index{Ikarus::Concepts::Formulations::TotalLagrangian@{Ikarus::Concepts::Formulations::TotalLagrangian}}
-
-
-Concept to check if the underlying strain and stress tag correspond to a total Lagrangian formulation.  
-
-
+\hypertarget{a02311}{}\doxysection{Ikarus\+::Concepts\+::Data\+Collector Concept Reference}
+\label{a02311}\index{Ikarus::Concepts::DataCollector@{Ikarus::Concepts::DataCollector}}
 
 
 {\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
@@ -12,18 +7,13 @@ Concept to check if the underlying strain and stress tag correspond to a total L
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<StrainTags T1, StressTags T2>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02311}{Ikarus::Concepts::Formulations::TotalLagrangian}} =  (T1 == \mbox{\hyperlink{a00454_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}} and T2 == \mbox{\hyperlink{a00454_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}}) or}
-\DoxyCodeLine{                              (T1 == \mbox{\hyperlink{a00454_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e}{StrainTags::greenLagrangian}} and T2 == \mbox{\hyperlink{a00454_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}})}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{class} DC>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02311}{Ikarus::Concepts::DataCollector}} =  \textcolor{keyword}{requires}(DC dc) \{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DC::GridView;}
+\DoxyCodeLine{    \{ dc.update() \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{    \{ dc.numPoints() \} -\/> std::convertible\_to<std::uint64\_t>;}
+\DoxyCodeLine{    \{ dc.numCells() \} -\/> std::convertible\_to<std::uint64\_t>;}
+\DoxyCodeLine{    \{ dc.gridView() \} -\/> std::same\_as<const typename DC::GridView\&>;}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em T1} & The underlying strain tag. \\
-\hline
-{\em T2} & The underlying stress tag. \\
-\hline
-\end{DoxyTemplParams}

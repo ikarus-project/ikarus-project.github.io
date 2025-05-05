@@ -1,5 +1,5 @@
-\hypertarget{a00362_source}{}\doxysection{solverinfos.\+hh}
-\label{a00362_source}\index{solverinfos.hh@{solverinfos.hh}}
+\hypertarget{a00362_source}{}\doxysection{nonlinearsolverfactory.\+hh}
+\label{a00362_source}\index{nonlinearsolverfactory.hh@{nonlinearsolverfactory.hh}}
 \mbox{\hyperlink{a00362}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
@@ -7,17 +7,40 @@
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <limits>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <utility>}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00465}{Ikarus}} \{}
-\DoxyCodeLine{20 \textcolor{keyword}{struct }\mbox{\hyperlink{a02014}{NonLinearSolverInformation}}}
-\DoxyCodeLine{21 \{}
-\DoxyCodeLine{27   \textcolor{keyword}{explicit} \textcolor{keyword}{operator} bool()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a02014_acb65d72d7b2291a9b0d958ce0e4e0887}{success}}; \}}
-\DoxyCodeLine{28   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02014_acb65d72d7b2291a9b0d958ce0e4e0887}{success}}\{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{29   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02014_ab09859737734f97734f20624f9f3c934}{residualNorm}}\{std::numeric\_limits<double>::infinity()\};}
-\DoxyCodeLine{30   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02014_a66f51414779f3e563557157fb688f18b}{correctionNorm}}\{std::numeric\_limits<double>::infinity()\};}
-\DoxyCodeLine{31   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02014_a81570cd3d9f6589a4d1ba81211f41b99}{iterations}}\{-\/1\};}
-\DoxyCodeLine{32 \};}
-\DoxyCodeLine{33 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00392}{ikarus/assembler/dirichletbcenforcement.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00014}{ikarus/utils/defaultfunctions.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00011}{ikarus/utils/differentiablefunctionfactory.hh}}>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00471}{Ikarus}} \{}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{27 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLSSetting>}
+\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{a01997}{NonlinearSolverFactory}}}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{35   \mbox{\hyperlink{a01997_a9f57d2a876e1b1b8fa55e7a0ee775fd0}{NonlinearSolverFactory}}(NLSSetting s)}
+\DoxyCodeLine{36       : \mbox{\hyperlink{a01997_aaecd285eb75bb9044a018d04fb8d0765}{settings}}(s) \{\}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   NLSSetting \mbox{\hyperlink{a01997_aaecd285eb75bb9044a018d04fb8d0765}{settings}};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{52   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Assembler>}
+\DoxyCodeLine{53   \textcolor{keyword}{requires} \mbox{\hyperlink{a02307}{Concepts::FlatAssembler<typename std::remove\_cvref\_t<Assembler>::element\_type}}>}
+\DoxyCodeLine{54   \textcolor{keyword}{auto} \mbox{\hyperlink{a01997_ae5da57e3dced6046dda504510e19bdbd}{create}}(Assembler\&\& assembler)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{55     \textcolor{keyword}{auto} f        = \mbox{\hyperlink{a02121_aa362a29341818929bae2f15c4271e351}{DifferentiableFunctionFactory::op}}(assembler);}
+\DoxyCodeLine{56     \textcolor{keyword}{using }fTraits = \textcolor{keyword}{typename} \textcolor{keyword}{decltype}(f)::Traits;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58     \textcolor{keyword}{using }CorrectionType = \textcolor{keyword}{typename} fTraits::template Range<1>;}
+\DoxyCodeLine{59     \textcolor{keyword}{using }Domain         = \textcolor{keyword}{typename} fTraits::Domain;}
+\DoxyCodeLine{60     \textcolor{keyword}{auto} updateF         = [assembler, setting = \mbox{\hyperlink{a01997_aaecd285eb75bb9044a018d04fb8d0765}{settings}}]<\textcolor{keyword}{typename} D, \textcolor{keyword}{typename} C>(D\& x, \textcolor{keyword}{const} C\& b) \{}
+\DoxyCodeLine{61       \textcolor{keywordflow}{if} (assembler-\/>dBCOption() == \mbox{\hyperlink{a00471_a9f83fad9f4c149f249165a13f2370eeca4335949a935758ca1b570689c3c6750b}{DBCOption::Reduced}}) \{}
+\DoxyCodeLine{62         setting.updateFunction(x, assembler-\/>createFullVector(b));}
+\DoxyCodeLine{63       \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{64         setting.updateFunction(x, b);}
+\DoxyCodeLine{65     \};}
+\DoxyCodeLine{66     \textcolor{keyword}{auto} settingsNew = \mbox{\hyperlink{a01997_aaecd285eb75bb9044a018d04fb8d0765}{settings}}.rebindUpdateFunction(std::move(updateF));}
+\DoxyCodeLine{67     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00471_a504e2e9645fa26419d815df9bd245add}{createNonlinearSolver}}(std::move(settingsNew), std::move(f));}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69 \};}
+\DoxyCodeLine{70 \}; \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

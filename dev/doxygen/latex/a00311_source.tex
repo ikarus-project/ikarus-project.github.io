@@ -1,5 +1,5 @@
-\hypertarget{a00311_source}{}\doxysection{material.\+hh}
-\label{a00311_source}\index{material.hh@{material.hh}}
+\hypertarget{a00311_source}{}\doxysection{fe.\+hh}
+\label{a00311_source}\index{fe.hh@{fe.hh}}
 \mbox{\hyperlink{a00311}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
@@ -7,231 +7,106 @@
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dune/common/classname.hh>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <dune/python/common/typeregistry.hh>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dune/python/common/typeregistry.hh>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <dune/python/functions/globalbasis.hh>}}
 \DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/python/pybind11/eigen.h>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl.h>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03282}{ikarus/finiteelements/mechanics/materials.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#if ENABLE\_MUESLI}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00215}{ikarus/finiteelements/mechanics/materials/muesli/mueslimaterials.hh}}>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03324}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/python/pybind11/functional.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl.h>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00155}{ikarus/finiteelements/fefactory.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00305}{ikarus/python/finiteelements/registerferequirements.hh}}>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00488}{Ikarus::Python}} \{}
 \DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#define MAKE\_MaterialFunction(clsName, materialName, functionname, vecSize)                                    \(\backslash\)}}
-\DoxyCodeLine{24 \textcolor{preprocessor}{  clsName.def(                                                                                                 \(\backslash\)}}
-\DoxyCodeLine{25 \textcolor{preprocessor}{      \#functionname,                                                                                           \(\backslash\)}}
-\DoxyCodeLine{26 \textcolor{preprocessor}{      [](materialName\& self, StrainTags straintag, Eigen::Ref<const Eigen::Vector<double, vecSize>> eVoigt\_) \{ \(\backslash\)}}
-\DoxyCodeLine{27 \textcolor{preprocessor}{        if constexpr (not(materialName::strainTag == StrainTags::linear)) \{                                    \(\backslash\)}}
-\DoxyCodeLine{28 \textcolor{preprocessor}{          Eigen::Vector<double, vecSize> eVoigt = eVoigt\_;                                                     \(\backslash\)}}
-\DoxyCodeLine{29 \textcolor{preprocessor}{          if (straintag == StrainTags::rightCauchyGreenTensor)                                                 \(\backslash\)}}
-\DoxyCodeLine{30 \textcolor{preprocessor}{            return self.template functionname<StrainTags::rightCauchyGreenTensor>(eVoigt);                     \(\backslash\)}}
-\DoxyCodeLine{31 \textcolor{preprocessor}{          else if (straintag == StrainTags::greenLagrangian)                                                   \(\backslash\)}}
-\DoxyCodeLine{32 \textcolor{preprocessor}{            return self.template functionname<StrainTags::greenLagrangian>(eVoigt);                            \(\backslash\)}}
-\DoxyCodeLine{33 \textcolor{preprocessor}{          else if (straintag == StrainTags::linear)                                                            \(\backslash\)}}
-\DoxyCodeLine{34 \textcolor{preprocessor}{            DUNE\_THROW(Dune::MathError, "{}Passing linear strain to "{}} + std::string(\#materialName) +             \(\backslash\)}
-\DoxyCodeLine{35                                             "{} does not makes sense use LinearElastic class"{});                  \(\backslash\)}
-\DoxyCodeLine{36           else if (straintag == StrainTags::displacementGradient)                                              \(\backslash\)}
-\DoxyCodeLine{37             DUNE\_THROW(Dune::MathError,                                                                        \(\backslash\)}
-\DoxyCodeLine{38                        "{}Passing displacementGradient strain in 6d Voigt notation does not make any sense!"{});   \(\backslash\)}
-\DoxyCodeLine{39           else if (straintag == StrainTags::deformationGradient)                                               \(\backslash\)}
-\DoxyCodeLine{40             DUNE\_THROW(Dune::MathError,                                                                        \(\backslash\)}
-\DoxyCodeLine{41                        "{}Passing deformationGradient strain in 6d Voigt notation does not make any sense!"{});    \(\backslash\)}
-\DoxyCodeLine{42           else                                                                                                 \(\backslash\)}
-\DoxyCodeLine{43             DUNE\_THROW(Dune::MathError, toString(straintag) + "{}is not a valid strain tag."{});                   \(\backslash\)}
-\DoxyCodeLine{44         \} else \{                                                                                               \(\backslash\)}
-\DoxyCodeLine{45           Eigen::Vector<double, vecSize> eVoigt = eVoigt\_; \textcolor{comment}{/* Linear elastic path */}\textcolor{preprocessor}{                           \(\backslash\)}}
-\DoxyCodeLine{46 \textcolor{preprocessor}{          if (straintag == StrainTags::linear)                                                                 \(\backslash\)}}
-\DoxyCodeLine{47 \textcolor{preprocessor}{            return self.template functionname<StrainTags::linear>(eVoigt);                                     \(\backslash\)}}
-\DoxyCodeLine{48 \textcolor{preprocessor}{          else                                                                                                 \(\backslash\)}}
-\DoxyCodeLine{49 \textcolor{preprocessor}{            DUNE\_THROW(Dune::MathError, "{}Linear elastic material only accepts linear strains!"{}});               \(\backslash\)}
-\DoxyCodeLine{50         \}                                                                                                      \(\backslash\)}
-\DoxyCodeLine{51         \_\_builtin\_unreachable();                                                                               \(\backslash\)}
-\DoxyCodeLine{52       \},                                                                                                       \(\backslash\)}
-\DoxyCodeLine{53       "{}StrainName"{}\_a, "{}strainVector"{}\_a);}
-\DoxyCodeLine{54 }
-\DoxyCodeLine{55 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00483}{Ikarus::Python}} \{}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{58   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{59   LamesFirstParameterAndShearModulus convertMaterialParameters(\textcolor{keyword}{const} pybind11::kwargs\& kwargs,}
-\DoxyCodeLine{60                                                                \textcolor{keyword}{const} std::string\& param1, \textcolor{keyword}{const} std::string\& param2) \{}
-\DoxyCodeLine{61     \textcolor{keyword}{auto} converter =}
-\DoxyCodeLine{62         \mbox{\hyperlink{a00465_a5e27551f9edaebc557108aa164899b54}{convertLameConstants}}(T\{kwargs[param1.c\_str()].cast<double>(), kwargs[param2.c\_str()].cast<\textcolor{keywordtype}{double}>()\});}
-\DoxyCodeLine{63     \textcolor{keywordflow}{return} \{converter.toLamesFirstParameter(), converter.toShearModulus()\};}
-\DoxyCodeLine{64   \}}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66   \mbox{\hyperlink{a01846}{Ikarus::LamesFirstParameterAndShearModulus}} extractMaterialParameters(\textcolor{keyword}{const} pybind11::kwargs\& kwargs) \{}
-\DoxyCodeLine{67     \textcolor{comment}{// clang-\/format off}}
-\DoxyCodeLine{68     \textcolor{keyword}{static} \textcolor{keyword}{const} std::map<std::array<std::string, 2>, std::function<LamesFirstParameterAndShearModulus(\textcolor{keyword}{const} pybind11::kwargs\&)>> conversionMap = \{}
-\DoxyCodeLine{69       \{\{\textcolor{stringliteral}{"{}E"{}}, \textcolor{stringliteral}{"{}nu"{}}\}, [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& kw)\{ \textcolor{keywordflow}{return} convertMaterialParameters<YoungsModulusAndPoissonsRatio>(kw, \textcolor{stringliteral}{"{}E"{}}, \textcolor{stringliteral}{"{}nu"{}}); \}\},}
-\DoxyCodeLine{70       \{\{\textcolor{stringliteral}{"{}E"{}}, \textcolor{stringliteral}{"{}mu"{}}\}, [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& kw)\{ \textcolor{keywordflow}{return} convertMaterialParameters<YoungsModulusAndShearModulus>(kw, \textcolor{stringliteral}{"{}E"{}}, \textcolor{stringliteral}{"{}mu"{}}); \}\},}
-\DoxyCodeLine{71       \{\{\textcolor{stringliteral}{"{}E"{}}, \textcolor{stringliteral}{"{}K"{}}\}, [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& kw)\{ \textcolor{keywordflow}{return} convertMaterialParameters<YoungsModulusAndBulkModulus>(kw, \textcolor{stringliteral}{"{}E"{}}, \textcolor{stringliteral}{"{}K"{}}); \}\},}
-\DoxyCodeLine{72       \{\{\textcolor{stringliteral}{"{}E"{}}, \textcolor{stringliteral}{"{}Lambda"{}}\}, [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& kw)\{ \textcolor{keywordflow}{return} convertMaterialParameters<YoungsModulusAndLamesFirstParameter>(kw, \textcolor{stringliteral}{"{}E"{}}, \textcolor{stringliteral}{"{}Lambda"{}}); \}\},}
-\DoxyCodeLine{73       \{\{\textcolor{stringliteral}{"{}K"{}}, \textcolor{stringliteral}{"{}Lambda"{}}\}, [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& kw)\{ \textcolor{keywordflow}{return} convertMaterialParameters<BulkModulusAndLamesFirstParameter>(kw, \textcolor{stringliteral}{"{}K"{}}, \textcolor{stringliteral}{"{}Lambda"{}}); \}\},}
-\DoxyCodeLine{74       \{\{\textcolor{stringliteral}{"{}Lambda"{}}, \textcolor{stringliteral}{"{}mu"{}}\}, [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& kw)\{ \textcolor{keywordflow}{return} LamesFirstParameterAndShearModulus\{kw[\textcolor{stringliteral}{"{}Lambda"{}}].template cast<double>(), kw[\textcolor{stringliteral}{"{}mu"{}}].template cast<double>()\}; \}\}}
-\DoxyCodeLine{75     \};}
-\DoxyCodeLine{76     \textcolor{comment}{// clang-\/format on}}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78     \textcolor{keywordflow}{if} (kwargs.size() != 2)}
-\DoxyCodeLine{79       DUNE\_THROW(Dune::IOError, \textcolor{stringliteral}{"{}The number of material parameters passed to the material should be 2"{}});}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{81     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [materialParameters, parameterConverter] : conversionMap) \{}
-\DoxyCodeLine{82       \textcolor{keyword}{const} \textcolor{keyword}{auto} [firstPar, secondPar] = materialParameters;}
-\DoxyCodeLine{83       \textcolor{keywordflow}{if} (kwargs.contains(firstPar) \&\& kwargs.contains(secondPar)) \{}
-\DoxyCodeLine{84         \textcolor{keywordflow}{return} parameterConverter(kwargs);}
-\DoxyCodeLine{85       \}}
-\DoxyCodeLine{86     \}}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88     DUNE\_THROW(Dune::IOError,}
-\DoxyCodeLine{89                \textcolor{stringliteral}{"{}No suitable combination of material parameters found, valid combinations are: (E, nu), (E, mu), (E, "{}}}
-\DoxyCodeLine{90                \textcolor{stringliteral}{"{}K), (E, Lambda), (K, Lambda), (Lambda, nu)"{}});}
-\DoxyCodeLine{91   \}}
-\DoxyCodeLine{92 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{94 \textcolor{keyword}{template} <\textcolor{keyword}{class }Material, \textcolor{keywordtype}{size\_t} vecSize, \textcolor{keywordtype}{bool} registerConstructor, \textcolor{keyword}{class}... options>}
-\DoxyCodeLine{95 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00483_a5038c66085a51f4147ef04e880f926dd}{registerMaterial}}(pybind11::handle scope, pybind11::class\_<Material, options...> cls) \{}
-\DoxyCodeLine{96   \textcolor{keyword}{using }pybind11::operator\textcolor{stringliteral}{"{}"{}}\_a;}
-\DoxyCodeLine{97   \textcolor{keyword}{namespace }py = pybind11;}
-\DoxyCodeLine{98 }
-\DoxyCodeLine{99   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (registerConstructor)}
-\DoxyCodeLine{100     cls.def(\mbox{\hyperlink{a00465_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} py::kwargs\& kwargs) \{}
-\DoxyCodeLine{101       auto matParameter = Impl::extractMaterialParameters(kwargs);}
-\DoxyCodeLine{102       return new Material(matParameter);}
-\DoxyCodeLine{103     \}));}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{105   std::string materialname = Material::name();}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(cls, \mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}}, storedEnergy, vecSize);}
-\DoxyCodeLine{108   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(cls, \mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}}, stresses, vecSize);}
-\DoxyCodeLine{109   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(cls, \mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}}, tangentModuli, vecSize);}
-\DoxyCodeLine{110 }
-\DoxyCodeLine{111   \textcolor{keyword}{using }PlaneStressClass = \textcolor{keyword}{decltype}(\mbox{\hyperlink{a00474_aa7b4cfc28796165e32b16cb12ab8ccd4}{Materials::planeStress}}(std::declval<Material>()));}
-\DoxyCodeLine{112   \textcolor{keyword}{auto} includes          = Dune::Python::IncludeFiles\{\textcolor{stringliteral}{"{}ikarus/finiteelements/mechanics/materials.hh"{}}\};}
-\DoxyCodeLine{113   \textcolor{keyword}{auto} pS                = Dune::Python::insertClass<PlaneStressClass>(}
-\DoxyCodeLine{114                 scope, std::string(\textcolor{stringliteral}{"{}PlaneStress\_"{}}) + materialname,}
-\DoxyCodeLine{115                 Dune::Python::GenerateTypeName(}
-\DoxyCodeLine{116                     \textcolor{stringliteral}{"{}Ikarus::Materials::VanishingStress<std::array<Ikarus::Materials::MatrixIndexPair, 3ul >"{}}}
-\DoxyCodeLine{117                                    \textcolor{stringliteral}{"{}\{"{}}}
-\DoxyCodeLine{118                                    \textcolor{stringliteral}{"{}\{Ikarus::Materials::MatrixIndexPair\{2ul, 1ul\}, Ikarus::Materials::MatrixIndexPair\{2ul, 0ul\},"{}}}
-\DoxyCodeLine{119                                    \textcolor{stringliteral}{"{}Ikarus::Materials::MatrixIndexPair\{2ul, 2ul\}\}\},"{}} +}
-\DoxyCodeLine{120                     Dune::className<Material>() + \textcolor{stringliteral}{"{}>"{}}),}
-\DoxyCodeLine{121                 includes)}
-\DoxyCodeLine{122                 .first;}
-\DoxyCodeLine{123   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pS, PlaneStressClass, storedEnergy, 3);}
-\DoxyCodeLine{124   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pS, PlaneStressClass, stresses, 3);}
-\DoxyCodeLine{125   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pS, PlaneStressClass, tangentModuli, 3);}
-\DoxyCodeLine{126   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pS, PlaneStressClass, storedEnergy, 6);}
-\DoxyCodeLine{127   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pS, PlaneStressClass, stresses, 6);}
-\DoxyCodeLine{128   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pS, PlaneStressClass, tangentModuli, 6);}
-\DoxyCodeLine{129 }
-\DoxyCodeLine{130   cls.def(}
-\DoxyCodeLine{131       \textcolor{stringliteral}{"{}asPlaneStress"{}}, [](\mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}}\& self, \textcolor{keywordtype}{double} tol = 1e-\/12) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a00474_aa7b4cfc28796165e32b16cb12ab8ccd4}{Materials::planeStress}}(self); \},}
-\DoxyCodeLine{132       py::arg(\textcolor{stringliteral}{"{}tol"{}}) = 1e-\/12); \textcolor{comment}{/* no keep\_alive since planeStress copies the material */}}
-\DoxyCodeLine{133 }
-\DoxyCodeLine{134   \textcolor{keyword}{using }PlaneStrainClass = \textcolor{keyword}{decltype}(\mbox{\hyperlink{a00474_a5b428881c8ea5104acd909e769b7910b}{Materials::planeStrain}}(std::declval<Material>()));}
-\DoxyCodeLine{135   \textcolor{keyword}{auto} pStrain           = Dune::Python::insertClass<PlaneStrainClass>(}
-\DoxyCodeLine{136                      scope, std::string(\textcolor{stringliteral}{"{}PlaneStrain\_"{}}) + materialname,}
-\DoxyCodeLine{137                      Dune::Python::GenerateTypeName(}
-\DoxyCodeLine{138                          \textcolor{stringliteral}{"{}Ikarus::Materials::VanishingStrain<std::array<Ikarus::Materials::MatrixIndexPair, "{}}}
-\DoxyCodeLine{139                                    \textcolor{stringliteral}{"{}3ul>\{\{Ikarus::Materials::MatrixIndexPair\{2ul, 1ul\},"{}}}
-\DoxyCodeLine{140                                    \textcolor{stringliteral}{"{}Ikarus::Materials::MatrixIndexPair\{2ul,0ul\}, Ikarus::Materials::MatrixIndexPair\{"{}}}
-\DoxyCodeLine{141                                    \textcolor{stringliteral}{"{}2ul, 2ul\}\}\},"{}} +}
-\DoxyCodeLine{142                          Dune::className<Material>() + \textcolor{stringliteral}{"{}>"{}}),}
-\DoxyCodeLine{143                      includes)}
-\DoxyCodeLine{144                      .first;}
-\DoxyCodeLine{145   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pStrain, PlaneStrainClass, storedEnergy, 3);}
-\DoxyCodeLine{146   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pStrain, PlaneStrainClass, stresses, 3);}
-\DoxyCodeLine{147   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pStrain, PlaneStrainClass, tangentModuli, 3);}
-\DoxyCodeLine{148   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pStrain, PlaneStrainClass, storedEnergy, 6);}
-\DoxyCodeLine{149   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pStrain, PlaneStrainClass, stresses, 6);}
-\DoxyCodeLine{150   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(pStrain, PlaneStrainClass, tangentModuli, 6);}
-\DoxyCodeLine{151 }
-\DoxyCodeLine{152   cls.def(\textcolor{stringliteral}{"{}asPlaneStrain"{}}, [](\mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}}\& self) \{}
-\DoxyCodeLine{153     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00474_a5b428881c8ea5104acd909e769b7910b}{Materials::planeStrain}}(self);}
-\DoxyCodeLine{154   \}); \textcolor{comment}{/* no keep\_alive since planeStrain copies the material */}}
-\DoxyCodeLine{155   \textcolor{keyword}{using }ShellMaterialClass = \textcolor{keyword}{decltype}(\mbox{\hyperlink{a00474_a87bf89dc04e6f4021681129ae4e9a0ee}{Materials::shellMaterial}}(std::declval<Material>()));}
-\DoxyCodeLine{156   \textcolor{keyword}{auto} shellmaterial       = Dune::Python::insertClass<ShellMaterialClass>(}
-\DoxyCodeLine{157                            scope, std::string(\textcolor{stringliteral}{"{}Shell\_"{}}) + materialname,}
-\DoxyCodeLine{158                            Dune::Python::GenerateTypeName(}
-\DoxyCodeLine{159                                \textcolor{stringliteral}{"{}Ikarus::Materials::VanishingStress<std::array<Ikarus::Materials::MatrixIndexPair,"{}}}
-\DoxyCodeLine{160                                      \textcolor{stringliteral}{"{}1ul>\{\{Ikarus::Materials::MatrixIndexPair\{2ul, 2ul\}\}\},"{}} +}
-\DoxyCodeLine{161                                Dune::className<Material>() + \textcolor{stringliteral}{"{}>"{}}),}
-\DoxyCodeLine{162                            includes)}
-\DoxyCodeLine{163                            .first;}
-\DoxyCodeLine{164   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(shellmaterial, ShellMaterialClass, storedEnergy, 5);}
-\DoxyCodeLine{165   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(shellmaterial, ShellMaterialClass, stresses, 5);}
-\DoxyCodeLine{166   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(shellmaterial, ShellMaterialClass, tangentModuli, 5);}
-\DoxyCodeLine{167   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(shellmaterial, ShellMaterialClass, storedEnergy, 6);}
-\DoxyCodeLine{168   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(shellmaterial, ShellMaterialClass, stresses, 6);}
-\DoxyCodeLine{169   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(shellmaterial, ShellMaterialClass, tangentModuli, 6);}
-\DoxyCodeLine{170 }
-\DoxyCodeLine{171   cls.def(}
-\DoxyCodeLine{172       \textcolor{stringliteral}{"{}asShellMaterial"{}}, [](\mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}}\& self, \textcolor{keywordtype}{double} tol = 1e-\/12) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a00474_a87bf89dc04e6f4021681129ae4e9a0ee}{Materials::shellMaterial}}(self); \},}
-\DoxyCodeLine{173       py::arg(\textcolor{stringliteral}{"{}tol"{}}) = 1e-\/12); \textcolor{comment}{/* no keep\_alive since shellMaterial copies the material */}}
-\DoxyCodeLine{174   \textcolor{keyword}{using }BeamMaterialClass = \textcolor{keyword}{decltype}(\mbox{\hyperlink{a00474_ab89e3a8a28d4e7241ab9dfd41fbbd153}{Materials::beamMaterial}}(std::declval<Material>()));}
-\DoxyCodeLine{175   \textcolor{keyword}{auto} beammaterial       = Dune::Python::insertClass<BeamMaterialClass>(}
-\DoxyCodeLine{176                           scope, std::string(\textcolor{stringliteral}{"{}Beam\_"{}}) + materialname,}
-\DoxyCodeLine{177                           Dune::Python::GenerateTypeName(}
-\DoxyCodeLine{178                               \textcolor{stringliteral}{"{}Ikarus::Materials::VanishingStress<std::array<Ikarus::Materials::MatrixIndexPair, "{}}}
-\DoxyCodeLine{179                                     \textcolor{stringliteral}{"{}2ul>\{\{Materials::MatrixIndexPair\{1, 1\},Ikarus::Materials::MatrixIndexPair\{2ul, 2ul\}\}\},"{}} +}
-\DoxyCodeLine{180                               Dune::className<Material>() + \textcolor{stringliteral}{"{}>"{}}),}
-\DoxyCodeLine{181                           includes)}
-\DoxyCodeLine{182                           .first;}
-\DoxyCodeLine{183   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(beammaterial, BeamMaterialClass, storedEnergy, 4);}
-\DoxyCodeLine{184   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(beammaterial, BeamMaterialClass, stresses, 4);}
-\DoxyCodeLine{185   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(beammaterial, BeamMaterialClass, tangentModuli, 4);}
-\DoxyCodeLine{186   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(beammaterial, BeamMaterialClass, storedEnergy, 6);}
-\DoxyCodeLine{187   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(beammaterial, BeamMaterialClass, stresses, 6);}
-\DoxyCodeLine{188   \mbox{\hyperlink{a00311_a52604789ad84df5cf20d4571f90af39e}{MAKE\_MaterialFunction}}(beammaterial, BeamMaterialClass, tangentModuli, 6);}
-\DoxyCodeLine{189   cls.def(}
-\DoxyCodeLine{190       \textcolor{stringliteral}{"{}asBeamMaterial"{}}, [](\mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}}\& self, \textcolor{keywordtype}{double} tol = 1e-\/12) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a00474_ab89e3a8a28d4e7241ab9dfd41fbbd153}{Materials::beamMaterial}}(self); \},}
-\DoxyCodeLine{191       py::arg(\textcolor{stringliteral}{"{}tol"{}}) = 1e-\/12); \textcolor{comment}{/* no keep\_alive since beamMaterial copies the material */}}
-\DoxyCodeLine{192 \}}
-\DoxyCodeLine{193 }
-\DoxyCodeLine{194 \textcolor{preprocessor}{\#define MAKE\_MATERIAL\_REGISTRY\_FUNCTION(name, vecSize)                                      \(\backslash\)}}
-\DoxyCodeLine{195 \textcolor{preprocessor}{  template <class Material, class... options>                                               \(\backslash\)}}
-\DoxyCodeLine{196 \textcolor{preprocessor}{  void register\#\#name(pybind11::handle scope, pybind11::class\_<Material, options...> cls) \{ \(\backslash\)}}
-\DoxyCodeLine{197 \textcolor{preprocessor}{    Ikarus::Python::registerMaterial<Material, vecSize, true>(scope, cls);                  \(\backslash\)}}
-\DoxyCodeLine{198 \textcolor{preprocessor}{  \}}}
-\DoxyCodeLine{199 }
-\DoxyCodeLine{200 \mbox{\hyperlink{a00483_ac81cd08ca4f7222df18c123d422c932d}{MAKE\_MATERIAL\_REGISTRY\_FUNCTION}}(\mbox{\hyperlink{a00474_a93b8b0e77767bbe61541863fcf4d054d}{LinearElasticity}}, 6);}
-\DoxyCodeLine{201 \mbox{\hyperlink{a00483_ac81cd08ca4f7222df18c123d422c932d}{MAKE\_MATERIAL\_REGISTRY\_FUNCTION}}(\mbox{\hyperlink{a00474_a68ee2f9a7730fbcf6969940b0c5da418}{StVenantKirchhoff}}, 6);}
-\DoxyCodeLine{202 \mbox{\hyperlink{a00483_ac81cd08ca4f7222df18c123d422c932d}{MAKE\_MATERIAL\_REGISTRY\_FUNCTION}}(\mbox{\hyperlink{a00474_a4bf1415fc81c6cacecd347ec4b928def}{NeoHooke}}, 6);}
-\DoxyCodeLine{203 }
-\DoxyCodeLine{204 \textcolor{preprocessor}{\#if ENABLE\_MUESLI}}
-\DoxyCodeLine{205 }
-\DoxyCodeLine{206 \textcolor{keyword}{template} <\textcolor{keyword}{class }MuesliMaterial, \textcolor{keyword}{class}... options>}
-\DoxyCodeLine{207 \textcolor{keywordtype}{void} registerMuesliMaterial(pybind11::handle scope, pybind11::class\_<MuesliMaterial, options...> cls) \{}
-\DoxyCodeLine{208   Ikarus::Python::registerMaterial<MuesliMaterial, 6, false>(scope, cls);}
-\DoxyCodeLine{209 }
-\DoxyCodeLine{210   cls.def(\mbox{\hyperlink{a00465_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} pybind11::kwargs\& kwargs) \{}
-\DoxyCodeLine{211     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<typename MuesliMaterial::MaterialModel, muesli::neohookeanMaterial> or}
-\DoxyCodeLine{212                   std::same\_as<typename MuesliMaterial::MaterialModel, muesli::svkMaterial> or}
-\DoxyCodeLine{213                   std::same\_as<typename MuesliMaterial::MaterialModel, muesli::elasticIsotropicMaterial>) \{}
-\DoxyCodeLine{214       \textcolor{keyword}{auto} matParameter     = Impl::extractMaterialParameters(kwargs);}
-\DoxyCodeLine{215       \textcolor{keyword}{auto} muesliParameters = Ikarus::Materials::propertiesFromIkarusMaterialParameters(matParameter);}
-\DoxyCodeLine{216       \textcolor{keywordflow}{return} \textcolor{keyword}{new} MuesliMaterial(muesliParameters);}
-\DoxyCodeLine{217     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<typename MuesliMaterial::MaterialModel, muesli::arrudaboyceMaterial>) \{}
-\DoxyCodeLine{218       \textcolor{keywordtype}{bool} compressible = kwargs.contains(\textcolor{stringliteral}{"{}compressible"{}}) ? kwargs[\textcolor{stringliteral}{"{}compressible"{}}].cast<\textcolor{keywordtype}{bool}>() : \textcolor{keyword}{true};}
-\DoxyCodeLine{219       \textcolor{keywordflow}{return} Materials::makeMuesliArrudaBoyce(kwargs[\textcolor{stringliteral}{"{}C1"{}}].cast<double>(), kwargs[\textcolor{stringliteral}{"{}lambda\_m"{}}].cast<double>(),}
-\DoxyCodeLine{220                                               kwargs[\textcolor{stringliteral}{"{}K"{}}].cast<double>(), \textcolor{keyword}{true});}
-\DoxyCodeLine{221     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<typename MuesliMaterial::MaterialModel, muesli::yeohMaterial>) \{}
-\DoxyCodeLine{222       \textcolor{keywordtype}{bool} compressible = kwargs.contains(\textcolor{stringliteral}{"{}compressible"{}}) ? kwargs[\textcolor{stringliteral}{"{}compressible"{}}].cast<\textcolor{keywordtype}{bool}>() : \textcolor{keyword}{true};}
-\DoxyCodeLine{223       \textcolor{keywordflow}{return} Materials::makeMuesliYeoh(kwargs[\textcolor{stringliteral}{"{}C"{}}].cast<std::array<double, 3>>(), kwargs[\textcolor{stringliteral}{"{}K"{}}].cast<double>(), \textcolor{keyword}{true});}
-\DoxyCodeLine{224     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<typename MuesliMaterial::MaterialModel, muesli::mooneyMaterial>) \{}
-\DoxyCodeLine{225       \textcolor{keywordtype}{bool} incompressible = kwargs.contains(\textcolor{stringliteral}{"{}incompressible"{}}) ? kwargs[\textcolor{stringliteral}{"{}incompressible"{}}].cast<\textcolor{keywordtype}{bool}>() : \textcolor{keyword}{false};}
-\DoxyCodeLine{226       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00474_a7ac025ab0f41d2021008bd54e51135b1}{Materials::makeMooneyRivlin}}(kwargs[\textcolor{stringliteral}{"{}alpha"{}}].cast<std::array<double, 3>>(), incompressible);}
-\DoxyCodeLine{227     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{228       DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}No known constructor for the specified Muesli material mode"{}});}
-\DoxyCodeLine{229     \}}
-\DoxyCodeLine{230   \}));}
-\DoxyCodeLine{231 }
-\DoxyCodeLine{232   cls.def(\textcolor{stringliteral}{"{}printDescription"{}}, [](MuesliMaterial\& self) \{ self.material().print(std::cout); \});}
-\DoxyCodeLine{233 \}}
-\DoxyCodeLine{234 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{235 }
-\DoxyCodeLine{236 \} \textcolor{comment}{// namespace Ikarus::Python}}
+\DoxyCodeLine{50 \textcolor{keyword}{template} <\textcolor{keyword}{class }FE, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{51 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00488_a0c58c17676c73945cb11eff8a80309ae}{registerCalculateAt}}(pybind11::handle scope, pybind11::class\_<FE, options...> cls, \textcolor{keyword}{auto} resultTypesTuple) \{}
+\DoxyCodeLine{52   \textcolor{keyword}{using }Traits         = \textcolor{keyword}{typename} \mbox{\hyperlink{a01465_a70c7907448f7e13ff55b8fb123f3ee0c}{FE::Traits}};}
+\DoxyCodeLine{53   \textcolor{keyword}{using }\mbox{\hyperlink{a01485}{FERequirements}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a01813_a86c0fea1b37e487f3c78cde6facca9c3}{FE::Requirement}};}
+\DoxyCodeLine{54   cls.def(}
+\DoxyCodeLine{55       \textcolor{stringliteral}{"{}calculateAt"{}},}
+\DoxyCodeLine{56       [\&](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} \mbox{\hyperlink{a01485}{FERequirements}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a02125}{Dune::FieldVector<double, Traits::mydim>}}\& local,}
+\DoxyCodeLine{57           std::string resType) \{}
+\DoxyCodeLine{58         Eigen::VectorXd result;}
+\DoxyCodeLine{59         \textcolor{keywordtype}{bool} success = \textcolor{keyword}{false};}
+\DoxyCodeLine{60         Dune::Hybrid::forEach(resultTypesTuple, [\&]<\textcolor{keyword}{typename} RT>(RT i) \{}
+\DoxyCodeLine{61           \textcolor{keywordflow}{if} (resType == \mbox{\hyperlink{a00471_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(i)) \{}
+\DoxyCodeLine{62             success = \textcolor{keyword}{true};}
+\DoxyCodeLine{63             result  = self.template calculateAt<RT::template Rebind>(req, local).asVec();}
+\DoxyCodeLine{64           \}}
+\DoxyCodeLine{65         \});}
+\DoxyCodeLine{66         \textcolor{keywordflow}{if} (success)}
+\DoxyCodeLine{67           \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{68         DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}Element "{}} + Dune::className<FE>() + \textcolor{stringliteral}{"{} doesn't support ResultType "{}} + resType);}
+\DoxyCodeLine{69       \},}
+\DoxyCodeLine{70       pybind11::arg(\textcolor{stringliteral}{"{}feRequirements"{}}), pybind11::arg(\textcolor{stringliteral}{"{}local"{}}), pybind11::arg(\textcolor{stringliteral}{"{}resultType"{}}));}
+\DoxyCodeLine{71 \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{86 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a01465}{FE}}, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{87 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00463_gac8bb4a818dee7342efbc5e174e35b840}{registerFE}}(pybind11::handle scope, pybind11::class\_<FE, options...> cls) \{}
+\DoxyCodeLine{88   \textcolor{keyword}{using }BH          = \textcolor{keyword}{typename} \mbox{\hyperlink{a01465_a26398fefb73f4d51895e26152e368cf8}{FE::BasisHandler}};}
+\DoxyCodeLine{89   \textcolor{keyword}{using }GridElement = \textcolor{keyword}{typename} \mbox{\hyperlink{a01465_ae329d665e853b0286679e97418d3acad}{FE::GridElement}};}
+\DoxyCodeLine{90   \textcolor{keyword}{using }Requirement = \textcolor{keyword}{typename} \mbox{\hyperlink{a01813_a86c0fea1b37e487f3c78cde6facca9c3}{FE::Requirement}};}
+\DoxyCodeLine{91   \textcolor{keyword}{using }FlatBasis   = \textcolor{keyword}{typename} \mbox{\hyperlink{a01521_a81feef959fedef62b2e1daabbd52b5f2}{FE::Traits::FlatBasis}};}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \textcolor{keywordtype}{int} index = 0;}
+\DoxyCodeLine{94   cls.def(\mbox{\hyperlink{a00471_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{typename} \mbox{\hyperlink{a01465_a327f5479545f9b5d615c07ce535b0007}{FE::PreTuple}} argsTuple) \{}
+\DoxyCodeLine{95             \textcolor{keyword}{auto} unpackTuple = [\&]<\textcolor{keyword}{typename}... Arg>(Arg\&\&... args) \{}
+\DoxyCodeLine{96               \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a01465}{FE}}(basisHandler, std::forward<Arg>(args)...);}
+\DoxyCodeLine{97             \};}
+\DoxyCodeLine{98             \textcolor{keywordflow}{return} std::apply(unpackTuple, argsTuple);}
+\DoxyCodeLine{99           \}),}
+\DoxyCodeLine{100           pybind11::keep\_alive<1, 2>());}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102   cls.def(\textcolor{stringliteral}{"{}bind"{}}, [](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} GridElement\& e) \{ self.\mbox{\hyperlink{a01465_a3a23d70495e802f44ba4b9923804dda0}{bind}}(e); \});}
+\DoxyCodeLine{103   cls.def(\textcolor{stringliteral}{"{}updateState"{}},}
+\DoxyCodeLine{104           [](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, Eigen::Ref<Eigen::VectorXd> dx) \{ self.\mbox{\hyperlink{a01813_a37c9abe267940c5374402d6e4624cf21}{updateState}}(req, dx); \});}
+\DoxyCodeLine{105   cls.def(\textcolor{stringliteral}{"{}calculateScalar"{}}, [](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00471_af6f894084edd9109762b86222995ef2a}{Ikarus::ScalarAffordance}} affordance) \{}
+\DoxyCodeLine{106     \textcolor{keywordflow}{return} calculateScalar(self, req, affordance);}
+\DoxyCodeLine{107   \});}
+\DoxyCodeLine{108   cls.def(\textcolor{stringliteral}{"{}calculateVector"{}}, [](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00471_aab9e3e38507d1db7602bc750718c302a}{Ikarus::VectorAffordance}} affordance,}
+\DoxyCodeLine{109                                 Eigen::Ref<Eigen::VectorXd> vec) \{ calculateVector(self, req, affordance, vec); \});}
+\DoxyCodeLine{110   cls.def(}
+\DoxyCodeLine{111       \textcolor{stringliteral}{"{}calculateMatrix"{}},}
+\DoxyCodeLine{112       [](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00471_a390d5311179ec61d163a29c943b3d1a0}{Ikarus::MatrixAffordance}} affordance, Eigen::Ref<Eigen::MatrixXd> mat) \{}
+\DoxyCodeLine{113         calculateMatrix(self, req, affordance, mat);}
+\DoxyCodeLine{114       \},}
+\DoxyCodeLine{115       pybind11::arg(\textcolor{stringliteral}{"{}Requirement"{}}), pybind11::arg(\textcolor{stringliteral}{"{}MatrixAffordance"{}}), pybind11::arg(\textcolor{stringliteral}{"{}elementMatrix"{}}).noconvert());}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117   pybind11::module scopedf = pybind11::module::import(\textcolor{stringliteral}{"{}dune.functions"{}});}
+\DoxyCodeLine{118   \textcolor{keyword}{using }LocalViewWrapper   = Dune::Python::LocalViewWrapper<FlatBasis>;}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120   \textcolor{keyword}{auto} includes    = Dune::Python::IncludeFiles\{\textcolor{stringliteral}{"{}dune/python/functions/globalbasis.hh"{}}\};}
+\DoxyCodeLine{121   \textcolor{keyword}{auto} [lv, isNew] = Dune::Python::insertClass<LocalViewWrapper>(}
+\DoxyCodeLine{122       scopedf, \textcolor{stringliteral}{"{}LocalViewWrapper"{}},}
+\DoxyCodeLine{123       Dune::Python::GenerateTypeName(\textcolor{stringliteral}{"{}Dune::Python::LocalViewWrapperWrapper"{}}, Dune::MetaType<FlatBasis>()), includes);}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125   \textcolor{keywordflow}{if} (isNew) \{}
+\DoxyCodeLine{126     lv.def(\textcolor{stringliteral}{"{}bind"{}}, \&LocalViewWrapper::bind);}
+\DoxyCodeLine{127     lv.def(\textcolor{stringliteral}{"{}unbind"{}}, \&LocalViewWrapper::unbind);}
+\DoxyCodeLine{128     lv.def(\textcolor{stringliteral}{"{}index"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& localView, \textcolor{keywordtype}{int} index) \{ \textcolor{keywordflow}{return} localView.index(index); \});}
+\DoxyCodeLine{129     lv.def(\textcolor{stringliteral}{"{}\_\_len\_\_"{}}, [](LocalViewWrapper\& self) -\/> \textcolor{keywordtype}{int} \{ \textcolor{keywordflow}{return} self.size(); \});}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131     Dune::Python::Functions::registerTree<typename LocalViewWrapper::Tree>(lv);}
+\DoxyCodeLine{132     lv.def(\textcolor{stringliteral}{"{}tree"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& view) \{ \textcolor{keywordflow}{return} view.tree(); \});}
+\DoxyCodeLine{133   \}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135   cls.def(}
+\DoxyCodeLine{136       \textcolor{stringliteral}{"{}localView"{}},}
+\DoxyCodeLine{137       [](\mbox{\hyperlink{a01465}{FE}}\& self) -\/> LocalViewWrapper \{}
+\DoxyCodeLine{138         \textcolor{keyword}{auto} lvWrapped = LocalViewWrapper(self.\mbox{\hyperlink{a01465_a1425316afd592244682b9ccc48cf59ef}{localView}}().globalBasis());}
+\DoxyCodeLine{139         \textcolor{comment}{// this can be simplified when https://gitlab.dune-\/project.org/staging/dune-\/functions/-\//merge\_requests/418}}
+\DoxyCodeLine{140         \textcolor{comment}{// becomes available}}
+\DoxyCodeLine{141         \textcolor{comment}{// pybind11::object obj = pybind11::cast(self.localView().element());}}
+\DoxyCodeLine{142         lvWrapped.base().bind(self.\mbox{\hyperlink{a01465_a1425316afd592244682b9ccc48cf59ef}{localView}}().element());}
+\DoxyCodeLine{143         \textcolor{keywordflow}{return} lvWrapped;}
+\DoxyCodeLine{144       \},}
+\DoxyCodeLine{145       pybind11::keep\_alive<0, 1>());}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147   \mbox{\hyperlink{a00488_a0c58c17676c73945cb11eff8a80309ae}{registerCalculateAt}}(scope, cls, \textcolor{keyword}{typename} \mbox{\hyperlink{a01813_ada59c15363d83f6e635ecd6e1672d6a4}{FE::SupportedResultTypes}}());}
+\DoxyCodeLine{148   \mbox{\hyperlink{a00488_a32c3989a8ef1dbc581313ef17a0c6f5b}{registerFERequirement}}(scope, cls);}
+\DoxyCodeLine{149 \}}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151 \} \textcolor{comment}{// namespace Ikarus::Python}}
 
 \end{DoxyCode}

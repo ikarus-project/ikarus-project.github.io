@@ -1,10 +1,8 @@
-\hypertarget{a02303}{}\doxysection{Ikarus\+::Concepts\+::Vector\+Flat\+Assembler Concept Reference}
-\label{a02303}\index{Ikarus::Concepts::VectorFlatAssembler@{Ikarus::Concepts::VectorFlatAssembler}}
+\hypertarget{a02303}{}\doxysection{Ikarus\+::Concepts\+::Dense\+Or\+Sparse\+Eigen\+Matrix Concept Reference}
+\label{a02303}\index{Ikarus::Concepts::DenseOrSparseEigenMatrix@{Ikarus::Concepts::DenseOrSparseEigenMatrix}}
 
 
-Concept representing the requirements for a Vector\+Flat\+Assembler.
-
-A type T satisfies Vector\+Flat\+Assembler if it is a Scalar\+Flat\+Assembler and if it provides the necessary vector() member functions.  
+Concept defining the requirements for sparse or dense \mbox{\hyperlink{a00486}{Eigen}} matrices.  
 
 
 
@@ -14,15 +12,15 @@ A type T satisfies Vector\+Flat\+Assembler if it is a Scalar\+Flat\+Assembler an
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02303}{Ikarus::Concepts::VectorFlatAssembler}} =  \mbox{\hyperlink{a02302}{Concepts::ScalarFlatAssembler<T>}} and}
-\DoxyCodeLine{                                \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
-\DoxyCodeLine{                                         \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00465_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
-\DoxyCodeLine{                                  \{}
-\DoxyCodeLine{                                    t.vector(req, affordance.vectorAffordance(), dbcOption)}
-\DoxyCodeLine{                                  \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
-\DoxyCodeLine{                                  \{ t.vector(dbcOption) \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
-\DoxyCodeLine{                                  \{ t.vector() \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
-\DoxyCodeLine{                                \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} M>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02303}{Ikarus::Concepts::DenseOrSparseEigenMatrix}} =  \mbox{\hyperlink{a02302}{SparseEigenMatrix<M>}} or \mbox{\hyperlink{a02301}{EigenMatrix<M>}}}
 
 \end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em M} & Type representing a dense or sparse \mbox{\hyperlink{a00486}{Eigen}} matrix. \\
+\hline
+\end{DoxyTemplParams}

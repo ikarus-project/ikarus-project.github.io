@@ -1,59 +1,19 @@
 var a00458 =
 [
-    [ "Ikarus::LinearSolverTemplate< ST >", "a01950.html", [
-      [ "DenseMatrixType", "a01950.html#a9f52825b9226c080976fa759fc0f5a1b", null ],
-      [ "ScalarType", "a01950.html#ab222fb68571b860471b41e2c707d5637", null ],
-      [ "SparseMatrixType", "a01950.html#ab653f5550c90008600c77abe785963a0", null ],
-      [ "LinearSolverTemplate", "a01950.html#a2c5e6c2336f13f818870e9b717044fac", null ],
-      [ "LinearSolverTemplate", "a01950.html#a2d2c1ea4b5bdb1642442e94c64e03aef", null ],
-      [ "~LinearSolverTemplate", "a01950.html#a683577ea4ceced6e7e74a6a37180c279", null ],
-      [ "LinearSolverTemplate", "a01950.html#a5e6a040954d7452eed8cb74d08b7e1d5", null ],
-      [ "LinearSolverTemplate", "a01950.html#a77210b698dab50ebe8a001b5c086ebce", null ],
-      [ "analyzePattern", "a01950.html#a771b39a199d35745e0a1cbdec03db762", null ],
-      [ "compute", "a01950.html#a1c92808f8c8139bb32f50740f0bcb783", null ],
-      [ "factorize", "a01950.html#ad19ae7c98843dd8ecad6586003ed3b5d", null ],
-      [ "operator=", "a01950.html#ab08cf628010af09d0de6155ac8da25a6", null ],
-      [ "operator=", "a01950.html#a38ea395ad12b0d6056a8f5845d483276", null ],
-      [ "solve", "a01950.html#aef63652936885765e62b9cca984e347a", null ],
-      [ "solve", "a01950.html#a6313a4e4112c84af47156be3463acabc", null ],
-      [ "solve", "a01950.html#a6cd3b6346a6299ca7e4c77324e271c63", null ],
-      [ "solve", "a01950.html#aee8cb48155fb74e976d6ccdef6313dac", null ],
-      [ "swap", "a01950.html#a0f390f311ff1259150554396f4fd0025", null ]
+    [ "Ikarus::FEParameter", "a00458.html#ga0c1577fd05efee8475b0f7fef795bbbe", [
+      [ "Ikarus::FEParameter::BEGIN", "a00458.html#gga0c1577fd05efee8475b0f7fef795bbbea19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Ikarus::FEParameter::noParameter", "a00458.html#gga0c1577fd05efee8475b0f7fef795bbbea298c62e2f9918b280f40eb210c44fdbe", null ],
+      [ "Ikarus::FEParameter::loadfactor", "a00458.html#gga0c1577fd05efee8475b0f7fef795bbbeaf72bac0ac84c0315e7bcbb8aa84b2ff8", null ],
+      [ "Ikarus::FEParameter::time", "a00458.html#gga0c1577fd05efee8475b0f7fef795bbbea07cc694b9b3fc636710fa08b6922c42b", null ],
+      [ "Ikarus::FEParameter::END", "a00458.html#gga0c1577fd05efee8475b0f7fef795bbbeab1a326c06d88bf042f73d70f50197905", null ]
     ] ],
-    [ "Ikarus::NewtonRaphson< F, LS, UF >", "a01962.html", [
-      [ "CorrectionType", "a01962.html#a791d37d2bfb861e6c217819fb388b282", null ],
-      [ "DifferentiableFunction", "a01962.html#a6c08a044fb32d028d956e79a0341eacf", null ],
-      [ "Domain", "a01962.html#a5d7e544529b99abb651a197b46db8b3a", null ],
-      [ "JacobianType", "a01962.html#ac0c75d43d2a75128726419fa07eccc5e", null ],
-      [ "Settings", "a01962.html#a2a68ea678ecfb80146065ad3d41583a4", null ],
-      [ "SignatureTraits", "a01962.html#a7bd8412a8b7991d26563d2c517ab8cd3", null ],
-      [ "State", "a01962.html#a6b3059dcd3fdc9cb9d393a85a799dd6d", null ],
-      [ "UpdateFunction", "a01962.html#af4c0c2155a8de4a57e59c86990aaabc2", null ],
-      [ "NewtonRaphson", "a01962.html#ac3468244052a4944706be0eadd6f2355", null ],
-      [ "residual", "a01962.html#ae46f64a298b2bf806aa9d0f111cfa395", null ],
-      [ "setup", "a01962.html#ab6a0750ea75bffb8c3d2119e52a4dcee", null ],
-      [ "solve", "a01962.html#a621f710e849d4be7d8f65da592b5567c", null ],
-      [ "station", "a01962.html#abc95263ead8ea6d71c2b017a1ea250be", null ],
-      [ "station", "a01962.html#af25ec90e8c2c7df3d7b033e6e6a06dc1", null ],
-      [ "isLinearSolver", "a01962.html#a18aa2b4eabc748ca815768f24d431125", null ]
-    ] ],
-    [ "Ikarus::TrustRegion< F, preConditioner, UF >", "a02026.html", [
-      [ "CorrectionType", "a02026.html#a899ac3cd2015b519b66625d808bb9fcc", null ],
-      [ "DifferentiableFunction", "a02026.html#a6dcf38b01cafb05ebd82dee27984a72a", null ],
-      [ "Domain", "a02026.html#a7dc55204b21970840c7859e75e7edbfb", null ],
-      [ "EnergyType", "a02026.html#a15c3ad8c7cd7f7c23bbef6f0f1b47fef", null ],
-      [ "FTraits", "a02026.html#add01c6b61bd22a5275d543469e010f65", null ],
-      [ "GradientType", "a02026.html#a60eb2889af7f24bc7fb06524721fed76", null ],
-      [ "HessianType", "a02026.html#a5e2768101126cfb2b0ddab5143c729e9", null ],
-      [ "Settings", "a02026.html#abc7d6d7b827fc30a01dc97c39014f920", null ],
-      [ "State", "a02026.html#a6b3059dcd3fdc9cb9d393a85a799dd6d", null ],
-      [ "UpdateFunction", "a02026.html#a023a96cb37e21c690a9ccbdb093e8d5c", null ],
-      [ "TrustRegion", "a02026.html#a3e17709ebf1cd5fc308be4d3d6eebc4a", null ],
-      [ "energy", "a02026.html#ae9aec5337cddd215d0902c1945d51066", null ],
-      [ "residual", "a02026.html#a33b468e43037cb1e7127bd46375996df", null ],
-      [ "setup", "a02026.html#abfd56b9a18948159159ed64dc5fa852a", null ],
-      [ "solve", "a02026.html#ac9666bc7f65a24cdaaebfb11ba80b53e", null ],
-      [ "station", "a02026.html#abc95263ead8ea6d71c2b017a1ea250be", null ],
-      [ "station", "a02026.html#af25ec90e8c2c7df3d7b033e6e6a06dc1", null ]
+    [ "Ikarus::FESolutions", "a00458.html#gaea763c94a1cecbeefc4f8661debcc5a3", [
+      [ "Ikarus::FESolutions::BEGIN", "a00458.html#ggaea763c94a1cecbeefc4f8661debcc5a3a19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Ikarus::FESolutions::noSolution", "a00458.html#ggaea763c94a1cecbeefc4f8661debcc5a3a2100a151ce2773b3467509ae085aa505", null ],
+      [ "Ikarus::FESolutions::displacement", "a00458.html#ggaea763c94a1cecbeefc4f8661debcc5a3a0c2d35f5f278a229db5ba41d40120f1c", null ],
+      [ "Ikarus::FESolutions::velocity", "a00458.html#ggaea763c94a1cecbeefc4f8661debcc5a3aac1a453d0cdc1f19d9479ccfaa8b082c", null ],
+      [ "Ikarus::FESolutions::director", "a00458.html#ggaea763c94a1cecbeefc4f8661debcc5a3a3d4e992d8d8a7d848724aa26ed7f4176", null ],
+      [ "Ikarus::FESolutions::magnetizationAndVectorPotential", "a00458.html#ggaea763c94a1cecbeefc4f8661debcc5a3a58edccca94b76e0355ed45da28ece7ff", null ],
+      [ "Ikarus::FESolutions::END", "a00458.html#ggaea763c94a1cecbeefc4f8661debcc5a3ab1a326c06d88bf042f73d70f50197905", null ]
     ] ]
 ];

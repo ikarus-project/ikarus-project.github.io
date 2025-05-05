@@ -1,6 +1,5 @@
 var a00419 =
 [
-    [ "ValueWrapper", "a00419.html#adae188e7353a8e6fcaf3c178c96d6416", null ],
-    [ "moduleName", "a00419.html#accab2501ce940db483da0b3ebe2cf723", null ],
-    [ "modulePath", "a00419.html#a9ebab9199168d32a8ab347a990044552", null ]
+    [ "PYBIND11_MODULE", "a00419.html#a0e4f7cface71bec1c24bbed3aaa798d8", null ],
+    [ "registerScalarWrapper", "a00419.html#ac2c47f2dc30578300b98d15f90379897", null ]
 ];

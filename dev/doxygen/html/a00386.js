@@ -1,11 +1,14 @@
 var a00386 =
 [
-    [ "DBCOption", "a00386.html#a9f83fad9f4c149f249165a13f2370eec", [
-      [ "BEGIN", "a00386.html#a9f83fad9f4c149f249165a13f2370eeca19aad9f2fe3ce0023298ab83f7e75775", null ],
-      [ "Raw", "a00386.html#a9f83fad9f4c149f249165a13f2370eeca65e65c8ab0d8609ce12fc68a03cb8e00", null ],
-      [ "Reduced", "a00386.html#a9f83fad9f4c149f249165a13f2370eeca4335949a935758ca1b570689c3c6750b", null ],
-      [ "Full", "a00386.html#a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75", null ],
-      [ "END", "a00386.html#a9f83fad9f4c149f249165a13f2370eecab1a326c06d88bf042f73d70f50197905", null ]
+    [ "Ikarus::GeneralizedSymEigenSolver< SolverType, MT >", "a01941.html", null ],
+    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Spectra, MT >", "a01945.html", "a01945" ],
+    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Eigen, MT >", "a01949.html", "a01949" ],
+    [ "Ikarus::PartialGeneralizedSymEigenSolver< MT >", "a01953.html", "a01953" ],
+    [ "EigenValueSolverType", "a00386.html#a76f328509ccf00e93bba2416f01620e4", [
+      [ "BEGIN", "a00386.html#a76f328509ccf00e93bba2416f01620e4a19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Spectra", "a00386.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69", null ],
+      [ "Eigen", "a00386.html#a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833", null ],
+      [ "END", "a00386.html#a76f328509ccf00e93bba2416f01620e4ab1a326c06d88bf042f73d70f50197905", null ]
     ] ],
-    [ "toString", "a00386.html#aef80b6b5b45dcfbea4f722f51a84f53f", null ]
+    [ "toString", "a00386.html#acc08b9ea0e95d84b7f5b9cc272eb453f", null ]
 ];

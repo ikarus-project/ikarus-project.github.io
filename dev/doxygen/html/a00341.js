@@ -1,4 +1,5 @@
 var a00341 =
 [
-    [ "Ikarus::ControlRoutineBase< F, S, Args >", "a01394.html", "a01394" ]
+    [ "Ikarus::AdaptiveStepSizing::NoOp", "a01389.html", "a01389" ],
+    [ "Ikarus::AdaptiveStepSizing::IterationBased", "a01393.html", "a01393" ]
 ];

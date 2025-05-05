@@ -1,84 +1,57 @@
-\hypertarget{a00155_source}{}\doxysection{fehelper.\+hh}
-\label{a00155_source}\index{fehelper.hh@{fehelper.hh}}
+\hypertarget{a00155_source}{}\doxysection{fefactory.\+hh}
+\label{a00155_source}\index{fefactory.hh@{fefactory.hh}}
 \mbox{\hyperlink{a00155}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{4 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{5 }
-\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <functional>}}
-\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <optional>}}
-\DoxyCodeLine{8 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <dune/localfefunctions/manifolds/realTuple.hh>}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00059}{ikarus/utils/traversal.hh}}>}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00469}{Ikarus::FEHelper}} \{}
-\DoxyCodeLine{27 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Traits, \textcolor{keyword}{typename} Vector, \textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{28 \textcolor{keyword}{auto} \mbox{\hyperlink{a00469_a899043a23720a93e6ce9be9025c3a4bb}{localSolutionBlockVector}}(}
-\DoxyCodeLine{29     \textcolor{keyword}{const} Vector\& x, \textcolor{keyword}{const} \textcolor{keyword}{typename} Traits::LocalView\& localView,}
-\DoxyCodeLine{30     \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ST>>>\& dx = std::nullopt) \{}
-\DoxyCodeLine{31   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} worldDim = Traits::worlddim;}
-\DoxyCodeLine{32   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe         = localView.tree().child(0).finiteElement();}
-\DoxyCodeLine{33   Dune::BlockVector<Dune::RealTuple<ST, worldDim>> localX(fe.size());}
-\DoxyCodeLine{34   \textcolor{keywordflow}{if} (dx) \{}
-\DoxyCodeLine{35     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i = 0U; i < localX.size(); ++i)}
-\DoxyCodeLine{36       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} j = 0U; j < worldDim; ++j)}
-\DoxyCodeLine{37         localX[i][j] =}
-\DoxyCodeLine{38             dx.value().get()[i * worldDim + j] + x[localView.index(localView.tree().child(j).localIndex(i))[0]];}
-\DoxyCodeLine{39   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{40     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i = 0U; i < localX.size(); ++i)}
-\DoxyCodeLine{41       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} j = 0U; j < worldDim; ++j)}
-\DoxyCodeLine{42         localX[i][j] = x[localView.index(localView.tree().child(j).localIndex(i))[0]];}
-\DoxyCodeLine{43   \}}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{45   \textcolor{keywordflow}{return} localX;}
-\DoxyCodeLine{46 \}}
-\DoxyCodeLine{47 }
-\DoxyCodeLine{48 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{59   \textcolor{keyword}{template} <\textcolor{keyword}{typename} LocalView, \textcolor{keyword}{typename} Node>}
-\DoxyCodeLine{60   \textcolor{keywordtype}{void} leafNodeIndices(\textcolor{keyword}{const} LocalView\& localView, \textcolor{keyword}{const} Node\& node,}
-\DoxyCodeLine{61                        std::vector<typename LocalView::MultiIndex>\& \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}}) \{}
-\DoxyCodeLine{62     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe = node.finiteElement();}
-\DoxyCodeLine{63     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < fe.size(); ++i)}
-\DoxyCodeLine{64       \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}}.push\_back(localView.index(node.localIndex(i)));}
-\DoxyCodeLine{65   \}}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{77   \textcolor{keyword}{template} <\textcolor{keyword}{typename} LocalView, \textcolor{keyword}{typename} Node>}
-\DoxyCodeLine{78   \textcolor{keywordtype}{void} powerNodeIndices(\textcolor{keyword}{const} LocalView\& localView, \textcolor{keyword}{const} Node\& node,}
-\DoxyCodeLine{79                         std::vector<typename LocalView::MultiIndex>\& \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}}) \{}
-\DoxyCodeLine{80     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe         = node.child(0).finiteElement();}
-\DoxyCodeLine{81     \textcolor{keyword}{const} \textcolor{keywordtype}{int} childrenSize = node.degree();}
-\DoxyCodeLine{82     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < fe.size(); ++i)}
-\DoxyCodeLine{83       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < childrenSize; ++j)}
-\DoxyCodeLine{84         \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}}.push\_back(localView.index(node.child(j).localIndex(i)));}
-\DoxyCodeLine{85   \}}
-\DoxyCodeLine{86 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00293}{ikarus/finiteelements/febase.hh}}>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00471}{Ikarus}} \{}
+\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK, \textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false>}
+\DoxyCodeLine{22 \textcolor{keyword}{struct }\mbox{\hyperlink{a01477}{FEFactory}}}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   \textcolor{keyword}{using }\mbox{\hyperlink{a01477_ae4167551b40097429f804066c4973256}{Skills}} = SK;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{private}:}
+\DoxyCodeLine{27   \textcolor{keyword}{const} BH* basisHandler\_;}
+\DoxyCodeLine{28   SK skills\_;}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{public}:}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SK2 = SK>}
+\DoxyCodeLine{37   \mbox{\hyperlink{a01477_aacbb6c8ee45484144edb78306da79456}{FEFactory}}(\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{const} SK2\& sk)}
+\DoxyCodeLine{38       : basisHandler\_\{\&basisHandler\},}
+\DoxyCodeLine{39         skills\_\{sk\} \{\}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   \textcolor{keyword}{auto} \mbox{\hyperlink{a01477_aa324bf69fc6e9d878cdaf1b2a8667196}{operator()}}() \{}
+\DoxyCodeLine{42     \textcolor{keywordflow}{return} std::apply(}
+\DoxyCodeLine{43         [\&]<\textcolor{keyword}{typename}... Args>(Args\&\&... args) \{}
+\DoxyCodeLine{44           \textcolor{comment}{// the template would not be needed,}}
+\DoxyCodeLine{45           \textcolor{comment}{// when https://www.open-\/std.org/jtc1/sc22/wg21/docs/papers/2019/p1814r0.html}}
+\DoxyCodeLine{46           \textcolor{comment}{// will be implemented in clang. It is already implemented in gcc 12.2}}
+\DoxyCodeLine{47           \textcolor{keyword}{typename} \mbox{\hyperlink{a01469}{PreFE<BH, useFlat, useEigenRef>::template}} \mbox{\hyperlink{a01465}{FE<std::decay\_t<Args>::template}} Skill...> fe(}
+\DoxyCodeLine{48               *basisHandler\_, std::forward<Args>(args)...);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50           \textcolor{keywordflow}{return} fe;}
+\DoxyCodeLine{51         \},}
+\DoxyCodeLine{52         skills\_.args);}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{67 \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false, \textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK>}
+\DoxyCodeLine{68 \textcolor{keyword}{auto} \mbox{\hyperlink{a00471_a59639a9a20f036a4f1c0794f65595662}{makeFE}}(\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{const} SK\& sk) \{}
+\DoxyCodeLine{69   \mbox{\hyperlink{a01477}{FEFactory<BH, SK, useFlat, useEigenRef>}} factory(basisHandler, sk);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   \textcolor{keywordflow}{return} factory();}
+\DoxyCodeLine{72 \}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{84 \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} useEigenRef = false, \textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK>}
+\DoxyCodeLine{85 \textcolor{keyword}{auto} \mbox{\hyperlink{a00471_aa80712fed165a22f02670f195488fe5f}{makeFEWithUnTouchedBasis}}(\textcolor{keyword}{const} BH\& basisHandler, SK\&\& sk) \{}
+\DoxyCodeLine{86   \mbox{\hyperlink{a01477}{FEFactory<BH, SK, false, useEigenRef>}} factory(basisHandler, std::forward<SK>(sk));}
 \DoxyCodeLine{87 }
-\DoxyCodeLine{96 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LocalView>}
-\DoxyCodeLine{97 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00469_a2a4ac5503d4288b339457aae427ff661}{globalIndicesFromLocalView}}(\textcolor{keyword}{const} LocalView\& localView,}
-\DoxyCodeLine{98                                 std::vector<typename LocalView::MultiIndex>\& \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}}) \{}
-\DoxyCodeLine{99   assert(localView.bound());}
-\DoxyCodeLine{100   \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}}.clear();}
-\DoxyCodeLine{101   \textcolor{keyword}{using namespace }Dune::Indices;}
-\DoxyCodeLine{102   \textcolor{keyword}{using namespace }FEHelper::Impl;}
-\DoxyCodeLine{103 }
-\DoxyCodeLine{104   \textcolor{keyword}{auto} leafOpFunc = [\&](\textcolor{keyword}{auto}\&\& node, [[maybe\_unused]] \textcolor{keyword}{auto}\&\& treePath) \{}
-\DoxyCodeLine{105     leafNodeIndices(localView, node, \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}});}
-\DoxyCodeLine{106   \};}
-\DoxyCodeLine{107 }
-\DoxyCodeLine{108   \textcolor{keyword}{auto} powerOpFunc = [\&](\textcolor{keyword}{auto}\&\& node, [[maybe\_unused]] \textcolor{keyword}{auto}\&\& treePath) \{}
-\DoxyCodeLine{109     powerNodeIndices(localView, node, \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}});}
-\DoxyCodeLine{110   \};}
-\DoxyCodeLine{111 }
-\DoxyCodeLine{112   \mbox{\hyperlink{a00485_a63742d75d099b93da7ddf6e78a3c1f56}{utils::forEachLeafOrPowerLeafNode}}(localView.tree(), Dune::TypeTree::hybridTreePath(), powerOpFunc, leafOpFunc);}
-\DoxyCodeLine{113 \}}
-\DoxyCodeLine{114 }
-\DoxyCodeLine{126 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FiniteElement>}
-\DoxyCodeLine{127 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}}(\textcolor{keyword}{const} FiniteElement\& fe, std::vector<typename FiniteElement::LocalView::MultiIndex>\& \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}}) \{}
-\DoxyCodeLine{128   \mbox{\hyperlink{a00469_a2a4ac5503d4288b339457aae427ff661}{globalIndicesFromLocalView}}(fe.localView(), \mbox{\hyperlink{a00469_a44e16df41148f7e4538be224814a3423}{globalIndices}});}
-\DoxyCodeLine{129 \}}
-\DoxyCodeLine{130 \} \textcolor{comment}{// namespace Ikarus::FEHelper}}
+\DoxyCodeLine{88   \textcolor{keywordflow}{return} factory();}
+\DoxyCodeLine{89 \}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

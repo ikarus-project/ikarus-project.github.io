@@ -2,6 +2,6 @@ var dir_f35896bbba8936d1d4d1ed6b76b80319 =
 [
     [ "easfunctions", "dir_fcb4e2ceb6b2f2f2f5fb5f66d2cf2356.html", "dir_fcb4e2ceb6b2f2f2f5fb5f66d2cf2356" ],
     [ "easvariants", "dir_32fee6690055e5dca6b4c9136006c5b5.html", "dir_32fee6690055e5dca6b4c9136006c5b5" ],
-    [ "easfunctions.hh", "a00182.html", null ],
-    [ "easvariants.hh", "a00191.html", "a00191" ]
+    [ "easfunctions.hh", "a00185.html", null ],
+    [ "easvariants.hh", "a00194.html", "a00194" ]
 ];

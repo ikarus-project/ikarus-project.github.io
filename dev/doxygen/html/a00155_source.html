@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: fehelper.hh Source File</title>
+    <title>ikarus: fefactory.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,93 +155,70 @@ $(document).ready(function(){initNavTree('a00155_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">fehelper.hh</div></div>
+  <div class="headertitle"><div class="title">fefactory.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00155.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers mueller@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;dune/localfefunctions/manifolds/realTuple.hh&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00059.html">ikarus/utils/traversal.hh</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a00469.html">   13</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00469.html">Ikarus::FEHelper</a> {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Traits, <span class="keyword">typename</span> Vector, <span class="keyword">typename</span> ST&gt;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a00469.html#a899043a23720a93e6ce9be9025c3a4bb">   28</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00469.html#a899043a23720a93e6ce9be9025c3a4bb">localSolutionBlockVector</a>(</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">const</span> Vector&amp; x, <span class="keyword">const</span> <span class="keyword">typename</span> Traits::LocalView&amp; localView,</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">const</span> std::optional&lt;std::reference_wrapper&lt;<span class="keyword">const</span> Eigen::VectorX&lt;ST&gt;&gt;&gt;&amp; dx = std::nullopt) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keyword">constexpr</span> <span class="keywordtype">int</span> worldDim = Traits::worlddim;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; fe         = localView.tree().child(0).finiteElement();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  Dune::BlockVector&lt;Dune::RealTuple&lt;ST, worldDim&gt;&gt; localX(fe.size());</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keywordflow">if</span> (dx) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0U; i &lt; localX.size(); ++i)</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = 0U; j &lt; worldDim; ++j)</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        localX[i][j] =</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            dx.value().get()[i * worldDim + j] + x[localView.index(localView.tree().child(j).localIndex(i))[0]];</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0U; i &lt; localX.size(); ++i)</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = 0U; j &lt; worldDim; ++j)</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        localX[i][j] = x[localView.index(localView.tree().child(j).localIndex(i))[0]];</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keywordflow">return</span> localX;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">namespace </span>Impl {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> LocalView, <span class="keyword">typename</span> Node&gt;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keywordtype">void</span> leafNodeIndices(<span class="keyword">const</span> LocalView&amp; localView, <span class="keyword">const</span> Node&amp; node,</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                       std::vector&lt;typename LocalView::MultiIndex&gt;&amp; <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; fe = node.finiteElement();</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; fe.size(); ++i)</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>      <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>.push_back(localView.index(node.localIndex(i)));</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> LocalView, <span class="keyword">typename</span> Node&gt;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  <span class="keywordtype">void</span> powerNodeIndices(<span class="keyword">const</span> LocalView&amp; localView, <span class="keyword">const</span> Node&amp; node,</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                        std::vector&lt;typename LocalView::MultiIndex&gt;&amp; <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>) {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; fe         = node.child(0).finiteElement();</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> childrenSize = node.degree();</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; fe.size(); ++i)</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; childrenSize; ++j)</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>.push_back(localView.index(node.child(j).localIndex(i)));</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>} <span class="comment">// namespace Impl</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00293.html">ikarus/finiteelements/febase.hh</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00471.html">Ikarus</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> BH, <span class="keyword">typename</span> SK, <span class="keywordtype">bool</span> useFlat = true, <span class="keywordtype">bool</span> useEigenRef = false&gt;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a01477.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01477.html">FEFactory</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a01477.html#ae4167551b40097429f804066c4973256">   24</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01477.html#ae4167551b40097429f804066c4973256">Skills</a> = SK;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">const</span> BH* basisHandler_;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  SK skills_;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SK2 = SK&gt;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a01477.html#aacbb6c8ee45484144edb78306da79456">   37</a></span>  <a class="code hl_function" href="a01477.html#aacbb6c8ee45484144edb78306da79456">FEFactory</a>(<span class="keyword">const</span> BH&amp; basisHandler, <span class="keyword">const</span> SK2&amp; sk)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      : basisHandler_{&amp;basisHandler},</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        skills_{sk} {}</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a01477.html#aa324bf69fc6e9d878cdaf1b2a8667196">   41</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01477.html#aa324bf69fc6e9d878cdaf1b2a8667196">operator()</a>() {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> std::apply(</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        [&amp;]&lt;<span class="keyword">typename</span>... Args&gt;(Args&amp;&amp;... args) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>          <span class="comment">// the template would not be needed,</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>          <span class="comment">// when https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1814r0.html</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>          <span class="comment">// will be implemented in clang. It is already implemented in gcc 12.2</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>          <span class="keyword">typename</span> <a class="code hl_struct" href="a01469.html">PreFE&lt;BH, useFlat, useEigenRef&gt;::template</a> <a class="code hl_class" href="a01465.html">FE&lt;std::decay_t&lt;Args&gt;::template</a> Skill...&gt; fe(</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>              *basisHandler_, std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>          <span class="keywordflow">return</span> fe;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        },</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        skills_.args);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> useFlat = true, <span class="keywordtype">bool</span> useEigenRef = false, <span class="keyword">typename</span> BH, <span class="keyword">typename</span> SK&gt;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a00471.html#a59639a9a20f036a4f1c0794f65595662">   68</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00471.html#a59639a9a20f036a4f1c0794f65595662">makeFE</a>(<span class="keyword">const</span> BH&amp; basisHandler, <span class="keyword">const</span> SK&amp; sk) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <a class="code hl_struct" href="a01477.html">FEFactory&lt;BH, SK, useFlat, useEigenRef&gt;</a> factory(basisHandler, sk);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keywordflow">return</span> factory();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> useEigenRef = false, <span class="keyword">typename</span> BH, <span class="keyword">typename</span> SK&gt;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a00471.html#aa80712fed165a22f02670f195488fe5f">   85</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00471.html#aa80712fed165a22f02670f195488fe5f">makeFEWithUnTouchedBasis</a>(<span class="keyword">const</span> BH&amp; basisHandler, SK&amp;&amp; sk) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <a class="code hl_struct" href="a01477.html">FEFactory&lt;BH, SK, false, useEigenRef&gt;</a> factory(basisHandler, std::forward&lt;SK&gt;(sk));</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> LocalView&gt;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="a00469.html#a2a4ac5503d4288b339457aae427ff661">   97</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00469.html#a2a4ac5503d4288b339457aae427ff661">globalIndicesFromLocalView</a>(<span class="keyword">const</span> LocalView&amp; localView,</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                                std::vector&lt;typename LocalView::MultiIndex&gt;&amp; <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>) {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  assert(localView.bound());</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>.clear();</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>  <span class="keyword">using namespace </span>Dune::Indices;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <span class="keyword">using namespace </span>FEHelper::Impl;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>  <span class="keyword">auto</span> leafOpFunc = [&amp;](<span class="keyword">auto</span>&amp;&amp; node, [[maybe_unused]] <span class="keyword">auto</span>&amp;&amp; treePath) {</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    leafNodeIndices(localView, node, <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  };</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  <span class="keyword">auto</span> powerOpFunc = [&amp;](<span class="keyword">auto</span>&amp;&amp; node, [[maybe_unused]] <span class="keyword">auto</span>&amp;&amp; treePath) {</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    powerNodeIndices(localView, node, <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  };</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  <a class="code hl_function" href="a00485.html#a63742d75d099b93da7ddf6e78a3c1f56">utils::forEachLeafOrPowerLeafNode</a>(localView.tree(), Dune::TypeTree::hybridTreePath(), powerOpFunc, leafOpFunc);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> FiniteElement&gt;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a00469.html#a44e16df41148f7e4538be224814a3423">  127</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>(<span class="keyword">const</span> FiniteElement&amp; fe, std::vector&lt;typename FiniteElement::LocalView::MultiIndex&gt;&amp; <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>) {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>  <a class="code hl_function" href="a00469.html#a2a4ac5503d4288b339457aae427ff661">globalIndicesFromLocalView</a>(fe.localView(), <a class="code hl_function" href="a00469.html#a44e16df41148f7e4538be224814a3423">globalIndices</a>);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>} <span class="comment">// namespace Ikarus::FEHelper</span></div>
-<div class="ttc" id="aa00059_html"><div class="ttname"><a href="a00059.html">traversal.hh</a></div><div class="ttdoc">Contains functions to traverse through a tree to its different nodes.</div></div>
-<div class="ttc" id="aa00469_html"><div class="ttname"><a href="a00469.html">Ikarus::FEHelper</a></div><div class="ttdef"><b>Definition:</b> fehelper.hh:13</div></div>
-<div class="ttc" id="aa00469_html_a2a4ac5503d4288b339457aae427ff661"><div class="ttname"><a href="a00469.html#a2a4ac5503d4288b339457aae427ff661">Ikarus::FEHelper::globalIndicesFromLocalView</a></div><div class="ttdeci">void globalIndicesFromLocalView(const LocalView &amp;localView, std::vector&lt; typename LocalView::MultiIndex &gt; &amp;globalIndices)</div><div class="ttdoc">Get the global indices for the provided local view of an element.</div><div class="ttdef"><b>Definition:</b> fehelper.hh:97</div></div>
-<div class="ttc" id="aa00469_html_a44e16df41148f7e4538be224814a3423"><div class="ttname"><a href="a00469.html#a44e16df41148f7e4538be224814a3423">Ikarus::FEHelper::globalIndices</a></div><div class="ttdeci">void globalIndices(const FiniteElement &amp;fe, std::vector&lt; typename FiniteElement::LocalView::MultiIndex &gt; &amp;globalIndices)</div><div class="ttdoc">Get the global indices for the provided finite element.</div><div class="ttdef"><b>Definition:</b> fehelper.hh:127</div></div>
-<div class="ttc" id="aa00469_html_a899043a23720a93e6ce9be9025c3a4bb"><div class="ttname"><a href="a00469.html#a899043a23720a93e6ce9be9025c3a4bb">Ikarus::FEHelper::localSolutionBlockVector</a></div><div class="ttdeci">auto localSolutionBlockVector(const Vector &amp;x, const typename Traits::LocalView &amp;localView, const std::optional&lt; std::reference_wrapper&lt; const Eigen::VectorX&lt; ST &gt; &gt; &gt; &amp;dx=std::nullopt)</div><div class="ttdoc">Gets the local solution Dune block vector.</div><div class="ttdef"><b>Definition:</b> fehelper.hh:28</div></div>
-<div class="ttc" id="aa00485_html_a63742d75d099b93da7ddf6e78a3c1f56"><div class="ttname"><a href="a00485.html#a63742d75d099b93da7ddf6e78a3c1f56">Ikarus::utils::forEachLeafOrPowerLeafNode</a></div><div class="ttdeci">void forEachLeafOrPowerLeafNode(T &amp;&amp;tree, TreePath &amp;&amp;treePath, PowerFunc &amp;&amp;powerFunc, LeafFunc &amp;&amp;leafFunc)</div><div class="ttdoc">A function which loops over all the nodes of a tree and performs different actions for a power node (...</div><div class="ttdef"><b>Definition:</b> traversal.hh:31</div></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  <span class="keywordflow">return</span> factory();</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="ttc" id="aa00293_html"><div class="ttname"><a href="a00293.html">febase.hh</a></div><div class="ttdoc">Contains the FE class, which is used as a base class for all finite elements. It provides information...</div></div>
+<div class="ttc" id="aa00471_html"><div class="ttname"><a href="a00471.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
+<div class="ttc" id="aa00471_html_a59639a9a20f036a4f1c0794f65595662"><div class="ttname"><a href="a00471.html#a59639a9a20f036a4f1c0794f65595662">Ikarus::makeFE</a></div><div class="ttdeci">auto makeFE(const BH &amp;basisHandler, const SK &amp;sk)</div><div class="ttdoc">A function to create a finite element using the flat version of the basis.</div><div class="ttdef"><b>Definition:</b> fefactory.hh:68</div></div>
+<div class="ttc" id="aa00471_html_aa80712fed165a22f02670f195488fe5f"><div class="ttname"><a href="a00471.html#aa80712fed165a22f02670f195488fe5f">Ikarus::makeFEWithUnTouchedBasis</a></div><div class="ttdeci">auto makeFEWithUnTouchedBasis(const BH &amp;basisHandler, SK &amp;&amp;sk)</div><div class="ttdoc">A function to create a finite element using the untouched version of the basis.</div><div class="ttdef"><b>Definition:</b> fefactory.hh:85</div></div>
+<div class="ttc" id="aa01465_html"><div class="ttname"><a href="a01465.html">Ikarus::FE</a></div><div class="ttdoc">FE class is a base class for all finite elements.</div><div class="ttdef"><b>Definition:</b> febase.hh:79</div></div>
+<div class="ttc" id="aa01469_html"><div class="ttname"><a href="a01469.html">Ikarus::PreFE</a></div><div class="ttdoc">PreFE struct acts as a convenient wrapper for the FE class to access different type traits.</div><div class="ttdef"><b>Definition:</b> febase.hh:33</div></div>
+<div class="ttc" id="aa01477_html"><div class="ttname"><a href="a01477.html">Ikarus::FEFactory</a></div><div class="ttdoc">FEFactory is a convenient wrapper to forward arguments to PreFE and create and construct a factory of...</div><div class="ttdef"><b>Definition:</b> fefactory.hh:23</div></div>
+<div class="ttc" id="aa01477_html_aa324bf69fc6e9d878cdaf1b2a8667196"><div class="ttname"><a href="a01477.html#aa324bf69fc6e9d878cdaf1b2a8667196">Ikarus::FEFactory::operator()</a></div><div class="ttdeci">auto operator()()</div><div class="ttdef"><b>Definition:</b> fefactory.hh:41</div></div>
+<div class="ttc" id="aa01477_html_aacbb6c8ee45484144edb78306da79456"><div class="ttname"><a href="a01477.html#aacbb6c8ee45484144edb78306da79456">Ikarus::FEFactory::FEFactory</a></div><div class="ttdeci">FEFactory(const BH &amp;basisHandler, const SK2 &amp;sk)</div><div class="ttdoc">constructor for FEFactory</div><div class="ttdef"><b>Definition:</b> fefactory.hh:37</div></div>
+<div class="ttc" id="aa01477_html_ae4167551b40097429f804066c4973256"><div class="ttname"><a href="a01477.html#ae4167551b40097429f804066c4973256">Ikarus::FEFactory::Skills</a></div><div class="ttdeci">SK Skills</div><div class="ttdef"><b>Definition:</b> fefactory.hh:24</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -252,7 +229,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="a00155.html">fehelper.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="a00155.html">fefactory.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -1,41 +1,56 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="a02285" kind="concept">
-    <compoundname>Ikarus::Concepts::MultiplyAssignAble</compoundname>
-    <includes refid="a03324" local="no">ikarus/utils/concepts.hh</includes>
+    <compoundname>Ikarus::Concepts::PathFollowingStrategy</compoundname>
+    <includes refid="a03332" local="no">ikarus/utils/concepts.hh</includes>
     <templateparamlist>
       <param>
-        <type>typename L</type>
+        <type>typename PF</type>
       </param>
       <param>
-        <type>typename R</type>
+        <type>typename F</type>
+      </param>
+      <param>
+        <type>typename SA</type>
       </param>
     </templateparamlist>
-    <initializer>template&lt;typename L, typename R&gt;
-concept <ref refid="a02285" kindref="compound">Ikarus::Concepts::MultiplyAssignAble</ref> =  requires(L x, R y) { x *= y; }    </initializer>
+    <initializer>template&lt;typename PF, typename F, typename SA&gt;
+concept <ref refid="a02285" kindref="compound">Ikarus::Concepts::PathFollowingStrategy</ref> =  requires(PF pft, F nop, SA args, typename F::Domain req) {
+    { pft(args) } -&gt; std::same_as&lt;void&gt;;
+    { pft.initialPrediction(req, nop, args) } -&gt; std::same_as&lt;void&gt;;
+    { pft.intermediatePrediction(req, nop, args) } -&gt; std::same_as&lt;void&gt;;
+  }    </initializer>
     <briefdescription>
-<para>Concept defining the requirements for types that support in-place multiplication. </para>
+<para>Concept defining the requirements for a path-following strategy. </para>
     </briefdescription>
     <detaileddescription>
 <para><parameterlist kind="templateparam"><parameteritem>
 <parameternamelist>
-<parametername>L</parametername>
+<parametername>PF</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Type of the left operand. </para>
+<para>Type representing the path-following strategy. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>R</parametername>
+<parametername>F</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Type of the right operand.</para>
+<para>Type representing the non-linear operator. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SA</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type representing the subsidiary arguments. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-The concept specifies that instances of type <computeroutput>L</computeroutput> can be multiplied in-place by instances of type <computeroutput>R</computeroutput> using the <computeroutput>*=</computeroutput> operator. </para>
+</para>
     </detaileddescription>
-    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="284" column="3"/>
+    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="192" column="3"/>
   </compounddef>
 </doxygen>

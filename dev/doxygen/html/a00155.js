@@ -1,6 +1,6 @@
 var a00155 =
 [
-    [ "globalIndices", "a00155.html#a44e16df41148f7e4538be224814a3423", null ],
-    [ "globalIndicesFromLocalView", "a00155.html#a2a4ac5503d4288b339457aae427ff661", null ],
-    [ "localSolutionBlockVector", "a00155.html#a899043a23720a93e6ce9be9025c3a4bb", null ]
+    [ "Ikarus::FEFactory< BH, SK, useFlat, useEigenRef >", "a01477.html", "a01477" ],
+    [ "makeFE", "a00155.html#a59639a9a20f036a4f1c0794f65595662", null ],
+    [ "makeFEWithUnTouchedBasis", "a00155.html#aa80712fed165a22f02670f195488fe5f", null ]
 ];

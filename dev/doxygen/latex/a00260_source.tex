@@ -1,5 +1,5 @@
-\hypertarget{a00260_source}{}\doxysection{factory.\+hh}
-\label{a00260_source}\index{factory.hh@{factory.hh}}
+\hypertarget{a00260_source}{}\doxysection{ogden.\+hh}
+\label{a00260_source}\index{ogden.hh@{ogden.hh}}
 \mbox{\hyperlink{a00260}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
@@ -7,85 +7,144 @@
 \DoxyCodeLine{3 }
 \DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00239}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/arrudaboyce.hh}}>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00242}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/blatzko.hh}}>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00251}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/gent.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03297}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh}}>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00248}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/invariantbased.hh}}>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00254}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/ogden.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03294}{ikarus/finiteelements/mechanics/materials/hyperelastic/interface.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00236}{ikarus/finiteelements/mechanics/materials/hyperelastic/neohooke.hh}}>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00257}{ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/volumetricfunctions.hh}}>}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00221}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00474}{Ikarus::Materials}} \{}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{33 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00474_aa724b5f1275a41f266ad6aae180ed317}{makeBlatzKo}}(\textcolor{keywordtype}{double} mu) \{}
-\DoxyCodeLine{34   \textcolor{keyword}{auto} bk  = \mbox{\hyperlink{a00474_a7c7d4e399e30b088b7253771704bd01b}{BlatzKo}}(mu);}
-\DoxyCodeLine{35   \textcolor{keyword}{auto} dev = \mbox{\hyperlink{a01590}{Deviatoric<decltype(bk)>}}(bk);}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01602}{Hyperelastic}}(dev);}
-\DoxyCodeLine{38 \}}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{55 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} n, PrincipalStretchTags tag, \textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{56 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00474_af8c1c0f27639b0883f98f4e814aca8e5}{makeOgden}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01598_a0164eb06fa929e1608493879f3832c80}{Ogden<n, tag>::MaterialParameters}}\& mu,}
-\DoxyCodeLine{57                       \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01598_a9b01e9124f3fa51d8a1a5881bd842bd9}{Ogden<n, tag>::MaterialExponents}} alpha, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{58                       \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{59   \textcolor{keyword}{auto} ogPre = Ogden<n, tag>(mu, alpha);}
-\DoxyCodeLine{60   \textcolor{keyword}{auto} dev   = Deviatoric(ogPre);}
-\DoxyCodeLine{61   \textcolor{keyword}{auto} vol   = Volumetric(K, vf);}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
-\DoxyCodeLine{64 \}}
-\DoxyCodeLine{80 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} n, \textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{81 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00474_a03ec75f725d4772d6e33532501cd10a8}{makeInvariantBased}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01594_a6e7eb1d8654cd930230685a6d3e34f96}{InvariantBased<n>::MaterialParameters}}\& mu,}
-\DoxyCodeLine{82                                \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01594_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<n>::Exponents}} pex,}
-\DoxyCodeLine{83                                \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01594_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<n>::Exponents}} qex, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{84                                \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{85   \textcolor{keyword}{auto} invariantBasedPre = InvariantBased<n>(pex, qex, mu);}
-\DoxyCodeLine{86   \textcolor{keyword}{auto} dev               = Deviatoric(invariantBasedPre);}
-\DoxyCodeLine{87   \textcolor{keyword}{auto} vol               = Volumetric(K, vf);}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
-\DoxyCodeLine{90 \}}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{104 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{105 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00474_a7ac025ab0f41d2021008bd54e51135b1}{makeMooneyRivlin}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01594_a6e7eb1d8654cd930230685a6d3e34f96}{InvariantBased<2>::MaterialParameters}}\& mu, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{106                              \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{107   \textcolor{keyword}{typename} \mbox{\hyperlink{a01594_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<2>::Exponents}} pex = \{1, 0\};}
-\DoxyCodeLine{108   \textcolor{keyword}{typename} \mbox{\hyperlink{a01594_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<2>::Exponents}} qex = \{0, 1\};}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{110   \textcolor{keywordflow}{return} makeInvariantBased<2, VolumetricFunction>(mu, pex, qex, K, vf);}
-\DoxyCodeLine{111 \}}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{125 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{126 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00474_a00567c7322e1a28e7575c67a19631201}{makeYeoh}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01594_a6e7eb1d8654cd930230685a6d3e34f96}{InvariantBased<3>::MaterialParameters}}\& mu, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{127                      \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{128   \textcolor{keyword}{typename} \mbox{\hyperlink{a01594_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<3>::Exponents}} pex = \{1, 2, 3\};}
-\DoxyCodeLine{129   \textcolor{keyword}{typename} \mbox{\hyperlink{a01594_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<3>::Exponents}} qex = \{0, 0, 0\};}
-\DoxyCodeLine{130 }
-\DoxyCodeLine{131   \textcolor{keywordflow}{return} makeInvariantBased<3, VolumetricFunction>(mu, pex, qex, K, vf);}
-\DoxyCodeLine{132 \}}
-\DoxyCodeLine{133 }
-\DoxyCodeLine{146 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{147 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00474_af561f0434312c4d30c22e4438f2c9a1a}{makeArrudaBoyce}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01566}{ArrudaBoyceMatParameters}}\& matPar, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{148                             \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{149   \textcolor{keyword}{auto} abPre = \mbox{\hyperlink{a00474_a70cada02f1f5f294f44c438fb1270982}{ArrudaBoyce}}(matPar);}
-\DoxyCodeLine{150   \textcolor{keyword}{auto} dev   = Deviatoric(abPre);}
-\DoxyCodeLine{151   \textcolor{keyword}{auto} vol   = Volumetric(K, vf);}
-\DoxyCodeLine{152 }
-\DoxyCodeLine{153   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
-\DoxyCodeLine{154 \}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00236}{ikarus/finiteelements/mechanics/materials/materialhelpers.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00227}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00071}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00480}{Ikarus::Materials}} \{}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{39 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST\_, \textcolor{keywordtype}{int} n, PrincipalStretchTags tag>}
+\DoxyCodeLine{40 \textcolor{keyword}{struct }\mbox{\hyperlink{a01605}{OgdenT}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{a01605_ac3e4137441a45fd58b4dc9f9f6d5fb9e}{ScalarType}} = ST\_;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST = ScalarType>}
+\DoxyCodeLine{45   \textcolor{keyword}{using }\mbox{\hyperlink{a01605_a2ad1ff72f65e6d792878a06d4dc2bf30}{PrincipalStretches}} = Eigen::Vector<ST, 3>;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00471_aec3d3c4647af5c01e1bf18637b3c89fe}{PrincipalStretchTags}} \mbox{\hyperlink{a01605_aa855e364c62dfcff5ee47ae04973e9a5}{stretchTag}} = tag;}
+\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01605_a4812a748c0df58031f26bf4d8bbff37e}{numMatParameters}}            = n;}
+\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01605_a5b88a4ff271dcdde64f5a08fcadd9b85}{dim}}                         = 3;}
+\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01605_a5828b2c22e985dc66871605fb834a873}{usesDeviatoricStretches}}    = \mbox{\hyperlink{a01605_aa855e364c62dfcff5ee47ae04973e9a5}{stretchTag}} == \mbox{\hyperlink{a00471_aec3d3c4647af5c01e1bf18637b3c89feaae6dc167631992e1312a197d5c3c39f8}{PrincipalStretchTags::deviatoric}};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST = ScalarType>}
+\DoxyCodeLine{53   \textcolor{keyword}{using }\mbox{\hyperlink{a01605_ac33ad2eb2b73263e513dd3461c57f5df}{FirstDerivative}} = Eigen::Vector<ST, dim>;}
+\DoxyCodeLine{54   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST = ScalarType>}
+\DoxyCodeLine{55   \textcolor{keyword}{using }\mbox{\hyperlink{a01605_a971bfbea9f8f2e1dd6f98f1acfaa8217}{SecondDerivative}} = Eigen::Matrix<ST, dim, dim>;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \textcolor{keyword}{using }\mbox{\hyperlink{a01605_a0164eb06fa929e1608493879f3832c80}{MaterialParameters}} = std::array<double, numMatParameters>;}
+\DoxyCodeLine{58   \textcolor{keyword}{using }\mbox{\hyperlink{a01605_a9b01e9124f3fa51d8a1a5881bd842bd9}{MaterialExponents}}  = std::array<double, numMatParameters>;}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01605_af415cd72d105db7efb92a77286c3ed61}{name}}() noexcept \{}
+\DoxyCodeLine{61     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Ogden (n = "{}} + std::to\_string(\mbox{\hyperlink{a01605_a4812a748c0df58031f26bf4d8bbff37e}{numMatParameters}}) + \textcolor{stringliteral}{"{}, stretch type = "{}} + \mbox{\hyperlink{a00471_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(tag) + \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{70   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01605_a793fd3b05467714b5b630b904855f3ce}{OgdenT}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01605_a0164eb06fa929e1608493879f3832c80}{MaterialParameters}}\& mpt, \textcolor{keyword}{const} \mbox{\hyperlink{a01605_a9b01e9124f3fa51d8a1a5881bd842bd9}{MaterialExponents}}\& mex)}
+\DoxyCodeLine{71       : materialParameters\_\{mpt\},}
+\DoxyCodeLine{72         materialExponents\_\{mex\} \{\}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{77   \mbox{\hyperlink{a01605_a0164eb06fa929e1608493879f3832c80}{MaterialParameters}} \mbox{\hyperlink{a01605_a83461b830e07a4078ce77cda6b2af5a5}{materialParametersImpl}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} materialParameters\_; \}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{82   \textcolor{keyword}{const} \mbox{\hyperlink{a01605_a9b01e9124f3fa51d8a1a5881bd842bd9}{MaterialExponents}}\& \mbox{\hyperlink{a01605_a5123ba0830430d313b96a7bc53ba08ce}{materialExponents}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} materialExponents\_; \}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{92   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{93   \textcolor{keyword}{auto} \mbox{\hyperlink{a01605_aedb6f5d097a629d1992873adfcfddaca}{storedEnergyImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01605_a2ad1ff72f65e6d792878a06d4dc2bf30}{PrincipalStretches<ST>}}\& lambda)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{94     \textcolor{keyword}{auto}\& mu    = materialParameters\_;}
+\DoxyCodeLine{95     \textcolor{keyword}{auto}\& alpha = materialExponents\_;}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97     ST energy\{\};}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01605_a5828b2c22e985dc66871605fb834a873}{usesDeviatoricStretches}}) \{}
+\DoxyCodeLine{100       \textcolor{keyword}{auto} lambdaBar = Impl::deviatoricStretches(lambda);}
+\DoxyCodeLine{101       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i : parameterRange())}
+\DoxyCodeLine{102         energy += mu[i] / alpha[i] * (lambdaBar.array().pow(alpha[i]).sum() -\/ 3);}
+\DoxyCodeLine{103     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{104       \textcolor{keyword}{auto} J    = lambda[0] * lambda[1] * lambda[2];}
+\DoxyCodeLine{105       \textcolor{keyword}{auto} logJ = log(J);}
+\DoxyCodeLine{106       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i : parameterRange())}
+\DoxyCodeLine{107         energy += mu[i] / alpha[i] * (lambda.array().pow(alpha[i]).sum() -\/ 3) -\/ mu[i] * logJ;}
+\DoxyCodeLine{108     \}}
+\DoxyCodeLine{109     \textcolor{keywordflow}{return} energy;}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{120   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{121   \textcolor{keyword}{auto} \mbox{\hyperlink{a01605_a47d6472e966e0dfa7918237ea7e4fba8}{firstDerivativeImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01605_a2ad1ff72f65e6d792878a06d4dc2bf30}{PrincipalStretches<ST>}}\& lambda)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{122     \textcolor{keyword}{auto}\& mu       = materialParameters\_;}
+\DoxyCodeLine{123     \textcolor{keyword}{auto}\& alpha    = materialExponents\_;}
+\DoxyCodeLine{124     \textcolor{keyword}{auto} dWdLambda = \mbox{\hyperlink{a01605_ac33ad2eb2b73263e513dd3461c57f5df}{FirstDerivative<ST>::Zero}}().eval();}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01605_a5828b2c22e985dc66871605fb834a873}{usesDeviatoricStretches}}) \{}
+\DoxyCodeLine{127       \textcolor{keyword}{auto} lambdaBar    = Impl::deviatoricStretches(lambda);}
+\DoxyCodeLine{128       \textcolor{keyword}{auto} dWdLambdaBar = Eigen::Array<ST, dim, 1>::Zero().eval();}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} j : parameterRange())}
+\DoxyCodeLine{131         dWdLambdaBar += mu[j] * lambdaBar.array().pow(alpha[j] -\/ 1);}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133       \textcolor{keyword}{const} ST sumLambdaBar = (lambdaBar.array() * dWdLambdaBar).sum();}
+\DoxyCodeLine{134       dWdLambda             = (lambdaBar.array() * dWdLambdaBar -\/ (1.0 / 3.0) * sumLambdaBar) / lambda.array();}
+\DoxyCodeLine{135     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{136       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} j : parameterRange())}
+\DoxyCodeLine{137         dWdLambda.array() += (mu[j] * (lambda.array().pow(alpha[j]) -\/ 1)) / lambda.array();}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139     \textcolor{keywordflow}{return} dWdLambda;}
+\DoxyCodeLine{140   \}}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{150   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{151   \textcolor{keyword}{auto} \mbox{\hyperlink{a01605_a0c57c366c288614b425baabf11930fa2}{secondDerivativeImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01605_a2ad1ff72f65e6d792878a06d4dc2bf30}{PrincipalStretches<ST>}}\& lambda)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{152     \textcolor{keyword}{auto}\& mu    = materialParameters\_;}
+\DoxyCodeLine{153     \textcolor{keyword}{auto}\& alpha = materialExponents\_;}
+\DoxyCodeLine{154     \textcolor{keyword}{auto} dS     = \mbox{\hyperlink{a01605_a971bfbea9f8f2e1dd6f98f1acfaa8217}{SecondDerivative<ST>::Zero}}().eval();}
 \DoxyCodeLine{155 }
-\DoxyCodeLine{168 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
-\DoxyCodeLine{169 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00474_a02bb70b49abcfa023ae81f4f4f1d27de}{makeGent}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01582}{GentMatParameters}}\& matPar, \textcolor{keywordtype}{double} K = 0.0,}
-\DoxyCodeLine{170                      \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
-\DoxyCodeLine{171   \textcolor{keyword}{auto} gentPre = \mbox{\hyperlink{a00474_a8d05a34baf0684f0e4e2a10a721bb80d}{Gent}}(matPar);}
-\DoxyCodeLine{172   \textcolor{keyword}{auto} dev     = Deviatoric(gentPre);}
-\DoxyCodeLine{173   \textcolor{keyword}{auto} vol     = Volumetric(K, vf);}
-\DoxyCodeLine{174 }
-\DoxyCodeLine{175   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
-\DoxyCodeLine{176 \}}
-\DoxyCodeLine{177 \} \textcolor{comment}{// namespace Ikarus::Materials}}
+\DoxyCodeLine{156     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01605_a5828b2c22e985dc66871605fb834a873}{usesDeviatoricStretches}}) \{}
+\DoxyCodeLine{157       \textcolor{keyword}{const} \textcolor{keyword}{auto} lambdaBar = Impl::deviatoricStretches(lambda);}
+\DoxyCodeLine{158       \textcolor{keyword}{const} \textcolor{keyword}{auto} dWdLambda = \mbox{\hyperlink{a01605_a47d6472e966e0dfa7918237ea7e4fba8}{firstDerivativeImpl}}(lambda);}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160       \textcolor{keyword}{auto} lambdaBarPowSum = Eigen::Array<ST, dim, 1>::Zero().eval();}
+\DoxyCodeLine{161       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : parameterRange())}
+\DoxyCodeLine{162         lambdaBarPowSum[p] = lambdaBar.array().pow(alpha[p]).sum();}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} a : dimensionRange()) \{}
+\DoxyCodeLine{165         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} b : dimensionRange()) \{}
+\DoxyCodeLine{166           \textcolor{keywordflow}{if} (a == b)}
+\DoxyCodeLine{167             \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : parameterRange())}
+\DoxyCodeLine{168               dS(a, b) += mu[p] * alpha[p] * (1.0 / 3.0 * pow(lambdaBar[a], alpha[p]) + 1.0 / 9.0 * lambdaBarPowSum[p]);}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170           \textcolor{keywordflow}{else}}
+\DoxyCodeLine{171             \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : parameterRange())}
+\DoxyCodeLine{172               dS(a, b) += mu[p] * alpha[p] *}
+\DoxyCodeLine{173                           (-\/(1.0 / 3.0) * (pow(lambdaBar[a], alpha[p]) + pow(lambdaBar[b], alpha[p])) +}
+\DoxyCodeLine{174                            1.0 / 9.0 * lambdaBarPowSum[p]);}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176           dS(a, b) *= 1.0 / (lambda[a] * lambda[b]);}
+\DoxyCodeLine{177           \textcolor{keywordflow}{if} (a == b)}
+\DoxyCodeLine{178             dS(a, b) -\/= (2.0 / lambda[a]) * dWdLambda[a];}
+\DoxyCodeLine{179         \}}
+\DoxyCodeLine{180       \}}
+\DoxyCodeLine{181     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{182       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} j : parameterRange()) \{}
+\DoxyCodeLine{183         dS.diagonal().array() +=}
+\DoxyCodeLine{184             (-\/2 * mu[j] * (lambda.array().pow(alpha[j]) -\/ 1) + mu[j] * lambda.array().pow(alpha[j]) * alpha[j]) /}
+\DoxyCodeLine{185             lambda.array().square();}
+\DoxyCodeLine{186       \}}
+\DoxyCodeLine{187     \}}
+\DoxyCodeLine{188     \textcolor{keywordflow}{return} dS;}
+\DoxyCodeLine{189   \}}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{196   \textcolor{keyword}{template} <\textcolor{keyword}{typename} STO>}
+\DoxyCodeLine{197   \textcolor{keyword}{auto} \mbox{\hyperlink{a01605_a6e193a52046c0fd18c9386f526c40ed2}{rebind}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{198     \textcolor{keywordflow}{return} \mbox{\hyperlink{a01605}{OgdenT<STO, numMatParameters, stretchTag>}}(materialParameters\_, materialExponents\_);}
+\DoxyCodeLine{199   \}}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{201 \textcolor{keyword}{private}:}
+\DoxyCodeLine{202   \mbox{\hyperlink{a01605_a0164eb06fa929e1608493879f3832c80}{MaterialParameters}} materialParameters\_;}
+\DoxyCodeLine{203   \mbox{\hyperlink{a01605_a9b01e9124f3fa51d8a1a5881bd842bd9}{MaterialExponents}} materialExponents\_;}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{205   \textcolor{keyword}{inline} \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} parameterRange() \{ \textcolor{keywordflow}{return} Dune::range(\mbox{\hyperlink{a01605_a4812a748c0df58031f26bf4d8bbff37e}{numMatParameters}}); \}}
+\DoxyCodeLine{206   \textcolor{keyword}{inline} \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} dimensionRange() \{ \textcolor{keywordflow}{return} Dune::range(\mbox{\hyperlink{a01605_a5b88a4ff271dcdde64f5a08fcadd9b85}{dim}}); \}}
+\DoxyCodeLine{207 \};}
+\DoxyCodeLine{208 }
+\DoxyCodeLine{212 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} n, PrincipalStretchTags tag>}
+\DoxyCodeLine{213 \textcolor{keyword}{using }\mbox{\hyperlink{a01605}{Ogden}} = \mbox{\hyperlink{a01605}{OgdenT<double, n, tag>}};}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215 \} \textcolor{comment}{// namespace Ikarus::Materials}}
 
 \end{DoxyCode}

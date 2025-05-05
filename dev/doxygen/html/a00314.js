@@ -1,6 +1,4 @@
 var a00314 =
 [
-    [ "Ikarus::Python::SparseMatrixWrapper< T >", "a01926.html", "a01926" ],
-    [ "registerAssemblerManipulator", "a00314.html#aad35f78683b64303a28d3b8b4f83aa37", null ],
-    [ "registerSparseMatrixWrapper", "a00314.html#a09b4a81e2d6d0619406854f6dc3fc8f7", null ]
+    [ "ScalarWrapper< T >", "a01937.html", "a01937" ]
 ];

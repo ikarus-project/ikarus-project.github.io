@@ -1,7 +1,9 @@
 var a00317 =
 [
-    [ "MAKE_ASSEMBLER_REGISTERY_FUNCTION", "a00317.html#adda74d8564a01c0a9851a4379308a8b2", null ],
-    [ "registerDenseFlatAssembler", "a00317.html#a2b0faffde20690631657489c79ec809b", null ],
-    [ "registerFlatAssembler", "a00317.html#ga87d3c6e620be5df59ba6923751caae86", null ],
-    [ "registerSparseFlatAssembler", "a00317.html#aeab1c5f959a22f95b40b0a7576f9c896", null ]
+    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00317.html#a945e022b757e5d054d6bab20a2ca291e", null ],
+    [ "MAKE_MaterialFunction", "a00317.html#a52604789ad84df5cf20d4571f90af39e", null ],
+    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00317.html#ac81cd08ca4f7222df18c123d422c932d", null ],
+    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00317.html#a85c1412e5300ac194ff82ebd146c6229", null ],
+    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00317.html#aab3a7ce35fb7a2f4a8a9e4d6a92e1f31", null ],
+    [ "registerMaterial", "a00317.html#a5038c66085a51f4147ef04e880f926dd", null ]
 ];

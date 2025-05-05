@@ -1,8 +1,10 @@
-\hypertarget{a02307}{}\doxysection{Ikarus\+::Concepts\+::Autodiff\+Scalar Concept Reference}
-\label{a02307}\index{Ikarus::Concepts::AutodiffScalar@{Ikarus::Concepts::AutodiffScalar}}
+\hypertarget{a02307}{}\doxysection{Ikarus\+::Concepts\+::Flat\+Assembler Concept Reference}
+\label{a02307}\index{Ikarus::Concepts::FlatAssembler@{Ikarus::Concepts::FlatAssembler}}
 
 
-Concept to check if the underlying scalar type is a dual type.  
+Concept representing the requirements for a Flat\+Assembler.
+
+A type T satisfies Flat\+Assembler if it provides the necessary member functions and data types for assembling sparse matrices in a flat structure.  
 
 
 
@@ -13,14 +15,28 @@ Concept to check if the underlying scalar type is a dual type.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02307}{Ikarus::Concepts::AutodiffScalar}} =  Impl::is\_dual<T>::value}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02307}{Ikarus::Concepts::FlatAssembler}} =  \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{                                   \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00471_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{    \{ t.requirement() \} -\/> std::convertible\_to<typename T::FERequirement\&>;}
+\DoxyCodeLine{    \{ t.affordanceCollection() \} -\/> std::convertible\_to<typename T::AffordanceCollectionType>;}
+\DoxyCodeLine{    \{ t.dBCOption() \} -\/> std::convertible\_to<DBCOption>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \{ t.bind(req, affordance, dbcOption) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{    \{ t.bind(req) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{    \{ t.bind(affordance) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{    \{ t.bind(dbcOption) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \{ t.bound() \} -\/> std::convertible\_to<bool>;}
+\DoxyCodeLine{    \{ t.boundToRequirement() \} -\/> std::convertible\_to<bool>;}
+\DoxyCodeLine{    \{ t.boundToAffordanceCollection() \} -\/> std::convertible\_to<bool>;}
+\DoxyCodeLine{    \{ t.boundToDBCOption() \} -\/> std::convertible\_to<bool>;}
+\DoxyCodeLine{    \{ t.estimateOfConnectivity() \} -\/> std::convertible\_to<size\_t>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \{ t.createFullVector(std::declval<Eigen::Ref<const Eigen::VectorXd>>()) \} -\/> std::convertible\_to<Eigen::VectorXd>;}
+\DoxyCodeLine{    \{ t.constraintsBelow(std::declval<size\_t>()) \} -\/> std::convertible\_to<size\_t>;}
+\DoxyCodeLine{    \{ t.isConstrained(std::declval<size\_t>()) \} -\/> std::convertible\_to<bool>;}
+\DoxyCodeLine{    \{ t.size() \} -\/> std::convertible\_to<size\_t>;}
+\DoxyCodeLine{    \{ t.reducedSize() \} -\/> std::convertible\_to<size\_t>;}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em T} & The scalar type to be checked if it is a dual type. \\
-\hline
-\end{DoxyTemplParams}

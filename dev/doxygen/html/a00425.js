@@ -1,6 +1,6 @@
 var a00425 =
 [
-    [ "decoratePre", "a00425.html#aed4c65416b98831e883ce413eb6e5419", null ],
-    [ "myAttributes", "a00425.html#aebb527e5c0c73be25ff173e2e456ed5d", null ],
-    [ "MySimpleGenerator", "a00425.html#a932fc5dd441c8a8a16bb175cae03f96c", null ]
+    [ "ValueWrapper", "a00425.html#adae188e7353a8e6fcaf3c178c96d6416", null ],
+    [ "moduleName", "a00425.html#accab2501ce940db483da0b3ebe2cf723", null ],
+    [ "modulePath", "a00425.html#a9ebab9199168d32a8ab347a990044552", null ]
 ];
