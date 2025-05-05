@@ -1,5 +1,5 @@
-\hypertarget{a00359_source}{}\doxysection{membranestrains.\+hh}
-\label{a00359_source}\index{membranestrains.hh@{membranestrains.hh}}
+\hypertarget{a00359_source}{}\doxysection{newtonraphsonwithscalarsubsidiaryfunction.\+hh}
+\label{a00359_source}\index{newtonraphsonwithscalarsubsidiaryfunction.hh@{newtonraphsonwithscalarsubsidiaryfunction.hh}}
 \mbox{\hyperlink{a00359}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
@@ -7,57 +7,240 @@
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dune/common/fvector.hh>}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
-\DoxyCodeLine{14 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00459}{Ikarus}} \{}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{keyword}{struct }\mbox{\hyperlink{a01680}{DefaultMembraneStrain}}}
-\DoxyCodeLine{17 \{}
-\DoxyCodeLine{29   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{30   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01680_a7c65ab77e1e42865fc4d0b04a5cb288a}{value}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, 2>}}\& gpPos, \textcolor{keyword}{const} GEO\& geo,}
-\DoxyCodeLine{31                     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction) -\/> Eigen::Vector3<\textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(uFunction)>::ctype> \{}
-\DoxyCodeLine{32     \textcolor{keyword}{using }ScalarType = \textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(uFunction)>::ctype;}
-\DoxyCodeLine{33     Eigen::Vector3<ScalarType> epsV;}
-\DoxyCodeLine{34     \textcolor{keyword}{const} \textcolor{keyword}{auto} J = Dune::toEigen(geo.jacobianTransposed(gpPos));}
-\DoxyCodeLine{35     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00484}{Dune}};}
-\DoxyCodeLine{36     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
-\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::Matrix<ScalarType, 3, 2> gradu = toEigen(}
-\DoxyCodeLine{38         uFunction.evaluateDerivative(gpPos, \textcolor{comment}{// Here the gpIndex could be passed}}
-\DoxyCodeLine{39                                      Dune::wrt(spatialAll), Dune::on(Dune::DerivativeDirections::referenceElement)));}
-\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::Matrix<ScalarType, 2, 3> j = J + gradu.transpose();}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42     epsV << J.row(0).dot(gradu.col(0)) + 0.5 * gradu.col(0).squaredNorm(),}
-\DoxyCodeLine{43         J.row(1).dot(gradu.col(1)) + 0.5 * gradu.col(1).squaredNorm(), j.row(0).dot(j.row(1)) -\/ J.row(0).dot(J.row(1));}
-\DoxyCodeLine{44     \textcolor{keywordflow}{return} epsV;}
-\DoxyCodeLine{45   \}}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{64   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01680_a0e9910984eae86b868f317f0a26a132e}{derivative}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, 2>}}\& gpPos, \textcolor{keyword}{const} Eigen::Matrix<ST, 2, 3>\& jcur,}
-\DoxyCodeLine{65                          \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dNAtGp, \textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis,}
-\DoxyCodeLine{66                          \textcolor{keyword}{const} \textcolor{keywordtype}{int} node) \{}
-\DoxyCodeLine{67     Eigen::Matrix<ST, 3, 3> bop;}
-\DoxyCodeLine{68     bop.row(0) = jcur.row(0) * dNAtGp(node, 0);}
-\DoxyCodeLine{69     bop.row(1) = jcur.row(1) * dNAtGp(node, 1);}
-\DoxyCodeLine{70     bop.row(2) = jcur.row(0) * dNAtGp(node, 1) + jcur.row(1) * dNAtGp(node, 0);}
-\DoxyCodeLine{71 }
-\DoxyCodeLine{72     \textcolor{keywordflow}{return} bop;}
-\DoxyCodeLine{73   \}}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{94   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{95   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01680_a28a06b4e89e7e526e8b09b020d6adfcf}{secondDerivative}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, 2>}}\& gpPos, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dNAtGp, \textcolor{keyword}{const} GEO\& geo,}
-\DoxyCodeLine{96                                \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} Eigen::Vector3<ST>\& S, \textcolor{keywordtype}{int} I,}
-\DoxyCodeLine{97                                \textcolor{keywordtype}{int} J) \{}
-\DoxyCodeLine{98     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dN1i           = dNAtGp(I, 0);}
-\DoxyCodeLine{99     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dN1j           = dNAtGp(J, 0);}
-\DoxyCodeLine{100     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dN2i           = dNAtGp(I, 1);}
-\DoxyCodeLine{101     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dN2j           = dNAtGp(J, 1);}
-\DoxyCodeLine{102     \textcolor{keyword}{const} ST NS                = dN1i * dN1j * S[0] + dN2i * dN2j * S[1] + (dN1i * dN2j + dN2i * dN1j) * S[2];}
-\DoxyCodeLine{103     Eigen::Matrix<ST, 3, 3> kg = Eigen::Matrix<double, 3, 3>::Identity() * NS;}
-\DoxyCodeLine{104     \textcolor{keywordflow}{return} kg;}
-\DoxyCodeLine{105   \}}
-\DoxyCodeLine{106 \};}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00323}{ikarus/controlroutines/pathfollowingfunctions.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00368}{ikarus/solver/nonlinearsolver/nonlinearsolverbase.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00365}{ikarus/solver/nonlinearsolver/nonlinearsolverstate.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00362}{ikarus/solver/nonlinearsolver/solverinfos.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00146}{ikarus/utils/broadcaster/broadcaster.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00149}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03324}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00465}{Ikarus}} \{}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} LS = utils::SolverDefault, \textcolor{keyword}{typename} UF = utils::UpdateDefault>}
+\DoxyCodeLine{25 \textcolor{keyword}{class }\mbox{\hyperlink{a00465_a239816903c13742e1d58e0b3faf17b7a}{NewtonRaphsonWithSubsidiaryFunction}};}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{a01978}{NewtonRaphsonWithSubsidiaryFunctionSettings}}}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01978_a7e8e3668e5eca2b115ec77fcaabc8899}{tol}}\{1e-\/8\};}
+\DoxyCodeLine{30   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01978_a7ef35a86ec4e9a39bcc54182c5dc17b7}{maxIter}}\{20\};}
+\DoxyCodeLine{31 \};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{37 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LS = utils::SolverDefault, \textcolor{keyword}{typename} UF = utils::UpdateDefault>}
+\DoxyCodeLine{38 \textcolor{keyword}{struct }\mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig}}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40   \textcolor{keyword}{using }\mbox{\hyperlink{a01982_a7c2f21cef1e31bb30e9a2bf83def7932}{LinearSolver}}   = LS;}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01982_af366f8acfc02045d9bd9e790e78e393e}{UpdateFunction}} = UF;}
+\DoxyCodeLine{42   \mbox{\hyperlink{a01978}{NewtonRaphsonWithSubsidiaryFunctionSettings}} \mbox{\hyperlink{a01982_a8625a8ad969b934191cb643123dd09b0}{parameters}}\{\};}
+\DoxyCodeLine{43   LS \mbox{\hyperlink{a01982_a061c83e4fb29bd1496df13e6dbd89b41}{linearSolver}}\{\};}
+\DoxyCodeLine{44   UF \mbox{\hyperlink{a01982_a12e748fac5266a39ea109ca3404aa35b}{updateFunction}}\{\};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{typename} UF2>}
+\DoxyCodeLine{47   \textcolor{keyword}{auto} \mbox{\hyperlink{a01982_adfb433ab09ef05abc0a82506d6d50713}{rebindUpdateFunction}}(UF2\&\& \mbox{\hyperlink{a01982_a12e748fac5266a39ea109ca3404aa35b}{updateFunction}})\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{48     \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig<LS, UF2>}} settings\{}
+\DoxyCodeLine{49         .\mbox{\hyperlink{a01982_a8625a8ad969b934191cb643123dd09b0}{parameters}} = \mbox{\hyperlink{a01982_a8625a8ad969b934191cb643123dd09b0}{parameters}}, .linearSolver = \mbox{\hyperlink{a01982_a061c83e4fb29bd1496df13e6dbd89b41}{linearSolver}}, .updateFunction = std::forward<UF2>(\mbox{\hyperlink{a01982_a12e748fac5266a39ea109ca3404aa35b}{updateFunction}})\};}
+\DoxyCodeLine{50     \textcolor{keywordflow}{return} settings;}
+\DoxyCodeLine{51   \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
+\DoxyCodeLine{54   \textcolor{keyword}{using }\mbox{\hyperlink{a01974}{Solver}} = \mbox{\hyperlink{a01974}{NewtonRaphsonWithSubsidiaryFunction<F, LS, UF>}};}
+\DoxyCodeLine{55 \};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{comment}{// THE CTAD is broken for designated initializers in clang 16, when we drop support this can be simplified}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
+\DoxyCodeLine{59 \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig}}()}
+\DoxyCodeLine{60     -\/> \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig<utils::SolverDefault, utils::UpdateDefault>}};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a01978}{NewtonRaphsonWithSubsidiaryFunctionSettings}})}
+\DoxyCodeLine{63     -\/> \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig<utils::SolverDefault, utils::UpdateDefault>}};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LS>}
+\DoxyCodeLine{66 \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a01978}{NewtonRaphsonWithSubsidiaryFunctionSettings}},}
+\DoxyCodeLine{67                                           LS) -\/> \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig<LS, utils::UpdateDefault>}};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LS, \textcolor{keyword}{typename} UF>}
+\DoxyCodeLine{70 \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a01978}{NewtonRaphsonWithSubsidiaryFunctionSettings}}, LS,}
+\DoxyCodeLine{71                                           UF) -\/> \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig<LS, UF>}};}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \textcolor{keyword}{template} <\textcolor{keyword}{typename} UF>}
+\DoxyCodeLine{74 \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a01978}{NewtonRaphsonWithSubsidiaryFunctionSettings}}, \mbox{\hyperlink{a02090}{utils::SolverDefault}},}
+\DoxyCodeLine{75                                           UF) -\/> \mbox{\hyperlink{a01982}{NewtonRaphsonWithSubsidiaryFunctionConfig<utils::SolverDefault, UF>}};}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{85 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} NRConfig>}
+\DoxyCodeLine{86 \textcolor{keyword}{requires} traits::isSpecialization<NewtonRaphsonWithSubsidiaryFunctionConfig, std::remove\_cvref\_t<NRConfig>>::value}
+\DoxyCodeLine{87 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_a504e2e9645fa26419d815df9bd245add}{createNonlinearSolver}}(NRConfig\&\& config, F\&\& f) \{}
+\DoxyCodeLine{88   \textcolor{keyword}{using }LS           = \mbox{\hyperlink{a00465_a2afda25e777ed3a794da319ba535b87b}{std::remove\_cvref\_t<NRConfig>::LinearSolver}};}
+\DoxyCodeLine{89   \textcolor{keyword}{using }UF           = std::remove\_cvref\_t<NRConfig>::UpdateFunction;}
+\DoxyCodeLine{90   \textcolor{keyword}{auto} solverFactory = []<\textcolor{keyword}{class }F2, class LS2, class UF2>(F2\&\& f2, LS2\&\& ls, UF2\&\& uf) \{}
+\DoxyCodeLine{91     \textcolor{keywordflow}{return} std::make\_shared<NewtonRaphsonWithSubsidiaryFunction<std::remove\_cvref\_t<F2>, std::remove\_cvref\_t<LS2>,}
+\DoxyCodeLine{92                                                                 std::remove\_cvref\_t<UF2>>>(f2, std::forward<LS2>(ls),}
+\DoxyCodeLine{93                                                                                            std::forward<UF2>(uf));}
+\DoxyCodeLine{94   \};}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::remove\_cvref\_t<F>::nDerivatives == 2) \{}
+\DoxyCodeLine{97     \textcolor{keyword}{auto} solver = solverFactory(derivative(f), std::forward<NRConfig>(config).linearSolver,}
+\DoxyCodeLine{98                                 std::forward<NRConfig>(config).updateFunction);}
+\DoxyCodeLine{99     solver-\/>setup(config.parameters);}
+\DoxyCodeLine{100     \textcolor{keywordflow}{return} solver;}
+\DoxyCodeLine{101   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{102     \textcolor{keyword}{static\_assert}(std::remove\_cvref\_t<F>::nDerivatives >= 1,}
+\DoxyCodeLine{103                   \textcolor{stringliteral}{"{}The number of derivatives in the differentiable function have to be more than 0"{}});}
+\DoxyCodeLine{104     \textcolor{keyword}{auto} solver =}
+\DoxyCodeLine{105         solverFactory(f, std::forward<NRConfig>(config).linearSolver, std::forward<NRConfig>(config).updateFunction);}
+\DoxyCodeLine{106     ;}
 \DoxyCodeLine{107 }
-\DoxyCodeLine{108 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{108     solver-\/>setup(std::forward<NRConfig>(config).parameters);}
+\DoxyCodeLine{109     \textcolor{keywordflow}{return} solver;}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111 \}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{123 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} LS, \textcolor{keyword}{typename} UF>}
+\DoxyCodeLine{124 \textcolor{keyword}{class }\mbox{\hyperlink{a01974}{NewtonRaphsonWithSubsidiaryFunction}} : \textcolor{keyword}{public} \mbox{\hyperlink{a01986}{NonlinearSolverBase}}<F>}
+\DoxyCodeLine{125 \{}
+\DoxyCodeLine{126 \textcolor{keyword}{public}:}
+\DoxyCodeLine{127   \textcolor{keyword}{using }\mbox{\hyperlink{a01978}{Settings}}        = \mbox{\hyperlink{a01978}{NewtonRaphsonWithSubsidiaryFunctionSettings}};}
+\DoxyCodeLine{128   \textcolor{keyword}{using }\mbox{\hyperlink{a01974_a61e21fdfe22a553bdc1361bba7d71ecb}{SignatureTraits}} = \textcolor{keyword}{typename} F::Traits;}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130   \textcolor{keyword}{using }\mbox{\hyperlink{a01974_adff6308a3d8a1ffd821ed3c959f75eaf}{Domain}}         = \textcolor{keyword}{typename} SignatureTraits::Domain; }
+\DoxyCodeLine{131   \textcolor{keyword}{using }\mbox{\hyperlink{a01974_aabdaaf7b2ce5d0cdc3aff157970e46f4}{CorrectionType}} = \textcolor{keyword}{typename} SignatureTraits::template Range<0>; }
+\DoxyCodeLine{132   \textcolor{keyword}{using }\mbox{\hyperlink{a01974_ab3e940fc11375dc2e24d07dc5343e4f3}{JacobianType}}   = \textcolor{keyword}{typename} SignatureTraits::template Range<1>;}
+\DoxyCodeLine{134   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01974_a7a5aff92f9ae604cab722da156b4a93b}{isLinearSolver}} = \mbox{\hyperlink{a02280}{Ikarus::Concepts::LinearSolverCheck<LS, JacobianType, CorrectionType>}};}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{137   \textcolor{keyword}{using }\mbox{\hyperlink{a01974_aac6019863abe7aa9455b092c4afd2cb7}{UpdateFunctionType}}     = UF;}
+\DoxyCodeLine{138   \textcolor{keyword}{using }\mbox{\hyperlink{a01974_af8cf0ee680a0ec1ef74c5e2d7194caf4}{DifferentiableFunction}} = F; }
+\DoxyCodeLine{139 }
+\DoxyCodeLine{146   \textcolor{keyword}{template} <\textcolor{keyword}{typename} LS2 = LS, \textcolor{keyword}{typename} UF2 = UF>}
+\DoxyCodeLine{147   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01974_aee801a05b21d6105d479cf5b9c46abd1}{NewtonRaphsonWithSubsidiaryFunction}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01974_af8cf0ee680a0ec1ef74c5e2d7194caf4}{DifferentiableFunction}}\& \mbox{\hyperlink{a01974_a4d09a5f7879cb3f0e053f463b6044d07}{residual}}, LS2\&\& linearSolver = \{\},}
+\DoxyCodeLine{148                                                UF2\&\& updateFunction = \{\})}
+\DoxyCodeLine{149       : residualFunction\_\{\mbox{\hyperlink{a01974_a4d09a5f7879cb3f0e053f463b6044d07}{residual}}\},}
+\DoxyCodeLine{150         jacobianFunction\_\{derivative(residualFunction\_)\},}
+\DoxyCodeLine{151         linearSolver\_\{std::forward<LS2>(linearSolver)\},}
+\DoxyCodeLine{152         updateFunction\_\{std::forward<UF2>(updateFunction)\} \{\}}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{159   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01974_a52dcda371c855757a5d00e001f47dbb8}{setup}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01978}{Settings}}\& settings) \{ settings\_ = settings; \}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{171   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Subs\textcolor{keywordtype}{id}iaryType>}
+\DoxyCodeLine{172   [[nodiscard(}
+\DoxyCodeLine{173       \textcolor{stringliteral}{"{}The solve method returns information of the solution process. You should store this information and check if "{}}}
+\DoxyCodeLine{174       \textcolor{stringliteral}{"{}it was successful"{}})]] \mbox{\hyperlink{a02014}{NonLinearSolverInformation}}}
+\DoxyCodeLine{175   \mbox{\hyperlink{a01974_a78c8188338a25f36d2f42e7740dfb521}{solve}}(\mbox{\hyperlink{a01974_adff6308a3d8a1ffd821ed3c959f75eaf}{Domain}}\& req, SubsidiaryType\&\& subsidiaryFunction, \mbox{\hyperlink{a01434}{SubsidiaryArgs}}\& subsidiaryArgs) \{}
+\DoxyCodeLine{176     \textcolor{keyword}{using }enum \mbox{\hyperlink{a00459_ga662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}};}
+\DoxyCodeLine{177     this-\/>notify(\mbox{\hyperlink{a00459_gga662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498}{INIT}});}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{180     \mbox{\hyperlink{a02014}{Ikarus::NonLinearSolverInformation}} solverInformation;}
+\DoxyCodeLine{181     solverInformation.\mbox{\hyperlink{a02014_acb65d72d7b2291a9b0d958ce0e4e0887}{success}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183     \textcolor{keyword}{auto}\& lambda = req.parameter();}
+\DoxyCodeLine{184     \textcolor{keyword}{auto}\& x      = req.globalSolution();}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190     \textcolor{keyword}{auto} lambdaDummy = lambda;}
+\DoxyCodeLine{191     \textcolor{keyword}{auto} DDummy      = x;}
+\DoxyCodeLine{192     x.setZero();}
+\DoxyCodeLine{193     lambda            = 1.0;}
+\DoxyCodeLine{194     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) rx = residualFunction\_(req);}
+\DoxyCodeLine{195     \textcolor{keyword}{const} \textcolor{keyword}{auto} Fext0  = (-\/rx).eval(); \textcolor{comment}{// dRdlambda(lambda)}}
+\DoxyCodeLine{196     lambda            = lambdaDummy;}
+\DoxyCodeLine{197     x                 = DDummy;}
+\DoxyCodeLine{198 }
+\DoxyCodeLine{199     rx                = residualFunction\_(req);}
+\DoxyCodeLine{200     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) Ax = jacobianFunction\_(req);}
+\DoxyCodeLine{201 }
+\DoxyCodeLine{202     Eigen::VectorXd deltaD;}
+\DoxyCodeLine{203     deltaD.resizeLike(rx);}
+\DoxyCodeLine{204     deltaD.setZero();}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206     subsidiaryArgs.\mbox{\hyperlink{a01434_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.resizeLike(Fext0);}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{208     subsidiaryFunction(subsidiaryArgs);}
+\DoxyCodeLine{209     \textcolor{keyword}{auto} rNorm = sqrt(rx.dot(rx));}
+\DoxyCodeLine{210     \textcolor{keyword}{decltype}(rNorm) dNorm;}
+\DoxyCodeLine{211     \textcolor{keywordtype}{int} iter\{0\};}
+\DoxyCodeLine{212     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01974_a7a5aff92f9ae604cab722da156b4a93b}{isLinearSolver}})}
+\DoxyCodeLine{213       linearSolver\_.analyzePattern(Ax);}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215     \textcolor{keyword}{auto} solverState = \textcolor{keyword}{typename} \mbox{\hyperlink{a01994}{NewtonRaphsonWithSubsidiaryFunction::State}}\{.\mbox{\hyperlink{a01994_a4ea3cec63a27f4699e529393f4304850}{domain}} = req, .correction = correction\_\};}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{217     Eigen::MatrixX2<double> residual2d, sol2d;}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{220     \textcolor{keywordflow}{while} (rNorm > settings\_.\mbox{\hyperlink{a01978_a7e8e3668e5eca2b115ec77fcaabc8899}{tol}} \&\& iter < settings\_.\mbox{\hyperlink{a01978_a7ef35a86ec4e9a39bcc54182c5dc17b7}{maxIter}}) \{}
+\DoxyCodeLine{221       this-\/>notify(\mbox{\hyperlink{a00459_gga662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4}{ITERATION\_STARTED}});}
+\DoxyCodeLine{222 }
+\DoxyCodeLine{224       residual2d.resize(rx.rows(), 2);}
+\DoxyCodeLine{225       residual2d << -\/rx, Fext0;}
+\DoxyCodeLine{226       sol2d.resize(rx.rows(), 2);}
+\DoxyCodeLine{227 }
+\DoxyCodeLine{228       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01974_a7a5aff92f9ae604cab722da156b4a93b}{isLinearSolver}}) \{}
+\DoxyCodeLine{229         linearSolver\_.factorize(Ax);}
+\DoxyCodeLine{230         linearSolver\_.solve(sol2d, residual2d);}
+\DoxyCodeLine{231       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{232         sol2d = linearSolver\_(residual2d, Ax);}
+\DoxyCodeLine{233       \}}
+\DoxyCodeLine{234 }
+\DoxyCodeLine{235       subsidiaryFunction(subsidiaryArgs);}
+\DoxyCodeLine{236 }
+\DoxyCodeLine{237       \textcolor{keyword}{const} \textcolor{keywordtype}{double} deltalambda = (-\/subsidiaryArgs.\mbox{\hyperlink{a01434_a628b23aa9e90c0e0ba1461ad2241645a}{f}} -\/ subsidiaryArgs.\mbox{\hyperlink{a01434_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.dot(sol2d.col(0))) /}
+\DoxyCodeLine{238                                  (subsidiaryArgs.\mbox{\hyperlink{a01434_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.dot(sol2d.col(1)) + subsidiaryArgs.\mbox{\hyperlink{a01434_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}});}
+\DoxyCodeLine{239       deltaD = sol2d.col(0) + deltalambda * sol2d.col(1);}
+\DoxyCodeLine{240 }
+\DoxyCodeLine{241       solverState.dNorm     = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(dNorm);}
+\DoxyCodeLine{242       solverState.rNorm     = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(rNorm);}
+\DoxyCodeLine{243       solverState.iteration = iter;}
+\DoxyCodeLine{244       this-\/>notify(\mbox{\hyperlink{a00459_gga662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4}{CORRECTION\_UPDATED}}, solverState);}
+\DoxyCodeLine{245 }
+\DoxyCodeLine{246       updateFunction\_(x, deltaD);}
+\DoxyCodeLine{247       updateFunction\_(subsidiaryArgs.\mbox{\hyperlink{a01434_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}, deltaD);}
+\DoxyCodeLine{248 }
+\DoxyCodeLine{249       lambda += deltalambda;}
+\DoxyCodeLine{250       subsidiaryArgs.\mbox{\hyperlink{a01434_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} += deltalambda;}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252       dNorm = sqrt(deltaD.dot(deltaD) + deltalambda * deltalambda);}
+\DoxyCodeLine{253       rx    = residualFunction\_(req);}
+\DoxyCodeLine{254       Ax    = jacobianFunction\_(req);}
+\DoxyCodeLine{255       rNorm = sqrt(rx.dot(rx) + subsidiaryArgs.\mbox{\hyperlink{a01434_a628b23aa9e90c0e0ba1461ad2241645a}{f}} * subsidiaryArgs.\mbox{\hyperlink{a01434_a628b23aa9e90c0e0ba1461ad2241645a}{f}});}
+\DoxyCodeLine{256 }
+\DoxyCodeLine{257       this-\/>notify(\mbox{\hyperlink{a00459_gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{SOLUTION\_CHANGED}}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(lambda));}
+\DoxyCodeLine{258       this-\/>notify(\mbox{\hyperlink{a00459_gga662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78}{CORRECTIONNORM\_UPDATED}}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(dNorm));}
+\DoxyCodeLine{259       this-\/>notify(\mbox{\hyperlink{a00459_gga662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14}{RESIDUALNORM\_UPDATED}}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(rNorm));}
+\DoxyCodeLine{260       this-\/>notify(\mbox{\hyperlink{a00459_gga662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815}{ITERATION\_ENDED}});}
+\DoxyCodeLine{261 }
+\DoxyCodeLine{262       ++iter;}
+\DoxyCodeLine{263     \}}
+\DoxyCodeLine{264 }
+\DoxyCodeLine{265     \textcolor{keywordflow}{if} (iter == settings\_.\mbox{\hyperlink{a01978_a7ef35a86ec4e9a39bcc54182c5dc17b7}{maxIter}})}
+\DoxyCodeLine{266       solverInformation.\mbox{\hyperlink{a02014_acb65d72d7b2291a9b0d958ce0e4e0887}{success}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{267     solverInformation.\mbox{\hyperlink{a02014_a81570cd3d9f6589a4d1ba81211f41b99}{iterations}}     = iter;}
+\DoxyCodeLine{268     solverInformation.\mbox{\hyperlink{a02014_ab09859737734f97734f20624f9f3c934}{residualNorm}}   = rNorm;}
+\DoxyCodeLine{269     solverInformation.\mbox{\hyperlink{a02014_a66f51414779f3e563557157fb688f18b}{correctionNorm}} = dNorm;}
+\DoxyCodeLine{270     \textcolor{keywordflow}{if} (solverInformation.\mbox{\hyperlink{a02014_acb65d72d7b2291a9b0d958ce0e4e0887}{success}})}
+\DoxyCodeLine{271       this-\/>notify(\mbox{\hyperlink{a00459_gga662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931}{FINISHED\_SUCESSFULLY}}, iter);}
+\DoxyCodeLine{272 }
+\DoxyCodeLine{273     \textcolor{keywordflow}{return} solverInformation;}
+\DoxyCodeLine{274   \}}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{280   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01974_a4d09a5f7879cb3f0e053f463b6044d07}{residual}}() \{ \textcolor{keywordflow}{return} residualFunction\_; \}}
+\DoxyCodeLine{281 }
+\DoxyCodeLine{282 \textcolor{keyword}{private}:}
+\DoxyCodeLine{283   \mbox{\hyperlink{a01974_af8cf0ee680a0ec1ef74c5e2d7194caf4}{DifferentiableFunction}} residualFunction\_;}
+\DoxyCodeLine{284   \textcolor{keyword}{typename} DifferentiableFunction::Derivative jacobianFunction\_;}
+\DoxyCodeLine{285   std::remove\_cvref\_t<CorrectionType> correction\_;}
+\DoxyCodeLine{286   LS linearSolver\_;}
+\DoxyCodeLine{287   UF updateFunction\_;}
+\DoxyCodeLine{288   \mbox{\hyperlink{a01974_a19eac7268df3fff479680f0661df27ee}{Settings}} settings\_;}
+\DoxyCodeLine{289 \};}
+\DoxyCodeLine{300 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} LS = utils::SolverDefault, \textcolor{keyword}{typename} UF = utils::UpdateDefault>}
+\DoxyCodeLine{301 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_adbff809666ec702db249807b732668e8}{makeNewtonRaphsonWithSubsidiaryFunction}}(\textcolor{keyword}{const} F\& f, LS\&\& linearSolver = \{\}, UF\&\& updateFunction = \{\}) \{}
+\DoxyCodeLine{302   \textcolor{keywordflow}{return} std::make\_shared<NewtonRaphsonWithSubsidiaryFunction<F, LS, UF>>(f, std::forward<LS>(linearSolver),}
+\DoxyCodeLine{303                                                                           std::move(updateFunction));}
+\DoxyCodeLine{304 \}}
+\DoxyCodeLine{305 }
+\DoxyCodeLine{306 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} LS = utils::SolverDefault, \textcolor{keyword}{typename} UF = utils::UpdateDefault>}
+\DoxyCodeLine{307 \mbox{\hyperlink{a00465_a239816903c13742e1d58e0b3faf17b7a}{NewtonRaphsonWithSubsidiaryFunction}}(\textcolor{keyword}{const} F\& f, LS\&\& linearSolver = \{\}, UF\&\& updateFunction = \{\})}
+\DoxyCodeLine{308     -\/> \mbox{\hyperlink{a00465_a239816903c13742e1d58e0b3faf17b7a}{NewtonRaphsonWithSubsidiaryFunction}}<F, std::remove\_cvref\_t<LS>, std::remove\_cvref\_t<UF>>;}
+\DoxyCodeLine{309 }
+\DoxyCodeLine{310 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

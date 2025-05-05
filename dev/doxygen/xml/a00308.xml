@@ -1,82 +1,120 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="a00308" kind="file" language="C++">
-    <compoundname>mueslimaterials.hh</compoundname>
+    <compoundname>scalarwrapper.hh</compoundname>
+    <includes local="no">dune/common/referencehelper.hh</includes>
+    <includedby refid="a00413" local="no">_ikarus.cc</includedby>
+    <includedby refid="a00314" local="no">flatassemblermanipulator.hh</includedby>
+    <includedby refid="a00299" local="no">registerferequirements.hh</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>scalarwrapper.hh</label>
+        <link refid="a00308"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>dune/common/referencehelper.hh</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>flatassemblermanipulator.hh</label>
+        <link refid="a00314"/>
+      </node>
+      <node id="5">
+        <label>fe.hh</label>
+        <link refid="a00305"/>
+      </node>
+      <node id="4">
+        <label>registerferequirements.hh</label>
+        <link refid="a00299"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>scalarwrapper.hh</label>
+        <link refid="a00308"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>_ikarus.cc</label>
+        <link refid="a00413"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="a01930" prot="public">ScalarWrapper</innerclass>
     <briefdescription>
+<para>Provides a wrapper for scalar types to support passing by reference in <ref refid="a00492" kindref="compound">Python</ref> bindings. </para>
     </briefdescription>
     <detaileddescription>
+<para>Since <ref refid="a00492" kindref="compound">Python</ref> does not support passing python float by reference to a double&amp;, we have to wrap everything. See also: <ulink url="https://pybind11.readthedocs.io/en/stable/faq.html#limitations-involving-reference-arguments">https://pybind11.readthedocs.io/en/stable/faq.html#limitations-involving-reference-arguments</ulink> </para>
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">//<sp/>SPDX-FileCopyrightText:<sp/>2021-2025<sp/>The<sp/>Ikarus<sp/>Developers<sp/>mueller@ibb.uni-stuttgart.de</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>LGPL-3.0-or-later</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>ENABLE_MUESLI</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#include<sp/>&lt;<ref refid="a00311" kindref="compound">ikarus/finiteelements/mechanics/materials/muesli/mueslifinite.hh</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#include<sp/>&lt;<ref refid="a00317" kindref="compound">ikarus/finiteelements/mechanics/materials/muesli/mueslihelpers.hh</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#include<sp/>&lt;<ref refid="a00314" kindref="compound">ikarus/finiteelements/mechanics/materials/muesli/mueslismall.hh</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="a00468" kindref="compound">Ikarus::Materials</ref><sp/>{</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;Concepts::MPTuple<sp/>MPT&gt;</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>makeMuesliLinearElasticity(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>MPT&amp;<sp/>mpt)<sp/>{</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>muesliParameters<sp/>=<sp/>propertiesFromIkarusMaterialParameters(mpt);</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SmallStrain&lt;muesli::elasticIsotropicMaterial&gt;(muesliParameters);</highlight></codeline>
-<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;Concepts::MPTuple<sp/>MPT&gt;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>makeMuesliNeoHooke(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>MPT&amp;<sp/>mpt,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>useDeviatoricStretches<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>muesliParameters<sp/>=<sp/>propertiesFromIkarusMaterialParameters(mpt);</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(useDeviatoricStretches)</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>addTag(muesliParameters,<sp/></highlight><highlight class="stringliteral">&quot;subtype<sp/>regularized&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>FiniteStrain&lt;muesli::neohookeanMaterial&gt;(muesliParameters);</highlight></codeline>
-<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;dune/common/referencehelper.hh&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="26" refid="a01930" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="a01930" kindref="compound">ScalarWrapper</ref></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32" refid="a01930_1a80b399092b2ac4564095a63271e34acd" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="a01930_1a80b399092b2ac4564095a63271e34acd" kindref="member">ScalarWrapper</ref>(T<sp/>val)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>val{val}<sp/>{}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="a01930_1af539d8935624e801016ecdd02852e493" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref><sp/>=<sp/>Dune::ResolveRef_t&lt;T&gt;;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="a01930_1a66478624f4d84c5223afc1cc339691ff" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">operator</highlight><highlight class="normal"><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref>&amp;()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Dune::resolveRef(val);<sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="a01930_1a0f885d047f898e549e8ece9cac3adea8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref>&amp;<sp/><ref refid="a01930_1a0f885d047f898e549e8ece9cac3adea8" kindref="member">value</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Dune::resolveRef(val);<sp/>}</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;Concepts::MPTuple<sp/>MPT&gt;</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>makeMuesliSVK(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>MPT&amp;<sp/>mpt)<sp/>{</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>muesliParameters<sp/>=<sp/>propertiesFromIkarusMaterialParameters(mpt);</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>FiniteStrain&lt;muesli::svkMaterial&gt;(muesliParameters);</highlight></codeline>
-<codeline lineno="60"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>makeMuesliArrudaBoyce(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>C1,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>lambda_m,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>compressible<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>muesliParameters<sp/>=<sp/>muesli::materialProperties{};</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/>muesliParameters.insert({</highlight><highlight class="stringliteral">&quot;c1&quot;</highlight><highlight class="normal">,<sp/>C1});</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/>muesliParameters.insert({</highlight><highlight class="stringliteral">&quot;lambdam&quot;</highlight><highlight class="normal">,<sp/>lambda_m});</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/>muesliParameters.insert({</highlight><highlight class="stringliteral">&quot;bulk&quot;</highlight><highlight class="normal">,<sp/>K});</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(compressible)</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>addTag(muesliParameters,<sp/></highlight><highlight class="stringliteral">&quot;compressible&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>FiniteStrain&lt;muesli::arrudaboyceMaterial&gt;(muesliParameters);</highlight></codeline>
-<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>makeMuesliYeoh(std::array&lt;double,<sp/>3&gt;<sp/>C,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>compressible<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>muesliParameters<sp/>=<sp/>muesli::materialProperties{};</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/>muesliParameters.insert({</highlight><highlight class="stringliteral">&quot;c1&quot;</highlight><highlight class="normal">,<sp/>C[0]});</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/>muesliParameters.insert({</highlight><highlight class="stringliteral">&quot;c2&quot;</highlight><highlight class="normal">,<sp/>C[1]});</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/>muesliParameters.insert({</highlight><highlight class="stringliteral">&quot;c3&quot;</highlight><highlight class="normal">,<sp/>C[2]});</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/>muesliParameters.insert({</highlight><highlight class="stringliteral">&quot;bulk&quot;</highlight><highlight class="normal">,<sp/>K});</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(compressible)</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>addTag(muesliParameters,<sp/></highlight><highlight class="stringliteral">&quot;compressible&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>FiniteStrain&lt;muesli::yeohMaterial&gt;(muesliParameters);</highlight></codeline>
-<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="a00468_1a7ac025ab0f41d2021008bd54e51135b1" kindref="member">makeMooneyRivlin</ref>(std::array&lt;double,<sp/>3&gt;<sp/>alpha,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>incompressible<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>muesliParameters<sp/>=<sp/>muesli::materialProperties{};</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/>muesliParameters.insert({</highlight><highlight class="stringliteral">&quot;alpha0&quot;</highlight><highlight class="normal">,<sp/>alpha[0]});</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/>muesliParameters.insert({</highlight><highlight class="stringliteral">&quot;alpha1&quot;</highlight><highlight class="normal">,<sp/>alpha[1]});</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/>muesliParameters.insert({</highlight><highlight class="stringliteral">&quot;alpha2&quot;</highlight><highlight class="normal">,<sp/>alpha[2]});</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(incompressible)</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>addTag(muesliParameters,<sp/></highlight><highlight class="stringliteral">&quot;incompressible&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>FiniteStrain&lt;muesli::mooneyMaterial&gt;(muesliParameters);</highlight></codeline>
-<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Ikarus::Materials</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="118"><highlight class="normal"></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#error<sp/>Muesli<sp/>materials<sp/>depends<sp/>on<sp/>the<sp/>Muesli<sp/>library,<sp/>which<sp/>is<sp/>not<sp/>included</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53" refid="a01930_1a58aca37297368d4b3122461982ff3074" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref>&amp;<sp/><ref refid="a01930_1a58aca37297368d4b3122461982ff3074" kindref="member">value</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Dune::resolveRef(val);<sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60" refid="a01930_1a7c5087c50a8cda53bdb7dc0b1af65c7d" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref><sp/><ref refid="a01930_1a7c5087c50a8cda53bdb7dc0b1af65c7d" kindref="member">operator+</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="a01930" kindref="compound">ScalarWrapper</ref>&amp;<sp/>v)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref>{Dune::resolveRef(val)<sp/>+<sp/>Dune::resolveRef(v.val)};</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68" refid="a01930_1a14f5de10abdaaa63ef31cf3398b75122" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref><sp/><ref refid="a01930_1a14f5de10abdaaa63ef31cf3398b75122" kindref="member">operator-</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="a01930" kindref="compound">ScalarWrapper</ref>&amp;<sp/>v)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref>{Dune::resolveRef(val)<sp/>-<sp/>Dune::resolveRef(v.val)};</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="a01930_1afbdab913b105074552a44b4d05e4b8dc" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref><sp/><ref refid="a01930_1afbdab913b105074552a44b4d05e4b8dc" kindref="member">operator-</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref>{-Dune::resolveRef(val)};<sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="a01930_1a01d184d748414b40f51b06e891bc309b" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref><sp/><ref refid="a01930_1a01d184d748414b40f51b06e891bc309b" kindref="member">operator*</ref>(<ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref><sp/><ref refid="a01930_1a0f885d047f898e549e8ece9cac3adea8" kindref="member">value</ref>)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref>{val<sp/>*<sp/><ref refid="a01930_1a0f885d047f898e549e8ece9cac3adea8" kindref="member">value</ref>};<sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="a01930_1aedb7b9287f9b954fcb9759ef0aa7f803" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="a01930" kindref="compound">ScalarWrapper</ref>&amp;<sp/><ref refid="a01930_1aedb7b9287f9b954fcb9759ef0aa7f803" kindref="member">operator+=</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="a01930" kindref="compound">ScalarWrapper</ref>&amp;<sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>Dune::resolveRef(val)<sp/>+=<sp/>Dune::resolveRef(v.val);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="a01930_1a1f3ea426a4264d9c26278e2ddfc605d1" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="a01930" kindref="compound">ScalarWrapper</ref>&amp;<sp/><ref refid="a01930_1a1f3ea426a4264d9c26278e2ddfc605d1" kindref="member">operator-=</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="a01930" kindref="compound">ScalarWrapper</ref>&amp;<sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>Dune::resolveRef(val)<sp/>-=<sp/>Dune::resolveRef(v.val);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="a01930_1ac43277d6068945530d445976aef3b5be" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="a01930" kindref="compound">ScalarWrapper</ref>&amp;<sp/><ref refid="a01930_1ac43277d6068945530d445976aef3b5be" kindref="member">operator*=</ref>(<ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref><sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>Dune::resolveRef(val)<sp/>*=<sp/>v;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="a01930_1abe4b2960b4cc9bd8546aed01a6e74f51" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="a01930" kindref="compound">ScalarWrapper</ref>&amp;<sp/><ref refid="a01930_1abe4b2960b4cc9bd8546aed01a6e74f51" kindref="member">operator/=</ref>(<ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref><sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>Dune::resolveRef(val)<sp/>/=<sp/>v;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>T<sp/>val;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="a01930_1a93c93e03a96d5f1cbfa7e74ccb1e190e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref><sp/><ref refid="a01930_1a93c93e03a96d5f1cbfa7e74ccb1e190e" kindref="member">operator*</ref>(<ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref><sp/>f,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="a01930" kindref="compound">ScalarWrapper</ref>&amp;<sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="a01930_1af539d8935624e801016ecdd02852e493" kindref="member">RawScalarType</ref>{f<sp/>*<sp/>Dune::resolveRef(v.val)};</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/muesli/mueslimaterials.hh"/>
+    <location file="/__w/ikarus/ikarus/repo/ikarus/python/finiteelements/scalarwrapper.hh"/>
   </compounddef>
 </doxygen>

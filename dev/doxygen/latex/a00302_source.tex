@@ -1,5 +1,5 @@
-\hypertarget{a00302_source}{}\doxysection{materialhelpers.\+hh}
-\label{a00302_source}\index{materialhelpers.hh@{materialhelpers.hh}}
+\hypertarget{a00302_source}{}\doxysection{registerpreelement.\+hh}
+\label{a00302_source}\index{registerpreelement.hh@{registerpreelement.hh}}
 \mbox{\hyperlink{a00302}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
@@ -7,112 +7,61 @@
 \DoxyCodeLine{3 }
 \DoxyCodeLine{4 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{5 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <ranges>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03295}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00035}{ikarus/utils/tensorutils.hh}}>}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00468}{Ikarus::Materials}} \{}
-\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{a01664}{MatrixIndexPair}}}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27   Eigen::Index \mbox{\hyperlink{a01664_aea06e613d6a158b8e197a5f79ef7f197}{row}}; }
-\DoxyCodeLine{28   Eigen::Index \mbox{\hyperlink{a01664_a05834d6b2ab9428e4ecc645234ef9d34}{col}}; }
-\DoxyCodeLine{29 \};}
-\DoxyCodeLine{30 \} \textcolor{comment}{// namespace Ikarus::Materials}}
-\DoxyCodeLine{31 \textcolor{keyword}{namespace }Ikarus::Materials::Impl \{}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{39 \textcolor{keyword}{template} <\textcolor{keywordtype}{size\_t} size>}
-\DoxyCodeLine{40 \textcolor{keyword}{consteval} \textcolor{keyword}{auto} createfreeVoigtIndices(\textcolor{keyword}{const} std::array<MatrixIndexPair, size>\& fixed) \{}
-\DoxyCodeLine{41   std::array<size\_t, 6 -\/ size> res\{\};}
-\DoxyCodeLine{42   std::array<size\_t, size> voigtFixedIndices;}
-\DoxyCodeLine{43   std::ranges::transform(fixed, voigtFixedIndices.begin(), [](\textcolor{keyword}{auto} pair) \{ return toVoigt(pair.row, pair.col); \});}
-\DoxyCodeLine{44   std::ranges::sort(voigtFixedIndices);}
-\DoxyCodeLine{45   std::ranges::set\_difference(std::ranges::iota\_view(\textcolor{keywordtype}{size\_t}(0), \textcolor{keywordtype}{size\_t}(6)), voigtFixedIndices, res.begin());}
-\DoxyCodeLine{46   std::ranges::sort(res);}
-\DoxyCodeLine{47   \textcolor{keywordflow}{return} res;}
-\DoxyCodeLine{48 \}}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{56 \textcolor{keyword}{template} <\textcolor{keywordtype}{size\_t} size>}
-\DoxyCodeLine{57 \textcolor{keyword}{consteval} \textcolor{keyword}{auto} createFixedVoigtIndices(\textcolor{keyword}{const} std::array<MatrixIndexPair, size>\& fixed) \{}
-\DoxyCodeLine{58   std::array<size\_t, size> fixedIndices;}
-\DoxyCodeLine{59   std::ranges::transform(fixed, fixedIndices.begin(), [](\textcolor{keyword}{auto} pair) \{ return toVoigt(pair.row, pair.col); \});}
-\DoxyCodeLine{60   std::ranges::sort(fixedIndices);}
-\DoxyCodeLine{61   \textcolor{keywordflow}{return} fixedIndices;}
-\DoxyCodeLine{62 \}}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{70 \textcolor{keyword}{template} <\textcolor{keywordtype}{size\_t} size>}
-\DoxyCodeLine{71 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{size\_t} countDiagonalIndices(\textcolor{keyword}{const} std::array<MatrixIndexPair, size>\& fixed) \{}
-\DoxyCodeLine{72   \textcolor{keywordtype}{size\_t} count = 0;}
-\DoxyCodeLine{73   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} v : fixed) \{}
-\DoxyCodeLine{74     \textcolor{keywordflow}{if} (v.col == v.row)}
-\DoxyCodeLine{75       ++count;}
-\DoxyCodeLine{76   \}}
-\DoxyCodeLine{77   \textcolor{keywordflow}{return} count;}
-\DoxyCodeLine{78 \}}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{86 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{87 \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) maybeFromVoigt(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E) \{}
-\DoxyCodeLine{88   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Concepts::EigenVector<Derived>) \{ \textcolor{comment}{// receiving vector means Voigt notation}}
-\DoxyCodeLine{89     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00455_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(E.derived(), \textcolor{keyword}{true});}
-\DoxyCodeLine{90   \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{91     \textcolor{keywordflow}{return} E.derived();}
-\DoxyCodeLine{92 \}}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{94 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
-\DoxyCodeLine{95 \textcolor{keywordtype}{void} checkPositiveOrAbort(ScalarType det) \{}
-\DoxyCodeLine{96   \textcolor{keywordflow}{if} (Dune::FloatCmp::le(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(det), 0.0, 1e-\/10)) \{}
-\DoxyCodeLine{97     std::cerr << \textcolor{stringliteral}{"{}Determinant of right Cauchy Green tensor C must be greater than zero. detC = "{}} +}
-\DoxyCodeLine{98                      std::to\_string(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(det));}
-\DoxyCodeLine{99     abort();}
-\DoxyCodeLine{100   \}}
-\DoxyCodeLine{101 \}}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{113 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType, \textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{114 \textcolor{keyword}{auto} principalStretches(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& C, \textcolor{keywordtype}{int} options = Eigen::ComputeEigenvectors) \{}
-\DoxyCodeLine{115   Eigen::SelfAdjointEigenSolver<Derived> eigensolver\{\};}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{117   eigensolver.compute(C, options);}
-\DoxyCodeLine{118 }
-\DoxyCodeLine{119   \textcolor{keywordflow}{if} (eigensolver.info() != Eigen::Success)}
-\DoxyCodeLine{120     DUNE\_THROW(Dune::MathError, \textcolor{stringliteral}{"{}Failed to compute eigenvalues and eigenvectors of C."{}});}
-\DoxyCodeLine{121 }
-\DoxyCodeLine{122   \textcolor{keyword}{auto}\& eigenvalues  = eigensolver.eigenvalues();}
-\DoxyCodeLine{123   \textcolor{keyword}{auto}\& eigenvectors = options == Eigen::ComputeEigenvectors ? eigensolver.eigenvectors() : Derived::Zero();}
-\DoxyCodeLine{124 }
-\DoxyCodeLine{125   \textcolor{keyword}{auto} principalStretches = eigenvalues.cwiseSqrt().eval();}
-\DoxyCodeLine{126   \textcolor{keywordflow}{return} std::make\_pair(principalStretches, eigenvectors);}
-\DoxyCodeLine{127 \}}
-\DoxyCodeLine{128 }
-\DoxyCodeLine{136 \textcolor{keyword}{template} <Concepts::EigenVector3 Vector>}
-\DoxyCodeLine{137 \textcolor{keyword}{inline} Vector::Scalar determinantFromPrincipalValues(\textcolor{keyword}{const} Vector\& principalValues) \{}
-\DoxyCodeLine{138   \textcolor{keywordflow}{return} principalValues.prod();}
-\DoxyCodeLine{139 \}}
-\DoxyCodeLine{140 }
-\DoxyCodeLine{149 \textcolor{keyword}{template} <Concepts::EigenVector3 Vector>}
-\DoxyCodeLine{150 \textcolor{keyword}{inline} \mbox{\hyperlink{a00459_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{Vector}} deviatoricStretches(\textcolor{keyword}{const} Vector\& lambda) \{}
-\DoxyCodeLine{151   \textcolor{keyword}{using }ScalarType = \textcolor{keyword}{typename} Vector::Scalar;}
-\DoxyCodeLine{152   ScalarType J     = determinantFromPrincipalValues(lambda);}
-\DoxyCodeLine{153   ScalarType Jmod  = pow(J, -\/1.0 / 3.0);}
-\DoxyCodeLine{154   \textcolor{keywordflow}{return} Jmod * lambda;}
-\DoxyCodeLine{155 \}}
-\DoxyCodeLine{156 }
-\DoxyCodeLine{164 \textcolor{keyword}{template} <Concepts::EigenVector3 Vector>}
-\DoxyCodeLine{165 \textcolor{keyword}{inline} \mbox{\hyperlink{a00459_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{Vector}} invariants(\textcolor{keyword}{const} Vector\& lambda) \{}
-\DoxyCodeLine{166   \textcolor{keyword}{using }ScalarType   = \textcolor{keyword}{typename} Vector::Scalar;}
-\DoxyCodeLine{167   \textcolor{keyword}{auto} lambdaSquared = lambda.array().square();}
-\DoxyCodeLine{168   \textcolor{keyword}{auto} invariants    = Vector::Zero().eval();}
-\DoxyCodeLine{169 }
-\DoxyCodeLine{170   invariants[0] = lambdaSquared.sum();}
-\DoxyCodeLine{171   invariants[1] =}
-\DoxyCodeLine{172       lambdaSquared[0] * lambdaSquared[1] + lambdaSquared[1] * lambdaSquared[2] + lambdaSquared[0] * lambdaSquared[2];}
-\DoxyCodeLine{173   invariants[2] = determinantFromPrincipalValues(lambdaSquared);}
-\DoxyCodeLine{174 }
-\DoxyCodeLine{175   \textcolor{keywordflow}{return} invariants;}
-\DoxyCodeLine{176 \}}
-\DoxyCodeLine{177 \} \textcolor{comment}{// namespace Ikarus::Materials::Impl}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <dune/common/fvector.hh>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00483}{Ikarus::Python}} \{}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{22 \textcolor{keyword}{template} <\textcolor{keyword}{class }NonLinearElasticPre, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{23 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00483_ab45b29a3ca18f1c8bf87263c60d14711}{registerNonLinearElasticPre}}(pybind11::handle scope, pybind11::class\_<NonLinearElasticPre, options...> cls) \{}
+\DoxyCodeLine{24   \textcolor{keyword}{using }\mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a01694_a4c8087e2be5010d73080ef779b7e28d4}{NonLinearElasticPre::Material}};}
+\DoxyCodeLine{25   cls.def(\mbox{\hyperlink{a00465_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} \mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}}\& mat) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a01694}{NonLinearElasticPre}}(mat); \}));}
+\DoxyCodeLine{26 \}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{37 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a01546}{LinearElasticPre}}, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{38 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00483_a04d0c82e615a65a1ba027cb77bbf784d}{registerLinearElasticPre}}(pybind11::handle scope, pybind11::class\_<LinearElasticPre, options...> cls) \{}
+\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a01546_a25afe7c30b7dff97ee0b865ec636940d}{LinearElasticPre::Material}};}
+\DoxyCodeLine{40   cls.def(\mbox{\hyperlink{a00465_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} \mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}}\& mat) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a01546}{LinearElasticPre}}(mat); \}));}
+\DoxyCodeLine{41 \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{52 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a01798}{TrussPre}}, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{53 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00483_a5004d72f594d4ceecaebb33ee71f80cf}{registerTrussPre}}(pybind11::handle scope, pybind11::class\_<TrussPre, options...> cls) \{}
+\DoxyCodeLine{54   cls.def(\mbox{\hyperlink{a00465_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keywordtype}{double} emod, \textcolor{keywordtype}{double} area) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a01798}{TrussPre}}(\{emod, area\}); \}));}
+\DoxyCodeLine{55 \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{66 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a01530}{KirchhoffLoveShellPre}}, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{67 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00483_a0ef1ab14030985bd8af2551f51ceeeb6}{registerKirchhoffLoveShellPre}}(pybind11::handle scope, pybind11::class\_<KirchhoffLoveShellPre, options...> cls) \{}
+\DoxyCodeLine{68   cls.def(\mbox{\hyperlink{a00465_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}(}
+\DoxyCodeLine{69       [](\textcolor{keyword}{const} \textcolor{keywordtype}{double}\& E, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& nu, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& h) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a01530}{KirchhoffLoveShellPre}}(\{E, nu\}, h); \}));}
+\DoxyCodeLine{70 \}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{81 \textcolor{keyword}{template} <\textcolor{keyword}{class }EASPre, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{82 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00483_a79dfab8379c15a5c5da0d3e5a415f0a3}{registerEnhancedAssumedStrainsPre}}(pybind11::handle scope, pybind11::class\_<EASPre, options...> cls) \{}
+\DoxyCodeLine{83   cls.def(\mbox{\hyperlink{a00465_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keywordtype}{int} numberOfParameter) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{new} EASPre(numberOfParameter); \}));}
+\DoxyCodeLine{84 \}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{95 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a01554}{NeumannBoundaryLoadPre}}, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{96 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00483_a813121e686b5d64d6ef1e11bd4bfc59b}{registerNeumannBoundaryLoadPre}}(pybind11::handle scope, pybind11::class\_<NeumannBoundaryLoadPre, options...> cls) \{}
+\DoxyCodeLine{97   \textcolor{keyword}{using }BoundaryPatchType = \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_ab141e7f54614dccc0924c0bf678760d4}{NeumannBoundaryLoadPre::BoundaryPatchType}};}
+\DoxyCodeLine{98   \textcolor{keyword}{using }GridView          = \textcolor{keyword}{typename} \mbox{\hyperlink{a01554_a57f15a0941a7f2f5cd9be9365b07cc62}{NeumannBoundaryLoadPre::GridView}};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100   \textcolor{keyword}{using }LoadFunction = std::function<Eigen::Vector<double, NeumannBoundaryLoadPre::worldDim>(}
+\DoxyCodeLine{101       \mbox{\hyperlink{a02118}{Dune::FieldVector<double, NeumannBoundaryLoadPre::worldDim>}}, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\&)>;}
+\DoxyCodeLine{102   cls.def(\mbox{\hyperlink{a00465_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} BoundaryPatchType\& patch, LoadFunction \mbox{\hyperlink{a00465_a0eecc01634324520df56c4352eb15077}{volumeLoad}}) \{}
+\DoxyCodeLine{103             \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a01554}{NeumannBoundaryLoadPre}}(\&patch, \mbox{\hyperlink{a00465_a0eecc01634324520df56c4352eb15077}{volumeLoad}});}
+\DoxyCodeLine{104           \}),}
+\DoxyCodeLine{105           pybind11::keep\_alive<1, 2>());}
+\DoxyCodeLine{106 \}}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{117 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a00465_a93a9eac09126da6a203f68af3e7c8ba2}{VolumeLoadPre}}, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{118 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00483_a1f597ae7aac82dc24a8a2669f86fc12b}{registerVolumeLoadPre}}(pybind11::handle scope, pybind11::class\_<VolumeLoadPre, options...> cls) \{}
+\DoxyCodeLine{119   \textcolor{keyword}{using }LoadFunction = std::function<Eigen::Vector<double, VolumeLoadPre::worldDim>(}
+\DoxyCodeLine{120       \mbox{\hyperlink{a02118}{Dune::FieldVector<double, VolumeLoadPre::worldDim>}}, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\&)>;}
+\DoxyCodeLine{121   cls.def(\mbox{\hyperlink{a00465_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](LoadFunction \mbox{\hyperlink{a00465_a0eecc01634324520df56c4352eb15077}{volumeLoad}}) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a00465_a93a9eac09126da6a203f68af3e7c8ba2}{VolumeLoadPre}}(\mbox{\hyperlink{a00465_a0eecc01634324520df56c4352eb15077}{volumeLoad}}); \}));}
+\DoxyCodeLine{122 \}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124 \} \textcolor{comment}{// namespace Ikarus::Python}}
 
 \end{DoxyCode}

@@ -1,276 +1,316 @@
-\hypertarget{a00389_source}{}\doxysection{linearandglstrains.\+hh}
-\label{a00389_source}\index{linearandglstrains.hh@{linearandglstrains.hh}}
+\hypertarget{a00389_source}{}\doxysection{assemblermanipulatorfuser.\+hh}
+\label{a00389_source}\index{assemblermanipulatorfuser.hh@{assemblermanipulatorfuser.hh}}
 \mbox{\hyperlink{a00389}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00395}{ikarus/assembler/assemblermanipulatorbuildingblocks.hh}}>}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00465}{Ikarus}} \{}
 \DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00392}{ikarus/finiteelements/mechanics/strainenhancements/easvariants/helperfunctions.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00035}{ikarus/utils/tensorutils.hh}}>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00470}{Ikarus::EAS}} \{}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{22 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} ess>}
-\DoxyCodeLine{23 \textcolor{keyword}{struct }\mbox{\hyperlink{a01756}{EX}}}
-\DoxyCodeLine{24 \{}
-\DoxyCodeLine{25   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01756_a8a4a3db1432a9d2150b330221b947899}{myDim}}              = GEO::mydimension;}
-\DoxyCodeLine{26   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01756_a5188e802b339e7f290ebb47da5dee25e}{strainSize}}         = \mbox{\hyperlink{a01756_a8a4a3db1432a9d2150b330221b947899}{myDim}} * (\mbox{\hyperlink{a01756_a8a4a3db1432a9d2150b330221b947899}{myDim}} + 1) / 2;}
-\DoxyCodeLine{27   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01756_a9598dce571979e4a5dd623d32b4515bc}{enhancedStrainSize}} = ess;}
-\DoxyCodeLine{28   \textcolor{keyword}{using }\mbox{\hyperlink{a01756_ac194c58b07dc99120524d2af96b5594c}{AnsatzType}}                        = Eigen::Matrix<double, strainSize, enhancedStrainSize>;}
-\DoxyCodeLine{29   \textcolor{keyword}{using }\mbox{\hyperlink{a01756_a04cbff81230d7d475361da9aeffb0c30}{DType}}                             = Eigen::Matrix<double, enhancedStrainSize, enhancedStrainSize>;}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31   \mbox{\hyperlink{a01756_a4c231edbb4522822f4fcb716874fa9a6}{EX}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{32   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01756_ae0c874d1c2cfb52040282080f9cb2a3f}{EX}}(\textcolor{keyword}{const} GEO\& geometry)}
-\DoxyCodeLine{33       : \mbox{\hyperlink{a01756_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}\{std::make\_optional<GEO>(geometry)\},}
-\DoxyCodeLine{34         \mbox{\hyperlink{a01756_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}}\{Impl::transformationMatrixAtCenterWithDetJ(geometry).inverse()\} \{\}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{37   std::optional<GEO> \mbox{\hyperlink{a01756_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}};}
-\DoxyCodeLine{38   Eigen::Matrix<double, strainSize, strainSize> \mbox{\hyperlink{a01756_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}};}
-\DoxyCodeLine{39 \};}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{44 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{45 \textcolor{keyword}{struct }\mbox{\hyperlink{a01760}{E0}} : \mbox{\hyperlink{a01756}{EX}}<GEO, 0>}
-\DoxyCodeLine{46 \{}
-\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{a01756}{Base}}                              = \mbox{\hyperlink{a01756}{EX<GEO, 0>}};}
-\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01760_a4cdf729a09eb70125f8aff011899d238}{myDim}}              = \mbox{\hyperlink{a01756_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01760_a6652c22405d933b6c3c881a1ce097e8a}{strainSize}}         = \mbox{\hyperlink{a01756_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01760_ab535d80fb5d76e7571a2af6f2d99ba05}{enhancedStrainSize}} = \mbox{\hyperlink{a01756_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{a01760_a7617b4559fe46d6de79584c0416d6e35}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{52   \textcolor{keyword}{using }\mbox{\hyperlink{a01760_a3f990d6b37a21e4aa898c614472269f6}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54   \mbox{\hyperlink{a01760_ab913a61e292285b10c634a3675acd39a}{E0}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{55   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01760_a55a752a600d804fc245ebb226521aabf}{E0}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{56       : \mbox{\hyperlink{a01756}{Base}}(geo) \{\}}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58   \textcolor{comment}{// returns an Eigen zero expression for optimization purposes}}
-\DoxyCodeLine{59   \textcolor{keyword}{auto} \mbox{\hyperlink{a01760_a34d92583de6542b1cfd206d85a323978}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, myDim>}}\& \textcolor{comment}{/*quadPos*/})\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} AnsatzType::Zero(); \}}
-\DoxyCodeLine{60 \};}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{71 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{72 \textcolor{keyword}{struct }\mbox{\hyperlink{a01764}{E4}} : \mbox{\hyperlink{a01756}{EX}}<GEO, 4>}
-\DoxyCodeLine{73 \{}
-\DoxyCodeLine{74   \textcolor{keyword}{using }\mbox{\hyperlink{a01756}{Base}}                              = \mbox{\hyperlink{a01756}{EX<GEO, 4>}};}
-\DoxyCodeLine{75   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01764_a9ab37e5defafbbd1e98c749c530478a4}{myDim}}              = \mbox{\hyperlink{a01756_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{76   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01764_aadcff75b2fd4e168533296a10dda7acf}{strainSize}}         = \mbox{\hyperlink{a01756_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{77   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01764_a372994e3063cd01cda2a8e576373b0e3}{enhancedStrainSize}} = \mbox{\hyperlink{a01756_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{78   \textcolor{keyword}{using }\mbox{\hyperlink{a01764_a71f35746b29078142e578f52494e8c0b}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{79   \textcolor{keyword}{using }\mbox{\hyperlink{a01764_a3db469244604a48b9011284957a3ee5e}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{81   \mbox{\hyperlink{a01764_ab40fc5581f14ba63ee3ad7bd432ea95e}{E4}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{82   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01764_a051a8aec258f2d14eb84f9a5d7882738}{E4}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{83       : \mbox{\hyperlink{a01756}{Base}}(geo) \{\}}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85   \mbox{\hyperlink{a01764_a71f35746b29078142e578f52494e8c0b}{AnsatzType}} \mbox{\hyperlink{a01764_a4a4aeecc4888e90eae43ee80521ca150}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{86     \mbox{\hyperlink{a01764_a71f35746b29078142e578f52494e8c0b}{AnsatzType}} M;}
-\DoxyCodeLine{87     M.setZero(\mbox{\hyperlink{a01764_aadcff75b2fd4e168533296a10dda7acf}{strainSize}}, \mbox{\hyperlink{a01764_a372994e3063cd01cda2a8e576373b0e3}{enhancedStrainSize}});}
-\DoxyCodeLine{88     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = quadPos[0];}
-\DoxyCodeLine{89     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = quadPos[1];}
-\DoxyCodeLine{90     M(0, 0)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{91     M(1, 1)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{92     M(2, 2)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{93     M(2, 3)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{94     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01756_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{95     M                 = this-\/>\mbox{\hyperlink{a01756_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{96     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{97   \}}
-\DoxyCodeLine{98 \};}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{15   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}, \textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{typename} AInterface,}
+\DoxyCodeLine{16             \textcolor{keyword}{template} <\textcolor{keyword}{typename} Wrapper, \textcolor{keyword}{typename} Assembler> \textcolor{keyword}{typename} AImplementation>}
+\DoxyCodeLine{17   \textcolor{keyword}{struct }AssemblerInterfaceHelper}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{keyword}{template} <\textcolor{keyword}{typename} WA, \textcolor{keyword}{typename} A, \textcolor{keyword}{typename} ReturnValueType>}
+\DoxyCodeLine{20     \textcolor{keyword}{using }Interface = AInterface<WA, typename A::FEContainer, typename A::DirichletValuesType, ReturnValueType>;}
+\DoxyCodeLine{21     \textcolor{keyword}{template} <\textcolor{keyword}{typename} WA, \textcolor{keyword}{typename} A>}
+\DoxyCodeLine{22     \textcolor{keyword}{using }Implementation = AImplementation<WA, A>;}
+\DoxyCodeLine{23   \};}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{35 \textcolor{comment}{}\textcolor{keyword}{template} <Concepts::FlatAssembler A, \textcolor{keyword}{typename}... Ass>}
+\DoxyCodeLine{36 \textcolor{keyword}{class }\mbox{\hyperlink{a01334}{AssemblerManipulator}};}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#define BASECLASSMEMBERFUNCTION(func, A)         \(\backslash\)}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{  template <typename... Args>                    \(\backslash\)}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{  decltype(auto) base\_\#\#func(Args... args) \{     \(\backslash\)}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{    return A::func(std::forward<Args>(args)...); \(\backslash\)}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{  \}}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{52 \textcolor{keyword}{template} <Concepts::FlatAssembler A, \textcolor{keyword}{typename} ScalarAss>}
+\DoxyCodeLine{53 \textcolor{keyword}{class }\mbox{\hyperlink{a01334}{AssemblerManipulator}}<A, ScalarAss>}
+\DoxyCodeLine{54     : \textcolor{keyword}{public} ScalarAss::template Interface<AssemblerManipulator<A, ScalarAss>, A, typename A::ScalarType>,}
+\DoxyCodeLine{55       \textcolor{keyword}{public} ScalarAss::template Implementation<AssemblerManipulator<A, ScalarAss>, A>,}
+\DoxyCodeLine{56       \textcolor{keyword}{private} A}
+\DoxyCodeLine{57 \{}
+\DoxyCodeLine{58 \textcolor{keyword}{public}:}
+\DoxyCodeLine{59   \textcolor{keyword}{using }\mbox{\hyperlink{a01338_aeaad22dd904f173dd227a85ccb7f63a4}{WrappedAssembler}} = A;}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{62   \textcolor{keyword}{using }\mbox{\hyperlink{a01338_ae4ed17fb7f07d2e51a7d9c358452e551}{ScalarAssemblerImpl}}      = ScalarAss::template Implementation<AssemblerManipulator, WrappedAssembler>;}
+\DoxyCodeLine{63   \textcolor{keyword}{using }\mbox{\hyperlink{a01338_a260e635e4fac77e9f19ea8a460e19a64}{ScalarAssemblerInterface}} = ScalarAss::template Interface<AssemblerManipulator, A, typename A::ScalarType>;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{keyword}{friend} \mbox{\hyperlink{a01338_ab64a9c8c9de782ad8eb2a7474af6a6b8}{ScalarAssemblerImpl}};}
+\DoxyCodeLine{66   \textcolor{keyword}{friend} \mbox{\hyperlink{a01338_adbb012d9d185dc929dafa6e7b20b3c57}{ScalarAssemblerInterface}};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{keyword}{public}:}
+\DoxyCodeLine{69   \textcolor{comment}{// typdefs from FlatAssemblerBase}}
+\DoxyCodeLine{70   \textcolor{keyword}{using }typename WrappedAssembler::AffordanceCollectionType;}
+\DoxyCodeLine{71   \textcolor{keyword}{using }typename WrappedAssembler::Basis;}
+\DoxyCodeLine{72   \textcolor{keyword}{using }typename WrappedAssembler::DirichletValuesType;}
+\DoxyCodeLine{73   \textcolor{keyword}{using }typename WrappedAssembler::FEContainer;}
+\DoxyCodeLine{74   \textcolor{keyword}{using }typename WrappedAssembler::FERequirement;}
+\DoxyCodeLine{75   \textcolor{keyword}{using }typename WrappedAssembler::ScalarType;}
+\DoxyCodeLine{76   \textcolor{keyword}{using }typename WrappedAssembler::SizeType;}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78   \textcolor{comment}{// functions from FlatAssemblerBase}}
+\DoxyCodeLine{79   \textcolor{keyword}{using }WrappedAssembler::bind;}
+\DoxyCodeLine{80   \textcolor{keyword}{using }WrappedAssembler::bound;}
+\DoxyCodeLine{81   \textcolor{keyword}{using }WrappedAssembler::boundToAffordanceCollection;}
+\DoxyCodeLine{82   \textcolor{keyword}{using }WrappedAssembler::boundToDBCOption;}
+\DoxyCodeLine{83   \textcolor{keyword}{using }WrappedAssembler::boundToRequirement;}
+\DoxyCodeLine{84   \textcolor{keyword}{using }WrappedAssembler::createFullVector;}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86   \textcolor{keyword}{using }WrappedAssembler::affordanceCollection;}
+\DoxyCodeLine{87   \textcolor{keyword}{using }WrappedAssembler::constraintsBelow;}
+\DoxyCodeLine{88   \textcolor{keyword}{using }WrappedAssembler::dBCOption;}
+\DoxyCodeLine{89   \textcolor{keyword}{using }WrappedAssembler::estimateOfConnectivity;}
+\DoxyCodeLine{90   \textcolor{keyword}{using }WrappedAssembler::finiteElements;}
+\DoxyCodeLine{91   \textcolor{keyword}{using }WrappedAssembler::gridView;}
+\DoxyCodeLine{92   \textcolor{keyword}{using }WrappedAssembler::isConstrained;}
+\DoxyCodeLine{93   \textcolor{keyword}{using }WrappedAssembler::reducedSize;}
+\DoxyCodeLine{94   \textcolor{keyword}{using }WrappedAssembler::requirement;}
+\DoxyCodeLine{95   \textcolor{keyword}{using }WrappedAssembler::size;}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97   \textcolor{comment}{// functions from implementations}}
+\DoxyCodeLine{98   \textcolor{keyword}{using }ScalarAssemblerImpl::bind;}
 \DoxyCodeLine{99 }
-\DoxyCodeLine{107 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{108 \textcolor{keyword}{struct }\mbox{\hyperlink{a01768}{E5}} : \mbox{\hyperlink{a01756}{EX}}<GEO, 5>}
-\DoxyCodeLine{109 \{}
-\DoxyCodeLine{110   \textcolor{keyword}{using }\mbox{\hyperlink{a01756}{Base}}                              = \mbox{\hyperlink{a01756}{EX<GEO, 5>}};}
-\DoxyCodeLine{111   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01768_aa8c428e59199ac1570d4ac7df57d2a3e}{myDim}}              = \mbox{\hyperlink{a01756_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{112   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01768_a8115f72e8723b4c7997f625629f41c12}{strainSize}}         = \mbox{\hyperlink{a01756_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{113   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01768_a4ccc53fb31a4afc789e7ae09ca9caca0}{enhancedStrainSize}} = \mbox{\hyperlink{a01756_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{114   \textcolor{keyword}{using }\mbox{\hyperlink{a01768_af556954b99a491533ed819017627eead}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{115   \textcolor{keyword}{using }\mbox{\hyperlink{a01768_ad1b5cafe2dec3cbd44ea2a4aa9e8c8dc}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{117   \mbox{\hyperlink{a01768_ab22a2fcc33bde341d8b4a0a80f7b1316}{E5}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{118   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01768_a28ff367bbe360d647debef31fb5a2641}{E5}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{119       : \mbox{\hyperlink{a01756}{Base}}(geo) \{\}}
+\DoxyCodeLine{100 \textcolor{keyword}{private}:}
+\DoxyCodeLine{101   \textcolor{keyword}{using }ScalarAssemblerImpl::getScalarImpl;}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{keyword}{public}:}
+\DoxyCodeLine{104   \textcolor{comment}{// functions from interfaces of the new manipulator assembler}}
+\DoxyCodeLine{105   \textcolor{keyword}{using }ScalarAssemblerInterface::scalar;}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107   \textcolor{keyword}{using }\mbox{\hyperlink{a01338_a8b10e4fc60d5a41a51056800153a3288}{CallBackTypes}} =}
+\DoxyCodeLine{108       std::tuple<typename ScalarAss::template Implementation<AssemblerManipulator<A, ScalarAss>, A>::FunctionType>;}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{116   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
+\DoxyCodeLine{117   \textcolor{keyword}{requires}(not std::is\_same\_v<std::remove\_cvref\_t<std::tuple\_element\_t<0, std::tuple<Args...>>>, \mbox{\hyperlink{a01334}{AssemblerManipulator}}>)}
+\DoxyCodeLine{118   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01338_a502e5187d87b7a8062903ca3608042ec}{AssemblerManipulator}}(Args\&\&... args)}
+\DoxyCodeLine{119       : \mbox{\hyperlink{a01338_aeaad22dd904f173dd227a85ccb7f63a4}{WrappedAssembler}}(std::forward<Args>(args)...) \{\}}
 \DoxyCodeLine{120 }
-\DoxyCodeLine{121   \mbox{\hyperlink{a01768_af556954b99a491533ed819017627eead}{AnsatzType}} \mbox{\hyperlink{a01768_ab335dd10969a8382f7a2d2b3e850b888}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{122     \mbox{\hyperlink{a01768_af556954b99a491533ed819017627eead}{AnsatzType}} M;}
-\DoxyCodeLine{123     M.setZero();}
-\DoxyCodeLine{124     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = quadPos[0];}
-\DoxyCodeLine{125     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = quadPos[1];}
-\DoxyCodeLine{126     M(0, 0)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{127     M(1, 1)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{128     M(2, 2)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{129     M(2, 3)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{130     M(2, 4)           = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{131     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01756_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{132     M                 = this-\/>\mbox{\hyperlink{a01756_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{133     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{134   \}}
-\DoxyCodeLine{135 \};}
-\DoxyCodeLine{136 }
-\DoxyCodeLine{144 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{145 \textcolor{keyword}{struct }\mbox{\hyperlink{a01772}{E7}} : \mbox{\hyperlink{a01756}{EX}}<GEO, 7>}
-\DoxyCodeLine{146 \{}
-\DoxyCodeLine{147   \textcolor{keyword}{using }\mbox{\hyperlink{a01756}{Base}}                              = \mbox{\hyperlink{a01756}{EX<GEO, 7>}};}
-\DoxyCodeLine{148   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01772_a7f0450d53a9d7a10fc3ce7adc90aa7ab}{myDim}}              = \mbox{\hyperlink{a01756_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{149   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01772_a1260a0f1924c1ca8e2d4caa5678626da}{strainSize}}         = \mbox{\hyperlink{a01756_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{150   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01772_a53a65c5ed9776cca7c380581a278d56c}{enhancedStrainSize}} = \mbox{\hyperlink{a01756_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{151   \textcolor{keyword}{using }\mbox{\hyperlink{a01772_aad9614d395460149baa944ef0af88615}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{152   \textcolor{keyword}{using }\mbox{\hyperlink{a01772_aa282fd1f06340eaa157415dee66b3b5b}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
+\DoxyCodeLine{121 \textcolor{keyword}{private}:}
+\DoxyCodeLine{122   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getScalarImpl, A)}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124   A\& base() \{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{125   \textcolor{keyword}{const} A\& base()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{126 \};}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{137 \textcolor{keyword}{template} <Concepts::FlatAssembler A, \textcolor{keyword}{typename} ScalarAss, \textcolor{keyword}{typename} VectorAss>}
+\DoxyCodeLine{138 \textcolor{keyword}{class }\mbox{\hyperlink{a01334}{AssemblerManipulator}}<A, ScalarAss, VectorAss>}
+\DoxyCodeLine{139     : \textcolor{keyword}{public} ScalarAss::template Interface<AssemblerManipulator<A, ScalarAss, VectorAss>, A, typename A::ScalarType>,}
+\DoxyCodeLine{140       \textcolor{keyword}{public} ScalarAss::template Implementation<AssemblerManipulator<A, ScalarAss, VectorAss>, A>,}
+\DoxyCodeLine{141       \textcolor{keyword}{public} VectorAss::template Interface<AssemblerManipulator<A, ScalarAss, VectorAss>, A, typename A::VectorType>,}
+\DoxyCodeLine{142       \textcolor{keyword}{public} VectorAss::template Implementation<AssemblerManipulator<A, ScalarAss, VectorAss>, A>,}
+\DoxyCodeLine{143       \textcolor{keyword}{private} A}
+\DoxyCodeLine{144 \{}
+\DoxyCodeLine{145 \textcolor{keyword}{public}:}
+\DoxyCodeLine{146   \textcolor{keyword}{using }\mbox{\hyperlink{a01342_a23910dd23aec1d66ae2163ae5c3feff2}{WrappedAssembler}} = A;}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{149   \textcolor{keyword}{using }\mbox{\hyperlink{a01342_ad548d9c186819f0b92a304cc2f055ea5}{ScalarAssemblerImpl}}      = ScalarAss::template Implementation<AssemblerManipulator, WrappedAssembler>;}
+\DoxyCodeLine{150   \textcolor{keyword}{using }\mbox{\hyperlink{a01342_a34f8528f5c053818af2178851cc31b81}{VectorAssemblerImpl}}      = VectorAss::template Implementation<AssemblerManipulator, WrappedAssembler>;}
+\DoxyCodeLine{151   \textcolor{keyword}{using }\mbox{\hyperlink{a01342_ad011335ef113c9289854486361e6590c}{ScalarAssemblerInterface}} = ScalarAss::template Interface<AssemblerManipulator, A, typename A::ScalarType>;}
+\DoxyCodeLine{152   \textcolor{keyword}{using }\mbox{\hyperlink{a01342_a1009f6d702cf0d1dcf20816174a6b52a}{VectorAssemblerInterface}} = VectorAss::template Interface<AssemblerManipulator, A, typename A::VectorType>;}
 \DoxyCodeLine{153 }
-\DoxyCodeLine{154   \mbox{\hyperlink{a01772_a69645abab2c5a66603dc2a74d2c5bd4a}{E7}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{155   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01772_a71e46bc70ac4b79f3a6f5fe79dd250bc}{E7}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{156       : \mbox{\hyperlink{a01756}{Base}}(geo) \{\}}
-\DoxyCodeLine{157 }
-\DoxyCodeLine{158   \mbox{\hyperlink{a01772_aad9614d395460149baa944ef0af88615}{AnsatzType}} \mbox{\hyperlink{a01772_aef10b7255d407b25a6f82f5ac23a0618}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{159     \mbox{\hyperlink{a01772_aad9614d395460149baa944ef0af88615}{AnsatzType}} M;}
-\DoxyCodeLine{160     M.setZero();}
-\DoxyCodeLine{161     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = quadPos[0];}
-\DoxyCodeLine{162     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = quadPos[1];}
-\DoxyCodeLine{163     M(0, 0)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{164     M(1, 1)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{165     M(2, 2)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{166     M(2, 3)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{167     M(0, 4)           = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{168     M(1, 5)           = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{169     M(2, 6)           = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{170     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01756_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{171     M                 = this-\/>\mbox{\hyperlink{a01756_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{172     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{173   \}}
-\DoxyCodeLine{174 \};}
-\DoxyCodeLine{175 }
-\DoxyCodeLine{185 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{186 \textcolor{keyword}{struct }\mbox{\hyperlink{a01776}{E11}} : \mbox{\hyperlink{a01756}{EX}}<GEO, 11>}
-\DoxyCodeLine{187 \{}
-\DoxyCodeLine{188   \textcolor{keyword}{using }\mbox{\hyperlink{a01756}{Base}}                              = \mbox{\hyperlink{a01756}{EX<GEO, 11>}};}
-\DoxyCodeLine{189   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01776_ac953809a2033d15ae8f19669a45a153c}{myDim}}              = \mbox{\hyperlink{a01756_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{190   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01776_a75f34fdcc9cd44346037535bd7f33c75}{strainSize}}         = \mbox{\hyperlink{a01756_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{191   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01776_a845df016c4d4e29c081f66a09709740a}{enhancedStrainSize}} = \mbox{\hyperlink{a01756_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{192   \textcolor{keyword}{using }\mbox{\hyperlink{a01776_a3855d7d46fc318bc5e072f7bfd0576e8}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{193   \textcolor{keyword}{using }\mbox{\hyperlink{a01776_ae66710839c9e49ab70e8b6066764ab42}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{194 }
-\DoxyCodeLine{195   \mbox{\hyperlink{a01776_aa94733217922dca62cbedbb5674a5cde}{E11}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{196   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01776_a959fceca1fe71f6a9599356263deee07}{E11}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{197       : \mbox{\hyperlink{a01756}{Base}}(geo) \{\}}
+\DoxyCodeLine{154   \textcolor{keyword}{friend} \mbox{\hyperlink{a01342_a073d6709deb7c8af88e80d78a9d9d52e}{ScalarAssemblerImpl}};}
+\DoxyCodeLine{155   \textcolor{keyword}{friend} \mbox{\hyperlink{a01342_a9a0d3c2f6a5fbb66d3ec88793685bcd4}{VectorAssemblerImpl}};}
+\DoxyCodeLine{156   \textcolor{keyword}{friend} \mbox{\hyperlink{a01342_a0110ff846e287a2e9bec794c35d94bc2}{ScalarAssemblerInterface}};}
+\DoxyCodeLine{157   \textcolor{keyword}{friend} \mbox{\hyperlink{a01342_add1c52fad1611dd03df81b50797a3540}{VectorAssemblerInterface}};}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159 \textcolor{keyword}{public}:}
+\DoxyCodeLine{160   \textcolor{comment}{// typdefs from FlatAssemblerBase}}
+\DoxyCodeLine{161   \textcolor{keyword}{using }typename WrappedAssembler::AffordanceCollectionType;}
+\DoxyCodeLine{162   \textcolor{keyword}{using }typename WrappedAssembler::Basis;}
+\DoxyCodeLine{163   \textcolor{keyword}{using }typename WrappedAssembler::DirichletValuesType;}
+\DoxyCodeLine{164   \textcolor{keyword}{using }typename WrappedAssembler::FEContainer;}
+\DoxyCodeLine{165   \textcolor{keyword}{using }typename WrappedAssembler::FERequirement;}
+\DoxyCodeLine{166   \textcolor{keyword}{using }typename WrappedAssembler::ScalarType;}
+\DoxyCodeLine{167   \textcolor{keyword}{using }typename WrappedAssembler::SizeType;}
+\DoxyCodeLine{168   \textcolor{keyword}{using }typename WrappedAssembler::VectorType;}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170   \textcolor{comment}{// functions from FlatAssemblerBase}}
+\DoxyCodeLine{171   \textcolor{keyword}{using }WrappedAssembler::bind;}
+\DoxyCodeLine{172   \textcolor{keyword}{using }WrappedAssembler::bound;}
+\DoxyCodeLine{173   \textcolor{keyword}{using }WrappedAssembler::boundToAffordanceCollection;}
+\DoxyCodeLine{174   \textcolor{keyword}{using }WrappedAssembler::boundToDBCOption;}
+\DoxyCodeLine{175   \textcolor{keyword}{using }WrappedAssembler::boundToRequirement;}
+\DoxyCodeLine{176   \textcolor{keyword}{using }WrappedAssembler::createFullVector;}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178   \textcolor{keyword}{using }WrappedAssembler::affordanceCollection;}
+\DoxyCodeLine{179   \textcolor{keyword}{using }WrappedAssembler::constraintsBelow;}
+\DoxyCodeLine{180   \textcolor{keyword}{using }WrappedAssembler::dBCOption;}
+\DoxyCodeLine{181   \textcolor{keyword}{using }WrappedAssembler::estimateOfConnectivity;}
+\DoxyCodeLine{182   \textcolor{keyword}{using }WrappedAssembler::finiteElements;}
+\DoxyCodeLine{183   \textcolor{keyword}{using }WrappedAssembler::gridView;}
+\DoxyCodeLine{184   \textcolor{keyword}{using }WrappedAssembler::isConstrained;}
+\DoxyCodeLine{185   \textcolor{keyword}{using }WrappedAssembler::reducedSize;}
+\DoxyCodeLine{186   \textcolor{keyword}{using }WrappedAssembler::requirement;}
+\DoxyCodeLine{187   \textcolor{keyword}{using }WrappedAssembler::size;}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189   \textcolor{comment}{// functions from implementations}}
+\DoxyCodeLine{190   \textcolor{keyword}{using }ScalarAssemblerImpl::bind;}
+\DoxyCodeLine{191   \textcolor{keyword}{using }VectorAssemblerImpl::bind;}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193 \textcolor{keyword}{private}:}
+\DoxyCodeLine{194   \textcolor{keyword}{using }ScalarAssemblerImpl::getScalarImpl;}
+\DoxyCodeLine{195   \textcolor{keyword}{using }VectorAssemblerImpl::getRawVectorImpl;}
+\DoxyCodeLine{196   \textcolor{keyword}{using }VectorAssemblerImpl::getReducedVectorImpl;}
+\DoxyCodeLine{197   \textcolor{keyword}{using }VectorAssemblerImpl::getVectorImpl;}
 \DoxyCodeLine{198 }
-\DoxyCodeLine{199   \mbox{\hyperlink{a01776_a3855d7d46fc318bc5e072f7bfd0576e8}{AnsatzType}} \mbox{\hyperlink{a01776_ac43dcaff623e34b82f824148aaee3bf0}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{200     \mbox{\hyperlink{a01776_a3855d7d46fc318bc5e072f7bfd0576e8}{AnsatzType}} M;}
-\DoxyCodeLine{201     M.setZero();}
-\DoxyCodeLine{202     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi    = quadPos[0];}
-\DoxyCodeLine{203     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta   = quadPos[1];}
-\DoxyCodeLine{204     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi\_t  = 2 * xi -\/ 1;}
-\DoxyCodeLine{205     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta\_t = 2 * eta -\/ 1;}
+\DoxyCodeLine{199 \textcolor{keyword}{public}:}
+\DoxyCodeLine{200   \textcolor{comment}{// functions from interfaces of the new manipulator assembler}}
+\DoxyCodeLine{201   \textcolor{keyword}{using }ScalarAssemblerInterface::scalar;}
+\DoxyCodeLine{202   \textcolor{keyword}{using }VectorAssemblerInterface::vector;}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204   \textcolor{keyword}{using }\mbox{\hyperlink{a01342_a548596506a305bb51457e888633857ef}{CallBackTypes}} =}
+\DoxyCodeLine{205       std::tuple<typename ScalarAssemblerImpl::FunctionType, typename VectorAssemblerImpl::FunctionType>;}
 \DoxyCodeLine{206 }
-\DoxyCodeLine{207     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi2    = xi\_t * xi\_t;}
-\DoxyCodeLine{208     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta2   = eta\_t * eta\_t;}
-\DoxyCodeLine{209     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi\_eta = xi\_t * eta\_t;}
-\DoxyCodeLine{210 }
-\DoxyCodeLine{211     M(0, 0) = 1 -\/ 3 * xi2;}
-\DoxyCodeLine{212     M(0, 1) = eta\_t -\/ 3 * xi2 * eta\_t;}
-\DoxyCodeLine{213     M(0, 2) = eta2 -\/ 3 * xi2 * eta2;}
-\DoxyCodeLine{214 }
-\DoxyCodeLine{215     M(1, 3) = 1 -\/ 3 * eta2;}
-\DoxyCodeLine{216     M(1, 4) = xi\_t -\/ 3 * xi\_t * eta2;}
-\DoxyCodeLine{217     M(1, 5) = xi2 -\/ 3 * xi2 * eta2;}
-\DoxyCodeLine{218 }
-\DoxyCodeLine{219     M(2, 6)  = 1 -\/ 3 * xi2;}
-\DoxyCodeLine{220     M(2, 7)  = 1 -\/ 3 * eta2;}
-\DoxyCodeLine{221     M(2, 8)  = eta\_t -\/ 3 * xi2 * eta\_t;}
-\DoxyCodeLine{222     M(2, 9)  = xi\_t -\/ 3 * xi\_t * eta2;}
-\DoxyCodeLine{223     M(2, 10) = 1 -\/ 3 * (xi2 + eta2) + 9 * xi2 * eta2;}
-\DoxyCodeLine{224 }
-\DoxyCodeLine{225     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01756_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{226     M                 = this-\/>\mbox{\hyperlink{a01756_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{227     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{228   \}}
-\DoxyCodeLine{229 \};}
-\DoxyCodeLine{230 }
-\DoxyCodeLine{238 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{239 \textcolor{keyword}{struct }\mbox{\hyperlink{a01780}{E9}} : \mbox{\hyperlink{a01756}{EX}}<GEO, 9>}
-\DoxyCodeLine{240 \{}
-\DoxyCodeLine{241   \textcolor{keyword}{using }\mbox{\hyperlink{a01756}{Base}}                              = \mbox{\hyperlink{a01756}{EX<GEO, 9>}};}
-\DoxyCodeLine{242   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01780_a1ba43f7bc9cd96582f9e5ef470604b84}{myDim}}              = \mbox{\hyperlink{a01756_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{243   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01780_aa7f31e471a74e93eafe94ba1b7a43615}{strainSize}}         = \mbox{\hyperlink{a01756_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{244   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01780_af103878374b381a5ef74c3198a597bf1}{enhancedStrainSize}} = \mbox{\hyperlink{a01756_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{245   \textcolor{keyword}{using }\mbox{\hyperlink{a01780_aecf37a10381af79c1a0f8c77ec691aad}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{246   \textcolor{keyword}{using }\mbox{\hyperlink{a01780_a3e36d1ec3766d70c4fed73fceda9a8da}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{247 }
-\DoxyCodeLine{248   \mbox{\hyperlink{a01780_a8b765dc4636274843a0de355cca446e0}{E9}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{249   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01780_a6a8d2dbc81641457af72e6d5279ed9c1}{E9}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{250       : \mbox{\hyperlink{a01756}{Base}}(geo) \{\}}
-\DoxyCodeLine{251 }
-\DoxyCodeLine{252   \mbox{\hyperlink{a01780_aecf37a10381af79c1a0f8c77ec691aad}{AnsatzType}} \mbox{\hyperlink{a01780_a2d21a427b56ebb5d54c8cee0e06dcf28}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{253     \mbox{\hyperlink{a01780_aecf37a10381af79c1a0f8c77ec691aad}{AnsatzType}} M;}
-\DoxyCodeLine{254     M.setZero();}
-\DoxyCodeLine{255     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = quadPos[0];}
-\DoxyCodeLine{256     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = quadPos[1];}
-\DoxyCodeLine{257     \textcolor{keyword}{const} \textcolor{keywordtype}{double} zeta = quadPos[2];}
-\DoxyCodeLine{258     M(0, 0)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{259     M(1, 1)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{260     M(2, 2)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{261     M(3, 3)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{262     M(3, 4)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{263     M(4, 5)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{264     M(4, 6)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{265     M(5, 7)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{266     M(5, 8)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{267     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01756_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{268     M                 = this-\/>\mbox{\hyperlink{a01756_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{269     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{270   \}}
-\DoxyCodeLine{271 \};}
-\DoxyCodeLine{272 }
-\DoxyCodeLine{280 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{281 \textcolor{keyword}{struct }\mbox{\hyperlink{a01784}{E21}} : \mbox{\hyperlink{a01756}{EX}}<GEO, 21>}
-\DoxyCodeLine{282 \{}
-\DoxyCodeLine{283   \textcolor{keyword}{using }\mbox{\hyperlink{a01756}{Base}}                              = \mbox{\hyperlink{a01756}{EX<GEO, 21>}};}
-\DoxyCodeLine{284   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01784_a39c0b1a4ae9b8a563b6949665cb57272}{myDim}}              = \mbox{\hyperlink{a01756_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{285   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01784_a641b25ed9808af7492b24c457b844d56}{strainSize}}         = \mbox{\hyperlink{a01756_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{286   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01784_a10b431218dfd309989a871d936acf4e7}{enhancedStrainSize}} = \mbox{\hyperlink{a01756_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{287   \textcolor{keyword}{using }\mbox{\hyperlink{a01784_a9ad50cb902dea7b4d908357c1dc1cce0}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{288   \textcolor{keyword}{using }\mbox{\hyperlink{a01784_a4c60ef054fb10f692e8d09f56d068780}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01756_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{289 }
-\DoxyCodeLine{290   \mbox{\hyperlink{a01784_af34854fa3abca9df65b1dfc04f06c3a2}{E21}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{291   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01784_a452ad828addeea4f33be86ee0dfad2ea}{E21}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{292       : \mbox{\hyperlink{a01756}{Base}}(geo) \{\}}
-\DoxyCodeLine{293 }
-\DoxyCodeLine{294   \mbox{\hyperlink{a01784_a9ad50cb902dea7b4d908357c1dc1cce0}{AnsatzType}} \mbox{\hyperlink{a01784_a8f2f99a985239beb0fa9f63a8d43995f}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{295     \mbox{\hyperlink{a01784_a9ad50cb902dea7b4d908357c1dc1cce0}{AnsatzType}} M;}
-\DoxyCodeLine{296     M.setZero();}
-\DoxyCodeLine{297     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = quadPos[0];}
-\DoxyCodeLine{298     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = quadPos[1];}
-\DoxyCodeLine{299     \textcolor{keyword}{const} \textcolor{keywordtype}{double} zeta = quadPos[2];}
-\DoxyCodeLine{300     M(0, 0)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{301     M(1, 1)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{302     M(2, 2)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{303     M(3, 3)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{304     M(3, 4)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{305     M(4, 5)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{306     M(4, 6)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{307     M(5, 7)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{308     M(5, 8)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{309 }
-\DoxyCodeLine{310     M(3, 9)  = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{311     M(3, 10) = (2 * xi -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{312     M(4, 11) = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{313     M(4, 12) = (2 * eta -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{314     M(5, 13) = (2 * xi -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{315     M(5, 14) = (2 * eta -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{316 }
-\DoxyCodeLine{317     M(0, 15) = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{318     M(0, 16) = (2 * xi -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{319     M(1, 17) = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{320     M(1, 18) = (2 * eta -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{321     M(2, 19) = (2 * xi -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{322     M(2, 20) = (2 * eta -\/ 1.0) * (2 * zeta -\/ 1.0);}
+\DoxyCodeLine{213   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
+\DoxyCodeLine{214   \textcolor{keyword}{requires}(not std::is\_same\_v<std::remove\_cvref\_t<std::tuple\_element\_t<0, std::tuple<Args...>>>, \mbox{\hyperlink{a01334}{AssemblerManipulator}}>)}
+\DoxyCodeLine{215   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01342_aa7a37ed96edb529292f6d5c76f771d92}{AssemblerManipulator}}(Args\&\&... args)}
+\DoxyCodeLine{216       : \mbox{\hyperlink{a01342_a23910dd23aec1d66ae2163ae5c3feff2}{WrappedAssembler}}(std::forward<Args>(args)...) \{\}}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218 \textcolor{keyword}{private}:}
+\DoxyCodeLine{219   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getScalarImpl, WrappedAssembler)}
+\DoxyCodeLine{220   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getRawVectorImpl, WrappedAssembler)}
+\DoxyCodeLine{221   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getReducedVectorImpl, WrappedAssembler)}
+\DoxyCodeLine{222   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getVectorImpl, WrappedAssembler)}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224   WrappedAssembler\& base() \{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{225   \textcolor{keyword}{const} WrappedAssembler\& base()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{226 \};}
+\DoxyCodeLine{227 }
+\DoxyCodeLine{238 \textcolor{keyword}{template} <Concepts::FlatAssembler A, \textcolor{keyword}{typename} ScalarAss, \textcolor{keyword}{typename} VectorAss, \textcolor{keyword}{typename} MatrixAss>}
+\DoxyCodeLine{239 \textcolor{keyword}{class }\mbox{\hyperlink{a01334}{AssemblerManipulator}}<A, ScalarAss, VectorAss, MatrixAss>}
+\DoxyCodeLine{240     : \textcolor{keyword}{public} ScalarAss::template Interface<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A,}
+\DoxyCodeLine{241                                            typename A::ScalarType>,}
+\DoxyCodeLine{242       \textcolor{keyword}{public} ScalarAss::template Implementation<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A>,}
+\DoxyCodeLine{243       \textcolor{keyword}{public} VectorAss::template Interface<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A,}
+\DoxyCodeLine{244                                            typename A::VectorType>,}
+\DoxyCodeLine{245       \textcolor{keyword}{public} VectorAss::template Implementation<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A>,}
+\DoxyCodeLine{246       \textcolor{keyword}{public} MatrixAss::template Interface<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A,}
+\DoxyCodeLine{247                                            typename A::MatrixType>,}
+\DoxyCodeLine{248       \textcolor{keyword}{public} MatrixAss::template Implementation<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A>,}
+\DoxyCodeLine{249       \textcolor{keyword}{private} A}
+\DoxyCodeLine{250 \{}
+\DoxyCodeLine{251 \textcolor{keyword}{public}:}
+\DoxyCodeLine{252   \textcolor{keyword}{using }\mbox{\hyperlink{a01346_a62123a4b3e6532f92f9126bbb6ce90a7}{WrappedAssembler}} = A;}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{255   \textcolor{keyword}{using }\mbox{\hyperlink{a01346_ae6e112a7cb6a5167ba97b53bb5c7d238}{ScalarAssemblerImpl}}      = ScalarAss::template Implementation<AssemblerManipulator, A>;}
+\DoxyCodeLine{256   \textcolor{keyword}{using }\mbox{\hyperlink{a01346_ae958fb1ffccb3bd993d73cdf2b404705}{VectorAssemblerImpl}}      = VectorAss::template Implementation<AssemblerManipulator, A>;}
+\DoxyCodeLine{257   \textcolor{keyword}{using }\mbox{\hyperlink{a01346_a4d15f9b228606ffd26ae5b511cd95ff3}{MatrixAssemblerImpl}}      = MatrixAss::template Implementation<AssemblerManipulator, A>;}
+\DoxyCodeLine{258   \textcolor{keyword}{using }\mbox{\hyperlink{a01346_a111dfa9dc910a06976a89677d7275575}{ScalarAssemblerInterface}} = ScalarAss::template Interface<AssemblerManipulator, A, typename A::ScalarType>;}
+\DoxyCodeLine{259   \textcolor{keyword}{using }\mbox{\hyperlink{a01346_a6cf604621f5a5391f9e79967b8977eb5}{VectorAssemblerInterface}} = VectorAss::template Interface<AssemblerManipulator, A, typename A::VectorType>;}
+\DoxyCodeLine{260   \textcolor{keyword}{using }\mbox{\hyperlink{a01346_a6a7c3a2c35ff4ef52ce0d3b4e304ed54}{MatrixAssemblerInterface}} = MatrixAss::template Interface<AssemblerManipulator, A, typename A::MatrixType>;}
+\DoxyCodeLine{261 }
+\DoxyCodeLine{262   \textcolor{keyword}{friend} \mbox{\hyperlink{a01346_a71d8c2e510825482ad8b865cdcc97865}{ScalarAssemblerImpl}};}
+\DoxyCodeLine{263   \textcolor{keyword}{friend} \mbox{\hyperlink{a01346_a58429a8398105c51c4582c1b72d7bc8c}{VectorAssemblerImpl}};}
+\DoxyCodeLine{264   \textcolor{keyword}{friend} \mbox{\hyperlink{a01346_a8218e9d8992798ad9d6377ee9c171f04}{MatrixAssemblerImpl}};}
+\DoxyCodeLine{265   \textcolor{keyword}{friend} \mbox{\hyperlink{a01346_a81430cd85aea660bdbbf36e6ec5a5499}{MatrixAssemblerInterface}};}
+\DoxyCodeLine{266   \textcolor{keyword}{friend} \mbox{\hyperlink{a01346_af20b695138ce2baa088d243c56b8a5fe}{ScalarAssemblerInterface}};}
+\DoxyCodeLine{267   \textcolor{keyword}{friend} \mbox{\hyperlink{a01346_a7122782f660bef5b917c0c566e791759}{VectorAssemblerInterface}};}
+\DoxyCodeLine{268 }
+\DoxyCodeLine{269 \textcolor{keyword}{public}:}
+\DoxyCodeLine{270   \textcolor{comment}{// typdefs from FlatAssemblerBase}}
+\DoxyCodeLine{271   \textcolor{keyword}{using }typename WrappedAssembler::AffordanceCollectionType;}
+\DoxyCodeLine{272   \textcolor{keyword}{using }typename WrappedAssembler::Basis;}
+\DoxyCodeLine{273   \textcolor{keyword}{using }typename WrappedAssembler::DirichletValuesType;}
+\DoxyCodeLine{274   \textcolor{keyword}{using }typename WrappedAssembler::FEContainer;}
+\DoxyCodeLine{275   \textcolor{keyword}{using }typename WrappedAssembler::FERequirement;}
+\DoxyCodeLine{276   \textcolor{keyword}{using }typename WrappedAssembler::MatrixType;}
+\DoxyCodeLine{277   \textcolor{keyword}{using }typename WrappedAssembler::ScalarType;}
+\DoxyCodeLine{278   \textcolor{keyword}{using }typename WrappedAssembler::SizeType;}
+\DoxyCodeLine{279   \textcolor{keyword}{using }typename WrappedAssembler::VectorType;}
+\DoxyCodeLine{280 }
+\DoxyCodeLine{281   \textcolor{comment}{// functions from FlatAssemblerBase}}
+\DoxyCodeLine{282   \textcolor{keyword}{using }WrappedAssembler::bind;}
+\DoxyCodeLine{283   \textcolor{keyword}{using }WrappedAssembler::bound;}
+\DoxyCodeLine{284   \textcolor{keyword}{using }WrappedAssembler::boundToAffordanceCollection;}
+\DoxyCodeLine{285   \textcolor{keyword}{using }WrappedAssembler::boundToDBCOption;}
+\DoxyCodeLine{286   \textcolor{keyword}{using }WrappedAssembler::boundToRequirement;}
+\DoxyCodeLine{287   \textcolor{keyword}{using }WrappedAssembler::createFullVector;}
+\DoxyCodeLine{288 }
+\DoxyCodeLine{289   \textcolor{keyword}{using }WrappedAssembler::affordanceCollection;}
+\DoxyCodeLine{290   \textcolor{keyword}{using }WrappedAssembler::constraintsBelow;}
+\DoxyCodeLine{291   \textcolor{keyword}{using }WrappedAssembler::dBCOption;}
+\DoxyCodeLine{292   \textcolor{keyword}{using }WrappedAssembler::estimateOfConnectivity;}
+\DoxyCodeLine{293   \textcolor{keyword}{using }WrappedAssembler::finiteElements;}
+\DoxyCodeLine{294   \textcolor{keyword}{using }WrappedAssembler::gridView;}
+\DoxyCodeLine{295   \textcolor{keyword}{using }WrappedAssembler::isConstrained;}
+\DoxyCodeLine{296   \textcolor{keyword}{using }WrappedAssembler::reducedSize;}
+\DoxyCodeLine{297   \textcolor{keyword}{using }WrappedAssembler::requirement;}
+\DoxyCodeLine{298   \textcolor{keyword}{using }WrappedAssembler::size;}
+\DoxyCodeLine{299 }
+\DoxyCodeLine{300   \textcolor{comment}{// functions from implementations}}
+\DoxyCodeLine{301   \textcolor{keyword}{using }MatrixAssemblerImpl::bind;}
+\DoxyCodeLine{302   \textcolor{keyword}{using }ScalarAssemblerImpl::bind;}
+\DoxyCodeLine{303   \textcolor{keyword}{using }VectorAssemblerImpl::bind;}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{305 \textcolor{keyword}{private}:}
+\DoxyCodeLine{306   \textcolor{keyword}{using }MatrixAssemblerImpl::getMatrixImpl;}
+\DoxyCodeLine{307   \textcolor{keyword}{using }MatrixAssemblerImpl::getRawMatrixImpl;}
+\DoxyCodeLine{308   \textcolor{keyword}{using }MatrixAssemblerImpl::getReducedMatrixImpl;}
+\DoxyCodeLine{309   \textcolor{keyword}{using }ScalarAssemblerImpl::getScalarImpl;}
+\DoxyCodeLine{310   \textcolor{keyword}{using }VectorAssemblerImpl::getRawVectorImpl;}
+\DoxyCodeLine{311   \textcolor{keyword}{using }VectorAssemblerImpl::getReducedVectorImpl;}
+\DoxyCodeLine{312   \textcolor{keyword}{using }VectorAssemblerImpl::getVectorImpl;}
+\DoxyCodeLine{313 }
+\DoxyCodeLine{314 \textcolor{keyword}{public}:}
+\DoxyCodeLine{315   \textcolor{comment}{// functions from interfaces of the new manipulator assembler}}
+\DoxyCodeLine{316   \textcolor{keyword}{using }MatrixAssemblerInterface::matrix;}
+\DoxyCodeLine{317   \textcolor{keyword}{using }ScalarAssemblerInterface::scalar;}
+\DoxyCodeLine{318   \textcolor{keyword}{using }VectorAssemblerInterface::vector;}
+\DoxyCodeLine{319 }
+\DoxyCodeLine{320   \textcolor{keyword}{using }\mbox{\hyperlink{a01346_a0a878d8bc56fdbfbfbebc2ceb1ded67f}{CallBackTypes}} =}
+\DoxyCodeLine{321       std::tuple<\textcolor{keyword}{typename} ScalarAssemblerImpl::FunctionType, \textcolor{keyword}{typename} VectorAssemblerImpl::FunctionType,}
+\DoxyCodeLine{322                  \textcolor{keyword}{typename} MatrixAssemblerImpl::FunctionType>;}
 \DoxyCodeLine{323 }
-\DoxyCodeLine{324     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01756_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{325     M                 = this-\/>\mbox{\hyperlink{a01756_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{326     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{327   \}}
-\DoxyCodeLine{328 \};}
-\DoxyCodeLine{329 }
-\DoxyCodeLine{330 \} \textcolor{comment}{// namespace Ikarus::EAS}}
+\DoxyCodeLine{330   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
+\DoxyCodeLine{331   \textcolor{keyword}{requires}(not std::is\_same\_v<std::remove\_cvref\_t<std::tuple\_element\_t<0, std::tuple<Args...>>>, \mbox{\hyperlink{a01334}{AssemblerManipulator}}>)}
+\DoxyCodeLine{332   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01346_ab1188db460e760d50f1bddda973a4915}{AssemblerManipulator}}(Args\&\&... args)}
+\DoxyCodeLine{333       : \mbox{\hyperlink{a01346_a62123a4b3e6532f92f9126bbb6ce90a7}{WrappedAssembler}}(std::forward<Args>(args)...) \{\}}
+\DoxyCodeLine{334 }
+\DoxyCodeLine{335 \textcolor{keyword}{private}:}
+\DoxyCodeLine{336   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getScalarImpl, A)}
+\DoxyCodeLine{337   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getRawVectorImpl, A)}
+\DoxyCodeLine{338   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getReducedVectorImpl, A)}
+\DoxyCodeLine{339   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getVectorImpl, A)}
+\DoxyCodeLine{340   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getRawMatrixImpl, A)}
+\DoxyCodeLine{341 }
+\DoxyCodeLine{342   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getReducedMatrixImpl, A)}
+\DoxyCodeLine{343 }
+\DoxyCodeLine{344   \mbox{\hyperlink{a00389_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getMatrixImpl, A)}
+\DoxyCodeLine{345 }
+\DoxyCodeLine{346   A\& base() \{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{347   \textcolor{keyword}{const} A\& base()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{348 \};}
+\DoxyCodeLine{349 }
+\DoxyCodeLine{360 \textcolor{keyword}{template} <\textcolor{keyword}{typename} A>}
+\DoxyCodeLine{361 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_afc83c2d114028f47280b981daf728ebe}{makeAssemblerManipulator}}(A\&\& a) \{}
+\DoxyCodeLine{362   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} scal = \mbox{\hyperlink{a02302}{Concepts::ScalarFlatAssembler<std::remove\_cvref\_t<A>}}>;}
+\DoxyCodeLine{363   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} vec  = \mbox{\hyperlink{a02303}{Concepts::VectorFlatAssembler<std::remove\_cvref\_t<A>}}>;}
+\DoxyCodeLine{364   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} mat  = \mbox{\hyperlink{a02304}{Concepts::MatrixFlatAssembler<std::remove\_cvref\_t<A>}}>;}
+\DoxyCodeLine{365   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (scal \&\& vec \&\& mat)}
+\DoxyCodeLine{366     \textcolor{keywordflow}{return} std::make\_shared<}
+\DoxyCodeLine{367         \mbox{\hyperlink{a01334}{AssemblerManipulator}}<std::remove\_cvref\_t<A>, Impl::AssemblerInterfaceHelper<ScalarAssembler, ScalarManipulator>,}
+\DoxyCodeLine{368                              Impl::AssemblerInterfaceHelper<VectorAssembler, VectorManipulator>,}
+\DoxyCodeLine{369                              Impl::AssemblerInterfaceHelper<MatrixAssembler, MatrixManipulator>>>(std::forward<A>(a));}
+\DoxyCodeLine{370   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (scal \&\& vec)}
+\DoxyCodeLine{371     \textcolor{keywordflow}{return} std::make\_shared<}
+\DoxyCodeLine{372         \mbox{\hyperlink{a01334}{AssemblerManipulator}}<std::remove\_cvref\_t<A>, Impl::AssemblerInterfaceHelper<ScalarAssembler, ScalarManipulator>,}
+\DoxyCodeLine{373                              Impl::AssemblerInterfaceHelper<VectorAssembler, VectorManipulator>>>(std::forward<A>(a));}
+\DoxyCodeLine{374   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (scal)}
+\DoxyCodeLine{375     \textcolor{keywordflow}{return} std::make\_shared<\mbox{\hyperlink{a01334}{AssemblerManipulator}}<std::remove\_cvref\_t<A>,}
+\DoxyCodeLine{376                                                  Impl::AssemblerInterfaceHelper<ScalarAssembler, ScalarManipulator>>>(}
+\DoxyCodeLine{377         std::forward<A>(a));}
+\DoxyCodeLine{378 \}}
+\DoxyCodeLine{379 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

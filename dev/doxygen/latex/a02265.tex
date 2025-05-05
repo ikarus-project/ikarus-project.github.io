@@ -1,19 +1,24 @@
-\hypertarget{a02265}{}\doxysection{Ikarus\+::Concepts\+::Add\+Assign\+Able Concept Reference}
-\label{a02265}\index{Ikarus::Concepts::AddAssignAble@{Ikarus::Concepts::AddAssignAble}}
+\hypertarget{a02265}{}\doxysection{Ikarus\+::Concepts\+::Volumetric\+Function Concept Reference}
+\label{a02265}\index{Ikarus::Concepts::VolumetricFunction@{Ikarus::Concepts::VolumetricFunction}}
 
 
-Concept defining the requirements for types that support in-\/place addition.  
+Concept to check if the underlying function is a volumetric function.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02265}{Ikarus::Concepts::AddAssignAble}} =  \textcolor{keyword}{requires}(L x, R y) \{ x += y; \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} VF>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02265}{Ikarus::Concepts::VolumetricFunction}} =  \textcolor{keyword}{requires}(VF vf, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& j) \{}
+\DoxyCodeLine{  \{ vf.storedEnergyImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.firstDerivativeImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.secondDerivativeImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.name() \} -\/> std::convertible\_to<std::string>;}
+\DoxyCodeLine{\}}
 
 \end{DoxyCode}
 
@@ -21,9 +26,6 @@ Concept defining the requirements for types that support in-\/place addition.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em L} & Type of the left operand. \\
-\hline
-{\em R} & Type of the right operand.\\
+{\em Type} & of the volumetric function. \\
 \hline
 \end{DoxyTemplParams}
-The concept specifies that instances of type {\ttfamily L} can be added in-\/place by instances of type {\ttfamily R} using the {\ttfamily +=} operator. 

@@ -1,5 +1,6 @@
 var a00041 =
 [
-    [ "Ikarus::IkarusInstance", "a02148.html", "a02148" ],
-    [ "init", "a00041.html#ac8243891c1b961e50a066140ab79a142", null ]
+    [ "Ikarus::DifferentiableFunction< Range(D), DerivativeTraits, F, FF... >", "a02110.html", "a02110" ],
+    [ "functions", "a00041.html#ab787b670f0d338c870988f417cf85f76", null ],
+    [ "makeDifferentiableFunction", "a00041.html#a7c304a58fc833d46ac3d8a7dc74f8ed0", null ]
 ];

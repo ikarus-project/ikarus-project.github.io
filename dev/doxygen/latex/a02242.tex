@@ -1,44 +1,35 @@
-\hypertarget{a02242}{}\doxysection{Ikarus\+::Concepts\+::Deviatoric\+Function Concept Reference}
-\label{a02242}\index{Ikarus::Concepts::DeviatoricFunction@{Ikarus::Concepts::DeviatoricFunction}}
+\hypertarget{a02242}{}\doxysection{Ikarus\+::traits\+::Index\texorpdfstring{$<$}{<} T, Tuple \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{a02242}\index{Ikarus::traits::Index$<$ T, Tuple $>$@{Ikarus::traits::Index$<$ T, Tuple $>$}}
 
 
-Concept to check if the underlying function is a deviatoric function.  
+Type trait to get the index of a type in a tuple.  
 
 
-
-
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
-
-\doxysubsection{Concept definition}
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} DF>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02242}{Ikarus::Concepts::DeviatoricFunction}} =  \textcolor{keyword}{requires}(DF dm, \textcolor{keyword}{const} \textcolor{keyword}{typename} DF::template PrincipalStretches<>\& lambda) \{}
-\DoxyCodeLine{  \textcolor{keyword}{typename} DF::ScalarType;}
-\DoxyCodeLine{}
-\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template PrincipalStretches<>;}
-\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template FirstDerivative<>;}
-\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template SecondDerivative<>;}
-\DoxyCodeLine{}
-\DoxyCodeLine{  \textcolor{keyword}{typename} DF::MaterialParameters;}
-\DoxyCodeLine{}
-\DoxyCodeLine{  \textcolor{keyword}{requires} \mbox{\hyperlink{a02271}{Concepts::EigenVector<typename DF::template FirstDerivative<>}}>;}
-\DoxyCodeLine{  \textcolor{keyword}{requires} \mbox{\hyperlink{a02272}{Concepts::EigenMatrix<typename DF::template SecondDerivative<>}}>;}
-\DoxyCodeLine{  \textcolor{keyword}{requires} std::is\_same\_v<typename DF::template PrincipalStretches<>, \textcolor{keyword}{typename} DF::template FirstDerivative<>>;}
-\DoxyCodeLine{}
-\DoxyCodeLine{  \{ dm.storedEnergyImpl(lambda) \} -\/> std::same\_as<typename DF::ScalarType>;}
-\DoxyCodeLine{  \{ dm.firstDerivativeImpl(lambda) \} -\/> std::same\_as<typename DF::template FirstDerivative<>>;}
-\DoxyCodeLine{  \{ dm.secondDerivativeImpl(lambda) \} -\/> std::same\_as<typename DF::template SecondDerivative<>>;}
-\DoxyCodeLine{  \{ dm.materialParametersImpl() \} -\/> std::same\_as<typename DF::MaterialParameters>;}
-\DoxyCodeLine{  \{ dm.name() \} -\/> std::convertible\_to<std::string>;}
-\DoxyCodeLine{\}}
-
-\end{DoxyCode}
 
 
 \doxysubsection{Detailed Description}
+\subsubsection*{template$<$class T, class Tuple$>$\newline
+struct Ikarus\+::traits\+::\+Index$<$ T, Tuple $>$}
+Usage\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{using }foo\_t = std::tuple<int, double, float>;}
+\DoxyCodeLine{\textcolor{keyword}{static\_assert}(Index<int, foo\_t>::value == 0);}
+\DoxyCodeLine{\textcolor{keyword}{static\_assert}(Index<double, foo\_t>::value == 1);}
+\DoxyCodeLine{\textcolor{keyword}{static\_assert}(Index<float, foo\_t>::value == 2);}
+\DoxyCodeLine{\textcolor{keyword}{static\_assert}(Index<long double, foo\_t>::value == 3);}
+
+\end{DoxyCode}
+ If the type is not found, the returned index is the size of the tuple.
+
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em Type} & of the deviatoric function. \\
+{\em T} & Type to find in the tuple. \\
+\hline
+{\em Tuple} & Tuple type. \\
 \hline
 \end{DoxyTemplParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{a00062}{traits.\+hh}}\end{DoxyCompactItemize}

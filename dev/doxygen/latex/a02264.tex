@@ -1,19 +1,37 @@
-\hypertarget{a02264}{}\doxysection{Ikarus\+::Concepts\+::Divide\+Assign\+Able Concept Reference}
-\label{a02264}\index{Ikarus::Concepts::DivideAssignAble@{Ikarus::Concepts::DivideAssignAble}}
+\hypertarget{a02264}{}\doxysection{Ikarus\+::Concepts\+::Deviatoric\+Function Concept Reference}
+\label{a02264}\index{Ikarus::Concepts::DeviatoricFunction@{Ikarus::Concepts::DeviatoricFunction}}
 
 
-Concept defining the requirements for types that support in-\/place division.  
+Concept to check if the underlying function is a deviatoric function.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02264}{Ikarus::Concepts::DivideAssignAble}} =  \textcolor{keyword}{requires}(L x, R y) \{ x /= y; \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} DF>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02264}{Ikarus::Concepts::DeviatoricFunction}} =  \textcolor{keyword}{requires}(DF dm, \textcolor{keyword}{const} \textcolor{keyword}{typename} DF::template PrincipalStretches<>\& lambda) \{}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::ScalarType;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template PrincipalStretches<>;}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template FirstDerivative<>;}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template SecondDerivative<>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::MaterialParameters;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{requires} \mbox{\hyperlink{a02293}{Concepts::EigenVector<typename DF::template FirstDerivative<>}}>;}
+\DoxyCodeLine{  \textcolor{keyword}{requires} \mbox{\hyperlink{a02294}{Concepts::EigenMatrix<typename DF::template SecondDerivative<>}}>;}
+\DoxyCodeLine{  \textcolor{keyword}{requires} std::is\_same\_v<typename DF::template PrincipalStretches<>, \textcolor{keyword}{typename} DF::template FirstDerivative<>>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \{ dm.storedEnergyImpl(lambda) \} -\/> std::same\_as<typename DF::ScalarType>;}
+\DoxyCodeLine{  \{ dm.firstDerivativeImpl(lambda) \} -\/> std::same\_as<typename DF::template FirstDerivative<>>;}
+\DoxyCodeLine{  \{ dm.secondDerivativeImpl(lambda) \} -\/> std::same\_as<typename DF::template SecondDerivative<>>;}
+\DoxyCodeLine{  \{ dm.materialParametersImpl() \} -\/> std::same\_as<typename DF::MaterialParameters>;}
+\DoxyCodeLine{  \{ dm.name() \} -\/> std::convertible\_to<std::string>;}
+\DoxyCodeLine{\}}
 
 \end{DoxyCode}
 
@@ -21,9 +39,6 @@ Concept defining the requirements for types that support in-\/place division.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em L} & Type of the left operand. \\
-\hline
-{\em R} & Type of the right operand.\\
+{\em Type} & of the deviatoric function. \\
 \hline
 \end{DoxyTemplParams}
-The concept specifies that instances of type {\ttfamily L} can be divided in-\/place by instances of type {\ttfamily R} using the {\ttfamily /=} operator. 

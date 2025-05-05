@@ -1,86 +1,134 @@
-\hypertarget{a00347_source}{}\doxysection{deviatoricinvariants.\+hh}
-\label{a00347_source}\index{deviatoricinvariants.hh@{deviatoricinvariants.hh}}
+\hypertarget{a00347_source}{}\doxysection{pathfollowing.\+hh}
+\label{a00347_source}\index{pathfollowing.hh@{pathfollowing.hh}}
 \mbox{\hyperlink{a00347}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00302}{ikarus/finiteelements/mechanics/materials/materialhelpers.hh}}>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00305}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00035}{ikarus/utils/tensorutils.hh}}>}}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00468}{Ikarus::Materials}} \{}
-\DoxyCodeLine{33 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PS>}
-\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{a01572}{DeviatoricInvariants}}}
-\DoxyCodeLine{35 \{}
-\DoxyCodeLine{36   \textcolor{keyword}{using }\mbox{\hyperlink{a01572_a594b1e1baa67392c9a6ed38d0cec9656}{PrincipalStretches}} = PS;}
-\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{a01572_aa49ae6eeb1a2d0b8135ae48c5a3eff05}{ScalarType}}         = PrincipalStretches::value\_type;}
-\DoxyCodeLine{38   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01572_a255955dbd34611bebcea229cd2bdc99c}{dim}} = PrincipalStretches::RowsAtCompileTime;}
-\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{a01572_aaf9d0408fc09fd6a079e4da57429babd}{Invariants}}         = \mbox{\hyperlink{a01572_a594b1e1baa67392c9a6ed38d0cec9656}{PrincipalStretches}};}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00335}{ikarus/controlroutines/adaptivestepsizing.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00332}{ikarus/controlroutines/controlinfos.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00341}{ikarus/controlroutines/controlroutinebase.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00344}{ikarus/controlroutines/controlroutinefactory.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00323}{ikarus/controlroutines/pathfollowingfunctions.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00359}{ikarus/solver/nonlinearsolver/newtonraphsonwithscalarsubsidiaryfunction.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00356}{ikarus/solver/nonlinearsolver/nonlinearsolverfactory.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00149}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00011}{ikarus/utils/differentiablefunctionfactory.hh}}>}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00465}{Ikarus}} \{}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{30 \textcolor{keyword}{template} <\textcolor{keyword}{typename} D>}
+\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{a01418}{PathFollowingState}}}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a01418_aaf06c06697db573f10222173fc8d70af}{Domain}} = D;}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35   \textcolor{keyword}{const} \mbox{\hyperlink{a01418_aaf06c06697db573f10222173fc8d70af}{Domain}}\& \mbox{\hyperlink{a01418_a86de29d69928db78bcad0f1b52a63965}{domain}};}
+\DoxyCodeLine{36   \textcolor{keyword}{const} \mbox{\hyperlink{a01434}{SubsidiaryArgs}}\& \mbox{\hyperlink{a01418_ab2abd1a958044ec4d412efa82c4a1ede}{subsidiaryArgs}};}
+\DoxyCodeLine{37   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01418_a8e1b8b12cc435ee7e0a6432ab74ad43f}{loadStep}}\{\};}
+\DoxyCodeLine{38   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01418_a3dcb62d0cf736628c90706c29f62da1f}{stepSize}}\{\};}
+\DoxyCodeLine{39 \};}
 \DoxyCodeLine{40 }
-\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01572_a917eb1c93dec4d24ac5c72ee53500f8a}{FirstDerivative}}  = Eigen::Vector<ScalarType, dim>;}
-\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{a01572_a4f189b9d6a9e468c63d5095e0c037cde}{SecondDerivative}} = Eigen::Matrix<ScalarType, dim, dim>;}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{49   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01572_a1e4087df2fd42f21f14f18e4d9d768fc}{DeviatoricInvariants}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01572_a594b1e1baa67392c9a6ed38d0cec9656}{PrincipalStretches}}\& lambda)}
-\DoxyCodeLine{50       : lambda\_\{lambda\} \{\}}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{55   \textcolor{keyword}{auto} \mbox{\hyperlink{a01572_a9c016a61bba2d581b57c0f373a7f822c}{value}}()\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{56     \textcolor{keyword}{const} \mbox{\hyperlink{a01572_aaf9d0408fc09fd6a079e4da57429babd}{Invariants}}\& invariants = Impl::invariants(lambda\_);}
-\DoxyCodeLine{57     \mbox{\hyperlink{a01572_aa49ae6eeb1a2d0b8135ae48c5a3eff05}{ScalarType}} W1                = invariants[0] * pow(invariants[2], -\/1.0 / 3.0);}
-\DoxyCodeLine{58     \mbox{\hyperlink{a01572_aa49ae6eeb1a2d0b8135ae48c5a3eff05}{ScalarType}} W2                = invariants[1] * pow(invariants[2], -\/2.0 / 3.0);}
-\DoxyCodeLine{59     \textcolor{keywordflow}{return} std::array<ScalarType, 2>\{W1, W2\};}
-\DoxyCodeLine{60   \}}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{65   \textcolor{keyword}{auto} \mbox{\hyperlink{a01572_a981e70dd52fc55dcd29e0bfe6507b214}{firstDerivative}}()\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{66     \textcolor{keyword}{const} \mbox{\hyperlink{a01572_aaf9d0408fc09fd6a079e4da57429babd}{Invariants}}\& invariants            = Impl::invariants(lambda\_);}
-\DoxyCodeLine{67     \textcolor{keyword}{auto} [I1, I2, I3, I3Pow1by3, I3Pow2by3] = computeInvariants(invariants);}
-\DoxyCodeLine{68 }
-\DoxyCodeLine{69     \mbox{\hyperlink{a01572_a917eb1c93dec4d24ac5c72ee53500f8a}{FirstDerivative}} dW1dLambda = 2.0 * (3.0 * lambda\_.cwisePow(2).array() -\/ I1) / (3.0 * lambda\_.array() * I3Pow1by3);}
-\DoxyCodeLine{70     \mbox{\hyperlink{a01572_a917eb1c93dec4d24ac5c72ee53500f8a}{FirstDerivative}} dW2dLambda =}
-\DoxyCodeLine{71         -\/2.0 * (3.0 * I3 * lambda\_.cwisePow(2).cwiseInverse().array() -\/ I2) / (3.0 * lambda\_.array() * I3Pow2by3);}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{73     \textcolor{keywordflow}{return} std::make\_pair(dW1dLambda, dW2dLambda);}
-\DoxyCodeLine{74   \}}
+\DoxyCodeLine{41 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{54   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PF = ArcLength, \textcolor{keyword}{typename} ASS>}
+\DoxyCodeLine{55   \textcolor{keyword}{consteval} \textcolor{keywordtype}{bool} checkPathFollowingTemplates() \{}
+\DoxyCodeLine{56     \textcolor{keywordflow}{return} Concepts::PathFollowingStrategy<PF, std::remove\_cvref\_t<typename NLS::DifferentiableFunction>,}
+\DoxyCodeLine{57                                            SubsidiaryArgs> and}
+\DoxyCodeLine{58            Concepts::AdaptiveStepSizingStrategy<ASS, NonLinearSolverInformation, SubsidiaryArgs,}
+\DoxyCodeLine{59                                                 std::remove\_cvref\_t<typename NLS::DifferentiableFunction>> and}
+\DoxyCodeLine{60            Concepts::NonLinearSolverCheckForPathFollowing<NLS>;}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
+\DoxyCodeLine{64   \textcolor{keyword}{struct }PathFollowingStateFactory}
+\DoxyCodeLine{65   \{}
+\DoxyCodeLine{66   \textcolor{keyword}{private}:}
+\DoxyCodeLine{67     \textcolor{keyword}{using }SignatureTraits = \textcolor{keyword}{typename} F::Traits;}
+\DoxyCodeLine{68     \textcolor{keyword}{using }Domain          = \textcolor{keyword}{typename} SignatureTraits::Domain;}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{keyword}{public}:}
+\DoxyCodeLine{71     \textcolor{keyword}{using }type = PathFollowingState<Domain>;}
+\DoxyCodeLine{72   \};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \} \textcolor{comment}{// namespace Impl}}
 \DoxyCodeLine{75 }
-\DoxyCodeLine{79   \textcolor{keyword}{auto} \mbox{\hyperlink{a01572_abc7cc84b8755a39dc78821033998f666}{secondDerivative}}()\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{80     \textcolor{keyword}{const} \mbox{\hyperlink{a01572_aaf9d0408fc09fd6a079e4da57429babd}{Invariants}}\& invariants            = Impl::invariants(lambda\_);}
-\DoxyCodeLine{81     \textcolor{keyword}{auto} ddW1dLambda                        = SecondDerivative::Zero().eval();}
-\DoxyCodeLine{82     \textcolor{keyword}{auto} ddW2dLambda                        = SecondDerivative::Zero().eval();}
-\DoxyCodeLine{83     \textcolor{keyword}{auto} [I1, I2, I3, I3Pow1by3, I3Pow2by3] = computeInvariants(invariants);}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85     \textcolor{keyword}{auto} lam               = lambda\_.array();}
-\DoxyCodeLine{86     ddW1dLambda.diagonal() = (2.0 / 9.0) * (5 * I1 -\/ 3 * lam.square()) / (lam.square() * I3Pow1by3);}
-\DoxyCodeLine{87     ddW2dLambda.diagonal() = (2.0 / 9.0) * ((15.0 * I3 / lam.square()) -\/ I2) / (lam.square() * I3Pow2by3);}
-\DoxyCodeLine{88     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} j : dimensionRange()) \{}
-\DoxyCodeLine{89       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} i : dimensionRange())}
-\DoxyCodeLine{90         \textcolor{keywordflow}{if} (i != j) \{}
-\DoxyCodeLine{91           ddW1dLambda(i, j) = (4.0 / 9.0) * (I1 -\/ 3 * (pow(lambda\_[i], 2.0) + pow(lambda\_[j], 2.0))) /}
-\DoxyCodeLine{92                               (lambda\_[i] * lambda\_[j] * I3Pow1by3);}
-\DoxyCodeLine{93           ddW2dLambda(i, j) = (-\/4.0 / 9.0) * (2.0 * I2 -\/ 3 * pow(lambda\_[i], 2.0) * pow(lambda\_[j], 2.0)) /}
-\DoxyCodeLine{94                               (lambda\_[i] * lambda\_[j] * I3Pow2by3);}
-\DoxyCodeLine{95         \}}
-\DoxyCodeLine{96     \}}
-\DoxyCodeLine{97     \textcolor{keywordflow}{return} std::make\_pair(ddW1dLambda, ddW2dLambda);}
-\DoxyCodeLine{98   \}}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{100 \textcolor{keyword}{private}:}
-\DoxyCodeLine{101   \mbox{\hyperlink{a01572_a594b1e1baa67392c9a6ed38d0cec9656}{PrincipalStretches}} lambda\_;}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{103   \textcolor{keyword}{inline} \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} dimensionRange() \{ \textcolor{keywordflow}{return} Dune::range(\mbox{\hyperlink{a01572_a255955dbd34611bebcea229cd2bdc99c}{dim}}); \}}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{105   \textcolor{keyword}{auto} computeInvariants(\textcolor{keyword}{const} \mbox{\hyperlink{a01572_aaf9d0408fc09fd6a079e4da57429babd}{Invariants}}\& invariants)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{106     \mbox{\hyperlink{a01572_aa49ae6eeb1a2d0b8135ae48c5a3eff05}{ScalarType}} I1        = invariants[0];}
-\DoxyCodeLine{107     \mbox{\hyperlink{a01572_aa49ae6eeb1a2d0b8135ae48c5a3eff05}{ScalarType}} I2        = invariants[1];}
-\DoxyCodeLine{108     \mbox{\hyperlink{a01572_aa49ae6eeb1a2d0b8135ae48c5a3eff05}{ScalarType}} I3        = invariants[2];}
-\DoxyCodeLine{109     \mbox{\hyperlink{a01572_aa49ae6eeb1a2d0b8135ae48c5a3eff05}{ScalarType}} I3Pow1by3 = pow(I3, 1.0 / 3.0);}
-\DoxyCodeLine{110     \mbox{\hyperlink{a01572_aa49ae6eeb1a2d0b8135ae48c5a3eff05}{ScalarType}} I3Pow2by3 = pow(I3, 2.0 / 3.0);}
-\DoxyCodeLine{111 }
-\DoxyCodeLine{112     \textcolor{keywordflow}{return} std::make\_tuple(I1, I2, I3, I3Pow1by3, I3Pow2by3);}
-\DoxyCodeLine{113   \}}
-\DoxyCodeLine{114 \};}
+\DoxyCodeLine{81 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
+\DoxyCodeLine{82 \textcolor{keyword}{using }\mbox{\hyperlink{a01418}{PathFollowingStateType}} = \mbox{\hyperlink{a01418}{Impl::PathFollowingStateFactory<F>::type}};}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PF, \textcolor{keyword}{typename} ASS>}
+\DoxyCodeLine{85 \textcolor{keyword}{requires}(Impl::checkPathFollowingTemplates<NLS, PF, ASS>())}
+\DoxyCodeLine{86 \textcolor{keyword}{class} \mbox{\hyperlink{a01426}{PathFollowing}};}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{95 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PF\_ = ArcLength, \textcolor{keyword}{typename} ASS\_ = AdaptiveStepSizing::NoOp>}
+\DoxyCodeLine{96 \textcolor{keyword}{struct }\mbox{\hyperlink{a01430}{PathFollowingConfig}}}
+\DoxyCodeLine{97 \{}
+\DoxyCodeLine{98   \textcolor{keyword}{using }\mbox{\hyperlink{a01430_ae8815581a5879dbd1fc9722590d4cdd3}{PF}}  = PF\_;}
+\DoxyCodeLine{99   \textcolor{keyword}{using }\mbox{\hyperlink{a01430_ad17b1974f8ef19d7f7078dfa489dd6e1}{ASS}} = ASS\_;}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01430_af4dd889493d4c52b6a6ad9db9c174574}{steps}}\{\};}
+\DoxyCodeLine{102   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01430_a81216825fc8066d2055dd1e6201c4aff}{stepSize}}\{\};}
+\DoxyCodeLine{103   \mbox{\hyperlink{a01430_ae8815581a5879dbd1fc9722590d4cdd3}{PF}} \mbox{\hyperlink{a01430_aa4fb4fa9616c8e2996e0b0523e30fa7a}{pathFollowingFunction}}\{\};}
+\DoxyCodeLine{104   \mbox{\hyperlink{a01430_ad17b1974f8ef19d7f7078dfa489dd6e1}{ASS}} \mbox{\hyperlink{a01430_a7ffac719560deefbffff024765eac413}{adaptiveStepSizingFunction}}\{\};}
+\DoxyCodeLine{105 \};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
+\DoxyCodeLine{108 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}) -\/> PathFollowingConfig<>;}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PF>}
+\DoxyCodeLine{111 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}, PF) -\/> PathFollowingConfig<PF>;}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PF, \textcolor{keyword}{typename} ASS>}
+\DoxyCodeLine{114 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}, PF, ASS) -\/> PathFollowingConfig<PF, ASS>;}
 \DoxyCodeLine{115 }
-\DoxyCodeLine{116 \} \textcolor{comment}{// namespace Ikarus::Materials}}
+\DoxyCodeLine{116 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ASS>}
+\DoxyCodeLine{117 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}, ArcLength, ASS) -\/> PathFollowingConfig<ArcLength, ASS>;}
+\DoxyCodeLine{118 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{129 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PFConfig>}
+\DoxyCodeLine{130 \textcolor{keyword}{requires} traits::isSpecialization<PathFollowingConfig, std::remove\_cvref\_t<PFConfig>>::value}
+\DoxyCodeLine{131 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_a5aec737453e85d8a0cd6061b39300694}{createControlRoutine}}(PFConfig\&\& config, NLS\&\& nonlinearSolver) \{}
+\DoxyCodeLine{132   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01426}{PathFollowing<typename std::remove\_cvref\_t<NLS>::element\_type}}, \textcolor{keyword}{typename} PFConfig::PF, \textcolor{keyword}{typename} PFConfig::ASS>(}
+\DoxyCodeLine{133       std::forward<NLS>(nonlinearSolver), config.steps, config.stepSize, config.pathFollowingFunction,}
+\DoxyCodeLine{134       config.adaptiveStepSizingFunction);}
+\DoxyCodeLine{135 \}}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{166 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PF = ArcLength, \textcolor{keyword}{typename} ASS = AdaptiveStepSizing::NoOp>}
+\DoxyCodeLine{167 \textcolor{keyword}{requires}(Impl::checkPathFollowingTemplates<NLS, PF, ASS>())}
+\DoxyCodeLine{168 \textcolor{keyword}{class} \mbox{\hyperlink{a01426}{PathFollowing}} : \textcolor{keyword}{public} \mbox{\hyperlink{a01394}{ControlRoutineBase}}<\textcolor{keyword}{typename} NLS::DifferentiableFunction,}
+\DoxyCodeLine{169                                                 \mbox{\hyperlink{a01418}{PathFollowingStateType<typename NLS::DifferentiableFunction>}}>}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171 \{}
+\DoxyCodeLine{172 \textcolor{keyword}{public}:}
+\DoxyCodeLine{174   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01426_a31b9c556cef2540c66676589b230ef5d}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}Path following with "{}} + pathFollowingType\_.name()); \}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{184   \mbox{\hyperlink{a01426_af73474b0eccdddd65e046ebe813566f9}{PathFollowing}}(\textcolor{keyword}{const} std::shared\_ptr<NLS>\& nls, \textcolor{keywordtype}{int} steps, \textcolor{keywordtype}{double} stepSize, PF pathFollowingType = \mbox{\hyperlink{a01438}{ArcLength}}\{\},}
+\DoxyCodeLine{185                 ASS adaptiveStepSizing = \{\})}
+\DoxyCodeLine{186       : nonLinearSolver\_\{nls\},}
+\DoxyCodeLine{187         steps\_\{steps\},}
+\DoxyCodeLine{188         stepSize\_\{stepSize\},}
+\DoxyCodeLine{189         pathFollowingType\_\{pathFollowingType\},}
+\DoxyCodeLine{190         adaptiveStepSizing\_\{adaptiveStepSizing\} \{\}}
+\DoxyCodeLine{191 }
+\DoxyCodeLine{199   [[nodiscard]] ControlInformation run(\textcolor{keyword}{typename} NLS::Domain\& d);}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{201   \textcolor{comment}{/* \(\backslash\)brief returns the nonlinear solver */}}
+\DoxyCodeLine{202   NLS\& \mbox{\hyperlink{a01426_a6c40405d18d6dfab95c80b9871905331}{nonLinearSolver}}() \{ \textcolor{keywordflow}{return} *nonLinearSolver\_; \}}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204 \textcolor{keyword}{private}:}
+\DoxyCodeLine{205   std::shared\_ptr<NLS> nonLinearSolver\_;}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207   \textcolor{keywordtype}{int} steps\_;}
+\DoxyCodeLine{208   \textcolor{keywordtype}{double} stepSize\_;}
+\DoxyCodeLine{209   PF pathFollowingType\_;}
+\DoxyCodeLine{210   ASS adaptiveStepSizing\_;}
+\DoxyCodeLine{211   \mbox{\hyperlink{a01434}{SubsidiaryArgs}} subsidiaryArgs\_;}
+\DoxyCodeLine{212 \};}
+\DoxyCodeLine{213 }
+\DoxyCodeLine{214 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00329}{ikarus/controlroutines/pathfollowing.inl}}>}}
 
 \end{DoxyCode}

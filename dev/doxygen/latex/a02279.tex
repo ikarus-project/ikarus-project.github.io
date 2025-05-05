@@ -1,10 +1,8 @@
-\hypertarget{a02279}{}\doxysection{Ikarus\+::Concepts\+::Vector\+Flat\+Assembler Concept Reference}
-\label{a02279}\index{Ikarus::Concepts::VectorFlatAssembler@{Ikarus::Concepts::VectorFlatAssembler}}
+\hypertarget{a02279}{}\doxysection{Ikarus\+::Concepts\+::Adaptive\+Step\+Sizing\+Strategy Concept Reference}
+\label{a02279}\index{Ikarus::Concepts::AdaptiveStepSizingStrategy@{Ikarus::Concepts::AdaptiveStepSizingStrategy}}
 
 
-Concept representing the requirements for a Vector\+Flat\+Assembler.
-
-A type T satisfies Vector\+Flat\+Assembler if it is a Scalar\+Flat\+Assembler and if it provides the necessary vector() member functions.  
+Concept to check if a type implements all the needed functions to be an adaptive step sizing method.  
 
 
 
@@ -14,15 +12,24 @@ A type T satisfies Vector\+Flat\+Assembler if it is a Scalar\+Flat\+Assembler an
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02279}{Ikarus::Concepts::VectorFlatAssembler}} =  \mbox{\hyperlink{a02278}{Concepts::ScalarFlatAssembler<T>}} and}
-\DoxyCodeLine{                                \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
-\DoxyCodeLine{                                         \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00459_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
-\DoxyCodeLine{                                  \{}
-\DoxyCodeLine{                                    t.vector(req, affordance.vectorAffordance(), dbcOption)}
-\DoxyCodeLine{                                  \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
-\DoxyCodeLine{                                  \{ t.vector(dbcOption) \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
-\DoxyCodeLine{                                  \{ t.vector() \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
-\DoxyCodeLine{                                \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} ASS, \textcolor{keyword}{typename} NLSI, \textcolor{keyword}{typename} SA, \textcolor{keyword}{typename} DifferentiableFunction>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02279}{Ikarus::Concepts::AdaptiveStepSizingStrategy}} = }
+\DoxyCodeLine{      \textcolor{keyword}{requires}(ASS adaptiveStepSizing, NLSI info, SA args, DifferentiableFunction nop) \{}
+\DoxyCodeLine{        \{ adaptiveStepSizing(info, args, nop) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{        \{ adaptiveStepSizing.targetIterations() \} -\/> std::same\_as<int>;}
+\DoxyCodeLine{        \{ adaptiveStepSizing.setTargetIterations(std::declval<int>()) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{      \}}
 
 \end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em ASS} & The adaptive step sizing type. \\
+\hline
+{\em NLSI} & The non-\/linear solver information type. \\
+\hline
+{\em SA} & The subsidiary arguments type. \\
+\hline
+\end{DoxyTemplParams}

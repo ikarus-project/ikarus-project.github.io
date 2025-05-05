@@ -1,4 +1,4 @@
 var a00005 =
 [
-    [ "ct_sqrt", "a00005.html#ae55d4d0c3478ab3ecf54ce905ddf223b", null ]
+    [ "findLineSegment", "a00005.html#ga16e7d5f51cc42190c090e727495c1609", null ]
 ];

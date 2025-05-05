@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: deviatoricinvariants.hh File Reference</title>
+    <title>ikarus: pathfollowing.hh File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -157,31 +157,60 @@ $(document).ready(function(){initNavTree('a00347.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">deviatoricinvariants.hh File Reference<div class="ingroups"><a class="el" href="a00440.html">Ikarus Modules</a> &raquo; <a class="el" href="a00447.html">Materials</a></div></div></div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">pathfollowing.hh File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of the computation of the deviatoric invariants and its derivatives.  
+<p>Defines the PathFollowing class.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="a00302_source.html">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00305_source.html">ikarus/finiteelements/mechanics/materials/tags.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00035_source.html">ikarus/utils/tensorutils.hh</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00335_source.html">ikarus/controlroutines/adaptivestepsizing.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00332_source.html">ikarus/controlroutines/controlinfos.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00341_source.html">ikarus/controlroutines/controlroutinebase.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00344_source.html">ikarus/controlroutines/controlroutinefactory.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00323_source.html">ikarus/controlroutines/pathfollowingfunctions.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00359_source.html">ikarus/solver/nonlinearsolver/newtonraphsonwithscalarsubsidiaryfunction.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00356_source.html">ikarus/solver/nonlinearsolver/nonlinearsolverfactory.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00149_source.html">ikarus/utils/broadcaster/broadcastermessages.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00011_source.html">ikarus/utils/differentiablefunctionfactory.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00329.html">ikarus/controlroutines/pathfollowing.inl</a>&gt;</code><br />
 </div>
 <p><a href="a00347_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01572.html">Ikarus::Materials::DeviatoricInvariants&lt; PS &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of the deviatoric invariants and its derivatives.  <a href="a01572.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01418.html">Ikarus::PathFollowingState&lt; D &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">State for path following control routine.  <a href="a01418.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01430.html">Ikarus::PathFollowingConfig&lt; PF_, ASS_ &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Config for the Path-Following control routine.  <a href="a01430.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01426.html">Ikarus::PathFollowing&lt; NLS, PF, ASS &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a01426.html" title="The PathFollowing control routine for path-following analysis.">PathFollowing</a> control routine for path-following analysis.  <a href="a01426.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00459"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00459.html">Ikarus</a></td></tr>
+<tr class="memitem:a00465"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00465.html">Ikarus</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00468"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00468.html">Ikarus::Materials</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a55422e7318ffa2a289aee49663f1e2e1"><td class="memTemplParams" colspan="2">template&lt;typename F &gt; </td></tr>
+<tr class="memitem:a55422e7318ffa2a289aee49663f1e2e1"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00465.html#a55422e7318ffa2a289aee49663f1e2e1">Ikarus::PathFollowingStateType</a> = Impl::PathFollowingStateFactory&lt; F &gt;::type</td></tr>
+<tr class="memdesc:a55422e7318ffa2a289aee49663f1e2e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to deduce the correct types for <a class="el" href="a01402.html" title="State for control routines.">ControlRoutineState</a>.  <a href="a00465.html#a55422e7318ffa2a289aee49663f1e2e1">More...</a><br /></td></tr>
+<tr class="separator:a55422e7318ffa2a289aee49663f1e2e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a8e39557c3fe94302f5bf3ecb457d27f0"><td class="memTemplParams" colspan="2">template&lt;typename NLS , typename PFConfig &gt; <br />
+requires traits::isSpecialization&lt;PathFollowingConfig, std::remove_cvref_t&lt;PFConfig&gt;&gt;</td></tr>
+<tr class="memitem:a8e39557c3fe94302f5bf3ecb457d27f0"><td class="memTemplItemLeft" align="right" valign="top">::value auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00465.html#a8e39557c3fe94302f5bf3ecb457d27f0">Ikarus::createControlRoutine</a> (PFConfig &amp;&amp;config, NLS &amp;&amp;nonlinearSolver)</td></tr>
+<tr class="memdesc:a8e39557c3fe94302f5bf3ecb457d27f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to create a path following instance.  <a href="a00465.html#a8e39557c3fe94302f5bf3ecb457d27f0">More...</a><br /></td></tr>
+<tr class="separator:a8e39557c3fe94302f5bf3ecb457d27f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -193,7 +222,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="dir_a03d0955ec786907fd5e2d9460a59b20.html">hyperelastic</a></li><li class="navelem"><a class="el" href="dir_4ba2a7935bd4322f95edc73c65047dcd.html">deviatoric</a></li><li class="navelem"><a class="el" href="a00347.html">deviatoricinvariants.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_a97b071c9c6f7bcc51f4d0bc7519f177.html">controlroutines</a></li><li class="navelem"><a class="el" href="a00347.html">pathfollowing.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -155,6 +155,8 @@ docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/python/finiteelements/
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/python/finiteelements/scalarwrapper.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/python/io/vtkwriter.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/python/utils/boundarypatch.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/solver/eigenvaluesolver/generalizedeigensolver.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/solver/eigenvaluesolver/generalizedeigensolverfactory.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/solver/linearsolver/linearsolver.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/solver/nonlinearsolver/newtonraphson.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/solver/nonlinearsolver/newtonraphsonwithscalarsubsidiaryfunction.hh

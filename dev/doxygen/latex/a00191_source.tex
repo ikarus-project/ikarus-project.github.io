@@ -1,78 +1,150 @@
-\hypertarget{a00191_source}{}\doxysection{broadcaster.\+hh}
-\label{a00191_source}\index{broadcaster.hh@{broadcaster.hh}}
+\hypertarget{a00191_source}{}\doxysection{easvariants.\+hh}
+\label{a00191_source}\index{easvariants.hh@{easvariants.hh}}
 \mbox{\hyperlink{a00191}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <functional>}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00459}{Ikarus}} \{}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{keyword}{template} <\textcolor{keyword}{class} Args>}
-\DoxyCodeLine{17 \textcolor{keyword}{struct }\mbox{\hyperlink{a02028}{Broadcaster}};}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{24 \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{25 \textcolor{keyword}{class }\mbox{\hyperlink{a02028}{Broadcaster}}<void(Args...)>}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27   \textcolor{keyword}{using }F = std::function<void(Args...)>;}
-\DoxyCodeLine{28 }
-\DoxyCodeLine{29   \textcolor{comment}{// The functions are stored as weak pointer, therefore the Broadcaster has no ownership over them.}}
-\DoxyCodeLine{30   std::vector<std::weak\_ptr<F>> listeners;}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32 \textcolor{keyword}{public}:}
-\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a02032_a8e938f0fd10e39653bc9cb90109a37e7}{Token}} = std::shared\_ptr<F>;}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{44   \mbox{\hyperlink{a02032_a8e938f0fd10e39653bc9cb90109a37e7}{Token}} \mbox{\hyperlink{a02032_ac41fb9825ac6c6ced84a22e9b0c2f9a1}{registerListener}}(F f) \{}
-\DoxyCodeLine{45     \textcolor{keyword}{auto} sp = std::make\_shared<F>(std::move(f));}
-\DoxyCodeLine{46     listeners.push\_back(sp);}
-\DoxyCodeLine{47     \textcolor{keywordflow}{return} sp;}
-\DoxyCodeLine{48   \}}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50   \textcolor{comment}{// Unregister a listener}}
-\DoxyCodeLine{51   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02032_a3dcfad0abe0d83dbec232a77bc2a8e49}{unregisterListener}}(\mbox{\hyperlink{a02032_a8e938f0fd10e39653bc9cb90109a37e7}{Token}}\&\& t) \{ t = \textcolor{keyword}{nullptr}; \}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00182}{ikarus/finiteelements/mechanics/strainenhancements/easfunctions.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03306}{ikarus/finiteelements/mechanics/strainenhancements/easvariants/displacementgradient.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00185}{ikarus/finiteelements/mechanics/strainenhancements/easvariants/linearandglstrains.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00068}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00476}{Ikarus::EAS}} \{}
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{19   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} myDim, \textcolor{keyword}{typename} ESS>}
+\DoxyCodeLine{20   \textcolor{keyword}{struct }EASType;}
+\DoxyCodeLine{21   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{22   \textcolor{keyword}{struct }EASType<GEO, 3, EAS::LinearStrain>}
+\DoxyCodeLine{23   \{}
+\DoxyCodeLine{24     \textcolor{keyword}{using }type = std::variant<E0<GEO>, E9<GEO>, E21<GEO>>;}
+\DoxyCodeLine{25   \};}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{27   \textcolor{keyword}{struct }EASType<GEO, 2, EAS::LinearStrain>}
+\DoxyCodeLine{28   \{}
+\DoxyCodeLine{29     \textcolor{keyword}{using }type = std::variant<E0<GEO>, E4<GEO>, E5<GEO>, E7<GEO>, E11<GEO>>;}
+\DoxyCodeLine{30   \};}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} myDim>}
+\DoxyCodeLine{32   \textcolor{keyword}{struct }EASType<GEO, myDim, EAS::GreenLagrangeStrain>}
+\DoxyCodeLine{33   \{}
+\DoxyCodeLine{34     \textcolor{keyword}{using }type = EASType<GEO, myDim, EAS::LinearStrain>::type;}
+\DoxyCodeLine{35   \};}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{37   \textcolor{keyword}{struct }EASType<GEO, 2, EAS::DisplacementGradient>}
+\DoxyCodeLine{38   \{}
+\DoxyCodeLine{39     \textcolor{keyword}{using }type = std::variant<H0<GEO>, H4<GEO>>;}
+\DoxyCodeLine{40   \};}
+\DoxyCodeLine{41   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{42   \textcolor{keyword}{struct }EASType<GEO, 3, EAS::DisplacementGradient>}
+\DoxyCodeLine{43   \{}
+\DoxyCodeLine{44     \textcolor{keyword}{using }type = std::variant<H0<GEO>, H9<GEO>>;}
+\DoxyCodeLine{45   \};}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} myDim>}
+\DoxyCodeLine{47   \textcolor{keyword}{struct }EASType<GEO, myDim, EAS::DisplacementGradientTransposed>}
+\DoxyCodeLine{48   \{}
+\DoxyCodeLine{49     \textcolor{keyword}{using }type = EASType<GEO, myDim, EAS::DisplacementGradient>::type;}
+\DoxyCodeLine{50   \};}
+\DoxyCodeLine{51 \} \textcolor{comment}{// namespace Impl}}
 \DoxyCodeLine{52 }
-\DoxyCodeLine{56   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02032_ab19ef3d9951ffca426daf0912eaedb31}{notify}}(Args... args) \{}
-\DoxyCodeLine{57     trim();}
-\DoxyCodeLine{58     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& w : listeners) \{}
-\DoxyCodeLine{59       \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} p = w.lock()) \{}
-\DoxyCodeLine{60         (*p)(args...);}
-\DoxyCodeLine{61       \}}
-\DoxyCodeLine{62     \}}
-\DoxyCodeLine{63   \}}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65 \textcolor{keyword}{private}:}
-\DoxyCodeLine{66   \textcolor{comment}{// Remove expired listeners, we need that because the weak pointers could already be invalidated (i.e. refcount == 0).}}
-\DoxyCodeLine{67   \textcolor{keywordtype}{void} trim() \{}
-\DoxyCodeLine{68     listeners.erase(std::remove\_if(listeners.begin(), listeners.end(), [](\textcolor{keyword}{auto}\& p) \{ return p.expired(); \}),}
-\DoxyCodeLine{69                     listeners.end());}
-\DoxyCodeLine{70   \}}
-\DoxyCodeLine{71 \};}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{79 \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Signatures>}
-\DoxyCodeLine{80 \textcolor{keyword}{class }\mbox{\hyperlink{a02036}{Broadcasters}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02028}{Broadcaster}}<Signatures>...}
-\DoxyCodeLine{81 \{}
-\DoxyCodeLine{82 \textcolor{keyword}{public}:}
-\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{a02028}{Broadcaster}}<Signatures>::registerListener...;}
-\DoxyCodeLine{84   \textcolor{keyword}{using }\mbox{\hyperlink{a02028}{Broadcaster}}<Signatures>::unregisterListener...;}
-\DoxyCodeLine{85   \textcolor{keyword}{using }\mbox{\hyperlink{a02028}{Broadcaster}}<Signatures>::notify...;}
-\DoxyCodeLine{86 }
-\DoxyCodeLine{87   \textcolor{comment}{// Access a specific broadcaster for a given message type}}
-\DoxyCodeLine{88   \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{89   \mbox{\hyperlink{a02028}{Broadcaster<M>}}\& \mbox{\hyperlink{a02036_abc95263ead8ea6d71c2b017a1ea250be}{station}}() \{}
-\DoxyCodeLine{90     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{91   \}}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{93   \textcolor{comment}{// Access a specific broadcaster for a given message type (const version)}}
-\DoxyCodeLine{94   \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{95   \textcolor{keyword}{const} \mbox{\hyperlink{a02028}{Broadcaster<M>}}\& \mbox{\hyperlink{a02036_af25ec90e8c2c7df3d7b033e6e6a06dc1}{station}}()\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{96     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{57 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ES, \textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{58 \textcolor{keyword}{struct }\mbox{\hyperlink{a01742}{EASVariant}}}
+\DoxyCodeLine{59 \{}
+\DoxyCodeLine{60   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01742_a3cfc0e7e1f0209f03d1b6aef6f1fc8c8}{myDim}} = GEO::mydimension;}
+\DoxyCodeLine{61   \textcolor{keyword}{using }\mbox{\hyperlink{a01742_ad1cf8da7aa27fdcda5dcb4b5933e72a6}{Variant}}              = Impl::EASType<GEO, myDim, ES>::type;}
+\DoxyCodeLine{62   \textcolor{keyword}{static\_assert}((\mbox{\hyperlink{a01742_a3cfc0e7e1f0209f03d1b6aef6f1fc8c8}{myDim}} == 2) or (\mbox{\hyperlink{a01742_a3cfc0e7e1f0209f03d1b6aef6f1fc8c8}{myDim}} == 3), \textcolor{stringliteral}{"{}EAS variants are only available for 2D and 3D elements."{}});}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{69   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
+\DoxyCodeLine{70   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01742_ade1a090a4fa3ffd207d97c06ee40476e}{operator()}}(F\&\& f)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{71     std::visit([\&]<\textcolor{keyword}{typename} EAST>(\textcolor{keyword}{const} EAST\& easFunction) \{ f(easFunction); \}, var\_);}
+\DoxyCodeLine{72   \}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{78   \textcolor{keyword}{auto} \mbox{\hyperlink{a01742_ac6cb9234a00ad8c601fb3354743603ca}{numberOfEASParameters}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{79     \textcolor{keywordflow}{return} std::visit([]<\textcolor{keyword}{typename} EAST>(\textcolor{keyword}{const} EAST\&) -\/> \textcolor{keywordtype}{int} \{ \textcolor{keywordflow}{return} EAST::enhancedStrainSize; \}, var\_);}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{87   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01742_ae3c531d818b1cd5e4f03c6fc143c76ae}{isDisplacmentBased}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a01742_ac6cb9234a00ad8c601fb3354743603ca}{numberOfEASParameters}}() == 0; \}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01742_a1b0350d59dd2f92a08d170d72f5f618d}{setEASType}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{a01742_ac6cb9234a00ad8c601fb3354743603ca}{numberOfEASParameters}}) \{}
+\DoxyCodeLine{90     numberOfEASParameters\_ = \mbox{\hyperlink{a01742_ac6cb9234a00ad8c601fb3354743603ca}{numberOfEASParameters}};}
+\DoxyCodeLine{91     \textcolor{keywordflow}{if} (geometry\_)}
+\DoxyCodeLine{92       createEASType();}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01742_af6a4dc9b45186f3a9b3b491a525cd9db}{bind}}(\textcolor{keyword}{const} GEO\& geometry) \{}
+\DoxyCodeLine{95     geometry\_ = std::make\_optional<GEO>(geometry);}
+\DoxyCodeLine{96     createEASType();}
 \DoxyCodeLine{97   \}}
-\DoxyCodeLine{98 \};}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{100 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{keyword}{private}:}
+\DoxyCodeLine{100   \textcolor{keywordtype}{void} createEASType() \{}
+\DoxyCodeLine{101     \textcolor{keyword}{const} std::string\& errorMessage = \textcolor{stringliteral}{"{}The given EAS parameters are not available for enhancing "{}} + ES::name() +}
+\DoxyCodeLine{102                                       \textcolor{stringliteral}{"{} strain measure for the "{}} + std::to\_string(\mbox{\hyperlink{a01742_a3cfc0e7e1f0209f03d1b6aef6f1fc8c8}{myDim}}) + \textcolor{stringliteral}{"{}D case."{}};}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<ES, EAS::LinearStrain> or std::same\_as<ES, EAS::GreenLagrangeStrain>) \{}
+\DoxyCodeLine{105       \textcolor{keywordflow}{if} (numberOfEASParameters\_ == 0) \{}
+\DoxyCodeLine{106         var\_ = \mbox{\hyperlink{a01766}{E0}}(geometry\_.value());}
+\DoxyCodeLine{107         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{108       \}}
+\DoxyCodeLine{109       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01742_a3cfc0e7e1f0209f03d1b6aef6f1fc8c8}{myDim}} == 2) \{}
+\DoxyCodeLine{110         \textcolor{keywordflow}{switch} (numberOfEASParameters\_) \{}
+\DoxyCodeLine{111           \textcolor{keywordflow}{case} 4:}
+\DoxyCodeLine{112             var\_ = E4(geometry\_.value());}
+\DoxyCodeLine{113             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{114           \textcolor{keywordflow}{case} 5:}
+\DoxyCodeLine{115             var\_ = E5(geometry\_.value());}
+\DoxyCodeLine{116             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{117           \textcolor{keywordflow}{case} 7:}
+\DoxyCodeLine{118             var\_ = E7(geometry\_.value());}
+\DoxyCodeLine{119             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{120           \textcolor{keywordflow}{case} 11:}
+\DoxyCodeLine{121             var\_ = E11(geometry\_.value());}
+\DoxyCodeLine{122             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{123           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{124             DUNE\_THROW(Dune::NotImplemented, errorMessage);}
+\DoxyCodeLine{125         \}}
+\DoxyCodeLine{126       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01742_a3cfc0e7e1f0209f03d1b6aef6f1fc8c8}{myDim}} == 3) \{}
+\DoxyCodeLine{127         \textcolor{keywordflow}{switch} (numberOfEASParameters\_) \{}
+\DoxyCodeLine{128           \textcolor{keywordflow}{case} 9:}
+\DoxyCodeLine{129             var\_ = E9(geometry\_.value());}
+\DoxyCodeLine{130             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{131           \textcolor{keywordflow}{case} 21:}
+\DoxyCodeLine{132             var\_ = E21(geometry\_.value());}
+\DoxyCodeLine{133             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{134           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{135             DUNE\_THROW(Dune::NotImplemented, errorMessage);}
+\DoxyCodeLine{136         \}}
+\DoxyCodeLine{137       \}}
+\DoxyCodeLine{138     \}}
+\DoxyCodeLine{139     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<ES, EAS::DisplacementGradient> or}
+\DoxyCodeLine{140                   std::same\_as<ES, EAS::DisplacementGradientTransposed>) \{}
+\DoxyCodeLine{141       \textcolor{keywordflow}{if} (numberOfEASParameters\_ == 0) \{}
+\DoxyCodeLine{142         var\_ = H0(geometry\_.value());}
+\DoxyCodeLine{143         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{144       \}}
+\DoxyCodeLine{145       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01742_a3cfc0e7e1f0209f03d1b6aef6f1fc8c8}{myDim}} == 2) \{}
+\DoxyCodeLine{146         \textcolor{keywordflow}{switch} (numberOfEASParameters\_) \{}
+\DoxyCodeLine{147           \textcolor{keywordflow}{case} 4:}
+\DoxyCodeLine{148             var\_ = H4(geometry\_.value());}
+\DoxyCodeLine{149             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{150           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{151             DUNE\_THROW(Dune::NotImplemented, errorMessage);}
+\DoxyCodeLine{152         \}}
+\DoxyCodeLine{153       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01742_a3cfc0e7e1f0209f03d1b6aef6f1fc8c8}{myDim}} == 3) \{}
+\DoxyCodeLine{154         \textcolor{keywordflow}{switch} (numberOfEASParameters\_) \{}
+\DoxyCodeLine{155           \textcolor{keywordflow}{case} 9:}
+\DoxyCodeLine{156             var\_ = H9(geometry\_.value());}
+\DoxyCodeLine{157             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{158           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{159             DUNE\_THROW(Dune::NotImplemented, errorMessage);}
+\DoxyCodeLine{160         \}}
+\DoxyCodeLine{161       \}}
+\DoxyCodeLine{162     \}}
+\DoxyCodeLine{163   \}}
+\DoxyCodeLine{164   std::optional<GEO> geometry\_;}
+\DoxyCodeLine{165   \mbox{\hyperlink{a01742_ad1cf8da7aa27fdcda5dcb4b5933e72a6}{Variant}} var\_;}
+\DoxyCodeLine{166   \textcolor{keywordtype}{int} numberOfEASParameters\_;}
+\DoxyCodeLine{167 \};}
+\DoxyCodeLine{168 \} \textcolor{comment}{// namespace Ikarus::EAS}}
 
 \end{DoxyCode}

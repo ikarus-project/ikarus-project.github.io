@@ -1,83 +1,81 @@
-\hypertarget{a00377_source}{}\doxysection{linearstrain.\+hh}
-\label{a00377_source}\index{linearstrain.hh@{linearstrain.hh}}
+\hypertarget{a00377_source}{}\doxysection{generalizedeigensolverfactory.\+hh}
+\label{a00377_source}\index{generalizedeigensolverfactory.hh@{generalizedeigensolverfactory.hh}}
 \mbox{\hyperlink{a00377}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00380}{ikarus/solver/eigenvaluesolver/generalizedeigensolver.hh}}>}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/fvector.hh>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/localfefunctions/eigenDuneTransformations.hh>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/localfefunctions/expressions/linearStrainsExpr.hh>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <Eigen/Core>}}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00470}{Ikarus::EAS}} \{}
-\DoxyCodeLine{24 \textcolor{keyword}{struct }\mbox{\hyperlink{a01704}{LinearStrain}}}
-\DoxyCodeLine{25 \{}
-\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} EAST>}
-\DoxyCodeLine{41   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01704_a277efa7b6486d4dfbb2a09a5475a9733}{value}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
-\DoxyCodeLine{42                     \textcolor{keyword}{const} EAST\& easFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha) \{}
-\DoxyCodeLine{43     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
-\DoxyCodeLine{44     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00484}{Dune}};}
-\DoxyCodeLine{45     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim        = GEO::mydimension;}
-\DoxyCodeLine{46     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& strainFunction = Dune::linearStrains(uFunction);}
-\DoxyCodeLine{47     \textcolor{keyword}{const} \textcolor{keyword}{auto} E               = (strainFunction.evaluate(gpPos, on(gridElement))).eval();}
-\DoxyCodeLine{48     \textcolor{keyword}{const} \textcolor{keyword}{auto} Etilde          = (easFunction(gpPos) * alpha).eval();}
-\DoxyCodeLine{49     \textcolor{keywordflow}{return} (E + Etilde).eval();}
-\DoxyCodeLine{50   \}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00465}{Ikarus}} \{}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{24 \textcolor{keyword}{template} <EigenValueSolverType tag, \textcolor{keyword}{typename} MATA, \textcolor{keyword}{typename} MATB>}
+\DoxyCodeLine{25 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>> \&\&}
+\DoxyCodeLine{26          std::same\_as<std::remove\_cvref\_t<MATA>, std::remove\_cvref\_t<MATB>> \&\&}
+\DoxyCodeLine{27          not(tag == \mbox{\hyperlink{a00465_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<std::remove\_cvref\_t<MATA>>))}
+\DoxyCodeLine{28 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_a1cc0f8e32e7acced01b70734c92b2ce6}{makeGeneralizedSymEigenSolver}}(MATA\&\& A, MATB\&\& B) \{}
+\DoxyCodeLine{29   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{30   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01934}{GeneralizedSymEigenSolver<tag, MatrixType>}}\{std::forward<MATA>(A), std::forward<MATB>(B)\};}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{44 \textcolor{keyword}{template} <EigenValueSolverType tag, Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB>}
+\DoxyCodeLine{45 \textcolor{keyword}{requires}(std::same\_as<typename AssemblerA::MatrixType, typename AssemblerB::MatrixType> \&\&}
+\DoxyCodeLine{46          not(tag == \mbox{\hyperlink{a00465_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<typename AssemblerA::MatrixType>))}
+\DoxyCodeLine{47 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_a1cc0f8e32e7acced01b70734c92b2ce6}{makeGeneralizedSymEigenSolver}}(\textcolor{keyword}{const} std::shared\_ptr<AssemblerA> assemblerA,}
+\DoxyCodeLine{48                                    \textcolor{keyword}{const} std::shared\_ptr<AssemblerB> assemblerB) \{}
+\DoxyCodeLine{49   \mbox{\hyperlink{a00465_a1cc0f8e32e7acced01b70734c92b2ce6}{makeGeneralizedSymEigenSolver}}(assemblerA-\/>matrix(), assemblerB-\/>matrix());}
+\DoxyCodeLine{50 \}}
 \DoxyCodeLine{51 }
-\DoxyCodeLine{72   \textcolor{keyword}{template} <\textcolor{keywordtype}{int} wrtCoeff, \textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} EAST>}
-\DoxyCodeLine{73   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01704_a30ae373a402783bae1c5ea5869803b47}{firstDerivative}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& gpIndex,}
-\DoxyCodeLine{74                               \textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos, \textcolor{keyword}{const} EAST\& easFunction,}
-\DoxyCodeLine{75                               \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha, \textcolor{keyword}{const} \textcolor{keywordtype}{int} node = sNaN) \{}
-\DoxyCodeLine{76     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 0) \{}
-\DoxyCodeLine{77       \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
-\DoxyCodeLine{78       \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00484}{Dune}};}
-\DoxyCodeLine{79       \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim        = GEO::mydimension;}
-\DoxyCodeLine{80       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& strainFunction = Dune::linearStrains(uFunction);}
-\DoxyCodeLine{81       \textcolor{keyword}{const} \textcolor{keyword}{auto} bopI            = strainFunction.evaluateDerivative(gpIndex, wrt(coeff(node)), on(gridElement));}
-\DoxyCodeLine{82       \textcolor{keywordflow}{return} bopI.eval();}
-\DoxyCodeLine{83     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 1) \{}
-\DoxyCodeLine{84       \textcolor{keywordflow}{return} easFunction(gpPos);}
-\DoxyCodeLine{85     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{86       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<GEO>::value,}
-\DoxyCodeLine{87                     \textcolor{stringliteral}{"{}firstDerivative can only be called with wrtCoeff as 0 and 1 indicating first derivative of the "{}}}
-\DoxyCodeLine{88                     \textcolor{stringliteral}{"{}linear strain w.r.t d and "{}}}
-\DoxyCodeLine{89                     \textcolor{stringliteral}{"{}alpha, respectively."{}});}
-\DoxyCodeLine{90   \}}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{116   \textcolor{keyword}{template} <\textcolor{keywordtype}{int} wrtCoeff, \textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} ST, \textcolor{keyword}{typename} EAST>}
-\DoxyCodeLine{117   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01704_a6fcb11770bce6e92de6e75003ddc3a0a}{secondDerivative}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& gpIndex,}
-\DoxyCodeLine{118                                \textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
-\DoxyCodeLine{119                                \textcolor{keyword}{const} Eigen::Vector<ST, GEO::mydimension*(GEO::mydimension + 1) / 2>\& S,}
-\DoxyCodeLine{120                                \textcolor{keyword}{const} EAST\& easFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha, \textcolor{keyword}{const} \textcolor{keywordtype}{int} I = sNaN, \textcolor{keyword}{const} \textcolor{keywordtype}{int} J = sNaN) \{}
-\DoxyCodeLine{121     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim              = GEO::mydimension;}
-\DoxyCodeLine{122     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} enhancedStrainSize = EAST::enhancedStrainSize;}
-\DoxyCodeLine{123     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 0) \{}
-\DoxyCodeLine{124       \textcolor{keyword}{const} \textcolor{keyword}{auto} kg = Eigen::Matrix<ST, myDim, myDim>::Zero().eval();}
-\DoxyCodeLine{125       \textcolor{keywordflow}{return} kg; \textcolor{comment}{// E\_dd}}
-\DoxyCodeLine{126     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 1) \{}
-\DoxyCodeLine{127       \textcolor{keyword}{const} \textcolor{keyword}{auto} kg = Eigen::Matrix<ST, enhancedStrainSize, enhancedStrainSize>::Zero().eval();}
-\DoxyCodeLine{128       \textcolor{keywordflow}{return} kg; \textcolor{comment}{// E\_aa}}
-\DoxyCodeLine{129     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 2) \{}
-\DoxyCodeLine{130       \textcolor{keyword}{const} \textcolor{keyword}{auto} kg = Eigen::Matrix<ST, enhancedStrainSize, myDim>::Zero().eval();}
-\DoxyCodeLine{131       \textcolor{keywordflow}{return} kg; \textcolor{comment}{// E\_ad}}
-\DoxyCodeLine{132     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{133       \textcolor{keyword}{static\_assert}(}
-\DoxyCodeLine{134           Dune::AlwaysFalse<GEO>::value,}
-\DoxyCodeLine{135           \textcolor{stringliteral}{"{}secondDerivative can only be called with wrtCoeff as 0, 1 and 2 indicating second derivative of the "{}}}
-\DoxyCodeLine{136           \textcolor{stringliteral}{"{}linear strain w.r.t d and "{}}}
-\DoxyCodeLine{137           \textcolor{stringliteral}{"{}alpha and the mixed derivative, respectively."{}});}
-\DoxyCodeLine{138   \}}
-\DoxyCodeLine{139 }
-\DoxyCodeLine{141   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01704_a55efc77ced1fadb428336239dbcaa22b}{name}}() \{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}Linear Strain"{}}); \}}
-\DoxyCodeLine{142 }
-\DoxyCodeLine{143 \textcolor{keyword}{private}:}
-\DoxyCodeLine{144   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} sNaN = std::numeric\_limits<int>::signaling\_NaN();}
-\DoxyCodeLine{145 \};}
-\DoxyCodeLine{146 }
-\DoxyCodeLine{147 \} \textcolor{comment}{// namespace Ikarus::EAS}}
+\DoxyCodeLine{60 \textcolor{keyword}{template} <EigenValueSolverType tag, \textcolor{keyword}{typename} MATA>}
+\DoxyCodeLine{61 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>> \&\&}
+\DoxyCodeLine{62          not(tag == \mbox{\hyperlink{a00465_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<std::remove\_cvref\_t<MATA>>))}
+\DoxyCodeLine{63 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_a6d018cded22b7f93826ddbe4282a22f4}{makeIdentitySymEigenSolver}}(MATA\&\& A) \{}
+\DoxyCodeLine{64   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{65   MatrixType I     = MatrixType(A.rows(), A.cols());}
+\DoxyCodeLine{66   I.setIdentity();}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01934}{GeneralizedSymEigenSolver<tag, MatrixType>}}\{std::forward<MATA>(A), I\};}
+\DoxyCodeLine{69 \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{78 \textcolor{keyword}{template} <EigenValueSolverType tag, Concepts::FlatAssembler AssemblerA>}
+\DoxyCodeLine{79 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<typename AssemblerA::MatrixType> \&\&}
+\DoxyCodeLine{80          not(tag == \mbox{\hyperlink{a00465_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<typename AssemblerA::MatrixType>))}
+\DoxyCodeLine{81 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_a6d018cded22b7f93826ddbe4282a22f4}{makeIdentitySymEigenSolver}}(\textcolor{keyword}{const} std::shared\_ptr<AssemblerA>\& assemblerA) \{}
+\DoxyCodeLine{82   \textcolor{keywordflow}{return} makeIdentitySymEigenSolver<tag>(assemblerA-\/>matrix());}
+\DoxyCodeLine{83 \}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{94 \textcolor{keyword}{template} <Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB>}
+\DoxyCodeLine{95 \textcolor{keyword}{requires}(std::same\_as<typename AssemblerA::MatrixType, typename AssemblerB::MatrixType>)}
+\DoxyCodeLine{96 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_af803d89d17f03662003ac40afe2b0a50}{makePartialGeneralizedSymEigenSolver}}(std::shared\_ptr<AssemblerA> assemblerA,}
+\DoxyCodeLine{97                                           std::shared\_ptr<AssemblerB> assemblerB, Eigen::Index nev) \{}
+\DoxyCodeLine{98   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00465_af803d89d17f03662003ac40afe2b0a50}{makePartialGeneralizedSymEigenSolver}}(assemblerA-\/>matrix(), assemblerB-\/>matrix());}
+\DoxyCodeLine{99 \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{108 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MATA, \textcolor{keyword}{typename} MATB>}
+\DoxyCodeLine{109 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>> \&\&}
+\DoxyCodeLine{110          std::same\_as<std::remove\_cvref\_t<MATA>, std::remove\_cvref\_t<MATB>>)}
+\DoxyCodeLine{111 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_af803d89d17f03662003ac40afe2b0a50}{makePartialGeneralizedSymEigenSolver}}(MATA\&\& A, MATB\&\& B, Eigen::Index nev) \{}
+\DoxyCodeLine{112   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{113   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01946}{PartialGeneralizedSymEigenSolver<MatrixType>}}\{std::forward<MATA>(A), std::forward<MATB>(B), nev\};}
+\DoxyCodeLine{114 \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{123 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MATA>}
+\DoxyCodeLine{124 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>>)}
+\DoxyCodeLine{125 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_a64882ae20164dc6c63264d547f313e3e}{makePartialIdentitySymEigenSolver}}(MATA\&\& A, Eigen::Index nev) \{}
+\DoxyCodeLine{126   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{127   MatrixType I     = MatrixType(A.rows(), A.cols());}
+\DoxyCodeLine{128   I.setIdentity();}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01946}{PartialGeneralizedSymEigenSolver<MatrixType>}}\{std::forward<MATA>(A), I, nev\};}
+\DoxyCodeLine{131 \}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{140 \textcolor{keyword}{template} <Concepts::FlatAssembler AssemblerA>}
+\DoxyCodeLine{141 \textcolor{keyword}{auto} \mbox{\hyperlink{a00465_a64882ae20164dc6c63264d547f313e3e}{makePartialIdentitySymEigenSolver}}(\textcolor{keyword}{const} std::shared\_ptr<AssemblerA>\& assemblerA, Eigen::Index nev) \{}
+\DoxyCodeLine{142   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00465_a64882ae20164dc6c63264d547f313e3e}{makePartialIdentitySymEigenSolver}}(assemblerA-\/>matrix(), nev);}
+\DoxyCodeLine{143 \}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

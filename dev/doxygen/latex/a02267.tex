@@ -1,19 +1,23 @@
-\hypertarget{a02267}{}\doxysection{Ikarus\+::Concepts\+::Divide\+Able Concept Reference}
-\label{a02267}\index{Ikarus::Concepts::DivideAble@{Ikarus::Concepts::DivideAble}}
+\hypertarget{a02267}{}\doxysection{Ikarus\+::Concepts\+::MPTuple Concept Reference}
+\label{a02267}\index{Ikarus::Concepts::MPTuple@{Ikarus::Concepts::MPTuple}}
 
 
-Concept defining the requirements for types that support division.  
+Concept for checking if a type is a valid material parameter tuple.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/physicshelper.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02267}{Ikarus::Concepts::DivideAble}} =  \textcolor{keyword}{requires}(L x, R y) \{ x / y; \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} MP>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02267}{Ikarus::Concepts::MPTuple}} = }
+\DoxyCodeLine{      std::is\_same\_v<MP, YoungsModulusAndPoissonsRatio> or std::is\_same\_v<MP, YoungsModulusAndBulkModulus> or}
+\DoxyCodeLine{      std::is\_same\_v<MP, YoungsModulusAndLamesFirstParameter> or}
+\DoxyCodeLine{      std::is\_same\_v<MP, BulkModulusAndLamesFirstParameter> or std::is\_same\_v<MP, LamesFirstParameterAndShearModulus> or}
+\DoxyCodeLine{      std::is\_same\_v<MP, YoungsModulusAndShearModulus>}
 
 \end{DoxyCode}
 
@@ -21,9 +25,6 @@ Concept defining the requirements for types that support division.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em L} & Type of the left operand. \\
-\hline
-{\em R} & Type of the right operand.\\
+{\em MP} & Type to check. \\
 \hline
 \end{DoxyTemplParams}
-The concept specifies that instances of types {\ttfamily L} and {\ttfamily R} can be divided using the {\ttfamily /} operator. 

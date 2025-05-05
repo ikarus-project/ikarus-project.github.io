@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['matrixaffordance_0',['MatrixAffordance',['../a00459.html#a390d5311179ec61d163a29c943b3d1a0',1,'Ikarus']]],
-  ['matrixtypetag_1',['MatrixTypeTag',['../a00459.html#a4763ca5888a027ed9b8d965d67cbb9ab',1,'Ikarus']]]
+  ['feparameter_0',['FEParameter',['../a00452.html#ga0c1577fd05efee8475b0f7fef795bbbe',1,'Ikarus']]],
+  ['fesolutions_1',['FESolutions',['../a00452.html#gaea763c94a1cecbeefc4f8661debcc5a3',1,'Ikarus']]]
 ];

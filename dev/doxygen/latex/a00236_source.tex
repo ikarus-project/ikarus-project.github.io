@@ -1,134 +1,109 @@
-\hypertarget{a00236_source}{}\doxysection{pathfollowing.\+hh}
-\label{a00236_source}\index{pathfollowing.hh@{pathfollowing.hh}}
+\hypertarget{a00236_source}{}\doxysection{neohooke.\+hh}
+\label{a00236_source}\index{neohooke.hh@{neohooke.hh}}
 \mbox{\hyperlink{a00236}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00254}{ikarus/controlroutines/adaptivestepsizing.hh}}>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00242}{ikarus/controlroutines/controlinfos.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00245}{ikarus/controlroutines/controlroutinebase.hh}}>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00257}{ikarus/controlroutines/controlroutinefactory.hh}}>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00260}{ikarus/controlroutines/pathfollowingfunctions.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00143}{ikarus/solver/nonlinearsolver/newtonraphsonwithscalarsubsidiaryfunction.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00131}{ikarus/solver/nonlinearsolver/nonlinearsolverfactory.hh}}>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00188}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00011}{ikarus/utils/differentiablefunctionfactory.hh}}>}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00459}{Ikarus}} \{}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{30 \textcolor{keyword}{template} <\textcolor{keyword}{typename} D>}
-\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{a01412}{PathFollowingState}}}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a01412_aaf06c06697db573f10222173fc8d70af}{Domain}} = D;}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{35   \textcolor{keyword}{const} \mbox{\hyperlink{a01412_aaf06c06697db573f10222173fc8d70af}{Domain}}\& \mbox{\hyperlink{a01412_a86de29d69928db78bcad0f1b52a63965}{domain}};}
-\DoxyCodeLine{36   \textcolor{keyword}{const} \mbox{\hyperlink{a01428}{SubsidiaryArgs}}\& \mbox{\hyperlink{a01412_ab2abd1a958044ec4d412efa82c4a1ede}{subsidiaryArgs}};}
-\DoxyCodeLine{37   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01412_a8e1b8b12cc435ee7e0a6432ab74ad43f}{loadStep}}\{\};}
-\DoxyCodeLine{38   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01412_a3dcb62d0cf736628c90706c29f62da1f}{stepSize}}\{\};}
-\DoxyCodeLine{39 \};}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{54   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PF = ArcLength, \textcolor{keyword}{typename} ASS>}
-\DoxyCodeLine{55   \textcolor{keyword}{consteval} \textcolor{keywordtype}{bool} checkPathFollowingTemplates() \{}
-\DoxyCodeLine{56     \textcolor{keywordflow}{return} Concepts::PathFollowingStrategy<PF, std::remove\_cvref\_t<typename NLS::DifferentiableFunction>,}
-\DoxyCodeLine{57                                            SubsidiaryArgs> and}
-\DoxyCodeLine{58            Concepts::AdaptiveStepSizingStrategy<ASS, NonLinearSolverInformation, SubsidiaryArgs,}
-\DoxyCodeLine{59                                                 std::remove\_cvref\_t<typename NLS::DifferentiableFunction>> and}
-\DoxyCodeLine{60            Concepts::NonLinearSolverCheckForPathFollowing<NLS>;}
-\DoxyCodeLine{61   \}}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{64   \textcolor{keyword}{struct }PathFollowingStateFactory}
-\DoxyCodeLine{65   \{}
-\DoxyCodeLine{66   \textcolor{keyword}{private}:}
-\DoxyCodeLine{67     \textcolor{keyword}{using }SignatureTraits = \textcolor{keyword}{typename} F::Traits;}
-\DoxyCodeLine{68     \textcolor{keyword}{using }Domain          = \textcolor{keyword}{typename} SignatureTraits::Domain;}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70   \textcolor{keyword}{public}:}
-\DoxyCodeLine{71     \textcolor{keyword}{using }type = PathFollowingState<Domain>;}
-\DoxyCodeLine{72   \};}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{74 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{75 }
-\DoxyCodeLine{81 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{82 \textcolor{keyword}{using }\mbox{\hyperlink{a01412}{PathFollowingStateType}} = \mbox{\hyperlink{a01412}{Impl::PathFollowingStateFactory<F>::type}};}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{84 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PF, \textcolor{keyword}{typename} ASS>}
-\DoxyCodeLine{85 \textcolor{keyword}{requires}(Impl::checkPathFollowingTemplates<NLS, PF, ASS>())}
-\DoxyCodeLine{86 \textcolor{keyword}{class} \mbox{\hyperlink{a01420}{PathFollowing}};}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{95 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PF\_ = ArcLength, \textcolor{keyword}{typename} ASS\_ = AdaptiveStepSizing::NoOp>}
-\DoxyCodeLine{96 \textcolor{keyword}{struct }\mbox{\hyperlink{a01424}{PathFollowingConfig}}}
-\DoxyCodeLine{97 \{}
-\DoxyCodeLine{98   \textcolor{keyword}{using }\mbox{\hyperlink{a01424_ae8815581a5879dbd1fc9722590d4cdd3}{PF}}  = PF\_;}
-\DoxyCodeLine{99   \textcolor{keyword}{using }\mbox{\hyperlink{a01424_ad17b1974f8ef19d7f7078dfa489dd6e1}{ASS}} = ASS\_;}
-\DoxyCodeLine{100 }
-\DoxyCodeLine{101   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01424_af4dd889493d4c52b6a6ad9db9c174574}{steps}}\{\};}
-\DoxyCodeLine{102   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01424_a81216825fc8066d2055dd1e6201c4aff}{stepSize}}\{\};}
-\DoxyCodeLine{103   \mbox{\hyperlink{a01424_ae8815581a5879dbd1fc9722590d4cdd3}{PF}} \mbox{\hyperlink{a01424_aa4fb4fa9616c8e2996e0b0523e30fa7a}{pathFollowingFunction}}\{\};}
-\DoxyCodeLine{104   \mbox{\hyperlink{a01424_ad17b1974f8ef19d7f7078dfa489dd6e1}{ASS}} \mbox{\hyperlink{a01424_a7ffac719560deefbffff024765eac413}{adaptiveStepSizingFunction}}\{\};}
-\DoxyCodeLine{105 \};}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
-\DoxyCodeLine{108 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}) -\/> PathFollowingConfig<>;}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{110 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PF>}
-\DoxyCodeLine{111 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}, PF) -\/> PathFollowingConfig<PF>;}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{113 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PF, \textcolor{keyword}{typename} ASS>}
-\DoxyCodeLine{114 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}, PF, ASS) -\/> PathFollowingConfig<PF, ASS>;}
-\DoxyCodeLine{115 }
-\DoxyCodeLine{116 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ASS>}
-\DoxyCodeLine{117 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}, ArcLength, ASS) -\/> PathFollowingConfig<ArcLength, ASS>;}
-\DoxyCodeLine{118 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{119 }
-\DoxyCodeLine{129 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PFConfig>}
-\DoxyCodeLine{130 \textcolor{keyword}{requires} traits::isSpecialization<PathFollowingConfig, std::remove\_cvref\_t<PFConfig>>::value}
-\DoxyCodeLine{131 \textcolor{keyword}{auto} \mbox{\hyperlink{a00459_a5aec737453e85d8a0cd6061b39300694}{createControlRoutine}}(PFConfig\&\& config, NLS\&\& nonlinearSolver) \{}
-\DoxyCodeLine{132   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01420}{PathFollowing<typename std::remove\_cvref\_t<NLS>::element\_type}}, \textcolor{keyword}{typename} PFConfig::PF, \textcolor{keyword}{typename} PFConfig::ASS>(}
-\DoxyCodeLine{133       std::forward<NLS>(nonlinearSolver), config.steps, config.stepSize, config.pathFollowingFunction,}
-\DoxyCodeLine{134       config.adaptiveStepSizingFunction);}
-\DoxyCodeLine{135 \}}
-\DoxyCodeLine{136 }
-\DoxyCodeLine{166 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PF = ArcLength, \textcolor{keyword}{typename} ASS = AdaptiveStepSizing::NoOp>}
-\DoxyCodeLine{167 \textcolor{keyword}{requires}(Impl::checkPathFollowingTemplates<NLS, PF, ASS>())}
-\DoxyCodeLine{168 \textcolor{keyword}{class} \mbox{\hyperlink{a01420}{PathFollowing}} : \textcolor{keyword}{public} \mbox{\hyperlink{a01388}{ControlRoutineBase}}<\textcolor{keyword}{typename} NLS::DifferentiableFunction,}
-\DoxyCodeLine{169                                                 \mbox{\hyperlink{a01412}{PathFollowingStateType<typename NLS::DifferentiableFunction>}}>}
-\DoxyCodeLine{170 }
-\DoxyCodeLine{171 \{}
-\DoxyCodeLine{172 \textcolor{keyword}{public}:}
-\DoxyCodeLine{174   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01420_a31b9c556cef2540c66676589b230ef5d}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}Path following with "{}} + pathFollowingType\_.name()); \}}
-\DoxyCodeLine{175 }
-\DoxyCodeLine{184   \mbox{\hyperlink{a01420_af73474b0eccdddd65e046ebe813566f9}{PathFollowing}}(\textcolor{keyword}{const} std::shared\_ptr<NLS>\& nls, \textcolor{keywordtype}{int} steps, \textcolor{keywordtype}{double} stepSize, PF pathFollowingType = \mbox{\hyperlink{a01432}{ArcLength}}\{\},}
-\DoxyCodeLine{185                 ASS adaptiveStepSizing = \{\})}
-\DoxyCodeLine{186       : nonLinearSolver\_\{nls\},}
-\DoxyCodeLine{187         steps\_\{steps\},}
-\DoxyCodeLine{188         stepSize\_\{stepSize\},}
-\DoxyCodeLine{189         pathFollowingType\_\{pathFollowingType\},}
-\DoxyCodeLine{190         adaptiveStepSizing\_\{adaptiveStepSizing\} \{\}}
-\DoxyCodeLine{191 }
-\DoxyCodeLine{199   [[nodiscard]] ControlInformation run(\textcolor{keyword}{typename} NLS::Domain\& d);}
-\DoxyCodeLine{200 }
-\DoxyCodeLine{201   \textcolor{comment}{/* \(\backslash\)brief returns the nonlinear solver */}}
-\DoxyCodeLine{202   NLS\& \mbox{\hyperlink{a01420_a6c40405d18d6dfab95c80b9871905331}{nonLinearSolver}}() \{ \textcolor{keywordflow}{return} *nonLinearSolver\_; \}}
-\DoxyCodeLine{203 }
-\DoxyCodeLine{204 \textcolor{keyword}{private}:}
-\DoxyCodeLine{205   std::shared\_ptr<NLS> nonLinearSolver\_;}
-\DoxyCodeLine{206 }
-\DoxyCodeLine{207   \textcolor{keywordtype}{int} steps\_;}
-\DoxyCodeLine{208   \textcolor{keywordtype}{double} stepSize\_;}
-\DoxyCodeLine{209   PF pathFollowingType\_;}
-\DoxyCodeLine{210   ASS adaptiveStepSizing\_;}
-\DoxyCodeLine{211   \mbox{\hyperlink{a01428}{SubsidiaryArgs}} subsidiaryArgs\_;}
-\DoxyCodeLine{212 \};}
-\DoxyCodeLine{213 }
-\DoxyCodeLine{214 \} \textcolor{comment}{// namespace Ikarus}}
-\DoxyCodeLine{215 }
-\DoxyCodeLine{216 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00233}{ikarus/controlroutines/pathfollowing.inl}}>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03291}{ikarus/finiteelements/mechanics/materials/interface.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00230}{ikarus/finiteelements/mechanics/materials/materialhelpers.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00068}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00474}{Ikarus::Materials}} \{}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{36 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{37 \textcolor{keyword}{struct }\mbox{\hyperlink{a01606}{NeoHookeT}} : \textcolor{keyword}{public} \mbox{\hyperlink{a01662}{Material}}<NeoHookeT<ST>>}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{a01606_a3dba82ed47fda4d4552755130694cf45}{ScalarType}}         = ST;}
+\DoxyCodeLine{40   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01606_a5780894401186bf48c3de6a11e2665f5}{dim}} = 3;}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01606_ab439ece776e63f03eb2fe4d330353196}{StrainMatrix}}       = Eigen::Matrix<ScalarType, dim, dim>;}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{a01606_a3f1a8232d382de393877cf5886a75c89}{StressMatrix}}       = \mbox{\hyperlink{a01606_ab439ece776e63f03eb2fe4d330353196}{StrainMatrix}};}
+\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{a01606_a83c093e1b1475f4fe70067b55331233c}{MaterialTensor}}     = Eigen::TensorFixedSize<ScalarType, Eigen::Sizes<dim, dim, dim, dim>>;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \textcolor{keyword}{using }\mbox{\hyperlink{a01846}{MaterialParameters}} = \mbox{\hyperlink{a01846}{LamesFirstParameterAndShearModulus}};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01606_aa5a10299ec0ec07b2f7b8d6d33da7f45}{strainTag}}              = \mbox{\hyperlink{a00454_ggacef1e451de1a99845c59d7391064fb8faea40a9960a7a89c4f366beeab85d07d2}{StrainTags::rightCauchyGreenTensor}};}
+\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01606_a8b3890e8fcee130fff7d144ba5f245b0}{stressTag}}              = \mbox{\hyperlink{a00454_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}};}
+\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01606_af214c69a1e904c098bc647c3786518d8}{tangentModuliTag}}       = \mbox{\hyperlink{a00454_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{TangentModuliTags::Material}};}
+\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01606_ad54b9a96b0184f30eca97121e902a753}{energyAcceptsVoigt}}     = \textcolor{keyword}{false};}
+\DoxyCodeLine{51   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01606_a79c4e41a110784e9d6aac5006ce08479}{stressToVoigt}}          = \textcolor{keyword}{false};}
+\DoxyCodeLine{52   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01606_a82a588fd6e602b10831f25dacaa23239}{stressAcceptsVoigt}}     = \textcolor{keyword}{false};}
+\DoxyCodeLine{53   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01606_a73a0152530e9583450136710d9a15593}{moduliToVoigt}}          = \textcolor{keyword}{false};}
+\DoxyCodeLine{54   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01606_a4887a57a3267c6fa57eff665fa6a418e}{moduliAcceptsVoigt}}     = \textcolor{keyword}{false};}
+\DoxyCodeLine{55   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} \mbox{\hyperlink{a01606_adcaf4114163835af544b5f626889629c}{derivativeFactorImpl}} = 2;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01606_ab7409557fd6b8664c9a17a74ed429221}{nameImpl}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}NeoHooke"{}}; \}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{63   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01606_a99479e4c203b411bbda554d36c6cba3d}{NeoHookeT}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01846}{MaterialParameters}}\& mpt)}
+\DoxyCodeLine{64       : materialParameter\_\{mpt\} \{\}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{69   \mbox{\hyperlink{a01846}{MaterialParameters}} \mbox{\hyperlink{a01606_a4576e0e649587e2bc050395b423bc76d}{materialParametersImpl}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} materialParameter\_; \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{77   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{78   \mbox{\hyperlink{a01606_a3dba82ed47fda4d4552755130694cf45}{ScalarType}} \mbox{\hyperlink{a01606_a8ff14eaeedc7a42428bb3a5236c60fdf}{storedEnergyImpl}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& C)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{79     \textcolor{keyword}{static\_assert}(Concepts::EigenMatrixOrVoigtNotation3<Derived>);}
+\DoxyCodeLine{80     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!\mbox{\hyperlink{a02293}{Concepts::EigenVector<Derived>}}) \{}
+\DoxyCodeLine{81       \textcolor{keyword}{const} \textcolor{keyword}{auto} traceC = C.trace();}
+\DoxyCodeLine{82       \textcolor{keyword}{const} \textcolor{keyword}{auto} detC   = C.determinant();}
+\DoxyCodeLine{83       Impl::checkPositiveOrAbort(detC);}
+\DoxyCodeLine{84       \textcolor{keyword}{const} \textcolor{keyword}{auto} logdetF = log(sqrt(detC));}
+\DoxyCodeLine{85       \textcolor{keywordflow}{return} materialParameter\_.\mbox{\hyperlink{a01846_a3558ad06d2a831f0d412d76956d516f8}{mu}} / 2.0 * (traceC -\/ 3 -\/ 2 * logdetF) +}
+\DoxyCodeLine{86              materialParameter\_.\mbox{\hyperlink{a01846_a0157695e9fc8b735e86f828cc35b64fc}{lambda}} / 2.0 * logdetF * logdetF;}
+\DoxyCodeLine{87     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{88       \textcolor{keyword}{static\_assert}(!\mbox{\hyperlink{a02293}{Concepts::EigenVector<Derived>}},}
+\DoxyCodeLine{89                     \textcolor{stringliteral}{"{}NeoHooke energy can only be called with a matrix and not a vector in Voigt notation"{}});}
+\DoxyCodeLine{90   \}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{99   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{100   \mbox{\hyperlink{a01606_a3f1a8232d382de393877cf5886a75c89}{StressMatrix}} \mbox{\hyperlink{a01606_a9c9a397c7c951d33adc8887f795a87c2}{stressesImpl}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& C)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{101     \textcolor{keyword}{static\_assert}(Concepts::EigenMatrixOrVoigtNotation3<Derived>);}
+\DoxyCodeLine{102     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!voigt) \{}
+\DoxyCodeLine{103       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!\mbox{\hyperlink{a02293}{Concepts::EigenVector<Derived>}}) \{}
+\DoxyCodeLine{104         \textcolor{keyword}{const} \textcolor{keyword}{auto} detC = C.determinant();}
+\DoxyCodeLine{105         Impl::checkPositiveOrAbort(detC);}
+\DoxyCodeLine{106         \textcolor{keyword}{const} \textcolor{keyword}{auto} logdetF = log(sqrt(detC));}
+\DoxyCodeLine{107         \textcolor{keyword}{const} \textcolor{keyword}{auto} invC    = C.inverse().eval();}
+\DoxyCodeLine{108         \textcolor{keywordflow}{return} (materialParameter\_.\mbox{\hyperlink{a01846_a3558ad06d2a831f0d412d76956d516f8}{mu}} * (StrainMatrix::Identity() -\/ invC) + materialParameter\_.\mbox{\hyperlink{a01846_a0157695e9fc8b735e86f828cc35b64fc}{lambda}} * logdetF * invC)}
+\DoxyCodeLine{109             .eval();}
+\DoxyCodeLine{110       \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{111         \textcolor{keyword}{static\_assert}(!\mbox{\hyperlink{a02293}{Concepts::EigenVector<Derived>}},}
+\DoxyCodeLine{112                       \textcolor{stringliteral}{"{}NeoHooke can only be called with a matrix and not a vector in Voigt notation"{}});}
+\DoxyCodeLine{113     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{114       \textcolor{keyword}{static\_assert}(voigt == \textcolor{keyword}{false}, \textcolor{stringliteral}{"{}NeoHooke does not support returning stresses in Voigt notation"{}});}
+\DoxyCodeLine{115   \}}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{124   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{125   \mbox{\hyperlink{a01606_a83c093e1b1475f4fe70067b55331233c}{MaterialTensor}} \mbox{\hyperlink{a01606_a92c9a4a1de6a303ade0393299b587657}{tangentModuliImpl}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& C)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{126     \textcolor{keyword}{static\_assert}(Concepts::EigenMatrixOrVoigtNotation3<Derived>);}
+\DoxyCodeLine{127     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!voigt) \{}
+\DoxyCodeLine{128       \textcolor{keyword}{const} \textcolor{keyword}{auto} invC = C.inverse().eval();}
+\DoxyCodeLine{129       \textcolor{keyword}{const} \textcolor{keyword}{auto} detC = C.determinant();}
+\DoxyCodeLine{130       Impl::checkPositiveOrAbort(detC);}
+\DoxyCodeLine{131       \textcolor{keyword}{const} \textcolor{keyword}{auto} logdetF = log(sqrt(detC));}
+\DoxyCodeLine{132       \textcolor{keyword}{const} \textcolor{keyword}{auto} CTinv   = \mbox{\hyperlink{a00461_ga5cfd9d098384fb067d897b3c0499b447}{tensorView}}(invC, std::array<Eigen::Index, 2>(\{3, 3\}));}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134       \mbox{\hyperlink{a01606_a83c093e1b1475f4fe70067b55331233c}{MaterialTensor}} moduli = (materialParameter\_.\mbox{\hyperlink{a01846_a0157695e9fc8b735e86f828cc35b64fc}{lambda}} * \mbox{\hyperlink{a00461_gab2cea9ac847cc3635812467c9d96ceb4}{dyadic}}(CTinv, CTinv) +}
+\DoxyCodeLine{135                                2 * (materialParameter\_.\mbox{\hyperlink{a01846_a3558ad06d2a831f0d412d76956d516f8}{mu}} -\/ materialParameter\_.\mbox{\hyperlink{a01846_a0157695e9fc8b735e86f828cc35b64fc}{lambda}} * logdetF) *}
+\DoxyCodeLine{136                                    \mbox{\hyperlink{a00461_gaea03dbfcd8f85ef7af004c7e09244aa9}{symTwoSlots}}(\mbox{\hyperlink{a00461_ga8fa2b440586483c1ee0f9b90b9081da2}{fourthOrderIKJL}}(invC, invC), \{2, 3\}))}
+\DoxyCodeLine{137                                   .eval();}
+\DoxyCodeLine{138       \textcolor{keywordflow}{return} moduli;}
+\DoxyCodeLine{139     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{140       \textcolor{keyword}{static\_assert}(voigt == \textcolor{keyword}{false}, \textcolor{stringliteral}{"{}NeoHooke does not support returning tangent moduli in Voigt notation"{}});}
+\DoxyCodeLine{141   \}}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{148   \textcolor{keyword}{template} <\textcolor{keyword}{typename} STO>}
+\DoxyCodeLine{149   \textcolor{keyword}{auto} \mbox{\hyperlink{a01606_a2b1ec4bb9f62bdcfbfb9c0d43a2e3955}{rebind}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{150     \textcolor{keywordflow}{return} \mbox{\hyperlink{a01606}{NeoHookeT<STO>}}(materialParameter\_);}
+\DoxyCodeLine{151   \}}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153 \textcolor{keyword}{private}:}
+\DoxyCodeLine{154   \mbox{\hyperlink{a01606_adaf344b4b732a57b259f6bbfbe24b40a}{MaterialParameters}} materialParameter\_;}
+\DoxyCodeLine{155 \};}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{160 \textcolor{keyword}{using }\mbox{\hyperlink{a01606}{NeoHooke}} = \mbox{\hyperlink{a01606}{NeoHookeT<double>}};}
+\DoxyCodeLine{161 }
+\DoxyCodeLine{162 \} \textcolor{comment}{// namespace Ikarus::Materials}}
 
 \end{DoxyCode}

@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: materialhelpers.hh Source File</title>
+    <title>ikarus: registerpreelement.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,7 +155,7 @@ $(document).ready(function(){initNavTree('a00302_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">materialhelpers.hh</div></div>
+  <div class="headertitle"><div class="title">registerpreelement.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00302.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers mueller@ibb.uni-stuttgart.de</span></div>
@@ -163,121 +163,84 @@ $(document).ready(function(){initNavTree('a00302_source.html',''); initResizable
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;ranges&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;dune/common/float_cmp.hh&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a03295.html">ikarus/utils/concepts.hh</a>&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a00035.html">ikarus/utils/tensorutils.hh</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00468.html">Ikarus::Materials</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a01664.html">   25</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01664.html">MatrixIndexPair</a></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a01664.html#aea06e613d6a158b8e197a5f79ef7f197">   27</a></span>  Eigen::Index <a class="code hl_variable" href="a01664.html#aea06e613d6a158b8e197a5f79ef7f197">row</a>; </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a01664.html#a05834d6b2ab9428e4ecc645234ef9d34">   28</a></span>  Eigen::Index <a class="code hl_variable" href="a01664.html#a05834d6b2ab9428e4ecc645234ef9d34">col</a>; </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace Ikarus::Materials</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">namespace </span>Ikarus::Materials::Impl {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">template</span> &lt;<span class="keywordtype">size_t</span> size&gt;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">consteval</span> <span class="keyword">auto</span> createfreeVoigtIndices(<span class="keyword">const</span> std::array&lt;MatrixIndexPair, size&gt;&amp; fixed) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  std::array&lt;size_t, 6 - size&gt; res{};</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  std::array&lt;size_t, size&gt; voigtFixedIndices;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  std::ranges::transform(fixed, voigtFixedIndices.begin(), [](<span class="keyword">auto</span> pair) { return toVoigt(pair.row, pair.col); });</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  std::ranges::sort(voigtFixedIndices);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  std::ranges::set_difference(std::ranges::iota_view(<span class="keywordtype">size_t</span>(0), <span class="keywordtype">size_t</span>(6)), voigtFixedIndices, res.begin());</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  std::ranges::sort(res);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keywordflow">return</span> res;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">template</span> &lt;<span class="keywordtype">size_t</span> size&gt;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">consteval</span> <span class="keyword">auto</span> createFixedVoigtIndices(<span class="keyword">const</span> std::array&lt;MatrixIndexPair, size&gt;&amp; fixed) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  std::array&lt;size_t, size&gt; fixedIndices;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  std::ranges::transform(fixed, fixedIndices.begin(), [](<span class="keyword">auto</span> pair) { return toVoigt(pair.row, pair.col); });</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  std::ranges::sort(fixedIndices);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="keywordflow">return</span> fixedIndices;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">template</span> &lt;<span class="keywordtype">size_t</span> size&gt;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> countDiagonalIndices(<span class="keyword">const</span> std::array&lt;MatrixIndexPair, size&gt;&amp; fixed) {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="keywordtype">size_t</span> count = 0;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : fixed) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">if</span> (v.col == v.row)</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>      ++count;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  }</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keywordflow">return</span> count;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keyword">decltype</span>(<span class="keyword">auto</span>) maybeFromVoigt(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; E) {</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (Concepts::EigenVector&lt;Derived&gt;) { <span class="comment">// receiving vector means Voigt notation</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a00455.html#gadc8e9e9f3838d0392a5fcf1e11374ee9">fromVoigt</a>(E.derived(), <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  } <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> E.derived();</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType&gt;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keywordtype">void</span> checkPositiveOrAbort(ScalarType det) {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="keywordflow">if</span> (Dune::FloatCmp::le(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(det), 0.0, 1e-10)) {</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    std::cerr &lt;&lt; <span class="stringliteral">&quot;Determinant of right Cauchy Green tensor C must be greater than zero. detC = &quot;</span> +</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                     std::to_string(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(det));</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    abort();</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  }</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType, <span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keyword">auto</span> principalStretches(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; C, <span class="keywordtype">int</span> options = Eigen::ComputeEigenvectors) {</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>  Eigen::SelfAdjointEigenSolver&lt;Derived&gt; eigensolver{};</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>  eigensolver.compute(C, options);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>  <span class="keywordflow">if</span> (eigensolver.info() != Eigen::Success)</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    DUNE_THROW(Dune::MathError, <span class="stringliteral">&quot;Failed to compute eigenvalues and eigenvectors of C.&quot;</span>);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>  <span class="keyword">auto</span>&amp; eigenvalues  = eigensolver.eigenvalues();</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>  <span class="keyword">auto</span>&amp; eigenvectors = options == Eigen::ComputeEigenvectors ? eigensolver.eigenvectors() : Derived::Zero();</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  <span class="keyword">auto</span> principalStretches = eigenvalues.cwiseSqrt().eval();</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>  <span class="keywordflow">return</span> std::make_pair(principalStretches, eigenvectors);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>}</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keyword">template</span> &lt;Concepts::EigenVector3 Vector&gt;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="keyword">inline</span> Vector::Scalar determinantFromPrincipalValues(<span class="keyword">const</span> Vector&amp; principalValues) {</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>  <span class="keywordflow">return</span> principalValues.prod();</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>}</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="keyword">template</span> &lt;Concepts::EigenVector3 Vector&gt;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="keyword">inline</span> <a class="code hl_enumvalue" href="a00459.html#acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110">Vector</a> deviatoricStretches(<span class="keyword">const</span> Vector&amp; lambda) {</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>  <span class="keyword">using </span>ScalarType = <span class="keyword">typename</span> Vector::Scalar;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  ScalarType J     = determinantFromPrincipalValues(lambda);</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>  ScalarType Jmod  = pow(J, -1.0 / 3.0);</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>  <span class="keywordflow">return</span> Jmod * lambda;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>}</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="keyword">template</span> &lt;Concepts::EigenVector3 Vector&gt;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="keyword">inline</span> <a class="code hl_enumvalue" href="a00459.html#acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110">Vector</a> invariants(<span class="keyword">const</span> Vector&amp; lambda) {</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>  <span class="keyword">using </span>ScalarType   = <span class="keyword">typename</span> Vector::Scalar;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>  <span class="keyword">auto</span> lambdaSquared = lambda.array().square();</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>  <span class="keyword">auto</span> invariants    = Vector::Zero().eval();</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>  invariants[0] = lambdaSquared.sum();</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>  invariants[1] =</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>      lambdaSquared[0] * lambdaSquared[1] + lambdaSquared[1] * lambdaSquared[2] + lambdaSquared[0] * lambdaSquared[2];</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>  invariants[2] = determinantFromPrincipalValues(lambdaSquared);</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>  <span class="keywordflow">return</span> invariants;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>}</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>} <span class="comment">// namespace Ikarus::Materials::Impl</span></div>
-<div class="ttc" id="aa00035_html"><div class="ttname"><a href="a00035.html">tensorutils.hh</a></div><div class="ttdoc">Helper for the Eigen::Tensor types.</div></div>
-<div class="ttc" id="aa00455_html_gadc8e9e9f3838d0392a5fcf1e11374ee9"><div class="ttname"><a href="a00455.html#gadc8e9e9f3838d0392a5fcf1e11374ee9">Ikarus::fromVoigt</a></div><div class="ttdeci">auto fromVoigt(const Eigen::Matrix&lt; ST, size, 1, Options, maxSize, 1 &gt; &amp;EVoigt, bool isStrain=true)</div><div class="ttdoc">Converts a vector given in Voigt notation to a matrix.</div><div class="ttdef"><b>Definition:</b> tensorutils.hh:296</div></div>
-<div class="ttc" id="aa00459_html_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110"><div class="ttname"><a href="a00459.html#acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110">Ikarus::ResultShape::Vector</a></div><div class="ttdeci">@ Vector</div></div>
-<div class="ttc" id="aa00468_html"><div class="ttname"><a href="a00468.html">Ikarus::Materials</a></div><div class="ttdef"><b>Definition:</b> arrudaboyce.hh:27</div></div>
-<div class="ttc" id="aa01664_html"><div class="ttname"><a href="a01664.html">Ikarus::Materials::MatrixIndexPair</a></div><div class="ttdoc">Represents a pair of stress or strain matrix indices (row and column).</div><div class="ttdef"><b>Definition:</b> materialhelpers.hh:26</div></div>
-<div class="ttc" id="aa01664_html_a05834d6b2ab9428e4ecc645234ef9d34"><div class="ttname"><a href="a01664.html#a05834d6b2ab9428e4ecc645234ef9d34">Ikarus::Materials::MatrixIndexPair::col</a></div><div class="ttdeci">Eigen::Index col</div><div class="ttdoc">Column index.</div><div class="ttdef"><b>Definition:</b> materialhelpers.hh:28</div></div>
-<div class="ttc" id="aa01664_html_aea06e613d6a158b8e197a5f79ef7f197"><div class="ttname"><a href="a01664.html#aea06e613d6a158b8e197a5f79ef7f197">Ikarus::Materials::MatrixIndexPair::row</a></div><div class="ttdeci">Eigen::Index row</div><div class="ttdoc">Row index.</div><div class="ttdef"><b>Definition:</b> materialhelpers.hh:27</div></div>
-<div class="ttc" id="aa03295_html"><div class="ttname"><a href="a03295.html">concepts.hh</a></div><div class="ttdoc">Several concepts.</div></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;dune/common/fvector.hh&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;dune/python/pybind11/pybind11.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00483.html">Ikarus::Python</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>NonLinearElasticPre, <span class="keyword">class</span>... options&gt;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a00483.html#ab45b29a3ca18f1c8bf87263c60d14711">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00483.html#ab45b29a3ca18f1c8bf87263c60d14711">registerNonLinearElasticPre</a>(pybind11::handle scope, pybind11::class_&lt;NonLinearElasticPre, options...&gt; cls) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keyword">using </span><a class="code hl_enumvalue" href="a00454.html#gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206">Material</a> = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01694.html#a4c8087e2be5010d73080ef779b7e28d4">NonLinearElasticPre::Material</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  cls.def(<a class="code hl_function" href="a00465.html#ac8243891c1b961e50a066140ab79a142">pybind11::init</a>([](<span class="keyword">const</span> <a class="code hl_enumvalue" href="a00454.html#gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206">Material</a>&amp; mat) { <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_struct" href="a01694.html">NonLinearElasticPre</a>(mat); }));</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">template</span> &lt;<span class="keyword">class </span><a class="code hl_struct" href="a01546.html">LinearElasticPre</a>, <span class="keyword">class</span>... options&gt;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a00483.html#a04d0c82e615a65a1ba027cb77bbf784d">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00483.html#a04d0c82e615a65a1ba027cb77bbf784d">registerLinearElasticPre</a>(pybind11::handle scope, pybind11::class_&lt;LinearElasticPre, options...&gt; cls) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <span class="keyword">using </span><a class="code hl_enumvalue" href="a00454.html#gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206">Material</a> = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01546.html#a25afe7c30b7dff97ee0b865ec636940d">LinearElasticPre::Material</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  cls.def(<a class="code hl_function" href="a00465.html#ac8243891c1b961e50a066140ab79a142">pybind11::init</a>([](<span class="keyword">const</span> <a class="code hl_enumvalue" href="a00454.html#gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206">Material</a>&amp; mat) { <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_struct" href="a01546.html">LinearElasticPre</a>(mat); }));</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">template</span> &lt;<span class="keyword">class </span><a class="code hl_struct" href="a01798.html">TrussPre</a>, <span class="keyword">class</span>... options&gt;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a00483.html#a5004d72f594d4ceecaebb33ee71f80cf">   53</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00483.html#a5004d72f594d4ceecaebb33ee71f80cf">registerTrussPre</a>(pybind11::handle scope, pybind11::class_&lt;TrussPre, options...&gt; cls) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  cls.def(<a class="code hl_function" href="a00465.html#ac8243891c1b961e50a066140ab79a142">pybind11::init</a>([](<span class="keywordtype">double</span> emod, <span class="keywordtype">double</span> area) { <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_struct" href="a01798.html">TrussPre</a>({emod, area}); }));</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">template</span> &lt;<span class="keyword">class </span><a class="code hl_struct" href="a01530.html">KirchhoffLoveShellPre</a>, <span class="keyword">class</span>... options&gt;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a00483.html#a0ef1ab14030985bd8af2551f51ceeeb6">   67</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00483.html#a0ef1ab14030985bd8af2551f51ceeeb6">registerKirchhoffLoveShellPre</a>(pybind11::handle scope, pybind11::class_&lt;KirchhoffLoveShellPre, options...&gt; cls) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  cls.def(<a class="code hl_function" href="a00465.html#ac8243891c1b961e50a066140ab79a142">pybind11::init</a>(</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>      [](<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; E, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; nu, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; h) { <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_struct" href="a01530.html">KirchhoffLoveShellPre</a>({E, nu}, h); }));</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>EASPre, <span class="keyword">class</span>... options&gt;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a00483.html#a79dfab8379c15a5c5da0d3e5a415f0a3">   82</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00483.html#a79dfab8379c15a5c5da0d3e5a415f0a3">registerEnhancedAssumedStrainsPre</a>(pybind11::handle scope, pybind11::class_&lt;EASPre, options...&gt; cls) {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  cls.def(<a class="code hl_function" href="a00465.html#ac8243891c1b961e50a066140ab79a142">pybind11::init</a>([](<span class="keywordtype">int</span> numberOfParameter) { <span class="keywordflow">return</span> <span class="keyword">new</span> EASPre(numberOfParameter); }));</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">template</span> &lt;<span class="keyword">class </span><a class="code hl_struct" href="a01554.html">NeumannBoundaryLoadPre</a>, <span class="keyword">class</span>... options&gt;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="a00483.html#a813121e686b5d64d6ef1e11bd4bfc59b">   96</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00483.html#a813121e686b5d64d6ef1e11bd4bfc59b">registerNeumannBoundaryLoadPre</a>(pybind11::handle scope, pybind11::class_&lt;NeumannBoundaryLoadPre, options...&gt; cls) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  <span class="keyword">using </span>BoundaryPatchType = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01554.html#ab141e7f54614dccc0924c0bf678760d4">NeumannBoundaryLoadPre::BoundaryPatchType</a>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  <span class="keyword">using </span>GridView          = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01554.html#a57f15a0941a7f2f5cd9be9365b07cc62">NeumannBoundaryLoadPre::GridView</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  <span class="keyword">using </span>LoadFunction = std::function&lt;Eigen::Vector&lt;double, NeumannBoundaryLoadPre::worldDim&gt;(</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>      <a class="code hl_class" href="a02118.html">Dune::FieldVector&lt;double, NeumannBoundaryLoadPre::worldDim&gt;</a>, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp;)&gt;;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  cls.def(<a class="code hl_function" href="a00465.html#ac8243891c1b961e50a066140ab79a142">pybind11::init</a>([](<span class="keyword">const</span> BoundaryPatchType&amp; patch, LoadFunction <a class="code hl_function" href="a00465.html#a0eecc01634324520df56c4352eb15077">volumeLoad</a>) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_struct" href="a01554.html">NeumannBoundaryLoadPre</a>(&amp;patch, <a class="code hl_function" href="a00465.html#a0eecc01634324520df56c4352eb15077">volumeLoad</a>);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>          }),</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>          pybind11::keep_alive&lt;1, 2&gt;());</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keyword">template</span> &lt;<span class="keyword">class </span><a class="code hl_function" href="a00465.html#a93a9eac09126da6a203f68af3e7c8ba2">VolumeLoadPre</a>, <span class="keyword">class</span>... options&gt;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="a00483.html#a1f597ae7aac82dc24a8a2669f86fc12b">  118</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00483.html#a1f597ae7aac82dc24a8a2669f86fc12b">registerVolumeLoadPre</a>(pybind11::handle scope, pybind11::class_&lt;VolumeLoadPre, options...&gt; cls) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>  <span class="keyword">using </span>LoadFunction = std::function&lt;Eigen::Vector&lt;double, VolumeLoadPre::worldDim&gt;(</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>      <a class="code hl_class" href="a02118.html">Dune::FieldVector&lt;double, VolumeLoadPre::worldDim&gt;</a>, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp;)&gt;;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>  cls.def(<a class="code hl_function" href="a00465.html#ac8243891c1b961e50a066140ab79a142">pybind11::init</a>([](LoadFunction <a class="code hl_function" href="a00465.html#a0eecc01634324520df56c4352eb15077">volumeLoad</a>) { <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="a00465.html#a93a9eac09126da6a203f68af3e7c8ba2">VolumeLoadPre</a>(<a class="code hl_function" href="a00465.html#a0eecc01634324520df56c4352eb15077">volumeLoad</a>); }));</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>} <span class="comment">// namespace Ikarus::Python</span></div>
+<div class="ttc" id="aa00454_html_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206"><div class="ttname"><a href="a00454.html#gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206">Ikarus::TangentModuliTags::Material</a></div><div class="ttdeci">@ Material</div></div>
+<div class="ttc" id="aa00465_html_a0eecc01634324520df56c4352eb15077"><div class="ttname"><a href="a00465.html#a0eecc01634324520df56c4352eb15077">Ikarus::volumeLoad</a></div><div class="ttdeci">auto volumeLoad(const std::function&lt; Eigen::Vector&lt; double, worldDim &gt;(const Dune::FieldVector&lt; double, worldDim &gt; &amp;, const double &amp;)&gt; &amp;f)</div><div class="ttdoc">A helper function to create a volume load skill.</div><div class="ttdef"><b>Definition:</b> volume.hh:127</div></div>
+<div class="ttc" id="aa00465_html_a93a9eac09126da6a203f68af3e7c8ba2"><div class="ttname"><a href="a00465.html#a93a9eac09126da6a203f68af3e7c8ba2">Ikarus::VolumeLoadPre</a></div><div class="ttdeci">VolumeLoadPre(F f) -&gt; VolumeLoadPre&lt; traits::FunctionTraits&lt; F &gt;::return_type::RowsAtCompileTime &gt;</div></div>
+<div class="ttc" id="aa00465_html_ac8243891c1b961e50a066140ab79a142"><div class="ttname"><a href="a00465.html#ac8243891c1b961e50a066140ab79a142">Ikarus::init</a></div><div class="ttdeci">void init(int argc, char **argv, bool enableFileLogger=true)</div><div class="ttdoc">Initializes the Ikarus framework.</div><div class="ttdef"><b>Definition:</b> init.hh:82</div></div>
+<div class="ttc" id="aa00483_html"><div class="ttname"><a href="a00483.html">Ikarus::Python</a></div><div class="ttdef"><b>Definition:</b> flatassembler.hh:21</div></div>
+<div class="ttc" id="aa00483_html_a04d0c82e615a65a1ba027cb77bbf784d"><div class="ttname"><a href="a00483.html#a04d0c82e615a65a1ba027cb77bbf784d">Ikarus::Python::registerLinearElasticPre</a></div><div class="ttdeci">void registerLinearElasticPre(pybind11::handle scope, pybind11::class_&lt; LinearElasticPre, options... &gt; cls)</div><div class="ttdoc">Registers a LinearElasticPre class in Python.</div><div class="ttdef"><b>Definition:</b> registerpreelement.hh:38</div></div>
+<div class="ttc" id="aa00483_html_a0ef1ab14030985bd8af2551f51ceeeb6"><div class="ttname"><a href="a00483.html#a0ef1ab14030985bd8af2551f51ceeeb6">Ikarus::Python::registerKirchhoffLoveShellPre</a></div><div class="ttdeci">void registerKirchhoffLoveShellPre(pybind11::handle scope, pybind11::class_&lt; KirchhoffLoveShellPre, options... &gt; cls)</div><div class="ttdoc">Registers a KirchhoffLoveShellPre class in Python.</div><div class="ttdef"><b>Definition:</b> registerpreelement.hh:67</div></div>
+<div class="ttc" id="aa00483_html_a1f597ae7aac82dc24a8a2669f86fc12b"><div class="ttname"><a href="a00483.html#a1f597ae7aac82dc24a8a2669f86fc12b">Ikarus::Python::registerVolumeLoadPre</a></div><div class="ttdeci">void registerVolumeLoadPre(pybind11::handle scope, pybind11::class_&lt; VolumeLoadPre, options... &gt; cls)</div><div class="ttdoc">Registers a VolumeLoadPre class in Python.</div><div class="ttdef"><b>Definition:</b> registerpreelement.hh:118</div></div>
+<div class="ttc" id="aa00483_html_a5004d72f594d4ceecaebb33ee71f80cf"><div class="ttname"><a href="a00483.html#a5004d72f594d4ceecaebb33ee71f80cf">Ikarus::Python::registerTrussPre</a></div><div class="ttdeci">void registerTrussPre(pybind11::handle scope, pybind11::class_&lt; TrussPre, options... &gt; cls)</div><div class="ttdoc">Registers a TrussPre class in Python.</div><div class="ttdef"><b>Definition:</b> registerpreelement.hh:53</div></div>
+<div class="ttc" id="aa00483_html_a79dfab8379c15a5c5da0d3e5a415f0a3"><div class="ttname"><a href="a00483.html#a79dfab8379c15a5c5da0d3e5a415f0a3">Ikarus::Python::registerEnhancedAssumedStrainsPre</a></div><div class="ttdeci">void registerEnhancedAssumedStrainsPre(pybind11::handle scope, pybind11::class_&lt; EASPre, options... &gt; cls)</div><div class="ttdoc">Registers an EnhancedAssumedStrainsPre class in Python.</div><div class="ttdef"><b>Definition:</b> registerpreelement.hh:82</div></div>
+<div class="ttc" id="aa00483_html_a813121e686b5d64d6ef1e11bd4bfc59b"><div class="ttname"><a href="a00483.html#a813121e686b5d64d6ef1e11bd4bfc59b">Ikarus::Python::registerNeumannBoundaryLoadPre</a></div><div class="ttdeci">void registerNeumannBoundaryLoadPre(pybind11::handle scope, pybind11::class_&lt; NeumannBoundaryLoadPre, options... &gt; cls)</div><div class="ttdoc">Registers a NeumannBoundaryLoadPre class in Python.</div><div class="ttdef"><b>Definition:</b> registerpreelement.hh:96</div></div>
+<div class="ttc" id="aa00483_html_ab45b29a3ca18f1c8bf87263c60d14711"><div class="ttname"><a href="a00483.html#ab45b29a3ca18f1c8bf87263c60d14711">Ikarus::Python::registerNonLinearElasticPre</a></div><div class="ttdeci">void registerNonLinearElasticPre(pybind11::handle scope, pybind11::class_&lt; NonLinearElasticPre, options... &gt; cls)</div><div class="ttdoc">Registers a NonLinearElasticPre class in Python.</div><div class="ttdef"><b>Definition:</b> registerpreelement.hh:23</div></div>
+<div class="ttc" id="aa01530_html"><div class="ttname"><a href="a01530.html">Ikarus::KirchhoffLoveShellPre</a></div><div class="ttdoc">A PreFE struct for Kirchhoff-Love shell elements.</div><div class="ttdef"><b>Definition:</b> kirchhoffloveshell.hh:31</div></div>
+<div class="ttc" id="aa01546_html"><div class="ttname"><a href="a01546.html">Ikarus::LinearElasticPre</a></div><div class="ttdoc">A PreFE struct for linear elastic elements.</div><div class="ttdef"><b>Definition:</b> linearelastic.hh:40</div></div>
+<div class="ttc" id="aa01546_html_a25afe7c30b7dff97ee0b865ec636940d"><div class="ttname"><a href="a01546.html#a25afe7c30b7dff97ee0b865ec636940d">Ikarus::LinearElasticPre::Material</a></div><div class="ttdeci">MAT Material</div><div class="ttdef"><b>Definition:</b> linearelastic.hh:41</div></div>
+<div class="ttc" id="aa01554_html"><div class="ttname"><a href="a01554.html">Ikarus::NeumannBoundaryLoadPre</a></div><div class="ttdoc">A PreFE struct for Neumann boundary load skill.</div><div class="ttdef"><b>Definition:</b> traction.hh:23</div></div>
+<div class="ttc" id="aa01554_html_a57f15a0941a7f2f5cd9be9365b07cc62"><div class="ttname"><a href="a01554.html#a57f15a0941a7f2f5cd9be9365b07cc62">Ikarus::NeumannBoundaryLoadPre::GridView</a></div><div class="ttdeci">GV GridView</div><div class="ttdef"><b>Definition:</b> traction.hh:24</div></div>
+<div class="ttc" id="aa01554_html_ab141e7f54614dccc0924c0bf678760d4"><div class="ttname"><a href="a01554.html#ab141e7f54614dccc0924c0bf678760d4">Ikarus::NeumannBoundaryLoadPre::BoundaryPatchType</a></div><div class="ttdeci">BoundaryPatch&lt; GridView &gt; BoundaryPatchType</div><div class="ttdef"><b>Definition:</b> traction.hh:29</div></div>
+<div class="ttc" id="aa01694_html"><div class="ttname"><a href="a01694.html">Ikarus::NonLinearElasticPre</a></div><div class="ttdoc">A PreFE struct for non-linear elastic elements.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:43</div></div>
+<div class="ttc" id="aa01694_html_a4c8087e2be5010d73080ef779b7e28d4"><div class="ttname"><a href="a01694.html#a4c8087e2be5010d73080ef779b7e28d4">Ikarus::NonLinearElasticPre::Material</a></div><div class="ttdeci">MAT Material</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:44</div></div>
+<div class="ttc" id="aa01798_html"><div class="ttname"><a href="a01798.html">Ikarus::TrussPre</a></div><div class="ttdoc">A PreFE struct for truss elements.</div><div class="ttdef"><b>Definition:</b> truss.hh:28</div></div>
+<div class="ttc" id="aa02118_html"><div class="ttname"><a href="a02118.html">Dune::FieldVector</a></div><div class="ttdef"><b>Definition:</b> utils/dirichletvalues.hh:32</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -288,7 +251,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="a00302.html">materialhelpers.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_6063e92d97cad5a47908d6a96069b24d.html">python</a></li><li class="navelem"><a class="el" href="dir_3f77d910b8992c2715464d60b82eb4e5.html">finiteelements</a></li><li class="navelem"><a class="el" href="a00302.html">registerpreelement.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -1,5 +1,5 @@
 var a00365 =
 [
-    [ "Ikarus::NonLinearElasticPre< MAT >", "a01688.html", "a01688" ],
-    [ "nonLinearElastic", "a00365.html#a6f028adf5a1a78301381fe92b241d550", null ]
+    [ "Ikarus::NonlinearSolverState< D, CT >", "a01994.html", "a01994" ],
+    [ "NonlinearSolverStateType", "a00365.html#aa1131c55a881b2db0c10d9f6f637f3cf", null ]
 ];

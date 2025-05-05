@@ -1,4 +1,4 @@
 var a00242 =
 [
-    [ "Ikarus::ControlInformation", "a01384.html", "a01384" ]
+    [ "BlatzKo", "a00242.html#a7c7d4e399e30b088b7253771704bd01b", null ]
 ];

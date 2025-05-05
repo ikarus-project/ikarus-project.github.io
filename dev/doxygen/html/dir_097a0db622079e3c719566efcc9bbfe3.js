@@ -1,4 +1,4 @@
 var dir_097a0db622079e3c719566efcc9bbfe3 =
 [
-    [ "truncatedconjugategradient.hh", "a00125.html", "a00125" ]
+    [ "truncatedconjugategradient.hh", "a00353.html", "a00353" ]
 ];

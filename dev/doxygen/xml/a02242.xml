@@ -1,48 +1,46 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
-  <compounddef id="a02242" kind="concept">
-    <compoundname>Ikarus::Concepts::DeviatoricFunction</compoundname>
-    <includes refid="a03292" local="no">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</includes>
+  <compounddef id="a02242" kind="struct" language="C++" prot="public">
+    <compoundname>Ikarus::traits::Index</compoundname>
     <templateparamlist>
       <param>
-        <type>typename DF</type>
+        <type>class T</type>
+      </param>
+      <param>
+        <type>class Tuple</type>
       </param>
     </templateparamlist>
-    <initializer>template&lt;typename DF&gt;
-concept <ref refid="a02242" kindref="compound">Ikarus::Concepts::DeviatoricFunction</ref> =  requires(DF dm, const typename DF::template PrincipalStretches&lt;&gt;&amp; lambda) {
-  typename DF::ScalarType;
-
-  typename DF::template PrincipalStretches&lt;&gt;;
-  typename DF::template FirstDerivative&lt;&gt;;
-  typename DF::template SecondDerivative&lt;&gt;;
-
-  typename DF::MaterialParameters;
-
-  requires Concepts::EigenVector&lt;typename DF::template FirstDerivative&lt;&gt;&gt;;
-  requires Concepts::EigenMatrix&lt;typename DF::template SecondDerivative&lt;&gt;&gt;;
-  requires std::is_same_v&lt;typename DF::template PrincipalStretches&lt;&gt;, typename DF::template FirstDerivative&lt;&gt;&gt;;
-
-  { dm.storedEnergyImpl(lambda) } -&gt; std::same_as&lt;typename DF::ScalarType&gt;;
-  { dm.firstDerivativeImpl(lambda) } -&gt; std::same_as&lt;typename DF::template FirstDerivative&lt;&gt;&gt;;
-  { dm.secondDerivativeImpl(lambda) } -&gt; std::same_as&lt;typename DF::template SecondDerivative&lt;&gt;&gt;;
-  { dm.materialParametersImpl() } -&gt; std::same_as&lt;typename DF::MaterialParameters&gt;;
-  { dm.name() } -&gt; std::convertible_to&lt;std::string&gt;;
-}    </initializer>
     <briefdescription>
-<para>Concept to check if the underlying function is a deviatoric function. </para>
+<para>Type trait to get the index of a type in a tuple. </para>
     </briefdescription>
     <detaileddescription>
+<para>Usage: <programlisting filename=".cpp"><codeline><highlight class="keyword">using<sp/></highlight><highlight class="normal">foo_t<sp/>=<sp/>std::tuple&lt;int,<sp/>double,<sp/>float&gt;;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static_assert</highlight><highlight class="normal">(Index&lt;int,<sp/>foo_t&gt;::value<sp/>==<sp/>0);</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static_assert</highlight><highlight class="normal">(Index&lt;double,<sp/>foo_t&gt;::value<sp/>==<sp/>1);</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static_assert</highlight><highlight class="normal">(Index&lt;float,<sp/>foo_t&gt;::value<sp/>==<sp/>2);</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static_assert</highlight><highlight class="normal">(Index&lt;long<sp/>double,<sp/>foo_t&gt;::value<sp/>==<sp/>3);</highlight></codeline>
+</programlisting> If the type is not found, the returned index is the size of the tuple.</para>
 <para><parameterlist kind="templateparam"><parameteritem>
 <parameternamelist>
-<parametername>Type</parametername>
+<parametername>T</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>of the deviatoric function. </para>
+<para>Type to find in the tuple. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tuple</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tuple type. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
 </para>
     </detaileddescription>
-    <location file="/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh" line="26" column="1"/>
+    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/traits.hh" line="299" column="1" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/traits.hh" bodystart="299" bodyend="-1"/>
+    <listofallmembers>
+    </listofallmembers>
   </compounddef>
 </doxygen>

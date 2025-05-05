@@ -1,112 +1,118 @@
-\hypertarget{a00230_source}{}\doxysection{fe.\+hh}
-\label{a00230_source}\index{fe.hh@{fe.hh}}
+\hypertarget{a00230_source}{}\doxysection{materialhelpers.\+hh}
+\label{a00230_source}\index{materialhelpers.hh@{materialhelpers.hh}}
 \mbox{\hyperlink{a00230}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dune/python/common/typeregistry.hh>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <dune/python/functions/globalbasis.hh>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/python/pybind11/eigen.h>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/python/pybind11/functional.h>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl.h>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <ranges>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
 \DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00284}{ikarus/finiteelements/fefactory.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00218}{ikarus/python/finiteelements/registerferequirements.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03324}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00068}{ikarus/utils/tensorutils.hh}}>}}
 \DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00477}{Ikarus::Python}} \{}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{50 \textcolor{keyword}{template} <\textcolor{keyword}{class }FE, \textcolor{keyword}{class}... options>}
-\DoxyCodeLine{51 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00477_a0c58c17676c73945cb11eff8a80309ae}{registerCalculateAt}}(pybind11::handle scope, pybind11::class\_<FE, options...> cls, \textcolor{keyword}{auto} resultTypesTuple) \{}
-\DoxyCodeLine{52   \textcolor{keyword}{using }Traits         = \textcolor{keyword}{typename} \mbox{\hyperlink{a01452_a70c7907448f7e13ff55b8fb123f3ee0c}{FE::Traits}};}
-\DoxyCodeLine{53   \textcolor{keyword}{using }\mbox{\hyperlink{a01472}{FERequirements}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a01800_a86c0fea1b37e487f3c78cde6facca9c3}{FE::Requirement}};}
-\DoxyCodeLine{54   cls.def(}
-\DoxyCodeLine{55       \textcolor{stringliteral}{"{}calculateAt"{}},}
-\DoxyCodeLine{56       [\&](\mbox{\hyperlink{a01452}{FE}}\& self, \textcolor{keyword}{const} \mbox{\hyperlink{a01472}{FERequirements}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a02096}{Dune::FieldVector<double, Traits::mydim>}}\& local,}
-\DoxyCodeLine{57           std::string resType) \{}
-\DoxyCodeLine{58         Eigen::VectorXd result;}
-\DoxyCodeLine{59         \textcolor{keywordtype}{bool} success = \textcolor{keyword}{false};}
-\DoxyCodeLine{60         Dune::Hybrid::forEach(resultTypesTuple, [\&]<\textcolor{keyword}{typename} RT>(RT i) \{}
-\DoxyCodeLine{61           \textcolor{keywordflow}{if} (resType == \mbox{\hyperlink{a00459_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(i)) \{}
-\DoxyCodeLine{62             success = \textcolor{keyword}{true};}
-\DoxyCodeLine{63             result  = self.template calculateAt<RT::template Rebind>(req, local).asVec();}
-\DoxyCodeLine{64           \}}
-\DoxyCodeLine{65         \});}
-\DoxyCodeLine{66         \textcolor{keywordflow}{if} (success)}
-\DoxyCodeLine{67           \textcolor{keywordflow}{return} result;}
-\DoxyCodeLine{68         DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}Element "{}} + Dune::className<FE>() + \textcolor{stringliteral}{"{} doesn't support ResultType "{}} + resType);}
-\DoxyCodeLine{69       \},}
-\DoxyCodeLine{70       pybind11::arg(\textcolor{stringliteral}{"{}feRequirements"{}}), pybind11::arg(\textcolor{stringliteral}{"{}local"{}}), pybind11::arg(\textcolor{stringliteral}{"{}resultType"{}}));}
-\DoxyCodeLine{71 \}}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{86 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a01452}{FE}}, \textcolor{keyword}{class}... options>}
-\DoxyCodeLine{87 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00451_gac8bb4a818dee7342efbc5e174e35b840}{registerFE}}(pybind11::handle scope, pybind11::class\_<FE, options...> cls) \{}
-\DoxyCodeLine{88   \textcolor{keyword}{using }BH          = \textcolor{keyword}{typename} \mbox{\hyperlink{a01452_a26398fefb73f4d51895e26152e368cf8}{FE::BasisHandler}};}
-\DoxyCodeLine{89   \textcolor{keyword}{using }GridElement = \textcolor{keyword}{typename} \mbox{\hyperlink{a01452_ae329d665e853b0286679e97418d3acad}{FE::GridElement}};}
-\DoxyCodeLine{90   \textcolor{keyword}{using }Requirement = \textcolor{keyword}{typename} \mbox{\hyperlink{a01800_a86c0fea1b37e487f3c78cde6facca9c3}{FE::Requirement}};}
-\DoxyCodeLine{91   \textcolor{keyword}{using }FlatBasis   = \textcolor{keyword}{typename} \mbox{\hyperlink{a01508_a81feef959fedef62b2e1daabbd52b5f2}{FE::Traits::FlatBasis}};}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{93   \textcolor{keywordtype}{int} index = 0;}
-\DoxyCodeLine{94   cls.def(\mbox{\hyperlink{a00459_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{typename} \mbox{\hyperlink{a01452_a327f5479545f9b5d615c07ce535b0007}{FE::PreTuple}} argsTuple) \{}
-\DoxyCodeLine{95             \textcolor{keyword}{auto} unpackTuple = [\&]<\textcolor{keyword}{typename}... Arg>(Arg\&\&... args) \{}
-\DoxyCodeLine{96               \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a01452}{FE}}(basisHandler, std::forward<Arg>(args)...);}
-\DoxyCodeLine{97             \};}
-\DoxyCodeLine{98             \textcolor{keywordflow}{return} std::apply(unpackTuple, argsTuple);}
-\DoxyCodeLine{99           \}),}
-\DoxyCodeLine{100           pybind11::keep\_alive<1, 2>());}
-\DoxyCodeLine{101 }
-\DoxyCodeLine{102   cls.def(\textcolor{stringliteral}{"{}bind"{}}, [](\mbox{\hyperlink{a01452}{FE}}\& self, \textcolor{keyword}{const} GridElement\& e) \{ self.\mbox{\hyperlink{a01452_a3a23d70495e802f44ba4b9923804dda0}{bind}}(e); \});}
-\DoxyCodeLine{103   cls.def(\textcolor{stringliteral}{"{}updateState"{}},}
-\DoxyCodeLine{104           [](\mbox{\hyperlink{a01452}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, Eigen::Ref<Eigen::VectorXd> dx) \{ self.\mbox{\hyperlink{a01800_a37c9abe267940c5374402d6e4624cf21}{updateState}}(req, dx); \});}
-\DoxyCodeLine{105   cls.def(\textcolor{stringliteral}{"{}calculateScalar"{}}, [](\mbox{\hyperlink{a01452}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00459_af6f894084edd9109762b86222995ef2a}{Ikarus::ScalarAffordance}} affordance) \{}
-\DoxyCodeLine{106     \textcolor{keywordflow}{return} calculateScalar(self, req, affordance);}
-\DoxyCodeLine{107   \});}
-\DoxyCodeLine{108   cls.def(\textcolor{stringliteral}{"{}calculateVector"{}}, [](\mbox{\hyperlink{a01452}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00459_aab9e3e38507d1db7602bc750718c302a}{Ikarus::VectorAffordance}} affordance,}
-\DoxyCodeLine{109                                 Eigen::Ref<Eigen::VectorXd> vec) \{ calculateVector(self, req, affordance, vec); \});}
-\DoxyCodeLine{110   cls.def(}
-\DoxyCodeLine{111       \textcolor{stringliteral}{"{}calculateMatrix"{}},}
-\DoxyCodeLine{112       [](\mbox{\hyperlink{a01452}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00459_a390d5311179ec61d163a29c943b3d1a0}{Ikarus::MatrixAffordance}} affordance, Eigen::Ref<Eigen::MatrixXd> mat) \{}
-\DoxyCodeLine{113         calculateMatrix(self, req, affordance, mat);}
-\DoxyCodeLine{114       \},}
-\DoxyCodeLine{115       pybind11::arg(\textcolor{stringliteral}{"{}Requirement"{}}), pybind11::arg(\textcolor{stringliteral}{"{}MatrixAffordance"{}}), pybind11::arg(\textcolor{stringliteral}{"{}elementMatrix"{}}).noconvert());}
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00474}{Ikarus::Materials}} \{}
+\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{a01670}{MatrixIndexPair}}}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27   Eigen::Index \mbox{\hyperlink{a01670_aea06e613d6a158b8e197a5f79ef7f197}{row}}; }
+\DoxyCodeLine{28   Eigen::Index \mbox{\hyperlink{a01670_a05834d6b2ab9428e4ecc645234ef9d34}{col}}; }
+\DoxyCodeLine{29 \};}
+\DoxyCodeLine{30 \} \textcolor{comment}{// namespace Ikarus::Materials}}
+\DoxyCodeLine{31 \textcolor{keyword}{namespace }Ikarus::Materials::Impl \{}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{39 \textcolor{keyword}{template} <\textcolor{keywordtype}{size\_t} size>}
+\DoxyCodeLine{40 \textcolor{keyword}{consteval} \textcolor{keyword}{auto} createfreeVoigtIndices(\textcolor{keyword}{const} std::array<MatrixIndexPair, size>\& fixed) \{}
+\DoxyCodeLine{41   std::array<size\_t, 6 -\/ size> res\{\};}
+\DoxyCodeLine{42   std::array<size\_t, size> voigtFixedIndices;}
+\DoxyCodeLine{43   std::ranges::transform(fixed, voigtFixedIndices.begin(), [](\textcolor{keyword}{auto} pair) \{ return toVoigt(pair.row, pair.col); \});}
+\DoxyCodeLine{44   std::ranges::sort(voigtFixedIndices);}
+\DoxyCodeLine{45   std::ranges::set\_difference(std::ranges::iota\_view(\textcolor{keywordtype}{size\_t}(0), \textcolor{keywordtype}{size\_t}(6)), voigtFixedIndices, res.begin());}
+\DoxyCodeLine{46   std::ranges::sort(res);}
+\DoxyCodeLine{47   \textcolor{keywordflow}{return} res;}
+\DoxyCodeLine{48 \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{56 \textcolor{keyword}{template} <\textcolor{keywordtype}{size\_t} size>}
+\DoxyCodeLine{57 \textcolor{keyword}{consteval} \textcolor{keyword}{auto} createFixedVoigtIndices(\textcolor{keyword}{const} std::array<MatrixIndexPair, size>\& fixed) \{}
+\DoxyCodeLine{58   std::array<size\_t, size> fixedIndices;}
+\DoxyCodeLine{59   std::ranges::transform(fixed, fixedIndices.begin(), [](\textcolor{keyword}{auto} pair) \{ return toVoigt(pair.row, pair.col); \});}
+\DoxyCodeLine{60   std::ranges::sort(fixedIndices);}
+\DoxyCodeLine{61   \textcolor{keywordflow}{return} fixedIndices;}
+\DoxyCodeLine{62 \}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{70 \textcolor{keyword}{template} <\textcolor{keywordtype}{size\_t} size>}
+\DoxyCodeLine{71 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{size\_t} countDiagonalIndices(\textcolor{keyword}{const} std::array<MatrixIndexPair, size>\& fixed) \{}
+\DoxyCodeLine{72   \textcolor{keywordtype}{size\_t} count = 0;}
+\DoxyCodeLine{73   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} v : fixed) \{}
+\DoxyCodeLine{74     \textcolor{keywordflow}{if} (v.col == v.row)}
+\DoxyCodeLine{75       ++count;}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77   \textcolor{keywordflow}{return} count;}
+\DoxyCodeLine{78 \}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{86 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{87 \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) maybeFromVoigt(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E) \{}
+\DoxyCodeLine{88   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Concepts::EigenVector<Derived>) \{ \textcolor{comment}{// receiving vector means Voigt notation}}
+\DoxyCodeLine{89     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00461_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(E.derived(), \textcolor{keyword}{true});}
+\DoxyCodeLine{90   \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{91     \textcolor{keywordflow}{return} E.derived();}
+\DoxyCodeLine{92 \}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{95 \textcolor{keywordtype}{void} checkPositiveOrAbort(ScalarType det) \{}
+\DoxyCodeLine{96   \textcolor{keywordflow}{if} (Dune::FloatCmp::le(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(det), 0.0, 1e-\/10)) \{}
+\DoxyCodeLine{97     std::cerr << \textcolor{stringliteral}{"{}Determinant of right Cauchy Green tensor C must be greater than zero. detC = "{}} +}
+\DoxyCodeLine{98                      std::to\_string(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(det));}
+\DoxyCodeLine{99     abort();}
+\DoxyCodeLine{100   \}}
+\DoxyCodeLine{101 \}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{113 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{114 \textcolor{keyword}{auto} principalStretches(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& C, \textcolor{keywordtype}{int} options = Eigen::ComputeEigenvectors) \{}
+\DoxyCodeLine{115   Eigen::SelfAdjointEigenSolver<Derived> eigensolver\{\};}
 \DoxyCodeLine{116 }
-\DoxyCodeLine{117   pybind11::module scopedf = pybind11::module::import(\textcolor{stringliteral}{"{}dune.functions"{}});}
-\DoxyCodeLine{118   \textcolor{keyword}{using }LocalViewWrapper   = Dune::Python::LocalViewWrapper<FlatBasis>;}
-\DoxyCodeLine{119 }
-\DoxyCodeLine{120   \textcolor{keyword}{auto} includes    = Dune::Python::IncludeFiles\{\textcolor{stringliteral}{"{}dune/python/functions/globalbasis.hh"{}}\};}
-\DoxyCodeLine{121   \textcolor{keyword}{auto} [lv, isNew] = Dune::Python::insertClass<LocalViewWrapper>(}
-\DoxyCodeLine{122       scopedf, \textcolor{stringliteral}{"{}LocalViewWrapper"{}},}
-\DoxyCodeLine{123       Dune::Python::GenerateTypeName(\textcolor{stringliteral}{"{}Dune::Python::LocalViewWrapperWrapper"{}}, Dune::MetaType<FlatBasis>()), includes);}
+\DoxyCodeLine{117   eigensolver.compute(C, options);}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119   \textcolor{keywordflow}{if} (eigensolver.info() != Eigen::Success)}
+\DoxyCodeLine{120     DUNE\_THROW(Dune::MathError, \textcolor{stringliteral}{"{}Failed to compute eigenvalues and eigenvectors of C."{}});}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122   \textcolor{keyword}{auto}\& eigenvalues  = eigensolver.eigenvalues();}
+\DoxyCodeLine{123   \textcolor{keyword}{auto}\& eigenvectors = options == Eigen::ComputeEigenvectors ? eigensolver.eigenvectors() : Derived::Zero();}
 \DoxyCodeLine{124 }
-\DoxyCodeLine{125   \textcolor{keywordflow}{if} (isNew) \{}
-\DoxyCodeLine{126     lv.def(\textcolor{stringliteral}{"{}bind"{}}, \&LocalViewWrapper::bind);}
-\DoxyCodeLine{127     lv.def(\textcolor{stringliteral}{"{}unbind"{}}, \&LocalViewWrapper::unbind);}
-\DoxyCodeLine{128     lv.def(\textcolor{stringliteral}{"{}index"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& localView, \textcolor{keywordtype}{int} index) \{ \textcolor{keywordflow}{return} localView.index(index); \});}
-\DoxyCodeLine{129     lv.def(\textcolor{stringliteral}{"{}\_\_len\_\_"{}}, [](LocalViewWrapper\& self) -\/> \textcolor{keywordtype}{int} \{ \textcolor{keywordflow}{return} self.size(); \});}
-\DoxyCodeLine{130 }
-\DoxyCodeLine{131     Dune::Python::Functions::registerTree<typename LocalViewWrapper::Tree>(lv);}
-\DoxyCodeLine{132     lv.def(\textcolor{stringliteral}{"{}tree"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& view) \{ \textcolor{keywordflow}{return} view.tree(); \});}
-\DoxyCodeLine{133   \}}
-\DoxyCodeLine{134 }
-\DoxyCodeLine{135   cls.def(}
-\DoxyCodeLine{136       \textcolor{stringliteral}{"{}localView"{}},}
-\DoxyCodeLine{137       [](\mbox{\hyperlink{a01452}{FE}}\& self) -\/> LocalViewWrapper \{}
-\DoxyCodeLine{138         \textcolor{keyword}{auto} lvWrapped = LocalViewWrapper(self.\mbox{\hyperlink{a01452_a1425316afd592244682b9ccc48cf59ef}{localView}}().globalBasis());}
-\DoxyCodeLine{139         \textcolor{comment}{// this can be simplified when https://gitlab.dune-\/project.org/staging/dune-\/functions/-\//merge\_requests/418}}
-\DoxyCodeLine{140         \textcolor{comment}{// becomes available}}
-\DoxyCodeLine{141         \textcolor{comment}{// pybind11::object obj = pybind11::cast(self.localView().element());}}
-\DoxyCodeLine{142         lvWrapped.base().bind(self.\mbox{\hyperlink{a01452_a1425316afd592244682b9ccc48cf59ef}{localView}}().element());}
-\DoxyCodeLine{143         \textcolor{keywordflow}{return} lvWrapped;}
-\DoxyCodeLine{144       \},}
-\DoxyCodeLine{145       pybind11::keep\_alive<0, 1>());}
-\DoxyCodeLine{146 }
-\DoxyCodeLine{147   \mbox{\hyperlink{a00477_a0c58c17676c73945cb11eff8a80309ae}{registerCalculateAt}}(scope, cls, \textcolor{keyword}{typename} \mbox{\hyperlink{a01800_ada59c15363d83f6e635ecd6e1672d6a4}{FE::SupportedResultTypes}}());}
-\DoxyCodeLine{148   \mbox{\hyperlink{a00477_a32c3989a8ef1dbc581313ef17a0c6f5b}{registerFERequirement}}(scope, cls);}
-\DoxyCodeLine{149 \}}
-\DoxyCodeLine{150 }
-\DoxyCodeLine{151 \} \textcolor{comment}{// namespace Ikarus::Python}}
+\DoxyCodeLine{125   \textcolor{keyword}{auto} principalStretches = eigenvalues.cwiseSqrt().eval();}
+\DoxyCodeLine{126   \textcolor{keywordflow}{return} std::make\_pair(principalStretches, eigenvectors);}
+\DoxyCodeLine{127 \}}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{136 \textcolor{keyword}{template} <Concepts::EigenVector3 Vector>}
+\DoxyCodeLine{137 \textcolor{keyword}{inline} Vector::Scalar determinantFromPrincipalValues(\textcolor{keyword}{const} Vector\& principalValues) \{}
+\DoxyCodeLine{138   \textcolor{keywordflow}{return} principalValues.prod();}
+\DoxyCodeLine{139 \}}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{149 \textcolor{keyword}{template} <Concepts::EigenVector3 Vector>}
+\DoxyCodeLine{150 \textcolor{keyword}{inline} \mbox{\hyperlink{a00465_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{Vector}} deviatoricStretches(\textcolor{keyword}{const} Vector\& lambda) \{}
+\DoxyCodeLine{151   \textcolor{keyword}{using }ScalarType = \textcolor{keyword}{typename} Vector::Scalar;}
+\DoxyCodeLine{152   ScalarType J     = determinantFromPrincipalValues(lambda);}
+\DoxyCodeLine{153   ScalarType Jmod  = pow(J, -\/1.0 / 3.0);}
+\DoxyCodeLine{154   \textcolor{keywordflow}{return} Jmod * lambda;}
+\DoxyCodeLine{155 \}}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{164 \textcolor{keyword}{template} <Concepts::EigenVector3 Vector>}
+\DoxyCodeLine{165 \textcolor{keyword}{inline} \mbox{\hyperlink{a00465_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{Vector}} invariants(\textcolor{keyword}{const} Vector\& lambda) \{}
+\DoxyCodeLine{166   \textcolor{keyword}{using }ScalarType   = \textcolor{keyword}{typename} Vector::Scalar;}
+\DoxyCodeLine{167   \textcolor{keyword}{auto} lambdaSquared = lambda.array().square();}
+\DoxyCodeLine{168   \textcolor{keyword}{auto} invariants    = Vector::Zero().eval();}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170   invariants[0] = lambdaSquared.sum();}
+\DoxyCodeLine{171   invariants[1] =}
+\DoxyCodeLine{172       lambdaSquared[0] * lambdaSquared[1] + lambdaSquared[1] * lambdaSquared[2] + lambdaSquared[0] * lambdaSquared[2];}
+\DoxyCodeLine{173   invariants[2] = determinantFromPrincipalValues(lambdaSquared);}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175   \textcolor{keywordflow}{return} invariants;}
+\DoxyCodeLine{176 \}}
+\DoxyCodeLine{177 \} \textcolor{comment}{// namespace Ikarus::Materials::Impl}}
 
 \end{DoxyCode}

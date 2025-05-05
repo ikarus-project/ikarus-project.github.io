@@ -1,5 +1,10 @@
-\hypertarget{a02281}{}\doxysection{Ikarus\+::Concepts\+::Data\+Collector Concept Reference}
-\label{a02281}\index{Ikarus::Concepts::DataCollector@{Ikarus::Concepts::DataCollector}}
+\hypertarget{a02281}{}\doxysection{Ikarus\+::Concepts\+::Non\+Linear\+Solver\+Check\+For\+Path\+Following Concept Reference}
+\label{a02281}\index{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing@{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}}
+
+
+Concept to check if a non-\/linear solver with its non-\/linear operator satisfies requirements for path following.  
+
+
 
 
 {\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
@@ -7,13 +12,21 @@
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{class} DC>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02281}{Ikarus::Concepts::DataCollector}} =  \textcolor{keyword}{requires}(DC dc) \{}
-\DoxyCodeLine{    \textcolor{keyword}{typename} DC::GridView;}
-\DoxyCodeLine{    \{ dc.update() \} -\/> std::same\_as<void>;}
-\DoxyCodeLine{    \{ dc.numPoints() \} -\/> std::convertible\_to<std::uint64\_t>;}
-\DoxyCodeLine{    \{ dc.numCells() \} -\/> std::convertible\_to<std::uint64\_t>;}
-\DoxyCodeLine{    \{ dc.gridView() \} -\/> std::same\_as<const typename DC::GridView\&>;}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02281}{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}} =  \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{    not(std::is\_same\_v<typename NLS::DifferentiableFunction::Domain, double> and}
+\DoxyCodeLine{        ((traits::isSpecializationTypeAndNonTypes<}
+\DoxyCodeLine{             Eigen::Matrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value) or}
+\DoxyCodeLine{         (traits::isSpecializationTypeNonTypeAndType<}
+\DoxyCodeLine{             Eigen::SparseMatrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value)));}
 \DoxyCodeLine{  \}}
 
 \end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em NLS} & The non-\/linear solver type. \\
+\hline
+\end{DoxyTemplParams}

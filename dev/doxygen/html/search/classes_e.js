@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['pathfollowing_0',['PathFollowing',['../a01420.html',1,'Ikarus']]],
-  ['pathfollowingconfig_1',['PathFollowingConfig',['../a01424.html',1,'Ikarus']]],
-  ['pathfollowingstate_2',['PathFollowingState',['../a01412.html',1,'Ikarus']]],
-  ['polarstress_3',['PolarStress',['../a01864.html',1,'Ikarus::ResultEvaluators']]],
-  ['prefe_4',['PreFE',['../a01456.html',1,'Ikarus']]],
-  ['principalstress_5',['PrincipalStress',['../a01856.html',1,'Ikarus::ResultEvaluators']]]
+  ['partialgeneralizedsymeigensolver_0',['PartialGeneralizedSymEigenSolver',['../a01946.html',1,'Ikarus']]],
+  ['pathfollowing_1',['PathFollowing',['../a01426.html',1,'Ikarus']]],
+  ['pathfollowingconfig_2',['PathFollowingConfig',['../a01430.html',1,'Ikarus']]],
+  ['pathfollowingstate_3',['PathFollowingState',['../a01418.html',1,'Ikarus']]],
+  ['polarstress_4',['PolarStress',['../a01870.html',1,'Ikarus::ResultEvaluators']]],
+  ['prefe_5',['PreFE',['../a01462.html',1,'Ikarus']]],
+  ['principalstress_6',['PrincipalStress',['../a01862.html',1,'Ikarus::ResultEvaluators']]]
 ];
