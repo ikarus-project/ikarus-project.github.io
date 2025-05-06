@@ -1,7 +1,5 @@
 var a00272 =
 [
-    [ "Ikarus::VolumeLoadPre< wd >", "a01645.html", "a01645" ],
-    [ "volumeLoad", "a00272.html#a0eecc01634324520df56c4352eb15077", null ],
-    [ "volumeLoad", "a00272.html#a5038b2eef0efbcc123415c92d15b588d", null ],
-    [ "VolumeLoadPre", "a00272.html#a93a9eac09126da6a203f68af3e7c8ba2", null ]
+    [ "Ikarus::ArrudaBoyceMatParameters", "a01649.html", "a01649" ],
+    [ "ArrudaBoyce", "a00272.html#a70cada02f1f5f294f44c438fb1270982", null ]
 ];

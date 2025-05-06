@@ -1,4 +1,5 @@
 var a00392 =
 [
-    [ "Ikarus::NonlinearSolverBase< F, Args >", "a02069.html", "a02069" ]
+    [ "Ikarus::AdaptiveStepSizing::NoOp", "a01409.html", "a01409" ],
+    [ "Ikarus::AdaptiveStepSizing::IterationBased", "a01413.html", "a01413" ]
 ];

@@ -1,163 +1,258 @@
-\hypertarget{a00347_source}{}\doxysection{pathfollowingfunctions.\+hh}
-\label{a00347_source}\index{pathfollowingfunctions.hh@{pathfollowingfunctions.hh}}
+\hypertarget{a00347_source}{}\doxysection{linearandpk2stress.\+hh}
+\label{a00347_source}\index{linearandpk2stress.hh@{linearandpk2stress.hh}}
 \mbox{\hyperlink{a00347}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <cmath>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <optional>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <string>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <utility>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <vector>}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <dune/common/exceptions.hh>}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00290}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00005}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00497}{Ikarus::PS}} \{}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{20   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{21   \textcolor{keyword}{auto} transformationMatrixAtCenter(\textcolor{keyword}{const} GEO\& geometry) \{}
+\DoxyCodeLine{22     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& referenceElement = Dune::ReferenceElements<double, GEO::mydimension>::general(geometry.type());}
+\DoxyCodeLine{23     \textcolor{keyword}{const} \textcolor{keyword}{auto} quadPos0          = referenceElement.position(0, 0);}
 \DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00407}{ikarus/solver/linearsolver/linearsolver.hh}}>}}
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03470}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00014}{ikarus/utils/defaultfunctions.hh}}>}}
-\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00065}{ikarus/utils/traits.hh}}>}}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00489}{Ikarus}} \{}
-\DoxyCodeLine{38 \textcolor{keyword}{struct }\mbox{\hyperlink{a01461}{SubsidiaryArgs}}}
-\DoxyCodeLine{39 \{}
-\DoxyCodeLine{40   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01461_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};              }
-\DoxyCodeLine{41   Eigen::VectorX<double> \mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};    }
-\DoxyCodeLine{42   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};               }
-\DoxyCodeLine{43   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01461_a628b23aa9e90c0e0ba1461ad2241645a}{f}};                     }
-\DoxyCodeLine{44   Eigen::VectorX<double> \mbox{\hyperlink{a01461_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}; }
-\DoxyCodeLine{45   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01461_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}};            }
-\DoxyCodeLine{46   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01461_a217c729e1ae8b05a98c852f19b0d6ae5}{currentStep}};              }
+\DoxyCodeLine{25     \textcolor{keywordflow}{return} (\mbox{\hyperlink{a00489_ae05c7db6d3b9b31f0f23f2d62ea52800}{transformationMatrix}}(geometry, quadPos0).\mbox{\hyperlink{a00489_ac2c6469be19ce4ef2e630bfa1c5a5e24}{transpose}}()).eval();}
+\DoxyCodeLine{26   \}}
+\DoxyCodeLine{27 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{34 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} ass>}
+\DoxyCodeLine{35 \textcolor{keyword}{struct }\mbox{\hyperlink{a01581}{SX}}}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01581_aaa74c8c39ff8e66ceb6bc3ccf62deb11}{myDim}}             = GEO::mydimension;}
+\DoxyCodeLine{38   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01581_a88bb9059e82aeae277462d3f78f5eab2}{stressSize}}        = \mbox{\hyperlink{a01581_aaa74c8c39ff8e66ceb6bc3ccf62deb11}{myDim}} * (\mbox{\hyperlink{a01581_aaa74c8c39ff8e66ceb6bc3ccf62deb11}{myDim}} + 1) / 2;}
+\DoxyCodeLine{39   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01581_a923446745a7cbe2f0da7c27fae6af1e9}{assumedStressSize}} = ass;}
+\DoxyCodeLine{40   \textcolor{keyword}{using }\mbox{\hyperlink{a01581_a788027f1dcc912014698afbd597b48c0}{AnsatzType}}                       = Eigen::Matrix<double, stressSize, assumedStressSize>;}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01581_aad7ea8d0a8aa8e42b29d5ab1fdde35be}{HType}}                            = Eigen::Matrix<double, assumedStressSize, assumedStressSize>;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \mbox{\hyperlink{a01581_aba995cea82834c131f555bde55f2415a}{SX}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{44   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01581_a5a9b90fad85eef94bbb5da53c6bc7e71}{SX}}(\textcolor{keyword}{const} GEO\& geometry)}
+\DoxyCodeLine{45       : \mbox{\hyperlink{a01581_a6797fc84079b7d5dee1479e91b3cdf26}{geometry\_}}\{std::make\_optional<GEO>(geometry)\},}
+\DoxyCodeLine{46         \mbox{\hyperlink{a01581_a07a00abfed52c610b8995936edd44576}{T0\_}}\{Impl::transformationMatrixAtCenter(geometry)\} \{\}}
 \DoxyCodeLine{47 }
-\DoxyCodeLine{48   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01461_a3e70d809781af8c529d89da7c80933b3}{setZero}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02351}{Concepts::EigenType}} \textcolor{keyword}{auto}\& firstParameter) \{}
-\DoxyCodeLine{49     \mbox{\hyperlink{a01461_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}} = 0.0;}
-\DoxyCodeLine{50     \mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.resizeLike(firstParameter);}
-\DoxyCodeLine{51     \mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.setZero();}
-\DoxyCodeLine{52     \mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} = 0.0;}
-\DoxyCodeLine{53     \mbox{\hyperlink{a01461_a628b23aa9e90c0e0ba1461ad2241645a}{f}}       = 0.0;}
-\DoxyCodeLine{54     \mbox{\hyperlink{a01461_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.resizeLike(firstParameter);}
-\DoxyCodeLine{55     \mbox{\hyperlink{a01461_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
-\DoxyCodeLine{56     \mbox{\hyperlink{a01461_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}}  = 0.0;}
-\DoxyCodeLine{57     \mbox{\hyperlink{a01461_a217c729e1ae8b05a98c852f19b0d6ae5}{currentStep}} = 0;}
-\DoxyCodeLine{58   \}}
-\DoxyCodeLine{59 \};}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{78 \textcolor{keyword}{struct }\mbox{\hyperlink{a01465}{ArcLength}}}
-\DoxyCodeLine{79 \{}
-\DoxyCodeLine{88   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01465_a2fabf5f8515ac122ecf588f1d8c860bf}{operator()}}(\mbox{\hyperlink{a01461}{SubsidiaryArgs}}\& args)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{89     \textcolor{keywordflow}{if} (psi) \{}
-\DoxyCodeLine{90       \textcolor{keyword}{const} \textcolor{keyword}{auto} root = sqrt(args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.squaredNorm() + psi.value() * psi.value() * args.\mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} * args.\mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}});}
-\DoxyCodeLine{91       args.\mbox{\hyperlink{a01461_a628b23aa9e90c0e0ba1461ad2241645a}{f}}          = root -\/ args.\mbox{\hyperlink{a01461_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{92       args.\mbox{\hyperlink{a01461_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}      = args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}} / root;}
-\DoxyCodeLine{93       args.\mbox{\hyperlink{a01461_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}} = (psi.value() * psi.value() * args.\mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}) / root;}
-\DoxyCodeLine{94     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{95       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}You have to call initialPrediction first. Otherwise psi is not defined"{}});}
-\DoxyCodeLine{96     \}}
-\DoxyCodeLine{97   \}}
-\DoxyCodeLine{98 }
-\DoxyCodeLine{111   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{112   \textcolor{keyword}{requires}(\mbox{\hyperlink{a02363}{Ikarus::Concepts::LinearSolverCheck<Ikarus::LinearSolver, typename F::Traits::template Range<1>}},}
-\DoxyCodeLine{113                                                \textcolor{keyword}{typename} F::Domain::SolutionVectorType>)}
-\DoxyCodeLine{114   \textcolor{keywordtype}{void} \mbox{\hyperlink{a00472_ga303d0ece2d36ff9c336a167508bd3610}{initialPrediction}}(\textcolor{keyword}{typename} F::Domain\& req, F\& residual, \mbox{\hyperlink{a01461}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{115     \mbox{\hyperlink{a00489_a731a9ee6621f91193c15f31b9a399906}{SolverTypeTag}} solverTag;}
-\DoxyCodeLine{116     \textcolor{keyword}{using }JacobianType = std::remove\_cvref\_t<typename F::Traits::template Range<1>>;}
-\DoxyCodeLine{117     \textcolor{keyword}{static\_assert}((traits::isSpecializationTypeAndNonTypes<Eigen::Matrix, JacobianType>::value) or}
-\DoxyCodeLine{118                       (traits::isSpecializationTypeNonTypeAndType<Eigen::SparseMatrix, JacobianType>::value),}
-\DoxyCodeLine{119                   \textcolor{stringliteral}{"{}Linear solver not implemented for the chosen derivative type of the non-\/linear operator"{}});}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{121     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (traits::isSpecializationTypeAndNonTypes<Eigen::Matrix, JacobianType>::value)}
-\DoxyCodeLine{122       solverTag = \mbox{\hyperlink{a00489_a731a9ee6621f91193c15f31b9a399906ad495de2cc8831501954c24afe8688190}{SolverTypeTag::d\_LDLT}};}
-\DoxyCodeLine{123     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{124       solverTag = \mbox{\hyperlink{a00489_a731a9ee6621f91193c15f31b9a399906af493d8a2d2d89f06181e77bc79cabf1c}{SolverTypeTag::sd\_SimplicialLDLT}};}
-\DoxyCodeLine{125 }
-\DoxyCodeLine{126     req.parameter()  = 1.0;}
-\DoxyCodeLine{127     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) R = residual(req);}
-\DoxyCodeLine{128     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) K = derivative(residual)(req);}
-\DoxyCodeLine{129 }
-\DoxyCodeLine{130     \textcolor{keyword}{auto} linearSolver = \mbox{\hyperlink{a00489_a2afda25e777ed3a794da319ba535b87b}{LinearSolver}}(solverTag); \textcolor{comment}{// for the linear predictor step}}
-\DoxyCodeLine{131     linearSolver.analyzePattern(K);}
-\DoxyCodeLine{132     linearSolver.factorize(K);}
-\DoxyCodeLine{133     linearSolver.solve(args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}, -\/R);}
+\DoxyCodeLine{48 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{49   std::optional<GEO> \mbox{\hyperlink{a01581_a6797fc84079b7d5dee1479e91b3cdf26}{geometry\_}};}
+\DoxyCodeLine{50   Eigen::Matrix<double, stressSize, stressSize> \mbox{\hyperlink{a01581_a07a00abfed52c610b8995936edd44576}{T0\_}};}
+\DoxyCodeLine{51 \};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{58 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{59 \textcolor{keyword}{struct }\mbox{\hyperlink{a01585}{S5}} : \mbox{\hyperlink{a01581}{SX}}<GEO, 5>}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61   \textcolor{keyword}{using }\mbox{\hyperlink{a01581}{Base}}                             = \mbox{\hyperlink{a01581}{SX<GEO, 5>}};}
+\DoxyCodeLine{62   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01585_a0c9eea2edf9526d813f1b84de02f1388}{myDim}}             = \mbox{\hyperlink{a01581_aaa74c8c39ff8e66ceb6bc3ccf62deb11}{Base::myDim}};}
+\DoxyCodeLine{63   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01585_a8061df45924826dc2e00b3d777e96858}{stressSize}}        = \mbox{\hyperlink{a01581_a88bb9059e82aeae277462d3f78f5eab2}{Base::stressSize}};}
+\DoxyCodeLine{64   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01585_abe781fc435d25159f81896b968d86279}{assumedStressSize}} = \mbox{\hyperlink{a01581_a923446745a7cbe2f0da7c27fae6af1e9}{Base::assumedStressSize}};}
+\DoxyCodeLine{65   \textcolor{keyword}{using }\mbox{\hyperlink{a01585_a95d51f255617e1da3dda9738dacb723d}{AnsatzType}}                       = \textcolor{keyword}{typename} \mbox{\hyperlink{a01581_a788027f1dcc912014698afbd597b48c0}{Base::AnsatzType}};}
+\DoxyCodeLine{66   \textcolor{keyword}{using }\mbox{\hyperlink{a01585_a85606acb34409b544650db4d5b490275}{HType}}                            = \textcolor{keyword}{typename} \mbox{\hyperlink{a01581_aad7ea8d0a8aa8e42b29d5ab1fdde35be}{Base::HType}};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \mbox{\hyperlink{a01585_a77a5aeb084b44a0ae1e60bcdee5ab249}{S5}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{69   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01585_a350db2a1b14f9cbd5fa7f0987c4ea2b5}{S5}}(\textcolor{keyword}{const} GEO\& geo)}
+\DoxyCodeLine{70       : \mbox{\hyperlink{a01581}{Base}}(geo) \{\}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{77   \mbox{\hyperlink{a01585_a95d51f255617e1da3dda9738dacb723d}{AnsatzType}} \mbox{\hyperlink{a01585_af21face29bf97bc5f94d9a4fa2ee0e9b}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02201}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{78     \mbox{\hyperlink{a01585_a95d51f255617e1da3dda9738dacb723d}{AnsatzType}} P;}
+\DoxyCodeLine{79     P.setZero(\mbox{\hyperlink{a01585_a8061df45924826dc2e00b3d777e96858}{stressSize}}, \mbox{\hyperlink{a01585_abe781fc435d25159f81896b968d86279}{assumedStressSize}});}
+\DoxyCodeLine{80     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi  = 2.0 * quadPos[0] -\/ 1.0;}
+\DoxyCodeLine{81     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta = 2.0 * quadPos[1] -\/ 1.0;}
+\DoxyCodeLine{82     P(0, 0)          = 1.0;}
+\DoxyCodeLine{83     P(1, 1)          = 1.0;}
+\DoxyCodeLine{84     P(2, 2)          = 1.0;}
+\DoxyCodeLine{85     P(0, 3)          = eta;}
+\DoxyCodeLine{86     P(1, 4)          = xi;}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88     \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{a01581_a07a00abfed52c610b8995936edd44576}{T0\_}} * P;}
+\DoxyCodeLine{89   \}}
+\DoxyCodeLine{90 \};}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{97 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{98 \textcolor{keyword}{struct }\mbox{\hyperlink{a01589}{S18}} : \mbox{\hyperlink{a01581}{SX}}<GEO, 18>}
+\DoxyCodeLine{99 \{}
+\DoxyCodeLine{100   \textcolor{keyword}{using }\mbox{\hyperlink{a01581}{Base}}                             = \mbox{\hyperlink{a01581}{SX<GEO, 18>}};}
+\DoxyCodeLine{101   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01589_a0917dae90de92dec900b8e2d796d87b1}{myDim}}             = \mbox{\hyperlink{a01581_aaa74c8c39ff8e66ceb6bc3ccf62deb11}{Base::myDim}};}
+\DoxyCodeLine{102   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01589_a27b4bb34038743d1cba3865cbe1695d5}{stressSize}}        = \mbox{\hyperlink{a01581_a88bb9059e82aeae277462d3f78f5eab2}{Base::stressSize}};}
+\DoxyCodeLine{103   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01589_ac20bf1a69480a3938fd59b111251cb2e}{assumedStressSize}} = \mbox{\hyperlink{a01581_a923446745a7cbe2f0da7c27fae6af1e9}{Base::assumedStressSize}};}
+\DoxyCodeLine{104   \textcolor{keyword}{using }\mbox{\hyperlink{a01589_aedee804d539c866a6fcc6c7d9b131b85}{AnsatzType}}                       = \textcolor{keyword}{typename} \mbox{\hyperlink{a01581_a788027f1dcc912014698afbd597b48c0}{Base::AnsatzType}};}
+\DoxyCodeLine{105   \textcolor{keyword}{using }\mbox{\hyperlink{a01589_ac086317b717d79dd7db09b4426b13f22}{HType}}                            = \textcolor{keyword}{typename} \mbox{\hyperlink{a01581_aad7ea8d0a8aa8e42b29d5ab1fdde35be}{Base::HType}};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107   \mbox{\hyperlink{a01589_a4d2454051c58d3e68b74a346cb27de12}{S18}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{108   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01589_ab14ca208cab4c0afd18d322cbc7ca19e}{S18}}(\textcolor{keyword}{const} GEO\& geo)}
+\DoxyCodeLine{109       : \mbox{\hyperlink{a01581}{Base}}(geo) \{\}}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{116   \mbox{\hyperlink{a01589_aedee804d539c866a6fcc6c7d9b131b85}{AnsatzType}} \mbox{\hyperlink{a01589_a792b8bc745b8f8a2e114c36d43f272e1}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02201}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{117     \mbox{\hyperlink{a01589_aedee804d539c866a6fcc6c7d9b131b85}{AnsatzType}} P;}
+\DoxyCodeLine{118     P.setZero();}
+\DoxyCodeLine{119     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = 2.0 * quadPos[0] -\/ 1.0;}
+\DoxyCodeLine{120     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = 2.0 * quadPos[1] -\/ 1.0;}
+\DoxyCodeLine{121     \textcolor{keyword}{const} \textcolor{keywordtype}{double} zeta = 2.0 * quadPos[2] -\/ 1.0;}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123     \textcolor{comment}{// ξξ = (1.0, eta, zeta, eta*zeta) → row 0:}}
+\DoxyCodeLine{124     P(0, 0) = 1.0;}
+\DoxyCodeLine{125     P(0, 1) = eta;}
+\DoxyCodeLine{126     P(0, 2) = zeta;}
+\DoxyCodeLine{127     P(0, 3) = eta * zeta;}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129     \textcolor{comment}{// ηη = (1.0, xi, zeta, xi*zeta) → row 1:}}
+\DoxyCodeLine{130     P(1, 4) = 1.0;}
+\DoxyCodeLine{131     P(1, 5) = xi;}
+\DoxyCodeLine{132     P(1, 6) = zeta;}
+\DoxyCodeLine{133     P(1, 7) = xi * zeta;}
 \DoxyCodeLine{134 }
-\DoxyCodeLine{135     \textcolor{keyword}{const} \textcolor{keyword}{auto} DD2 = args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.squaredNorm();}
-\DoxyCodeLine{136 }
-\DoxyCodeLine{137     psi    = sqrt(DD2);}
-\DoxyCodeLine{138     \textcolor{keyword}{auto} s = sqrt(psi.value() * psi.value() + DD2);}
-\DoxyCodeLine{139 }
-\DoxyCodeLine{140     args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}      = args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}} * args.\mbox{\hyperlink{a01461_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}} / s;}
-\DoxyCodeLine{141     args.\mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} = args.\mbox{\hyperlink{a01461_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}} / s;}
-\DoxyCodeLine{142 }
-\DoxyCodeLine{143     req.globalSolution() = args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};}
-\DoxyCodeLine{144     req.parameter()      = args.\mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
-\DoxyCodeLine{145   \}}
-\DoxyCodeLine{146 }
-\DoxyCodeLine{157   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{158   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01465_aaf72ec9653e0accc77d31bcfc1df60f0}{intermediatePrediction}}(\textcolor{keyword}{typename} F::Domain\& req, F\& residual, \mbox{\hyperlink{a01461}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{159     req.globalSolution() += args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};}
-\DoxyCodeLine{160     req.parameter() += args.\mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
-\DoxyCodeLine{161   \}}
-\DoxyCodeLine{162 }
-\DoxyCodeLine{164   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01465_afa77b974566da3b74cb5b35693540c16}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}Arc length"{}}); \}}
-\DoxyCodeLine{165 }
-\DoxyCodeLine{166 \textcolor{keyword}{private}:}
-\DoxyCodeLine{167   std::optional<double> psi;}
-\DoxyCodeLine{168 \};}
-\DoxyCodeLine{169 }
-\DoxyCodeLine{182 \textcolor{keyword}{struct }\mbox{\hyperlink{a01469}{LoadControlSubsidiaryFunction}}}
-\DoxyCodeLine{183 \{}
-\DoxyCodeLine{191   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01469_aea5de41cde5e7506712e8bdd84be6ffa}{operator()}}(\mbox{\hyperlink{a01461}{SubsidiaryArgs}}\& args)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{192     args.\mbox{\hyperlink{a01461_a628b23aa9e90c0e0ba1461ad2241645a}{f}} = args.\mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} -\/ args.\mbox{\hyperlink{a01461_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{193     args.\mbox{\hyperlink{a01461_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
-\DoxyCodeLine{194     args.\mbox{\hyperlink{a01461_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}} = 1.0;}
-\DoxyCodeLine{195   \}}
-\DoxyCodeLine{196 }
-\DoxyCodeLine{207   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{208   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01469_a78e40d036104902ec79e4c08772abeaa}{initialPrediction}}(\textcolor{keyword}{typename} F::Domain\& req, F\& residual, \mbox{\hyperlink{a01461}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{209     args.\mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}    = args.\mbox{\hyperlink{a01461_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{210     req.parameter() = args.\mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
-\DoxyCodeLine{211   \}}
-\DoxyCodeLine{212 }
-\DoxyCodeLine{223   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{224   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01469_a8cb74ca245dab2889e991d713ed5467b}{intermediatePrediction}}(\textcolor{keyword}{typename} F::Domain\& req, F\& residual, \mbox{\hyperlink{a01461}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{225     req.parameter() += args.\mbox{\hyperlink{a01461_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
-\DoxyCodeLine{226   \}}
+\DoxyCodeLine{135     \textcolor{comment}{// ζζ = (1.0, xi, eta, xi*eta) → row 2:}}
+\DoxyCodeLine{136     P(2, 8)  = 1.0;}
+\DoxyCodeLine{137     P(2, 9)  = xi;}
+\DoxyCodeLine{138     P(2, 10) = eta;}
+\DoxyCodeLine{139     P(2, 11) = xi * eta;}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141     \textcolor{comment}{// ηζ = (1, xi) → row 3:}}
+\DoxyCodeLine{142     P(3, 12) = 1.0;}
+\DoxyCodeLine{143     P(3, 13) = xi;}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145     \textcolor{comment}{// ξζ = (1.0, eta) → row 4:}}
+\DoxyCodeLine{146     P(4, 14) = 1.0;}
+\DoxyCodeLine{147     P(4, 15) = eta;}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149     \textcolor{comment}{// ξη = (1.0, zeta) → row 5:}}
+\DoxyCodeLine{150     P(5, 16) = 1.0;}
+\DoxyCodeLine{151     P(5, 17) = zeta;}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153     \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{a01581_a07a00abfed52c610b8995936edd44576}{T0\_}} * P;}
+\DoxyCodeLine{154   \}}
+\DoxyCodeLine{155 \};}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{162 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{163 \textcolor{keyword}{struct }\mbox{\hyperlink{a01593}{S24}} : \mbox{\hyperlink{a01581}{SX}}<GEO, 24>}
+\DoxyCodeLine{164 \{}
+\DoxyCodeLine{165   \textcolor{keyword}{using }\mbox{\hyperlink{a01581}{Base}}                             = \mbox{\hyperlink{a01581}{SX<GEO, 24>}};}
+\DoxyCodeLine{166   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01593_aa64ab848bd7c3122f891c40ef03a5982}{myDim}}             = \mbox{\hyperlink{a01581_aaa74c8c39ff8e66ceb6bc3ccf62deb11}{Base::myDim}};}
+\DoxyCodeLine{167   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01593_a6e8fdf242b246d50e3f2906f186aea26}{stressSize}}        = \mbox{\hyperlink{a01581_a88bb9059e82aeae277462d3f78f5eab2}{Base::stressSize}};}
+\DoxyCodeLine{168   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01593_abb02198c1c6ff2bed2f98dc6c86342b0}{assumedStressSize}} = \mbox{\hyperlink{a01581_a923446745a7cbe2f0da7c27fae6af1e9}{Base::assumedStressSize}};}
+\DoxyCodeLine{169   \textcolor{keyword}{using }\mbox{\hyperlink{a01593_a846b9c6f9d0f64ff3ac5a5adbb3527f3}{AnsatzType}}                       = \textcolor{keyword}{typename} \mbox{\hyperlink{a01581_a788027f1dcc912014698afbd597b48c0}{Base::AnsatzType}};}
+\DoxyCodeLine{170   \textcolor{keyword}{using }\mbox{\hyperlink{a01593_a965bf0d29d4dd4214d92cf000a0d1032}{HType}}                            = \textcolor{keyword}{typename} \mbox{\hyperlink{a01581_aad7ea8d0a8aa8e42b29d5ab1fdde35be}{Base::HType}};}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172   \mbox{\hyperlink{a01593_adb4d5e0697a618dbf4db077c80ac308f}{S24}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{173   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01593_aceb9c784dfd2b356ac3a018ab0f695f9}{S24}}(\textcolor{keyword}{const} GEO\& geo)}
+\DoxyCodeLine{174       : \mbox{\hyperlink{a01581}{Base}}(geo) \{\}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{181   \mbox{\hyperlink{a01593_a846b9c6f9d0f64ff3ac5a5adbb3527f3}{AnsatzType}} \mbox{\hyperlink{a01593_a2fe5ab23a34f2a435253a70943524b68}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02201}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{182     \mbox{\hyperlink{a01593_a846b9c6f9d0f64ff3ac5a5adbb3527f3}{AnsatzType}} P;}
+\DoxyCodeLine{183     P.setZero();}
+\DoxyCodeLine{184     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = 2.0 * quadPos[0] -\/ 1.0;}
+\DoxyCodeLine{185     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = 2.0 * quadPos[1] -\/ 1.0;}
+\DoxyCodeLine{186     \textcolor{keyword}{const} \textcolor{keywordtype}{double} zeta = 2.0 * quadPos[2] -\/ 1.0;}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{188     \textcolor{comment}{// ξξ = (1.0, eta, zeta, eta*zeta) → row 0:}}
+\DoxyCodeLine{189     P(0, 0) = 1.0;}
+\DoxyCodeLine{190     P(0, 1) = eta;}
+\DoxyCodeLine{191     P(0, 2) = zeta;}
+\DoxyCodeLine{192     P(0, 3) = eta * zeta;}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194     \textcolor{comment}{// ηη = (1.0, xi, zeta, xi*zeta) → row 1:}}
+\DoxyCodeLine{195     P(1, 4) = 1.0;}
+\DoxyCodeLine{196     P(1, 5) = xi;}
+\DoxyCodeLine{197     P(1, 6) = zeta;}
+\DoxyCodeLine{198     P(1, 7) = xi * zeta;}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200     \textcolor{comment}{// ζζ = (1.0, xi, eta, xi*eta) → row 2:}}
+\DoxyCodeLine{201     P(2, 8)  = 1.0;}
+\DoxyCodeLine{202     P(2, 9)  = xi;}
+\DoxyCodeLine{203     P(2, 10) = eta;}
+\DoxyCodeLine{204     P(2, 11) = xi * eta;}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206     \textcolor{comment}{// ηζ = (1.0, xi, xi*eta, xi*zeta) → row 3:}}
+\DoxyCodeLine{207     P(3, 12) = 1.0;}
+\DoxyCodeLine{208     P(3, 13) = xi;}
+\DoxyCodeLine{209     P(3, 14) = xi * eta;}
+\DoxyCodeLine{210     P(3, 15) = xi * zeta;}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212     \textcolor{comment}{// ξζ = (1.0, eta, xi*eta, eta*zeta) → row 4:}}
+\DoxyCodeLine{213     P(4, 16) = 1.0;}
+\DoxyCodeLine{214     P(4, 17) = eta;}
+\DoxyCodeLine{215     P(4, 18) = xi * eta;}
+\DoxyCodeLine{216     P(4, 19) = eta * zeta;}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218     \textcolor{comment}{// ξη = (1.0, zeta, eta*zeta, xi*zeta) → row 5:}}
+\DoxyCodeLine{219     P(5, 20) = 1.0;}
+\DoxyCodeLine{220     P(5, 21) = zeta;}
+\DoxyCodeLine{221     P(5, 22) = eta * zeta;}
+\DoxyCodeLine{222     P(5, 23) = xi * zeta;}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224     \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{a01581_a07a00abfed52c610b8995936edd44576}{T0\_}} * P;}
+\DoxyCodeLine{225   \}}
+\DoxyCodeLine{226 \};}
 \DoxyCodeLine{227 }
-\DoxyCodeLine{229   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01469_a6e2ee6e5a234c1b14ce197f4a1460ed3}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}Load Control"{}}); \}}
-\DoxyCodeLine{230 \};}
-\DoxyCodeLine{231 }
-\DoxyCodeLine{244 \textcolor{keyword}{struct }\mbox{\hyperlink{a01473}{DisplacementControl}}}
-\DoxyCodeLine{245 \{}
-\DoxyCodeLine{251   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01473_aa15060bf256c9786fe44096fad899733}{DisplacementControl}}(std::vector<int> p\_controlledIndices)}
-\DoxyCodeLine{252       : controlledIndices\{std::move(p\_controlledIndices)\} \{\}}
-\DoxyCodeLine{253 }
-\DoxyCodeLine{261   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01473_a980d44ede46996fd077ffa1bbda66952}{operator()}}(\mbox{\hyperlink{a01461}{SubsidiaryArgs}}\& args)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{262     \textcolor{keyword}{const} \textcolor{keyword}{auto} controlledDOFsNorm = args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}(controlledIndices).norm();}
-\DoxyCodeLine{263     args.\mbox{\hyperlink{a01461_a628b23aa9e90c0e0ba1461ad2241645a}{f}}                        = controlledDOFsNorm -\/ args.\mbox{\hyperlink{a01461_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{264     args.\mbox{\hyperlink{a01461_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}}               = 0.0;}
-\DoxyCodeLine{265     args.\mbox{\hyperlink{a01461_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
-\DoxyCodeLine{266     args.\mbox{\hyperlink{a01461_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}(controlledIndices) = args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}(controlledIndices) / controlledDOFsNorm;}
-\DoxyCodeLine{267   \}}
-\DoxyCodeLine{268 }
-\DoxyCodeLine{279   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{280   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01473_a5bb7fb8ad5be3701bd58e191df7ea582}{initialPrediction}}(\textcolor{keyword}{typename} F::Domain\& req, F\& residual, \mbox{\hyperlink{a01461}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{281     args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}(controlledIndices).array() = args.\mbox{\hyperlink{a01461_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{282     req.globalSolution()               = args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};}
-\DoxyCodeLine{283   \}}
+\DoxyCodeLine{233 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{234 \textcolor{keyword}{struct }\mbox{\hyperlink{a01597}{S30}} : \mbox{\hyperlink{a01581}{SX}}<GEO, 30>}
+\DoxyCodeLine{235 \{}
+\DoxyCodeLine{236   \textcolor{keyword}{using }\mbox{\hyperlink{a01581}{Base}}                             = \mbox{\hyperlink{a01581}{SX<GEO, 30>}};}
+\DoxyCodeLine{237   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01597_a1f1795443b693266d5bd5c6db0b3e72a}{myDim}}             = \mbox{\hyperlink{a01581_aaa74c8c39ff8e66ceb6bc3ccf62deb11}{Base::myDim}};}
+\DoxyCodeLine{238   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01597_ae6a5eaed92a5cc932c2f55498bead058}{stressSize}}        = \mbox{\hyperlink{a01581_a88bb9059e82aeae277462d3f78f5eab2}{Base::stressSize}};}
+\DoxyCodeLine{239   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01597_aa640cbe01ca4f363dc0e6c52d856c4e7}{assumedStressSize}} = \mbox{\hyperlink{a01581_a923446745a7cbe2f0da7c27fae6af1e9}{Base::assumedStressSize}};}
+\DoxyCodeLine{240   \textcolor{keyword}{using }\mbox{\hyperlink{a01597_a9a424870049657f075cf0634775961fd}{AnsatzType}}                       = \textcolor{keyword}{typename} \mbox{\hyperlink{a01581_a788027f1dcc912014698afbd597b48c0}{Base::AnsatzType}};}
+\DoxyCodeLine{241   \textcolor{keyword}{using }\mbox{\hyperlink{a01597_a3a54e4af0133e7858230c0bcd6cdc051}{HType}}                            = \textcolor{keyword}{typename} \mbox{\hyperlink{a01581_aad7ea8d0a8aa8e42b29d5ab1fdde35be}{Base::HType}};}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{243   \mbox{\hyperlink{a01597_a99f9eafe21643a934e00282b0c99944b}{S30}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{244   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01597_a88979cbb594f25d7b245a239fc18a6a1}{S30}}(\textcolor{keyword}{const} GEO\& geo)}
+\DoxyCodeLine{245       : \mbox{\hyperlink{a01581}{Base}}(geo) \{\}}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{252   \mbox{\hyperlink{a01597_a9a424870049657f075cf0634775961fd}{AnsatzType}} \mbox{\hyperlink{a01597_a6573947acd5b99cc95e23333fd0de287}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02201}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{253     \mbox{\hyperlink{a01597_a9a424870049657f075cf0634775961fd}{AnsatzType}} P;}
+\DoxyCodeLine{254     P.setZero();}
+\DoxyCodeLine{255     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = 2.0 * quadPos[0] -\/ 1.0;}
+\DoxyCodeLine{256     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = 2.0 * quadPos[1] -\/ 1.0;}
+\DoxyCodeLine{257     \textcolor{keyword}{const} \textcolor{keywordtype}{double} zeta = 2.0 * quadPos[2] -\/ 1.0;}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{259     \textcolor{comment}{// ξξ = (1.0, eta, zeta, eta*zeta) → row 0:}}
+\DoxyCodeLine{260     P(0, 0) = 1.0;}
+\DoxyCodeLine{261     P(0, 1) = eta;}
+\DoxyCodeLine{262     P(0, 2) = zeta;}
+\DoxyCodeLine{263     P(0, 3) = eta * zeta;}
+\DoxyCodeLine{264 }
+\DoxyCodeLine{265     \textcolor{comment}{// ηη = (1.0, xi, zeta, xi*zeta) → row 1:}}
+\DoxyCodeLine{266     P(1, 4) = 1.0;}
+\DoxyCodeLine{267     P(1, 5) = xi;}
+\DoxyCodeLine{268     P(1, 6) = zeta;}
+\DoxyCodeLine{269     P(1, 7) = xi * zeta;}
+\DoxyCodeLine{270 }
+\DoxyCodeLine{271     \textcolor{comment}{// ζζ = (1.0, xi, eta, xi*eta) → row 2:}}
+\DoxyCodeLine{272     P(2, 8)  = 1.0;}
+\DoxyCodeLine{273     P(2, 9)  = xi;}
+\DoxyCodeLine{274     P(2, 10) = eta;}
+\DoxyCodeLine{275     P(2, 11) = xi * eta;}
+\DoxyCodeLine{276 }
+\DoxyCodeLine{277     \textcolor{comment}{// ηζ = (1.0, xi, xi*eta, xi*zeta) → row 3:}}
+\DoxyCodeLine{278     P(3, 12) = 1.0;}
+\DoxyCodeLine{279     P(3, 13) = xi;}
+\DoxyCodeLine{280     P(3, 14) = eta;}
+\DoxyCodeLine{281     P(3, 15) = zeta;}
+\DoxyCodeLine{282     P(3, 16) = xi * eta;}
+\DoxyCodeLine{283     P(3, 17) = xi * zeta;}
 \DoxyCodeLine{284 }
-\DoxyCodeLine{295   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{296   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01473_a4e00cd4443b95c922121092c31157063}{intermediatePrediction}}(\textcolor{keyword}{typename} F::Domain\& req, F\& residual, \mbox{\hyperlink{a01461}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{297     req.globalSolution() += args.\mbox{\hyperlink{a01461_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};}
-\DoxyCodeLine{298   \}}
-\DoxyCodeLine{299 }
-\DoxyCodeLine{301   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01473_a16cd9773e9704597d967f144d674bcd4}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}Displacement Control"{}}); \}}
-\DoxyCodeLine{302 }
-\DoxyCodeLine{303 \textcolor{keyword}{private}:}
-\DoxyCodeLine{304   std::vector<int> controlledIndices; }
-\DoxyCodeLine{305 \};}
-\DoxyCodeLine{306 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{285     \textcolor{comment}{// ξζ = (1.0, eta, xi*eta, eta*zeta) → row 4:}}
+\DoxyCodeLine{286     P(4, 18) = 1.0;}
+\DoxyCodeLine{287     P(4, 19) = xi;}
+\DoxyCodeLine{288     P(4, 20) = eta;}
+\DoxyCodeLine{289     P(4, 21) = zeta;}
+\DoxyCodeLine{290     P(4, 22) = xi * eta;}
+\DoxyCodeLine{291     P(4, 23) = eta * zeta;}
+\DoxyCodeLine{292 }
+\DoxyCodeLine{293     \textcolor{comment}{// ξη = (1.0, zeta, eta*zeta, xi*zeta) → row 5:}}
+\DoxyCodeLine{294     P(5, 24) = 1.0;}
+\DoxyCodeLine{295     P(5, 25) = xi;}
+\DoxyCodeLine{296     P(5, 26) = eta;}
+\DoxyCodeLine{297     P(5, 27) = zeta;}
+\DoxyCodeLine{298     P(5, 28) = eta * zeta;}
+\DoxyCodeLine{299     P(5, 29) = xi * zeta;}
+\DoxyCodeLine{300 }
+\DoxyCodeLine{301     \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{a01581_a07a00abfed52c610b8995936edd44576}{T0\_}} * P;}
+\DoxyCodeLine{302   \}}
+\DoxyCodeLine{303 \};}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{305 \} \textcolor{comment}{// namespace Ikarus::PS}}
 
 \end{DoxyCode}

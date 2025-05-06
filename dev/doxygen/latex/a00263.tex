@@ -1,18 +1,20 @@
-\hypertarget{a00263}{}\doxysection{ogden.\+hh File Reference}
-\label{a00263}\index{ogden.hh@{ogden.hh}}
+\hypertarget{a00263}{}\doxysection{factory.\+hh File Reference}
+\label{a00263}\index{factory.hh@{factory.hh}}
 
 
-Implementation of the Ogden material model.  
+Header file for containing helper functions to construct various hyperelastic material models.  
 
 
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/materialhelpers.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/arrudaboyce.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/blatzko.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/gent.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/invariantbased.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/ogden.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/interface.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/neohooke.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/volumetricfunctions.\+hh$>$}\newline
 {\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/tags.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/tensorutils.\+hh$>$}\newline
-\doxysubsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{a01681}{Ikarus\+::\+Materials\+::\+Ogden\+T$<$ ST\+\_\+, n, tag $>$}}
-\begin{DoxyCompactList}\small\item\em Implementation of the Ogden material model. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -20,8 +22,20 @@ namespace \mbox{\hyperlink{a00489}{Ikarus}}
 \item 
 namespace \mbox{\hyperlink{a00500}{Ikarus\+::\+Materials}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$int n, Principal\+Stretch\+Tags tag$>$ }\\using \mbox{\hyperlink{a00500_a7759118d563e476dc3b7e737df439f4d}{Ikarus\+::\+Materials\+::\+Ogden}} = OgdenT$<$ double, n, tag $>$
-\begin{DoxyCompactList}\small\item\em Alias for \mbox{\hyperlink{a01681}{OgdenT}} with double as the default scalar type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+auto \mbox{\hyperlink{a00500_aa724b5f1275a41f266ad6aae180ed317}{Ikarus\+::\+Materials\+::make\+Blatz\+Ko}} (double mu)
+\begin{DoxyCompactList}\small\item\em A helper function to create a hyperelastic material model, where the deviatoric part is according to the Blatz-\/\+Ko model. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int n, Principal\+Stretch\+Tags tag, typename Volumetric\+Function  = VF0$>$ }\\auto \mbox{\hyperlink{a00500_af8c1c0f27639b0883f98f4e814aca8e5}{Ikarus\+::\+Materials\+::make\+Ogden}} (const typename Ogden$<$ n, tag $>$\+::\+Material\+Parameters \&mu, const typename Ogden$<$ n, tag $>$\+::\+Material\+Exponents alpha, double K=0.\+0, const Volumetric\+Function \&vf=Volumetric\+Function\{\})
+\begin{DoxyCompactList}\small\item\em A helper function to create a hyperelastic material model, where the deviatoric part is according to the Ogden model. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int n, typename Volumetric\+Function  = VF0$>$ }\\auto \mbox{\hyperlink{a00500_a03ec75f725d4772d6e33532501cd10a8}{Ikarus\+::\+Materials\+::make\+Invariant\+Based}} (const typename Invariant\+Based$<$ n $>$\+::\+Material\+Parameters \&mu, const typename Invariant\+Based$<$ n $>$\+::\+Exponents pex, const typename Invariant\+Based$<$ n $>$\+::\+Exponents qex, double K=0.\+0, const Volumetric\+Function \&vf=Volumetric\+Function\{\})
+\begin{DoxyCompactList}\small\item\em A helper function to create a hyperelastic material model, where the deviatoric part is according to the general invariant-\/based model. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Volumetric\+Function  = VF0$>$ }\\auto \mbox{\hyperlink{a00500_a7ac025ab0f41d2021008bd54e51135b1}{Ikarus\+::\+Materials\+::make\+Mooney\+Rivlin}} (const typename Invariant\+Based$<$ 2 $>$\+::\+Material\+Parameters \&mu, double K=0.\+0, const Volumetric\+Function \&vf=Volumetric\+Function\{\})
+\begin{DoxyCompactList}\small\item\em A helper function to create a hyperelastic material model, where the deviatoric part is according to the Mooney-\/\+Rivlin model (Invariant\+Based model with n = 2). \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Volumetric\+Function  = VF0$>$ }\\auto \mbox{\hyperlink{a00500_a00567c7322e1a28e7575c67a19631201}{Ikarus\+::\+Materials\+::make\+Yeoh}} (const typename Invariant\+Based$<$ 3 $>$\+::\+Material\+Parameters \&mu, double K=0.\+0, const Volumetric\+Function \&vf=Volumetric\+Function\{\})
+\begin{DoxyCompactList}\small\item\em A helper function to create a hyperelastic material model, where the deviatoric part is according to the Yeoh model (Invariant\+Based model with n = 3). \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Volumetric\+Function  = VF0$>$ }\\auto \mbox{\hyperlink{a00500_af561f0434312c4d30c22e4438f2c9a1a}{Ikarus\+::\+Materials\+::make\+Arruda\+Boyce}} (const Arruda\+Boyce\+Mat\+Parameters \&mat\+Par, double K=0.\+0, const Volumetric\+Function \&vf=Volumetric\+Function\{\})
+\begin{DoxyCompactList}\small\item\em A helper function to create a hyperelastic material model, where the deviatoric part is according to the Arruda-\/\+Boyce model. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Volumetric\+Function  = VF0$>$ }\\auto \mbox{\hyperlink{a00500_a02bb70b49abcfa023ae81f4f4f1d27de}{Ikarus\+::\+Materials\+::make\+Gent}} (const Gent\+Mat\+Parameters \&mat\+Par, double K=0.\+0, const Volumetric\+Function \&vf=Volumetric\+Function\{\})
+\begin{DoxyCompactList}\small\item\em A helper function to create a hyperelastic material model, where the deviatoric part is according to the Gent model. \end{DoxyCompactList}\end{DoxyCompactItemize}

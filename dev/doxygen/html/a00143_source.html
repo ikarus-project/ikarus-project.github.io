@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers mueller@ibb.uni-stuttgart.de
+SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de
 SPDX-License-Identifier: LGPL-3.0-or-later
 -->
 <!-- HTML header for doxygen 1.8.13-->
@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: controlvtkwriter.hh Source File</title>
+    <title>ikarus: controllogger.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,105 +155,72 @@ $(document).ready(function(){initNavTree('a00143_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">controlvtkwriter.hh</div></div>
+  <div class="headertitle"><div class="title">controllogger.hh</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00143.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers mueller@ibb.uni-stuttgart.de</span></div>
+<a href="a00143.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;dune/functions/gridfunctions/discreteglobalbasisfunction.hh&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;dune/grid/io/file/vtk/subsamplingvtkwriter.hh&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00128.html">ikarus/utils/broadcaster/broadcastermessages.hh</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00137.html">ikarus/utils/listener/listener.hh</a>&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a00152.html">ikarus/utils/broadcaster/broadcastermessages.hh</a>&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a00134.html">ikarus/utils/listener/listener.hh</a>&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#pragma GCC diagnostic push</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#pragma GCC diagnostic ignored &quot;-Wswitch-enum&quot;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00489.html">Ikarus</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a02261.html">   33</a></span><span class="keyword">class </span><a class="code hl_class" href="a02261.html">ControlSubsamplingVertexVTKWriter</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a02269.html">Listener</a></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keyword">using </span>Basis                     = B;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> components = Basis::LocalView::Tree::degree() == 0 ? 1 : Basis::LocalView::Tree::degree();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a02261.html#a1e07865751a32e0a1dd29e8f001babc3">   48</a></span>  <a class="code hl_function" href="a02261.html#a1e07865751a32e0a1dd29e8f001babc3">ControlSubsamplingVertexVTKWriter</a>(<span class="keyword">const</span> Basis&amp; <a class="code hl_function" href="a00522.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>, <span class="keyword">const</span> Eigen::VectorXd&amp; sol, <span class="keywordtype">int</span> refinementLevels = 0)</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      : basis_{&amp;<a class="code hl_function" href="a00522.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>},</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        vtkWriter_(<a class="code hl_function" href="a00522.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>.gridView(), <a class="code hl_namespace" href="a00515.html">Dune</a>::refinementLevels(refinementLevels)),</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        solution_{&amp;sol} {}</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> BC&gt;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a02261.html#a3dae604f656fc27f82a60b713d1fb0cf">   54</a></span>  <a class="code hl_class" href="a02261.html">ControlSubsamplingVertexVTKWriter</a>&amp; <a class="code hl_function" href="a02261.html#a3dae604f656fc27f82a60b713d1fb0cf">subscribeTo</a>(BC&amp; bc) {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    this-&gt;<a class="code hl_function" href="a02269.html#a754e8fbe950f23d4610009475e35ed98">subscribe</a>(bc, [&amp;](<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message) { this-&gt;<a class="code hl_function" href="a02261.html#afb324017dac0d22e505d87a6c1684032">updateImpl</a>(message); });</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  }</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a02261.html#afec0c3fe2aa8cac3e9970d8c9720c219">   68</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a02261.html#afec0c3fe2aa8cac3e9970d8c9720c219">setFieldInfo</a>(std::string&amp;&amp; name, Dune::VTK::FieldInfo::Type type, std::size_t size,</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                    Dune::VTK::Precision prec = Dune::VTK::Precision::float32) {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    fieldInfo_      = Dune::VTK::FieldInfo(std::move(name), type, size, prec);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    isFieldInfoSet_ = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  }</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00489.html">Ikarus</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a02257.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a02257.html">ControlLogger</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a02269.html">Listener</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> BC&gt;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a02257.html#a0138d15920218568fc349acd1b40950f">   26</a></span>  <a class="code hl_class" href="a02257.html">ControlLogger</a>&amp; <a class="code hl_function" href="a02257.html#a0138d15920218568fc349acd1b40950f">subscribeTo</a>(BC&amp; bc) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    this-&gt;<a class="code hl_function" href="a02269.html#a754e8fbe950f23d4610009475e35ed98">subscribe</a>(bc, [&amp;](<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message) { this-&gt;<a class="code hl_function" href="a02257.html#abffbd8ad50249587de065b395844a574">updateImpl</a>(message); });</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    this-&gt;<a class="code hl_function" href="a02269.html#a754e8fbe950f23d4610009475e35ed98">subscribe</a>(bc, [&amp;](<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message, <span class="keyword">const</span> BC::State&amp; state) { this-&gt;<a class="code hl_function" href="a02257.html#abffbd8ad50249587de065b395844a574">updateImpl</a>(message, state); });</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    this-&gt;<a class="code hl_function" href="a02269.html#a754e8fbe950f23d4610009475e35ed98">subscribe</a>(bc, [&amp;](<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message, <span class="keyword">const</span> std::string&amp; val) { this-&gt;<a class="code hl_function" href="a02257.html#abffbd8ad50249587de065b395844a574">updateImpl</a>(message, val); });</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    this-&gt;<a class="code hl_function" href="a02269.html#a754e8fbe950f23d4610009475e35ed98">subscribe</a>(</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        bc, [&amp;](<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message, <span class="keywordtype">int</span> val1, <span class="keyword">const</span> std::string&amp; val2) { this-&gt;<a class="code hl_function" href="a02257.html#abffbd8ad50249587de065b395844a574">updateImpl</a>(message, val1, val2); });</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    this-&gt;<a class="code hl_function" href="a02269.html#a754e8fbe950f23d4610009475e35ed98">subscribe</a>(bc, [&amp;](<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message, <span class="keywordtype">int</span> val1, <span class="keywordtype">double</span> val2) { this-&gt;<a class="code hl_function" href="a02257.html#abffbd8ad50249587de065b395844a574">updateImpl</a>(message, val1, val2); });</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a02257.html#abffbd8ad50249587de065b395844a574">   41</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02257.html#abffbd8ad50249587de065b395844a574">updateImpl</a>(<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a02257.html#a73d938055b8a139eed7e023d7e7007d6">   48</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02257.html#a73d938055b8a139eed7e023d7e7007d6">updateImpl</a>(<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message, <span class="keyword">const</span> std::string&amp; val);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a02257.html#a27405f0351dbe3539e0d56cb79dd4da3">   56</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02257.html#a27405f0351dbe3539e0d56cb79dd4da3">updateImpl</a>(<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message, <span class="keywordtype">int</span> val1, <span class="keyword">const</span> std::string&amp; val2);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a02257.html#a472e94d0275e6c3053d6e2ef52c8a5ba">   64</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02257.html#a472e94d0275e6c3053d6e2ef52c8a5ba">updateImpl</a>(<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message, <span class="keywordtype">int</span> val1, <span class="keywordtype">double</span> val2);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a02257.html#a7df303bdeb8dc2842eff0bbbf126ebe2">   72</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02257.html#a7df303bdeb8dc2842eff0bbbf126ebe2">updateImpl</a>(<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message, <span class="keyword">const</span> <a class="code hl_concept" href="a02392.html">Concepts::ControlRoutineState</a> <span class="keyword">auto</span>&amp; state) { <a class="code hl_function" href="a02257.html#a7df303bdeb8dc2842eff0bbbf126ebe2">updateImpl</a>(message); }</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a02261.html#a8061e516e4c6626a2f6ea160e692e4e1">   79</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a02261.html#a8061e516e4c6626a2f6ea160e692e4e1">setFileNamePrefix</a>(std::string&amp;&amp; name) { prefixString_ = std::move(name); }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="a02261.html#afb324017dac0d22e505d87a6c1684032">   89</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02261.html#afb324017dac0d22e505d87a6c1684032">updateImpl</a>(<a class="code hl_enumeration" href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message) {</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    assert(isFieldInfoSet_ &amp;&amp; <span class="stringliteral">&quot;You need to call setFieldInfo first!&quot;</span>);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">switch</span> (message) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a00483.html#gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">ControlMessages::SOLUTION_CHANGED</a>: {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keyword">auto</span> disp = Dune::Functions::makeDiscreteGlobalBasisFunction&lt;Dune::FieldVector&lt;double, components&gt;&gt;(*basis_,</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                                                                                                            *solution_);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        vtkWriter_.addVertexData(disp, fieldInfo_);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        vtkWriter_.write(prefixString_ + std::to_string(step_++));</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>      } <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>      <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">break</span>; <span class="comment">// default: do nothing when notified</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>  }</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>  <span class="keyword">const</span> Basis* basis_;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  Dune::SubsamplingVTKWriter&lt;typename Basis::GridView&gt; vtkWriter_;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  <span class="keyword">const</span> Eigen::VectorXd* solution_;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <span class="keywordtype">int</span> step_{0};</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  Dune::VTK::FieldInfo fieldInfo_{<span class="stringliteral">&quot;Default&quot;</span>, Dune::VTK::FieldInfo::Type::scalar, 1};</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  std::string prefixString_{};</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  <span class="keywordtype">bool</span> isFieldInfoSet_{<span class="keyword">false</span>};</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>};</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>} <span class="comment">// namespace Ikarus</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#pragma GCC diagnostic pop</span></div>
-<div class="ttc" id="aa00134_html"><div class="ttname"><a href="a00134.html">listener.hh</a></div><div class="ttdoc">Implementation of the observer design pattern with broadcasters.</div></div>
-<div class="ttc" id="aa00152_html"><div class="ttname"><a href="a00152.html">broadcastermessages.hh</a></div><div class="ttdoc">Enums for observer messages.</div></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <span class="keyword">using </span>TimePoint = std::chrono::time_point&lt;std::chrono::high_resolution_clock&gt;;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  TimePoint start_{};</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  TimePoint stop_{};</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  std::chrono::milliseconds duration_{};</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>};</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="ttc" id="aa00128_html"><div class="ttname"><a href="a00128.html">broadcastermessages.hh</a></div><div class="ttdoc">Enums for observer messages.</div></div>
+<div class="ttc" id="aa00137_html"><div class="ttname"><a href="a00137.html">listener.hh</a></div><div class="ttdoc">Implementation of the observer design pattern with broadcasters.</div></div>
 <div class="ttc" id="aa00483_html_ga35fa62fd2d4186a9750af3d0692f2893"><div class="ttname"><a href="a00483.html#ga35fa62fd2d4186a9750af3d0692f2893">Ikarus::ControlMessages</a></div><div class="ttdeci">ControlMessages</div><div class="ttdoc">Enum class defining control-routine-related messages.</div><div class="ttdef"><b>Definition:</b> broadcastermessages.hh:17</div></div>
-<div class="ttc" id="aa00483_html_gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577"><div class="ttname"><a href="a00483.html#gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">Ikarus::ControlMessages::SOLUTION_CHANGED</a></div><div class="ttdeci">@ SOLUTION_CHANGED</div></div>
 <div class="ttc" id="aa00489_html"><div class="ttname"><a href="a00489.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa00515_html"><div class="ttname"><a href="a00515.html">Dune</a></div><div class="ttdef"><b>Definition:</b> utils/dirichletvalues.hh:30</div></div>
-<div class="ttc" id="aa00522_html_a0f9f04fa9d98e890cb6d4fe62ff889a4"><div class="ttname"><a href="a00522.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">ikarus.basis.basis</a></div><div class="ttdeci">def basis(gv, tree)</div><div class="ttdef"><b>Definition:</b> basis.py:10</div></div>
-<div class="ttc" id="aa02261_html"><div class="ttname"><a href="a02261.html">Ikarus::ControlSubsamplingVertexVTKWriter</a></div><div class="ttdoc">ControlSubsamplingVertexVTKWriter class for writing VTK files with subsampling based on control messa...</div><div class="ttdef"><b>Definition:</b> controlvtkwriter.hh:34</div></div>
-<div class="ttc" id="aa02261_html_a1e07865751a32e0a1dd29e8f001babc3"><div class="ttname"><a href="a02261.html#a1e07865751a32e0a1dd29e8f001babc3">Ikarus::ControlSubsamplingVertexVTKWriter::ControlSubsamplingVertexVTKWriter</a></div><div class="ttdeci">ControlSubsamplingVertexVTKWriter(const Basis &amp;basis, const Eigen::VectorXd &amp;sol, int refinementLevels=0)</div><div class="ttdoc">Constructor for ControlSubsamplingVertexVTKWriter.</div><div class="ttdef"><b>Definition:</b> controlvtkwriter.hh:48</div></div>
-<div class="ttc" id="aa02261_html_a3dae604f656fc27f82a60b713d1fb0cf"><div class="ttname"><a href="a02261.html#a3dae604f656fc27f82a60b713d1fb0cf">Ikarus::ControlSubsamplingVertexVTKWriter::subscribeTo</a></div><div class="ttdeci">ControlSubsamplingVertexVTKWriter &amp; subscribeTo(BC &amp;bc)</div><div class="ttdef"><b>Definition:</b> controlvtkwriter.hh:54</div></div>
-<div class="ttc" id="aa02261_html_a8061e516e4c6626a2f6ea160e692e4e1"><div class="ttname"><a href="a02261.html#a8061e516e4c6626a2f6ea160e692e4e1">Ikarus::ControlSubsamplingVertexVTKWriter::setFileNamePrefix</a></div><div class="ttdeci">auto setFileNamePrefix(std::string &amp;&amp;name)</div><div class="ttdoc">Set the file name prefix for VTK files.</div><div class="ttdef"><b>Definition:</b> controlvtkwriter.hh:79</div></div>
-<div class="ttc" id="aa02261_html_afb324017dac0d22e505d87a6c1684032"><div class="ttname"><a href="a02261.html#afb324017dac0d22e505d87a6c1684032">Ikarus::ControlSubsamplingVertexVTKWriter::updateImpl</a></div><div class="ttdeci">void updateImpl(ControlMessages message)</div><div class="ttdoc">Implementation of the update method.</div><div class="ttdef"><b>Definition:</b> controlvtkwriter.hh:89</div></div>
-<div class="ttc" id="aa02261_html_afec0c3fe2aa8cac3e9970d8c9720c219"><div class="ttname"><a href="a02261.html#afec0c3fe2aa8cac3e9970d8c9720c219">Ikarus::ControlSubsamplingVertexVTKWriter::setFieldInfo</a></div><div class="ttdeci">auto setFieldInfo(std::string &amp;&amp;name, Dune::VTK::FieldInfo::Type type, std::size_t size, Dune::VTK::Precision prec=Dune::VTK::Precision::float32)</div><div class="ttdoc">Set field information for the VTK file.</div><div class="ttdef"><b>Definition:</b> controlvtkwriter.hh:68</div></div>
+<div class="ttc" id="aa02257_html"><div class="ttname"><a href="a02257.html">Ikarus::ControlLogger</a></div><div class="ttdoc">ControlLogger class for logging control messages.</div><div class="ttdef"><b>Definition:</b> controllogger.hh:23</div></div>
+<div class="ttc" id="aa02257_html_a0138d15920218568fc349acd1b40950f"><div class="ttname"><a href="a02257.html#a0138d15920218568fc349acd1b40950f">Ikarus::ControlLogger::subscribeTo</a></div><div class="ttdeci">ControlLogger &amp; subscribeTo(BC &amp;bc)</div><div class="ttdef"><b>Definition:</b> controllogger.hh:26</div></div>
+<div class="ttc" id="aa02257_html_a27405f0351dbe3539e0d56cb79dd4da3"><div class="ttname"><a href="a02257.html#a27405f0351dbe3539e0d56cb79dd4da3">Ikarus::ControlLogger::updateImpl</a></div><div class="ttdeci">void updateImpl(ControlMessages message, int val1, const std::string &amp;val2)</div><div class="ttdoc">Implementation of the update method for logging control messages with an integer and a string value.</div></div>
+<div class="ttc" id="aa02257_html_a472e94d0275e6c3053d6e2ef52c8a5ba"><div class="ttname"><a href="a02257.html#a472e94d0275e6c3053d6e2ef52c8a5ba">Ikarus::ControlLogger::updateImpl</a></div><div class="ttdeci">void updateImpl(ControlMessages message, int val1, double val2)</div><div class="ttdoc">Implementation of the update method for logging control messages with an integer and a double value.</div></div>
+<div class="ttc" id="aa02257_html_a73d938055b8a139eed7e023d7e7007d6"><div class="ttname"><a href="a02257.html#a73d938055b8a139eed7e023d7e7007d6">Ikarus::ControlLogger::updateImpl</a></div><div class="ttdeci">void updateImpl(ControlMessages message, const std::string &amp;val)</div><div class="ttdoc">Implementation of the update method for logging control messages with string values.</div></div>
+<div class="ttc" id="aa02257_html_a7df303bdeb8dc2842eff0bbbf126ebe2"><div class="ttname"><a href="a02257.html#a7df303bdeb8dc2842eff0bbbf126ebe2">Ikarus::ControlLogger::updateImpl</a></div><div class="ttdeci">void updateImpl(ControlMessages message, const Concepts::ControlRoutineState auto &amp;state)</div><div class="ttdoc">Implementation of the update method for logging control messages with a control routine state.</div><div class="ttdef"><b>Definition:</b> controllogger.hh:72</div></div>
+<div class="ttc" id="aa02257_html_abffbd8ad50249587de065b395844a574"><div class="ttname"><a href="a02257.html#abffbd8ad50249587de065b395844a574">Ikarus::ControlLogger::updateImpl</a></div><div class="ttdeci">void updateImpl(ControlMessages message)</div><div class="ttdoc">Implementation of the update method for control message logging.</div></div>
 <div class="ttc" id="aa02269_html"><div class="ttname"><a href="a02269.html">Ikarus::Listener</a></div><div class="ttdef"><b>Definition:</b> listener.hh:27</div></div>
 <div class="ttc" id="aa02269_html_a754e8fbe950f23d4610009475e35ed98"><div class="ttname"><a href="a02269.html#a754e8fbe950f23d4610009475e35ed98">Ikarus::Listener::subscribe</a></div><div class="ttdeci">auto subscribe(Broadcaster &amp;broadcaster, F &amp;&amp;f)</div><div class="ttdoc">Function to subscribe to a broadcaster with a given function (either a lambda, std::function or funct...</div><div class="ttdef"><b>Definition:</b> listener.hh:43</div></div>
+<div class="ttc" id="aa02392_html"><div class="ttname"><a href="a02392.html">Ikarus::Concepts::ControlRoutineState</a></div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:641</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
-SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers mueller@ibb.uni-stuttgart.de
+SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de
 SPDX-License-Identifier: LGPL-3.0-or-later
 -->
 <!-- HTML footer for doxygen 1.9.6-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="dir_a36f9627d192b5cf01f286cebe1a270d.html">listener</a></li><li class="navelem"><a class="el" href="a00143.html">controlvtkwriter.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="dir_a36f9627d192b5cf01f286cebe1a270d.html">listener</a></li><li class="navelem"><a class="el" href="a00143.html">controllogger.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

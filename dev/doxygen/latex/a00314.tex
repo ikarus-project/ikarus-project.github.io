@@ -1,28 +1,15 @@
-\hypertarget{a00314}{}\doxysection{mixin.\+hh File Reference}
-\label{a00314}\index{mixin.hh@{mixin.hh}}
+\hypertarget{a00314}{}\doxysection{strainconversions.\+hh File Reference}
+\label{a00314}\index{strainconversions.hh@{strainconversions.hh}}
 
 
-Implementation of the finite element CRTP mixin class.  
+Implementation of strain-\/related functions.  
 
 
-{\ttfamily \#include $<$dune/common/tuplevector.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/fetraits.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/assumedstress.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/enhancedassumedstrains.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/broadcaster/broadcastermessages.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/functionhelper.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/listener/listener.\+hh$>$}\newline
-\doxysubsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{a01889}{Ikarus\+::\+FEMixin$<$ Pre\+FE, Skills $>$}}
-\begin{DoxyCompactList}\small\item\em CRTP mixin class for finite elements with additional skills. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{a01897}{Ikarus\+::\+FEMixin$<$ Pre\+FE, Skills $>$\+::\+Requirement\+Type$<$ false, T $>$}}
-\item 
-struct \mbox{\hyperlink{a01901}{Ikarus\+::\+FEMixin$<$ Pre\+FE, Skills $>$\+::\+Requirement\+Type$<$ true, T $>$}}
-\item 
-struct \mbox{\hyperlink{a01905}{Ikarus\+::\+Skills$<$ ARGS $>$}}
-\begin{DoxyCompactList}\small\item\em Struct representing a collection of skills. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\ttfamily \#include \char`\"{}tags.\+hh\char`\"{}}\newline
+{\ttfamily \#include $<$unsupported/\+Eigen/\+Matrix\+Functions$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/materialhelpers.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/tensorutils.\+hh$>$}\newline
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -31,7 +18,15 @@ namespace \mbox{\hyperlink{a00489}{Ikarus}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{a00489_aefa492686bced0d5d9235bdb112f482e}{Ikarus\+::skills}} (const Args \&... args)
-\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a01905}{Skills}} instance with the given skills. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename... Args1, typename... Args2$>$ }\\auto \mbox{\hyperlink{a00489_a4f5729471c2a5801482188e6d42009ea}{Ikarus\+::merge}} (const Skills$<$ Args1... $>$ \&sk1, const Skills$<$ Args2... $>$ \&sk2)
-\begin{DoxyCompactList}\small\item\em Function to merge two \mbox{\hyperlink{a01905}{Skills}} instances. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$Strain\+Tags tag, typename Derived $>$ }\\auto \mbox{\hyperlink{a00477_gad5aa30fe829c7316a0a744b3438609f5}{Ikarus\+::create\+Green\+Lagrangian\+Strains}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&e\+MB)
+\begin{DoxyCompactList}\small\item\em Create Green-\/\+Lagrangian strain based on the input. \end{DoxyCompactList}\item 
+{\footnotesize template$<$Strain\+Tags tag, typename Derived $>$ }\\decltype(auto) \mbox{\hyperlink{a00477_ga5293eb09f12e4a45a7aa19a3403a73d1}{Ikarus\+::create\+Deformation\+Gradient}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&e\+MB)
+\begin{DoxyCompactList}\small\item\em Create the deformation gradient based on the input. \end{DoxyCompactList}\item 
+{\footnotesize template$<$Strain\+Tags tag, typename Derived $>$ }\\decltype(auto) \mbox{\hyperlink{a00477_gae53e0e7999f565fc94610d1c4ede0d16}{Ikarus\+::create\+Right\+Cauchy\+Green}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&e\+MB)
+\begin{DoxyCompactList}\small\item\em Create right Cauchy-\/\+Green tensor based on the input. \end{DoxyCompactList}\item 
+{\footnotesize template$<$Strain\+Tags from, Strain\+Tags to, typename Derived $>$ }\\decltype(auto) \mbox{\hyperlink{a00477_gae9c00f19ce473d7183c87aa84b247f88}{Ikarus\+::transform\+Strain}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&e\+Raw)
+\begin{DoxyCompactList}\small\item\em Transform strain from one type to another. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file provides implementation for strain-\/related functions, including the creation and transformation of different strain tensors. 

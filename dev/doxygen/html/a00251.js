@@ -1,4 +1,6 @@
 var a00251 =
 [
-    [ "BlatzKo", "a00251.html#a7c7d4e399e30b088b7253771704bd01b", null ]
+    [ "Ikarus::TrussPre", "a01881.html", "a01881" ],
+    [ "Ikarus::Truss< PreFE, FE >::KinematicVariables< ST >", "a01885.html", "a01885" ],
+    [ "truss", "a00251.html#a1936b02a190200901c54cc8b1004506e", null ]
 ];

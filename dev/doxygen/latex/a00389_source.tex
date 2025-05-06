@@ -1,64 +1,138 @@
-\hypertarget{a00389_source}{}\doxysection{nonlinearsolverstate.\+hh}
-\label{a00389_source}\index{nonlinearsolverstate.hh@{nonlinearsolverstate.hh}}
+\hypertarget{a00389_source}{}\doxysection{autodiffmat.\+hh}
+\label{a00389_source}\index{autodiffmat.hh@{autodiffmat.hh}}
 \mbox{\hyperlink{a00389}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00065}{ikarus/utils/traits.hh}}>}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00489}{Ikarus}} \{}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} D, \textcolor{keyword}{typename} CT>}
-\DoxyCodeLine{22 \textcolor{keyword}{struct }\mbox{\hyperlink{a02077}{NonlinearSolverState}}}
-\DoxyCodeLine{23 \{}
-\DoxyCodeLine{24   \textcolor{keyword}{using }\mbox{\hyperlink{a02077_a25a890e73f674d88c4ea5d710b9a5002}{Domain}}         = D;}
-\DoxyCodeLine{25   \textcolor{keyword}{using }\mbox{\hyperlink{a02077_a34c62aa698c6921f74c7c0d8adf9e2f1}{CorrectionType}} = CT;}
-\DoxyCodeLine{26 }
-\DoxyCodeLine{27   \textcolor{keyword}{const} \mbox{\hyperlink{a02077_a25a890e73f674d88c4ea5d710b9a5002}{Domain}}\& \mbox{\hyperlink{a02077_a4ea3cec63a27f4699e529393f4304850}{domain}};}
-\DoxyCodeLine{28   \textcolor{keyword}{const} \mbox{\hyperlink{a02077_a34c62aa698c6921f74c7c0d8adf9e2f1}{CorrectionType}}\& \mbox{\hyperlink{a02077_a0dc40215c88741a47a42cd8f2f129739}{correction}};}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02077_af81ab1acd711a67863b3dc24eb9d9063}{rNorm}}\{\};}
-\DoxyCodeLine{31   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02077_abd156cd4954d285b8993cfcc705ba89d}{dNorm}}\{\};}
-\DoxyCodeLine{32   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02077_aa2855c6b05caa2bdabd5ec5e6f6ab70a}{iteration}}\{\};}
-\DoxyCodeLine{33 \};}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{35 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SignatureTraits, \textcolor{keywordtype}{int} n>}
-\DoxyCodeLine{38   \textcolor{keyword}{struct }CorrectionType;}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SignatureTraits>}
-\DoxyCodeLine{41   \textcolor{keyword}{struct }CorrectionType<SignatureTraits, 1>}
-\DoxyCodeLine{42   \{}
-\DoxyCodeLine{43     \textcolor{keyword}{using }type = \textcolor{keyword}{typename} SignatureTraits::template Range<0>;}
-\DoxyCodeLine{44   \};}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <autodiff/forward/dual.hpp>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <autodiff/forward/dual/dual.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <autodiff/forward/dual/eigen.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <autodiff/forward/utils/derivative.hpp>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03437}{ikarus/finiteelements/mechanics/materials/interface.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00305}{ikarus/finiteelements/mechanics/materials/materialhelpers.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00005}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus::Experimental}} \{}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{33 \textcolor{keyword}{template} <\textcolor{keyword}{typename} RealMAT, \textcolor{keywordtype}{bool} forceAutoDiffV = false, \textcolor{keywordtype}{bool} forceAutoDiffS = false>}
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{a01477}{AutoDiffMAT}} : \textcolor{keyword}{public} RealMAT}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36   \textcolor{keyword}{using }\mbox{\hyperlink{a01477_ab6fcce305186ba816ca0af2f641b7dc3}{ScalarType}}     = \textcolor{keyword}{typename} RealMAT::ScalarType;}
+\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{a01477_a00f904cac37ab84fc456159865a6513e}{StrainMatrix}}   = \textcolor{keyword}{typename} RealMAT::StrainMatrix;}
+\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{a01477_a3861221b2b1fcc0f40d8d063f5193be7}{StressMatrix}}   = \textcolor{keyword}{typename} RealMAT::StressMatrix;}
+\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{a01477_a40f5bf44cc55fedf7c97014011ea13b0}{MaterialTensor}} = \textcolor{keyword}{typename} RealMAT::MaterialTensor;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01477_a926857f779e6f02ba22e37ec3d4310a0}{MaterialParameters}} = \textcolor{keyword}{typename} RealMAT::MaterialParameters;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01477_a4f4176c5b13b653fd6d84e1dee5d9eaa}{dim}}           = RealMAT::dim;}
+\DoxyCodeLine{44   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01477_a810b5bd64df43f542e0f9a5b9cce5a12}{nVoigtIndices}} = \mbox{\hyperlink{a01477_a4f4176c5b13b653fd6d84e1dee5d9eaa}{dim}} * (\mbox{\hyperlink{a01477_a4f4176c5b13b653fd6d84e1dee5d9eaa}{dim}} + 1) / 2;}
 \DoxyCodeLine{45 }
-\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SignatureTraits>}
-\DoxyCodeLine{47   \textcolor{keyword}{struct }CorrectionType<SignatureTraits, 2>}
-\DoxyCodeLine{48   \{}
-\DoxyCodeLine{49     \textcolor{keyword}{using }type = \textcolor{keyword}{typename} SignatureTraits::template Range<1>;}
-\DoxyCodeLine{50   \};}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{52   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{53   \textcolor{keyword}{struct }NonlinearSolverStateFactory}
-\DoxyCodeLine{54   \{}
-\DoxyCodeLine{55   \textcolor{keyword}{private}:}
-\DoxyCodeLine{56     \textcolor{keyword}{using }SignatureTraits = \textcolor{keyword}{typename} F::Traits;}
-\DoxyCodeLine{57     \textcolor{keyword}{using }Domain          = \textcolor{keyword}{typename} SignatureTraits::Domain;}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59     \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} nDerivatives = F::nDerivatives;}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61   \textcolor{keyword}{public}:}
-\DoxyCodeLine{62     \textcolor{keyword}{using }type = NonlinearSolverState<Domain, typename CorrectionType<SignatureTraits, nDerivatives>::type>;}
-\DoxyCodeLine{63   \};}
-\DoxyCodeLine{64 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{71 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{72 \textcolor{keyword}{using }\mbox{\hyperlink{a02077}{NonlinearSolverStateType}} = \mbox{\hyperlink{a02077}{Impl::NonlinearSolverStateFactory<F>::type}};}
+\DoxyCodeLine{46   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01477_a105d06949f7512446a83c4b9ba4fd64c}{strainTag}}              = RealMAT::strainTag;}
+\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01477_a77c8c9c1f9d4fa390a4a23c96358c1e8}{stressTag}}              = RealMAT::stressTag;}
+\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01477_aaf637a332a467408d19abc818f3da0dc}{tangentModuliTag}}       = RealMAT::tangentModuliTag;}
+\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01477_a66ac92cb8493e30a97101aee0636ad03}{energyAcceptsVoigt}}     = RealMAT::energyAcceptsVoigt;}
+\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01477_a96af9efb70873fd7691173e4e882ba76}{stressToVoigt}}          = RealMAT::stressToVoigt;}
+\DoxyCodeLine{51   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01477_ae1a917d6d6480813893beaa5125b8f6e}{stressAcceptsVoigt}}     = RealMAT::stressAcceptsVoigt;}
+\DoxyCodeLine{52   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01477_a00077996812cf9cc4e0d142b4a77e268}{moduliToVoigt}}          = RealMAT::moduliToVoigt;}
+\DoxyCodeLine{53   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01477_a7eaa006b1e668b10dddf90211419b48f}{moduliAcceptsVoigt}}     = RealMAT::moduliAcceptsVoigt;}
+\DoxyCodeLine{54   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} \mbox{\hyperlink{a01477_a1da0f005f8a1597fa880288cd61a5c3a}{derivativeFactorImpl}} = RealMAT::derivativeFactorImpl;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
+\DoxyCodeLine{64   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01477_ac17660b052b5c6b22e0c28ee46cc2865}{AutoDiffMAT}}(Args\&\&... args)}
+\DoxyCodeLine{65       : RealMAT\{std::forward<Args>(args)...\} \{\}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01477_a3d39ad61dd952d287ba1ef00d9fc6c28}{nameImpl}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}AutoDiff: "{}} + RealMAT::name(); \}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{72   \mbox{\hyperlink{a01477_a926857f779e6f02ba22e37ec3d4310a0}{MaterialParameters}} \mbox{\hyperlink{a01477_a2e8eefa09ee71009214007008991c7b7}{materialParametersImpl}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().materialParametersImpl(); \}}
 \DoxyCodeLine{73 }
-\DoxyCodeLine{74 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{80   \textcolor{keyword}{template} <StrainTags tag, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{81   \textcolor{keyword}{auto} \mbox{\hyperlink{a01477_a54d99b342a6c12ddd2ee3b748ca3d99f}{storedEnergy}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{82     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template storedEnergy<tag>(E); \}) \{}
+\DoxyCodeLine{83       \textcolor{keyword}{auto} mat\_ad = \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template rebind<autodiff::dual>();}
+\DoxyCodeLine{84       \textcolor{keywordflow}{return} mat\_ad.template storedEnergy<tag>(E);}
+\DoxyCodeLine{85     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{86       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<AutoDiffMAT>::value,}
+\DoxyCodeLine{87                     \textcolor{stringliteral}{"{}Appropriate storedEnergy function not is implemented for the chosen material model."{}});}
+\DoxyCodeLine{88     \}}
+\DoxyCodeLine{89   \}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{98   \textcolor{keyword}{template} <StrainTags tag, \textcolor{keywordtype}{bool} voigt = true, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{99   \textcolor{keyword}{auto} \mbox{\hyperlink{a01477_aa58ea268a050d8f2735e5098a0d519df}{stresses}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{100     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template stresses<tag>(E); \} and not(forceAutoDiffV or forceAutoDiffS)) \{}
+\DoxyCodeLine{101       \textcolor{keywordflow}{return} \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template stresses<tag>(E);}
+\DoxyCodeLine{102     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template storedEnergy<tag>(E); \}) \{}
+\DoxyCodeLine{103       \textcolor{keyword}{static\_assert}(!\mbox{\hyperlink{a02376}{Concepts::EigenVector<Derived>}},}
+\DoxyCodeLine{104                     \textcolor{stringliteral}{"{}The strain measure used for autodiff has to be in matrix notation."{}});}
+\DoxyCodeLine{105       \textcolor{keyword}{auto} mat\_ad = \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template rebind<autodiff::dual>();}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107       \textcolor{keyword}{auto} f = [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& x) \{ \textcolor{keywordflow}{return} mat\_ad.template storedEnergy<tag>(x); \};}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109       Eigen::Vector<autodiff::dual, nVoigtIndices> dx = \mbox{\hyperlink{a00485_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(E.derived());}
+\DoxyCodeLine{110       autodiff::dual e;}
+\DoxyCodeLine{111       Eigen::Vector<double, nVoigtIndices> g;}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113       gradient(f, autodiff::wrt(dx), autodiff::at(dx), e, g);}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115       \textcolor{keywordflow}{return} (\mbox{\hyperlink{a01477_a1da0f005f8a1597fa880288cd61a5c3a}{derivativeFactorImpl}} * g).eval();}
+\DoxyCodeLine{116     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{117       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<AutoDiffMAT>::value,}
+\DoxyCodeLine{118                     \textcolor{stringliteral}{"{}Appropriate storedEnergy function not is implemented for the chosen material model."{}});}
+\DoxyCodeLine{119     \}}
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{129   \textcolor{keyword}{template} <StrainTags tag, \textcolor{keywordtype}{bool} voigt = true, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{130   \textcolor{keyword}{auto} \mbox{\hyperlink{a01477_abd22c052743105a646c9cb16d531c57a}{tangentModuli}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{131     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template tangentModuli<tag>(E); \} and not(forceAutoDiffV or forceAutoDiffS)) \{}
+\DoxyCodeLine{132       \textcolor{keywordflow}{return} \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template tangentModuli<tag>(E);}
+\DoxyCodeLine{133     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template stresses<tag>(E); \} and forceAutoDiffV and not forceAutoDiffS) \{}
+\DoxyCodeLine{134       \textcolor{keyword}{static\_assert}(!\mbox{\hyperlink{a02376}{Concepts::EigenVector<Derived>}},}
+\DoxyCodeLine{135                     \textcolor{stringliteral}{"{}The strain measure used for autodiff has to be in matrix notation."{}});}
+\DoxyCodeLine{136       \textcolor{keyword}{auto} mat\_ad = \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template rebind<autodiff::dual>();}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138       \textcolor{keyword}{auto} f = [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& x) \{ \textcolor{keywordflow}{return} mat\_ad.template stresses<tag>(x); \};}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140       \textcolor{keyword}{auto} dx = Eigen::Vector<autodiff::dual, nVoigtIndices>\{\};}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142       dx = \mbox{\hyperlink{a00485_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(E.derived());}
+\DoxyCodeLine{143       Eigen::VectorXdual g(\mbox{\hyperlink{a01477_a810b5bd64df43f542e0f9a5b9cce5a12}{nVoigtIndices}});}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145       \textcolor{keyword}{auto} h = Eigen::Matrix<double, nVoigtIndices, nVoigtIndices>\{\};}
+\DoxyCodeLine{146       jacobian(f, autodiff::wrt(dx), autodiff::at(dx), g, h);}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148       \textcolor{keywordflow}{return} (\mbox{\hyperlink{a01477_a1da0f005f8a1597fa880288cd61a5c3a}{derivativeFactorImpl}} * h).eval();}
+\DoxyCodeLine{149     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template storedEnergy<tag>(E); \}) \{}
+\DoxyCodeLine{150       \textcolor{keyword}{static\_assert}(!\mbox{\hyperlink{a02376}{Concepts::EigenVector<Derived>}},}
+\DoxyCodeLine{151                     \textcolor{stringliteral}{"{}The strain measure used for autodiff has to be in matrix notation."{}});}
+\DoxyCodeLine{152       \textcolor{keyword}{auto} mat\_ad = \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template rebind<autodiff::dual2nd>();}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{154       \textcolor{keyword}{auto} f = [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& x) \{ \textcolor{keywordflow}{return} mat\_ad.template storedEnergy<tag>(x); \};}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{156       Eigen::Matrix<autodiff::dual2nd, nVoigtIndices, 1> dx = \mbox{\hyperlink{a00485_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(E.derived());}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158       autodiff::dual2nd e;}
+\DoxyCodeLine{159       Eigen::Matrix<double, nVoigtIndices, 1> g;}
+\DoxyCodeLine{160       Eigen::Matrix<double, nVoigtIndices, nVoigtIndices> h;}
+\DoxyCodeLine{161 }
+\DoxyCodeLine{162       h = autodiff::hessian(f, autodiff::wrt(dx), autodiff::at(dx), e, g);}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164       \textcolor{keywordflow}{return} (\mbox{\hyperlink{a01477_a1da0f005f8a1597fa880288cd61a5c3a}{derivativeFactorImpl}} * \mbox{\hyperlink{a01477_a1da0f005f8a1597fa880288cd61a5c3a}{derivativeFactorImpl}} * h).eval();}
+\DoxyCodeLine{165     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{166       \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{167           Dune::AlwaysFalse<AutoDiffMAT>::value,}
+\DoxyCodeLine{168           \textcolor{stringliteral}{"{}Appropriate storedEnergy and stresses functions are not implemented for the chosen material model."{}});}
+\DoxyCodeLine{169     \}}
+\DoxyCodeLine{170   \}}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{177   \textcolor{keyword}{const} RealMAT\& \mbox{\hyperlink{a01477_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{179 \textcolor{keyword}{private}:}
+\DoxyCodeLine{180   \mbox{\hyperlink{a01477_a926857f779e6f02ba22e37ec3d4310a0}{MaterialParameters}} materialParameter\_;}
+\DoxyCodeLine{181 \};}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183 \} \textcolor{comment}{// namespace Ikarus::Experimental}}
 
 \end{DoxyCode}

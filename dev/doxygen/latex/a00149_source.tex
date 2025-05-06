@@ -1,78 +1,59 @@
-\hypertarget{a00149_source}{}\doxysection{broadcaster.\+hh}
-\label{a00149_source}\index{broadcaster.hh@{broadcaster.hh}}
+\hypertarget{a00149_source}{}\doxysection{griddrawer.\+hh}
+\label{a00149_source}\index{griddrawer.hh@{griddrawer.hh}}
 \mbox{\hyperlink{a00149}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <functional>}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00489}{Ikarus}} \{}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{keyword}{template} <\textcolor{keyword}{class} Args>}
-\DoxyCodeLine{17 \textcolor{keyword}{struct }\mbox{\hyperlink{a02133}{Broadcaster}};}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <matplot/matplot.h>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <ranges>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <dune/geometry/dimension.hh>}}
 \DoxyCodeLine{18 }
-\DoxyCodeLine{24 \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{25 \textcolor{keyword}{class }\mbox{\hyperlink{a02133}{Broadcaster}}<void(Args...)>}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27   \textcolor{keyword}{using }F = std::function<void(Args...)>;}
-\DoxyCodeLine{28 }
-\DoxyCodeLine{29   \textcolor{comment}{// The functions are stored as weak pointer, therefore the Broadcaster has no ownership over them.}}
-\DoxyCodeLine{30   std::vector<std::weak\_ptr<F>> listeners;}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32 \textcolor{keyword}{public}:}
-\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a02137_a8e938f0fd10e39653bc9cb90109a37e7}{Token}} = std::shared\_ptr<F>;}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{44   \mbox{\hyperlink{a02137_a8e938f0fd10e39653bc9cb90109a37e7}{Token}} \mbox{\hyperlink{a02137_ac41fb9825ac6c6ced84a22e9b0c2f9a1}{registerListener}}(F f) \{}
-\DoxyCodeLine{45     \textcolor{keyword}{auto} sp = std::make\_shared<F>(std::move(f));}
-\DoxyCodeLine{46     listeners.push\_back(sp);}
-\DoxyCodeLine{47     \textcolor{keywordflow}{return} sp;}
-\DoxyCodeLine{48   \}}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50   \textcolor{comment}{// Unregister a listener}}
-\DoxyCodeLine{51   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02137_a3dcfad0abe0d83dbec232a77bc2a8e49}{unregisterListener}}(\mbox{\hyperlink{a02137_a8e938f0fd10e39653bc9cb90109a37e7}{Token}}\&\& t) \{ t = \textcolor{keyword}{nullptr}; \}}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{56   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02137_ab19ef3d9951ffca426daf0912eaedb31}{notify}}(Args... args) \{}
-\DoxyCodeLine{57     trim();}
-\DoxyCodeLine{58     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& w : listeners) \{}
-\DoxyCodeLine{59       \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} p = w.lock()) \{}
-\DoxyCodeLine{60         (*p)(args...);}
-\DoxyCodeLine{61       \}}
-\DoxyCodeLine{62     \}}
-\DoxyCodeLine{63   \}}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65 \textcolor{keyword}{private}:}
-\DoxyCodeLine{66   \textcolor{comment}{// Remove expired listeners, we need that because the weak pointers could already be invalidated (i.e. refcount == 0).}}
-\DoxyCodeLine{67   \textcolor{keywordtype}{void} trim() \{}
-\DoxyCodeLine{68     listeners.erase(std::remove\_if(listeners.begin(), listeners.end(), [](\textcolor{keyword}{auto}\& p) \{ return p.expired(); \}),}
-\DoxyCodeLine{69                     listeners.end());}
-\DoxyCodeLine{70   \}}
-\DoxyCodeLine{71 \};}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{79 \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Signatures>}
-\DoxyCodeLine{80 \textcolor{keyword}{class }\mbox{\hyperlink{a02141}{Broadcasters}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02133}{Broadcaster}}<Signatures>...}
-\DoxyCodeLine{81 \{}
-\DoxyCodeLine{82 \textcolor{keyword}{public}:}
-\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{a02133}{Broadcaster}}<Signatures>::registerListener...;}
-\DoxyCodeLine{84   \textcolor{keyword}{using }\mbox{\hyperlink{a02133}{Broadcaster}}<Signatures>::unregisterListener...;}
-\DoxyCodeLine{85   \textcolor{keyword}{using }\mbox{\hyperlink{a02133}{Broadcaster}}<Signatures>::notify...;}
-\DoxyCodeLine{86 }
-\DoxyCodeLine{87   \textcolor{comment}{// Access a specific broadcaster for a given message type}}
-\DoxyCodeLine{88   \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{89   \mbox{\hyperlink{a02133}{Broadcaster<M>}}\& \mbox{\hyperlink{a02141_abc95263ead8ea6d71c2b017a1ea250be}{station}}() \{}
-\DoxyCodeLine{90     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{91   \}}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{93   \textcolor{comment}{// Access a specific broadcaster for a given message type (const version)}}
-\DoxyCodeLine{94   \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{95   \textcolor{keyword}{const} \mbox{\hyperlink{a02133}{Broadcaster<M>}}\& \mbox{\hyperlink{a02141_af25ec90e8c2c7df3d7b033e6e6a06dc1}{station}}()\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{96     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{97   \}}
-\DoxyCodeLine{98 \};}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{100 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{30 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GV>}
+\DoxyCodeLine{31 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00149_a65b25c4ffa5a9d9f808da12703e79cb2}{draw}}(\textcolor{keyword}{const} GV\& gridView, \textcolor{keywordtype}{bool} forever = \textcolor{keyword}{false}) \{}
+\DoxyCodeLine{32   \textcolor{keyword}{using namespace }matplot;}
+\DoxyCodeLine{33   \textcolor{keyword}{auto} f  = figure(\textcolor{keyword}{true});}
+\DoxyCodeLine{34   \textcolor{keyword}{auto} ax = gca();}
+\DoxyCodeLine{35   hold(ax, \textcolor{keyword}{true});}
+\DoxyCodeLine{36   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} edgeCodim = GV::dimension -\/ 1;}
+\DoxyCodeLine{37   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\&\& element : elements(gridView)) \{}
+\DoxyCodeLine{38     std::array<std::array<double, 2>, GV::dimensionworld> edgeCoords\{\};}
+\DoxyCodeLine{39     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} edgeIndex = 0; edgeIndex < element.subEntities(edgeCodim); ++edgeIndex) \{}
+\DoxyCodeLine{40       \textcolor{keyword}{auto} edge = element.template subEntity<edgeCodim>(edgeIndex);}
+\DoxyCodeLine{41       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 2; ++i) \{}
+\DoxyCodeLine{42         \textcolor{keyword}{const} \textcolor{keyword}{auto} vertCoords = edge.geometry().corner(i);}
+\DoxyCodeLine{43         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < GV::dimensionworld; ++j)}
+\DoxyCodeLine{44           edgeCoords[j][i] = vertCoords[j];}
+\DoxyCodeLine{45       \}}
+\DoxyCodeLine{46       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (GV::dimensionworld == 3) \{}
+\DoxyCodeLine{47         \textcolor{keyword}{auto} l = ax-\/>plot3(edgeCoords[0], edgeCoords[1], edgeCoords[2], \textcolor{stringliteral}{"{}-\/o"{}});}
+\DoxyCodeLine{48         l-\/>line\_width(2);}
+\DoxyCodeLine{49         l-\/>color(\textcolor{stringliteral}{"{}black"{}});}
+\DoxyCodeLine{50         l-\/>marker\_size(10);}
+\DoxyCodeLine{51         l-\/>marker\_face\_color(\textcolor{stringliteral}{"{}red"{}});}
+\DoxyCodeLine{52       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{53         \textcolor{keyword}{auto} l = ax-\/>plot(edgeCoords[0], edgeCoords[1], \textcolor{stringliteral}{"{}-\/o"{}});}
+\DoxyCodeLine{54         l-\/>line\_width(2);}
+\DoxyCodeLine{55         l-\/>color(\textcolor{stringliteral}{"{}black"{}});}
+\DoxyCodeLine{56         l-\/>marker\_size(10);}
+\DoxyCodeLine{57         l-\/>marker\_face\_color(\textcolor{stringliteral}{"{}red"{}});}
+\DoxyCodeLine{58       \}}
+\DoxyCodeLine{59     \}}
+\DoxyCodeLine{60   \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   \textcolor{keywordflow}{if} (forever)}
+\DoxyCodeLine{63     f-\/>show();}
+\DoxyCodeLine{64   \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{65     f-\/>draw();}
+\DoxyCodeLine{66     \textcolor{keyword}{using namespace }std::chrono\_literals;}
+\DoxyCodeLine{67     std::this\_thread::sleep\_for(5s);}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69   f.reset();}
+\DoxyCodeLine{70 \}}
 
 \end{DoxyCode}

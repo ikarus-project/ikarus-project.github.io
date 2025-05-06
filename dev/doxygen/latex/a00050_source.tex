@@ -1,36 +1,81 @@
-\hypertarget{a00050_source}{}\doxysection{tensorproductquadrule.\+hh}
-\label{a00050_source}\index{tensorproductquadrule.hh@{tensorproductquadrule.hh}}
+\hypertarget{a00050_source}{}\doxysection{lambertw.\+hh}
+\label{a00050_source}\index{lambertw.hh@{lambertw.hh}}
 \mbox{\hyperlink{a00050}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{8 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{9 }
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <dune/geometry/quadraturerules.hh>}}
-\DoxyCodeLine{11 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00489}{Ikarus}} \{}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <cmath>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <limits>}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{28 \textcolor{keyword}{template} <\textcolor{keyword}{class} BaseQuadrature, \textcolor{keyword}{class} Quadrature>}
-\DoxyCodeLine{29 \textcolor{keyword}{auto} \mbox{\hyperlink{a00489_a839e2d8a648318c584c66024e62ddd91}{tensorProductQuadrature}}(\textcolor{keyword}{const} BaseQuadrature\& baseQuad, \textcolor{keyword}{const} Quadrature\& onedQuad) \{}
-\DoxyCodeLine{30   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} baseQuadDim       = BaseQuadrature::d;}
-\DoxyCodeLine{31   \textcolor{keyword}{auto} rule                       = Dune::QuadratureRule<double, baseQuadDim + 1>();}
-\DoxyCodeLine{32   \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} baseQuadSize = baseQuad.size();}
-\DoxyCodeLine{33   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} bqi = 0; bqi < baseQuadSize; ++bqi) \{}
-\DoxyCodeLine{34     \textcolor{keyword}{const} \textcolor{keyword}{typename} Dune::QuadraturePoint<double, baseQuadDim>::Vector\& basePoint = baseQuad[bqi].position();}
-\DoxyCodeLine{35     \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& baseWeight                                                     = baseQuad[bqi].weight();}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37     \textcolor{keyword}{typename} Dune::QuadraturePoint<double, baseQuadDim + 1>::Vector point;}
-\DoxyCodeLine{38     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < baseQuadDim; ++i)}
-\DoxyCodeLine{39       point[i] = basePoint[i];}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} onedQuadSize = onedQuad.size();}
-\DoxyCodeLine{42     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} oqi = 0; oqi < onedQuadSize; ++oqi) \{}
-\DoxyCodeLine{43       point[baseQuadDim] = onedQuad[oqi].position()[0];}
-\DoxyCodeLine{44       rule.emplace\_back(Dune::QuadraturePoint(point, baseWeight * onedQuad[oqi].weight()));}
-\DoxyCodeLine{45     \}}
-\DoxyCodeLine{46   \}}
-\DoxyCodeLine{47   \textcolor{keywordflow}{return} rule;}
-\DoxyCodeLine{48 \}}
-\DoxyCodeLine{49 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/exceptions.hh>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03470}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00517}{Ikarus::util}} \{}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{21   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{22   T log1p(T x) \{}
+\DoxyCodeLine{23     \textcolor{keywordflow}{return} log(T(1.0) + x);}
+\DoxyCodeLine{24   \}}
+\DoxyCodeLine{25 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{41 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST = \textcolor{keywordtype}{double}>}
+\DoxyCodeLine{42 ST \mbox{\hyperlink{a00517_a5dd4fe61d5a2366ba3e8bf4d55d451e1}{lambertW0}}(ST z, \textcolor{keywordtype}{int} maxIterations = 20, ST eps = std::numeric\_limits<ST>::epsilon()) \{}
+\DoxyCodeLine{43   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not \mbox{\hyperlink{a02389}{Concepts::AutodiffScalar<ST>}}) \{}
+\DoxyCodeLine{44     \textcolor{keywordflow}{if} (std::isnan(z))}
+\DoxyCodeLine{45       \textcolor{keywordflow}{return} std::numeric\_limits<ST>::quiet\_NaN();}
+\DoxyCodeLine{46     \textcolor{keywordflow}{if} (std::isinf(z))}
+\DoxyCodeLine{47       \textcolor{keywordflow}{return} z;}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \textcolor{keyword}{const} ST branchPoint = -\/1.0 / std::exp(1.0);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{comment}{// If z equals -\/1/e then W(z) = -\/1.}}
+\DoxyCodeLine{53   \textcolor{keywordflow}{if} (Dune::FloatCmp::eq(z, branchPoint))}
+\DoxyCodeLine{54     \textcolor{keywordflow}{return} -\/1.0;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \textcolor{comment}{// For branch 0 the domain is z >= -\/1/e.}}
+\DoxyCodeLine{57   \textcolor{keywordflow}{if} (z < branchPoint)}
+\DoxyCodeLine{58     DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}lambertW0: z must be >= -\/1/e for branch 0"{}});}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{comment}{// Choose an initial guess x0. See https://en.wikipedia.org/wiki/Lambert\_W\_function.}}
+\DoxyCodeLine{61   ST x0;}
+\DoxyCodeLine{62   \textcolor{keywordflow}{if} (Dune::FloatCmp::gt(z, ST(1.0))) \{}
+\DoxyCodeLine{63     ST lx  = log(z);}
+\DoxyCodeLine{64     ST llx = log(lx);}
+\DoxyCodeLine{65     x0     = lx -\/ llx -\/ 0.5 * Impl::log1p<ST>(-\/llx / lx);}
+\DoxyCodeLine{66   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{67     x0 = 0.567 * z;}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{comment}{// Begin Halley's iterative method. See https://en.wikipedia.org/wiki/Halley\%27s\_method.}}
+\DoxyCodeLine{71   ST x        = x0;}
+\DoxyCodeLine{72   ST lastDiff = 0.0;}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} iter = 0; iter < maxIterations; ++iter) \{}
+\DoxyCodeLine{75     \textcolor{keyword}{const} ST ex          = exp(x);}
+\DoxyCodeLine{76     \textcolor{keyword}{const} ST f           = x * ex -\/ z;}
+\DoxyCodeLine{77     \textcolor{keyword}{const} ST fPrime      = ex * (x + 1.0);}
+\DoxyCodeLine{78     \textcolor{keyword}{const} ST fPrimePrime = ex * (x + 2.0);}
+\DoxyCodeLine{79     \textcolor{keyword}{const} ST denom       = fPrime -\/ ((1.0 / 2.0) * (fPrimePrime / fPrime) * f);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keyword}{const} ST newX = x -\/ f / denom;}
+\DoxyCodeLine{82     \textcolor{keyword}{const} ST diff = abs(newX -\/ x);}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84     \textcolor{comment}{// Check for convergence:}}
+\DoxyCodeLine{85     \textcolor{keywordflow}{if} (Dune::FloatCmp::le<ST>(diff, 3 * eps * abs(x)) || Dune::FloatCmp::eq<ST>(diff, lastDiff))}
+\DoxyCodeLine{86       \textcolor{keywordflow}{return} newX;}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88     lastDiff = diff;}
+\DoxyCodeLine{89     x        = newX;}
+\DoxyCodeLine{90   \}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92   DUNE\_THROW(Dune::MathError, \textcolor{stringliteral}{"{}lambertW0: failed to converge within the maximum number of iterations"{}});}
+\DoxyCodeLine{93 \}}
+\DoxyCodeLine{94 \} \textcolor{comment}{// namespace Ikarus::util}}
 
 \end{DoxyCode}

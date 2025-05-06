@@ -1,24 +1,31 @@
-\hypertarget{a00038_source}{}\doxysection{eigensparseaddon.\+hh}
-\label{a00038_source}\index{eigensparseaddon.hh@{eigensparseaddon.hh}}
+\hypertarget{a00038_source}{}\doxysection{defaultfunctions.\+hh}
+\label{a00038_source}\index{defaultfunctions.hh@{defaultfunctions.hh}}
 \mbox{\hyperlink{a00038}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{19 \textcolor{keyword}{inline} Index \mbox{\hyperlink{a00038_a6cfefe8fc3c51b09b7633cf8397a67e9}{getLinearIndex}}(Index row, Index col)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{20   eigen\_assert(row >= 0 \&\& row < rows() \&\& col >= 0 \&\& col < cols());}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22   \textcolor{keyword}{const} Index outer = IsRowMajor ? row : col;}
-\DoxyCodeLine{23   \textcolor{keyword}{const} Index inner = IsRowMajor ? col : row;}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25   Index start = m\_outerIndex[outer];}
-\DoxyCodeLine{26   Index end   = m\_innerNonZeros ? m\_outerIndex[outer] + m\_innerNonZeros[outer] : m\_outerIndex[outer + 1];}
-\DoxyCodeLine{27   eigen\_assert(end >= start \&\& \textcolor{stringliteral}{"{}you probably called coeffRef on a non finalized matrix"{}});}
-\DoxyCodeLine{28 }
-\DoxyCodeLine{29   Index p = m\_data.searchLowerIndex(start, end -\/ 1, StorageIndex(inner));}
-\DoxyCodeLine{30   \textcolor{keywordflow}{return} p;}
-\DoxyCodeLine{31 \}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00062}{linearalgebrahelper.hh}}"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus::utils}} \{}
+\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{a02173}{SolverDefault}}}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <\textcolor{keyword}{typename} A, \textcolor{keyword}{typename} B>}
+\DoxyCodeLine{28   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a02173_a4797d17bf96aa9e387567878a9591d7a}{operator()}}(A\&\& a, B\&\& b)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{29     \textcolor{keywordflow}{return} a / b;}
+\DoxyCodeLine{30   \}}
+\DoxyCodeLine{31 \};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{45 \textcolor{keyword}{struct }\mbox{\hyperlink{a02177}{UpdateDefault}}}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{47   \textcolor{keyword}{template} <\textcolor{keyword}{typename} A, \textcolor{keyword}{typename} B>}
+\DoxyCodeLine{48   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{void} \mbox{\hyperlink{a02177_a23b7d9d2df3caa179c9fbc353efaed36}{operator()}}(A\&\& a, B\&\& b)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{49     \textcolor{keyword}{using }Ikarus::operator+=;}
+\DoxyCodeLine{50     a += b;}
+\DoxyCodeLine{51   \}}
+\DoxyCodeLine{52 \};}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \} \textcolor{comment}{// namespace Ikarus::utils}}
 
 \end{DoxyCode}

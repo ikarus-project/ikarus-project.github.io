@@ -1,4 +1,5 @@
 var a00434 =
 [
-    [ "Ikarus::Experimental::AutoDiffMAT< RealMAT, forceAutoDiffV, forceAutoDiffS >", "a01477.html", "a01477" ]
+    [ "makeDenseFlatAssembler", "a00434.html#aa2e289f3c26f24717a19b05b5561538c", null ],
+    [ "makeSparseFlatAssembler", "a00434.html#a7b31ad9106d0c3d4052413bcbf5ea596", null ]
 ];

@@ -1,8 +1,7 @@
 var a00047 =
 [
-    [ "toDune", "a00047.html#a4e9e21776afdaaa93c4a9d19554976fa", null ],
-    [ "toDune", "a00047.html#a83633e77ee5a35cb31a7cd2f02aedb7f", null ],
-    [ "toDune", "a00047.html#a0fdba7f3ebe4bf1ada6618f450b50221", null ],
-    [ "toEigenMap", "a00047.html#aaa7e8e9b8bd8247afecc24cdd54ec658", null ],
-    [ "toEigenMap", "a00047.html#aaac71220182c301ee8c864f2a507c3db", null ]
+    [ "Ikarus::utils::CheckFlags", "a02249.html", "a02249" ],
+    [ "checkGradient", "a00047.html#ga9552c352e9fa0eeca4b3ae3d1dd1f585", null ],
+    [ "checkHessian", "a00047.html#gaaf21900c80f097360a624da5505eddf9", null ],
+    [ "checkJacobian", "a00047.html#ga9ebceb909ac3c21db81ccd0dbbf03a33", null ]
 ];

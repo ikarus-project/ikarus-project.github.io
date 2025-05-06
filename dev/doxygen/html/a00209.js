@@ -1,5 +1,8 @@
 var a00209 =
 [
-    [ "makeVanishingStrain", "a00209.html#a03d13518406d1cd5bb2a34aca2f95f01", null ],
-    [ "planeStrain", "a00209.html#a5b428881c8ea5104acd909e769b7910b", null ]
+    [ "Ikarus::NRSettings", "a02049.html", "a02049" ],
+    [ "Ikarus::NewtonRaphsonConfig< LS, UF >", "a02053.html", "a02053" ],
+    [ "createNonlinearSolver", "a00209.html#a504e2e9645fa26419d815df9bd245add", null ],
+    [ "makeNewtonRaphson", "a00209.html#a191d086649c8d24d7fbacf71d1704cb3", null ],
+    [ "NewtonRaphson", "a00209.html#ab2dbf68d1a4f806b32c9f46073602b2c", null ]
 ];

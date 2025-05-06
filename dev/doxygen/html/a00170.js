@@ -1,4 +1,4 @@
 var a00170 =
 [
-    [ "Ikarus::AutoDiffFE< FEImpl, forceAutoDiff >", "a01481.html", "a01481" ]
+    [ "ScalarWrapper< T >", "a02013.html", "a02013" ]
 ];

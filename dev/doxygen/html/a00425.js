@@ -1,11 +1,8 @@
 var a00425 =
 [
-    [ "DataTag", "a00425.html#af59748ac04116ae85cd64ea8675d273b", [
-      [ "BEGIN", "a00425.html#af59748ac04116ae85cd64ea8675d273ba19aad9f2fe3ce0023298ab83f7e75775", null ],
-      [ "asCellData", "a00425.html#af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546", null ],
-      [ "asPointData", "a00425.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b", null ],
-      [ "asCellAndPointData", "a00425.html#af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926", null ],
-      [ "END", "a00425.html#af59748ac04116ae85cd64ea8675d273bab1a326c06d88bf042f73d70f50197905", null ]
-    ] ],
-    [ "toString", "a00425.html#af96368dfca1767b52605f507c5fea4d5", null ]
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss >", "a01365.html", "a01365" ],
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss >", "a01369.html", "a01369" ],
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss, MatrixAss >", "a01373.html", "a01373" ],
+    [ "BASECLASSMEMBERFUNCTION", "a00425.html#ab88748ddf71ad00ec25d8e9dabcefa82", null ],
+    [ "makeAssemblerManipulator", "a00425.html#afc83c2d114028f47280b981daf728ebe", null ]
 ];

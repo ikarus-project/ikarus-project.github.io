@@ -1,8 +1,6 @@
 var a00029 =
 [
-    [ "globalIndexFromGlobalPosition", "a00029.html#gaa19ed04a701aaa500f7c486addae2d2e", null ],
-    [ "maybeDeref", "a00029.html#af8ee685bd6d75a8b5f737eafd53860ae", null ],
-    [ "obtainLagrangeGlobalNodePositions", "a00029.html#gae9098182120929a0d21cff1c38f5ca84", null ],
-    [ "referenceElementSubEntityPositions", "a00029.html#ga30df35336d19b00bc5db2a0b52ce650e", null ],
-    [ "referenceElementVertexPositions", "a00029.html#ga8c05dce8a66fc4efbe31674b87d18298", null ]
+    [ "Ikarus::DifferentiableFunction< Range(D), DerivativeTraits, F, FF... >", "a02193.html", "a02193" ],
+    [ "functions", "a00029.html#ab787b670f0d338c870988f417cf85f76", null ],
+    [ "makeDifferentiableFunction", "a00029.html#a7c304a58fc833d46ac3d8a7dc74f8ed0", null ]
 ];

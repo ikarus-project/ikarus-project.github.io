@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers mueller@ibb.uni-stuttgart.de
+SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de
 SPDX-License-Identifier: LGPL-3.0-or-later
 -->
 <!-- HTML header for doxygen 1.8.13-->
@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: vanishingstrain.hh File Reference</title>
+    <title>ikarus: newtonraphson.hh File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -159,55 +159,66 @@ $(document).ready(function(){initNavTree('a00209.html',''); initResizable(); });
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">vanishingstrain.hh File Reference<div class="ingroups"><a class="el" href="a00470.html">Ikarus Modules</a> &raquo; <a class="el" href="a00477.html">Materials</a></div></div></div>
+  <div class="headertitle"><div class="title">newtonraphson.hh File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines the VanishingStrain material model and related functions.  
+<p>Implementation of the Newton-Raphson method for solving nonlinear equations.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00239_source.html">materialhelpers.hh</a>&quot;</code><br />
-<code>#include &lt;<a class="el" href="a03437_source.html">ikarus/finiteelements/mechanics/materials/interface.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00242_source.html">ikarus/finiteelements/mechanics/materials/strainconversions.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00395_source.html">ikarus/solver/nonlinearsolver/newtonraphson.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00041_source.html">ikarus/utils/differentiablefunction.hh</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00218_source.html">ikarus/solver/linearsolver/linearsolver.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00203_source.html">ikarus/solver/nonlinearsolver/nonlinearsolverbase.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00191_source.html">ikarus/solver/nonlinearsolver/nonlinearsolverstate.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00206_source.html">ikarus/solver/nonlinearsolver/solverinfos.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00131_source.html">ikarus/utils/broadcaster/broadcaster.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00128_source.html">ikarus/utils/broadcaster/broadcastermessages.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03470_source.html">ikarus/utils/concepts.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00038_source.html">ikarus/utils/defaultfunctions.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00062_source.html">ikarus/utils/linearalgebrahelper.hh</a>&gt;</code><br />
 </div>
 <p><a href="a00209_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01761.html">Ikarus::Materials::VanishingStrain&lt; strainIndexPair, MI &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01761.html" title="VanishingStrain material model that enforces strain components to be zero.">VanishingStrain</a> material model that enforces strain components to be zero.  <a href="a01761.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02049.html">Ikarus::NRSettings</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02053.html">Ikarus::NewtonRaphsonConfig&lt; LS, UF &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Config for the Newton-Raphson solver.  <a href="a02053.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02045.html">Ikarus::NewtonRaphson&lt; F, LS, UF &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of the Newton-Raphson method for solving nonlinear equations.  <a href="a02045.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:a00489"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00489.html">Ikarus</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00500"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00500.html">Ikarus::Materials</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a03d13518406d1cd5bb2a34aca2f95f01"><td class="memTemplParams" colspan="2">template&lt;MatrixIndexPair... stressIndexPair, typename MaterialImpl &gt; </td></tr>
-<tr class="memitem:a03d13518406d1cd5bb2a34aca2f95f01"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00500.html#a03d13518406d1cd5bb2a34aca2f95f01">Ikarus::Materials::makeVanishingStrain</a> (MaterialImpl mat)</td></tr>
-<tr class="memdesc:a03d13518406d1cd5bb2a34aca2f95f01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory function to create a <a class="el" href="a01761.html" title="VanishingStrain material model that enforces strain components to be zero.">VanishingStrain</a> material with specified strain indices.  <a href="a00500.html#a03d13518406d1cd5bb2a34aca2f95f01">More...</a><br /></td></tr>
-<tr class="separator:a03d13518406d1cd5bb2a34aca2f95f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b428881c8ea5104acd909e769b7910b"><td class="memTemplParams" colspan="2">template&lt;typename MaterialImpl &gt; </td></tr>
-<tr class="memitem:a5b428881c8ea5104acd909e769b7910b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00500.html#a5b428881c8ea5104acd909e769b7910b">Ikarus::Materials::planeStrain</a> (const MaterialImpl &amp;mat)</td></tr>
-<tr class="memdesc:a5b428881c8ea5104acd909e769b7910b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory function to create a <a class="el" href="a01761.html" title="VanishingStrain material model that enforces strain components to be zero.">VanishingStrain</a> material for plane strain conditions.  <a href="a00500.html#a5b428881c8ea5104acd909e769b7910b">More...</a><br /></td></tr>
-<tr class="separator:a5b428881c8ea5104acd909e769b7910b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a504e2e9645fa26419d815df9bd245add"><td class="memTemplParams" colspan="2">template&lt;typename F , typename NRConfig &gt; <br />
+requires traits::isSpecialization&lt;NewtonRaphsonConfig, std::remove_cvref_t&lt;NRConfig&gt;&gt;</td></tr>
+<tr class="memitem:a504e2e9645fa26419d815df9bd245add"><td class="memTemplItemLeft" align="right" valign="top">::value auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00489.html#a504e2e9645fa26419d815df9bd245add">Ikarus::createNonlinearSolver</a> (NRConfig &amp;&amp;config, F &amp;&amp;f)</td></tr>
+<tr class="memdesc:a504e2e9645fa26419d815df9bd245add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to create a <a class="el" href="a02045.html" title="Implementation of the Newton-Raphson method for solving nonlinear equations.">NewtonRaphson</a> solver instance.  <a href="a00489.html#a504e2e9645fa26419d815df9bd245add">More...</a><br /></td></tr>
+<tr class="separator:a504e2e9645fa26419d815df9bd245add"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a191d086649c8d24d7fbacf71d1704cb3"><td class="memTemplParams" colspan="2">template&lt;typename F , typename LS  = utils::SolverDefault, typename UF  = utils::UpdateDefault&gt; </td></tr>
+<tr class="memitem:a191d086649c8d24d7fbacf71d1704cb3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00489.html#a191d086649c8d24d7fbacf71d1704cb3">Ikarus::makeNewtonRaphson</a> (const F &amp;f, LS &amp;&amp;linearSolver={}, UF &amp;&amp;updateFunction={})</td></tr>
+<tr class="memdesc:a191d086649c8d24d7fbacf71d1704cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to create a <a class="el" href="a02045.html" title="Implementation of the Newton-Raphson method for solving nonlinear equations.">NewtonRaphson</a> solver instance.  <a href="a00489.html#a191d086649c8d24d7fbacf71d1704cb3">More...</a><br /></td></tr>
+<tr class="separator:a191d086649c8d24d7fbacf71d1704cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2dbf68d1a4f806b32c9f46073602b2c"><td class="memTemplParams" colspan="2">template&lt;typename F , typename LS  = utils::SolverDefault, typename UF  = utils::UpdateDefault&gt; </td></tr>
+<tr class="memitem:ab2dbf68d1a4f806b32c9f46073602b2c"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00489.html#ab2dbf68d1a4f806b32c9f46073602b2c">Ikarus::NewtonRaphson</a> (const F &amp;f, LS &amp;&amp;linearSolver={}, UF &amp;&amp;updateFunction={}) -&gt; NewtonRaphson&lt; F, std::remove_cvref_t&lt; LS &gt;, std::remove_cvref_t&lt; UF &gt; &gt;</td></tr>
+<tr class="separator:ab2dbf68d1a4f806b32c9f46073602b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!--
-SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers mueller@ibb.uni-stuttgart.de
+SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de
 SPDX-License-Identifier: LGPL-3.0-or-later
 -->
 <!-- HTML footer for doxygen 1.9.6-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="a00209.html">vanishingstrain.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_26588bed129c997bc132e8888f2113fa.html">solver</a></li><li class="navelem"><a class="el" href="dir_bf30182dc97724dc8c2a6cdd4c321688.html">nonlinearsolver</a></li><li class="navelem"><a class="el" href="a00209.html">newtonraphson.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -1,126 +1,13 @@
-\hypertarget{a00239_source}{}\doxysection{materialhelpers.\+hh}
-\label{a00239_source}\index{materialhelpers.hh@{materialhelpers.hh}}
+\hypertarget{a00239_source}{}\doxysection{loads.\+hh}
+\label{a00239_source}\index{loads.hh@{loads.hh}}
 \mbox{\hyperlink{a00239}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{4 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{5 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <ranges>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03470}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00071}{ikarus/utils/tensorutils.hh}}>}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00500}{Ikarus::Materials}} \{}
-\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{a01753}{MatrixIndexPair}}}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27   Eigen::Index \mbox{\hyperlink{a01753_aea06e613d6a158b8e197a5f79ef7f197}{row}}; }
-\DoxyCodeLine{28   Eigen::Index \mbox{\hyperlink{a01753_a05834d6b2ab9428e4ecc645234ef9d34}{col}}; }
-\DoxyCodeLine{29 \};}
-\DoxyCodeLine{30 \} \textcolor{comment}{// namespace Ikarus::Materials}}
-\DoxyCodeLine{31 \textcolor{keyword}{namespace }Ikarus::Impl \{}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{39 \textcolor{keyword}{template} <\textcolor{keywordtype}{size\_t} size>}
-\DoxyCodeLine{40 \textcolor{keyword}{consteval} \textcolor{keyword}{auto} createfreeVoigtIndices(\textcolor{keyword}{const} std::array<Materials::MatrixIndexPair, size>\& fixed) \{}
-\DoxyCodeLine{41   std::array<size\_t, 6 -\/ size> res\{\};}
-\DoxyCodeLine{42   std::array<size\_t, size> voigtFixedIndices;}
-\DoxyCodeLine{43   std::ranges::transform(fixed, voigtFixedIndices.begin(), [](\textcolor{keyword}{auto} pair) \{ return toVoigt(pair.row, pair.col); \});}
-\DoxyCodeLine{44   std::ranges::sort(voigtFixedIndices);}
-\DoxyCodeLine{45   std::ranges::set\_difference(std::ranges::iota\_view(\textcolor{keywordtype}{size\_t}(0), \textcolor{keywordtype}{size\_t}(6)), voigtFixedIndices, res.begin());}
-\DoxyCodeLine{46   std::ranges::sort(res);}
-\DoxyCodeLine{47   \textcolor{keywordflow}{return} res;}
-\DoxyCodeLine{48 \}}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{56 \textcolor{keyword}{template} <\textcolor{keywordtype}{size\_t} size>}
-\DoxyCodeLine{57 \textcolor{keyword}{consteval} \textcolor{keyword}{auto} createFixedVoigtIndices(\textcolor{keyword}{const} std::array<Materials::MatrixIndexPair, size>\& fixed) \{}
-\DoxyCodeLine{58   std::array<size\_t, size> fixedIndices;}
-\DoxyCodeLine{59   std::ranges::transform(fixed, fixedIndices.begin(), [](\textcolor{keyword}{auto} pair) \{ return toVoigt(pair.row, pair.col); \});}
-\DoxyCodeLine{60   std::ranges::sort(fixedIndices);}
-\DoxyCodeLine{61   \textcolor{keywordflow}{return} fixedIndices;}
-\DoxyCodeLine{62 \}}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{70 \textcolor{keyword}{template} <\textcolor{keywordtype}{size\_t} size>}
-\DoxyCodeLine{71 \textcolor{keyword}{constexpr} \textcolor{keywordtype}{size\_t} countDiagonalIndices(\textcolor{keyword}{const} std::array<Materials::MatrixIndexPair, size>\& fixed) \{}
-\DoxyCodeLine{72   \textcolor{keywordtype}{size\_t} count = 0;}
-\DoxyCodeLine{73   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} v : fixed) \{}
-\DoxyCodeLine{74     \textcolor{keywordflow}{if} (v.col == v.row)}
-\DoxyCodeLine{75       ++count;}
-\DoxyCodeLine{76   \}}
-\DoxyCodeLine{77   \textcolor{keywordflow}{return} count;}
-\DoxyCodeLine{78 \}}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{88 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{89 \textcolor{keyword}{auto} maybeFromVoigt(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& v, \textcolor{keywordtype}{bool} isStrain = \textcolor{keyword}{true}) \{}
-\DoxyCodeLine{90   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Concepts::EigenVector<Derived>) \{ \textcolor{comment}{// receiving vector means Voigt notation}}
-\DoxyCodeLine{91     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00485_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(v.derived(), isStrain).eval();}
-\DoxyCodeLine{92   \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{93     \textcolor{keywordflow}{return} v.derived().eval();}
-\DoxyCodeLine{94 \}}
-\DoxyCodeLine{95 }
-\DoxyCodeLine{104 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{105 \textcolor{keyword}{auto} maybeToVoigt(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& v, \textcolor{keywordtype}{bool} isStrain = \textcolor{keyword}{false}) \{}
-\DoxyCodeLine{106   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Concepts::EigenVector<Derived>) \{ \textcolor{comment}{// receiving vector means Voigt notation}}
-\DoxyCodeLine{107     \textcolor{keywordflow}{return} v.derived().eval();}
-\DoxyCodeLine{108   \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{109     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00485_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(v.derived(), isStrain).eval();}
-\DoxyCodeLine{110 \}}
-\DoxyCodeLine{111 }
-\DoxyCodeLine{119 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
-\DoxyCodeLine{120 \textcolor{keywordtype}{void} checkPositiveOrAbort(ScalarType det, \textcolor{keywordtype}{double} eps = 1e-\/10) \{}
-\DoxyCodeLine{121   \textcolor{keywordflow}{if} (Dune::FloatCmp::le(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(det), 0.0, eps)) \{}
-\DoxyCodeLine{122     std::cerr << \textcolor{stringliteral}{"{}Determinant of right Cauchy Green tensor C must be greater than zero. detC = "{}} +}
-\DoxyCodeLine{123                      std::to\_string(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(det));}
-\DoxyCodeLine{124     abort();}
-\DoxyCodeLine{125   \}}
-\DoxyCodeLine{126 \}}
-\DoxyCodeLine{127 }
-\DoxyCodeLine{138 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType, \textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{139 \textcolor{keyword}{auto} principalStretches(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& C, \textcolor{keywordtype}{int} options = Eigen::ComputeEigenvectors) \{}
-\DoxyCodeLine{140   Eigen::SelfAdjointEigenSolver<Derived> eigensolver\{\};}
-\DoxyCodeLine{141 }
-\DoxyCodeLine{142   eigensolver.compute(C, options);}
-\DoxyCodeLine{143 }
-\DoxyCodeLine{144   \textcolor{keywordflow}{if} (eigensolver.info() != Eigen::Success)}
-\DoxyCodeLine{145     DUNE\_THROW(Dune::MathError, \textcolor{stringliteral}{"{}Failed to compute eigenvalues and eigenvectors of C."{}});}
-\DoxyCodeLine{146 }
-\DoxyCodeLine{147   \textcolor{keyword}{auto}\& eigenvalues  = eigensolver.eigenvalues();}
-\DoxyCodeLine{148   \textcolor{keyword}{auto}\& eigenvectors = options == Eigen::ComputeEigenvectors ? eigensolver.eigenvectors() : Derived::Zero();}
-\DoxyCodeLine{149 }
-\DoxyCodeLine{150   \textcolor{keyword}{auto} principalStretches = eigenvalues.cwiseSqrt().eval();}
-\DoxyCodeLine{151   \textcolor{keywordflow}{return} std::make\_pair(principalStretches, eigenvectors);}
-\DoxyCodeLine{152 \}}
-\DoxyCodeLine{153 }
-\DoxyCodeLine{161 \textcolor{keyword}{template} <Concepts::EigenVector3 Vector>}
-\DoxyCodeLine{162 \textcolor{keyword}{inline} Vector::Scalar determinantFromPrincipalValues(\textcolor{keyword}{const} Vector\& principalValues) \{}
-\DoxyCodeLine{163   \textcolor{keywordflow}{return} principalValues.prod();}
-\DoxyCodeLine{164 \}}
-\DoxyCodeLine{165 }
-\DoxyCodeLine{174 \textcolor{keyword}{template} <Concepts::EigenVector3 Vector>}
-\DoxyCodeLine{175 \textcolor{keyword}{inline} \mbox{\hyperlink{a00489_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{Vector}} deviatoricStretches(\textcolor{keyword}{const} Vector\& lambda) \{}
-\DoxyCodeLine{176   \textcolor{keyword}{using }ScalarType = \textcolor{keyword}{typename} Vector::Scalar;}
-\DoxyCodeLine{177   ScalarType J     = determinantFromPrincipalValues(lambda);}
-\DoxyCodeLine{178   ScalarType Jmod  = pow(J, -\/1.0 / 3.0);}
-\DoxyCodeLine{179   \textcolor{keywordflow}{return} Jmod * lambda;}
-\DoxyCodeLine{180 \}}
-\DoxyCodeLine{181 }
-\DoxyCodeLine{189 \textcolor{keyword}{template} <Concepts::EigenVector3 Vector>}
-\DoxyCodeLine{190 \textcolor{keyword}{inline} \mbox{\hyperlink{a00489_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{Vector}} invariants(\textcolor{keyword}{const} Vector\& lambda) \{}
-\DoxyCodeLine{191   \textcolor{keyword}{using }ScalarType   = \textcolor{keyword}{typename} Vector::Scalar;}
-\DoxyCodeLine{192   \textcolor{keyword}{auto} lambdaSquared = lambda.array().square();}
-\DoxyCodeLine{193   \textcolor{keyword}{auto} invariants    = Vector::Zero().eval();}
-\DoxyCodeLine{194 }
-\DoxyCodeLine{195   invariants[0] = lambdaSquared.sum();}
-\DoxyCodeLine{196   invariants[1] =}
-\DoxyCodeLine{197       lambdaSquared[0] * lambdaSquared[1] + lambdaSquared[1] * lambdaSquared[2] + lambdaSquared[0] * lambdaSquared[2];}
-\DoxyCodeLine{198   invariants[2] = determinantFromPrincipalValues(lambdaSquared);}
-\DoxyCodeLine{199 }
-\DoxyCodeLine{200   \textcolor{keywordflow}{return} invariants;}
-\DoxyCodeLine{201 \}}
-\DoxyCodeLine{202 \} \textcolor{comment}{// namespace Ikarus::Impl}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00245}{ikarus/finiteelements/mechanics/loads/traction.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00248}{ikarus/finiteelements/mechanics/loads/volume.hh}}>}}
 
 \end{DoxyCode}

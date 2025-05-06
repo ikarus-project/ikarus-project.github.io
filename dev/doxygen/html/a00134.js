@@ -1,4 +1,4 @@
 var a00134 =
 [
-    [ "Ikarus::Listener", "a02269.html", "a02269" ]
+    [ "Ikarus::ControlSubsamplingVertexVTKWriter< B >", "a02261.html", "a02261" ]
 ];

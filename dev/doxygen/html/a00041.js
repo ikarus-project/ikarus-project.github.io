@@ -1,6 +1,10 @@
 var a00041 =
 [
-    [ "Ikarus::DifferentiableFunction< Range(D), DerivativeTraits, F, FF... >", "a02193.html", "a02193" ],
-    [ "functions", "a00041.html#ab787b670f0d338c870988f417cf85f76", null ],
-    [ "makeDifferentiableFunction", "a00041.html#a7c304a58fc833d46ac3d8a7dc74f8ed0", null ]
+    [ "Ikarus::traits::remove_pointer< T >", "a02301.html", "a02301" ],
+    [ "Ikarus::traits::EigenSparseMatrix", "a02401.html", null ],
+    [ "remove_pointer_t", "a00041.html#a472256748675b3006507836bd8034a0e", null ],
+    [ "ReplaceTypeAtPos_t", "a00041.html#ac903f76dfaaaf40abfe1c532850db3d1", null ],
+    [ "ReturnType", "a00041.html#ga0ba1bf25ee478b1b1d9e96c1dcd831a0", null ],
+    [ "TupleToFunctionType_t", "a00041.html#a6b604914727df9d1b05be9a64c56898c", null ],
+    [ "countType", "a00041.html#ga45ac3fa7e384aa760181de7a1377dc14", null ]
 ];

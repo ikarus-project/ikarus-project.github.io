@@ -1,9 +1,9 @@
 var a00472 =
 [
-    [ "adaptivestepsizing.hh", "a00359.html", null ],
-    [ "controlinfos.hh", "a00356.html", null ],
-    [ "loadcontrol.inl", "a00362.html", null ],
-    [ "pathfollowing.inl", "a00353.html", null ],
+    [ "adaptivestepsizing.hh", "a00392.html", null ],
+    [ "controlinfos.hh", "a00395.html", null ],
+    [ "loadcontrol.inl", "a00410.html", null ],
+    [ "pathfollowing.inl", "a00413.html", null ],
     [ "Ikarus::PathFollowing< NLS, PF, ASS >", "a01453.html", [
       [ "State", "a01453.html#a44e1213982ed14a09fdd94318fb31595", null ],
       [ "PathFollowing", "a01453.html#af73474b0eccdddd65e046ebe813566f9", null ],

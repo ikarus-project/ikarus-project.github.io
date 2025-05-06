@@ -1,4 +1,5 @@
 var a00245 =
 [
-    [ "NeoHooke", "a00245.html#a4bf1415fc81c6cacecd347ec4b928def", null ]
+    [ "Ikarus::NeumannBoundaryLoadPre< GV >", "a01637.html", "a01637" ],
+    [ "neumannBoundaryLoad", "a00245.html#ac2ae666c1ffd22e3c22a3418ab390893", null ]
 ];
