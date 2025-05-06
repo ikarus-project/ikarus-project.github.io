@@ -1,15 +1,12 @@
 var a02025 =
 [
-    [ "corr_tol", "a02025.html#ab598fd07116bda4ec7ff4ec10ad771bb", null ],
-    [ "debug", "a02025.html#a509efb6f34d183fdff88f95fe21a97ea", null ],
-    [ "Delta0", "a02025.html#a2c36a30b640ce11ec533bd259d439bd5", null ],
-    [ "Delta_bar", "a02025.html#a275deb9273559ec6b6bae0e1a0650bd8", null ],
-    [ "grad_tol", "a02025.html#a1cc69f38c3569c63cb4bf86a39a16050", null ],
-    [ "maxIter", "a02025.html#ac496e08f6fc420b641d2e838d4adbb53", null ],
-    [ "maxtime", "a02025.html#a65731eb979e7677f54722743edebc4c7", null ],
-    [ "minIter", "a02025.html#a58ec4234ba537f77ccf56ef6ec5db526", null ],
-    [ "rho_prime", "a02025.html#acf36d2743732832643df20a287a9ca91", null ],
-    [ "rho_reg", "a02025.html#a29358b818a3eabe94a0d75218225de0d", null ],
-    [ "useRand", "a02025.html#a3943cb103ad51f2c407c867672dd3b1f", null ],
-    [ "verbosity", "a02025.html#a3b6b5fd328830b37cf47a8c3b485eb3e", null ]
+    [ "MatrixType", "a02025.html#a24ec96630301a7cc83c79402d9960e7e", null ],
+    [ "ScalarType", "a02025.html#acb730c16433e6c478ca52f87b3de64fa", null ],
+    [ "SolverType", "a02025.html#ac4705f97e9192b82c9125045150c7df8", null ],
+    [ "GeneralizedSymEigenSolver", "a02025.html#a0e40e35371464734b3e81defd6518a8d", null ],
+    [ "GeneralizedSymEigenSolver", "a02025.html#a39fd88c9f56c29eb706f20d9724f3617", null ],
+    [ "compute", "a02025.html#a3361c081b688b9409fd8ce0bb1b7e941", null ],
+    [ "eigenvalues", "a02025.html#ac1b4e531a28bfa6421cb502737a6e7bd", null ],
+    [ "eigenvectors", "a02025.html#a3f737f055b0b95a618a7688b947fe600", null ],
+    [ "nev", "a02025.html#a186e0b90c15cd0ced10e709915e9106d", null ]
 ];

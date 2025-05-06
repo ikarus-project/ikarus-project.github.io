@@ -1,5 +1,7 @@
 var a00272 =
 [
-    [ "Ikarus::NeumannBoundaryLoadPre< GV >", "a01561.html", "a01561" ],
-    [ "neumannBoundaryLoad", "a00272.html#ac2ae666c1ffd22e3c22a3418ab390893", null ]
+    [ "Ikarus::VolumeLoadPre< wd >", "a01645.html", "a01645" ],
+    [ "volumeLoad", "a00272.html#a0eecc01634324520df56c4352eb15077", null ],
+    [ "volumeLoad", "a00272.html#a5038b2eef0efbcc123415c92d15b588d", null ],
+    [ "VolumeLoadPre", "a00272.html#a93a9eac09126da6a203f68af3e7c8ba2", null ]
 ];

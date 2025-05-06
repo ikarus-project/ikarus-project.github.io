@@ -1,7 +1,5 @@
 var a02061 =
 [
-    [ "Token", "a02061.html#a8e938f0fd10e39653bc9cb90109a37e7", null ],
-    [ "notify", "a02061.html#ab19ef3d9951ffca426daf0912eaedb31", null ],
-    [ "registerListener", "a02061.html#ac41fb9825ac6c6ced84a22e9b0c2f9a1", null ],
-    [ "unregisterListener", "a02061.html#a3dcfad0abe0d83dbec232a77bc2a8e49", null ]
+    [ "maxIter", "a02061.html#a7ef35a86ec4e9a39bcc54182c5dc17b7", null ],
+    [ "tol", "a02061.html#a7e8e3668e5eca2b115ec77fcaabc8899", null ]
 ];

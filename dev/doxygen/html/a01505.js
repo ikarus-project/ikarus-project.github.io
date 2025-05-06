@@ -1,14 +1,18 @@
 var a01505 =
 [
-    [ "MatType", "a01505.html#a3be8a4f7e4b67bc2bb90a826c1ed7c85", null ],
-    [ "ResultType", "a01505.html#aef0efc55342d144366f8eddbc6fe00f9", null ],
-    [ "StoredType", "a01505.html#a1baf31b4a8525d6b81860c8f0a0b6a84", null ],
-    [ "VecType", "a01505.html#ad2e94e390a1a328d7abd8006f29dbbd2", null ],
-    [ "ResultWrapper", "a01505.html#a826dcccf70e97474b01126970e2839ac", null ],
-    [ "ResultWrapper", "a01505.html#a623510c28007eb075ed7719de10562b2", null ],
-    [ "ResultWrapper", "a01505.html#ae3ec0250a8cce10dae2b6eacec3ffe11", null ],
-    [ "asMat", "a01505.html#ae5c30a9c8da8fe6bb01b1cee0fc43155", null ],
-    [ "asVec", "a01505.html#ae1be56ef0981f28e1dfa4f77453251d3", null ],
-    [ "operator=", "a01505.html#adbc957bfc9a97390ce57d778dd7c91a1", null ],
-    [ "operator=", "a01505.html#a6a1deb7c814879d79eaa5fe467666b2f", null ]
+    [ "ParameterType", "a01505.html#a50a1c42fc0b05811dfc370217fb70169", null ],
+    [ "SolutionVectorType", "a01505.html#a438e8f848c50755740ef8ee17620a284", null ],
+    [ "FERequirements", "a01505.html#a00236d0a4c182e56eb7012ba90deabfa", null ],
+    [ "FERequirements", "a01505.html#a4533a7aef901ea53b54090fa1a404e7c", null ],
+    [ "FERequirements", "a01505.html#af38e69a7dbbc937eccbb43e8cfc29b26", null ],
+    [ "FERequirements", "a01505.html#a2d8e6c9bfe972f431e543d0827c312ed", null ],
+    [ "globalSolution", "a01505.html#a5d0f016635b556faf2ead5696dd4a510", null ],
+    [ "globalSolution", "a01505.html#a9701fdddf89b019507963dd2f68912da", null ],
+    [ "insertGlobalSolution", "a01505.html#a628bce13e9dce05097b6a1126b2dada2", null ],
+    [ "insertParameter", "a01505.html#aa183270a9a133844c208380d254d3796", null ],
+    [ "operator+=", "a01505.html#afcbcf3a8d82d63bea10e53acff1b6340", null ],
+    [ "operator=", "a01505.html#a26e357e4885a841b61b19b43f21a81a5", null ],
+    [ "parameter", "a01505.html#ac71fcac23a1711fe80cc52cfc0a26d3c", null ],
+    [ "parameter", "a01505.html#abe2632437241140248ed986d745bd53a", null ],
+    [ "populated", "a01505.html#a13fa6d13d47cc0bdf781477c744312c9", null ]
 ];

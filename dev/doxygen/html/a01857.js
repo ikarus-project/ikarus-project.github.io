@@ -1,15 +1,14 @@
 var a01857 =
 [
-    [ "toBulkModulus", "a01857.html#a525c994a4f0c6b4f7bae32011c5097b4", null ],
-    [ "toLamesFirstParameter", "a01857.html#a849d5e587016005b779a8fc5c8bbb22f", null ],
-    [ "toPoissonsRatio", "a01857.html#ab163654914c23c29fb8fe740ae6c3d9d", null ],
-    [ "toPWaveModulus", "a01857.html#abf0e01900bfaeacf08cc9af500f42c05", null ],
-    [ "toShearModulus", "a01857.html#af124c7db22dfb78747d1d912c5acf71f", null ],
-    [ "toYoungsModulus", "a01857.html#ae4def57949303ee0a689dfec1cc060b5", null ],
-    [ "convertLameConstants", "a01857.html#ac2255a654c3a7d80c01113b68dc712a6", null ],
-    [ "convertLameConstants", "a01857.html#ab07833cf0c324d05f0b984cba3ccd946", null ],
-    [ "convertLameConstants", "a01857.html#a97a57e9e0e18185b0f0c4237649e00a7", null ],
-    [ "convertLameConstants", "a01857.html#a9b8e52ebabd81a7dab41ac4ac7b63005", null ],
-    [ "convertLameConstants", "a01857.html#a9bba84cf58912269ed839cb4d6dd7996", null ],
-    [ "convertLameConstants", "a01857.html#a910b0eb5805503f2629a58ac565d5493", null ]
+    [ "AnsatzType", "a01857.html#af556954b99a491533ed819017627eead", null ],
+    [ "Base", "a01857.html#a8590751a5fa2a39afc7b30ac9088ad8c", null ],
+    [ "DType", "a01857.html#ad1b5cafe2dec3cbd44ea2a4aa9e8c8dc", null ],
+    [ "E5", "a01857.html#ab22a2fcc33bde341d8b4a0a80f7b1316", null ],
+    [ "E5", "a01857.html#a28ff367bbe360d647debef31fb5a2641", null ],
+    [ "operator()", "a01857.html#ab335dd10969a8382f7a2d2b3e850b888", null ],
+    [ "enhancedStrainSize", "a01857.html#a4ccc53fb31a4afc789e7ae09ca9caca0", null ],
+    [ "geometry_", "a01857.html#a4ae0daad7e73632e2375141f0d79bfa7", null ],
+    [ "myDim", "a01857.html#aa8c428e59199ac1570d4ac7df57d2a3e", null ],
+    [ "strainSize", "a01857.html#a8115f72e8723b4c7997f625629f41c12", null ],
+    [ "T0InverseTransformed_", "a01857.html#a3a059a4e1309de264cd41d6f5a60744b", null ]
 ];

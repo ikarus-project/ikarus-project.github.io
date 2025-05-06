@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: dirichletbcenforcement.hh Source File</title>
+    <title>ikarus: nonlinearsolverbase.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,22 +155,36 @@ $(document).ready(function(){initNavTree('a00392_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">dirichletbcenforcement.hh</div></div>
+  <div class="headertitle"><div class="title">nonlinearsolverbase.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00392.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers mueller@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00023.html">ikarus/utils/makeenum.hh</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00471.html">Ikarus</a> {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="a00471.html#a9f83fad9f4c149f249165a13f2370eec">    8</a></span><a class="code hl_define" href="a00466.html#ga14ad7d33267cea1c93f97f3998081657">MAKE_ENUM</a>(<a class="code hl_enumeration" href="a00471.html#a9f83fad9f4c149f249165a13f2370eec">DBCOption</a>, Raw, Reduced, Full);</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>}</div>
-<div class="ttc" id="aa00023_html"><div class="ttname"><a href="a00023.html">makeenum.hh</a></div><div class="ttdoc">Implementation of the make enum macro.</div></div>
-<div class="ttc" id="aa00466_html_ga14ad7d33267cea1c93f97f3998081657"><div class="ttname"><a href="a00466.html#ga14ad7d33267cea1c93f97f3998081657">MAKE_ENUM</a></div><div class="ttdeci">#define MAKE_ENUM(type,...)</div><div class="ttdoc">Macro to create an enumeration with a string conversion function.The macro creates an enum class with...</div><div class="ttdef"><b>Definition:</b> makeenum.hh:40</div></div>
-<div class="ttc" id="aa00471_html"><div class="ttname"><a href="a00471.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa00471_html_a9f83fad9f4c149f249165a13f2370eec"><div class="ttname"><a href="a00471.html#a9f83fad9f4c149f249165a13f2370eec">Ikarus::DBCOption</a></div><div class="ttdeci">DBCOption</div><div class="ttdef"><b>Definition:</b> dirichletbcenforcement.hh:8</div></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00389.html">ikarus/solver/nonlinearsolver/nonlinearsolverstate.hh</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00149.html">ikarus/utils/broadcaster/broadcaster.hh</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00152.html">ikarus/utils/broadcaster/broadcastermessages.hh</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00489.html">Ikarus</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a02069.html">   23</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02069.html">NonlinearSolverBase</a></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    : <span class="keyword">public</span> <a class="code hl_class" href="a02141.html">Broadcasters</a>&lt;void(NonLinearSolverMessages), void(NonLinearSolverMessages, double),</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                          void(NonLinearSolverMessages, int),</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                          void(NonLinearSolverMessages, const NonlinearSolverStateType&lt;F&gt;&amp;), Args...&gt;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a02069.html#a6b3059dcd3fdc9cb9d393a85a799dd6d">   28</a></span>  <span class="keyword">using </span><a class="code hl_struct" href="a02077.html">State</a> = <a class="code hl_struct" href="a02077.html">NonlinearSolverStateType&lt;F&gt;</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="ttc" id="aa00149_html"><div class="ttname"><a href="a00149.html">broadcaster.hh</a></div><div class="ttdoc">Implementation of the observer design pattern with broadcasters.</div></div>
+<div class="ttc" id="aa00152_html"><div class="ttname"><a href="a00152.html">broadcastermessages.hh</a></div><div class="ttdoc">Enums for observer messages.</div></div>
+<div class="ttc" id="aa00389_html"><div class="ttname"><a href="a00389.html">nonlinearsolverstate.hh</a></div><div class="ttdoc">State for all nonlinear solvers.</div></div>
+<div class="ttc" id="aa00489_html"><div class="ttname"><a href="a00489.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
+<div class="ttc" id="aa02069_html"><div class="ttname"><a href="a02069.html">Ikarus::NonlinearSolverBase</a></div><div class="ttdoc">Base for all nonlinear solvers. Defines the message interface that can be broadcasted to listeners.</div><div class="ttdef"><b>Definition:</b> nonlinearsolverbase.hh:27</div></div>
+<div class="ttc" id="aa02077_html"><div class="ttname"><a href="a02077.html">Ikarus::NonlinearSolverState</a></div><div class="ttdoc">State for nonlinear solvers.</div><div class="ttdef"><b>Definition:</b> nonlinearsolverstate.hh:23</div></div>
+<div class="ttc" id="aa02141_html"><div class="ttname"><a href="a02141.html">Ikarus::Broadcasters</a></div><div class="ttdoc">Fuses together multiple function signatures that can be emitted by one broadcaster....</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:81</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -181,7 +195,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_b4e169eb0efbd955079f9a2ee34b7226.html">assembler</a></li><li class="navelem"><a class="el" href="a00392.html">dirichletbcenforcement.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_26588bed129c997bc132e8888f2113fa.html">solver</a></li><li class="navelem"><a class="el" href="dir_bf30182dc97724dc8c2a6cdd4c321688.html">nonlinearsolver</a></li><li class="navelem"><a class="el" href="a00392.html">nonlinearsolverbase.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

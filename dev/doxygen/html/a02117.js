@@ -1,10 +1,11 @@
 var a02117 =
 [
-    [ "Derivative", "a02117.html#a12d99506e19b1dc61336d4f5a1e741ea", null ],
-    [ "Domain", "a02117.html#a09179a83de8c99be9dd8f99f3641d53d", null ],
-    [ "Traits", "a02117.html#acb47479c6db16067792b5185cdb84206", null ],
-    [ "DifferentiableFunction", "a02117.html#a09d7f95dc6a3721ed6ae7d9b35476e0e", null ],
-    [ "operator()", "a02117.html#acd243bc8a0fa61139b8980f63b1d1f15", null ],
-    [ "derivative", "a02117.html#af9e5d98d20808a3651b0d7ecb05d6c46", null ],
-    [ "nDerivatives", "a02117.html#a750354e710bf4d55502d50772d379005", null ]
+    [ "energy", "a02117.html#a43b868b19908b5435f1e2f18fb1d7625", null ],
+    [ "energyProposal", "a02117.html#a3a03ce164638213312bece9e8b54fdcd", null ],
+    [ "etaNorm", "a02117.html#a178607b87a8d27eb7b02bb22dc0d2c63", null ],
+    [ "gradNorm", "a02117.html#a58ec024d2233720f0bf164b8b21a6626", null ],
+    [ "innerIterSum", "a02117.html#ac5053b65db9ceae8340aaebe952c7792", null ],
+    [ "outerIter", "a02117.html#a79ff262003d1f3ff65ef2877aca8df0f", null ],
+    [ "rho", "a02117.html#a1111f89e925a512bd145b50a8f25c2be", null ],
+    [ "time", "a02117.html#ab3cab6865c16d06ec81b5db14b0dc5e2", null ]
 ];

@@ -1,12 +1,22 @@
 var a01541 =
 [
-    [ "a3", "a01541.html#abdcd538eca8535a418378184903aa21a", null ],
-    [ "a3N", "a01541.html#aa3b0078482e0fff572404a85256817c1", null ],
-    [ "C", "a01541.html#a501dbd410136f9cc48cb3d21682f3b3d", null ],
-    [ "epsV", "a01541.html#a9519ddbd1efb331678c6b4bfb6a23b23", null ],
-    [ "h", "a01541.html#a972a554418bfc2968060377c193a304b", null ],
-    [ "H", "a01541.html#a19a8eab6e7901a50c3bfaf649ae5af9a", null ],
-    [ "j", "a01541.html#a7d632741a1be67d3d2228ef97c1caedb", null ],
-    [ "J", "a01541.html#af58b37d5448b1e9ddd2148992f57006e", null ],
-    [ "kappaV", "a01541.html#a373e791fb4275f192135fdfc5f46d655", null ]
+    [ "Basis", "a01541.html#a3385bd97c39ebfede2dc6eac609022c8", null ],
+    [ "BasisHandler", "a01541.html#a129085c175bca28f94c71699b734ba04", null ],
+    [ "ctype", "a01541.html#a1b3bb63050509bf769c72be3c790db69", null ],
+    [ "Element", "a01541.html#ac4668b9c9142defdf3b70cca8eeb30c4", null ],
+    [ "FlatBasis", "a01541.html#a81feef959fedef62b2e1daabbd52b5f2", null ],
+    [ "Geometry", "a01541.html#a0b7be1104fba2d190e3fed46f291a851", null ],
+    [ "GlobalCoordinates", "a01541.html#a9fc56e9b61d9ea686b35ab02965ec420", null ],
+    [ "GlobalIndex", "a01541.html#a77e825e03f2fae2bb4272c7888e478b6", null ],
+    [ "GridView", "a01541.html#a3ec0294824df467074f5070cb58f5a91", null ],
+    [ "LocalView", "a01541.html#a06bdad066f621e46875af45a22677a3c", null ],
+    [ "MatrixType", "a01541.html#af0626da4b6948f96196835d27625e40b", null ],
+    [ "ParameterSpaceType", "a01541.html#ac221dbf16d284b783228c103773a6939", null ],
+    [ "UntouchedBasis", "a01541.html#a611fbe0482ea04da92b3d8007d230a70", null ],
+    [ "VectorType", "a01541.html#abf498c1b5501c612bc73a28f93087ac6", null ],
+    [ "dimension", "a01541.html#ab8a4dc345d034cfd8f3a60000f9647d0", null ],
+    [ "mydim", "a01541.html#ae15b8efa9f66a3caee81d99dd5c648de", null ],
+    [ "useEigenRef", "a01541.html#a60456621f63d34ff66c1d6b861a3b91e", null ],
+    [ "useFlatBasis", "a01541.html#ac93d8ec6254e0ca3668966e7a56886ac", null ],
+    [ "worlddim", "a01541.html#a5d611e1d48285bac5c5ebd6fda9c7cc7", null ]
 ];

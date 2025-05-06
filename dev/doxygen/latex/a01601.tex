@@ -1,292 +1,377 @@
-\hypertarget{a01601}{}\doxysection{Ikarus\+::Materials\+::Invariant\+BasedT\texorpdfstring{$<$}{<} ST\+\_\+, n \texorpdfstring{$>$}{>} Struct Template Reference}
-\label{a01601}\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
+\hypertarget{a01601}{}\doxysection{Ikarus\+::Enhanced\+Assumed\+Strains\texorpdfstring{$<$}{<} Pre\+FE, FE, ESF \texorpdfstring{$>$}{>} Class Template Reference}
+\label{a01601}\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
 
 
-Implementation of the Invariant\+Based material model.  
+Wrapper class for using Enhanced Assumed Strains (\mbox{\hyperlink{a00501}{EAS}}) with displacement based elements.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/invariantbased.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/enhancedassumedstrains.\+hh$>$}
 
+
+
+Inheritance diagram for Ikarus\+::Enhanced\+Assumed\+Strains\texorpdfstring{$<$}{<} Pre\+FE, FE, ESF \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01600}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{a01601_a2f41022c3ecb76eefb765015e643034b}{Scalar\+Type}} = ST\+\_\+
+using \mbox{\hyperlink{a01601_a12991c3d56a7ff96277a9fd680c3f381}{Traits}} = \mbox{\hyperlink{a01489_a826c356a5afb013faffb5f7ac893cff4}{Pre\+FE\+::\+Traits}}
 \item 
-{\footnotesize template$<$typename ST  = Scalar\+Type$>$ }\\using \mbox{\hyperlink{a01601_a24bdf403b337bf93cd310a915aba9aa8}{Principal\+Stretches}} = Eigen\+::\+Vector$<$ ST, 3 $>$
+using \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} = \mbox{\hyperlink{a01505}{FERequirements}}$<$ \mbox{\hyperlink{a00476_ggaea763c94a1cecbeefc4f8661debcc5a3a0c2d35f5f278a229db5ba41d40120f1c}{FESolutions\+::displacement}}, \mbox{\hyperlink{a00476_gga0c1577fd05efee8475b0f7fef795bbbeaf72bac0ac84c0315e7bcbb8aa84b2ff8}{FEParameter\+::loadfactor}} $>$
 \item 
-{\footnotesize template$<$typename ST  = Scalar\+Type$>$ }\\using \mbox{\hyperlink{a01601_a04794b6333cb664ebd7f10aa410aab01}{Invariants}} = \mbox{\hyperlink{a01601_a24bdf403b337bf93cd310a915aba9aa8}{Principal\+Stretches}}$<$ ST $>$
+using \mbox{\hyperlink{a01601_ae8c32f3ee8ba987e8fa6489d52055059}{Local\+View}} = typename \mbox{\hyperlink{a01541_a06bdad066f621e46875af45a22677a3c}{Traits\+::\+Local\+View}}
 \item 
-using \mbox{\hyperlink{a01601_a3ceccb571b3cef82e4b9794452e010f5}{Exponents}} = std\+::array$<$ std\+::size\+\_\+t, \mbox{\hyperlink{a01601_a8252be6a2ad407fddf1abd0192b0eb52}{num\+Mat\+Parameters}} $>$
+using \mbox{\hyperlink{a01601_ab5f3b484fc10ad533578d6753803af2c}{Geometry}} = typename \mbox{\hyperlink{a01541_a0b7be1104fba2d190e3fed46f291a851}{Traits\+::\+Geometry}}
 \item 
-using \mbox{\hyperlink{a01601_a6e7eb1d8654cd930230685a6d3e34f96}{Material\+Parameters}} = std\+::array$<$ double, \mbox{\hyperlink{a01601_a8252be6a2ad407fddf1abd0192b0eb52}{num\+Mat\+Parameters}} $>$
+using \mbox{\hyperlink{a01601_ae6860635f3940c1662438bfbf97866f9}{Grid\+View}} = typename \mbox{\hyperlink{a01541_a3ec0294824df467074f5070cb58f5a91}{Traits\+::\+Grid\+View}}
 \item 
-{\footnotesize template$<$typename ST  = Scalar\+Type$>$ }\\using \mbox{\hyperlink{a01601_a1a4692dc03aec1de5e9b41fa6ce5b9d4}{First\+Derivative}} = Eigen\+::\+Vector$<$ ST, \mbox{\hyperlink{a01601_a7f0b4300e1a4c2a05f9dc20f850f82d5}{dim}} $>$
+using \mbox{\hyperlink{a01601_a77a1c7bb49f69723b48b69b46c2833f7}{Pre}} = \mbox{\hyperlink{a01605}{Enhanced\+Assumed\+Strains\+Pre}}$<$ ESF $>$
 \item 
-{\footnotesize template$<$typename ST  = Scalar\+Type$>$ }\\using \mbox{\hyperlink{a01601_ab6be53b2765172f6f6e093919c5a061f}{Second\+Derivative}} = Eigen\+::\+Matrix$<$ ST, \mbox{\hyperlink{a01601_a7f0b4300e1a4c2a05f9dc20f850f82d5}{dim}}, \mbox{\hyperlink{a01601_a7f0b4300e1a4c2a05f9dc20f850f82d5}{dim}} $>$
+using \mbox{\hyperlink{a01601_a8eefdbeb272ca872d11141f57d588db5}{Enhanced\+Strain\+Function}} = ESF
+\item 
+{\footnotesize template$<$typename ST $>$ }\\using \mbox{\hyperlink{a01601_a0df8a283fb466f111ddbea76582af9a8}{Vector\+XOpt\+Ref}} = std\+::optional$<$ std\+::reference\+\_\+wrapper$<$ const Eigen\+::\+VectorX$<$ ST $>$ $>$ $>$
+\item 
+{\footnotesize template$<$template$<$ typename, int, int $>$ class RT$>$ }\\using \mbox{\hyperlink{a01601_a48309c9dc89f6a0af580d4572805272c}{RTWrapper\+Type}} = \mbox{\hyperlink{a01525}{Result\+Wrapper}}$<$ RT$<$ typename \mbox{\hyperlink{a01541_a1b3bb63050509bf769c72be3c790db69}{Traits\+::ctype}}, \mbox{\hyperlink{a01541_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}}, \mbox{\hyperlink{a01541_a5d611e1d48285bac5c5ebd6fda9c7cc7}{Traits\+::worlddim}} $>$, \mbox{\hyperlink{a00489_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{Result\+Shape\+::\+Vector}} $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a01601_a6e7eb1d8654cd930230685a6d3e34f96}{Material\+Parameters}} \mbox{\hyperlink{a01601_afd36f592938bcdba49ef79e9d117eead}{material\+Parameters\+Impl}} () const
-\item 
-const \mbox{\hyperlink{a01601_a3ceccb571b3cef82e4b9794452e010f5}{Exponents}} \& \mbox{\hyperlink{a01601_a67a85fc0ccd91330a3d72c4818db6899}{p\+Exponents}} () const
-\item 
-const \mbox{\hyperlink{a01601_a3ceccb571b3cef82e4b9794452e010f5}{Exponents}} \& \mbox{\hyperlink{a01601_aa530b0b70ad6ed5290c574ddc38aa64c}{q\+Exponents}} () const
-\item 
-\mbox{\hyperlink{a01601_adbb74c7796046063299444ddfa56687f}{Invariant\+BasedT}} (const \mbox{\hyperlink{a01601_a3ceccb571b3cef82e4b9794452e010f5}{Exponents}} \&pex, const \mbox{\hyperlink{a01601_a3ceccb571b3cef82e4b9794452e010f5}{Exponents}} \&qex, const \mbox{\hyperlink{a01601_a6e7eb1d8654cd930230685a6d3e34f96}{Material\+Parameters}} \&mat\+Parameters)
-\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{a01601}{Invariant\+BasedT}}. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename ST  = Scalar\+Type$>$ }\\ST \mbox{\hyperlink{a01601_a7c30e46f59f3ca6088f671deea149e9b}{stored\+Energy\+Impl}} (const \mbox{\hyperlink{a01601_a24bdf403b337bf93cd310a915aba9aa8}{Principal\+Stretches}}$<$ ST $>$ \&lambda) const
-\begin{DoxyCompactList}\small\item\em Computes the stored energy in the Invariant\+Based material model. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename ST  = Scalar\+Type$>$ }\\\mbox{\hyperlink{a01601_a1a4692dc03aec1de5e9b41fa6ce5b9d4}{First\+Derivative}}$<$ ST $>$ \mbox{\hyperlink{a01601_acb2acf8c8ce16263d806aa5206f413f3}{first\+Derivative\+Impl}} (const \mbox{\hyperlink{a01601_a24bdf403b337bf93cd310a915aba9aa8}{Principal\+Stretches}}$<$ ST $>$ \&lambda) const
-\begin{DoxyCompactList}\small\item\em Computes the first derivative of the stored energy function w.\+r.\+t. the total principal stretches. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename ST  = Scalar\+Type$>$ }\\\mbox{\hyperlink{a01601_ab6be53b2765172f6f6e093919c5a061f}{Second\+Derivative}}$<$ ST $>$ \mbox{\hyperlink{a01601_a0903a7458da8578488d14ff02cc00e2c}{second\+Derivative\+Impl}} (const \mbox{\hyperlink{a01601_a24bdf403b337bf93cd310a915aba9aa8}{Principal\+Stretches}}$<$ ST $>$ \&lambda) const
-\begin{DoxyCompactList}\small\item\em Computes the second derivatives of the stored energy function w.\+r.\+t. the total principal stretches. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename STO $>$ }\\auto \mbox{\hyperlink{a01601_a81e57359abb85ae74a91a85b5c12a56c}{rebind}} () const
-\begin{DoxyCompactList}\small\item\em Rebinds the material to a different scalar type. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-static constexpr std\+::string \mbox{\hyperlink{a01601_a4cc6a9ebdb6b1ec1cbbd4455734cc45f}{name}} () noexcept
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{a01601_ab209554de084320de8b4c7980cb1357f}{Enhanced\+Assumed\+Strains}} (const \mbox{\hyperlink{a01601_a77a1c7bb49f69723b48b69b46c2833f7}{Pre}} \&pre)
+\begin{DoxyCompactList}\small\item\em Constructor for Enhanced Assumed Strains elements. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{a01601_aa89e2424db2dcbde4f708207683df310}{is\+Displacement\+Based}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the element is displacement-\/based and the \mbox{\hyperlink{a00501}{EAS}} is turned off. \end{DoxyCompactList}\item 
+const auto \& \mbox{\hyperlink{a01601_ae0b8a200f23ad7e9ff7114c5bc32b5da}{eas\+Variant}} () const
+\begin{DoxyCompactList}\small\item\em Gets the variant representing the type of Enhanced Assumed Strains (\mbox{\hyperlink{a00501}{EAS}}). \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{a01601_afe78c55c3e63ce60cd68871a9f24b54a}{number\+Of\+Internal\+Variables}} () const
+\begin{DoxyCompactList}\small\item\em Gets the number of \mbox{\hyperlink{a00501}{EAS}} parameters based on the current \mbox{\hyperlink{a00501}{EAS}} type. \end{DoxyCompactList}\item 
+{\footnotesize template$<$template$<$ typename, int, int $>$ class RT$>$ \newline
+requires (Enhanced\+Assumed\+Strains\+::template supports\+Result\+Type$<$RT$>$())}\\auto \mbox{\hyperlink{a01601_a68520c3d823f6c3c024de222f874d06e}{calculate\+At\+Impl}} (const \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} \&req, const \mbox{\hyperlink{a02201}{Dune\+::\+Field\+Vector}}$<$ double, \mbox{\hyperlink{a01541_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}} $>$ \&local, Dune\+::\+Priority\+Tag$<$ 2 $>$) const
+\begin{DoxyCompactList}\small\item\em Calculates a requested result at a specific local position using the Enhanced Assumed Strains (\mbox{\hyperlink{a00501}{EAS}}) method. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{a01601_aa95b10281c1b2f2a1ab9209175e0d262}{set\+EASType}} (int \mbox{\hyperlink{a01601_afe78c55c3e63ce60cd68871a9f24b54a}{number\+Of\+Internal\+Variables}})
+\begin{DoxyCompactList}\small\item\em Sets the \mbox{\hyperlink{a00501}{EAS}} type for 2D elements. \end{DoxyCompactList}\item 
+const auto \& \mbox{\hyperlink{a01601_abc041e84d13db33fad994e9c28364866}{internal\+Variable}} () const
+\begin{DoxyCompactList}\small\item\em Gets the internal state variable alpha for the \mbox{\hyperlink{a00501}{EAS}} element. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-static constexpr int \mbox{\hyperlink{a01601_a7f0b4300e1a4c2a05f9dc20f850f82d5}{dim}} = 3
+static constexpr int \mbox{\hyperlink{a01601_ac00c91a371e5c1b42bbc0a26715693ef}{my\+Dim}} = \mbox{\hyperlink{a01541_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
 \item 
-static constexpr int \mbox{\hyperlink{a01601_a8252be6a2ad407fddf1abd0192b0eb52}{num\+Mat\+Parameters}} = n
+void \mbox{\hyperlink{a01601_a824ba0bf6ef6986b9405f2144e2d87f4}{bind\+Impl}} ()
 \item 
-static constexpr auto \mbox{\hyperlink{a01601_a63e181f3b21504eaecdab7f03a0e3ac9}{stretch\+Tag}} = \mbox{\hyperlink{a00471_aec3d3c4647af5c01e1bf18637b3c89feaae6dc167631992e1312a197d5c3c39f8}{Principal\+Stretch\+Tags\+::deviatoric}}
+void \mbox{\hyperlink{a01601_af8541f825e5562cdbb8af0e75ce0a744}{update\+State\+Impl}} (const \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} \&par, const std\+::remove\+\_\+reference\+\_\+t$<$ typename Traits\+::template Vector\+Type$<$$>$ $>$ \&correction)
+\begin{DoxyCompactList}\small\item\em Updates the internal state variable alpha\+\_\+ at the end of an iteration before the update of the displacements done by the non-\/linear solver. See \cite{bieberLockingHourglassingNonlinear2024} for implementation details and further references. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{a01601_a3eb18cfb3c6e0c02a8ac8e0940510507}{eas\+Applicability\+Check}} () const
+\item 
+{\footnotesize template$<$typename Scalar\+Type $>$ }\\void \mbox{\hyperlink{a01601_a272aea085a5f19ba986ced81c9345c10}{calculate\+Matrix\+Impl}} (const \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} \&par, const \mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}} \&affordance, typename Traits\+::template Matrix\+Type$<$$>$ K, const \mbox{\hyperlink{a01601_a0df8a283fb466f111ddbea76582af9a8}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&dx=std\+::nullopt) const
+\item 
+{\footnotesize template$<$typename Scalar\+Type $>$ }\\Scalar\+Type \mbox{\hyperlink{a01601_a8cde088c25f1aec4b98a68f9bd8910a9}{calculate\+Scalar\+Impl}} (const \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} \&par, \mbox{\hyperlink{a00489_af6f894084edd9109762b86222995ef2a}{Scalar\+Affordance}} affordance, const \mbox{\hyperlink{a01601_a0df8a283fb466f111ddbea76582af9a8}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&dx=std\+::nullopt) const
+\item 
+{\footnotesize template$<$typename Scalar\+Type $>$ }\\void \mbox{\hyperlink{a01601_a4edc5f10929b9e3c2a6735c3d812655b}{calculate\+Vector\+Impl}} (const \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} \&par, \mbox{\hyperlink{a00489_aab9e3e38507d1db7602bc750718c302a}{Vector\+Affordance}} affordance, typename Traits\+::template Vector\+Type$<$ Scalar\+Type $>$ force, const \mbox{\hyperlink{a01601_a0df8a283fb466f111ddbea76582af9a8}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&dx=std\+::nullopt) const
+\item 
+{\footnotesize template$<$typename MT , typename BC $>$ }\\void \mbox{\hyperlink{a01601_adc3a3939e8e88760da1ea59e20ecd833}{subscribe\+To\+Impl}} (BC \&bc)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$typename ST\+\_\+, int n$>$\newline
-struct Ikarus\+::\+Materials\+::\+Invariant\+Based\+T$<$ ST\+\_\+, n $>$}
-This is a general model based on deviatoric invariants. It can be used to derive other specific material models, for instance Mooney-\/\+Rivlin and Yeoh models. The energy is computed as \[ \hat{\Psi}(\la_1, \la_2, \la_3) = \sum_{p+q=1}^n{C_{pq} (W_1 - 3)^p (W_2 - 3)^q}, \quad p,q \geq 0. \]
+\subsubsection*{template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}}, typename \mbox{\hyperlink{a01485}{FE}}, typename ESF$>$\newline
+class Ikarus\+::\+Enhanced\+Assumed\+Strains$<$ Pre\+FE, FE, ESF $>$}
+This class extends a displacement-\/based element to support Enhanced Assumed Strains.
 
-\begin{DoxyRemark}{Remarks}
-See \cite{bergstromMechanicsSolidPolymers2015} for details on this material. For information on the deviatoric invariants $ W_1, W_2 $, see \mbox{\hyperlink{a01585}{Deviatoric\+Invariants}}.
-\end{DoxyRemark}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em ST\+\_\+} & The underlying scalar type. \\
+{\em \mbox{\hyperlink{a01489}{Pre\+FE}}} & Type of the pre finite element. \\
 \hline
-{\em n} & Number of material parameters \\
+{\em \mbox{\hyperlink{a01485}{FE}}} & Type of the finite element. \\
+\hline
+{\em ESF} & The eas strain function. \\
 \hline
 \end{DoxyTemplParams}
 
 
 \doxysubsection{Member Typedef Documentation}
-\mbox{\Hypertarget{a01601_a3ceccb571b3cef82e4b9794452e010f5}\label{a01601_a3ceccb571b3cef82e4b9794452e010f5}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!Exponents@{Exponents}}
-\index{Exponents@{Exponents}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{Exponents}{Exponents}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-using \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::\+Exponents =  std\+::array$<$std\+::size\+\_\+t, \mbox{\hyperlink{a01601_a8252be6a2ad407fddf1abd0192b0eb52}{num\+Mat\+Parameters}}$>$}
+\mbox{\Hypertarget{a01601_a8eefdbeb272ca872d11141f57d588db5}\label{a01601_a8eefdbeb272ca872d11141f57d588db5}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!EnhancedStrainFunction@{EnhancedStrainFunction}}
+\index{EnhancedStrainFunction@{EnhancedStrainFunction}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{EnhancedStrainFunction}{EnhancedStrainFunction}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+using \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::\+Enhanced\+Strain\+Function =  ESF}
 
-\mbox{\Hypertarget{a01601_a1a4692dc03aec1de5e9b41fa6ce5b9d4}\label{a01601_a1a4692dc03aec1de5e9b41fa6ce5b9d4}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!FirstDerivative@{FirstDerivative}}
-\index{FirstDerivative@{FirstDerivative}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{FirstDerivative}{FirstDerivative}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-template$<$typename ST  = Scalar\+Type$>$ \\
-using \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::\+First\+Derivative =  Eigen\+::\+Vector$<$ST, \mbox{\hyperlink{a01601_a7f0b4300e1a4c2a05f9dc20f850f82d5}{dim}}$>$}
+\mbox{\Hypertarget{a01601_ab5f3b484fc10ad533578d6753803af2c}\label{a01601_ab5f3b484fc10ad533578d6753803af2c}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!Geometry@{Geometry}}
+\index{Geometry@{Geometry}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{Geometry}{Geometry}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+using \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::\+Geometry =  typename \mbox{\hyperlink{a01541_a0b7be1104fba2d190e3fed46f291a851}{Traits\+::\+Geometry}}}
 
-\mbox{\Hypertarget{a01601_a04794b6333cb664ebd7f10aa410aab01}\label{a01601_a04794b6333cb664ebd7f10aa410aab01}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!Invariants@{Invariants}}
-\index{Invariants@{Invariants}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{Invariants}{Invariants}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-template$<$typename ST  = Scalar\+Type$>$ \\
-using \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::\+Invariants =  \mbox{\hyperlink{a01601_a24bdf403b337bf93cd310a915aba9aa8}{Principal\+Stretches}}$<$ST$>$}
+\mbox{\Hypertarget{a01601_ae6860635f3940c1662438bfbf97866f9}\label{a01601_ae6860635f3940c1662438bfbf97866f9}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!GridView@{GridView}}
+\index{GridView@{GridView}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{GridView}{GridView}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+using \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::\+Grid\+View =  typename \mbox{\hyperlink{a01541_a3ec0294824df467074f5070cb58f5a91}{Traits\+::\+Grid\+View}}}
 
-\mbox{\Hypertarget{a01601_a6e7eb1d8654cd930230685a6d3e34f96}\label{a01601_a6e7eb1d8654cd930230685a6d3e34f96}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!MaterialParameters@{MaterialParameters}}
-\index{MaterialParameters@{MaterialParameters}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{MaterialParameters}{MaterialParameters}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-using \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::\+Material\+Parameters =  std\+::array$<$double, \mbox{\hyperlink{a01601_a8252be6a2ad407fddf1abd0192b0eb52}{num\+Mat\+Parameters}}$>$}
+\mbox{\Hypertarget{a01601_ae8c32f3ee8ba987e8fa6489d52055059}\label{a01601_ae8c32f3ee8ba987e8fa6489d52055059}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!LocalView@{LocalView}}
+\index{LocalView@{LocalView}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{LocalView}{LocalView}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+using \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::\+Local\+View =  typename \mbox{\hyperlink{a01541_a06bdad066f621e46875af45a22677a3c}{Traits\+::\+Local\+View}}}
 
-\mbox{\Hypertarget{a01601_a24bdf403b337bf93cd310a915aba9aa8}\label{a01601_a24bdf403b337bf93cd310a915aba9aa8}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!PrincipalStretches@{PrincipalStretches}}
-\index{PrincipalStretches@{PrincipalStretches}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{PrincipalStretches}{PrincipalStretches}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-template$<$typename ST  = Scalar\+Type$>$ \\
-using \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::\+Principal\+Stretches =  Eigen\+::\+Vector$<$ST, 3$>$}
+\mbox{\Hypertarget{a01601_a77a1c7bb49f69723b48b69b46c2833f7}\label{a01601_a77a1c7bb49f69723b48b69b46c2833f7}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!Pre@{Pre}}
+\index{Pre@{Pre}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{Pre}{Pre}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+using \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::\+Pre =  \mbox{\hyperlink{a01605}{Enhanced\+Assumed\+Strains\+Pre}}$<$ESF$>$}
 
-\mbox{\Hypertarget{a01601_a2f41022c3ecb76eefb765015e643034b}\label{a01601_a2f41022c3ecb76eefb765015e643034b}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!ScalarType@{ScalarType}}
-\index{ScalarType@{ScalarType}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{ScalarType}{ScalarType}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-using \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::\+Scalar\+Type =  ST\+\_\+}
+\mbox{\Hypertarget{a01601_a0f31209650df33c8867e4f742b3b3d25}\label{a01601_a0f31209650df33c8867e4f742b3b3d25}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!Requirement@{Requirement}}
+\index{Requirement@{Requirement}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{Requirement}{Requirement}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+using \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::\+Requirement =  \mbox{\hyperlink{a01505}{FERequirements}}$<$\mbox{\hyperlink{a00476_ggaea763c94a1cecbeefc4f8661debcc5a3a0c2d35f5f278a229db5ba41d40120f1c}{FESolutions\+::displacement}}, \mbox{\hyperlink{a00476_gga0c1577fd05efee8475b0f7fef795bbbeaf72bac0ac84c0315e7bcbb8aa84b2ff8}{FEParameter\+::loadfactor}}$>$}
 
-\mbox{\Hypertarget{a01601_ab6be53b2765172f6f6e093919c5a061f}\label{a01601_ab6be53b2765172f6f6e093919c5a061f}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!SecondDerivative@{SecondDerivative}}
-\index{SecondDerivative@{SecondDerivative}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{SecondDerivative}{SecondDerivative}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-template$<$typename ST  = Scalar\+Type$>$ \\
-using \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::\+Second\+Derivative =  Eigen\+::\+Matrix$<$ST, \mbox{\hyperlink{a01601_a7f0b4300e1a4c2a05f9dc20f850f82d5}{dim}}, \mbox{\hyperlink{a01601_a7f0b4300e1a4c2a05f9dc20f850f82d5}{dim}}$>$}
+\mbox{\Hypertarget{a01601_a48309c9dc89f6a0af580d4572805272c}\label{a01601_a48309c9dc89f6a0af580d4572805272c}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!RTWrapperType@{RTWrapperType}}
+\index{RTWrapperType@{RTWrapperType}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{RTWrapperType}{RTWrapperType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+template$<$template$<$ typename, int, int $>$ class RT$>$ \\
+using \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::\+RTWrapper\+Type =  \mbox{\hyperlink{a01525}{Result\+Wrapper}}$<$RT$<$typename \mbox{\hyperlink{a01541_a1b3bb63050509bf769c72be3c790db69}{Traits\+::ctype}}, \mbox{\hyperlink{a01541_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}}, \mbox{\hyperlink{a01541_a5d611e1d48285bac5c5ebd6fda9c7cc7}{Traits\+::worlddim}}$>$, \mbox{\hyperlink{a00489_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{Result\+Shape\+::\+Vector}}$>$}
+
+\mbox{\Hypertarget{a01601_a12991c3d56a7ff96277a9fd680c3f381}\label{a01601_a12991c3d56a7ff96277a9fd680c3f381}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!Traits@{Traits}}
+\index{Traits@{Traits}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{Traits}{Traits}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+using \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::\+Traits =  \mbox{\hyperlink{a01489_a826c356a5afb013faffb5f7ac893cff4}{Pre\+FE\+::\+Traits}}}
+
+\mbox{\Hypertarget{a01601_a0df8a283fb466f111ddbea76582af9a8}\label{a01601_a0df8a283fb466f111ddbea76582af9a8}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!VectorXOptRef@{VectorXOptRef}}
+\index{VectorXOptRef@{VectorXOptRef}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{VectorXOptRef}{VectorXOptRef}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+template$<$typename ST $>$ \\
+using \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::\+Vector\+XOpt\+Ref =  std\+::optional$<$std\+::reference\+\_\+wrapper$<$const Eigen\+::\+VectorX$<$ST$>$ $>$$>$}
 
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{a01601_adbb74c7796046063299444ddfa56687f}\label{a01601_adbb74c7796046063299444ddfa56687f}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!InvariantBasedT@{InvariantBasedT}}
-\index{InvariantBasedT@{InvariantBasedT}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{InvariantBasedT()}{InvariantBasedT()}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-\mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::\+Invariant\+BasedT (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01601_a3ceccb571b3cef82e4b9794452e010f5}{Exponents}} \&}]{pex,  }\item[{const \mbox{\hyperlink{a01601_a3ceccb571b3cef82e4b9794452e010f5}{Exponents}} \&}]{qex,  }\item[{const \mbox{\hyperlink{a01601_a6e7eb1d8654cd930230685a6d3e34f96}{Material\+Parameters}} \&}]{mat\+Parameters }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+\mbox{\Hypertarget{a01601_ab209554de084320de8b4c7980cb1357f}\label{a01601_ab209554de084320de8b4c7980cb1357f}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!EnhancedAssumedStrains@{EnhancedAssumedStrains}}
+\index{EnhancedAssumedStrains@{EnhancedAssumedStrains}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{EnhancedAssumedStrains()}{EnhancedAssumedStrains()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+\mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::\+Enhanced\+Assumed\+Strains (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01601_a77a1c7bb49f69723b48b69b46c2833f7}{Pre}} \&}]{pre }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
 
 \begin{DoxyParams}{Parameters}
-{\em pex} & Array of exponents related to the first invariant. \\
-\hline
-{\em qex} & Array of exponents related to the second invariant. \\
-\hline
-{\em mat\+Parameters} & Array of material parameters. \\
+{\em pre} & The pre finite element \\
 \hline
 \end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{a01601_acb2acf8c8ce16263d806aa5206f413f3}\label{a01601_acb2acf8c8ce16263d806aa5206f413f3}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!firstDerivativeImpl@{firstDerivativeImpl}}
-\index{firstDerivativeImpl@{firstDerivativeImpl}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{firstDerivativeImpl()}{firstDerivativeImpl()}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-template$<$typename ST  = Scalar\+Type$>$ \\
-\mbox{\hyperlink{a01601_a1a4692dc03aec1de5e9b41fa6ce5b9d4}{First\+Derivative}}$<$ ST $>$ \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::first\+Derivative\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01601_a24bdf403b337bf93cd310a915aba9aa8}{Principal\+Stretches}}$<$ ST $>$ \&}]{lambda }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{a01601_a824ba0bf6ef6986b9405f2144e2d87f4}\label{a01601_a824ba0bf6ef6986b9405f2144e2d87f4}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!bindImpl@{bindImpl}}
+\index{bindImpl@{bindImpl}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{bindImpl()}{bindImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+void \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::bind\+Impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01601_a68520c3d823f6c3c024de222f874d06e}\label{a01601_a68520c3d823f6c3c024de222f874d06e}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!calculateAtImpl@{calculateAtImpl}}
+\index{calculateAtImpl@{calculateAtImpl}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{calculateAtImpl()}{calculateAtImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+template$<$template$<$ typename, int, int $>$ class RT$>$ \newline
+requires (Enhanced\+Assumed\+Strains\+::template supports\+Result\+Type$<$RT$>$())\\
+auto \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::calculate\+At\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} \&}]{req,  }\item[{const \mbox{\hyperlink{a02201}{Dune\+::\+Field\+Vector}}$<$ double, \mbox{\hyperlink{a01541_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}} $>$ \&}]{local,  }\item[{Dune\+::\+Priority\+Tag$<$ 2 $>$}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function calculates the results at the specified local coordinates . It takes into account the displacement-\/based element calculations and, if applicable, incorporates the \mbox{\hyperlink{a00501}{EAS}} method for enhanced accuracy.
 
 
 \begin{DoxyParams}{Parameters}
-{\em lambda} & principal stretches \\
+{\em req} & The result requirements. \\
+\hline
+{\em local} & The local coordinates at which results are to be calculated. \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+calculated result
+\end{DoxyReturn}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em ST} & the scalartype of the principal stretches \\
+{\em RT} & The type representing the requested result. \\
 \hline
 \end{DoxyTemplParams}
+\mbox{\Hypertarget{a01601_a272aea085a5f19ba986ced81c9345c10}\label{a01601_a272aea085a5f19ba986ced81c9345c10}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!calculateMatrixImpl@{calculateMatrixImpl}}
+\index{calculateMatrixImpl@{calculateMatrixImpl}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{calculateMatrixImpl()}{calculateMatrixImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+template$<$typename Scalar\+Type $>$ \\
+void \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::calculate\+Matrix\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} \&}]{par,  }\item[{const \mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}} \&}]{affordance,  }\item[{typename Traits\+::template Matrix\+Type$<$$>$}]{K,  }\item[{const \mbox{\hyperlink{a01601_a0df8a283fb466f111ddbea76582af9a8}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01601_a8cde088c25f1aec4b98a68f9bd8910a9}\label{a01601_a8cde088c25f1aec4b98a68f9bd8910a9}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!calculateScalarImpl@{calculateScalarImpl}}
+\index{calculateScalarImpl@{calculateScalarImpl}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{calculateScalarImpl()}{calculateScalarImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+template$<$typename Scalar\+Type $>$ \\
+Scalar\+Type \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::calculate\+Scalar\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} \&}]{par,  }\item[{\mbox{\hyperlink{a00489_af6f894084edd9109762b86222995ef2a}{Scalar\+Affordance}}}]{affordance,  }\item[{const \mbox{\hyperlink{a01601_a0df8a283fb466f111ddbea76582af9a8}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01601_a4edc5f10929b9e3c2a6735c3d812655b}\label{a01601_a4edc5f10929b9e3c2a6735c3d812655b}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!calculateVectorImpl@{calculateVectorImpl}}
+\index{calculateVectorImpl@{calculateVectorImpl}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{calculateVectorImpl()}{calculateVectorImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+template$<$typename Scalar\+Type $>$ \\
+void \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::calculate\+Vector\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} \&}]{par,  }\item[{\mbox{\hyperlink{a00489_aab9e3e38507d1db7602bc750718c302a}{Vector\+Affordance}}}]{affordance,  }\item[{typename Traits\+::template Vector\+Type$<$ Scalar\+Type $>$}]{force,  }\item[{const \mbox{\hyperlink{a01601_a0df8a283fb466f111ddbea76582af9a8}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01601_a3eb18cfb3c6e0c02a8ac8e0940510507}\label{a01601_a3eb18cfb3c6e0c02a8ac8e0940510507}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!easApplicabilityCheck@{easApplicabilityCheck}}
+\index{easApplicabilityCheck@{easApplicabilityCheck}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{easApplicabilityCheck()}{easApplicabilityCheck()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+void \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::eas\+Applicability\+Check (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01601_a3eb18cfb3c6e0c02a8ac8e0940510507_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01601_ae0b8a200f23ad7e9ff7114c5bc32b5da}\label{a01601_ae0b8a200f23ad7e9ff7114c5bc32b5da}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!easVariant@{easVariant}}
+\index{easVariant@{easVariant}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{easVariant()}{easVariant()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+const auto \& \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::eas\+Variant (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
 \begin{DoxyReturn}{Returns}
-First\+Derivative the first derivative 
+Const reference to the \mbox{\hyperlink{a00501}{EAS}} variant. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{a01601_afd36f592938bcdba49ef79e9d117eead}\label{a01601_afd36f592938bcdba49ef79e9d117eead}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!materialParametersImpl@{materialParametersImpl}}
-\index{materialParametersImpl@{materialParametersImpl}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{materialParametersImpl()}{materialParametersImpl()}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-\mbox{\hyperlink{a01601_a6e7eb1d8654cd930230685a6d3e34f96}{Material\+Parameters}} \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::material\+Parameters\+Impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{a01601_abc041e84d13db33fad994e9c28364866}\label{a01601_abc041e84d13db33fad994e9c28364866}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!internalVariable@{internalVariable}}
+\index{internalVariable@{internalVariable}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{internalVariable()}{internalVariable()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+const auto \& \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::internal\+Variable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{a01601_a4cc6a9ebdb6b1ec1cbbd4455734cc45f}\label{a01601_a4cc6a9ebdb6b1ec1cbbd4455734cc45f}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!name@{name}}
-\index{name@{name}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{name()}{name()}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-static constexpr std\+::string \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
-
-\mbox{\Hypertarget{a01601_a67a85fc0ccd91330a3d72c4818db6899}\label{a01601_a67a85fc0ccd91330a3d72c4818db6899}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!pExponents@{pExponents}}
-\index{pExponents@{pExponents}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{pExponents()}{pExponents()}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-const \mbox{\hyperlink{a01601_a3ceccb571b3cef82e4b9794452e010f5}{Exponents}} \& \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::p\+Exponents (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{a01601_aa530b0b70ad6ed5290c574ddc38aa64c}\label{a01601_aa530b0b70ad6ed5290c574ddc38aa64c}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!qExponents@{qExponents}}
-\index{qExponents@{qExponents}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{qExponents()}{qExponents()}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-const \mbox{\hyperlink{a01601_a3ceccb571b3cef82e4b9794452e010f5}{Exponents}} \& \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::q\+Exponents (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{a01601_a81e57359abb85ae74a91a85b5c12a56c}\label{a01601_a81e57359abb85ae74a91a85b5c12a56c}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!rebind@{rebind}}
-\index{rebind@{rebind}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{rebind()}{rebind()}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-template$<$typename STO $>$ \\
-auto \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::rebind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em STO} & The target scalar type. \\
-\hline
-\end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
-Invariant\+Based\+T$<$\+Scalar\+Type\+Other$>$ The rebound Invariant\+Based material. 
+Internal state variable (alpha). 
 \end{DoxyReturn}
-\mbox{\Hypertarget{a01601_a0903a7458da8578488d14ff02cc00e2c}\label{a01601_a0903a7458da8578488d14ff02cc00e2c}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!secondDerivativeImpl@{secondDerivativeImpl}}
-\index{secondDerivativeImpl@{secondDerivativeImpl}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{secondDerivativeImpl()}{secondDerivativeImpl()}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-template$<$typename ST  = Scalar\+Type$>$ \\
-\mbox{\hyperlink{a01601_ab6be53b2765172f6f6e093919c5a061f}{Second\+Derivative}}$<$ ST $>$ \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::second\+Derivative\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01601_a24bdf403b337bf93cd310a915aba9aa8}{Principal\+Stretches}}$<$ ST $>$ \&}]{lambda }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{a01601_aa89e2424db2dcbde4f708207683df310}\label{a01601_aa89e2424db2dcbde4f708207683df310}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!isDisplacementBased@{isDisplacementBased}}
+\index{isDisplacementBased@{isDisplacementBased}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{isDisplacementBased()}{isDisplacementBased()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+bool \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::is\+Displacement\+Based (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+True if the element is displacement-\/based, false otherwise. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01601_aa89e2424db2dcbde4f708207683df310_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01601_afe78c55c3e63ce60cd68871a9f24b54a}\label{a01601_afe78c55c3e63ce60cd68871a9f24b54a}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!numberOfInternalVariables@{numberOfInternalVariables}}
+\index{numberOfInternalVariables@{numberOfInternalVariables}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{numberOfInternalVariables()}{numberOfInternalVariables()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+auto \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::number\+Of\+Internal\+Variables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+Number of \mbox{\hyperlink{a00501}{EAS}} parameters. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01601_afe78c55c3e63ce60cd68871a9f24b54a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01601_aa95b10281c1b2f2a1ab9209175e0d262}\label{a01601_aa95b10281c1b2f2a1ab9209175e0d262}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!setEASType@{setEASType}}
+\index{setEASType@{setEASType}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{setEASType()}{setEASType()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+void \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::set\+EASType (\begin{DoxyParamCaption}\item[{int}]{number\+Of\+Internal\+Variables }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 \begin{DoxyParams}{Parameters}
-{\em lambda} & principal stretches. \\
+{\em number\+Of\+Internal\+Variables} & The number of \mbox{\hyperlink{a00501}{EAS}} parameters \\
 \hline
 \end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01601_aa95b10281c1b2f2a1ab9209175e0d262_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01601_adc3a3939e8e88760da1ea59e20ecd833}\label{a01601_adc3a3939e8e88760da1ea59e20ecd833}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!subscribeToImpl@{subscribeToImpl}}
+\index{subscribeToImpl@{subscribeToImpl}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{subscribeToImpl()}{subscribeToImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+template$<$typename MT , typename BC $>$ \\
+void \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::subscribe\+To\+Impl (\begin{DoxyParamCaption}\item[{BC \&}]{bc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
 
-\begin{DoxyTemplParams}{Template Parameters}
-{\em ST} & the scalartype of the principal stretches \\
-\hline
-\end{DoxyTemplParams}
-\begin{DoxyReturn}{Returns}
-Second\+Derivative the second derivative 
-\end{DoxyReturn}
-\mbox{\Hypertarget{a01601_a7c30e46f59f3ca6088f671deea149e9b}\label{a01601_a7c30e46f59f3ca6088f671deea149e9b}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!storedEnergyImpl@{storedEnergyImpl}}
-\index{storedEnergyImpl@{storedEnergyImpl}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{storedEnergyImpl()}{storedEnergyImpl()}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-template$<$typename ST  = Scalar\+Type$>$ \\
-ST \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::stored\+Energy\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01601_a24bdf403b337bf93cd310a915aba9aa8}{Principal\+Stretches}}$<$ ST $>$ \&}]{lambda }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{a01601_af8541f825e5562cdbb8af0e75ce0a744}\label{a01601_af8541f825e5562cdbb8af0e75ce0a744}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!updateStateImpl@{updateStateImpl}}
+\index{updateStateImpl@{updateStateImpl}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{updateStateImpl()}{updateStateImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+void \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::update\+State\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01601_a0f31209650df33c8867e4f742b3b3d25}{Requirement}} \&}]{par,  }\item[{const std\+::remove\+\_\+reference\+\_\+t$<$ typename Traits\+::template Vector\+Type$<$$>$ $>$ \&}]{correction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
 
 
 \begin{DoxyParams}{Parameters}
-{\em lambda} & principal stretches \\
+{\em par} & The Requirement object. \\
+\hline
+{\em correction} & The correction in displacement (DeltaD) vector passed based on which the internal state variable alpha is to be updated. \\
 \hline
 \end{DoxyParams}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em ST} & the scalartype of the principal stretches \\
-\hline
-\end{DoxyTemplParams}
-\begin{DoxyReturn}{Returns}
-Scalar\+Type the energy 
-\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01601_af8541f825e5562cdbb8af0e75ce0a744_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{a01601_a7f0b4300e1a4c2a05f9dc20f850f82d5}\label{a01601_a7f0b4300e1a4c2a05f9dc20f850f82d5}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!dim@{dim}}
-\index{dim@{dim}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{dim}{dim}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-constexpr int \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::dim = 3\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
-
-\mbox{\Hypertarget{a01601_a8252be6a2ad407fddf1abd0192b0eb52}\label{a01601_a8252be6a2ad407fddf1abd0192b0eb52}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!numMatParameters@{numMatParameters}}
-\index{numMatParameters@{numMatParameters}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{numMatParameters}{numMatParameters}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-constexpr int \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::num\+Mat\+Parameters = n\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
-
-\mbox{\Hypertarget{a01601_a63e181f3b21504eaecdab7f03a0e3ac9}\label{a01601_a63e181f3b21504eaecdab7f03a0e3ac9}} 
-\index{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}!stretchTag@{stretchTag}}
-\index{stretchTag@{stretchTag}!Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$@{Ikarus::Materials::InvariantBasedT$<$ ST\_, n $>$}}
-\doxysubsubsection{\texorpdfstring{stretchTag}{stretchTag}}
-{\footnotesize\ttfamily template$<$typename ST\+\_\+ , int n$>$ \\
-constexpr auto \mbox{\hyperlink{a01601}{Ikarus\+::\+Materials\+::\+Invariant\+BasedT}}$<$ ST\+\_\+, n $>$\+::stretch\+Tag = \mbox{\hyperlink{a00471_aec3d3c4647af5c01e1bf18637b3c89feaae6dc167631992e1312a197d5c3c39f8}{Principal\+Stretch\+Tags\+::deviatoric}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+\mbox{\Hypertarget{a01601_ac00c91a371e5c1b42bbc0a26715693ef}\label{a01601_ac00c91a371e5c1b42bbc0a26715693ef}} 
+\index{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}!myDim@{myDim}}
+\index{myDim@{myDim}!Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$@{Ikarus::EnhancedAssumedStrains$<$ PreFE, FE, ESF $>$}}
+\doxysubsubsection{\texorpdfstring{myDim}{myDim}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01489}{Pre\+FE}} , typename \mbox{\hyperlink{a01485}{FE}} , typename ESF $>$ \\
+constexpr int \mbox{\hyperlink{a01601}{Ikarus\+::\+Enhanced\+Assumed\+Strains}}$<$ \mbox{\hyperlink{a01489}{Pre\+FE}}, \mbox{\hyperlink{a01485}{FE}}, ESF $>$\+::my\+Dim = \mbox{\hyperlink{a01541_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
 
 
 
-The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a00254}{invariantbased.\+hh}}\end{DoxyCompactItemize}
+\mbox{\hyperlink{a00305}{enhancedassumedstrains.\+hh}}\end{DoxyCompactItemize}

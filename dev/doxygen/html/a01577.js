@@ -1,19 +1,9 @@
 var a01577 =
 [
-    [ "FirstDerivative", "a01577.html#aa8e3988e1c8d0d611fb28354e20e5fc6", null ],
-    [ "Invariants", "a01577.html#a6f6967cf124d7c86783cc01c8849f304", null ],
-    [ "MaterialParameters", "a01577.html#aaed928459506869a17c7ed0abb6a3658", null ],
-    [ "PrincipalStretches", "a01577.html#a1285d903578f2a42247ece4214977a53", null ],
-    [ "ScalarType", "a01577.html#ae0ebdd5cb66576342876a323334edfa3", null ],
-    [ "SecondDerivative", "a01577.html#aae064ebc679ff3aae55770774d9f2f20", null ],
-    [ "ArrudaBoyceT", "a01577.html#a12fffa74c2d66f88cb341ef2be15c2a2", null ],
-    [ "firstDerivativeImpl", "a01577.html#ac83bfb985c0823c57d2ba3577fa34a29", null ],
-    [ "materialParametersImpl", "a01577.html#a9bf20249df24ad1909de26378c5d44c8", null ],
-    [ "name", "a01577.html#aa2e4a543775cd8f30dcb768834a8b66d", null ],
-    [ "rebind", "a01577.html#a9f7d11a71c02c6009e2665d78a90dfba", null ],
-    [ "secondDerivativeImpl", "a01577.html#a10c05d2682acc0b38549705176fe421d", null ],
-    [ "storedEnergyImpl", "a01577.html#abf2eefa6dd97cfc5f97d4e8adad71fb8", null ],
-    [ "dim", "a01577.html#a4c7f052604e0466671aa6090e41d06e6", null ],
-    [ "numTerms", "a01577.html#a7054465b5882a8d6e9bfa52f1c3a49f7", null ],
-    [ "stretchTag", "a01577.html#a5d82709e65ee6228bbfa1e340c9c6152", null ]
+    [ "Variant", "a01577.html#aab82fe8fd3fab5566d326e2f16ffd3a6", null ],
+    [ "bind", "a01577.html#a730cdca69871f6860b1ff6f869a6a067", null ],
+    [ "numberOfInternalVariables", "a01577.html#a331c210fd48d89e568c0f6f30ac0516d", null ],
+    [ "operator()", "a01577.html#affc51b112501fd9ae58cc14c770af1b9", null ],
+    [ "setAssumedStressType", "a01577.html#ac3a7e7d2503d74ddfaa59d1b18b67c64", null ],
+    [ "myDim", "a01577.html#adfa5d168fff5a08370952f990d8d6b2d", null ]
 ];

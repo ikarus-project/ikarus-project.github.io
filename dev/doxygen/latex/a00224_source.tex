@@ -1,5 +1,5 @@
-\hypertarget{a00224_source}{}\doxysection{mueslismall.\+hh}
-\label{a00224_source}\index{mueslismall.hh@{mueslismall.hh}}
+\hypertarget{a00224_source}{}\doxysection{mueslimaterials.\+hh}
+\label{a00224_source}\index{mueslimaterials.hh@{mueslimaterials.hh}}
 \mbox{\hyperlink{a00224}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
@@ -9,121 +9,67 @@
 \DoxyCodeLine{11 }
 \DoxyCodeLine{12 \textcolor{preprocessor}{\#if ENABLE\_MUESLI}}
 \DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{  \#include <muesli/muesli.h>}}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{preprocessor}{  \#include <Eigen/Eigen>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00218}{ikarus/finiteelements/mechanics/materials/muesli/mueslifinite.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00221}{ikarus/finiteelements/mechanics/materials/muesli/mueslihelpers.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00227}{ikarus/finiteelements/mechanics/materials/muesli/mueslismall.hh}}>}}
 \DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a03299}{ikarus/finiteelements/mechanics/materials/interface.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00218}{ikarus/finiteelements/mechanics/materials/muesli/mueslihelpers.hh}}>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00071}{ikarus/utils/tensorutils.hh}}>}}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00480}{Ikarus::Materials}} \{}
-\DoxyCodeLine{23 }
-\DoxyCodeLine{30 \textcolor{keyword}{template} <\textcolor{keyword}{typename} SM = muesli::elasticIsotropicMaterial>}
-\DoxyCodeLine{31 \textcolor{keyword}{requires}(std::is\_base\_of\_v<muesli::smallStrainMaterial, SM>)}
-\DoxyCodeLine{32 \textcolor{keyword}{struct} SmallStrain : \textcolor{keyword}{public} Material<SmallStrain<SM>>}
-\DoxyCodeLine{33 \{}
-\DoxyCodeLine{34   \textcolor{keyword}{using }MaterialModel      = SM;}
-\DoxyCodeLine{35   \textcolor{keyword}{using }ScalarType         = double;}
-\DoxyCodeLine{36   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} dim = 3;}
-\DoxyCodeLine{37   \textcolor{keyword}{using }StrainMatrix       = Eigen::Matrix<ScalarType, dim, dim>;}
-\DoxyCodeLine{38   \textcolor{keyword}{using }StressMatrix       = StrainMatrix;}
-\DoxyCodeLine{39   \textcolor{keyword}{using }MaterialTensor     = Eigen::TensorFixedSize<ScalarType, Eigen::Sizes<dim, dim, dim, dim>>;}
-\DoxyCodeLine{40   \textcolor{keyword}{using }MaterialParameters = muesli::materialProperties;}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} strainTag              = \mbox{\hyperlink{a00460_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}};}
-\DoxyCodeLine{43   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} stressTag              = \mbox{\hyperlink{a00460_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}};}
-\DoxyCodeLine{44   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} tangentModuliTag       = \mbox{\hyperlink{a00460_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{TangentModuliTags::Material}};}
-\DoxyCodeLine{45   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} energyAcceptsVoigt     = \textcolor{keyword}{false};}
-\DoxyCodeLine{46   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} stressToVoigt          = \textcolor{keyword}{false};}
-\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} stressAcceptsVoigt     = \textcolor{keyword}{false};}
-\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} moduliToVoigt          = \textcolor{keyword}{false};}
-\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} moduliAcceptsVoigt     = \textcolor{keyword}{false};}
-\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} derivativeFactorImpl = 1;}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{52   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string nameImpl() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}SmallStrain: "{}} + materialName<SM>(); \}}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{58   \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
-\DoxyCodeLine{59   \textcolor{keyword}{requires}(std::same\_as<MaterialModel, muesli::elasticIsotropicMaterial>)}
-\DoxyCodeLine{60   \textcolor{keyword}{explicit} SmallStrain(\textcolor{keyword}{const} MPT\& mpt)}
-\DoxyCodeLine{61       : materialParameter\_\{propertiesFromIkarusMaterialParameters(mpt)\},}
-\DoxyCodeLine{62         material\_\{Dune::className<SM>(), materialParameter\_\},}
-\DoxyCodeLine{63         mp\_\{material\_.createMaterialPoint()\} \{\}}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{69   \textcolor{keyword}{explicit} SmallStrain(\textcolor{keyword}{const} MaterialParameters\& mpt)}
-\DoxyCodeLine{70       : materialParameter\_\{mpt\},}
-\DoxyCodeLine{71         material\_\{\mbox{\hyperlink{a00495}{Dune}}::className<SM>(), mpt\},}
-\DoxyCodeLine{72         mp\_\{material\_.createMaterialPoint()\} \{\}}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{77   MaterialParameters materialParametersImpl()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} materialParameter\_; \}}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{85   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{86   ScalarType storedEnergyImpl(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{87     \textcolor{keyword}{static\_assert}(Concepts::EigenMatrixOrVoigtNotation3<Derived>);}
-\DoxyCodeLine{88     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!Concepts::EigenVector<Derived>) \{}
-\DoxyCodeLine{89       updateState(E);}
-\DoxyCodeLine{90       \textcolor{keywordflow}{return} mp\_-\/>storedEnergy();}
-\DoxyCodeLine{91     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{92       \textcolor{keyword}{static\_assert}(!Concepts::EigenVector<Derived>,}
-\DoxyCodeLine{93                     \textcolor{stringliteral}{"{}MuesliSmallStrain energy can only be called with a matrix and not a vector in Voigt notation"{}});}
-\DoxyCodeLine{94   \}}
-\DoxyCodeLine{95 }
-\DoxyCodeLine{103   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt, \textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{104   \textcolor{keyword}{auto} stressesImpl(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{105     \textcolor{keyword}{static\_assert}(Concepts::EigenMatrixOrVoigtNotation3<Derived>);}
-\DoxyCodeLine{106     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!voigt) \{}
-\DoxyCodeLine{107       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!Concepts::EigenVector<Derived>) \{}
-\DoxyCodeLine{108         updateState(E);}
-\DoxyCodeLine{109         istensor stress;}
-\DoxyCodeLine{110         mp\_-\/>stress(stress);}
-\DoxyCodeLine{111         \textcolor{keywordflow}{return} toEigenMatrix(stress);}
-\DoxyCodeLine{112       \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{113         \textcolor{keyword}{static\_assert}(!Concepts::EigenVector<Derived>,}
-\DoxyCodeLine{114                       \textcolor{stringliteral}{"{}MuesliSmallStrain can only be called with a matrix and not a vector in Voigt notation"{}});}
-\DoxyCodeLine{115     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{116       \textcolor{keyword}{static\_assert}(voigt == \textcolor{keyword}{false}, \textcolor{stringliteral}{"{}MuesliSmallStrain does not support returning stresses in Voigt notation"{}});}
-\DoxyCodeLine{117   \}}
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00500}{Ikarus::Materials}} \{}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{27 \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
+\DoxyCodeLine{28 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliLinearElasticity(\textcolor{keyword}{const} MPT\& mpt) \{}
+\DoxyCodeLine{29   \textcolor{keyword}{auto} muesliParameters = propertiesFromIkarusMaterialParameters(mpt);}
+\DoxyCodeLine{30   \textcolor{keywordflow}{return} SmallStrain<muesli::elasticIsotropicMaterial>(muesliParameters);}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{41 \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
+\DoxyCodeLine{42 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliNeoHooke(\textcolor{keyword}{const} MPT\& mpt, \textcolor{keywordtype}{bool} useDeviatoricStretches = \textcolor{keyword}{false}) \{}
+\DoxyCodeLine{43   \textcolor{keyword}{auto} muesliParameters = propertiesFromIkarusMaterialParameters(mpt);}
+\DoxyCodeLine{44   \textcolor{keywordflow}{if} (useDeviatoricStretches)}
+\DoxyCodeLine{45     addTag(muesliParameters, \textcolor{stringliteral}{"{}subtype regularized"{}});}
+\DoxyCodeLine{46   \textcolor{keywordflow}{return} FiniteStrain<muesli::neohookeanMaterial>(muesliParameters);}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{56 \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
+\DoxyCodeLine{57 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliSVK(\textcolor{keyword}{const} MPT\& mpt) \{}
+\DoxyCodeLine{58   \textcolor{keyword}{auto} muesliParameters = propertiesFromIkarusMaterialParameters(mpt);}
+\DoxyCodeLine{59   \textcolor{keywordflow}{return} FiniteStrain<muesli::svkMaterial>(muesliParameters);}
+\DoxyCodeLine{60 \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{71 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliArrudaBoyce(\textcolor{keywordtype}{double} C1, \textcolor{keywordtype}{double} lambda\_m, \textcolor{keywordtype}{double} K, \textcolor{keywordtype}{bool} compressible = \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{72   \textcolor{keyword}{auto} muesliParameters = muesli::materialProperties\{\};}
+\DoxyCodeLine{73   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c1"{}}, C1\});}
+\DoxyCodeLine{74   muesliParameters.insert(\{\textcolor{stringliteral}{"{}lambdam"{}}, lambda\_m\});}
+\DoxyCodeLine{75   muesliParameters.insert(\{\textcolor{stringliteral}{"{}bulk"{}}, K\});}
+\DoxyCodeLine{76   \textcolor{keywordflow}{if} (compressible)}
+\DoxyCodeLine{77     addTag(muesliParameters, \textcolor{stringliteral}{"{}compressible"{}});}
+\DoxyCodeLine{78   \textcolor{keywordflow}{return} FiniteStrain<muesli::arrudaboyceMaterial>(muesliParameters);}
+\DoxyCodeLine{79 \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{89 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliYeoh(std::array<double, 3> C, \textcolor{keywordtype}{double} K, \textcolor{keywordtype}{bool} compressible = \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{90   \textcolor{keyword}{auto} muesliParameters = muesli::materialProperties\{\};}
+\DoxyCodeLine{91   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c1"{}}, C[0]\});}
+\DoxyCodeLine{92   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c2"{}}, C[1]\});}
+\DoxyCodeLine{93   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c3"{}}, C[2]\});}
+\DoxyCodeLine{94   muesliParameters.insert(\{\textcolor{stringliteral}{"{}bulk"{}}, K\});}
+\DoxyCodeLine{95   \textcolor{keywordflow}{if} (compressible)}
+\DoxyCodeLine{96     addTag(muesliParameters, \textcolor{stringliteral}{"{}compressible"{}});}
+\DoxyCodeLine{97   \textcolor{keywordflow}{return} FiniteStrain<muesli::yeohMaterial>(muesliParameters);}
+\DoxyCodeLine{98 \}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{107 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00500_a7ac025ab0f41d2021008bd54e51135b1}{makeMooneyRivlin}}(std::array<double, 3> alpha, \textcolor{keywordtype}{bool} incompressible = \textcolor{keyword}{false}) \{}
+\DoxyCodeLine{108   \textcolor{keyword}{auto} muesliParameters = muesli::materialProperties\{\};}
+\DoxyCodeLine{109   muesliParameters.insert(\{\textcolor{stringliteral}{"{}alpha0"{}}, alpha[0]\});}
+\DoxyCodeLine{110   muesliParameters.insert(\{\textcolor{stringliteral}{"{}alpha1"{}}, alpha[1]\});}
+\DoxyCodeLine{111   muesliParameters.insert(\{\textcolor{stringliteral}{"{}alpha2"{}}, alpha[2]\});}
+\DoxyCodeLine{112   \textcolor{keywordflow}{if} (incompressible)}
+\DoxyCodeLine{113     addTag(muesliParameters, \textcolor{stringliteral}{"{}incompressible"{}});}
+\DoxyCodeLine{114   \textcolor{keywordflow}{return} FiniteStrain<muesli::mooneyMaterial>(muesliParameters);}
+\DoxyCodeLine{115 \}}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \} \textcolor{comment}{// namespace Ikarus::Materials}}
 \DoxyCodeLine{118 }
-\DoxyCodeLine{126   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt, \textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{127   \textcolor{keyword}{auto} tangentModuliImpl(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{128     \textcolor{keyword}{static\_assert}(Concepts::EigenMatrixOrVoigtNotation3<Derived>);}
-\DoxyCodeLine{129     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!voigt) \{}
-\DoxyCodeLine{130       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!Concepts::EigenVector<Derived>) \{}
-\DoxyCodeLine{131         updateState(E);}
-\DoxyCodeLine{132         itensor4 tangentModuli;}
-\DoxyCodeLine{133         mp\_-\/>tangentTensor(tangentModuli);}
-\DoxyCodeLine{134         \textcolor{keywordflow}{return} toEigenTensor(tangentModuli);}
-\DoxyCodeLine{135       \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{136         \textcolor{keyword}{static\_assert}(!Concepts::EigenVector<Derived>,}
-\DoxyCodeLine{137                       \textcolor{stringliteral}{"{}MuesliSmallStrain can only be called with a matrix and not a vector in Voigt notation"{}});}
-\DoxyCodeLine{138     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{139       \textcolor{keyword}{static\_assert}(voigt == \textcolor{keyword}{false}, \textcolor{stringliteral}{"{}MuesliSmallStrain does not support returning tangent moduli in Voigt notation"{}});}
-\DoxyCodeLine{140   \}}
-\DoxyCodeLine{141 }
-\DoxyCodeLine{146   \textcolor{keyword}{auto}\& material()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} material\_; \}}
-\DoxyCodeLine{147 }
-\DoxyCodeLine{152   \textcolor{keyword}{auto}\& materialPoint()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} mp\_; \}}
-\DoxyCodeLine{153 }
-\DoxyCodeLine{154   SmallStrain(\textcolor{keyword}{const} SmallStrain\& other)}
-\DoxyCodeLine{155       : materialParameter\_\{other.materialParameter\_\},}
-\DoxyCodeLine{156         material\_\{\mbox{\hyperlink{a00495}{Dune}}::className<SM>(), materialParameter\_\},}
-\DoxyCodeLine{157         mp\_\{material\_.createMaterialPoint()\} \{\}}
-\DoxyCodeLine{158 }
-\DoxyCodeLine{159 \textcolor{keyword}{private}:}
-\DoxyCodeLine{160   MaterialParameters materialParameter\_;}
-\DoxyCodeLine{161   MaterialModel material\_;}
-\DoxyCodeLine{162   std::unique\_ptr<muesli::smallStrainMP> mp\_;}
-\DoxyCodeLine{163 }
-\DoxyCodeLine{164   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{165   \textcolor{keywordtype}{void} updateState(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{166     mp\_-\/>updateCurrentState(0.0, toistensor(E.derived()));}
-\DoxyCodeLine{167   \}}
-\DoxyCodeLine{168 \};}
-\DoxyCodeLine{169 }
-\DoxyCodeLine{170 \} \textcolor{comment}{// namespace Ikarus::Materials}}
-\DoxyCodeLine{171 }
-\DoxyCodeLine{172 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{173 \textcolor{preprocessor}{  \#error Muesli materials depends on the Muesli library, which is not included}}
-\DoxyCodeLine{174 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{120 \textcolor{preprocessor}{  \#error Muesli materials depends on the Muesli library, which is not included}}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

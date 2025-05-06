@@ -1,143 +1,168 @@
-\hypertarget{a01693}{}\doxysection{Ikarus\+::Default\+Membrane\+Strain Struct Reference}
-\label{a01693}\index{Ikarus::DefaultMembraneStrain@{Ikarus::DefaultMembraneStrain}}
+\hypertarget{a01693}{}\doxysection{Ikarus\+::Materials\+::Volumetric\texorpdfstring{$<$}{<} VF \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{a01693}\index{Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}}
 
 
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/membranestrains.\+hh$>$}
+Interface for the volumetric part of a hyperelastic material. Has to be parametrized with a volumetric function.  
 
+
+
+
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/interface.\+hh$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{a01693_aa3d51e966cd40da0f3e6b505a6743076}{Volumetric\+Function}} = VF
+\item 
+using \mbox{\hyperlink{a01693_aabac7e7a240204c69ad22b7750fb8b90}{Material\+Parameter}} = double
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename VFF $>$ }\\\mbox{\hyperlink{a01693_a0be6e1d78660998e4f7c91420aadf0f3}{Volumetric}} (\mbox{\hyperlink{a01693_aabac7e7a240204c69ad22b7750fb8b90}{Material\+Parameter}} mat\+Par, VFF \&\&vf)
+\begin{DoxyCompactList}\small\item\em Construct a new volumetric part. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{a01693_aabac7e7a240204c69ad22b7750fb8b90}{Material\+Parameter}} \mbox{\hyperlink{a01693_a7adbecbd7396fd3b1516d97ef7594e9b}{material\+Parameter}} () const
+\begin{DoxyCompactList}\small\item\em Returns the material parameters stored in the deviatoric part of the material. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ST $>$ }\\ST \mbox{\hyperlink{a01693_ac78887337d06a38681fed22108a1aab6}{stored\+Energy}} (const ST \&J) const
+\begin{DoxyCompactList}\small\item\em Computes stored energy of the volumetric function. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ST $>$ }\\ST \mbox{\hyperlink{a01693_a078c8993443b5ce49b2799e78a90f2a8}{first\+Derivative}} (const ST \&J) const
+\begin{DoxyCompactList}\small\item\em Computes the first derivatives of the energy of the volumetric function w.\+r.\+t $ J $. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ST $>$ }\\ST \mbox{\hyperlink{a01693_ab15f0bae56c234de3ff7eb9bf18574b2}{second\+Derivative}} (const ST \&J) const
+\begin{DoxyCompactList}\small\item\em Computes the second derivatives of the energy of the volumetric function w.\+r.\+t $ J $. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename GEO $>$ }\\static auto \mbox{\hyperlink{a01693_a7c65ab77e1e42865fc4d0b04a5cb288a}{value}} (const \mbox{\hyperlink{a02125}{Dune\+::\+Field\+Vector}}$<$ double, 2 $>$ \&gp\+Pos, const GEO \&geo, const auto \&u\+Function) -\/$>$ Eigen\+::\+Vector3$<$ typename std\+::remove\+\_\+cvref\+\_\+t$<$ decltype(u\+Function)$>$\+::ctype $>$
-\begin{DoxyCompactList}\small\item\em Compute the strain vector at a given integration point. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename GEO , typename ST $>$ }\\static auto \mbox{\hyperlink{a01693_a0e9910984eae86b868f317f0a26a132e}{derivative}} (const \mbox{\hyperlink{a02125}{Dune\+::\+Field\+Vector}}$<$ double, 2 $>$ \&gp\+Pos, const Eigen\+::\+Matrix$<$ ST, 2, 3 $>$ \&jcur, const auto \&d\+NAt\+Gp, const GEO \&geo, const auto \&u\+Function, const auto \&local\+Basis, const int node)
-\begin{DoxyCompactList}\small\item\em Compute the strain-\/displacement matrix for a given node and integration point. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename GEO , typename ST $>$ }\\static auto \mbox{\hyperlink{a01693_a28a06b4e89e7e526e8b09b020d6adfcf}{second\+Derivative}} (const \mbox{\hyperlink{a02125}{Dune\+::\+Field\+Vector}}$<$ double, 2 $>$ \&gp\+Pos, const auto \&d\+NAt\+Gp, const GEO \&geo, const auto \&u\+Function, const auto \&local\+Basis, const Eigen\+::\+Vector3$<$ ST $>$ \&S, int I, int J)
-\begin{DoxyCompactList}\small\item\em Compute the second derivative of the membrane strain for a given node pair and integration point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+static constexpr std\+::string \mbox{\hyperlink{a01693_afe5bf8efbc9c1f4e7932854d6a3082c3}{name}} () noexcept
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$Concepts\+::\+Volumetric\+Function VF$>$\newline
+struct Ikarus\+::\+Materials\+::\+Volumetric$<$ VF $>$}
+The volumetric part of the hyperelastic model, i.\+e., related to $ U(J) $, is parametrized with a certain volumetric function (VF) implemented in terms of the determinant of the deformation gradient. The underlying volumetric function must only implement the energy $ U(J) $ and its first and second derivatives w.\+r.\+t $ J $.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em VF} & \mbox{\hyperlink{a01693}{Volumetric}} function. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{a01693_aabac7e7a240204c69ad22b7750fb8b90}\label{a01693_aabac7e7a240204c69ad22b7750fb8b90}} 
+\index{Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}!MaterialParameter@{MaterialParameter}}
+\index{MaterialParameter@{MaterialParameter}!Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}}
+\doxysubsubsection{\texorpdfstring{MaterialParameter}{MaterialParameter}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Volumetric\+Function VF$>$ \\
+using \mbox{\hyperlink{a01693}{Ikarus\+::\+Materials\+::\+Volumetric}}$<$ VF $>$\+::\+Material\+Parameter =  double}
+
+\mbox{\Hypertarget{a01693_aa3d51e966cd40da0f3e6b505a6743076}\label{a01693_aa3d51e966cd40da0f3e6b505a6743076}} 
+\index{Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}!VolumetricFunction@{VolumetricFunction}}
+\index{VolumetricFunction@{VolumetricFunction}!Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}}
+\doxysubsubsection{\texorpdfstring{VolumetricFunction}{VolumetricFunction}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Volumetric\+Function VF$>$ \\
+using \mbox{\hyperlink{a01693}{Ikarus\+::\+Materials\+::\+Volumetric}}$<$ VF $>$\+::\+Volumetric\+Function =  VF}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{a01693_a0be6e1d78660998e4f7c91420aadf0f3}\label{a01693_a0be6e1d78660998e4f7c91420aadf0f3}} 
+\index{Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}!Volumetric@{Volumetric}}
+\index{Volumetric@{Volumetric}!Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}}
+\doxysubsubsection{\texorpdfstring{Volumetric()}{Volumetric()}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Volumetric\+Function VF$>$ \\
+template$<$typename VFF $>$ \\
+\mbox{\hyperlink{a01693}{Ikarus\+::\+Materials\+::\+Volumetric}}$<$ VF $>$\+::\+Volumetric (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{a01693_aabac7e7a240204c69ad22b7750fb8b90}{Material\+Parameter}}}]{mat\+Par,  }\item[{VFF \&\&}]{vf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em mat\+Par} & Materialparameter that is considered as the penalty parameter for the constraint against volumetric deformations. Typically, if the deviatoric part of the energy function is a function of the total principal stretches, then this material parameter is the Lamé\textquotesingle{}s first parameter and if the energy is a function of the deviatoric principal stretches, then bulk modulus is used.\\
+\hline
+{\em vf} & the volumetric function \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{a01693_a0e9910984eae86b868f317f0a26a132e}\label{a01693_a0e9910984eae86b868f317f0a26a132e}} 
-\index{Ikarus::DefaultMembraneStrain@{Ikarus::DefaultMembraneStrain}!derivative@{derivative}}
-\index{derivative@{derivative}!Ikarus::DefaultMembraneStrain@{Ikarus::DefaultMembraneStrain}}
-\doxysubsubsection{\texorpdfstring{derivative()}{derivative()}}
-{\footnotesize\ttfamily template$<$typename GEO , typename ST $>$ \\
-static auto Ikarus\+::\+Default\+Membrane\+Strain\+::derivative (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a02125}{Dune\+::\+Field\+Vector}}$<$ double, 2 $>$ \&}]{gp\+Pos,  }\item[{const Eigen\+::\+Matrix$<$ ST, 2, 3 $>$ \&}]{jcur,  }\item[{const auto \&}]{d\+NAt\+Gp,  }\item[{const GEO \&}]{geo,  }\item[{const auto \&}]{u\+Function,  }\item[{const auto \&}]{local\+Basis,  }\item[{const int}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+\mbox{\Hypertarget{a01693_a078c8993443b5ce49b2799e78a90f2a8}\label{a01693_a078c8993443b5ce49b2799e78a90f2a8}} 
+\index{Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}!firstDerivative@{firstDerivative}}
+\index{firstDerivative@{firstDerivative}!Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}}
+\doxysubsubsection{\texorpdfstring{firstDerivative()}{firstDerivative()}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Volumetric\+Function VF$>$ \\
+template$<$typename ST $>$ \\
+ST \mbox{\hyperlink{a01693}{Ikarus\+::\+Materials\+::\+Volumetric}}$<$ VF $>$\+::first\+Derivative (\begin{DoxyParamCaption}\item[{const ST \&}]{J }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 \begin{DoxyParams}{Parameters}
-{\em gp\+Pos} & The position of the integration point. \\
-\hline
-{\em jcur} & The Jacobian matrix. \\
-\hline
-{\em d\+NAt\+Gp} & The derivative of the shape functions at the integration point. \\
-\hline
-{\em geo} & The geometry object of the finite element. \\
-\hline
-{\em u\+Function} & The function representing the displacement field. \\
-\hline
-{\em local\+Basis} & The local basis object. \\
-\hline
-{\em node} & The \mbox{\hyperlink{a01465}{FE}} node index.\\
+{\em J} & determinant of the deformation gradient $ J = \det\BF $. \\
 \hline
 \end{DoxyParams}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em GEO} & The type of the geometry object. \\
-\hline
-{\em ST} & The scalar type for the matrix elements.\\
+{\em ST} & the scalartype of J \\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
-The strain-\/displacement matrix for the given node and integration point. 
+ST first derivative of the energy. 
 \end{DoxyReturn}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{a01693_a0e9910984eae86b868f317f0a26a132e_icgraph}
-\end{center}
-\end{figure}
-\mbox{\Hypertarget{a01693_a28a06b4e89e7e526e8b09b020d6adfcf}\label{a01693_a28a06b4e89e7e526e8b09b020d6adfcf}} 
-\index{Ikarus::DefaultMembraneStrain@{Ikarus::DefaultMembraneStrain}!secondDerivative@{secondDerivative}}
-\index{secondDerivative@{secondDerivative}!Ikarus::DefaultMembraneStrain@{Ikarus::DefaultMembraneStrain}}
+\mbox{\Hypertarget{a01693_a7adbecbd7396fd3b1516d97ef7594e9b}\label{a01693_a7adbecbd7396fd3b1516d97ef7594e9b}} 
+\index{Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}!materialParameter@{materialParameter}}
+\index{materialParameter@{materialParameter}!Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}}
+\doxysubsubsection{\texorpdfstring{materialParameter()}{materialParameter()}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Volumetric\+Function VF$>$ \\
+const \mbox{\hyperlink{a01693_aabac7e7a240204c69ad22b7750fb8b90}{Material\+Parameter}} \mbox{\hyperlink{a01693}{Ikarus\+::\+Materials\+::\+Volumetric}}$<$ VF $>$\+::material\+Parameter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{a01693_afe5bf8efbc9c1f4e7932854d6a3082c3}\label{a01693_afe5bf8efbc9c1f4e7932854d6a3082c3}} 
+\index{Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}!name@{name}}
+\index{name@{name}!Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Volumetric\+Function VF$>$ \\
+static constexpr std\+::string \mbox{\hyperlink{a01693}{Ikarus\+::\+Materials\+::\+Volumetric}}$<$ VF $>$\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+\mbox{\Hypertarget{a01693_ab15f0bae56c234de3ff7eb9bf18574b2}\label{a01693_ab15f0bae56c234de3ff7eb9bf18574b2}} 
+\index{Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}!secondDerivative@{secondDerivative}}
+\index{secondDerivative@{secondDerivative}!Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}}
 \doxysubsubsection{\texorpdfstring{secondDerivative()}{secondDerivative()}}
-{\footnotesize\ttfamily template$<$typename GEO , typename ST $>$ \\
-static auto Ikarus\+::\+Default\+Membrane\+Strain\+::second\+Derivative (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a02125}{Dune\+::\+Field\+Vector}}$<$ double, 2 $>$ \&}]{gp\+Pos,  }\item[{const auto \&}]{d\+NAt\+Gp,  }\item[{const GEO \&}]{geo,  }\item[{const auto \&}]{u\+Function,  }\item[{const auto \&}]{local\+Basis,  }\item[{const Eigen\+::\+Vector3$<$ ST $>$ \&}]{S,  }\item[{int}]{I,  }\item[{int}]{J }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
-
-This function computes the geometric tangent stiffness for a given node pair at a given integration point.
+{\footnotesize\ttfamily template$<$Concepts\+::\+Volumetric\+Function VF$>$ \\
+template$<$typename ST $>$ \\
+ST \mbox{\hyperlink{a01693}{Ikarus\+::\+Materials\+::\+Volumetric}}$<$ VF $>$\+::second\+Derivative (\begin{DoxyParamCaption}\item[{const ST \&}]{J }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 \begin{DoxyParams}{Parameters}
-{\em gp\+Pos} & The position of the integration point. \\
-\hline
-{\em d\+NAt\+Gp} & The derivative of the shape functions at the integration point. \\
-\hline
-{\em geo} & The geometry object. \\
-\hline
-{\em u\+Function} & The function representing the displacement field. \\
-\hline
-{\em local\+Basis} & The local basis object. \\
-\hline
-{\em S} & The strain vector. \\
-\hline
-{\em I} & The index of the first node. \\
-\hline
-{\em J} & The index of the second node.\\
+{\em J} & determinant of the deformation gradient $ J = \det\BF $. \\
 \hline
 \end{DoxyParams}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em GEO} & The type of the geometry object. \\
-\hline
-{\em ST} & The scalar type for the matrix elements.\\
+{\em ST} & the scalartype of J \\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
-The second derivative of the membrane strain. 
+ST second derivative of the energy. 
 \end{DoxyReturn}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{a01693_a28a06b4e89e7e526e8b09b020d6adfcf_icgraph}
-\end{center}
-\end{figure}
-\mbox{\Hypertarget{a01693_a7c65ab77e1e42865fc4d0b04a5cb288a}\label{a01693_a7c65ab77e1e42865fc4d0b04a5cb288a}} 
-\index{Ikarus::DefaultMembraneStrain@{Ikarus::DefaultMembraneStrain}!value@{value}}
-\index{value@{value}!Ikarus::DefaultMembraneStrain@{Ikarus::DefaultMembraneStrain}}
-\doxysubsubsection{\texorpdfstring{value()}{value()}}
-{\footnotesize\ttfamily template$<$typename GEO $>$ \\
-static auto Ikarus\+::\+Default\+Membrane\+Strain\+::value (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a02125}{Dune\+::\+Field\+Vector}}$<$ double, 2 $>$ \&}]{gp\+Pos,  }\item[{const GEO \&}]{geo,  }\item[{const auto \&}]{u\+Function }\end{DoxyParamCaption}) -\/$>$ Eigen\+::\+Vector3$<$typename std\+::remove\+\_\+cvref\+\_\+t$<$decltype(u\+Function)$>$\+::ctype$>$ \hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+\mbox{\Hypertarget{a01693_ac78887337d06a38681fed22108a1aab6}\label{a01693_ac78887337d06a38681fed22108a1aab6}} 
+\index{Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}!storedEnergy@{storedEnergy}}
+\index{storedEnergy@{storedEnergy}!Ikarus::Materials::Volumetric$<$ VF $>$@{Ikarus::Materials::Volumetric$<$ VF $>$}}
+\doxysubsubsection{\texorpdfstring{storedEnergy()}{storedEnergy()}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Volumetric\+Function VF$>$ \\
+template$<$typename ST $>$ \\
+ST \mbox{\hyperlink{a01693}{Ikarus\+::\+Materials\+::\+Volumetric}}$<$ VF $>$\+::stored\+Energy (\begin{DoxyParamCaption}\item[{const ST \&}]{J }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 \begin{DoxyParams}{Parameters}
-{\em gp\+Pos} & The position of the integration point. \\
-\hline
-{\em geo} & The geometry object providing the transposed Jacobian. \\
-\hline
-{\em u\+Function} & The function representing the displacement field.\\
+{\em J} & determinant of the deformation gradient $ J = \det\BF $. \\
 \hline
 \end{DoxyParams}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em GEO} & The type of the geometry object.\\
+{\em ST} & the scalartype of J \\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
-The strain vector at the given integration point. 
+ST energy. 
 \end{DoxyReturn}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{a01693_a7c65ab77e1e42865fc4d0b04a5cb288a_icgraph}
-\end{center}
-\end{figure}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a00200}{membranestrains.\+hh}}\end{DoxyCompactItemize}
+\mbox{\hyperlink{a03446}{finiteelements/mechanics/materials/hyperelastic/volumetric/interface.\+hh}}\end{DoxyCompactItemize}

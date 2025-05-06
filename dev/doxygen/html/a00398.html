@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: simpleassemblers.hh File Reference</title>
+    <title>ikarus: trustregion.hh File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -158,50 +158,86 @@ $(document).ready(function(){initNavTree('a00398.html',''); initResizable(); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">simpleassemblers.hh File Reference</div></div>
+  <div class="headertitle"><div class="title">trustregion.hh File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines several assemblers for finite element assembly.  
+<p>Implementation of the Trust-region method for solving nonlinear equations.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;utility&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
+<div class="textblock"><code>#include &lt;iosfwd&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
+<code>#include &lt;dune/common/float_cmp.hh&gt;</code><br />
+<code>#include &lt;dune/functions/common/signature.hh&gt;</code><br />
+<code>#include &lt;spdlog/spdlog.h&gt;</code><br />
 <code>#include &lt;Eigen/Sparse&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03296_source.html">ikarus/assembler/interface.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00299_source.html">ikarus/finiteelements/ferequirements.hh</a>&gt;</code><br />
-<code>#include &quot;<a class="el" href="a00404.html">simpleassemblers.inl</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a00377_source.html">ikarus/linearalgebra/truncatedconjugategradient.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00392_source.html">ikarus/solver/nonlinearsolver/nonlinearsolverbase.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00386_source.html">ikarus/solver/nonlinearsolver/solverinfos.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00149_source.html">ikarus/utils/broadcaster/broadcaster.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00152_source.html">ikarus/utils/broadcaster/broadcastermessages.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00014_source.html">ikarus/utils/defaultfunctions.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00026_source.html">ikarus/utils/linearalgebrahelper.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00065_source.html">ikarus/utils/traits.hh</a>&gt;</code><br />
 </div>
 <p><a href="a00398_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html">Ikarus::ScalarFlatAssembler&lt; FEC, DV &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01373.html" title="ScalarFlatAssembler assembles scalar quantities.">ScalarFlatAssembler</a> assembles scalar quantities.  <a href="a01373.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02101.html">Ikarus::TRSettings</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01377.html">Ikarus::VectorFlatAssembler&lt; FEC, DV &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01377.html" title="VectorFlatAssembler assembles vector quantities using a flat basis Indexing strategy.">VectorFlatAssembler</a> assembles vector quantities using a flat basis Indexing strategy.  <a href="a01377.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02105.html">Ikarus::TrustRegionConfig&lt; preConditioner, UF &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01381.html">Ikarus::SparseFlatAssembler&lt; FEC, DV &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01381.html" title="SparseFlatAssembler assembles matrix quantities using a flat basis Indexing strategy....">SparseFlatAssembler</a> assembles matrix quantities using a flat basis Indexing strategy. The matrix is stored in a sparse matrix format. This format is exploited during the assembly process.  <a href="a01381.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02113.html">Ikarus::AlgoInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Additional information about the <a class="el" href="a02109.html" title="Trust Region solver for non-linear optimization problems.">TrustRegion</a> algorithm.  <a href="a02113.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01385.html">Ikarus::DenseFlatAssembler&lt; FEC, DV &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01385.html" title="DenseFlatAssembler assembles matrix quantities using a flat basis Indexing strategy....">DenseFlatAssembler</a> assembles matrix quantities using a flat basis Indexing strategy. The matrix is stored in a dense matrix format. This format is exploited during the assembly process.  <a href="a01385.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02117.html">Ikarus::Stats</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Information about the <a class="el" href="a02109.html" title="Trust Region solver for non-linear optimization problems.">TrustRegion</a> solver.  <a href="a02117.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02109.html">Ikarus::TrustRegion&lt; F, preConditioner, UF &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trust Region solver for non-linear optimization problems.  <a href="a02109.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00471"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00471.html">Ikarus</a></td></tr>
+<tr class="memitem:a00489"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00489.html">Ikarus</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ace28d4868cfc647491f7938f04ef6c66"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00489.html#ace28d4868cfc647491f7938f04ef6c66">Ikarus::PreConditioner</a> { <a class="el" href="a00489.html#ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff">Ikarus::IncompleteCholesky</a>
+, <a class="el" href="a00489.html#ace28d4868cfc647491f7938f04ef6c66a7a93111b975ec3c3824eab230f3ec608">Ikarus::IdentityPreconditioner</a>
+, <a class="el" href="a00489.html#ace28d4868cfc647491f7938f04ef6c66a3c6b5404db3b7bf45a0302f376a53afc">Ikarus::DiagonalPreconditioner</a>
+ }</td></tr>
+<tr class="memdesc:ace28d4868cfc647491f7938f04ef6c66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of available preconditioners for the trust region solver.  <a href="a00489.html#ace28d4868cfc647491f7938f04ef6c66">More...</a><br /></td></tr>
+<tr class="separator:ace28d4868cfc647491f7938f04ef6c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd5d0cf356d1ae81f6ee827b0f47c674"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00489.html#abd5d0cf356d1ae81f6ee827b0f47c674">Ikarus::StopReason</a> { <br />
+&#160;&#160;<a class="el" href="a00489.html#abd5d0cf356d1ae81f6ee827b0f47c674a0c4f44592a7ae85baf42cb3fb4a5a3d1">Ikarus::gradientNormTolReached</a>
+, <a class="el" href="a00489.html#abd5d0cf356d1ae81f6ee827b0f47c674ad1c6a6016de417acc66b5ac44a1fdca3">Ikarus::correctionNormTolReached</a>
+, <a class="el" href="a00489.html#abd5d0cf356d1ae81f6ee827b0f47c674ad205528fe2a4412b89626ff7eee936f9">Ikarus::maximumTimeReached</a>
+, <a class="el" href="a00489.html#abd5d0cf356d1ae81f6ee827b0f47c674a5ed07f9461b91dd3a6ba961a0ed5c8fe">Ikarus::maximumIterationsReached</a>
+, <br />
+&#160;&#160;<a class="el" href="a00489.html#abd5d0cf356d1ae81f6ee827b0f47c674a8d2fa9685be8b8f8994bd8a73bfa8c9f">Ikarus::dontStop</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:abd5d0cf356d1ae81f6ee827b0f47c674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of reasons for stopping the TrustRegion solver.  <a href="a00489.html#abd5d0cf356d1ae81f6ee827b0f47c674">More...</a><br /></td></tr>
+<tr class="separator:abd5d0cf356d1ae81f6ee827b0f47c674"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7b31ad9106d0c3d4052413bcbf5ea596"><td class="memTemplParams" colspan="2">template&lt;typename FEC , typename DV &gt; </td></tr>
-<tr class="memitem:a7b31ad9106d0c3d4052413bcbf5ea596"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00471.html#a7b31ad9106d0c3d4052413bcbf5ea596">Ikarus::makeSparseFlatAssembler</a> (FEC &amp;&amp;fes, const DV &amp;dirichletValues)</td></tr>
-<tr class="separator:a7b31ad9106d0c3d4052413bcbf5ea596"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2e289f3c26f24717a19b05b5561538c"><td class="memTemplParams" colspan="2">template&lt;typename FEC , typename DV &gt; </td></tr>
-<tr class="memitem:aa2e289f3c26f24717a19b05b5561538c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00471.html#aa2e289f3c26f24717a19b05b5561538c">Ikarus::makeDenseFlatAssembler</a> (FEC &amp;&amp;fes, const DV &amp;dirichletValues)</td></tr>
-<tr class="separator:aa2e289f3c26f24717a19b05b5561538c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd04e52f828b895e862bdb2edd8b3d1"><td class="memTemplParams" colspan="2">template&lt;typename F , typename TRConfig &gt; <br />
+requires traits::isSpecializationNonTypeAndTypes&lt;TrustRegionConfig, std::remove_cvref_t&lt;TRConfig&gt;&gt;</td></tr>
+<tr class="memitem:a0dd04e52f828b895e862bdb2edd8b3d1"><td class="memTemplItemLeft" align="right" valign="top">::value auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00489.html#a0dd04e52f828b895e862bdb2edd8b3d1">Ikarus::createNonlinearSolver</a> (TRConfig &amp;&amp;config, F &amp;&amp;f)</td></tr>
+<tr class="memdesc:a0dd04e52f828b895e862bdb2edd8b3d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to create a trust region non-linear solver.  <a href="a00489.html#a0dd04e52f828b895e862bdb2edd8b3d1">More...</a><br /></td></tr>
+<tr class="separator:a0dd04e52f828b895e862bdb2edd8b3d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a636b23770fcdf4445c218a6da93bbd15"><td class="memTemplParams" colspan="2">template&lt;typename F , PreConditioner preConditioner = PreConditioner::IncompleteCholesky, typename UF  = utils::UpdateDefault&gt; </td></tr>
+<tr class="memitem:a636b23770fcdf4445c218a6da93bbd15"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00489.html#a636b23770fcdf4445c218a6da93bbd15">Ikarus::makeTrustRegion</a> (const F &amp;f, UF &amp;&amp;updateFunction={})</td></tr>
+<tr class="memdesc:a636b23770fcdf4445c218a6da93bbd15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an instance of the <a class="el" href="a02109.html" title="Trust Region solver for non-linear optimization problems.">TrustRegion</a> solver.  <a href="a00489.html#a636b23770fcdf4445c218a6da93bbd15">More...</a><br /></td></tr>
+<tr class="separator:a636b23770fcdf4445c218a6da93bbd15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a237986b2942b7812d30e6c59766c7742"><td class="memTemplParams" colspan="2">template&lt;typename F , PreConditioner preConditioner = PreConditioner::IncompleteCholesky, typename UF2  = utils::UpdateDefault&gt; </td></tr>
+<tr class="memitem:a237986b2942b7812d30e6c59766c7742"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00489.html#a237986b2942b7812d30e6c59766c7742">Ikarus::TrustRegion</a> (const F &amp;f, UF2 &amp;&amp;updateFunction={}) -&gt; TrustRegion&lt; F, preConditioner, std::remove_cvref_t&lt; UF2 &gt; &gt;</td></tr>
+<tr class="separator:a237986b2942b7812d30e6c59766c7742"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -213,7 +249,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_b4e169eb0efbd955079f9a2ee34b7226.html">assembler</a></li><li class="navelem"><a class="el" href="a00398.html">simpleassemblers.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_26588bed129c997bc132e8888f2113fa.html">solver</a></li><li class="navelem"><a class="el" href="dir_bf30182dc97724dc8c2a6cdd4c321688.html">nonlinearsolver</a></li><li class="navelem"><a class="el" href="a00398.html">trustregion.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -1,12 +1,17 @@
-\hypertarget{a02193}{}\doxysection{Ikarus\+::Listener Struct Reference}
-\label{a02193}\index{Ikarus::Listener@{Ikarus::Listener}}
+\hypertarget{a02193}{}\doxysection{Ikarus\+::Differentiable\+Function\texorpdfstring{$<$}{<} Range(D), Derivative\+Traits, F, FF... \texorpdfstring{$>$}{>} Class Template Reference}
+\label{a02193}\index{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}}
 
 
-{\ttfamily \#include $<$ikarus/utils/listener/listener.\+hh$>$}
+Differentiable\+Function is a class taking several callables. The function are assumed to be derivatives of each other w.\+r.\+t. the argument.  
 
 
 
-Inheritance diagram for Ikarus\+::Listener\+:
+
+{\ttfamily \#include $<$ikarus/utils/differentiablefunction.\+hh$>$}
+
+
+
+Inheritance diagram for Ikarus\+::Differentiable\+Function\texorpdfstring{$<$}{<} Range(D), Derivative\+Traits, F, FF... \texorpdfstring{$>$}{>}\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -17,112 +22,93 @@ Inheritance diagram for Ikarus\+::Listener\+:
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{a02193_affba2430c95defc9bb0494af2d8120b7}{Token}} = std\+::shared\+\_\+ptr$<$ void $>$
+using \mbox{\hyperlink{a02193_a09179a83de8c99be9dd8f99f3641d53d}{Domain}} = std\+::remove\+\_\+cvref\+\_\+t$<$ D $>$
+\item 
+using \mbox{\hyperlink{a02193_acb47479c6db16067792b5185cdb84206}{Traits}} = \mbox{\hyperlink{a00489_aff7184c8b9bf7333cce42c28dc459851}{Derivative\+Traits\+From\+Callables}}$<$ Impl\+::\+Functions$<$ F, FF... $>$, D $>$
+\item 
+using \mbox{\hyperlink{a02193_a12d99506e19b1dc61336d4f5a1e741ea}{Derivative}} = \mbox{\hyperlink{a02193_a09d7f95dc6a3721ed6ae7d9b35476e0e}{Differentiable\+Function}}$<$ typename Traits\+::template Range$<$ 1 $>$(D), Derivative\+Traits, FF... $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename \mbox{\hyperlink{a02057}{Broadcaster}} , typename F $>$ }\\auto \mbox{\hyperlink{a02193_a754e8fbe950f23d4610009475e35ed98}{subscribe}} (\mbox{\hyperlink{a02057}{Broadcaster}} \&broadcaster, F \&\&f)
-\begin{DoxyCompactList}\small\item\em Function to subscribe to a broadcaster with a given function (either a lambda, std\+::function or function pointer). \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename \mbox{\hyperlink{a02057}{Broadcaster}} , typename Signature , typename F $>$ \newline
-requires (not Concepts\+::\+Pointer\+Or\+Smart\+Pointer$<$\mbox{\hyperlink{a02057}{Broadcaster}}$>$)}\\auto \mbox{\hyperlink{a02193_ade04c7b4066c6ef381429aff2e2ce7a7}{subscribe}} (\mbox{\hyperlink{a02057}{Broadcaster}} \&broadcaster, F \&\&f)
-\begin{DoxyCompactList}\small\item\em Function to subscribe to a broadcaster with a given function (either a lambda, std\+::function or function pointer). \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{a02193_a6ebf859d4e38acc6e9b7436b097fba26}{un\+Subscribe\+All}} ()
-\begin{DoxyCompactList}\small\item\em Unsubscribe from all listeners. At the moment unsubscribing can\textquotesingle{}t be done more granularly. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{a02193_a78725a274f6b1817a5792bb0e519d3d9}{un\+Subscribe\+Last}} ()
-\begin{DoxyCompactList}\small\item\em Unsubscribe from the last subscribed listener. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{a02193_a924202b41205145b4ceda14957ea66c2}{un\+Subscribe}} (\mbox{\hyperlink{a02193_affba2430c95defc9bb0494af2d8120b7}{Token}} \&\&ts)
+{\footnotesize template$<$class... FFF$>$ }\\\mbox{\hyperlink{a02193_a09d7f95dc6a3721ed6ae7d9b35476e0e}{Differentiable\+Function}} (FFF \&\&... f)
+\item 
+Range \mbox{\hyperlink{a02193_acd243bc8a0fa61139b8980f63b1d1f15}{operator()}} (const D \&x) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr auto \mbox{\hyperlink{a02193_a750354e710bf4d55502d50772d379005}{n\+Derivatives}} = sizeof...(FF)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-The functions that the listener is listening to are stored in a vector of shared\+\_\+ptr$<$void$>$. This type erasure has the advantage that we can listen to different function signatures and the \mbox{\hyperlink{a02193}{Listener}} not being a template. This works, because the deleter of the stored objects is not bound to the type information and thus there are no memory leaks possible. 
+\subsubsection*{template$<$class Range, class D, template$<$ class $>$ class Derivative\+Traits, class F, class... FF$>$\newline
+class Ikarus\+::\+Differentiable\+Function$<$ Range(\+D), Derivative\+Traits, F, FF... $>$}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Derivative\+Args} & The types of derivative arguments. \\
+\hline
+{\em Parameter\+Args} & The types of parameter arguments. \\
+\hline
+\end{DoxyTemplParams}
+
 
 \doxysubsection{Member Typedef Documentation}
-\mbox{\Hypertarget{a02193_affba2430c95defc9bb0494af2d8120b7}\label{a02193_affba2430c95defc9bb0494af2d8120b7}} 
-\index{Ikarus::Listener@{Ikarus::Listener}!Token@{Token}}
-\index{Token@{Token}!Ikarus::Listener@{Ikarus::Listener}}
-\doxysubsubsection{\texorpdfstring{Token}{Token}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{a02193_affba2430c95defc9bb0494af2d8120b7}{Ikarus\+::\+Listener\+::\+Token}} =  std\+::shared\+\_\+ptr$<$void$>$}
+\mbox{\Hypertarget{a02193_a12d99506e19b1dc61336d4f5a1e741ea}\label{a02193_a12d99506e19b1dc61336d4f5a1e741ea}} 
+\index{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}!Derivative@{Derivative}}
+\index{Derivative@{Derivative}!Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}}
+\doxysubsubsection{\texorpdfstring{Derivative}{Derivative}}
+{\footnotesize\ttfamily template$<$class Range , class D , template$<$ class $>$ class Derivative\+Traits, class F , class... FF$>$ \\
+using Ikarus\+::\+Differentiable\+Function$<$ Range(D), Derivative\+Traits, F, FF... $>$\+::\+Derivative =  \mbox{\hyperlink{a02193_a09d7f95dc6a3721ed6ae7d9b35476e0e}{Differentiable\+Function}}$<$typename Traits\+::template Range$<$1$>$(D), Derivative\+Traits, FF...$>$}
+
+\mbox{\Hypertarget{a02193_a09179a83de8c99be9dd8f99f3641d53d}\label{a02193_a09179a83de8c99be9dd8f99f3641d53d}} 
+\index{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}!Domain@{Domain}}
+\index{Domain@{Domain}!Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}}
+\doxysubsubsection{\texorpdfstring{Domain}{Domain}}
+{\footnotesize\ttfamily template$<$class Range , class D , template$<$ class $>$ class Derivative\+Traits, class F , class... FF$>$ \\
+using Ikarus\+::\+Differentiable\+Function$<$ Range(D), Derivative\+Traits, F, FF... $>$\+::\+Domain =  std\+::remove\+\_\+cvref\+\_\+t$<$D$>$}
+
+\mbox{\Hypertarget{a02193_acb47479c6db16067792b5185cdb84206}\label{a02193_acb47479c6db16067792b5185cdb84206}} 
+\index{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}!Traits@{Traits}}
+\index{Traits@{Traits}!Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}}
+\doxysubsubsection{\texorpdfstring{Traits}{Traits}}
+{\footnotesize\ttfamily template$<$class Range , class D , template$<$ class $>$ class Derivative\+Traits, class F , class... FF$>$ \\
+using Ikarus\+::\+Differentiable\+Function$<$ Range(D), Derivative\+Traits, F, FF... $>$\+::\+Traits =  \mbox{\hyperlink{a00489_aff7184c8b9bf7333cce42c28dc459851}{Derivative\+Traits\+From\+Callables}}$<$Impl\+::\+Functions$<$F, FF...$>$, D$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{a02193_a09d7f95dc6a3721ed6ae7d9b35476e0e}\label{a02193_a09d7f95dc6a3721ed6ae7d9b35476e0e}} 
+\index{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}!DifferentiableFunction@{DifferentiableFunction}}
+\index{DifferentiableFunction@{DifferentiableFunction}!Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}}
+\doxysubsubsection{\texorpdfstring{DifferentiableFunction()}{DifferentiableFunction()}}
+{\footnotesize\ttfamily template$<$class Range , class D , template$<$ class $>$ class Derivative\+Traits, class F , class... FF$>$ \\
+template$<$class... FFF$>$ \\
+Ikarus\+::\+Differentiable\+Function$<$ Range(D), Derivative\+Traits, F, FF... $>$\+::\+Differentiable\+Function (\begin{DoxyParamCaption}\item[{FFF \&\&...}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{a02193_a754e8fbe950f23d4610009475e35ed98}\label{a02193_a754e8fbe950f23d4610009475e35ed98}} 
-\index{Ikarus::Listener@{Ikarus::Listener}!subscribe@{subscribe}}
-\index{subscribe@{subscribe}!Ikarus::Listener@{Ikarus::Listener}}
-\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a02057}{Broadcaster}} , typename F $>$ \\
-auto Ikarus\+::\+Listener\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{a02057}{Broadcaster}} \&}]{broadcaster,  }\item[{F \&\&}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-This function deducts the types of the arguments itself and then forwards it. If there are problems with type deduction use the function below and specify the types of the arguments manually.
-
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em \mbox{\hyperlink{a02057}{Broadcaster}}} & the type of the \mbox{\hyperlink{a02057}{Broadcaster}} (for example a Nonlinear\+Solver or Control\+Routine), can either be a pointer or value. \\
-\hline
-{\em F} & the type of the function \\
-\hline
-\end{DoxyTemplParams}
-
-\begin{DoxyParams}{Parameters}
-{\em broadcaster} & the broadcaster \\
-\hline
-{\em f} & the function \\
-\hline
-\end{DoxyParams}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{a02193_a754e8fbe950f23d4610009475e35ed98_icgraph}
-\end{center}
-\end{figure}
-\mbox{\Hypertarget{a02193_ade04c7b4066c6ef381429aff2e2ce7a7}\label{a02193_ade04c7b4066c6ef381429aff2e2ce7a7}} 
-\index{Ikarus::Listener@{Ikarus::Listener}!subscribe@{subscribe}}
-\index{subscribe@{subscribe}!Ikarus::Listener@{Ikarus::Listener}}
-\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a02057}{Broadcaster}} , typename Signature , typename F $>$ \newline
-requires (not Concepts\+::\+Pointer\+Or\+Smart\+Pointer$<$\mbox{\hyperlink{a02057}{Broadcaster}}$>$)\\
-auto Ikarus\+::\+Listener\+::subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{a02057}{Broadcaster}} \&}]{broadcaster,  }\item[{F \&\&}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em \mbox{\hyperlink{a02057}{Broadcaster}}} & the type of the \mbox{\hyperlink{a02057}{Broadcaster}} (for example a Nonlinear\+Solver or Control\+Routine), can either be a pointer or value. \\
-\hline
-{\em Signature} & the exact signature of the function F \\
-\hline
-{\em F} & the type of the function \\
-\hline
-\end{DoxyTemplParams}
-
-\begin{DoxyParams}{Parameters}
-{\em broadcaster} & the broadcaster \\
-\hline
-{\em f} & the function \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{a02193_a924202b41205145b4ceda14957ea66c2}\label{a02193_a924202b41205145b4ceda14957ea66c2}} 
-\index{Ikarus::Listener@{Ikarus::Listener}!unSubscribe@{unSubscribe}}
-\index{unSubscribe@{unSubscribe}!Ikarus::Listener@{Ikarus::Listener}}
-\doxysubsubsection{\texorpdfstring{unSubscribe()}{unSubscribe()}}
-{\footnotesize\ttfamily void Ikarus\+::\+Listener\+::un\+Subscribe (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{a02193_affba2430c95defc9bb0494af2d8120b7}{Token}} \&\&}]{ts }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{a02193_a6ebf859d4e38acc6e9b7436b097fba26}\label{a02193_a6ebf859d4e38acc6e9b7436b097fba26}} 
-\index{Ikarus::Listener@{Ikarus::Listener}!unSubscribeAll@{unSubscribeAll}}
-\index{unSubscribeAll@{unSubscribeAll}!Ikarus::Listener@{Ikarus::Listener}}
-\doxysubsubsection{\texorpdfstring{unSubscribeAll()}{unSubscribeAll()}}
-{\footnotesize\ttfamily void Ikarus\+::\+Listener\+::un\+Subscribe\+All (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-\mbox{\Hypertarget{a02193_a78725a274f6b1817a5792bb0e519d3d9}\label{a02193_a78725a274f6b1817a5792bb0e519d3d9}} 
-\index{Ikarus::Listener@{Ikarus::Listener}!unSubscribeLast@{unSubscribeLast}}
-\index{unSubscribeLast@{unSubscribeLast}!Ikarus::Listener@{Ikarus::Listener}}
-\doxysubsubsection{\texorpdfstring{unSubscribeLast()}{unSubscribeLast()}}
-{\footnotesize\ttfamily void Ikarus\+::\+Listener\+::un\+Subscribe\+Last (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{a02193_acd243bc8a0fa61139b8980f63b1d1f15}\label{a02193_acd243bc8a0fa61139b8980f63b1d1f15}} 
+\index{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$class Range , class D , template$<$ class $>$ class Derivative\+Traits, class F , class... FF$>$ \\
+Range Ikarus\+::\+Differentiable\+Function$<$ Range(D), Derivative\+Traits, F, FF... $>$\+::operator() (\begin{DoxyParamCaption}\item[{const D \&}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{a02193_a750354e710bf4d55502d50772d379005}\label{a02193_a750354e710bf4d55502d50772d379005}} 
+\index{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}!nDerivatives@{nDerivatives}}
+\index{nDerivatives@{nDerivatives}!Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$@{Ikarus::DifferentiableFunction$<$ Range(D), DerivativeTraits, F, FF... $>$}}
+\doxysubsubsection{\texorpdfstring{nDerivatives}{nDerivatives}}
+{\footnotesize\ttfamily template$<$class Range , class D , template$<$ class $>$ class Derivative\+Traits, class F , class... FF$>$ \\
+constexpr auto Ikarus\+::\+Differentiable\+Function$<$ Range(D), Derivative\+Traits, F, FF... $>$\+::n\+Derivatives = sizeof...(FF)\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a00134}{listener.\+hh}}\end{DoxyCompactItemize}
+\mbox{\hyperlink{a00041}{differentiablefunction.\+hh}}\end{DoxyCompactItemize}

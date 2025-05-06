@@ -30,8 +30,8 @@ var NAVTREE =
       [ "Modules", "index.html#mods", null ],
       [ "How to cite", "index.html#autotoc_md3", null ]
     ] ],
-    [ "Copyright holders", "a03288.html", null ],
-    [ "Bibliography", "a03356.html", null ],
+    [ "Copyright holders", "a03426.html", null ],
+    [ "Bibliography", "a03494.html", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -71,22 +71,23 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "a00005.html",
-"a00359.html#a38414bb29b6ce1a1d8cc03749acb95f7",
-"a00466.html#ga609664964681787f2f736f772b82a01e",
-"a00478.html#a893a20e7914af86ffe78be5de91d5e6f",
-"a01349.html#aa7a37ed96edb529292f6d5c76f771d92",
-"a01381.html#a6424b3d5449da29188bb931abb8ba551",
-"a01457.html#a66ac92cb8493e30a97101aee0636ad03",
-"a01521.html#a60456621f63d34ff66c1d6b861a3b91e",
-"a01585.html#a4f189b9d6a9e468c63d5095e0c037cde",
-"a01669.html#ae6ac28e09154cef841393f09f76d680b",
-"a01713.html#a4040158f6a4568a02c69596f47acb56b",
-"a01785.html#a7f0450d53a9d7a10fc3ce7adc90aa7ab",
-"a01857.html#ae4def57949303ee0a689dfec1cc060b5",
-"a01969.html#a791d37d2bfb861e6c217819fb388b282",
-"a02061.html#a8e938f0fd10e39653bc9cb90109a37e7",
-"a02265.html",
-"functions_func_u.html"
+"a00365_source.html",
+"a00484.html#ga19d425a4fbc72c2ef7a97d71de9329a4",
+"a00493.html#a899043a23720a93e6ce9be9025c3a4bb",
+"a01369.html#a0110ff846e287a2e9bec794c35d94bc2",
+"a01401.html#a333c76dd0740ef9d6f4e8424021f0315",
+"a01477.html#a105d06949f7512446a83c4b9ba4fd64c",
+"a01537.html#ac43d0000154d9bd08d7fdce3c279ccbb",
+"a01601.html#afe78c55c3e63ce60cd68871a9f24b54a",
+"a01677.html#a04794b6333cb664ebd7f10aa410aab01",
+"a01757.html#a03ae10e8656beed2aa69c8a9d27907e5",
+"a01829.html#a7a47b0edee25077a0b075d73aeab459a",
+"a01869.html#a8b765dc4636274843a0de355cca446e0",
+"a01981.html#a2bd5df12f7819102911d2ec09ce8a977",
+"a02057.html#a6b3059dcd3fdc9cb9d393a85a799dd6d",
+"a02205.html",
+"a02366.html",
+"functions_type_t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

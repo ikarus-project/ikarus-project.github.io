@@ -1,0 +1,63 @@
+\hypertarget{a00203_source}{}\doxysection{membranestrains.\+hh}
+\label{a00203_source}\index{membranestrains.hh@{membranestrains.hh}}
+\mbox{\hyperlink{a00203}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dune/common/fvector.hh>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00489}{Ikarus}} \{}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{struct }\mbox{\hyperlink{a01769}{DefaultMembraneStrain}}}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{29   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{30   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01769_a7c65ab77e1e42865fc4d0b04a5cb288a}{value}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02201}{Dune::FieldVector<double, 2>}}\& gpPos, \textcolor{keyword}{const} GEO\& geo,}
+\DoxyCodeLine{31                     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction) -\/> Eigen::Vector3<\textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(uFunction)>::ctype> \{}
+\DoxyCodeLine{32     \textcolor{keyword}{using }ScalarType = \textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(uFunction)>::ctype;}
+\DoxyCodeLine{33     Eigen::Vector3<ScalarType> epsV;}
+\DoxyCodeLine{34     \textcolor{keyword}{const} \textcolor{keyword}{auto} J = Dune::toEigen(geo.jacobianTransposed(gpPos));}
+\DoxyCodeLine{35     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00515}{Dune}};}
+\DoxyCodeLine{36     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::Matrix<ScalarType, 3, 2> gradu = toEigen(}
+\DoxyCodeLine{38         uFunction.evaluateDerivative(gpPos, \textcolor{comment}{// Here the gpIndex could be passed}}
+\DoxyCodeLine{39                                      Dune::wrt(spatialAll), Dune::on(Dune::DerivativeDirections::referenceElement)));}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::Matrix<ScalarType, 2, 3> j = J + gradu.transpose();}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42     epsV << J.row(0).dot(gradu.col(0)) + 0.5 * gradu.col(0).squaredNorm(),}
+\DoxyCodeLine{43         J.row(1).dot(gradu.col(1)) + 0.5 * gradu.col(1).squaredNorm(), j.row(0).dot(j.row(1)) -\/ J.row(0).dot(J.row(1));}
+\DoxyCodeLine{44     \textcolor{keywordflow}{return} epsV;}
+\DoxyCodeLine{45   \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{64   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01769_a0e9910984eae86b868f317f0a26a132e}{derivative}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02201}{Dune::FieldVector<double, 2>}}\& gpPos, \textcolor{keyword}{const} Eigen::Matrix<ST, 2, 3>\& jcur,}
+\DoxyCodeLine{65                          \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dNAtGp, \textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis,}
+\DoxyCodeLine{66                          \textcolor{keyword}{const} \textcolor{keywordtype}{int} node) \{}
+\DoxyCodeLine{67     Eigen::Matrix<ST, 3, 3> bop;}
+\DoxyCodeLine{68     bop.row(0) = jcur.row(0) * dNAtGp(node, 0);}
+\DoxyCodeLine{69     bop.row(1) = jcur.row(1) * dNAtGp(node, 1);}
+\DoxyCodeLine{70     bop.row(2) = jcur.row(0) * dNAtGp(node, 1) + jcur.row(1) * dNAtGp(node, 0);}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72     \textcolor{keywordflow}{return} bop;}
+\DoxyCodeLine{73   \}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{94   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{95   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01769_a28a06b4e89e7e526e8b09b020d6adfcf}{secondDerivative}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02201}{Dune::FieldVector<double, 2>}}\& gpPos, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dNAtGp, \textcolor{keyword}{const} GEO\& geo,}
+\DoxyCodeLine{96                                \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} Eigen::Vector3<ST>\& S, \textcolor{keywordtype}{int} I,}
+\DoxyCodeLine{97                                \textcolor{keywordtype}{int} J) \{}
+\DoxyCodeLine{98     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dN1i           = dNAtGp(I, 0);}
+\DoxyCodeLine{99     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dN1j           = dNAtGp(J, 0);}
+\DoxyCodeLine{100     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dN2i           = dNAtGp(I, 1);}
+\DoxyCodeLine{101     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& dN2j           = dNAtGp(J, 1);}
+\DoxyCodeLine{102     \textcolor{keyword}{const} ST NS                = dN1i * dN1j * S[0] + dN2i * dN2j * S[1] + (dN1i * dN2j + dN2i * dN1j) * S[2];}
+\DoxyCodeLine{103     Eigen::Matrix<ST, 3, 3> kg = Eigen::Matrix<double, 3, 3>::Identity() * NS;}
+\DoxyCodeLine{104     \textcolor{keywordflow}{return} kg;}
+\DoxyCodeLine{105   \}}
+\DoxyCodeLine{106 \};}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108 \} \textcolor{comment}{// namespace Ikarus}}
+
+\end{DoxyCode}

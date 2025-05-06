@@ -1,190 +1,179 @@
-\hypertarget{a01353}{}\doxysection{Ikarus\+::Assembler\+Manipulator\texorpdfstring{$<$}{<} A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass \texorpdfstring{$>$}{>} Class Template Reference}
-\label{a01353}\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
+\hypertarget{a01353}{}\doxysection{Ikarus\+::Matrix\+Manipulator\texorpdfstring{$<$}{<} Wrapper, Assembler \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{a01353}\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
 
 
-{\ttfamily \#include $<$ikarus/assembler/assemblermanipulatorfuser.\+hh$>$}
+Base class for a wrapper to a matrix assembler.  
 
 
 
-Inheritance diagram for Ikarus\+::Assembler\+Manipulator\texorpdfstring{$<$}{<} A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass \texorpdfstring{$>$}{>}\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{a01352}
-\end{center}
-\end{figure}
+
+{\ttfamily \#include $<$ikarus/assembler/assemblermanipulatorbuildingblocks.\+hh$>$}
+
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{a01353_a62123a4b3e6532f92f9126bbb6ce90a7}{Wrapped\+Assembler}} = A
+using \mbox{\hyperlink{a01353_af19cf555db737547d9c5b7109a3a310e}{Wrapped\+Assembler}} = Wrapper
 \item 
-using \mbox{\hyperlink{a01353_a0a878d8bc56fdbfbfbebc2ceb1ded67f}{Call\+Back\+Types}} = std\+::tuple$<$ typename Scalar\+Assembler\+Impl\+::\+Function\+Type, typename Vector\+Assembler\+Impl\+::\+Function\+Type, typename Matrix\+Assembler\+Impl\+::\+Function\+Type $>$
+using \mbox{\hyperlink{a01353_a3e9b53e7ba85dc4038add4c8bcca484b}{FEC}} = typename Assembler\+::\+FEContainer
+\item 
+using \mbox{\hyperlink{a01353_af51e0f694d08350f629586121bc6686c}{DV}} = typename Assembler\+::\+Dirichlet\+Values\+Type
+\item 
+using \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}} = typename Assembler\+::\+FERequirement
+\item 
+using \mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}} = typename Assembler\+::\+Matrix\+Type
+\item 
+using \mbox{\hyperlink{a01353_aadcf548c3bb0cde12cd56a57a5c5f733}{Interface}} = \mbox{\hyperlink{a01389}{Matrix\+Assembler}}$<$ \mbox{\hyperlink{a01353_af19cf555db737547d9c5b7109a3a310e}{Wrapped\+Assembler}}, typename Assembler\+::\+FEContainer, typename Assembler\+::\+Dirichlet\+Values\+Type, typename Assembler\+::\+Matrix\+Type $>$
+\item 
+using \mbox{\hyperlink{a01353_a384a0d84d5f932fc0c4a101497c684f6}{Function\+Type}} = std\+::function$<$ void(const Assembler \&, const \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}} \&, \mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}}, \mbox{\hyperlink{a00489_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}}, \mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}} \&)$>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename... Args$>$ \newline
-requires (not std\+::is\+\_\+same\+\_\+v$<$std\+::remove\+\_\+cvref\+\_\+t$<$std\+::tuple\+\_\+element\+\_\+t$<$0, std\+::tuple$<$Args...$>$$>$$>$, \mbox{\hyperlink{a01341}{Assembler\+Manipulator}}$>$)}\\\mbox{\hyperlink{a01353_ab1188db460e760d50f1bddda973a4915}{Assembler\+Manipulator}} (Args \&\&... args)
-\begin{DoxyCompactList}\small\item\em Constructor that forwards arguments to the base assembler. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Protected Types}
+{\footnotesize template$<$typename F $>$ \newline
+requires Concepts\+::\+Is\+Functor\+With\+Args$<$F, const Assembler\&, const \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}}\&, \mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}}, \mbox{\hyperlink{a00489_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}}, \mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}}\&$>$}\\void \mbox{\hyperlink{a01353_aed9e3a220a16898c97ad60ea8fdff04f}{bind}} (F \&\&f)
+\begin{DoxyCompactList}\small\item\em A helper function to add functions that can be used to manipulate the assembled quantity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{a01353_ae6e112a7cb6a5167ba97b53bb5c7d238}{Scalar\+Assembler\+Impl}} = Scalar\+Ass\+::template Implementation$<$ \mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A $>$
+friend \mbox{\hyperlink{a01353_a78f5646e7f35964e7422824b5fe0c0da}{Interface}}
 \item 
-using \mbox{\hyperlink{a01353_ae958fb1ffccb3bd993d73cdf2b404705}{Vector\+Assembler\+Impl}} = Vector\+Ass\+::template Implementation$<$ \mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A $>$
-\item 
-using \mbox{\hyperlink{a01353_a4d15f9b228606ffd26ae5b511cd95ff3}{Matrix\+Assembler\+Impl}} = Matrix\+Ass\+::template Implementation$<$ \mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A $>$
-\item 
-using \mbox{\hyperlink{a01353_a111dfa9dc910a06976a89677d7275575}{Scalar\+Assembler\+Interface}} = Scalar\+Ass\+::template Interface$<$ \mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A, typename A\+::\+Scalar\+Type $>$
-\item 
-using \mbox{\hyperlink{a01353_a6cf604621f5a5391f9e79967b8977eb5}{Vector\+Assembler\+Interface}} = Vector\+Ass\+::template Interface$<$ \mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A, typename A\+::\+Vector\+Type $>$
-\item 
-using \mbox{\hyperlink{a01353_a6a7c3a2c35ff4ef52ce0d3b4e304ed54}{Matrix\+Assembler\+Interface}} = Matrix\+Ass\+::template Interface$<$ \mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A, typename A\+::\+Matrix\+Type $>$
+std\+::vector$<$ \mbox{\hyperlink{a01353_a384a0d84d5f932fc0c4a101497c684f6}{Function\+Type}} $>$ \mbox{\hyperlink{a01353_a2a466b533b5e6a3d6f85b1d2fb5bc69d}{mfs}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Protected Attributes}
+\doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-friend \mbox{\hyperlink{a01353_a71d8c2e510825482ad8b865cdcc97865}{Scalar\+Assembler\+Impl}}
+\mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}} \& \mbox{\hyperlink{a01353_ae89cb40188e56cacfee05970493a73fb}{get\+Raw\+Matrix\+Impl}} (const \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}} \&fe\+Requirements, \mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}} affordance)
 \item 
-friend \mbox{\hyperlink{a01353_a58429a8398105c51c4582c1b72d7bc8c}{Vector\+Assembler\+Impl}}
+\mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}} \& \mbox{\hyperlink{a01353_a4cf4b84bd66546c938e14d893178983e}{get\+Matrix\+Impl}} (const \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}} \&fe\+Requirements, \mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}} affordance)
 \item 
-friend \mbox{\hyperlink{a01353_a8218e9d8992798ad9d6377ee9c171f04}{Matrix\+Assembler\+Impl}}
-\item 
-friend \mbox{\hyperlink{a01353_a81430cd85aea660bdbbf36e6ec5a5499}{Matrix\+Assembler\+Interface}}
-\item 
-friend \mbox{\hyperlink{a01353_af20b695138ce2baa088d243c56b8a5fe}{Scalar\+Assembler\+Interface}}
-\item 
-friend \mbox{\hyperlink{a01353_a7122782f660bef5b917c0c566e791759}{Vector\+Assembler\+Interface}}
+\mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}} \& \mbox{\hyperlink{a01353_a6bdeb28d985b88241c3f1011d07b53e1}{get\+Reduced\+Matrix\+Impl}} (const \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}} \&fe\+Requirements, \mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}} affordance)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Wrapper, typename Assembler$>$\newline
+struct Ikarus\+::\+Matrix\+Manipulator$<$ Wrapper, Assembler $>$}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Wrapper} & Type of the wrapper to an assembler \\
+\hline
+{\em Assembler} & Type of the assembler \\
+\hline
+\end{DoxyTemplParams}
 
 
 \doxysubsection{Member Typedef Documentation}
-\mbox{\Hypertarget{a01353_a0a878d8bc56fdbfbfbebc2ceb1ded67f}\label{a01353_a0a878d8bc56fdbfbfbebc2ceb1ded67f}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!CallBackTypes@{CallBackTypes}}
-\index{CallBackTypes@{CallBackTypes}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{CallBackTypes}{CallBackTypes}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-using \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Call\+Back\+Types =  std\+::tuple$<$typename Scalar\+Assembler\+Impl\+::\+Function\+Type, typename Vector\+Assembler\+Impl\+::\+Function\+Type, typename Matrix\+Assembler\+Impl\+::\+Function\+Type$>$}
+\mbox{\Hypertarget{a01353_af51e0f694d08350f629586121bc6686c}\label{a01353_af51e0f694d08350f629586121bc6686c}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!DV@{DV}}
+\index{DV@{DV}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{DV}{DV}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+using \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::\+DV =  typename Assembler\+::\+Dirichlet\+Values\+Type}
 
-\mbox{\Hypertarget{a01353_a4d15f9b228606ffd26ae5b511cd95ff3}\label{a01353_a4d15f9b228606ffd26ae5b511cd95ff3}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!MatrixAssemblerImpl@{MatrixAssemblerImpl}}
-\index{MatrixAssemblerImpl@{MatrixAssemblerImpl}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{MatrixAssemblerImpl}{MatrixAssemblerImpl}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-using \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Matrix\+Assembler\+Impl =  Matrix\+Ass\+::template Implementation$<$\mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A$>$\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{a01353_a3e9b53e7ba85dc4038add4c8bcca484b}\label{a01353_a3e9b53e7ba85dc4038add4c8bcca484b}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!FEC@{FEC}}
+\index{FEC@{FEC}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{FEC}{FEC}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+using \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::\+FEC =  typename Assembler\+::\+FEContainer}
 
-\mbox{\Hypertarget{a01353_a6a7c3a2c35ff4ef52ce0d3b4e304ed54}\label{a01353_a6a7c3a2c35ff4ef52ce0d3b4e304ed54}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!MatrixAssemblerInterface@{MatrixAssemblerInterface}}
-\index{MatrixAssemblerInterface@{MatrixAssemblerInterface}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{MatrixAssemblerInterface}{MatrixAssemblerInterface}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-using \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Matrix\+Assembler\+Interface =  Matrix\+Ass\+::template Interface$<$\mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A, typename A\+::\+Matrix\+Type$>$\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{a01353_aec33ee46b0c589052d7339812e517f67}\label{a01353_aec33ee46b0c589052d7339812e517f67}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!FERequirement@{FERequirement}}
+\index{FERequirement@{FERequirement}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{FERequirement}{FERequirement}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+using \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::\+FERequirement =  typename Assembler\+::\+FERequirement}
 
-\mbox{\Hypertarget{a01353_ae6e112a7cb6a5167ba97b53bb5c7d238}\label{a01353_ae6e112a7cb6a5167ba97b53bb5c7d238}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!ScalarAssemblerImpl@{ScalarAssemblerImpl}}
-\index{ScalarAssemblerImpl@{ScalarAssemblerImpl}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{ScalarAssemblerImpl}{ScalarAssemblerImpl}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-using \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Scalar\+Assembler\+Impl =  Scalar\+Ass\+::template Implementation$<$\mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A$>$\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{a01353_a384a0d84d5f932fc0c4a101497c684f6}\label{a01353_a384a0d84d5f932fc0c4a101497c684f6}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!FunctionType@{FunctionType}}
+\index{FunctionType@{FunctionType}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{FunctionType}{FunctionType}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+using \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::\+Function\+Type =  std\+::function$<$void(const Assembler\&, const \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}}\&, \mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}}, \mbox{\hyperlink{a00489_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}}, \mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}}\&)$>$}
 
-\mbox{\Hypertarget{a01353_a111dfa9dc910a06976a89677d7275575}\label{a01353_a111dfa9dc910a06976a89677d7275575}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!ScalarAssemblerInterface@{ScalarAssemblerInterface}}
-\index{ScalarAssemblerInterface@{ScalarAssemblerInterface}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{ScalarAssemblerInterface}{ScalarAssemblerInterface}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-using \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Scalar\+Assembler\+Interface =  Scalar\+Ass\+::template Interface$<$\mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A, typename A\+::\+Scalar\+Type$>$\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{a01353_aadcf548c3bb0cde12cd56a57a5c5f733}\label{a01353_aadcf548c3bb0cde12cd56a57a5c5f733}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!Interface@{Interface}}
+\index{Interface@{Interface}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{Interface}{Interface}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+using \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::\+Interface =  \mbox{\hyperlink{a01389}{Matrix\+Assembler}}$<$\mbox{\hyperlink{a01353_af19cf555db737547d9c5b7109a3a310e}{Wrapped\+Assembler}}, typename Assembler\+::\+FEContainer, typename Assembler\+::\+Dirichlet\+Values\+Type, typename Assembler\+::\+Matrix\+Type$>$}
 
-\mbox{\Hypertarget{a01353_ae958fb1ffccb3bd993d73cdf2b404705}\label{a01353_ae958fb1ffccb3bd993d73cdf2b404705}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!VectorAssemblerImpl@{VectorAssemblerImpl}}
-\index{VectorAssemblerImpl@{VectorAssemblerImpl}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{VectorAssemblerImpl}{VectorAssemblerImpl}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-using \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Vector\+Assembler\+Impl =  Vector\+Ass\+::template Implementation$<$\mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A$>$\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}\label{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!MatrixType@{MatrixType}}
+\index{MatrixType@{MatrixType}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{MatrixType}{MatrixType}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+using \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::\+Matrix\+Type =  typename Assembler\+::\+Matrix\+Type}
 
-\mbox{\Hypertarget{a01353_a6cf604621f5a5391f9e79967b8977eb5}\label{a01353_a6cf604621f5a5391f9e79967b8977eb5}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!VectorAssemblerInterface@{VectorAssemblerInterface}}
-\index{VectorAssemblerInterface@{VectorAssemblerInterface}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{VectorAssemblerInterface}{VectorAssemblerInterface}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-using \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Vector\+Assembler\+Interface =  Vector\+Ass\+::template Interface$<$\mbox{\hyperlink{a01341}{Assembler\+Manipulator}}, A, typename A\+::\+Vector\+Type$>$\hspace{0.3cm}{\ttfamily [protected]}}
-
-\mbox{\Hypertarget{a01353_a62123a4b3e6532f92f9126bbb6ce90a7}\label{a01353_a62123a4b3e6532f92f9126bbb6ce90a7}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!WrappedAssembler@{WrappedAssembler}}
-\index{WrappedAssembler@{WrappedAssembler}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
+\mbox{\Hypertarget{a01353_af19cf555db737547d9c5b7109a3a310e}\label{a01353_af19cf555db737547d9c5b7109a3a310e}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!WrappedAssembler@{WrappedAssembler}}
+\index{WrappedAssembler@{WrappedAssembler}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
 \doxysubsubsection{\texorpdfstring{WrappedAssembler}{WrappedAssembler}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-using \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Wrapped\+Assembler =  A}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+using \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::\+Wrapped\+Assembler =  Wrapper}
 
 
 
-\doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{a01353_ab1188db460e760d50f1bddda973a4915}\label{a01353_ab1188db460e760d50f1bddda973a4915}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!AssemblerManipulator@{AssemblerManipulator}}
-\index{AssemblerManipulator@{AssemblerManipulator}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{AssemblerManipulator()}{AssemblerManipulator()}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-template$<$typename... Args$>$ \newline
-requires (not std\+::is\+\_\+same\+\_\+v$<$std\+::remove\+\_\+cvref\+\_\+t$<$std\+::tuple\+\_\+element\+\_\+t$<$0, std\+::tuple$<$Args...$>$$>$$>$, \mbox{\hyperlink{a01341}{Assembler\+Manipulator}}$>$)\\
-\mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Assembler\+Manipulator (\begin{DoxyParamCaption}\item[{Args \&\&...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{a01353_aed9e3a220a16898c97ad60ea8fdff04f}\label{a01353_aed9e3a220a16898c97ad60ea8fdff04f}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!bind@{bind}}
+\index{bind@{bind}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{bind()}{bind()}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+template$<$typename F $>$ \newline
+requires Concepts\+::\+Is\+Functor\+With\+Args$<$F, const Assembler\&, const \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}}\&, \mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}}, \mbox{\hyperlink{a00489_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}}, \mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}}\&$>$\\
+void \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::bind (\begin{DoxyParamCaption}\item[{F \&\&}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em Args} & Variadic template parameter for constructor arguments \\
+{\em F} & Type of the function \\
 \hline
 \end{DoxyTemplParams}
 
 \begin{DoxyParams}{Parameters}
-{\em args} & Arguments to be forwarded to the base assembler \\
+{\em f} & A function that manipulates the assembled quantity. \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{a01353_a4cf4b84bd66546c938e14d893178983e}\label{a01353_a4cf4b84bd66546c938e14d893178983e}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!getMatrixImpl@{getMatrixImpl}}
+\index{getMatrixImpl@{getMatrixImpl}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{getMatrixImpl()}{getMatrixImpl()}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+\mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}} \& \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::get\+Matrix\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}} \&}]{fe\+Requirements,  }\item[{\mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}}}]{affordance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01353_ae89cb40188e56cacfee05970493a73fb}\label{a01353_ae89cb40188e56cacfee05970493a73fb}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!getRawMatrixImpl@{getRawMatrixImpl}}
+\index{getRawMatrixImpl@{getRawMatrixImpl}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{getRawMatrixImpl()}{getRawMatrixImpl()}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+\mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}} \& \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::get\+Raw\+Matrix\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}} \&}]{fe\+Requirements,  }\item[{\mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}}}]{affordance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01353_a6bdeb28d985b88241c3f1011d07b53e1}\label{a01353_a6bdeb28d985b88241c3f1011d07b53e1}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!getReducedMatrixImpl@{getReducedMatrixImpl}}
+\index{getReducedMatrixImpl@{getReducedMatrixImpl}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{getReducedMatrixImpl()}{getReducedMatrixImpl()}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+\mbox{\hyperlink{a01353_ad1e4697bbb8e0d089a7382912f3fa9d9}{Matrix\+Type}} \& \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::get\+Reduced\+Matrix\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01353_aec33ee46b0c589052d7339812e517f67}{FERequirement}} \&}]{fe\+Requirements,  }\item[{\mbox{\hyperlink{a00489_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}}}]{affordance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{a01353_a8218e9d8992798ad9d6377ee9c171f04}\label{a01353_a8218e9d8992798ad9d6377ee9c171f04}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!MatrixAssemblerImpl@{MatrixAssemblerImpl}}
-\index{MatrixAssemblerImpl@{MatrixAssemblerImpl}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{MatrixAssemblerImpl}{MatrixAssemblerImpl}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-friend \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Matrix\+Assembler\+Impl\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{a01353_a78f5646e7f35964e7422824b5fe0c0da}\label{a01353_a78f5646e7f35964e7422824b5fe0c0da}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!Interface@{Interface}}
+\index{Interface@{Interface}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{Interface}{Interface}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+friend \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::\+Interface}
 
-\mbox{\Hypertarget{a01353_a81430cd85aea660bdbbf36e6ec5a5499}\label{a01353_a81430cd85aea660bdbbf36e6ec5a5499}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!MatrixAssemblerInterface@{MatrixAssemblerInterface}}
-\index{MatrixAssemblerInterface@{MatrixAssemblerInterface}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{MatrixAssemblerInterface}{MatrixAssemblerInterface}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-friend \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Matrix\+Assembler\+Interface\hspace{0.3cm}{\ttfamily [protected]}}
-
-\mbox{\Hypertarget{a01353_a71d8c2e510825482ad8b865cdcc97865}\label{a01353_a71d8c2e510825482ad8b865cdcc97865}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!ScalarAssemblerImpl@{ScalarAssemblerImpl}}
-\index{ScalarAssemblerImpl@{ScalarAssemblerImpl}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{ScalarAssemblerImpl}{ScalarAssemblerImpl}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-friend \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Scalar\+Assembler\+Impl\hspace{0.3cm}{\ttfamily [protected]}}
-
-\mbox{\Hypertarget{a01353_af20b695138ce2baa088d243c56b8a5fe}\label{a01353_af20b695138ce2baa088d243c56b8a5fe}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!ScalarAssemblerInterface@{ScalarAssemblerInterface}}
-\index{ScalarAssemblerInterface@{ScalarAssemblerInterface}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{ScalarAssemblerInterface}{ScalarAssemblerInterface}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-friend \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Scalar\+Assembler\+Interface\hspace{0.3cm}{\ttfamily [protected]}}
-
-\mbox{\Hypertarget{a01353_a58429a8398105c51c4582c1b72d7bc8c}\label{a01353_a58429a8398105c51c4582c1b72d7bc8c}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!VectorAssemblerImpl@{VectorAssemblerImpl}}
-\index{VectorAssemblerImpl@{VectorAssemblerImpl}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{VectorAssemblerImpl}{VectorAssemblerImpl}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-friend \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Vector\+Assembler\+Impl\hspace{0.3cm}{\ttfamily [protected]}}
-
-\mbox{\Hypertarget{a01353_a7122782f660bef5b917c0c566e791759}\label{a01353_a7122782f660bef5b917c0c566e791759}} 
-\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}!VectorAssemblerInterface@{VectorAssemblerInterface}}
-\index{VectorAssemblerInterface@{VectorAssemblerInterface}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss, MatrixAss $>$}}
-\doxysubsubsection{\texorpdfstring{VectorAssemblerInterface}{VectorAssemblerInterface}}
-{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass , typename Matrix\+Ass $>$ \\
-friend \mbox{\hyperlink{a01341}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$\+::\+Vector\+Assembler\+Interface\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{a01353_a2a466b533b5e6a3d6f85b1d2fb5bc69d}\label{a01353_a2a466b533b5e6a3d6f85b1d2fb5bc69d}} 
+\index{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}!mfs@{mfs}}
+\index{mfs@{mfs}!Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$@{Ikarus::MatrixManipulator$<$ Wrapper, Assembler $>$}}
+\doxysubsubsection{\texorpdfstring{mfs}{mfs}}
+{\footnotesize\ttfamily template$<$typename Wrapper , typename Assembler $>$ \\
+std\+::vector$<$\mbox{\hyperlink{a01353_a384a0d84d5f932fc0c4a101497c684f6}{Function\+Type}}$>$ \mbox{\hyperlink{a01353}{Ikarus\+::\+Matrix\+Manipulator}}$<$ Wrapper, Assembler $>$\+::mfs}
 
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a00395}{assemblermanipulatorfuser.\+hh}}\end{DoxyCompactItemize}
+\mbox{\hyperlink{a00419}{assemblermanipulatorbuildingblocks.\+hh}}\end{DoxyCompactItemize}

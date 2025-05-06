@@ -1,6 +1,7 @@
 var a01701 =
 [
-    [ "Material", "a01701.html#a4c8087e2be5010d73080ef779b7e28d4", null ],
-    [ "Skill", "a01701.html#a456c36e04e5b50916a299d5a3efceb23", null ],
-    [ "material", "a01701.html#a983a021a10b97dbdea1f88dc6c7a6c56", null ]
+    [ "firstDerivativeImpl", "a01701.html#aed01cb97b7a26f3c74842740083bb09b", null ],
+    [ "name", "a01701.html#a6fe8e9320969b744fdad1d912b30ccf2", null ],
+    [ "secondDerivativeImpl", "a01701.html#a155d0ba10fd77a2abc055ab5205328c2", null ],
+    [ "storedEnergyImpl", "a01701.html#a338308b128926fc805d4d4d663aff6a7", null ]
 ];

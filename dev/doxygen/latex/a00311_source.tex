@@ -1,112 +1,97 @@
-\hypertarget{a00311_source}{}\doxysection{fe.\+hh}
-\label{a00311_source}\index{fe.hh@{fe.hh}}
+\hypertarget{a00311_source}{}\doxysection{febase.\+hh}
+\label{a00311_source}\index{febase.hh@{febase.hh}}
 \mbox{\hyperlink{a00311}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dune/python/common/typeregistry.hh>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <dune/python/functions/globalbasis.hh>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/python/pybind11/eigen.h>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/python/pybind11/functional.h>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl.h>}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00155}{ikarus/finiteelements/fefactory.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00305}{ikarus/python/finiteelements/registerferequirements.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00317}{ikarus/finiteelements/ferequirements.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00164}{ikarus/finiteelements/fetraits.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00314}{ikarus/finiteelements/mixin.hh}}>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00489}{Ikarus}} \{}
 \DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00488}{Ikarus::Python}} \{}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{50 \textcolor{keyword}{template} <\textcolor{keyword}{class }FE, \textcolor{keyword}{class}... options>}
-\DoxyCodeLine{51 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00488_a0c58c17676c73945cb11eff8a80309ae}{registerCalculateAt}}(pybind11::handle scope, pybind11::class\_<FE, options...> cls, \textcolor{keyword}{auto} resultTypesTuple) \{}
-\DoxyCodeLine{52   \textcolor{keyword}{using }Traits         = \textcolor{keyword}{typename} \mbox{\hyperlink{a01465_a70c7907448f7e13ff55b8fb123f3ee0c}{FE::Traits}};}
-\DoxyCodeLine{53   \textcolor{keyword}{using }\mbox{\hyperlink{a01485}{FERequirements}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a01813_a86c0fea1b37e487f3c78cde6facca9c3}{FE::Requirement}};}
-\DoxyCodeLine{54   cls.def(}
-\DoxyCodeLine{55       \textcolor{stringliteral}{"{}calculateAt"{}},}
-\DoxyCodeLine{56       [\&](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} \mbox{\hyperlink{a01485}{FERequirements}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a02125}{Dune::FieldVector<double, Traits::mydim>}}\& local,}
-\DoxyCodeLine{57           std::string resType) \{}
-\DoxyCodeLine{58         Eigen::VectorXd result;}
-\DoxyCodeLine{59         \textcolor{keywordtype}{bool} success = \textcolor{keyword}{false};}
-\DoxyCodeLine{60         Dune::Hybrid::forEach(resultTypesTuple, [\&]<\textcolor{keyword}{typename} RT>(RT i) \{}
-\DoxyCodeLine{61           \textcolor{keywordflow}{if} (resType == \mbox{\hyperlink{a00471_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(i)) \{}
-\DoxyCodeLine{62             success = \textcolor{keyword}{true};}
-\DoxyCodeLine{63             result  = self.template calculateAt<RT::template Rebind>(req, local).asVec();}
-\DoxyCodeLine{64           \}}
-\DoxyCodeLine{65         \});}
-\DoxyCodeLine{66         \textcolor{keywordflow}{if} (success)}
-\DoxyCodeLine{67           \textcolor{keywordflow}{return} result;}
-\DoxyCodeLine{68         DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}Element "{}} + Dune::className<FE>() + \textcolor{stringliteral}{"{} doesn't support ResultType "{}} + resType);}
-\DoxyCodeLine{69       \},}
-\DoxyCodeLine{70       pybind11::arg(\textcolor{stringliteral}{"{}feRequirements"{}}), pybind11::arg(\textcolor{stringliteral}{"{}local"{}}), pybind11::arg(\textcolor{stringliteral}{"{}resultType"{}}));}
-\DoxyCodeLine{71 \}}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{86 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a01465}{FE}}, \textcolor{keyword}{class}... options>}
-\DoxyCodeLine{87 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00463_gac8bb4a818dee7342efbc5e174e35b840}{registerFE}}(pybind11::handle scope, pybind11::class\_<FE, options...> cls) \{}
-\DoxyCodeLine{88   \textcolor{keyword}{using }BH          = \textcolor{keyword}{typename} \mbox{\hyperlink{a01465_a26398fefb73f4d51895e26152e368cf8}{FE::BasisHandler}};}
-\DoxyCodeLine{89   \textcolor{keyword}{using }GridElement = \textcolor{keyword}{typename} \mbox{\hyperlink{a01465_ae329d665e853b0286679e97418d3acad}{FE::GridElement}};}
-\DoxyCodeLine{90   \textcolor{keyword}{using }Requirement = \textcolor{keyword}{typename} \mbox{\hyperlink{a01813_a86c0fea1b37e487f3c78cde6facca9c3}{FE::Requirement}};}
-\DoxyCodeLine{91   \textcolor{keyword}{using }FlatBasis   = \textcolor{keyword}{typename} \mbox{\hyperlink{a01521_a81feef959fedef62b2e1daabbd52b5f2}{FE::Traits::FlatBasis}};}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{93   \textcolor{keywordtype}{int} index = 0;}
-\DoxyCodeLine{94   cls.def(\mbox{\hyperlink{a00471_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{typename} \mbox{\hyperlink{a01465_a327f5479545f9b5d615c07ce535b0007}{FE::PreTuple}} argsTuple) \{}
-\DoxyCodeLine{95             \textcolor{keyword}{auto} unpackTuple = [\&]<\textcolor{keyword}{typename}... Arg>(Arg\&\&... args) \{}
-\DoxyCodeLine{96               \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a01465}{FE}}(basisHandler, std::forward<Arg>(args)...);}
-\DoxyCodeLine{97             \};}
-\DoxyCodeLine{98             \textcolor{keywordflow}{return} std::apply(unpackTuple, argsTuple);}
-\DoxyCodeLine{99           \}),}
-\DoxyCodeLine{100           pybind11::keep\_alive<1, 2>());}
-\DoxyCodeLine{101 }
-\DoxyCodeLine{102   cls.def(\textcolor{stringliteral}{"{}bind"{}}, [](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} GridElement\& e) \{ self.\mbox{\hyperlink{a01465_a3a23d70495e802f44ba4b9923804dda0}{bind}}(e); \});}
-\DoxyCodeLine{103   cls.def(\textcolor{stringliteral}{"{}updateState"{}},}
-\DoxyCodeLine{104           [](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, Eigen::Ref<Eigen::VectorXd> dx) \{ self.\mbox{\hyperlink{a01813_a37c9abe267940c5374402d6e4624cf21}{updateState}}(req, dx); \});}
-\DoxyCodeLine{105   cls.def(\textcolor{stringliteral}{"{}calculateScalar"{}}, [](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00471_af6f894084edd9109762b86222995ef2a}{Ikarus::ScalarAffordance}} affordance) \{}
-\DoxyCodeLine{106     \textcolor{keywordflow}{return} calculateScalar(self, req, affordance);}
-\DoxyCodeLine{107   \});}
-\DoxyCodeLine{108   cls.def(\textcolor{stringliteral}{"{}calculateVector"{}}, [](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00471_aab9e3e38507d1db7602bc750718c302a}{Ikarus::VectorAffordance}} affordance,}
-\DoxyCodeLine{109                                 Eigen::Ref<Eigen::VectorXd> vec) \{ calculateVector(self, req, affordance, vec); \});}
-\DoxyCodeLine{110   cls.def(}
-\DoxyCodeLine{111       \textcolor{stringliteral}{"{}calculateMatrix"{}},}
-\DoxyCodeLine{112       [](\mbox{\hyperlink{a01465}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00471_a390d5311179ec61d163a29c943b3d1a0}{Ikarus::MatrixAffordance}} affordance, Eigen::Ref<Eigen::MatrixXd> mat) \{}
-\DoxyCodeLine{113         calculateMatrix(self, req, affordance, mat);}
-\DoxyCodeLine{114       \},}
-\DoxyCodeLine{115       pybind11::arg(\textcolor{stringliteral}{"{}Requirement"{}}), pybind11::arg(\textcolor{stringliteral}{"{}MatrixAffordance"{}}), pybind11::arg(\textcolor{stringliteral}{"{}elementMatrix"{}}).noconvert());}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{117   pybind11::module scopedf = pybind11::module::import(\textcolor{stringliteral}{"{}dune.functions"{}});}
-\DoxyCodeLine{118   \textcolor{keyword}{using }LocalViewWrapper   = Dune::Python::LocalViewWrapper<FlatBasis>;}
-\DoxyCodeLine{119 }
-\DoxyCodeLine{120   \textcolor{keyword}{auto} includes    = Dune::Python::IncludeFiles\{\textcolor{stringliteral}{"{}dune/python/functions/globalbasis.hh"{}}\};}
-\DoxyCodeLine{121   \textcolor{keyword}{auto} [lv, isNew] = Dune::Python::insertClass<LocalViewWrapper>(}
-\DoxyCodeLine{122       scopedf, \textcolor{stringliteral}{"{}LocalViewWrapper"{}},}
-\DoxyCodeLine{123       Dune::Python::GenerateTypeName(\textcolor{stringliteral}{"{}Dune::Python::LocalViewWrapperWrapper"{}}, Dune::MetaType<FlatBasis>()), includes);}
-\DoxyCodeLine{124 }
-\DoxyCodeLine{125   \textcolor{keywordflow}{if} (isNew) \{}
-\DoxyCodeLine{126     lv.def(\textcolor{stringliteral}{"{}bind"{}}, \&LocalViewWrapper::bind);}
-\DoxyCodeLine{127     lv.def(\textcolor{stringliteral}{"{}unbind"{}}, \&LocalViewWrapper::unbind);}
-\DoxyCodeLine{128     lv.def(\textcolor{stringliteral}{"{}index"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& localView, \textcolor{keywordtype}{int} index) \{ \textcolor{keywordflow}{return} localView.index(index); \});}
-\DoxyCodeLine{129     lv.def(\textcolor{stringliteral}{"{}\_\_len\_\_"{}}, [](LocalViewWrapper\& self) -\/> \textcolor{keywordtype}{int} \{ \textcolor{keywordflow}{return} self.size(); \});}
-\DoxyCodeLine{130 }
-\DoxyCodeLine{131     Dune::Python::Functions::registerTree<typename LocalViewWrapper::Tree>(lv);}
-\DoxyCodeLine{132     lv.def(\textcolor{stringliteral}{"{}tree"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& view) \{ \textcolor{keywordflow}{return} view.tree(); \});}
-\DoxyCodeLine{133   \}}
-\DoxyCodeLine{134 }
-\DoxyCodeLine{135   cls.def(}
-\DoxyCodeLine{136       \textcolor{stringliteral}{"{}localView"{}},}
-\DoxyCodeLine{137       [](\mbox{\hyperlink{a01465}{FE}}\& self) -\/> LocalViewWrapper \{}
-\DoxyCodeLine{138         \textcolor{keyword}{auto} lvWrapped = LocalViewWrapper(self.\mbox{\hyperlink{a01465_a1425316afd592244682b9ccc48cf59ef}{localView}}().globalBasis());}
-\DoxyCodeLine{139         \textcolor{comment}{// this can be simplified when https://gitlab.dune-\/project.org/staging/dune-\/functions/-\//merge\_requests/418}}
-\DoxyCodeLine{140         \textcolor{comment}{// becomes available}}
-\DoxyCodeLine{141         \textcolor{comment}{// pybind11::object obj = pybind11::cast(self.localView().element());}}
-\DoxyCodeLine{142         lvWrapped.base().bind(self.\mbox{\hyperlink{a01465_a1425316afd592244682b9ccc48cf59ef}{localView}}().element());}
-\DoxyCodeLine{143         \textcolor{keywordflow}{return} lvWrapped;}
-\DoxyCodeLine{144       \},}
-\DoxyCodeLine{145       pybind11::keep\_alive<0, 1>());}
-\DoxyCodeLine{146 }
-\DoxyCodeLine{147   \mbox{\hyperlink{a00488_a0c58c17676c73945cb11eff8a80309ae}{registerCalculateAt}}(scope, cls, \textcolor{keyword}{typename} \mbox{\hyperlink{a01813_ada59c15363d83f6e635ecd6e1672d6a4}{FE::SupportedResultTypes}}());}
-\DoxyCodeLine{148   \mbox{\hyperlink{a00488_a32c3989a8ef1dbc581313ef17a0c6f5b}{registerFERequirement}}(scope, cls);}
-\DoxyCodeLine{149 \}}
-\DoxyCodeLine{150 }
-\DoxyCodeLine{151 \} \textcolor{comment}{// namespace Ikarus::Python}}
+\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... Skills>}
+\DoxyCodeLine{22 \textcolor{keyword}{class }FE;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{31 \textcolor{keyword}{template} <\textcolor{keyword}{typename} BH, \textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false>}
+\DoxyCodeLine{32 \textcolor{keyword}{struct }\mbox{\hyperlink{a01489}{PreFE}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34   \textcolor{keyword}{using }\mbox{\hyperlink{a01489_a96f8fe069706faeb6233e8ad31588b66}{BasisHandler}}                      = BH;}
+\DoxyCodeLine{35   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01489_ac62b5b022663d48416e0560803590259}{worldDim}}           = BasisHandler::Basis::worlddim;}
+\DoxyCodeLine{36   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01489_a4227356aa324e40ecd1c09da5e56cb00}{useEigenReference}} = useEigenRef;}
+\DoxyCodeLine{37   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01489_a67f4db661ba63b8be2f15903c52f3ffd}{useFlatBasis}}      = useFlat;}
+\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{a01541}{Traits}}                            = \mbox{\hyperlink{a01541}{FETraits<BH, useEigenRef, useFlat>}};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... \mbox{\hyperlink{a01905}{Skills}}>}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01489_ac7266f723a312adbd690b47d5cd06a60}{FE}} = \mbox{\hyperlink{a01489_ac7266f723a312adbd690b47d5cd06a60}{FE}}<\mbox{\hyperlink{a01489}{PreFE}}, \mbox{\hyperlink{a01905}{Skills}}...>;}
+\DoxyCodeLine{42 \};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{45   \textcolor{comment}{// Since base classes are initialized, in declaration order before member variables, we have to make sure the}}
+\DoxyCodeLine{46   \textcolor{comment}{// localview\_ object of FE is defined. To do this we add this artificial inheritance by inheriting below first from}}
+\DoxyCodeLine{47   \textcolor{comment}{// FEInit, which initializes the localview object first, siche we the other FEMixin base class constructors are called}}
+\DoxyCodeLine{48   \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
+\DoxyCodeLine{49   \textcolor{keyword}{struct }FEInit}
+\DoxyCodeLine{50   \{}
+\DoxyCodeLine{51     \textcolor{keyword}{using }Traits       = \mbox{\hyperlink{a01489_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};              }
+\DoxyCodeLine{52     \textcolor{keyword}{using }\mbox{\hyperlink{a02129}{BasisHandler}} = \mbox{\hyperlink{a01541_a129085c175bca28f94c71699b734ba04}{Traits::BasisHandler}};       }
+\DoxyCodeLine{53     \textcolor{keyword}{using }LocalView    = \textcolor{keyword}{typename} \mbox{\hyperlink{a01541_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}}; }
+\DoxyCodeLine{54     \textcolor{keyword}{friend} \mbox{\hyperlink{a01485}{FE}};}
+\DoxyCodeLine{55     FEInit(\textcolor{keyword}{const} \mbox{\hyperlink{a02129}{BasisHandler}}\& basisHandler)}
+\DoxyCodeLine{56         : localView\_\{[\&]() -\/> LocalView \{}
+\DoxyCodeLine{57             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01541_ac93d8ec6254e0ca3668966e7a56886ac}{Traits::useFlatBasis}})}
+\DoxyCodeLine{58               \textcolor{keywordflow}{return} basisHandler.\mbox{\hyperlink{a02129_a259a6b38e59d58970716c03ac511d3c5}{flat}}().localView();}
+\DoxyCodeLine{59             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{60               \textcolor{keywordflow}{return} basisHandler.\mbox{\hyperlink{a02129_aa3e286f5563f510fc4b0eaa005eb0a2b}{untouched}}().localView();}
+\DoxyCodeLine{61           \}()\} \{\}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \textcolor{keyword}{private}:}
+\DoxyCodeLine{64     LocalView localView\_;}
+\DoxyCodeLine{65   \};}
+\DoxyCodeLine{66 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{77 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... Skills>}
+\DoxyCodeLine{78 \textcolor{keyword}{class }\mbox{\hyperlink{a01485}{FE}} : \textcolor{keyword}{private} Impl::FEInit<PreFE, FE<PreFE, Skills...>>, \textcolor{keyword}{public} \mbox{\hyperlink{a01889}{FEMixin}}<PreFE, Skills...>}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80   \textcolor{keyword}{friend} Impl::FEInit<PreFE, FE>;}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{a01889}{Mixin}} = \mbox{\hyperlink{a01889}{FEMixin}}<\mbox{\hyperlink{a01489}{PreFE}}, \mbox{\hyperlink{a01905}{Skills}}...>; }
+\DoxyCodeLine{84   \textcolor{keyword}{friend} \mbox{\hyperlink{a01485_a9651c0af07c052fe9be5546ad04fec26}{Mixin}};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{keyword}{public}:}
+\DoxyCodeLine{87   \textcolor{keyword}{using }\mbox{\hyperlink{a01541}{Traits}}       = \mbox{\hyperlink{a01489_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};                }
+\DoxyCodeLine{88   \textcolor{keyword}{using }\mbox{\hyperlink{a01485_a26398fefb73f4d51895e26152e368cf8}{BasisHandler}} = \mbox{\hyperlink{a01541_a129085c175bca28f94c71699b734ba04}{Traits::BasisHandler}};         }
+\DoxyCodeLine{89   \textcolor{keyword}{using }\mbox{\hyperlink{a01485_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}    = \textcolor{keyword}{typename} \mbox{\hyperlink{a01541_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}};   }
+\DoxyCodeLine{90   \textcolor{keyword}{using }\mbox{\hyperlink{a01485_a636f6e2bb1a51cd89f190d3744cdb7dd}{GridView}}     = \textcolor{keyword}{typename} \mbox{\hyperlink{a01541_a3ec0294824df467074f5070cb58f5a91}{Traits::GridView}};    }
+\DoxyCodeLine{91   \textcolor{keyword}{using }\mbox{\hyperlink{a01485_afcc1624cabc2a1e553af2eb4dd02190d}{GlobalIndex}}  = \textcolor{keyword}{typename} \mbox{\hyperlink{a01541_a77e825e03f2fae2bb4272c7888e478b6}{Traits::GlobalIndex}}; }
+\DoxyCodeLine{92   \textcolor{keyword}{using }\mbox{\hyperlink{a01485_ae329d665e853b0286679e97418d3acad}{GridElement}}  = \textcolor{keyword}{typename} \mbox{\hyperlink{a01541_ac4668b9c9142defdf3b70cca8eeb30c4}{Traits::Element}};     }
+\DoxyCodeLine{93   \textcolor{keyword}{using }typename \mbox{\hyperlink{a01889_a86c0fea1b37e487f3c78cde6facca9c3}{Mixin::Requirement}};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01485_aad639c76b46707f9ecf9dd58e25827f9}{myDim}}    = \mbox{\hyperlink{a01541_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}};}
+\DoxyCodeLine{96   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01485_a6b85ca6e6596543374c9ab104a471cec}{worldDim}} = \mbox{\hyperlink{a01541_a5d611e1d48285bac5c5ebd6fda9c7cc7}{Traits::worlddim}};}
+\DoxyCodeLine{97   \textcolor{keyword}{using }\mbox{\hyperlink{a01485_a327f5479545f9b5d615c07ce535b0007}{PreTuple}}                = std::tuple<typename Skills<PreFE, FE>::Pre...>;}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{105   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01485_a395b4b566b17bb390d82de3c89c00e9d}{FE}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01485_a26398fefb73f4d51895e26152e368cf8}{BasisHandler}}\& basisHandler, \textcolor{keyword}{typename} \mbox{\hyperlink{a01905}{Skills<PreFE, FE>::Pre}}... skillsArgs)}
+\DoxyCodeLine{106       : Impl::FEInit<\mbox{\hyperlink{a01489}{PreFE}}, \mbox{\hyperlink{a01485}{FE}}>(basisHandler),}
+\DoxyCodeLine{107         \mbox{\hyperlink{a01889}{FEMixin}}<\mbox{\hyperlink{a01489}{PreFE}}, \mbox{\hyperlink{a01905}{Skills}}...>(std::forward<typename \mbox{\hyperlink{a01905}{Skills}}<\mbox{\hyperlink{a01489}{PreFE}}, \mbox{\hyperlink{a01485}{FE}}>::Pre>(skillsArgs)...) \{\}}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{113   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01485_a3a23d70495e802f44ba4b9923804dda0}{bind}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01485_ae329d665e853b0286679e97418d3acad}{GridElement}}\& element) \{}
+\DoxyCodeLine{114     this-\/>localView\_.bind(element);}
+\DoxyCodeLine{115     \mbox{\hyperlink{a01889_ad64afd529f274032176261fea660b027}{Mixin::bind}}();}
+\DoxyCodeLine{116   \}}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{122   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{a01485_a1e05d6a5e50e3afd57c27adc0620e5b8}{size}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_.size(); \}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{128   \textcolor{keyword}{const} \mbox{\hyperlink{a01485_ae329d665e853b0286679e97418d3acad}{GridElement}}\& \mbox{\hyperlink{a01485_ae84fc54bd26077a2edb0ec07361d0716}{gridElement}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_.element(); \}}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{134   \textcolor{keyword}{const} \mbox{\hyperlink{a01485_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}\& \mbox{\hyperlink{a01485_a1425316afd592244682b9ccc48cf59ef}{localView}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_; \}}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{140   \mbox{\hyperlink{a01485_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}\& \mbox{\hyperlink{a01485_aa82acd5684364d92165b89e63d0eefb4}{localView}}() \{ \textcolor{keywordflow}{return} this-\/>localView\_; \}}
+\DoxyCodeLine{141 \};}
+\DoxyCodeLine{142 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

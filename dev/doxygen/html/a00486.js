@@ -1,16 +1,21 @@
 var a00486 =
 [
-    [ "internal", "a00487.html", "a00487" ],
-    [ "EigenBase", "a02069.html", null ],
-    [ "SparseMatrixBase", "a02205.html", null ],
-    [ "TCGInfo", "a01921.html", "a01921" ],
-    [ "TruncatedConjugateGradient", "a01925.html", "a01925" ],
-    [ "TCGStopReason", "a00486.html#a99c0436bed03f4dd4168a21f6b69ad5a", [
-      [ "negativeCurvature", "a00486.html#a99c0436bed03f4dd4168a21f6b69ad5aa09116173dd03279374ae42ad40f940ba", null ],
-      [ "exceededTrustRegion", "a00486.html#a99c0436bed03f4dd4168a21f6b69ad5aa9e095c14131d90a6c10c08cd802c8aed", null ],
-      [ "reachedTargetResidualKappaLinear", "a00486.html#a99c0436bed03f4dd4168a21f6b69ad5aa99766ccb237cb85dab3d8b55752fca4c", null ],
-      [ "reachedTargetResidualThetaSuperLinear", "a00486.html#a99c0436bed03f4dd4168a21f6b69ad5aa8ebf8c1ac80d383a21087b596c1efb27", null ],
-      [ "maximumInnerIterations", "a00486.html#a99c0436bed03f4dd4168a21f6b69ad5aa5b3d41a901032695340cf4c031e95f30", null ],
-      [ "modelIncreased", "a00486.html#a99c0436bed03f4dd4168a21f6b69ad5aab00445941a90cf4c363702645ca67bab", null ]
-    ] ]
+    [ "Ikarus::utils::any_of", "a00486.html#gab6d955a70ec9215ae9a8f3841582ab49", null ],
+    [ "Ikarus::utils::appendUnique", "a00486.html#ga0ccbb016e46741bd00c69436dc11e2d0", null ],
+    [ "Ikarus::utils::count_if", "a00486.html#gae9a7254f583151ee431db537c9980865", null ],
+    [ "Ikarus::utils::countTypeSpecialization", "a00486.html#gadf919f3a9b0c1d50134f9d041a3ce9f7", null ],
+    [ "Ikarus::utils::filter", "a00486.html#gad9f30d486a3d9151d534ec1b0fad5341", null ],
+    [ "Ikarus::utils::find_if", "a00486.html#gaf75511e781bb89056badd33413222010", null ],
+    [ "Ikarus::utils::findTypeSpecialization", "a00486.html#ga62d8ab565d41e49db75f0641bcdf0740", null ],
+    [ "Ikarus::utils::getSpecialization", "a00486.html#ga05a5ccea0f87d41fc69956f55a2c1dbd", null ],
+    [ "Ikarus::utils::hasTypeSpecialization", "a00486.html#gaec2a5de0482441ef1e1c68fb7ff8a0bc", null ],
+    [ "Ikarus::utils::makeTupleFromTupleIndices", "a00486.html#gaef801f15c9f18ae16e4241a497c33e96", null ],
+    [ "Ikarus::utils::makeTupleSubset", "a00486.html#ga32de94604b9d1a7423134f33f49d613f", null ],
+    [ "Ikarus::utils::makeUniqueAndSort", "a00486.html#ga6e36d8f5163f232e3142ecbd0575e8b4", null ],
+    [ "Ikarus::utils::none_of", "a00486.html#ga33284bcf99d7d3870e0aff06f6651aa2", null ],
+    [ "Ikarus::utils::printContent", "a00486.html#ga2b7954c72a2393ab7494fa0b66d828cd", null ],
+    [ "Ikarus::utils::transformPointerRangeToReferenceRange", "a00486.html#ga83bd9e4f59f0aa9fadd797efefa751d9", null ],
+    [ "Ikarus::utils::transformValueRangeToPointerRange", "a00486.html#ga7f597d87c8f2bcbf4afc65ebc929b680", null ],
+    [ "Ikarus::utils::unique", "a00486.html#ga12de8f77a63ef488a87a5aa8536146ee", null ],
+    [ "Ikarus::utils::countTypeSpecialization_v", "a00486.html#ga62ee166e690831f40395df076e9cdddb", null ]
 ];

@@ -1,122 +1,91 @@
-\hypertarget{a00269_source}{}\doxysection{volume.\+hh}
-\label{a00269_source}\index{volume.hh@{volume.hh}}
+\hypertarget{a00269_source}{}\doxysection{factory.\+hh}
+\label{a00269_source}\index{factory.hh@{factory.hh}}
 \mbox{\hyperlink{a00269}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{4 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{5 }
-\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <dune/localfefunctions/derivativetransformators.hh>}}
-\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <dune/localfefunctions/meta.hh>}}
-\DoxyCodeLine{8 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00299}{ikarus/finiteelements/ferequirements.hh}}>}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03332}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00065}{ikarus/utils/traits.hh}}>}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00471}{Ikarus}} \{}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
-\DoxyCodeLine{16 \textcolor{keyword}{class }VolumeLoad;}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{22 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} wd>}
-\DoxyCodeLine{23 \textcolor{keyword}{struct }\mbox{\hyperlink{a01569}{VolumeLoadPre}}}
-\DoxyCodeLine{24 \{}
-\DoxyCodeLine{25   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01569_a4d01ee496f98eab05902fe055e217bae}{worldDim}} = wd;}
-\DoxyCodeLine{26   std::function<Eigen::Vector<double, worldDim>(\textcolor{keyword}{const} \mbox{\hyperlink{a02125}{Dune::FieldVector<double, worldDim>}}\&, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\&)> \mbox{\hyperlink{a01569_a4662268c782856e02171078b6fcbfa48}{volumeLoad}};}
-\DoxyCodeLine{27 }
-\DoxyCodeLine{28   \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
-\DoxyCodeLine{29   \textcolor{keyword}{using }\mbox{\hyperlink{a01565}{Skill}} = \mbox{\hyperlink{a01565}{VolumeLoad<PreFE, FE>}};}
-\DoxyCodeLine{30 \};}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32 \textcolor{comment}{// Deduction guide}}
-\DoxyCodeLine{33 \textcolor{keyword}{template} <\textcolor{keyword}{class} F>}
-\DoxyCodeLine{34 \mbox{\hyperlink{a00471_a93a9eac09126da6a203f68af3e7c8ba2}{VolumeLoadPre}}(F f) -\/> \mbox{\hyperlink{a01569}{VolumeLoadPre<traits::FunctionTraits<F>::return\_type::RowsAtCompileTime}}>;}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{44 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
-\DoxyCodeLine{45 \textcolor{keyword}{class }\mbox{\hyperlink{a01565}{VolumeLoad}}}
-\DoxyCodeLine{46 \{}
-\DoxyCodeLine{47 \textcolor{keyword}{public}:}
-\DoxyCodeLine{48   \textcolor{keyword}{using }\mbox{\hyperlink{a01521}{Traits}}                  = \mbox{\hyperlink{a01469_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};}
-\DoxyCodeLine{49   \textcolor{keyword}{using }\mbox{\hyperlink{a01485}{Requirement}}             = \mbox{\hyperlink{a01485}{FERequirements<FESolutions::displacement, FEParameter::loadfactor>}};}
-\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01565_a390f831728fee1fe85969e060566473c}{worldDim}} = \mbox{\hyperlink{a01521_a5d611e1d48285bac5c5ebd6fda9c7cc7}{Traits::worlddim}};}
-\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{a01569}{Pre}}                     = \mbox{\hyperlink{a01569}{VolumeLoadPre<worldDim>}};}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{58   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01565_a349da3ed5869491f4351dc09dbccf314}{VolumeLoad}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01569}{Pre}}\& pre = \{\})}
-\DoxyCodeLine{59       : volumeLoad\_\{pre.volumeLoad\} \{\}}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{62   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT>}
-\DoxyCodeLine{63   \textcolor{keyword}{requires} Dune::AlwaysFalse<RT<double, 1, 1>>::value}
-\DoxyCodeLine{64   \textcolor{keyword}{auto} \mbox{\hyperlink{a01565_aa604e6d5795ffd5569e0c4bb40653050}{calculateAtImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01485}{Requirement}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a02125}{Dune::FieldVector<double, Traits::mydim>}}\& local,}
-\DoxyCodeLine{65                        Dune::PriorityTag<0>)\textcolor{keyword}{ const }\{\}}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{67   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{68   \textcolor{keyword}{auto} \mbox{\hyperlink{a01565_a3f9d88cf8944b163452bdde3dd436871}{calculateScalarImpl}}(}
-\DoxyCodeLine{69       \textcolor{keyword}{const} \mbox{\hyperlink{a01485}{Requirement}}\& par, \mbox{\hyperlink{a00471_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}} affordance,}
-\DoxyCodeLine{70       \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ST>>>\& dx = std::nullopt) \textcolor{keyword}{const} -\/> ST \{}
-\DoxyCodeLine{71     \textcolor{keywordflow}{if} (not volumeLoad\_)}
-\DoxyCodeLine{72       \textcolor{keywordflow}{return} 0.0;}
-\DoxyCodeLine{73     ST energy            = 0.0;}
-\DoxyCodeLine{74     \textcolor{keyword}{const} \textcolor{keyword}{auto} uFunction = underlying().displacementFunction(par, dx);}
-\DoxyCodeLine{75     \textcolor{keyword}{const} \textcolor{keyword}{auto} geo       = underlying().geometry();}
-\DoxyCodeLine{76     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& lambda   = par.parameter();}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : uFunction.viewOverIntegrationPoints()) \{}
-\DoxyCodeLine{79       \textcolor{keyword}{const} \textcolor{keyword}{auto} uVal                      = uFunction.evaluate(gpIndex);}
-\DoxyCodeLine{80       Eigen::Vector<double, worldDim> fext = volumeLoad\_(geo.global(gp.position()), lambda);}
-\DoxyCodeLine{81       energy -\/= uVal.dot(fext) * geo.integrationElement(gp.position()) * gp.weight();}
-\DoxyCodeLine{82     \}}
-\DoxyCodeLine{83     \textcolor{keywordflow}{return} energy;}
-\DoxyCodeLine{84   \}}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{87   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01565_adba315aa4436708ef2a3d8f6f3a16896}{calculateVectorImpl}}(}
-\DoxyCodeLine{88       \textcolor{keyword}{const} \mbox{\hyperlink{a01485}{Requirement}}\& par, \mbox{\hyperlink{a00471_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} affordance, \textcolor{keyword}{typename} Traits::template VectorType<ST> force,}
-\DoxyCodeLine{89       \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ST>>>\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{90     \textcolor{keywordflow}{if} (not volumeLoad\_)}
-\DoxyCodeLine{91       \textcolor{keywordflow}{return};}
-\DoxyCodeLine{92     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
-\DoxyCodeLine{93     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00495}{Dune}};}
-\DoxyCodeLine{94     \textcolor{keyword}{const} \textcolor{keyword}{auto} uFunction = underlying().displacementFunction(par, dx);}
-\DoxyCodeLine{95     \textcolor{keyword}{const} \textcolor{keyword}{auto} geo       = underlying().geometry();}
-\DoxyCodeLine{96     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& lambda   = par.\mbox{\hyperlink{a01485_abe2632437241140248ed986d745bd53a}{parameter}}();}
-\DoxyCodeLine{97 }
-\DoxyCodeLine{98     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : uFunction.viewOverIntegrationPoints()) \{}
-\DoxyCodeLine{99       \textcolor{keyword}{const} Eigen::Vector<double, worldDim> fext = volumeLoad\_(geo.global(gp.position()), lambda);}
-\DoxyCodeLine{100       \textcolor{keyword}{const} \textcolor{keywordtype}{double} intElement                    = geo.integrationElement(gp.position()) * gp.weight();}
-\DoxyCodeLine{101       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < underlying().numberOfNodes(); ++i) \{}
-\DoxyCodeLine{102         \textcolor{keyword}{const} \textcolor{keyword}{auto} udCi = uFunction.evaluateDerivative(gpIndex, wrt(coeff(i)));}
-\DoxyCodeLine{103         force.template segment<worldDim>(\mbox{\hyperlink{a01565_a390f831728fee1fe85969e060566473c}{worldDim}} * i) -\/= udCi * fext * intElement;}
-\DoxyCodeLine{104       \}}
-\DoxyCodeLine{105     \}}
-\DoxyCodeLine{106   \}}
-\DoxyCodeLine{107 }
-\DoxyCodeLine{108   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{109   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01565_ae22c68fb949330682646b129a159ad65}{calculateMatrixImpl}}(}
-\DoxyCodeLine{110       \textcolor{keyword}{const} \mbox{\hyperlink{a01485}{Requirement}}\& par, \mbox{\hyperlink{a00471_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}}, \textcolor{keyword}{typename} Traits::template MatrixType<> K,}
-\DoxyCodeLine{111       \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ST>>>\& dx = std::nullopt)\textcolor{keyword}{ const }\{\}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00248}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/arrudaboyce.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00251}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/blatzko.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00260}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/gent.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03443}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00257}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/invariantbased.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00263}{ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/ogden.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03440}{ikarus/finiteelements/mechanics/materials/hyperelastic/interface.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00245}{ikarus/finiteelements/mechanics/materials/hyperelastic/neohooke.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00266}{ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/volumetricfunctions.hh}}>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00230}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00500}{Ikarus::Materials}} \{}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{33 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00500_aa724b5f1275a41f266ad6aae180ed317}{makeBlatzKo}}(\textcolor{keywordtype}{double} mu) \{}
+\DoxyCodeLine{34   \textcolor{keyword}{auto} bk  = \mbox{\hyperlink{a00500_a7c7d4e399e30b088b7253771704bd01b}{BlatzKo}}(mu);}
+\DoxyCodeLine{35   \textcolor{keyword}{auto} dev = \mbox{\hyperlink{a01673}{Deviatoric<decltype(bk)>}}(bk);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01685}{Hyperelastic}}(dev);}
+\DoxyCodeLine{38 \}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{55 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} n, PrincipalStretchTags tag, \textcolor{keyword}{typename} VolumetricFunction = VF0>}
+\DoxyCodeLine{56 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00500_af8c1c0f27639b0883f98f4e814aca8e5}{makeOgden}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01681_a0164eb06fa929e1608493879f3832c80}{Ogden<n, tag>::MaterialParameters}}\& mu,}
+\DoxyCodeLine{57                       \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01681_a9b01e9124f3fa51d8a1a5881bd842bd9}{Ogden<n, tag>::MaterialExponents}} alpha, \textcolor{keywordtype}{double} K = 0.0,}
+\DoxyCodeLine{58                       \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
+\DoxyCodeLine{59   \textcolor{keyword}{auto} ogPre = Ogden<n, tag>(mu, alpha);}
+\DoxyCodeLine{60   \textcolor{keyword}{auto} dev   = Deviatoric(ogPre);}
+\DoxyCodeLine{61   \textcolor{keyword}{auto} vol   = Volumetric(K, vf);}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
+\DoxyCodeLine{64 \}}
+\DoxyCodeLine{80 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} n, \textcolor{keyword}{typename} VolumetricFunction = VF0>}
+\DoxyCodeLine{81 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00500_a03ec75f725d4772d6e33532501cd10a8}{makeInvariantBased}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01677_a6e7eb1d8654cd930230685a6d3e34f96}{InvariantBased<n>::MaterialParameters}}\& mu,}
+\DoxyCodeLine{82                                \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01677_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<n>::Exponents}} pex,}
+\DoxyCodeLine{83                                \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01677_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<n>::Exponents}} qex, \textcolor{keywordtype}{double} K = 0.0,}
+\DoxyCodeLine{84                                \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
+\DoxyCodeLine{85   \textcolor{keyword}{auto} invariantBasedPre = InvariantBased<n>(pex, qex, mu);}
+\DoxyCodeLine{86   \textcolor{keyword}{auto} dev               = Deviatoric(invariantBasedPre);}
+\DoxyCodeLine{87   \textcolor{keyword}{auto} vol               = Volumetric(K, vf);}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
+\DoxyCodeLine{90 \}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{104 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
+\DoxyCodeLine{105 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00500_a7ac025ab0f41d2021008bd54e51135b1}{makeMooneyRivlin}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01677_a6e7eb1d8654cd930230685a6d3e34f96}{InvariantBased<2>::MaterialParameters}}\& mu, \textcolor{keywordtype}{double} K = 0.0,}
+\DoxyCodeLine{106                              \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
+\DoxyCodeLine{107   \textcolor{keyword}{typename} \mbox{\hyperlink{a01677_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<2>::Exponents}} pex = \{1, 0\};}
+\DoxyCodeLine{108   \textcolor{keyword}{typename} \mbox{\hyperlink{a01677_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<2>::Exponents}} qex = \{0, 1\};}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110   \textcolor{keywordflow}{return} makeInvariantBased<2, VolumetricFunction>(mu, pex, qex, K, vf);}
+\DoxyCodeLine{111 \}}
 \DoxyCodeLine{112 }
-\DoxyCodeLine{113 \textcolor{keyword}{private}:}
-\DoxyCodeLine{114   std::function<Eigen::Vector<double, worldDim>(\textcolor{keyword}{const} \mbox{\hyperlink{a02125}{Dune::FieldVector<double, worldDim>}}\&, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\&)> volumeLoad\_;}
-\DoxyCodeLine{115   \textcolor{comment}{//> CRTP}}
-\DoxyCodeLine{116   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& underlying()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{a01465}{FE}}\&\textcolor{keyword}{>}(*this); \}}
-\DoxyCodeLine{117   \textcolor{keyword}{auto}\& underlying() \{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}FE\&\textcolor{keyword}{>}(*this); \}}
-\DoxyCodeLine{118 \};}
-\DoxyCodeLine{119 }
-\DoxyCodeLine{126 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} worldDim>}
-\DoxyCodeLine{127 \textcolor{keyword}{auto} \mbox{\hyperlink{a00471_a0eecc01634324520df56c4352eb15077}{volumeLoad}}(\textcolor{keyword}{const} std::function<Eigen::Vector<double, worldDim>(\textcolor{keyword}{const} \mbox{\hyperlink{a02125}{Dune::FieldVector<double, worldDim>}}\&,}
-\DoxyCodeLine{128                                                                     \textcolor{keyword}{const} \textcolor{keywordtype}{double}\&)>\& f) \{}
-\DoxyCodeLine{129   \mbox{\hyperlink{a01569}{VolumeLoadPre}} pre(f);}
-\DoxyCodeLine{130   \textcolor{keywordflow}{return} pre;}
-\DoxyCodeLine{131 \}}
-\DoxyCodeLine{132 }
-\DoxyCodeLine{138 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{139 \textcolor{keyword}{auto} \mbox{\hyperlink{a00471_a0eecc01634324520df56c4352eb15077}{volumeLoad}}(F\&\& f) \{}
-\DoxyCodeLine{140   \mbox{\hyperlink{a01569}{VolumeLoadPre}} pre(f);}
-\DoxyCodeLine{141   \textcolor{keywordflow}{return} pre;}
-\DoxyCodeLine{142 \}}
-\DoxyCodeLine{143 }
-\DoxyCodeLine{144 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{125 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
+\DoxyCodeLine{126 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00500_a00567c7322e1a28e7575c67a19631201}{makeYeoh}}(\textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01677_a6e7eb1d8654cd930230685a6d3e34f96}{InvariantBased<3>::MaterialParameters}}\& mu, \textcolor{keywordtype}{double} K = 0.0,}
+\DoxyCodeLine{127                      \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
+\DoxyCodeLine{128   \textcolor{keyword}{typename} \mbox{\hyperlink{a01677_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<3>::Exponents}} pex = \{1, 2, 3\};}
+\DoxyCodeLine{129   \textcolor{keyword}{typename} \mbox{\hyperlink{a01677_a3ceccb571b3cef82e4b9794452e010f5}{InvariantBased<3>::Exponents}} qex = \{0, 0, 0\};}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131   \textcolor{keywordflow}{return} makeInvariantBased<3, VolumetricFunction>(mu, pex, qex, K, vf);}
+\DoxyCodeLine{132 \}}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{146 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
+\DoxyCodeLine{147 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00500_af561f0434312c4d30c22e4438f2c9a1a}{makeArrudaBoyce}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01649}{ArrudaBoyceMatParameters}}\& matPar, \textcolor{keywordtype}{double} K = 0.0,}
+\DoxyCodeLine{148                             \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
+\DoxyCodeLine{149   \textcolor{keyword}{auto} abPre = \mbox{\hyperlink{a00500_a70cada02f1f5f294f44c438fb1270982}{ArrudaBoyce}}(matPar);}
+\DoxyCodeLine{150   \textcolor{keyword}{auto} dev   = Deviatoric(abPre);}
+\DoxyCodeLine{151   \textcolor{keyword}{auto} vol   = Volumetric(K, vf);}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
+\DoxyCodeLine{154 \}}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{168 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VolumetricFunction = VF0>}
+\DoxyCodeLine{169 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00500_a02bb70b49abcfa023ae81f4f4f1d27de}{makeGent}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01665}{GentMatParameters}}\& matPar, \textcolor{keywordtype}{double} K = 0.0,}
+\DoxyCodeLine{170                      \textcolor{keyword}{const} VolumetricFunction\& vf = VolumetricFunction\{\}) \{}
+\DoxyCodeLine{171   \textcolor{keyword}{auto} gentPre = \mbox{\hyperlink{a00500_a8d05a34baf0684f0e4e2a10a721bb80d}{Gent}}(matPar);}
+\DoxyCodeLine{172   \textcolor{keyword}{auto} dev     = Deviatoric(gentPre);}
+\DoxyCodeLine{173   \textcolor{keyword}{auto} vol     = Volumetric(K, vf);}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175   \textcolor{keywordflow}{return} Hyperelastic(dev, vol);}
+\DoxyCodeLine{176 \}}
+\DoxyCodeLine{177 \} \textcolor{comment}{// namespace Ikarus::Materials}}
 
 \end{DoxyCode}

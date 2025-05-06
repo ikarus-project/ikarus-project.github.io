@@ -1,16 +1,18 @@
 var a01669 =
 [
-    [ "MaterialImpl", "a01669.html#a5303817231472050f36f079bc730988b", null ],
-    [ "impl", "a01669.html#ae6ac28e09154cef841393f09f76d680b", null ],
-    [ "impl", "a01669.html#a2e6191f96be90789c574f58f268f5aea", null ],
-    [ "materialInversion", "a01669.html#ad32f502e8032f86a8cca5d141537a06a", null ],
-    [ "materialParameters", "a01669.html#a0b4a203f259da74328dacbcc405c0c22", null ],
-    [ "name", "a01669.html#a03ae10e8656beed2aa69c8a9d27907e5", null ],
-    [ "rebind", "a01669.html#a42dd4120574bc25d9bccd1891fc14024", null ],
-    [ "storedEnergy", "a01669.html#a8d6370e3d198662f4222a0b94e2d6703", null ],
-    [ "stresses", "a01669.html#a8a68e052cade23285d1a28d1e08845f5", null ],
-    [ "tangentModuli", "a01669.html#a7a97d64507fd1ce0c14e919edb8a639b", null ],
-    [ "derivativeFactor", "a01669.html#ae9e08c2d0dc02321b8a4d81d4052f63f", null ],
-    [ "isLinear", "a01669.html#adaf662f055c31a4387b0bbcea1b6c34f", null ],
-    [ "isReduced", "a01669.html#af50dfddadfe829082a56eb804bfb7980", null ]
+    [ "FirstDerivative", "a01669.html#a232189b3d21d46e2c5f407f90d7f1ab6", null ],
+    [ "Invariants", "a01669.html#a9303be9dbb2da94477af2679daf51d5a", null ],
+    [ "MaterialParameters", "a01669.html#affe89a380b23ceaba49703324aa24ddb", null ],
+    [ "PrincipalStretches", "a01669.html#af3f9b5e36aca41ecfa7e05517e10ee50", null ],
+    [ "ScalarType", "a01669.html#a006a1668e5050f802f427ffd2519ad8c", null ],
+    [ "SecondDerivative", "a01669.html#aba1efc2e1e4c478fb5c8b1cf62d85971", null ],
+    [ "GentT", "a01669.html#a394ec60a1918b0285b925c729dcb3be8", null ],
+    [ "firstDerivativeImpl", "a01669.html#ae528fcf9c0dd959467cbbc22b20c42e4", null ],
+    [ "materialParametersImpl", "a01669.html#a8248240a321b3c45a080ed0c20169ddd", null ],
+    [ "name", "a01669.html#a6ab32a23370f0a8b3b266e7da822b09d", null ],
+    [ "rebind", "a01669.html#a5d96044e7cd8acc2cb3d1aeaf4bb24d7", null ],
+    [ "secondDerivativeImpl", "a01669.html#a2a7ac85d8340e3153acad2242485b087", null ],
+    [ "storedEnergyImpl", "a01669.html#a68ae9586f841b9b0172452f539c8b9ee", null ],
+    [ "dim", "a01669.html#ad494a4eb399bf1ee960cab0ccedc878c", null ],
+    [ "stretchTag", "a01669.html#a025c9024a87a6da081bb2698a6980544", null ]
 ];

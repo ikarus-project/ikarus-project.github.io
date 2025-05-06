@@ -1,56 +1,30 @@
 var a00480 =
 [
-    [ "ArrudaBoyceT", "a01577.html", "a01577" ],
-    [ "BlatzKoT", "a01581.html", "a01581" ],
-    [ "Deviatoric", "a01597.html", "a01597" ],
-    [ "DeviatoricInvariants", "a01585.html", "a01585" ],
-    [ "GentT", "a01593.html", "a01593" ],
-    [ "Hyperelastic", "a01609.html", "a01609" ],
-    [ "InvariantBasedT", "a01601.html", "a01601" ],
-    [ "LinearElasticityT", "a01673.html", "a01673" ],
-    [ "Material", "a01669.html", "a01669" ],
-    [ "MatrixIndexPair", "a01677.html", "a01677" ],
-    [ "NeoHookeT", "a01613.html", "a01613" ],
-    [ "OgdenT", "a01605.html", "a01605" ],
-    [ "StVenantKirchhoffT", "a01681.html", "a01681" ],
-    [ "VanishingStrain", "a01685.html", "a01685" ],
-    [ "VanishingStress", "a01689.html", "a01689" ],
-    [ "VF0", "a01621.html", "a01621" ],
-    [ "VF1", "a01625.html", "a01625" ],
-    [ "VF10", "a01661.html", "a01661" ],
-    [ "VF11", "a01665.html", "a01665" ],
-    [ "VF2", "a01629.html", "a01629" ],
-    [ "VF3", "a01633.html", "a01633" ],
-    [ "VF4", "a01637.html", "a01637" ],
-    [ "VF5", "a01641.html", "a01641" ],
-    [ "VF6", "a01645.html", "a01645" ],
-    [ "VF7", "a01649.html", "a01649" ],
-    [ "VF8", "a01653.html", "a01653" ],
-    [ "VF9", "a01657.html", "a01657" ],
-    [ "Volumetric", "a01617.html", "a01617" ],
-    [ "CorrectStrainSize", "a02273.html", null ],
-    [ "ArrudaBoyce", "a00480.html#a70cada02f1f5f294f44c438fb1270982", null ],
-    [ "BlatzKo", "a00480.html#a7c7d4e399e30b088b7253771704bd01b", null ],
-    [ "Gent", "a00480.html#a8d05a34baf0684f0e4e2a10a721bb80d", null ],
-    [ "InvariantBased", "a00480.html#a54eda7633e477c02ff71fa6e3f40a1ab", null ],
-    [ "LinearElasticity", "a00480.html#a93b8b0e77767bbe61541863fcf4d054d", null ],
-    [ "NeoHooke", "a00480.html#a4bf1415fc81c6cacecd347ec4b928def", null ],
-    [ "NoVolumetricPart", "a00480.html#af2ccffa80ee6f4471c03b826368f425d", null ],
-    [ "Ogden", "a00480.html#a7759118d563e476dc3b7e737df439f4d", null ],
-    [ "StVenantKirchhoff", "a00480.html#a68ee2f9a7730fbcf6969940b0c5da418", null ],
-    [ "beamMaterial", "a00480.html#ab89e3a8a28d4e7241ab9dfd41fbbd153", null ],
-    [ "hasCorrectSize", "a00480.html#acd3877457d719128ff83d44c6253ece8", null ],
-    [ "makeArrudaBoyce", "a00480.html#af561f0434312c4d30c22e4438f2c9a1a", null ],
-    [ "makeBlatzKo", "a00480.html#aa724b5f1275a41f266ad6aae180ed317", null ],
-    [ "makeGent", "a00480.html#a02bb70b49abcfa023ae81f4f4f1d27de", null ],
-    [ "makeInvariantBased", "a00480.html#a03ec75f725d4772d6e33532501cd10a8", null ],
-    [ "makeMooneyRivlin", "a00480.html#a7ac025ab0f41d2021008bd54e51135b1", null ],
-    [ "makeOgden", "a00480.html#af8c1c0f27639b0883f98f4e814aca8e5", null ],
-    [ "makeVanishingStrain", "a00480.html#a03d13518406d1cd5bb2a34aca2f95f01", null ],
-    [ "makeVanishingStress", "a00480.html#a3fc342156c1fa3be5bd78c8baffd0df7", null ],
-    [ "makeYeoh", "a00480.html#a00567c7322e1a28e7575c67a19631201", null ],
-    [ "numericalMaterialInversion", "a00480.html#a8fbddf32993e15f5f5c590c599a2b5f3", null ],
-    [ "planeStrain", "a00480.html#a5b428881c8ea5104acd909e769b7910b", null ],
-    [ "planeStress", "a00480.html#aa7b4cfc28796165e32b16cb12ab8ccd4", null ],
-    [ "shellMaterial", "a00480.html#a87bf89dc04e6f4021681129ae4e9a0ee", null ]
+    [ "resultevaluators.hh", "a00431.html", null ],
+    [ "Ikarus::ResultEvaluators::VonMises", "a01937.html", [
+      [ "name", "a01937.html#adc5bbea30401fd0a203237199f400872", null ],
+      [ "ncomps", "a01937.html#a4fec0e03332fac9610d1f42a9e412f7f", null ],
+      [ "operator()", "a01937.html#a4a16334a6d486018a77727fb2acca63c", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::HydrostaticStress", "a01941.html", [
+      [ "name", "a01941.html#a1cc516c9e54a36656b693f6ab7e8036f", null ],
+      [ "ncomps", "a01941.html#a7ad4bc9dedac16e50242b7d51d9ea2a0", null ],
+      [ "operator()", "a01941.html#a35c0916886cd68004bedbebe4165fa97", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::PrincipalStress< dim >", "a01945.html", [
+      [ "name", "a01945.html#a0a21ea2d96efed17295f27a0001dcd7c", null ],
+      [ "ncomps", "a01945.html#a34a91abd5ffcb880813bd1fb90b221b6", null ],
+      [ "operator()", "a01945.html#aafc25c13807fda614d68992dcd4923ae", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::Triaxiality", "a01949.html", [
+      [ "name", "a01949.html#a04443562de6bf1cf72a27db2f33b5e16", null ],
+      [ "ncomps", "a01949.html#a2208295b62e03319c06b599b0079bf83", null ],
+      [ "operator()", "a01949.html#a14fd89ab2a84416e5f1024c9930f7371", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::PolarStress", "a01953.html", [
+      [ "PolarStress", "a01953.html#ab7bd86fc0638f4c9b779153c69d917d4", null ],
+      [ "name", "a01953.html#affc08b406cc3750e46dff706eefd7ee6", null ],
+      [ "ncomps", "a01953.html#a2b4c9a468e74dbbb93f6f6613cf07f7d", null ],
+      [ "operator()", "a01953.html#a22590930fe4d5d2d5e5a323cd3085cdb", null ]
+    ] ]
 ];

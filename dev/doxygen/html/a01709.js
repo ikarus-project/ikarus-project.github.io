@@ -1,7 +1,7 @@
 var a01709 =
 [
-    [ "firstDerivative", "a01709.html#a55c1fbf8886e733e901791cccce7a4b6", null ],
-    [ "name", "a01709.html#a8de5e262c9ed8fdb60498498b660d4c8", null ],
-    [ "secondDerivative", "a01709.html#a62f5380a4873477bd08231cf24ba5d41", null ],
-    [ "value", "a01709.html#a849109ef5847cad06787d2a10041fcde", null ]
+    [ "firstDerivativeImpl", "a01709.html#a14cfe492905461636ef0a9bcdc767729", null ],
+    [ "name", "a01709.html#a1f7229327fb66cb6a1fe8ec463caed70", null ],
+    [ "secondDerivativeImpl", "a01709.html#a52cc4b556207f4d14ccfd052ccccacd5", null ],
+    [ "storedEnergyImpl", "a01709.html#a47a88c62f6c7a05a4f9e872b5baf6b5c", null ]
 ];

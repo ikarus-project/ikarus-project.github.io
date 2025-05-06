@@ -1,17 +1,12 @@
 var a01581 =
 [
-    [ "FirstDerivative", "a01581.html#aa1176fe0e702b5b4a9cf9a9f1ded4e99", null ],
-    [ "MaterialParameters", "a01581.html#aa8913c5e488f70064ee2c896ab8cf26b", null ],
-    [ "PrincipalStretches", "a01581.html#aa1eccfb50a495e833dae09932a25abc2", null ],
-    [ "ScalarType", "a01581.html#a613da436d46a7f27a9f8f9915b205851", null ],
-    [ "SecondDerivative", "a01581.html#aa0656272aab6ccbfd885389fedc2333f", null ],
-    [ "BlatzKoT", "a01581.html#a0ea66bb30a48dc9bb34d2d3bbc7d7239", null ],
-    [ "firstDerivativeImpl", "a01581.html#ac6e352206fb08d97d54fff4402e50c7d", null ],
-    [ "materialParametersImpl", "a01581.html#a9c2b31f151124d6008f0c897b5903e34", null ],
-    [ "name", "a01581.html#a4243f7583c2baf02b631426ad391998c", null ],
-    [ "rebind", "a01581.html#ad896b65f779e5ac0e715aacccfcaf5c1", null ],
-    [ "secondDerivativeImpl", "a01581.html#ab1cd1b9fbba254f087541ae8b864a1da", null ],
-    [ "storedEnergyImpl", "a01581.html#a0ba7ac790efa72ce20558446ace7253e", null ],
-    [ "dim", "a01581.html#ab68f21d33219b35d8586ace849c39237", null ],
-    [ "stretchTag", "a01581.html#a0a04efc09f77a25a03993356b07372f5", null ]
+    [ "AnsatzType", "a01581.html#a788027f1dcc912014698afbd597b48c0", null ],
+    [ "HType", "a01581.html#aad7ea8d0a8aa8e42b29d5ab1fdde35be", null ],
+    [ "SX", "a01581.html#aba995cea82834c131f555bde55f2415a", null ],
+    [ "SX", "a01581.html#a5a9b90fad85eef94bbb5da53c6bc7e71", null ],
+    [ "assumedStressSize", "a01581.html#a923446745a7cbe2f0da7c27fae6af1e9", null ],
+    [ "geometry_", "a01581.html#a6797fc84079b7d5dee1479e91b3cdf26", null ],
+    [ "myDim", "a01581.html#aaa74c8c39ff8e66ceb6bc3ccf62deb11", null ],
+    [ "stressSize", "a01581.html#a88bb9059e82aeae277462d3f78f5eab2", null ],
+    [ "T0_", "a01581.html#a07a00abfed52c610b8995936edd44576", null ]
 ];

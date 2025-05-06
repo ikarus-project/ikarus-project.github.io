@@ -1,23 +1,31 @@
-\hypertarget{a00368_source}{}\doxysection{solverinfos.\+hh}
-\label{a00368_source}\index{solverinfos.hh@{solverinfos.hh}}
+\hypertarget{a00368_source}{}\doxysection{controlroutinefactory.\+hh}
+\label{a00368_source}\index{controlroutinefactory.hh@{controlroutinefactory.hh}}
 \mbox{\hyperlink{a00368}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <limits>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00152}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03470}{ikarus/utils/concepts.hh}}>}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00471}{Ikarus}} \{}
-\DoxyCodeLine{20 \textcolor{keyword}{struct }\mbox{\hyperlink{a02021}{NonLinearSolverInformation}}}
-\DoxyCodeLine{21 \{}
-\DoxyCodeLine{27   \textcolor{keyword}{explicit} \textcolor{keyword}{operator} bool()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a02021_acb65d72d7b2291a9b0d958ce0e4e0887}{success}}; \}}
-\DoxyCodeLine{28   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02021_acb65d72d7b2291a9b0d958ce0e4e0887}{success}}\{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{29   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02021_ab09859737734f97734f20624f9f3c934}{residualNorm}}\{std::numeric\_limits<double>::infinity()\};}
-\DoxyCodeLine{30   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02021_a66f51414779f3e563557157fb688f18b}{correctionNorm}}\{std::numeric\_limits<double>::infinity()\};}
-\DoxyCodeLine{31   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02021_a81570cd3d9f6589a4d1ba81211f41b99}{iterations}}\{-\/1\};}
-\DoxyCodeLine{32 \};}
-\DoxyCodeLine{33 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00489}{Ikarus}} \{}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{24 \textcolor{keyword}{struct }\mbox{\hyperlink{a01425}{ControlRoutineFactory}}}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{38   \textcolor{keyword}{template} <\textcolor{keyword}{typename} CRConfig, \textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} Assembler>}
+\DoxyCodeLine{39   \textcolor{keyword}{requires} \mbox{\hyperlink{a02383}{Concepts::FlatAssembler<typename std::remove\_cvref\_t<Assembler>::element\_type}}>}
+\DoxyCodeLine{40   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01425_a9dd7f8c2fccba831b34f4139837fb16c}{create}}(\textcolor{keyword}{const} CRConfig\& config, NLS\&\& nonlinearSolver, Assembler\&\& assembler) \{}
+\DoxyCodeLine{41     \textcolor{keyword}{auto} cr = \mbox{\hyperlink{a00489_a5aec737453e85d8a0cd6061b39300694}{createControlRoutine}}(std::move(config), std::forward<NLS>(nonlinearSolver));}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& fe : assembler-\/>finiteElements()) \{}
+\DoxyCodeLine{44       fe.template subscribeTo<NonLinearSolverMessages>(nonlinearSolver);}
+\DoxyCodeLine{45       fe.template subscribeTo<ControlMessages>(cr);}
+\DoxyCodeLine{46     \}}
+\DoxyCodeLine{47     \textcolor{keywordflow}{return} cr;}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49 \};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

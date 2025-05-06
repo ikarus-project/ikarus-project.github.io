@@ -1,5 +1,7 @@
 var a00371 =
 [
-    [ "Ikarus::NonlinearSolverState< D, CT >", "a02001.html", "a02001" ],
-    [ "NonlinearSolverStateType", "a00371.html#aa1131c55a881b2db0c10d9f6f637f3cf", null ]
+    [ "Ikarus::PathFollowingState< D >", "a01445.html", "a01445" ],
+    [ "Ikarus::PathFollowingConfig< PF_, ASS_ >", "a01457.html", "a01457" ],
+    [ "PathFollowingStateType", "a00371.html#a55422e7318ffa2a289aee49663f1e2e1", null ],
+    [ "createControlRoutine", "a00371.html#a8e39557c3fe94302f5bf3ecb457d27f0", null ]
 ];

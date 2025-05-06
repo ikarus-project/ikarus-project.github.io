@@ -1,6 +1,5 @@
 var a00275 =
 [
-    [ "Ikarus::TrussPre", "a01805.html", "a01805" ],
-    [ "Ikarus::Truss< PreFE, FE >::KinematicVariables< ST >", "a01809.html", "a01809" ],
-    [ "truss", "a00275.html#a1936b02a190200901c54cc8b1004506e", null ]
+    [ "Ikarus::NeumannBoundaryLoadPre< GV >", "a01637.html", "a01637" ],
+    [ "neumannBoundaryLoad", "a00275.html#ac2ae666c1ffd22e3c22a3418ab390893", null ]
 ];

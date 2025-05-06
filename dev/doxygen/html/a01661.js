@@ -1,9 +1,13 @@
 var a01661 =
 [
-    [ "VF10", "a01661.html#a70aac39a68cf1301729aabff50255b4d", null ],
-    [ "beta", "a01661.html#a0d1a430961cf9ed01796413c4cf2af2b", null ],
-    [ "firstDerivativeImpl", "a01661.html#a16f0895b405ee23b4aa2ca3247d497b4", null ],
-    [ "name", "a01661.html#a54c2c00d7e3045852991a836027d075c", null ],
-    [ "secondDerivativeImpl", "a01661.html#a1617d331cf00e783868ffc8673edb487", null ],
-    [ "storedEnergyImpl", "a01661.html#a8b3daf273f45361fa0d502e7eb595346", null ]
+    [ "FirstDerivative", "a01661.html#a917eb1c93dec4d24ac5c72ee53500f8a", null ],
+    [ "Invariants", "a01661.html#aaf9d0408fc09fd6a079e4da57429babd", null ],
+    [ "PrincipalStretches", "a01661.html#a594b1e1baa67392c9a6ed38d0cec9656", null ],
+    [ "ScalarType", "a01661.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05", null ],
+    [ "SecondDerivative", "a01661.html#a4f189b9d6a9e468c63d5095e0c037cde", null ],
+    [ "DeviatoricInvariants", "a01661.html#a1e4087df2fd42f21f14f18e4d9d768fc", null ],
+    [ "firstDerivative", "a01661.html#a981e70dd52fc55dcd29e0bfe6507b214", null ],
+    [ "secondDerivative", "a01661.html#abc7cc84b8755a39dc78821033998f666", null ],
+    [ "value", "a01661.html#a9c016a61bba2d581b57c0f373a7f822c", null ],
+    [ "dim", "a01661.html#a255955dbd34611bebcea229cd2bdc99c", null ]
 ];

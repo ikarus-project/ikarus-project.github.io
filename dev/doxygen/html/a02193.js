@@ -1,9 +1,10 @@
 var a02193 =
 [
-    [ "Token", "a02193.html#affba2430c95defc9bb0494af2d8120b7", null ],
-    [ "subscribe", "a02193.html#a754e8fbe950f23d4610009475e35ed98", null ],
-    [ "subscribe", "a02193.html#ade04c7b4066c6ef381429aff2e2ce7a7", null ],
-    [ "unSubscribe", "a02193.html#a924202b41205145b4ceda14957ea66c2", null ],
-    [ "unSubscribeAll", "a02193.html#a6ebf859d4e38acc6e9b7436b097fba26", null ],
-    [ "unSubscribeLast", "a02193.html#a78725a274f6b1817a5792bb0e519d3d9", null ]
+    [ "Derivative", "a02193.html#a12d99506e19b1dc61336d4f5a1e741ea", null ],
+    [ "Domain", "a02193.html#a09179a83de8c99be9dd8f99f3641d53d", null ],
+    [ "Traits", "a02193.html#acb47479c6db16067792b5185cdb84206", null ],
+    [ "DifferentiableFunction", "a02193.html#a09d7f95dc6a3721ed6ae7d9b35476e0e", null ],
+    [ "operator()", "a02193.html#acd243bc8a0fa61139b8980f63b1d1f15", null ],
+    [ "derivative", "a02193.html#af9e5d98d20808a3651b0d7ecb05d6c46", null ],
+    [ "nDerivatives", "a02193.html#a750354e710bf4d55502d50772d379005", null ]
 ];

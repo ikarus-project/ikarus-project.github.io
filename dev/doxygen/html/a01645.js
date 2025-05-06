@@ -1,7 +1,6 @@
 var a01645 =
 [
-    [ "firstDerivativeImpl", "a01645.html#afc42c803d95faabfb6638bcefb54a1be", null ],
-    [ "name", "a01645.html#a1ca250e16c82f619292ac0dcc0b2bec1", null ],
-    [ "secondDerivativeImpl", "a01645.html#ad0d2f475946d1de3ebdf5c196c788125", null ],
-    [ "storedEnergyImpl", "a01645.html#ac4317a6d3fddc93e111121c92fafa036", null ]
+    [ "Skill", "a01645.html#a6c900d07d0cb27b738441b06452be5d1", null ],
+    [ "volumeLoad", "a01645.html#a4662268c782856e02171078b6fcbfa48", null ],
+    [ "worldDim", "a01645.html#a4d01ee496f98eab05902fe055e217bae", null ]
 ];

@@ -1,97 +1,100 @@
-\hypertarget{a01469}{}\doxysection{Ikarus\+::Pre\+FE\texorpdfstring{$<$}{<} BH, use\+Flat, use\+Eigen\+Ref \texorpdfstring{$>$}{>} Struct Template Reference}
-\label{a01469}\index{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}}
+\hypertarget{a01469}{}\doxysection{Ikarus\+::Load\+Control\+Subsidiary\+Function Struct Reference}
+\label{a01469}\index{Ikarus::LoadControlSubsidiaryFunction@{Ikarus::LoadControlSubsidiaryFunction}}
 
 
-\mbox{\hyperlink{a01469}{Pre\+FE}} struct acts as a convenient wrapper for the \mbox{\hyperlink{a01465}{FE}} class to access different type traits.  
+Structure representing the subsidiary function for the load control method.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/finiteelements/febase.\+hh$>$}
+{\ttfamily \#include $<$ikarus/controlroutines/pathfollowingfunctions.\+hh$>$}
 
-\doxysubsection*{Public Types}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{a01469_a96f8fe069706faeb6233e8ad31588b66}{Basis\+Handler}} = BH
-\item 
-using \mbox{\hyperlink{a01469_a826c356a5afb013faffb5f7ac893cff4}{Traits}} = \mbox{\hyperlink{a01521}{FETraits}}$<$ BH, use\+Eigen\+Ref, use\+Flat $>$
-\item 
-{\footnotesize template$<$template$<$ typename, typename $>$ class... Skills$>$ }\\using \mbox{\hyperlink{a01469_ac7266f723a312adbd690b47d5cd06a60}{FE}} = \mbox{\hyperlink{a01469_ac7266f723a312adbd690b47d5cd06a60}{FE}}$<$ \mbox{\hyperlink{a01469}{Pre\+FE}}, Skills... $>$
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-static constexpr int \mbox{\hyperlink{a01469_ac62b5b022663d48416e0560803590259}{world\+Dim}} = Basis\+Handler\+::\+Basis\+::worlddim
-\item 
-static constexpr bool \mbox{\hyperlink{a01469_a4227356aa324e40ecd1c09da5e56cb00}{use\+Eigen\+Reference}} = use\+Eigen\+Ref
-\item 
-static constexpr bool \mbox{\hyperlink{a01469_a67f4db661ba63b8be2f15903c52f3ffd}{use\+Flat\+Basis}} = use\+Flat
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{a01469_aea5de41cde5e7506712e8bdd84be6ffa}{operator()}} (\mbox{\hyperlink{a01461}{Subsidiary\+Args}} \&args) const
+\begin{DoxyCompactList}\small\item\em Evaluates the subsidiary function for the load control method. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F $>$ }\\void \mbox{\hyperlink{a01469_a78e40d036104902ec79e4c08772abeaa}{initial\+Prediction}} (typename F\+::\+Domain \&req, F \&residual, \mbox{\hyperlink{a01461}{Subsidiary\+Args}} \&args)
+\begin{DoxyCompactList}\small\item\em Performs initial prediction for the load control method. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F $>$ }\\void \mbox{\hyperlink{a01469_a8cb74ca245dab2889e991d713ed5467b}{intermediate\+Prediction}} (typename F\+::\+Domain \&req, F \&residual, \mbox{\hyperlink{a01461}{Subsidiary\+Args}} \&args)
+\begin{DoxyCompactList}\small\item\em Performs intermediate prediction for the load control method. \end{DoxyCompactList}\item 
+constexpr auto \mbox{\hyperlink{a01469_a6e2ee6e5a234c1b14ce197f4a1460ed3}{name}} () const
+\begin{DoxyCompactList}\small\item\em The name of the \mbox{\hyperlink{a01453}{Path\+Following}} method. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$typename BH, bool use\+Flat = true, bool use\+Eigen\+Ref = false$>$\newline
-struct Ikarus\+::\+Pre\+FE$<$ BH, use\+Flat, use\+Eigen\+Ref $>$}
+The equation for the load control method reads \[
+f(\mathrm{D}\mathbf{D}, \mathrm{D} \lambda)=
+\mathrm{D} \lambda -  \hat{s}, \] where $\mathrm{D}\mathbf{D}$ is the increment of the solution vector and $\mathrm{D} \lambda$ is the load factor increment. The scalar $\hat{s} $ defines the requested size of the step. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{a01469_a78e40d036104902ec79e4c08772abeaa}\label{a01469_a78e40d036104902ec79e4c08772abeaa}} 
+\index{Ikarus::LoadControlSubsidiaryFunction@{Ikarus::LoadControlSubsidiaryFunction}!initialPrediction@{initialPrediction}}
+\index{initialPrediction@{initialPrediction}!Ikarus::LoadControlSubsidiaryFunction@{Ikarus::LoadControlSubsidiaryFunction}}
+\doxysubsubsection{\texorpdfstring{initialPrediction()}{initialPrediction()}}
+{\footnotesize\ttfamily template$<$typename F $>$ \\
+void Ikarus\+::\+Load\+Control\+Subsidiary\+Function\+::initial\+Prediction (\begin{DoxyParamCaption}\item[{typename F\+::\+Domain \&}]{req,  }\item[{F \&}]{residual,  }\item[{\mbox{\hyperlink{a01461}{Subsidiary\+Args}} \&}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This method initializes the prediction step for the load control method.
+
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em BH} & The type of the basis handler. \\
-\hline
-{\em use\+Flat} & A boolean indicating if the type of the underlying basis is of the flat or the untouched version. \\
-\hline
-{\em use\+Eigen\+Ref} & A boolean flag indicating whether to use \mbox{\hyperlink{a00486}{Eigen}} references. \\
+{\em F} & Type of the residual function. \\
 \hline
 \end{DoxyTemplParams}
 
+\begin{DoxyParams}{Parameters}
+{\em residual} & The residual function. \\
+\hline
+{\em args} & The subsidiary function arguments. \\
+\hline
+{\em req} & The solution. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{a01469_a8cb74ca245dab2889e991d713ed5467b}\label{a01469_a8cb74ca245dab2889e991d713ed5467b}} 
+\index{Ikarus::LoadControlSubsidiaryFunction@{Ikarus::LoadControlSubsidiaryFunction}!intermediatePrediction@{intermediatePrediction}}
+\index{intermediatePrediction@{intermediatePrediction}!Ikarus::LoadControlSubsidiaryFunction@{Ikarus::LoadControlSubsidiaryFunction}}
+\doxysubsubsection{\texorpdfstring{intermediatePrediction()}{intermediatePrediction()}}
+{\footnotesize\ttfamily template$<$typename F $>$ \\
+void Ikarus\+::\+Load\+Control\+Subsidiary\+Function\+::intermediate\+Prediction (\begin{DoxyParamCaption}\item[{typename F\+::\+Domain \&}]{req,  }\item[{F \&}]{residual,  }\item[{\mbox{\hyperlink{a01461}{Subsidiary\+Args}} \&}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\doxysubsection{Member Typedef Documentation}
-\mbox{\Hypertarget{a01469_a96f8fe069706faeb6233e8ad31588b66}\label{a01469_a96f8fe069706faeb6233e8ad31588b66}} 
-\index{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}!BasisHandler@{BasisHandler}}
-\index{BasisHandler@{BasisHandler}!Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}}
-\doxysubsubsection{\texorpdfstring{BasisHandler}{BasisHandler}}
-{\footnotesize\ttfamily template$<$typename BH , bool use\+Flat = true, bool use\+Eigen\+Ref = false$>$ \\
-using \mbox{\hyperlink{a01469}{Ikarus\+::\+Pre\+FE}}$<$ BH, use\+Flat, use\+Eigen\+Ref $>$\+::\+Basis\+Handler =  BH}
-
-\mbox{\Hypertarget{a01469_ac7266f723a312adbd690b47d5cd06a60}\label{a01469_ac7266f723a312adbd690b47d5cd06a60}} 
-\index{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}!FE@{FE}}
-\index{FE@{FE}!Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}}
-\doxysubsubsection{\texorpdfstring{FE}{FE}}
-{\footnotesize\ttfamily template$<$typename BH , bool use\+Flat = true, bool use\+Eigen\+Ref = false$>$ \\
-template$<$template$<$ typename, typename $>$ class... Skills$>$ \\
-using \mbox{\hyperlink{a01469}{Ikarus\+::\+Pre\+FE}}$<$ BH, use\+Flat, use\+Eigen\+Ref $>$\+::\+FE =  \mbox{\hyperlink{a01469_ac7266f723a312adbd690b47d5cd06a60}{FE}}$<$\mbox{\hyperlink{a01469}{Pre\+FE}}, Skills...$>$}
-
-\mbox{\Hypertarget{a01469_a826c356a5afb013faffb5f7ac893cff4}\label{a01469_a826c356a5afb013faffb5f7ac893cff4}} 
-\index{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}!Traits@{Traits}}
-\index{Traits@{Traits}!Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}}
-\doxysubsubsection{\texorpdfstring{Traits}{Traits}}
-{\footnotesize\ttfamily template$<$typename BH , bool use\+Flat = true, bool use\+Eigen\+Ref = false$>$ \\
-using \mbox{\hyperlink{a01469}{Ikarus\+::\+Pre\+FE}}$<$ BH, use\+Flat, use\+Eigen\+Ref $>$\+::\+Traits =  \mbox{\hyperlink{a01521}{FETraits}}$<$BH, use\+Eigen\+Ref, use\+Flat$>$}
+This method updates the prediction step for the load control method.
 
 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em F} & Type of the residual function. \\
+\hline
+\end{DoxyTemplParams}
 
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{a01469_a4227356aa324e40ecd1c09da5e56cb00}\label{a01469_a4227356aa324e40ecd1c09da5e56cb00}} 
-\index{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}!useEigenReference@{useEigenReference}}
-\index{useEigenReference@{useEigenReference}!Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}}
-\doxysubsubsection{\texorpdfstring{useEigenReference}{useEigenReference}}
-{\footnotesize\ttfamily template$<$typename BH , bool use\+Flat = true, bool use\+Eigen\+Ref = false$>$ \\
-constexpr bool \mbox{\hyperlink{a01469}{Ikarus\+::\+Pre\+FE}}$<$ BH, use\+Flat, use\+Eigen\+Ref $>$\+::use\+Eigen\+Reference = use\+Eigen\+Ref\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+\begin{DoxyParams}{Parameters}
+{\em residual} & The residual function. \\
+\hline
+{\em args} & The subsidiary function arguments. \\
+\hline
+{\em req} & The solution. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{a01469_a6e2ee6e5a234c1b14ce197f4a1460ed3}\label{a01469_a6e2ee6e5a234c1b14ce197f4a1460ed3}} 
+\index{Ikarus::LoadControlSubsidiaryFunction@{Ikarus::LoadControlSubsidiaryFunction}!name@{name}}
+\index{name@{name}!Ikarus::LoadControlSubsidiaryFunction@{Ikarus::LoadControlSubsidiaryFunction}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily constexpr auto Ikarus\+::\+Load\+Control\+Subsidiary\+Function\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
 
-\mbox{\Hypertarget{a01469_a67f4db661ba63b8be2f15903c52f3ffd}\label{a01469_a67f4db661ba63b8be2f15903c52f3ffd}} 
-\index{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}!useFlatBasis@{useFlatBasis}}
-\index{useFlatBasis@{useFlatBasis}!Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}}
-\doxysubsubsection{\texorpdfstring{useFlatBasis}{useFlatBasis}}
-{\footnotesize\ttfamily template$<$typename BH , bool use\+Flat = true, bool use\+Eigen\+Ref = false$>$ \\
-constexpr bool \mbox{\hyperlink{a01469}{Ikarus\+::\+Pre\+FE}}$<$ BH, use\+Flat, use\+Eigen\+Ref $>$\+::use\+Flat\+Basis = use\+Flat\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+\mbox{\Hypertarget{a01469_aea5de41cde5e7506712e8bdd84be6ffa}\label{a01469_aea5de41cde5e7506712e8bdd84be6ffa}} 
+\index{Ikarus::LoadControlSubsidiaryFunction@{Ikarus::LoadControlSubsidiaryFunction}!operator()@{operator()}}
+\index{operator()@{operator()}!Ikarus::LoadControlSubsidiaryFunction@{Ikarus::LoadControlSubsidiaryFunction}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily void Ikarus\+::\+Load\+Control\+Subsidiary\+Function\+::operator() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{a01461}{Subsidiary\+Args}} \&}]{args }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{a01469_ac62b5b022663d48416e0560803590259}\label{a01469_ac62b5b022663d48416e0560803590259}} 
-\index{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}!worldDim@{worldDim}}
-\index{worldDim@{worldDim}!Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$@{Ikarus::PreFE$<$ BH, useFlat, useEigenRef $>$}}
-\doxysubsubsection{\texorpdfstring{worldDim}{worldDim}}
-{\footnotesize\ttfamily template$<$typename BH , bool use\+Flat = true, bool use\+Eigen\+Ref = false$>$ \\
-constexpr int \mbox{\hyperlink{a01469}{Ikarus\+::\+Pre\+FE}}$<$ BH, use\+Flat, use\+Eigen\+Ref $>$\+::world\+Dim = Basis\+Handler\+::\+Basis\+::worlddim\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+This method calculates the subsidiary function value and its derivatives for the given arguments.
 
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The subsidiary function arguments. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a00293}{febase.\+hh}}\end{DoxyCompactItemize}
+\mbox{\hyperlink{a00347}{pathfollowingfunctions.\+hh}}\end{DoxyCompactItemize}

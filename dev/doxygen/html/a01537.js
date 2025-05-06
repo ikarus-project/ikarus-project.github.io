@@ -1,6 +1,5 @@
 var a01537 =
 [
-    [ "Skill", "a01537.html#a70eedd41455aeffb21dbc1ad9eef1752", null ],
-    [ "material", "a01537.html#ab9e6c9d9f7fc9143b4e757a1bc3434e6", null ],
-    [ "thickness", "a01537.html#a011229be59e800e251f4ea13d35197bc", null ]
+    [ "SupportedResultTypes", "a01537.html#ac43d0000154d9bd08d7fdce3c279ccbb", null ],
+    [ "supportsResultType", "a01537.html#af33553a01e6940265639d561c31b7746", null ]
 ];
