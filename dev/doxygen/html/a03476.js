@@ -1,5 +1,5 @@
 var a03476 =
 [
-    [ "Ikarus::DeriveSizeType< T >", "a02209.html", "a02209" ],
-    [ "Ikarus::DeriveSizeType< std::vector< bool > >", "a02213.html", "a02213" ]
+    [ "forwardCorrectFunction", "a03476.html#a7f83fd37212b1411d1dbae8f7064882c", null ],
+    [ "registerDirichletValues", "a03476.html#ga39b6df6adfe4858b13ac71f5830f29f6", null ]
 ];

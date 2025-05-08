@@ -1,5 +1,6 @@
 var a03437 =
 [
-    [ "Ikarus::Materials::CorrectStrainSize", "a02349.html", null ],
-    [ "hasCorrectSize", "a03437.html#acd3877457d719128ff83d44c6253ece8", null ]
+    [ "Ikarus::ScalarAssembler< SA, FEC, DV, ST >", "a01384.html", "a01384" ],
+    [ "Ikarus::VectorAssembler< VA, FEC, DV, VT >", "a01388.html", "a01388" ],
+    [ "Ikarus::MatrixAssembler< MA, FEC, DV, MT >", "a01392.html", "a01392" ]
 ];

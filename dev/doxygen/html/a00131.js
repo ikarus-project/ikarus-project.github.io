@@ -1,5 +1,5 @@
 var a00131 =
 [
-    [ "Ikarus::Broadcaster< void(Args...)>", "a02137.html", "a02137" ],
-    [ "Ikarus::Broadcasters< Signatures >", "a02141.html", "a02141" ]
+    [ "Ikarus::Broadcaster< void(Args...)>", "a02140.html", "a02140" ],
+    [ "Ikarus::Broadcasters< Signatures >", "a02144.html", "a02144" ]
 ];

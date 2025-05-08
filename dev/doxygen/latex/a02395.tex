@@ -1,10 +1,5 @@
-\hypertarget{a02395}{}\doxysection{Ikarus\+::Concepts\+::Formulations\+::Total\+Lagrangian Concept Reference}
-\label{a02395}\index{Ikarus::Concepts::Formulations::TotalLagrangian@{Ikarus::Concepts::Formulations::TotalLagrangian}}
-
-
-Concept to check if the underlying strain and stress tag correspond to a total Lagrangian formulation.  
-
-
+\hypertarget{a02395}{}\doxysection{Ikarus\+::Concepts\+::Control\+Routine\+State Concept Reference}
+\label{a02395}\index{Ikarus::Concepts::ControlRoutineState@{Ikarus::Concepts::ControlRoutineState}}
 
 
 {\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
@@ -12,18 +7,13 @@ Concept to check if the underlying strain and stress tag correspond to a total L
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<StrainTags T1, StressTags T2>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02395}{Ikarus::Concepts::Formulations::TotalLagrangian}} =  (T1 == \mbox{\hyperlink{a00478_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}} and T2 == \mbox{\hyperlink{a00478_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}}) or}
-\DoxyCodeLine{                              (T1 == \mbox{\hyperlink{a00478_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e}{StrainTags::greenLagrangian}} and T2 == \mbox{\hyperlink{a00478_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}})}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} S>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02395}{Ikarus::Concepts::ControlRoutineState}} =  \textcolor{keyword}{requires}(S s) \{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} S::Domain;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \{ s.loadStep \} -\/> std::convertible\_to<int>;}
+\DoxyCodeLine{    \{ s.stepSize \} -\/> std::convertible\_to<double>;}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em T1} & The underlying strain tag. \\
-\hline
-{\em T2} & The underlying stress tag. \\
-\hline
-\end{DoxyTemplParams}

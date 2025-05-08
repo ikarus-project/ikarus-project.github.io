@@ -1,10 +1,8 @@
 var a00263 =
 [
-    [ "makeArrudaBoyce", "a00263.html#af561f0434312c4d30c22e4438f2c9a1a", null ],
-    [ "makeBlatzKo", "a00263.html#aa724b5f1275a41f266ad6aae180ed317", null ],
-    [ "makeGent", "a00263.html#a02bb70b49abcfa023ae81f4f4f1d27de", null ],
-    [ "makeInvariantBased", "a00263.html#a03ec75f725d4772d6e33532501cd10a8", null ],
-    [ "makeMooneyRivlin", "a00263.html#a7ac025ab0f41d2021008bd54e51135b1", null ],
-    [ "makeOgden", "a00263.html#af8c1c0f27639b0883f98f4e814aca8e5", null ],
-    [ "makeYeoh", "a00263.html#a00567c7322e1a28e7575c67a19631201", null ]
+    [ "createCauchyStress", "a00263.html#ad5371a3a1c5123b3241a103c6c844b88", null ],
+    [ "createKirchhoffStress", "a00263.html#ac072123f9f65284646424ff6fb2a3661", null ],
+    [ "createPK1Stress", "a00263.html#acda5fb24a857866c8be72dcb94edc70f", null ],
+    [ "createPK2Stress", "a00263.html#aac5f712024c37b9014278c6b91b79f41", null ],
+    [ "transformStress", "a00263.html#a15a168e678f7086c461b0aab8eb69349", null ]
 ];

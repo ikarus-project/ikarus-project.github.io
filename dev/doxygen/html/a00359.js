@@ -1,4 +1,4 @@
 var a00359 =
 [
-    [ "Ikarus::EAS::GreenLagrangeStrain", "a01789.html", "a01789" ]
+    [ "Ikarus::EAS::LinearStrain", "a01796.html", "a01796" ]
 ];

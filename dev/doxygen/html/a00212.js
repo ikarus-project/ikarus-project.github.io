@@ -1,9 +1,9 @@
 var a00212 =
 [
-    [ "Ikarus::GeneralizedSymEigenSolver< SolverType, MT >", "a02017.html", null ],
-    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Spectra, MT >", "a02021.html", "a02021" ],
-    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Eigen, MT >", "a02025.html", "a02025" ],
-    [ "Ikarus::PartialGeneralizedSymEigenSolver< MT >", "a02029.html", "a02029" ],
+    [ "Ikarus::GeneralizedSymEigenSolver< SolverType, MT >", "a02020.html", null ],
+    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Spectra, MT >", "a02024.html", "a02024" ],
+    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Eigen, MT >", "a02028.html", "a02028" ],
+    [ "Ikarus::PartialGeneralizedSymEigenSolver< MT >", "a02032.html", "a02032" ],
     [ "EigenValueSolverType", "a00212.html#a76f328509ccf00e93bba2416f01620e4", [
       [ "BEGIN", "a00212.html#a76f328509ccf00e93bba2416f01620e4a19aad9f2fe3ce0023298ab83f7e75775", null ],
       [ "Spectra", "a00212.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69", null ],

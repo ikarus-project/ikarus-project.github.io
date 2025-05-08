@@ -1,4 +1,6 @@
 var a00389 =
 [
-    [ "Ikarus::Experimental::AutoDiffMAT< RealMAT, forceAutoDiffV, forceAutoDiffS >", "a01477.html", "a01477" ]
+    [ "globalIndices", "a00389.html#a44e16df41148f7e4538be224814a3423", null ],
+    [ "globalIndicesFromLocalView", "a00389.html#a2a4ac5503d4288b339457aae427ff661", null ],
+    [ "localSolutionBlockVector", "a00389.html#a899043a23720a93e6ce9be9025c3a4bb", null ]
 ];

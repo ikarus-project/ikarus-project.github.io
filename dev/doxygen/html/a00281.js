@@ -1,4 +1,4 @@
 var a00281 =
 [
-    [ "BlatzKo", "a00281.html#a7c7d4e399e30b088b7253771704bd01b", null ]
+    [ "InvariantBased", "a00281.html#a54eda7633e477c02ff71fa6e3f40a1ab", null ]
 ];

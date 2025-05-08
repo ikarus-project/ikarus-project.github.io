@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: linearelasticity.hh File Reference</title>
+    <title>ikarus: strainconversions.hh File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -156,38 +156,45 @@ $(document).ready(function(){initNavTree('a00317.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
-  <div class="headertitle"><div class="title">linearelasticity.hh File Reference<div class="ingroups"><a class="el" href="a00470.html">Ikarus Modules</a> &raquo; <a class="el" href="a00477.html">Materials</a></div></div></div>
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">strainconversions.hh File Reference<div class="ingroups"><a class="el" href="a00473.html">Ikarus Modules</a> &raquo; <a class="el" href="a00480.html">Materials</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Contains the LinearElasticityT class implementation.  
+<p>Implementation of transformations for different strain measures.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="a03437_source.html">ikarus/finiteelements/mechanics/materials/interface.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00311_source.html">ikarus/finiteelements/mechanics/materials/svk.hh</a>&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00293_source.html">tags.hh</a>&quot;</code><br />
+<code>#include &lt;unsupported/Eigen/MatrixFunctions&gt;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00308_source.html">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00005_source.html">ikarus/utils/tensorutils.hh</a>&gt;</code><br />
 </div>
 <p><a href="a00317_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html">Ikarus::Materials::LinearElasticityT&lt; ST &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of the Linear Elasticity material model.The energy is computed as.  <a href="a01749.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00489"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00489.html">Ikarus</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00500"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00500.html">Ikarus::Materials</a></td></tr>
+<tr class="memitem:a00492"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00492.html">Ikarus</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a93b8b0e77767bbe61541863fcf4d054d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00500.html#a93b8b0e77767bbe61541863fcf4d054d">Ikarus::Materials::LinearElasticity</a> = LinearElasticityT&lt; double &gt;</td></tr>
-<tr class="memdesc:a93b8b0e77767bbe61541863fcf4d054d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience typedef for LinearElasticity with double as ScalarType.  <a href="a00500.html#a93b8b0e77767bbe61541863fcf4d054d">More...</a><br /></td></tr>
-<tr class="separator:a93b8b0e77767bbe61541863fcf4d054d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a723edca47f0ba6c4c13c34e80cd57a9b"><td class="memTemplParams" colspan="2">template&lt;StrainTags tag, typename Derived &gt; </td></tr>
+<tr class="memitem:a723edca47f0ba6c4c13c34e80cd57a9b"><td class="memTemplItemLeft" align="right" valign="top">Derived&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00492.html#a723edca47f0ba6c4c13c34e80cd57a9b">Ikarus::createGreenLagrangianStrains</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;eMB)</td></tr>
+<tr class="memdesc:a723edca47f0ba6c4c13c34e80cd57a9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create Green-Lagrangian strain based on the input.  <a href="a00492.html#a723edca47f0ba6c4c13c34e80cd57a9b">More...</a><br /></td></tr>
+<tr class="separator:a723edca47f0ba6c4c13c34e80cd57a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c71be63a6a44b758b39371299e790ce"><td class="memTemplParams" colspan="2">template&lt;StrainTags tag, typename Derived &gt; </td></tr>
+<tr class="memitem:a0c71be63a6a44b758b39371299e790ce"><td class="memTemplItemLeft" align="right" valign="top">Derived&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00492.html#a0c71be63a6a44b758b39371299e790ce">Ikarus::createDeformationGradient</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;eMB)</td></tr>
+<tr class="memdesc:a0c71be63a6a44b758b39371299e790ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the deformation gradient based on the input.  <a href="a00492.html#a0c71be63a6a44b758b39371299e790ce">More...</a><br /></td></tr>
+<tr class="separator:a0c71be63a6a44b758b39371299e790ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18dcccfb95299fa47afebb3495a065c0"><td class="memTemplParams" colspan="2">template&lt;StrainTags tag, typename Derived &gt; </td></tr>
+<tr class="memitem:a18dcccfb95299fa47afebb3495a065c0"><td class="memTemplItemLeft" align="right" valign="top">Derived&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00492.html#a18dcccfb95299fa47afebb3495a065c0">Ikarus::createRightCauchyGreen</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;eMB)</td></tr>
+<tr class="memdesc:a18dcccfb95299fa47afebb3495a065c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create right Cauchy-Green tensor based on the input.  <a href="a00492.html#a18dcccfb95299fa47afebb3495a065c0">More...</a><br /></td></tr>
+<tr class="separator:a18dcccfb95299fa47afebb3495a065c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdf1f705005400846826dd7bdaac4f88"><td class="memTemplParams" colspan="2">template&lt;StrainTags from, StrainTags to, typename Derived &gt; </td></tr>
+<tr class="memitem:abdf1f705005400846826dd7bdaac4f88"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00492.html#abdf1f705005400846826dd7bdaac4f88">Ikarus::transformStrain</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;eRaw)</td></tr>
+<tr class="memdesc:abdf1f705005400846826dd7bdaac4f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform strain from one type to another.  <a href="a00492.html#abdf1f705005400846826dd7bdaac4f88">More...</a><br /></td></tr>
+<tr class="separator:abdf1f705005400846826dd7bdaac4f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -199,7 +206,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="a00317.html">linearelasticity.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="a00317.html">strainconversions.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

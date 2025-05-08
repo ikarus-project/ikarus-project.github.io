@@ -1,10 +1,5 @@
-\hypertarget{a02390}{}\doxysection{Ikarus\+::Concepts\+::Smart\+Pointer Concept Reference}
-\label{a02390}\index{Ikarus::Concepts::SmartPointer@{Ikarus::Concepts::SmartPointer}}
-
-
-Concept to check if the type is either a unique\+\_\+ptr or a shared\+\_\+ptr.  
-
-
+\hypertarget{a02390}{}\doxysection{Ikarus\+::Concepts\+::Data\+Collector Concept Reference}
+\label{a02390}\index{Ikarus::Concepts::DataCollector@{Ikarus::Concepts::DataCollector}}
 
 
 {\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
@@ -12,17 +7,13 @@ Concept to check if the type is either a unique\+\_\+ptr or a shared\+\_\+ptr.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02390}{Ikarus::Concepts::SmartPointer}} =  traits::isSharedPtr<T>::value || traits::isUniquePtr<T>::value}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{class} DC>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02390}{Ikarus::Concepts::DataCollector}} =  \textcolor{keyword}{requires}(DC dc) \{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DC::GridView;}
+\DoxyCodeLine{    \{ dc.update() \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{    \{ dc.numPoints() \} -\/> std::convertible\_to<std::uint64\_t>;}
+\DoxyCodeLine{    \{ dc.numCells() \} -\/> std::convertible\_to<std::uint64\_t>;}
+\DoxyCodeLine{    \{ dc.gridView() \} -\/> std::same\_as<const typename DC::GridView\&>;}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-Concept to check if the type is either a smart pointer or a raw pointer.
-
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em T} & The type to be checked. \\
-\hline
-\end{DoxyTemplParams}

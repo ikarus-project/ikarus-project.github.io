@@ -1,169 +1,136 @@
-\hypertarget{a03455_source}{}\doxysection{io/vtkwriter.hh}
-\label{a03455_source}\index{vtkwriter.hh@{vtkwriter.hh}}
+\hypertarget{a03455_source}{}\doxysection{easvariants/displacementgradient.hh}
+\label{a03455_source}\index{displacementgradient.hh@{displacementgradient.hh}}
 \mbox{\hyperlink{a03455}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00188}{vtkdatatag.hh}}"{}}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <array>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <tuple>}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}dune/functions/functionspacebases/powerbasis.hh"{}}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include "{}dune/functions/functionspacebases/subspacebasis.hh"{}}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <dune/common/fvector.hh>}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <dune/functions/gridfunctions/discreteglobalbasisfunction.hh>}}
-\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <dune/grid/yaspgrid.hh>}}
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <dune/vtk/vtkwriter.hh>}}
-\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <dune/vtk/writers/unstructuredgridwriter.hh>}}
-\DoxyCodeLine{25 }
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00182}{ikarus/io/resultfunction.hh}}>}}
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03470}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{28 }
-\DoxyCodeLine{29 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00504}{Ikarus::Vtk}} \{}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{32   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Container>}
-\DoxyCodeLine{33   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} sizeOfContainer = []() \{}
-\DoxyCodeLine{34     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ std::tuple\_size<Container>::value; \})}
-\DoxyCodeLine{35       \textcolor{keywordflow}{return} std::tuple\_size<Container>::value;}
-\DoxyCodeLine{36     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{37       \textcolor{keywordflow}{return} 1ul;}
-\DoxyCodeLine{38   \}();}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
-\DoxyCodeLine{41   \textcolor{keyword}{struct }ResultContainerPre}
-\DoxyCodeLine{42   \{}
-\DoxyCodeLine{43     \textcolor{keyword}{using }type = double;}
-\DoxyCodeLine{44   \};}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{class} Basis>}
-\DoxyCodeLine{47   \textcolor{keyword}{struct }ResultContainer}
-\DoxyCodeLine{48   \{}
-\DoxyCodeLine{49     \textcolor{keyword}{using }type = ResultContainerPre<typename Basis::PreBasis>::type;}
-\DoxyCodeLine{50   \};}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{52   \textcolor{keyword}{template} <\textcolor{keyword}{class} RB, \textcolor{keyword}{class} PP>}
-\DoxyCodeLine{53   \textcolor{keyword}{struct }ResultContainer<\mbox{\hyperlink{a00515}{Dune}}::Functions::SubspaceBasis<RB, PP>>}
-\DoxyCodeLine{54   \{}
-\DoxyCodeLine{55     \textcolor{keyword}{using }type = double;}
-\DoxyCodeLine{56   \};}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58   \textcolor{keyword}{template} <\textcolor{keyword}{class} Basis>}
-\DoxyCodeLine{59   \textcolor{keyword}{using }ResultContainer\_t = \textcolor{keyword}{typename} ResultContainer<Basis>::type;}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61   \textcolor{comment}{// specialization for power basis}}
-\DoxyCodeLine{62   \textcolor{keyword}{template} <\textcolor{keyword}{class} IMS, \textcolor{keyword}{class} SPB, std::\textcolor{keywordtype}{size\_t} size>}
-\DoxyCodeLine{63   \textcolor{keyword}{struct }ResultContainerPre<\mbox{\hyperlink{a00515}{Dune}}::Functions::PowerPreBasis<IMS, SPB, size>>}
-\DoxyCodeLine{64   \{}
-\DoxyCodeLine{65     \textcolor{keyword}{using }type = std::array<typename ResultContainerPre<SPB>::type, size>;}
-\DoxyCodeLine{66   \};}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{78 \textcolor{keyword}{template} <\textcolor{keyword}{typename} AS, \textcolor{keyword}{typename} DC, \textcolor{keyword}{typename} Base>}
-\DoxyCodeLine{79 \textcolor{keyword}{requires}(Concepts::FlatAssembler<AS> \&\& Concepts::DataCollector<DC>)}
-\DoxyCodeLine{80 \textcolor{keyword}{struct} \mbox{\hyperlink{a01981}{Writer}} : \textcolor{keyword}{public} Base}
-\DoxyCodeLine{81 \{}
-\DoxyCodeLine{82 \textcolor{keyword}{public}:}
-\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{a01981_a48666f99819393e871c84b4f4bd4b816}{Assembler}}     = AS;}
-\DoxyCodeLine{84   \textcolor{keyword}{using }\mbox{\hyperlink{a01981_aadd66859407a6b1a5d7604e693348c00}{GridView}}      = \textcolor{keyword}{typename} Assembler::GridView;}
-\DoxyCodeLine{85   \textcolor{keyword}{using }\mbox{\hyperlink{a01981_af943a6fe7f917d909b06aaace360c129}{FERequirement}} = \textcolor{keyword}{typename} Assembler::FERequirement;}
-\DoxyCodeLine{86   \textcolor{keyword}{using }\mbox{\hyperlink{a01981_aaac8aafaef3b80c862dd57fbf7b97279}{FEContainer}}   = \textcolor{keyword}{typename} Assembler::FEContainer;}
-\DoxyCodeLine{87   \textcolor{keyword}{using }\mbox{\hyperlink{a01981_a3a3fcd008921213a40a189cf5c947a08}{FEType}}        = \textcolor{keyword}{typename} std::remove\_cvref\_t<FEContainer>::value\_type;}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89   \textcolor{keyword}{using }\mbox{\hyperlink{a01981_a700ee4a5f71f8985ee7e4364372c6895}{DataCollector}} = DC;}
-\DoxyCodeLine{90   \textcolor{keyword}{using }\mbox{\hyperlink{a01981_a7e43687c38b914c1c3805c0ebefff9bd}{VTKWriter}}     = Base;}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{98   \textcolor{keyword}{template} <\textcolor{keyword}{class}... Args>}
-\DoxyCodeLine{99   \mbox{\hyperlink{a01981_a7f632eb9736d0518bfccc57782911611}{Writer}}(std::shared\_ptr<AS> assembler, Args... args)}
-\DoxyCodeLine{100       : Base(assembler-\/>gridView(), std::forward<Args>(args)...),}
-\DoxyCodeLine{101         assembler\_(assembler) \{\}}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{110   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DC\_, \textcolor{keyword}{class}... Args>}
-\DoxyCodeLine{111   \textcolor{keyword}{requires} \mbox{\hyperlink{a02387}{Concepts::DataCollector<std::decay\_t<DC\_>}}>}
-\DoxyCodeLine{112   \mbox{\hyperlink{a01981_a2bd5df12f7819102911d2ec09ce8a977}{Writer}}(std::shared\_ptr<AS> assembler, DC\_\&\& dc, Args... args)}
-\DoxyCodeLine{113       : Base(std::forward<std::decay\_t<DC\_>>(dc), std::forward<Args>(args)...),}
-\DoxyCodeLine{114         assembler\_(assembler) \{\}}
-\DoxyCodeLine{115 }
-\DoxyCodeLine{123   \textcolor{keyword}{template} <\textcolor{keyword}{typename} RF>}
-\DoxyCodeLine{124   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01981_a658290b81fbe3d75d228ea393f5a6d47}{addResultFunction}}(RF\&\& resultFunction, \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273b}{DataTag}} dataTag = \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}}) \{}
-\DoxyCodeLine{125     \textcolor{keywordflow}{if} (dataTag == \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546}{DataTag::asCellData}} or dataTag == \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926}{DataTag::asCellAndPointData}})}
-\DoxyCodeLine{126       Base::addCellData(std::forward<RF>(resultFunction));}
-\DoxyCodeLine{127     \textcolor{keywordflow}{if} (dataTag == \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}} or dataTag == \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926}{DataTag::asCellAndPointData}})}
-\DoxyCodeLine{128       Base::addPointData(std::forward<RF>(resultFunction));}
-\DoxyCodeLine{129   \}}
-\DoxyCodeLine{130 }
-\DoxyCodeLine{137   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT, \textcolor{keyword}{typename} UserFunction = Ikarus::Impl::DefaultUserFunction>}
-\DoxyCodeLine{138   \textcolor{keyword}{requires}(\mbox{\hyperlink{a02382}{Concepts::ResultType<RT>}})}
-\DoxyCodeLine{139   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01981_a80776ad077f50b77de658392cb8736fe}{addResult}}(\mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273b}{DataTag}} dataTag = \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}}, UserFunction\&\& userFunction = \{\}) \{}
-\DoxyCodeLine{140     \textcolor{keyword}{auto} resFunction = makeResultVtkFunction<RT>(assembler\_, std::forward<UserFunction>(userFunction));}
-\DoxyCodeLine{141     addResultFunction(std::move(resFunction), dataTag);}
-\DoxyCodeLine{142   \}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00377}{ikarus/finiteelements/mechanics/strainenhancements/easvariants/helperfunctions.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00005}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00504}{Ikarus::EAS}} \{}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{24 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} ess>}
+\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{a01832}{HX}}}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01832_a13e61f53c778da13a0955dfd03ab2353}{myDim}}              = GEO::mydimension;}
+\DoxyCodeLine{28   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01832_afa1261c9dc2f51bcb0af8fcd145ab2a7}{strainSize}}         = \mbox{\hyperlink{a01832_a13e61f53c778da13a0955dfd03ab2353}{myDim}} * (\mbox{\hyperlink{a01832_a13e61f53c778da13a0955dfd03ab2353}{myDim}} + 1) / 2;}
+\DoxyCodeLine{29   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01832_aa6a89d53d04d145d803c79a55a5e5904}{enhancedStrainSize}} = ess;}
+\DoxyCodeLine{30   \textcolor{keyword}{using }\mbox{\hyperlink{a01832_aecce904b6ce5a775f05b4b1ad51b5b56}{MType}}                             = Eigen::Matrix<double, strainSize, enhancedStrainSize>;}
+\DoxyCodeLine{31   \textcolor{keyword}{using }\mbox{\hyperlink{a01832_a7a47b0edee25077a0b075d73aeab459a}{DType}}                             = Eigen::Matrix<double, enhancedStrainSize, enhancedStrainSize>;}
+\DoxyCodeLine{32   \textcolor{keyword}{using }\mbox{\hyperlink{a01832_a38a9b5aaf01cb25fc10d33468e632991}{AnsatzType}}                        = Eigen::Matrix<double, myDim, myDim>;}
+\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a01832_a23862839b77065e47a2b1e30043d7313}{HType}}                             = std::array<AnsatzType, enhancedStrainSize>;}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35   \mbox{\hyperlink{a01832_a2fc709060acb33971c2affff2892a9df}{HX}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{36   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01832_af9dc9a41b629e74b247f3b200b5101cd}{HX}}(\textcolor{keyword}{const} GEO\& \mbox{\hyperlink{a01832_a2ebfde089e7e891939fbf1513c53c386}{geometry}})}
+\DoxyCodeLine{37       : \mbox{\hyperlink{a01832_a5225813b86b8725ca1623a5411514098}{geometry\_}}\{std::make\_optional<GEO>(\mbox{\hyperlink{a01832_a2ebfde089e7e891939fbf1513c53c386}{geometry}})\} \{\}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{40   std::optional<GEO> \mbox{\hyperlink{a01832_a5225813b86b8725ca1623a5411514098}{geometry\_}};}
+\DoxyCodeLine{41   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01832_a2ebfde089e7e891939fbf1513c53c386}{geometry}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>geometry\_.value(); \};}
+\DoxyCodeLine{42 \};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{48 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{49 \textcolor{keyword}{struct }\mbox{\hyperlink{a01836}{H0}} : \mbox{\hyperlink{a01832}{HX}}<GEO, 0>}
+\DoxyCodeLine{50 \{}
+\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{a01832}{Base}}                              = \mbox{\hyperlink{a01832}{HX<GEO, 0>}};}
+\DoxyCodeLine{52   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01836_a0ca47f0792ff9f9b31faf158fc3ac15d}{myDim}}              = \mbox{\hyperlink{a01832_a13e61f53c778da13a0955dfd03ab2353}{Base::myDim}};}
+\DoxyCodeLine{53   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01836_a4a719fe64e547183c3b8b16dc640b9a0}{strainSize}}         = \mbox{\hyperlink{a01832_afa1261c9dc2f51bcb0af8fcd145ab2a7}{Base::strainSize}};}
+\DoxyCodeLine{54   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01836_ad83a5fc29c72acd3d512b79a9a2eedba}{enhancedStrainSize}} = \mbox{\hyperlink{a01832_aa6a89d53d04d145d803c79a55a5e5904}{Base::enhancedStrainSize}};}
+\DoxyCodeLine{55   \textcolor{keyword}{using }\mbox{\hyperlink{a01836_addcd2e82e694f12ae160df7ab12479c6}{MType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_aecce904b6ce5a775f05b4b1ad51b5b56}{Base::MType}};}
+\DoxyCodeLine{56   \textcolor{keyword}{using }\mbox{\hyperlink{a01836_a0863a162092d8e1171841638cc4eb9e0}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_a7a47b0edee25077a0b075d73aeab459a}{Base::DType}};}
+\DoxyCodeLine{57   \textcolor{keyword}{using }\mbox{\hyperlink{a01836_aa9a84ac440a37e7487238f8a0618a34c}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_a38a9b5aaf01cb25fc10d33468e632991}{Base::AnsatzType}};}
+\DoxyCodeLine{58   \textcolor{keyword}{using }\mbox{\hyperlink{a01836_a65830cd78023ca9d98494c8f93eed1c4}{HType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_a23862839b77065e47a2b1e30043d7313}{Base::HType}};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \mbox{\hyperlink{a01836_afa77d4ffa2dd1a2205ca04c6fb7ea9e0}{H0}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{61   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01836_a9e0da889835ce46e64e075d92e1105ce}{H0}}(\textcolor{keyword}{const} GEO\& geo)}
+\DoxyCodeLine{62       : \mbox{\hyperlink{a01832}{Base}}(geo) \{\}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \mbox{\hyperlink{a01836_a65830cd78023ca9d98494c8f93eed1c4}{HType}} \mbox{\hyperlink{a01836_a432f5778a983c91d820f4a43cc0f2aa2}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02204}{Dune::FieldVector<double, myDim>}}\& \textcolor{comment}{/*quadPos*/})\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \{\}; \}}
+\DoxyCodeLine{65 \};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{75 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{76 \textcolor{keyword}{struct }\mbox{\hyperlink{a01840}{H4}} : \mbox{\hyperlink{a01832}{HX}}<GEO, 4>}
+\DoxyCodeLine{77 \{}
+\DoxyCodeLine{78   \textcolor{keyword}{using }\mbox{\hyperlink{a01832}{Base}}                              = \mbox{\hyperlink{a01832}{HX<GEO, 4>}};}
+\DoxyCodeLine{79   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01840_a2aebf7f495babb580d732698cb4211ed}{myDim}}              = \mbox{\hyperlink{a01832_a13e61f53c778da13a0955dfd03ab2353}{Base::myDim}};}
+\DoxyCodeLine{80   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01840_a1cf7a88758efdc4ac213937b5936e0cc}{strainSize}}         = \mbox{\hyperlink{a01832_afa1261c9dc2f51bcb0af8fcd145ab2a7}{Base::strainSize}};}
+\DoxyCodeLine{81   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01840_a0bfae49150e7c8031f28be5bc899150d}{enhancedStrainSize}} = \mbox{\hyperlink{a01832_aa6a89d53d04d145d803c79a55a5e5904}{Base::enhancedStrainSize}};}
+\DoxyCodeLine{82   \textcolor{keyword}{using }\mbox{\hyperlink{a01840_a7bcccf2dd9b3c7050d96d6736cae2ac9}{MType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_aecce904b6ce5a775f05b4b1ad51b5b56}{Base::MType}};}
+\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{a01840_a57e531ce31c54006ddad41fa29e51f9e}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_a7a47b0edee25077a0b075d73aeab459a}{Base::DType}};}
+\DoxyCodeLine{84   \textcolor{keyword}{using }\mbox{\hyperlink{a01840_a63ece1954685fc94f25fb537b0f20696}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_a38a9b5aaf01cb25fc10d33468e632991}{Base::AnsatzType}};}
+\DoxyCodeLine{85   \textcolor{keyword}{using }\mbox{\hyperlink{a01840_a8bb0da230f1a458b5022b17d89a79e32}{HType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_a23862839b77065e47a2b1e30043d7313}{Base::HType}};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87   \mbox{\hyperlink{a01840_a5082edb5fcb08b2b0864a50669a009e2}{H4}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{88   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01840_a56603f67d6da1d80fcec7eff3a667319}{H4}}(\textcolor{keyword}{const} GEO\& geo)}
+\DoxyCodeLine{89       : \mbox{\hyperlink{a01832}{Base}}(geo) \{\}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91   \mbox{\hyperlink{a01840_a8bb0da230f1a458b5022b17d89a79e32}{HType}} \mbox{\hyperlink{a01840_a836bc3803cbcd96b201a2f0c9695853c}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02204}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{92     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi    = quadPos[0];}
+\DoxyCodeLine{93     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta   = quadPos[1];}
+\DoxyCodeLine{94     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi\_t  = 2 * xi -\/ 1.0;}
+\DoxyCodeLine{95     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta\_t = 2 * eta -\/ 1.0;}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97     \mbox{\hyperlink{a01840_a8bb0da230f1a458b5022b17d89a79e32}{HType}} H;}
+\DoxyCodeLine{98     std::ranges::fill(H, AnsatzType::Zero());}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100     H[0](0, 0) = xi\_t;}
+\DoxyCodeLine{101     H[1](0, 1) = eta\_t;}
+\DoxyCodeLine{102     H[2](1, 0) = xi\_t;}
+\DoxyCodeLine{103     H[3](1, 1) = eta\_t;}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& HMat : H)}
+\DoxyCodeLine{106       Impl::transformDisplacementGradient(this-\/>\mbox{\hyperlink{a01832_a2ebfde089e7e891939fbf1513c53c386}{geometry}}(), HMat, quadPos);}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108     \textcolor{keywordflow}{return} H;}
+\DoxyCodeLine{109   \}}
+\DoxyCodeLine{110 \};}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{120 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{121 \textcolor{keyword}{struct }\mbox{\hyperlink{a01844}{H9}} : \mbox{\hyperlink{a01832}{HX}}<GEO, 9>}
+\DoxyCodeLine{122 \{}
+\DoxyCodeLine{123   \textcolor{keyword}{using }\mbox{\hyperlink{a01832}{Base}}                              = \mbox{\hyperlink{a01832}{HX<GEO, 9>}};}
+\DoxyCodeLine{124   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01844_a98dc16893e4861db940394b8c62b563e}{myDim}}              = \mbox{\hyperlink{a01832_a13e61f53c778da13a0955dfd03ab2353}{Base::myDim}};}
+\DoxyCodeLine{125   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01844_a48a0454addea777d1929567f2e50b834}{strainSize}}         = \mbox{\hyperlink{a01832_afa1261c9dc2f51bcb0af8fcd145ab2a7}{Base::strainSize}};}
+\DoxyCodeLine{126   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01844_ae3640a507b3cd5ea4422bfa98fe5ae94}{enhancedStrainSize}} = \mbox{\hyperlink{a01832_aa6a89d53d04d145d803c79a55a5e5904}{Base::enhancedStrainSize}};}
+\DoxyCodeLine{127   \textcolor{keyword}{using }\mbox{\hyperlink{a01844_ae44a1bdc2b866d12e3e94b4477b47479}{MType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_aecce904b6ce5a775f05b4b1ad51b5b56}{Base::MType}};}
+\DoxyCodeLine{128   \textcolor{keyword}{using }\mbox{\hyperlink{a01844_ad41af85066508b0c16de3a87d562dacb}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_a7a47b0edee25077a0b075d73aeab459a}{Base::DType}};}
+\DoxyCodeLine{129   \textcolor{keyword}{using }\mbox{\hyperlink{a01844_a0403002282b55046395d4a05f37d431d}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_a38a9b5aaf01cb25fc10d33468e632991}{Base::AnsatzType}};}
+\DoxyCodeLine{130   \textcolor{keyword}{using }\mbox{\hyperlink{a01844_a67915d1491ad536cf029d19a061f932b}{HType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01832_a23862839b77065e47a2b1e30043d7313}{Base::HType}};}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132   \mbox{\hyperlink{a01844_a76bc2124b0478d948d4f887a9d06926a}{H9}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{133   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01844_a0b8a4ccc4cf0c012b85ebf9931dab4ec}{H9}}(\textcolor{keyword}{const} GEO\& geo)}
+\DoxyCodeLine{134       : \mbox{\hyperlink{a01832}{Base}}(geo) \{\}}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136   \mbox{\hyperlink{a01844_a67915d1491ad536cf029d19a061f932b}{HType}} \mbox{\hyperlink{a01844_a05fccd822fbb35e9b12dc799a322fe22}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02204}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{137     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi     = quadPos[0];}
+\DoxyCodeLine{138     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta    = quadPos[1];}
+\DoxyCodeLine{139     \textcolor{keyword}{const} \textcolor{keywordtype}{double} zeta   = quadPos[2];}
+\DoxyCodeLine{140     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi\_t   = 2 * xi -\/ 1.0;}
+\DoxyCodeLine{141     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta\_t  = 2 * eta -\/ 1.0;}
+\DoxyCodeLine{142     \textcolor{keyword}{const} \textcolor{keywordtype}{double} zeta\_t = 2 * zeta -\/ 1.0;}
 \DoxyCodeLine{143 }
-\DoxyCodeLine{149   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01981_a1e3b740ff000dacda0ade44cc0646d9d}{addAllResults}}(\mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273b}{DataTag}} dataTag = \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}}) \{}
-\DoxyCodeLine{150     \textcolor{keyword}{using }ResultTuple = \textcolor{keyword}{typename} FEType::SupportedResultTypes;}
-\DoxyCodeLine{151 }
-\DoxyCodeLine{152     Dune::Hybrid::forEach(ResultTuple(), [\&]<\textcolor{keyword}{typename} RT>(RT i) \{ addResult<RT::template Rebind>(dataTag); \});}
-\DoxyCodeLine{153   \}}
-\DoxyCodeLine{154 }
-\DoxyCodeLine{168   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Basis, \textcolor{keyword}{typename} R>}
-\DoxyCodeLine{169   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01981_a40effe127a60fe7ae01bb7511a581d08}{addInterpolation}}(R\&\& vals, \textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00522_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keyword}{const} std::string\& name, \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273b}{DataTag}} dataTag = \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}}) \{}
-\DoxyCodeLine{170     \textcolor{keyword}{using }Container = Impl::ResultContainer\_t<Basis>;}
-\DoxyCodeLine{171 }
-\DoxyCodeLine{172     \textcolor{keyword}{auto} gridFunction = Dune::Functions::makeDiscreteGlobalBasisFunction<Container>(\mbox{\hyperlink{a00522_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, std::forward<R>(vals));}
-\DoxyCodeLine{173     \textcolor{keyword}{auto} fieldInfo    = Dune::Vtk::FieldInfo(name, Impl::sizeOfContainer<Container>);}
-\DoxyCodeLine{174 }
-\DoxyCodeLine{175     \textcolor{keywordflow}{if} (dataTag == \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546}{DataTag::asCellData}} or dataTag == \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926}{DataTag::asCellAndPointData}})}
-\DoxyCodeLine{176       Base::addCellData(std::move(gridFunction), fieldInfo);}
-\DoxyCodeLine{177     \textcolor{keywordflow}{if} (dataTag == \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}} or dataTag == \mbox{\hyperlink{a00504_af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926}{DataTag::asCellAndPointData}})}
-\DoxyCodeLine{178       Base::addPointData(std::move(gridFunction), fieldInfo);}
-\DoxyCodeLine{179   \}}
-\DoxyCodeLine{180 }
-\DoxyCodeLine{181 \textcolor{keyword}{private}:}
-\DoxyCodeLine{182   std::shared\_ptr<Assembler> assembler\_;}
-\DoxyCodeLine{183 \};}
-\DoxyCodeLine{184 }
-\DoxyCodeLine{190 \textcolor{keyword}{template} <\textcolor{keyword}{typename} G>}
-\DoxyCodeLine{191 \textcolor{keyword}{struct }\mbox{\hyperlink{a01985}{IsStructured}} : std::false\_type}
-\DoxyCodeLine{192 \{}
-\DoxyCodeLine{193 \};}
-\DoxyCodeLine{194 }
-\DoxyCodeLine{198 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} dim, \textcolor{keyword}{typename} Coordinates>}
-\DoxyCodeLine{199 \textcolor{keyword}{struct }\mbox{\hyperlink{a01985}{IsStructured}}<\mbox{\hyperlink{a00515}{Dune}}::YaspGrid<dim, Coordinates>> : std::true\_type}
-\DoxyCodeLine{200 \{}
-\DoxyCodeLine{201 \};}
-\DoxyCodeLine{202 }
-\DoxyCodeLine{208 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GV>}
-\DoxyCodeLine{209 \textcolor{keyword}{requires} \mbox{\hyperlink{a02388}{Concepts::GridView<GV>}}}
-\DoxyCodeLine{210 \textcolor{keyword}{struct }\mbox{\hyperlink{a01993}{DefaultVTKWriterManager}}}
-\DoxyCodeLine{211 \{}
-\DoxyCodeLine{212   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01993_aab70186996e55b41bd657d71789541c1}{isStructured}} = \mbox{\hyperlink{a01985}{IsStructured<typename GV::Grid>::value}};}
-\DoxyCodeLine{213   \textcolor{keyword}{using }\mbox{\hyperlink{a01993_ab9e11e450e83e9c543ede585890c55d0}{DefaultDataCollector}} =}
-\DoxyCodeLine{214       std::conditional\_t<isStructured, Dune::Vtk::YaspDataCollector<GV>, Dune::Vtk::ContinuousDataCollector<GV>>;}
-\DoxyCodeLine{215 }
-\DoxyCodeLine{216   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DC = DefaultDataCollector>}
-\DoxyCodeLine{217   \textcolor{keyword}{using }\mbox{\hyperlink{a01993_ab81f859a7f02f174a9493d28b1be52a4}{DefaultVTKWriter}} = std::conditional\_t<isStructured, Dune::Vtk::RectilinearGridWriter<typename DC::GridView, DC>,}
-\DoxyCodeLine{218                                               Dune::Vtk::UnstructuredGridWriter<typename DC::GridView, DC>>;}
-\DoxyCodeLine{219 \};}
-\DoxyCodeLine{220 }
-\DoxyCodeLine{221 \textcolor{comment}{// Class template argument deduction guides for VTK::Writer}}
-\DoxyCodeLine{222 }
-\DoxyCodeLine{223 \textcolor{keyword}{template} <\textcolor{keyword}{typename} AS, \textcolor{keyword}{class}... Args>}
-\DoxyCodeLine{224 \textcolor{keyword}{requires}(\mbox{\hyperlink{a02383}{Ikarus::Concepts::FlatAssembler<AS>}})}
-\DoxyCodeLine{225 \mbox{\hyperlink{a00504_a6b54a4966e54b45e51358c7b7877a5b5}{Writer}}(std::shared\_ptr<AS>,}
-\DoxyCodeLine{226        Args...) -\/> \mbox{\hyperlink{a01981}{Writer<AS, typename DefaultVTKWriterManager<typename AS::GridView>::DefaultDataCollector}},}
-\DoxyCodeLine{227                           \textcolor{keyword}{typename} \mbox{\hyperlink{a01993}{DefaultVTKWriterManager<typename AS::GridView>::template}} DefaultVTKWriter<>>;}
-\DoxyCodeLine{228 }
-\DoxyCodeLine{229 \textcolor{keyword}{template} <\textcolor{keyword}{typename} AS, \textcolor{keyword}{typename} DC, \textcolor{keyword}{class}... Args, Dune::Vtk::IsDataCollector<std::decay\_t<DC>> = \textcolor{keyword}{true}>}
-\DoxyCodeLine{230 \textcolor{keyword}{requires}(\mbox{\hyperlink{a02383}{Ikarus::Concepts::FlatAssembler<AS>}})}
-\DoxyCodeLine{231 \mbox{\hyperlink{a00504_a6b54a4966e54b45e51358c7b7877a5b5}{Writer}}(std::shared\_ptr<AS>, DC\&\&, Args...)}
-\DoxyCodeLine{232     -\/> \mbox{\hyperlink{a01981}{Writer<AS, std::decay\_t<DC>}},}
-\DoxyCodeLine{233               \textcolor{keyword}{typename} \mbox{\hyperlink{a01993}{DefaultVTKWriterManager<typename AS::GridView>::template}} DefaultVTKWriter<std::decay\_t<DC>>>;}
-\DoxyCodeLine{234 }
-\DoxyCodeLine{235 \} \textcolor{comment}{// namespace Ikarus::Vtk}}
+\DoxyCodeLine{144     \mbox{\hyperlink{a01844_a67915d1491ad536cf029d19a061f932b}{HType}} H;}
+\DoxyCodeLine{145     std::ranges::fill(H, AnsatzType::Zero());}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147     H[0](0, 0) = xi\_t;}
+\DoxyCodeLine{148     H[1](0, 1) = eta\_t;}
+\DoxyCodeLine{149     H[2](0, 2) = zeta\_t;}
+\DoxyCodeLine{150     H[3](1, 0) = xi\_t;}
+\DoxyCodeLine{151     H[4](1, 1) = eta\_t;}
+\DoxyCodeLine{152     H[5](1, 2) = zeta\_t;}
+\DoxyCodeLine{153     H[6](2, 0) = xi\_t;}
+\DoxyCodeLine{154     H[7](2, 1) = eta\_t;}
+\DoxyCodeLine{155     H[8](2, 2) = zeta\_t;}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& HMat : H)}
+\DoxyCodeLine{158       Impl::transformDisplacementGradient(this-\/>\mbox{\hyperlink{a01832_a2ebfde089e7e891939fbf1513c53c386}{geometry}}(), HMat, quadPos);}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160     \textcolor{keywordflow}{return} H;}
+\DoxyCodeLine{161   \}}
+\DoxyCodeLine{162 \};}
+\DoxyCodeLine{163 \} \textcolor{comment}{// namespace Ikarus::EAS}}
 
 \end{DoxyCode}

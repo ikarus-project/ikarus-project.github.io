@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: Ikarus::traits::Pointer Concept Reference</title>
+    <title>ikarus: Ikarus::Concepts::Material Concept Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,25 +155,34 @@ $(document).ready(function(){initNavTree('a02400.html',''); initResizable(); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Ikarus::traits::Pointer Concept Reference<div class="ingroups"><a class="el" href="a00470.html">Ikarus Modules</a> &raquo; <a class="el" href="a00487.html">Type traits</a></div></div></div>
+  <div class="headertitle"><div class="title">Ikarus::Concepts::Material Concept Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Concept to check if a type is a pointer or nullptr_t.  
+<p>Concept representing a material interface.  
 <a href="a02400.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00041_source.html">ikarus/utils/traits.hh</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03473_source.html">ikarus/utils/concepts.hh</a>&gt;</code></p>
 <h2 class="groupheader">Concept definition</h2>
-<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="a02400.html">Ikarus::traits::Pointer</a> =  std::is_pointer_v&lt;T&gt; || std::is_same_v&lt;T, std::nullptr_t&gt;</div>
-<div class="ttc" id="aa02400_html"><div class="ttname"><a href="a02400.html">Ikarus::traits::Pointer</a></div><div class="ttdoc">Concept to check if a type is a pointer or nullptr_t.</div><div class="ttdef"><b>Definition:</b> traits.hh:30</div></div>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> M&gt;</div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="a02400.html">Ikarus::Concepts::Material</a> =  <span class="keyword">requires</span>(M m, Eigen::Matrix3d C) {</div>
+<div class="line">    M::strainTag;</div>
+<div class="line">    M::stressTag;</div>
+<div class="line">    M::tangentModuliTag;</div>
+<div class="line">    M::derivativeFactor;</div>
+<div class="line">    M::isReduced;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">typename</span> M::ScalarType;</div>
+<div class="line"> </div>
+<div class="line">    { m.name() } -&gt; std::convertible_to&lt;std::string&gt;;</div>
+<div class="line">    { m.materialParameters() } -&gt; std::same_as&lt;typename M::MaterialParameters&gt;;</div>
+<div class="line">    { m.template storedEnergy&lt;M::strainTag&gt;(C) } -&gt; std::same_as&lt;typename M::ScalarType&gt;;</div>
+<div class="line">    { m.template stresses&lt;M::strainTag&gt;(C) };</div>
+<div class="line">    { m.template tangentModuli&lt;M::strainTag&gt;(C) };</div>
+<div class="line">  }</div>
+<div class="ttc" id="aa02400_html"><div class="ttname"><a href="a02400.html">Ikarus::Concepts::Material</a></div><div class="ttdoc">Concept representing a material interface.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:691</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>Type to check. </td></tr>
-  </table>
-  </dd>
-</dl>
+<div class="textblock"><p >A type M satisfies the material interface if it provides the necessary member functions and type. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -184,7 +193,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="a00489.html">Ikarus</a></li><li class="navelem"><a class="el" href="a00514.html">traits</a></li><li class="navelem"><a class="el" href="a02400.html">Pointer</a></li>
+        <li class="navelem"><a class="el" href="a00492.html">Ikarus</a></li><li class="navelem"><a class="el" href="a00502.html">Concepts</a></li><li class="navelem"><a class="el" href="a02400.html">Material</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

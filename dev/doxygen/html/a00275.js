@@ -1,5 +1,5 @@
 var a00275 =
 [
-    [ "Ikarus::GentMatParameters", "a01665.html", "a01665" ],
-    [ "Gent", "a00275.html#a8d05a34baf0684f0e4e2a10a721bb80d", null ]
+    [ "Ikarus::ArrudaBoyceMatParameters", "a01652.html", "a01652" ],
+    [ "ArrudaBoyce", "a00275.html#a70cada02f1f5f294f44c438fb1270982", null ]
 ];

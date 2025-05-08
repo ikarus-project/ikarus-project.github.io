@@ -1,4 +1,5 @@
 var a00437 =
 [
-    [ "addBindingsToUtils", "a00484.html#ga1fbedbac54712740abe25ceab2990472", null ]
+    [ "makeDenseFlatAssembler", "a00437.html#aa2e289f3c26f24717a19b05b5561538c", null ],
+    [ "makeSparseFlatAssembler", "a00437.html#a7b31ad9106d0c3d4052413bcbf5ea596", null ]
 ];

@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: materialhelpers.hh Source File</title>
+    <title>ikarus: mueslimaterials.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,138 +155,83 @@ $(document).ready(function(){initNavTree('a00305_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">materialhelpers.hh</div></div>
+  <div class="headertitle"><div class="title">mueslimaterials.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00305.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;ranges&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#if ENABLE_MUESLI</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;dune/common/float_cmp.hh&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">  #include &lt;<a class="code" href="a00296.html">ikarus/finiteelements/mechanics/materials/muesli/mueslifinite.hh</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">  #include &lt;<a class="code" href="a00299.html">ikarus/finiteelements/mechanics/materials/muesli/mueslihelpers.hh</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">  #include &lt;<a class="code" href="a00302.html">ikarus/finiteelements/mechanics/materials/muesli/mueslismall.hh</a>&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a03470.html">ikarus/utils/concepts.hh</a>&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a00005.html">ikarus/utils/tensorutils.hh</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00500.html">Ikarus::Materials</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a01753.html">   25</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01753.html">MatrixIndexPair</a></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a01753.html#aea06e613d6a158b8e197a5f79ef7f197">   27</a></span>  Eigen::Index <a class="code hl_variable" href="a01753.html#aea06e613d6a158b8e197a5f79ef7f197">row</a>; </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a01753.html#a05834d6b2ab9428e4ecc645234ef9d34">   28</a></span>  Eigen::Index <a class="code hl_variable" href="a01753.html#a05834d6b2ab9428e4ecc645234ef9d34">col</a>; </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace Ikarus::Materials</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">namespace </span>Ikarus::Impl {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00503.html">Ikarus::Materials</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">template</span> &lt;Concepts::MPTuple MPT&gt;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">inline</span> <span class="keyword">auto</span> makeMuesliLinearElasticity(<span class="keyword">const</span> MPT&amp; mpt) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keyword">auto</span> muesliParameters = propertiesFromIkarusMaterialParameters(mpt);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keywordflow">return</span> SmallStrain&lt;muesli::elasticIsotropicMaterial&gt;(muesliParameters);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">template</span> &lt;<span class="keywordtype">size_t</span> size&gt;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">consteval</span> <span class="keyword">auto</span> createfreeVoigtIndices(<span class="keyword">const</span> std::array&lt;Materials::MatrixIndexPair, size&gt;&amp; fixed) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  std::array&lt;size_t, 6 - size&gt; res{};</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  std::array&lt;size_t, size&gt; voigtFixedIndices;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  std::ranges::transform(fixed, voigtFixedIndices.begin(), [](<span class="keyword">auto</span> pair) { return toVoigt(pair.row, pair.col); });</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  std::ranges::sort(voigtFixedIndices);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  std::ranges::set_difference(std::ranges::iota_view(<span class="keywordtype">size_t</span>(0), <span class="keywordtype">size_t</span>(6)), voigtFixedIndices, res.begin());</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  std::ranges::sort(res);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keywordflow">return</span> res;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">template</span> &lt;<span class="keywordtype">size_t</span> size&gt;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">consteval</span> <span class="keyword">auto</span> createFixedVoigtIndices(<span class="keyword">const</span> std::array&lt;Materials::MatrixIndexPair, size&gt;&amp; fixed) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  std::array&lt;size_t, size&gt; fixedIndices;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  std::ranges::transform(fixed, fixedIndices.begin(), [](<span class="keyword">auto</span> pair) { return toVoigt(pair.row, pair.col); });</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  std::ranges::sort(fixedIndices);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="keywordflow">return</span> fixedIndices;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">template</span> &lt;<span class="keywordtype">size_t</span> size&gt;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> countDiagonalIndices(<span class="keyword">const</span> std::array&lt;Materials::MatrixIndexPair, size&gt;&amp; fixed) {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="keywordtype">size_t</span> count = 0;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : fixed) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">if</span> (v.col == v.row)</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>      ++count;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  }</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keywordflow">return</span> count;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">auto</span> maybeFromVoigt(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; v, <span class="keywordtype">bool</span> isStrain = <span class="keyword">true</span>) {</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (Concepts::EigenVector&lt;Derived&gt;) { <span class="comment">// receiving vector means Voigt notation</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a00485.html#gadc8e9e9f3838d0392a5fcf1e11374ee9">fromVoigt</a>(v.derived(), isStrain).eval();</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  } <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">return</span> v.derived().eval();</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keyword">auto</span> maybeToVoigt(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; v, <span class="keywordtype">bool</span> isStrain = <span class="keyword">false</span>) {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (Concepts::EigenVector&lt;Derived&gt;) { <span class="comment">// receiving vector means Voigt notation</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">return</span> v.derived().eval();</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  } <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a00485.html#gaea992dee85d054f8dc1c99d3a7f4fe06">toVoigt</a>(v.derived(), isStrain).eval();</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>}</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType&gt;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="keywordtype">void</span> checkPositiveOrAbort(ScalarType det, <span class="keywordtype">double</span> eps = 1e-10) {</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>  <span class="keywordflow">if</span> (Dune::FloatCmp::le(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(det), 0.0, eps)) {</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    std::cerr &lt;&lt; <span class="stringliteral">&quot;Determinant of right Cauchy Green tensor C must be greater than zero. detC = &quot;</span> +</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>                     std::to_string(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(det));</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    abort();</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  }</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType, <span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="keyword">auto</span> principalStretches(<span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; C, <span class="keywordtype">int</span> options = Eigen::ComputeEigenvectors) {</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>  Eigen::SelfAdjointEigenSolver&lt;Derived&gt; eigensolver{};</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>  eigensolver.compute(C, options);</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>  <span class="keywordflow">if</span> (eigensolver.info() != Eigen::Success)</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    DUNE_THROW(Dune::MathError, <span class="stringliteral">&quot;Failed to compute eigenvalues and eigenvectors of C.&quot;</span>);</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>  <span class="keyword">auto</span>&amp; eigenvalues  = eigensolver.eigenvalues();</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>  <span class="keyword">auto</span>&amp; eigenvectors = options == Eigen::ComputeEigenvectors ? eigensolver.eigenvectors() : Derived::Zero();</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>  <span class="keyword">auto</span> principalStretches = eigenvalues.cwiseSqrt().eval();</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>  <span class="keywordflow">return</span> std::make_pair(principalStretches, eigenvectors);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>}</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="keyword">template</span> &lt;Concepts::EigenVector3 Vector&gt;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="keyword">inline</span> Vector::Scalar determinantFromPrincipalValues(<span class="keyword">const</span> Vector&amp; principalValues) {</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>  <span class="keywordflow">return</span> principalValues.prod();</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>}</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="keyword">template</span> &lt;Concepts::EigenVector3 Vector&gt;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="keyword">inline</span> <a class="code hl_enumvalue" href="a00489.html#acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110">Vector</a> deviatoricStretches(<span class="keyword">const</span> Vector&amp; lambda) {</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>  <span class="keyword">using </span>ScalarType = <span class="keyword">typename</span> Vector::Scalar;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>  ScalarType J     = determinantFromPrincipalValues(lambda);</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>  ScalarType Jmod  = pow(J, -1.0 / 3.0);</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>  <span class="keywordflow">return</span> Jmod * lambda;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>}</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="keyword">template</span> &lt;Concepts::EigenVector3 Vector&gt;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="keyword">inline</span> <a class="code hl_enumvalue" href="a00489.html#acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110">Vector</a> invariants(<span class="keyword">const</span> Vector&amp; lambda) {</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>  <span class="keyword">using </span>ScalarType   = <span class="keyword">typename</span> Vector::Scalar;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>  <span class="keyword">auto</span> lambdaSquared = lambda.array().square();</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>  <span class="keyword">auto</span> invariants    = Vector::Zero().eval();</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>  invariants[0] = lambdaSquared.sum();</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  invariants[1] =</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>      lambdaSquared[0] * lambdaSquared[1] + lambdaSquared[1] * lambdaSquared[2] + lambdaSquared[0] * lambdaSquared[2];</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>  invariants[2] = determinantFromPrincipalValues(lambdaSquared);</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>  <span class="keywordflow">return</span> invariants;</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>}</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>} <span class="comment">// namespace Ikarus::Impl</span></div>
-<div class="ttc" id="aa00005_html"><div class="ttname"><a href="a00005.html">tensorutils.hh</a></div><div class="ttdoc">Helper for the Eigen::Tensor types.</div></div>
-<div class="ttc" id="aa00485_html_gadc8e9e9f3838d0392a5fcf1e11374ee9"><div class="ttname"><a href="a00485.html#gadc8e9e9f3838d0392a5fcf1e11374ee9">Ikarus::fromVoigt</a></div><div class="ttdeci">auto fromVoigt(const Eigen::Matrix&lt; ST, size, 1, Options, maxSize, 1 &gt; &amp;EVoigt, bool isStrain=true)</div><div class="ttdoc">Converts a vector given in Voigt notation to a matrix.</div><div class="ttdef"><b>Definition:</b> tensorutils.hh:296</div></div>
-<div class="ttc" id="aa00485_html_gaea992dee85d054f8dc1c99d3a7f4fe06"><div class="ttname"><a href="a00485.html#gaea992dee85d054f8dc1c99d3a7f4fe06">Ikarus::toVoigt</a></div><div class="ttdeci">constexpr Eigen::Index toVoigt(Eigen::Index i, Eigen::Index j) noexcept</div><div class="ttdoc">Converts 2D indices to Voigt notation index.</div><div class="ttdef"><b>Definition:</b> tensorutils.hh:182</div></div>
-<div class="ttc" id="aa00489_html_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110"><div class="ttname"><a href="a00489.html#acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110">Ikarus::ResultShape::Vector</a></div><div class="ttdeci">@ Vector</div></div>
-<div class="ttc" id="aa00500_html"><div class="ttname"><a href="a00500.html">Ikarus::Materials</a></div><div class="ttdef"><b>Definition:</b> arrudaboyce.hh:27</div></div>
-<div class="ttc" id="aa01753_html"><div class="ttname"><a href="a01753.html">Ikarus::Materials::MatrixIndexPair</a></div><div class="ttdoc">Represents a pair of stress or strain matrix indices (row and column).</div><div class="ttdef"><b>Definition:</b> materialhelpers.hh:26</div></div>
-<div class="ttc" id="aa01753_html_a05834d6b2ab9428e4ecc645234ef9d34"><div class="ttname"><a href="a01753.html#a05834d6b2ab9428e4ecc645234ef9d34">Ikarus::Materials::MatrixIndexPair::col</a></div><div class="ttdeci">Eigen::Index col</div><div class="ttdoc">Column index.</div><div class="ttdef"><b>Definition:</b> materialhelpers.hh:28</div></div>
-<div class="ttc" id="aa01753_html_aea06e613d6a158b8e197a5f79ef7f197"><div class="ttname"><a href="a01753.html#aea06e613d6a158b8e197a5f79ef7f197">Ikarus::Materials::MatrixIndexPair::row</a></div><div class="ttdeci">Eigen::Index row</div><div class="ttdoc">Row index.</div><div class="ttdef"><b>Definition:</b> materialhelpers.hh:27</div></div>
-<div class="ttc" id="aa03470_html"><div class="ttname"><a href="a03470.html">concepts.hh</a></div><div class="ttdoc">Several concepts.</div></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">template</span> &lt;Concepts::MPTuple MPT&gt;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">inline</span> <span class="keyword">auto</span> makeMuesliNeoHooke(<span class="keyword">const</span> MPT&amp; mpt, <span class="keywordtype">bool</span> useDeviatoricStretches = <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keyword">auto</span> muesliParameters = propertiesFromIkarusMaterialParameters(mpt);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keywordflow">if</span> (useDeviatoricStretches)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    addTag(muesliParameters, <span class="stringliteral">&quot;subtype regularized&quot;</span>);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordflow">return</span> FiniteStrain&lt;muesli::neohookeanMaterial&gt;(muesliParameters);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">template</span> &lt;Concepts::MPTuple MPT&gt;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">inline</span> <span class="keyword">auto</span> makeMuesliSVK(<span class="keyword">const</span> MPT&amp; mpt) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="keyword">auto</span> muesliParameters = propertiesFromIkarusMaterialParameters(mpt);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keywordflow">return</span> FiniteStrain&lt;muesli::svkMaterial&gt;(muesliParameters);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">inline</span> <span class="keyword">auto</span> makeMuesliArrudaBoyce(<span class="keywordtype">double</span> C1, <span class="keywordtype">double</span> lambda_m, <span class="keywordtype">double</span> K, <span class="keywordtype">bool</span> compressible = <span class="keyword">true</span>) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="keyword">auto</span> muesliParameters = muesli::materialProperties{};</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  muesliParameters.insert({<span class="stringliteral">&quot;c1&quot;</span>, C1});</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  muesliParameters.insert({<span class="stringliteral">&quot;lambdam&quot;</span>, lambda_m});</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  muesliParameters.insert({<span class="stringliteral">&quot;bulk&quot;</span>, K});</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  <span class="keywordflow">if</span> (compressible)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    addTag(muesliParameters, <span class="stringliteral">&quot;compressible&quot;</span>);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  <span class="keywordflow">return</span> FiniteStrain&lt;muesli::arrudaboyceMaterial&gt;(muesliParameters);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">inline</span> <span class="keyword">auto</span> makeMuesliYeoh(std::array&lt;double, 3&gt; C, <span class="keywordtype">double</span> K, <span class="keywordtype">bool</span> compressible = <span class="keyword">true</span>) {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  <span class="keyword">auto</span> muesliParameters = muesli::materialProperties{};</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  muesliParameters.insert({<span class="stringliteral">&quot;c1&quot;</span>, C[0]});</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  muesliParameters.insert({<span class="stringliteral">&quot;c2&quot;</span>, C[1]});</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  muesliParameters.insert({<span class="stringliteral">&quot;c3&quot;</span>, C[2]});</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  muesliParameters.insert({<span class="stringliteral">&quot;bulk&quot;</span>, K});</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <span class="keywordflow">if</span> (compressible)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    addTag(muesliParameters, <span class="stringliteral">&quot;compressible&quot;</span>);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  <span class="keywordflow">return</span> FiniteStrain&lt;muesli::yeohMaterial&gt;(muesliParameters);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code hl_function" href="a00503.html#a7ac025ab0f41d2021008bd54e51135b1">makeMooneyRivlin</a>(std::array&lt;double, 3&gt; alpha, <span class="keywordtype">bool</span> incompressible = <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  <span class="keyword">auto</span> muesliParameters = muesli::materialProperties{};</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  muesliParameters.insert({<span class="stringliteral">&quot;alpha0&quot;</span>, alpha[0]});</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  muesliParameters.insert({<span class="stringliteral">&quot;alpha1&quot;</span>, alpha[1]});</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  muesliParameters.insert({<span class="stringliteral">&quot;alpha2&quot;</span>, alpha[2]});</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  <span class="keywordflow">if</span> (incompressible)</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    addTag(muesliParameters, <span class="stringliteral">&quot;incompressible&quot;</span>);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>  <span class="keywordflow">return</span> FiniteStrain&lt;muesli::mooneyMaterial&gt;(muesliParameters);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>} <span class="comment">// namespace Ikarus::Materials</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">  #error Muesli materials depends on the Muesli library, which is not included</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">mueslifinite.hh</a></div></div>
+<div class="ttc" id="aa00299_html"><div class="ttname"><a href="a00299.html">mueslihelpers.hh</a></div></div>
+<div class="ttc" id="aa00302_html"><div class="ttname"><a href="a00302.html">mueslismall.hh</a></div></div>
+<div class="ttc" id="aa00503_html"><div class="ttname"><a href="a00503.html">Ikarus::Materials</a></div><div class="ttdef"><b>Definition:</b> arrudaboyce.hh:27</div></div>
+<div class="ttc" id="aa00503_html_a7ac025ab0f41d2021008bd54e51135b1"><div class="ttname"><a href="a00503.html#a7ac025ab0f41d2021008bd54e51135b1">Ikarus::Materials::makeMooneyRivlin</a></div><div class="ttdeci">auto makeMooneyRivlin(const typename InvariantBased&lt; 2 &gt;::MaterialParameters &amp;mu, double K=0.0, const VolumetricFunction &amp;vf=VolumetricFunction{})</div><div class="ttdoc">A helper function to create a hyperelastic material model, where the deviatoric part is according to ...</div><div class="ttdef"><b>Definition:</b> factory.hh:105</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -297,7 +242,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="a00305.html">materialhelpers.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="dir_90f42758d50f65f2d058c718b5106f64.html">muesli</a></li><li class="navelem"><a class="el" href="a00305.html">mueslimaterials.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

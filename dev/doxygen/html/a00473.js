@@ -1,11 +1,15 @@
 var a00473 =
 [
-    [ "Mechanics", "a00474.html", "a00474" ],
-    [ "FE Affordance Tags", "a00475.html", null ],
-    [ "FE Parameter Tags", "a00476.html", "a00476" ],
-    [ "febase.hh", "a00224.html", null ],
-    [ "fefactory.hh", "a00227.html", null ],
-    [ "ferequirements.hh", "a00233.html", null ],
-    [ "feresulttypes.hh", "a00380.html", null ],
-    [ "mixin.hh", "a00230.html", null ]
+    [ "Assembler", "a00474.html", "a00474" ],
+    [ "Control Routines", "a00475.html", "a00475" ],
+    [ "Finite Elements", "a00476.html", "a00476" ],
+    [ "Materials", "a00480.html", "a00480" ],
+    [ "IO", "a00482.html", "a00482" ],
+    [ "Python bindings", "a00484.html", "a00484" ],
+    [ "Solver", "a00485.html", "a00485" ],
+    [ "Observer", "a00486.html", "a00486" ],
+    [ "Utilities", "a00487.html", "a00487" ],
+    [ "Tensor Utilities", "a00488.html", "a00488" ],
+    [ "Algorithms", "a00489.html", "a00489" ],
+    [ "Type traits", "a00490.html", "a00490" ]
 ];

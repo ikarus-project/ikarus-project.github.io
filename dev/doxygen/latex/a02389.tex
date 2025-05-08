@@ -1,8 +1,10 @@
-\hypertarget{a02389}{}\doxysection{Ikarus\+::Concepts\+::Autodiff\+Scalar Concept Reference}
-\label{a02389}\index{Ikarus::Concepts::AutodiffScalar@{Ikarus::Concepts::AutodiffScalar}}
+\hypertarget{a02389}{}\doxysection{Ikarus\+::Concepts\+::Matrix\+Flat\+Assembler Concept Reference}
+\label{a02389}\index{Ikarus::Concepts::MatrixFlatAssembler@{Ikarus::Concepts::MatrixFlatAssembler}}
 
 
-Concept to check if the underlying scalar type is a dual type.  
+Concept representing the requirements for a Matrix\+Flat\+Assembler.
+
+A type T satisfies Matrix\+Flat\+Assembler if it is a Vector\+Flat\+Assembler and if it provides the necessary matrix() member functions.  
 
 
 
@@ -13,14 +15,12 @@ Concept to check if the underlying scalar type is a dual type.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02389}{Ikarus::Concepts::AutodiffScalar}} =  Impl::is\_dual<T>::value}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02389}{Ikarus::Concepts::MatrixFlatAssembler}} =  \mbox{\hyperlink{a02388}{Concepts::VectorFlatAssembler<T>}} and}
+\DoxyCodeLine{                                \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{                                         \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00492_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{                                  \{ t.matrix(req, affordance.matrixAffordance(), dbcOption) \};}
+\DoxyCodeLine{                                  \{ t.matrix(dbcOption) \};}
+\DoxyCodeLine{                                  \{ t.matrix() \};}
+\DoxyCodeLine{                                \}}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em T} & The scalar type to be checked if it is a dual type. \\
-\hline
-\end{DoxyTemplParams}

@@ -1,21 +1,36 @@
 var a00486 =
 [
-    [ "Ikarus::utils::any_of", "a00486.html#gab6d955a70ec9215ae9a8f3841582ab49", null ],
-    [ "Ikarus::utils::appendUnique", "a00486.html#ga0ccbb016e46741bd00c69436dc11e2d0", null ],
-    [ "Ikarus::utils::count_if", "a00486.html#gae9a7254f583151ee431db537c9980865", null ],
-    [ "Ikarus::utils::countTypeSpecialization", "a00486.html#gadf919f3a9b0c1d50134f9d041a3ce9f7", null ],
-    [ "Ikarus::utils::filter", "a00486.html#gad9f30d486a3d9151d534ec1b0fad5341", null ],
-    [ "Ikarus::utils::find_if", "a00486.html#gaf75511e781bb89056badd33413222010", null ],
-    [ "Ikarus::utils::findTypeSpecialization", "a00486.html#ga62d8ab565d41e49db75f0641bcdf0740", null ],
-    [ "Ikarus::utils::getSpecialization", "a00486.html#ga05a5ccea0f87d41fc69956f55a2c1dbd", null ],
-    [ "Ikarus::utils::hasTypeSpecialization", "a00486.html#gaec2a5de0482441ef1e1c68fb7ff8a0bc", null ],
-    [ "Ikarus::utils::makeTupleFromTupleIndices", "a00486.html#gaef801f15c9f18ae16e4241a497c33e96", null ],
-    [ "Ikarus::utils::makeTupleSubset", "a00486.html#ga32de94604b9d1a7423134f33f49d613f", null ],
-    [ "Ikarus::utils::makeUniqueAndSort", "a00486.html#ga6e36d8f5163f232e3142ecbd0575e8b4", null ],
-    [ "Ikarus::utils::none_of", "a00486.html#ga33284bcf99d7d3870e0aff06f6651aa2", null ],
-    [ "Ikarus::utils::printContent", "a00486.html#ga2b7954c72a2393ab7494fa0b66d828cd", null ],
-    [ "Ikarus::utils::transformPointerRangeToReferenceRange", "a00486.html#ga83bd9e4f59f0aa9fadd797efefa751d9", null ],
-    [ "Ikarus::utils::transformValueRangeToPointerRange", "a00486.html#ga7f597d87c8f2bcbf4afc65ebc929b680", null ],
-    [ "Ikarus::utils::unique", "a00486.html#ga12de8f77a63ef488a87a5aa8536146ee", null ],
-    [ "Ikarus::utils::countTypeSpecialization_v", "a00486.html#ga62ee166e690831f40395df076e9cdddb", null ]
+    [ "Ikarus::NonLinearSolverLogger", "a02276.html", [
+      [ "Token", "a02276.html#affba2430c95defc9bb0494af2d8120b7", null ],
+      [ "subscribe", "a02276.html#a754e8fbe950f23d4610009475e35ed98", null ],
+      [ "subscribe", "a02276.html#ade04c7b4066c6ef381429aff2e2ce7a7", null ],
+      [ "subscribeTo", "a02276.html#a85a6115d67cb908c480e4d9e3b2bbd64", null ],
+      [ "unSubscribe", "a02276.html#a924202b41205145b4ceda14957ea66c2", null ],
+      [ "unSubscribeAll", "a02276.html#a6ebf859d4e38acc6e9b7436b097fba26", null ],
+      [ "unSubscribeLast", "a02276.html#a78725a274f6b1817a5792bb0e519d3d9", null ],
+      [ "updateImpl", "a02276.html#acec5619338e9f9b6e12127321263b668", null ],
+      [ "updateImpl", "a02276.html#a9c031ddeebd167fa4d49b5d7d5ec99bf", null ],
+      [ "updateImpl", "a02276.html#a7d979e36cd2bd61ffedc4d14f4c879a7", null ]
+    ] ],
+    [ "Ikarus::ControlMessages", "a00486.html#ga35fa62fd2d4186a9750af3d0692f2893", [
+      [ "Ikarus::ControlMessages::BEGIN", "a00486.html#gga35fa62fd2d4186a9750af3d0692f2893a19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Ikarus::ControlMessages::CONTROL_STARTED", "a00486.html#gga35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0", null ],
+      [ "Ikarus::ControlMessages::CONTROL_ENDED", "a00486.html#gga35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938", null ],
+      [ "Ikarus::ControlMessages::STEP_STARTED", "a00486.html#gga35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945", null ],
+      [ "Ikarus::ControlMessages::STEP_ENDED", "a00486.html#gga35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2", null ],
+      [ "Ikarus::ControlMessages::SOLUTION_CHANGED", "a00486.html#gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577", null ],
+      [ "Ikarus::ControlMessages::END", "a00486.html#gga35fa62fd2d4186a9750af3d0692f2893ab1a326c06d88bf042f73d70f50197905", null ]
+    ] ],
+    [ "Ikarus::NonLinearSolverMessages", "a00486.html#ga662b2b6a80547adf4b9ce8b30d87fab5", [
+      [ "Ikarus::NonLinearSolverMessages::BEGIN", "a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5a19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Ikarus::NonLinearSolverMessages::INIT", "a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498", null ],
+      [ "Ikarus::NonLinearSolverMessages::ITERATION_STARTED", "a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4", null ],
+      [ "Ikarus::NonLinearSolverMessages::ITERATION_ENDED", "a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815", null ],
+      [ "Ikarus::NonLinearSolverMessages::RESIDUALNORM_UPDATED", "a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14", null ],
+      [ "Ikarus::NonLinearSolverMessages::CORRECTIONNORM_UPDATED", "a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78", null ],
+      [ "Ikarus::NonLinearSolverMessages::CORRECTION_UPDATED", "a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4", null ],
+      [ "Ikarus::NonLinearSolverMessages::SOLUTION_CHANGED", "a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577", null ],
+      [ "Ikarus::NonLinearSolverMessages::FINISHED_SUCESSFULLY", "a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931", null ],
+      [ "Ikarus::NonLinearSolverMessages::END", "a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5ab1a326c06d88bf042f73d70f50197905", null ]
+    ] ]
 ];

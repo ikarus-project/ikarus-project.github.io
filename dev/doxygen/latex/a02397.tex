@@ -1,8 +1,8 @@
-\hypertarget{a02397}{}\doxysection{Ikarus\+::Concepts\+::Material Concept Reference}
-\label{a02397}\index{Ikarus::Concepts::Material@{Ikarus::Concepts::Material}}
+\hypertarget{a02397}{}\doxysection{Ikarus\+::Concepts\+::Reference\+Configuraion\+Stress Concept Reference}
+\label{a02397}\index{Ikarus::Concepts::ReferenceConfiguraionStress@{Ikarus::Concepts::ReferenceConfiguraionStress}}
 
 
-Concept representing a material interface.  
+Returns true if a given stresstag is related only to the reference configuration.  
 
 
 
@@ -12,25 +12,7 @@ Concept representing a material interface.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02397}{Ikarus::Concepts::Material}} =  \textcolor{keyword}{requires}(M m, Eigen::Matrix3d C) \{}
-\DoxyCodeLine{    M::strainTag;}
-\DoxyCodeLine{    M::stressTag;}
-\DoxyCodeLine{    M::tangentModuliTag;}
-\DoxyCodeLine{    M::derivativeFactor;}
-\DoxyCodeLine{    M::isReduced;}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \textcolor{keyword}{typename} M::ScalarType;}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \{ m.name() \} -\/> std::convertible\_to<std::string>;}
-\DoxyCodeLine{    \{ m.materialParameters() \} -\/> std::same\_as<typename M::MaterialParameters>;}
-\DoxyCodeLine{    \{ m.template storedEnergy<M::strainTag>(C) \} -\/> std::same\_as<typename M::ScalarType>;}
-\DoxyCodeLine{    \{ m.template stresses<M::strainTag>(C) \};}
-\DoxyCodeLine{    \{ m.template tangentModuli<M::strainTag>(C) \};}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<StressTags tag>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02397}{Ikarus::Concepts::ReferenceConfiguraionStress}} =  (tag == \mbox{\hyperlink{a00481_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}}) or (tag == \mbox{\hyperlink{a00481_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}})}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-A type M satisfies the material interface if it provides the necessary member functions and type. 

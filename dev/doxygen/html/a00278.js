@@ -1,4 +1,5 @@
 var a00278 =
 [
-    [ "InvariantBased", "a00278.html#a54eda7633e477c02ff71fa6e3f40a1ab", null ]
+    [ "Ikarus::GentMatParameters", "a01668.html", "a01668" ],
+    [ "Gent", "a00278.html#a8d05a34baf0684f0e4e2a10a721bb80d", null ]
 ];

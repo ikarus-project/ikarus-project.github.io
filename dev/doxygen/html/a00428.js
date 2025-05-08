@@ -1,6 +1,8 @@
 var a00428 =
 [
-    [ "Ikarus::ScalarManipulator< Wrapper, Assembler >", "a01345.html", "a01345" ],
-    [ "Ikarus::VectorManipulator< Wrapper, Assembler >", "a01349.html", "a01349" ],
-    [ "Ikarus::MatrixManipulator< Wrapper, Assembler >", "a01353.html", "a01353" ]
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss >", "a01368.html", "a01368" ],
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss >", "a01372.html", "a01372" ],
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss, MatrixAss >", "a01376.html", "a01376" ],
+    [ "BASECLASSMEMBERFUNCTION", "a00428.html#ab88748ddf71ad00ec25d8e9dabcefa82", null ],
+    [ "makeAssemblerManipulator", "a00428.html#afc83c2d114028f47280b981daf728ebe", null ]
 ];

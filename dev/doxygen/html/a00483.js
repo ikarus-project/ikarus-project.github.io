@@ -1,36 +1,30 @@
 var a00483 =
 [
-    [ "Ikarus::NonLinearSolverLogger", "a02273.html", [
-      [ "Token", "a02273.html#affba2430c95defc9bb0494af2d8120b7", null ],
-      [ "subscribe", "a02273.html#a754e8fbe950f23d4610009475e35ed98", null ],
-      [ "subscribe", "a02273.html#ade04c7b4066c6ef381429aff2e2ce7a7", null ],
-      [ "subscribeTo", "a02273.html#a85a6115d67cb908c480e4d9e3b2bbd64", null ],
-      [ "unSubscribe", "a02273.html#a924202b41205145b4ceda14957ea66c2", null ],
-      [ "unSubscribeAll", "a02273.html#a6ebf859d4e38acc6e9b7436b097fba26", null ],
-      [ "unSubscribeLast", "a02273.html#a78725a274f6b1817a5792bb0e519d3d9", null ],
-      [ "updateImpl", "a02273.html#acec5619338e9f9b6e12127321263b668", null ],
-      [ "updateImpl", "a02273.html#a9c031ddeebd167fa4d49b5d7d5ec99bf", null ],
-      [ "updateImpl", "a02273.html#a7d979e36cd2bd61ffedc4d14f4c879a7", null ]
+    [ "resultevaluators.hh", "a00185.html", null ],
+    [ "Ikarus::ResultEvaluators::VonMises", "a01940.html", [
+      [ "name", "a01940.html#adc5bbea30401fd0a203237199f400872", null ],
+      [ "ncomps", "a01940.html#a4fec0e03332fac9610d1f42a9e412f7f", null ],
+      [ "operator()", "a01940.html#a4a16334a6d486018a77727fb2acca63c", null ]
     ] ],
-    [ "Ikarus::ControlMessages", "a00483.html#ga35fa62fd2d4186a9750af3d0692f2893", [
-      [ "Ikarus::ControlMessages::BEGIN", "a00483.html#gga35fa62fd2d4186a9750af3d0692f2893a19aad9f2fe3ce0023298ab83f7e75775", null ],
-      [ "Ikarus::ControlMessages::CONTROL_STARTED", "a00483.html#gga35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0", null ],
-      [ "Ikarus::ControlMessages::CONTROL_ENDED", "a00483.html#gga35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938", null ],
-      [ "Ikarus::ControlMessages::STEP_STARTED", "a00483.html#gga35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945", null ],
-      [ "Ikarus::ControlMessages::STEP_ENDED", "a00483.html#gga35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2", null ],
-      [ "Ikarus::ControlMessages::SOLUTION_CHANGED", "a00483.html#gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577", null ],
-      [ "Ikarus::ControlMessages::END", "a00483.html#gga35fa62fd2d4186a9750af3d0692f2893ab1a326c06d88bf042f73d70f50197905", null ]
+    [ "Ikarus::ResultEvaluators::HydrostaticStress", "a01944.html", [
+      [ "name", "a01944.html#a1cc516c9e54a36656b693f6ab7e8036f", null ],
+      [ "ncomps", "a01944.html#a7ad4bc9dedac16e50242b7d51d9ea2a0", null ],
+      [ "operator()", "a01944.html#a35c0916886cd68004bedbebe4165fa97", null ]
     ] ],
-    [ "Ikarus::NonLinearSolverMessages", "a00483.html#ga662b2b6a80547adf4b9ce8b30d87fab5", [
-      [ "Ikarus::NonLinearSolverMessages::BEGIN", "a00483.html#gga662b2b6a80547adf4b9ce8b30d87fab5a19aad9f2fe3ce0023298ab83f7e75775", null ],
-      [ "Ikarus::NonLinearSolverMessages::INIT", "a00483.html#gga662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498", null ],
-      [ "Ikarus::NonLinearSolverMessages::ITERATION_STARTED", "a00483.html#gga662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4", null ],
-      [ "Ikarus::NonLinearSolverMessages::ITERATION_ENDED", "a00483.html#gga662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815", null ],
-      [ "Ikarus::NonLinearSolverMessages::RESIDUALNORM_UPDATED", "a00483.html#gga662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14", null ],
-      [ "Ikarus::NonLinearSolverMessages::CORRECTIONNORM_UPDATED", "a00483.html#gga662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78", null ],
-      [ "Ikarus::NonLinearSolverMessages::CORRECTION_UPDATED", "a00483.html#gga662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4", null ],
-      [ "Ikarus::NonLinearSolverMessages::SOLUTION_CHANGED", "a00483.html#gga662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577", null ],
-      [ "Ikarus::NonLinearSolverMessages::FINISHED_SUCESSFULLY", "a00483.html#gga662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931", null ],
-      [ "Ikarus::NonLinearSolverMessages::END", "a00483.html#gga662b2b6a80547adf4b9ce8b30d87fab5ab1a326c06d88bf042f73d70f50197905", null ]
+    [ "Ikarus::ResultEvaluators::PrincipalStress< dim >", "a01948.html", [
+      [ "name", "a01948.html#a0a21ea2d96efed17295f27a0001dcd7c", null ],
+      [ "ncomps", "a01948.html#a34a91abd5ffcb880813bd1fb90b221b6", null ],
+      [ "operator()", "a01948.html#aafc25c13807fda614d68992dcd4923ae", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::Triaxiality", "a01952.html", [
+      [ "name", "a01952.html#a04443562de6bf1cf72a27db2f33b5e16", null ],
+      [ "ncomps", "a01952.html#a2208295b62e03319c06b599b0079bf83", null ],
+      [ "operator()", "a01952.html#a14fd89ab2a84416e5f1024c9930f7371", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::PolarStress", "a01956.html", [
+      [ "PolarStress", "a01956.html#ab7bd86fc0638f4c9b779153c69d917d4", null ],
+      [ "name", "a01956.html#affc08b406cc3750e46dff706eefd7ee6", null ],
+      [ "ncomps", "a01956.html#a2b4c9a468e74dbbb93f6f6613cf07f7d", null ],
+      [ "operator()", "a01956.html#a22590930fe4d5d2d5e5a323cd3085cdb", null ]
     ] ]
 ];
