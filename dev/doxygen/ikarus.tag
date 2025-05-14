@@ -1824,13 +1824,6 @@
       <anchor>aa4430d7f94a172d765fba38d393450a0</anchor>
       <arglist>(std::shared_ptr&lt; AS &gt; assembler, UserFunction &amp;&amp;userFunction)</arglist>
     </member>
-    <member kind="function">
-      <type>auto</type>
-      <name>makeResultVtkFunction</name>
-      <anchorfile>a00492.html</anchorfile>
-      <anchor>ad8472943b9877db27039331c847154f1</anchor>
-      <arglist>(std::shared_ptr&lt; AS &gt; assembler, UserFunction &amp;&amp;userFunction={})</arglist>
-    </member>
   </compound>
   <compound kind="file">
     <name>vtkdatatag.hh</name>
@@ -19581,13 +19574,6 @@
       <anchorfile>a00492.html</anchorfile>
       <anchor>aa4430d7f94a172d765fba38d393450a0</anchor>
       <arglist>(std::shared_ptr&lt; AS &gt; assembler, UserFunction &amp;&amp;userFunction)</arglist>
-    </member>
-    <member kind="function">
-      <type>auto</type>
-      <name>makeResultVtkFunction</name>
-      <anchorfile>a00492.html</anchorfile>
-      <anchor>ad8472943b9877db27039331c847154f1</anchor>
-      <arglist>(std::shared_ptr&lt; AS &gt; assembler, UserFunction &amp;&amp;userFunction={})</arglist>
     </member>
     <member kind="function">
       <type>constexpr std::string</type>
