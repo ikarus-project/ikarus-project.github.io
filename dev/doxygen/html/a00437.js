@@ -1,5 +1,4 @@
 var a00437 =
 [
-    [ "makeDenseFlatAssembler", "a00437.html#aa2e289f3c26f24717a19b05b5561538c", null ],
-    [ "makeSparseFlatAssembler", "a00437.html#a7b31ad9106d0c3d4052413bcbf5ea596", null ]
+    [ "registerBoundaryPatch", "a00437.html#a331fd78be5a4155963abe5829282c8f1", null ]
 ];

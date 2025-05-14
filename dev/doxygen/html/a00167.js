@@ -1,9 +1,6 @@
 var a00167 =
 [
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00167.html#a945e022b757e5d054d6bab20a2ca291e", null ],
-    [ "MAKE_MaterialFunction", "a00167.html#a52604789ad84df5cf20d4571f90af39e", null ],
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00167.html#ac81cd08ca4f7222df18c123d422c932d", null ],
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00167.html#a85c1412e5300ac194ff82ebd146c6229", null ],
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00167.html#aab3a7ce35fb7a2f4a8a9e4d6a92e1f31", null ],
-    [ "registerMaterial", "a00167.html#a5038c66085a51f4147ef04e880f926dd", null ]
+    [ "makeResultFunction", "a00167.html#aba0432efad1cef6c956ccf108829682c", null ],
+    [ "makeResultFunction", "a00167.html#aa4430d7f94a172d765fba38d393450a0", null ],
+    [ "makeResultVtkFunction", "a00167.html#ad8472943b9877db27039331c847154f1", null ]
 ];

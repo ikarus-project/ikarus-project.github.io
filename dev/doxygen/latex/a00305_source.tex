@@ -1,75 +1,52 @@
-\hypertarget{a00305_source}{}\doxysection{mueslimaterials.\+hh}
-\label{a00305_source}\index{mueslimaterials.hh@{mueslimaterials.hh}}
+\hypertarget{a00305_source}{}\doxysection{linearstress.\+hh}
+\label{a00305_source}\index{linearstress.hh@{linearstress.hh}}
 \mbox{\hyperlink{a00305}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#if ENABLE\_MUESLI}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00296}{ikarus/finiteelements/mechanics/materials/muesli/mueslifinite.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00299}{ikarus/finiteelements/mechanics/materials/muesli/mueslihelpers.hh}}>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00302}{ikarus/finiteelements/mechanics/materials/muesli/mueslismall.hh}}>}}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00503}{Ikarus::Materials}} \{}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{27 \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
-\DoxyCodeLine{28 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliLinearElasticity(\textcolor{keyword}{const} MPT\& mpt) \{}
-\DoxyCodeLine{29   \textcolor{keyword}{auto} muesliParameters = propertiesFromIkarusMaterialParameters(mpt);}
-\DoxyCodeLine{30   \textcolor{keywordflow}{return} SmallStrain<muesli::elasticIsotropicMaterial>(muesliParameters);}
-\DoxyCodeLine{31 \}}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{41 \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
-\DoxyCodeLine{42 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliNeoHooke(\textcolor{keyword}{const} MPT\& mpt, \textcolor{keywordtype}{bool} useDeviatoricStretches = \textcolor{keyword}{false}) \{}
-\DoxyCodeLine{43   \textcolor{keyword}{auto} muesliParameters = propertiesFromIkarusMaterialParameters(mpt);}
-\DoxyCodeLine{44   \textcolor{keywordflow}{if} (useDeviatoricStretches)}
-\DoxyCodeLine{45     addTag(muesliParameters, \textcolor{stringliteral}{"{}subtype regularized"{}});}
-\DoxyCodeLine{46   \textcolor{keywordflow}{return} FiniteStrain<muesli::neohookeanMaterial>(muesliParameters);}
-\DoxyCodeLine{47 \}}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{56 \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
-\DoxyCodeLine{57 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliSVK(\textcolor{keyword}{const} MPT\& mpt) \{}
-\DoxyCodeLine{58   \textcolor{keyword}{auto} muesliParameters = propertiesFromIkarusMaterialParameters(mpt);}
-\DoxyCodeLine{59   \textcolor{keywordflow}{return} FiniteStrain<muesli::svkMaterial>(muesliParameters);}
-\DoxyCodeLine{60 \}}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{71 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliArrudaBoyce(\textcolor{keywordtype}{double} C1, \textcolor{keywordtype}{double} lambda\_m, \textcolor{keywordtype}{double} K, \textcolor{keywordtype}{bool} compressible = \textcolor{keyword}{true}) \{}
-\DoxyCodeLine{72   \textcolor{keyword}{auto} muesliParameters = muesli::materialProperties\{\};}
-\DoxyCodeLine{73   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c1"{}}, C1\});}
-\DoxyCodeLine{74   muesliParameters.insert(\{\textcolor{stringliteral}{"{}lambdam"{}}, lambda\_m\});}
-\DoxyCodeLine{75   muesliParameters.insert(\{\textcolor{stringliteral}{"{}bulk"{}}, K\});}
-\DoxyCodeLine{76   \textcolor{keywordflow}{if} (compressible)}
-\DoxyCodeLine{77     addTag(muesliParameters, \textcolor{stringliteral}{"{}compressible"{}});}
-\DoxyCodeLine{78   \textcolor{keywordflow}{return} FiniteStrain<muesli::arrudaboyceMaterial>(muesliParameters);}
-\DoxyCodeLine{79 \}}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{89 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliYeoh(std::array<double, 3> C, \textcolor{keywordtype}{double} K, \textcolor{keywordtype}{bool} compressible = \textcolor{keyword}{true}) \{}
-\DoxyCodeLine{90   \textcolor{keyword}{auto} muesliParameters = muesli::materialProperties\{\};}
-\DoxyCodeLine{91   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c1"{}}, C[0]\});}
-\DoxyCodeLine{92   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c2"{}}, C[1]\});}
-\DoxyCodeLine{93   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c3"{}}, C[2]\});}
-\DoxyCodeLine{94   muesliParameters.insert(\{\textcolor{stringliteral}{"{}bulk"{}}, K\});}
-\DoxyCodeLine{95   \textcolor{keywordflow}{if} (compressible)}
-\DoxyCodeLine{96     addTag(muesliParameters, \textcolor{stringliteral}{"{}compressible"{}});}
-\DoxyCodeLine{97   \textcolor{keywordflow}{return} FiniteStrain<muesli::yeohMaterial>(muesliParameters);}
-\DoxyCodeLine{98 \}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/fvector.hh>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/localfefunctions/eigenDuneTransformations.hh>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/localfefunctions/expressions/linearStrainsExpr.hh>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00500}{Ikarus::PS}} \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{struct }\mbox{\hyperlink{a01556}{LinearStress}}}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} AST>}
+\DoxyCodeLine{37   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01556_ad7bc02810bb5d76c0ab94ba042eccad6}{value}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \mbox{\hyperlink{a02204}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos, \textcolor{keyword}{const} AST\& asFunction,}
+\DoxyCodeLine{38                     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& beta) \{}
+\DoxyCodeLine{39     \textcolor{keyword}{const} \textcolor{keyword}{auto} P = asFunction(gpPos);}
+\DoxyCodeLine{40     \textcolor{keywordflow}{return} (P * beta).eval();}
+\DoxyCodeLine{41   \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{61   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} AST>}
+\DoxyCodeLine{62   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01556_a18eb984ea69e296622c19ddf8c7e83fa}{firstDerivative}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& gpIndex,}
+\DoxyCodeLine{63                               \textcolor{keyword}{const} \mbox{\hyperlink{a02204}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos, \textcolor{keyword}{const} AST\& asFunction,}
+\DoxyCodeLine{64                               \textcolor{keyword}{const} \textcolor{keyword}{auto}\& beta, \textcolor{keyword}{const} \textcolor{keywordtype}{int} node = sNaN) \{}
+\DoxyCodeLine{65     \textcolor{keywordflow}{return} asFunction(gpPos);}
+\DoxyCodeLine{66   \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{90   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} ST, \textcolor{keyword}{typename} AST>}
+\DoxyCodeLine{91   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01556_a311e7227206b8e37ab6d21b8a109589f}{secondDerivative}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& gpIndex,}
+\DoxyCodeLine{92                                \textcolor{keyword}{const} \mbox{\hyperlink{a02204}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
+\DoxyCodeLine{93                                \textcolor{keyword}{const} Eigen::Vector<ST, GEO::mydimension*(GEO::mydimension + 1) / 2>\& S,}
+\DoxyCodeLine{94                                \textcolor{keyword}{const} AST\& asFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& beta, \textcolor{keyword}{const} \textcolor{keywordtype}{int} I = sNaN, \textcolor{keyword}{const} \textcolor{keywordtype}{int} J = sNaN) \{}
+\DoxyCodeLine{95     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim             = GEO::mydimension;}
+\DoxyCodeLine{96     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} assumedStressSize = AST::assumedStressSize;}
+\DoxyCodeLine{97     \textcolor{keywordflow}{return} Eigen::Matrix<ST, assumedStressSize, assumedStressSize>::Zero().eval();}
+\DoxyCodeLine{98   \}}
 \DoxyCodeLine{99 }
-\DoxyCodeLine{107 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00503_a7ac025ab0f41d2021008bd54e51135b1}{makeMooneyRivlin}}(std::array<double, 3> alpha, \textcolor{keywordtype}{bool} incompressible = \textcolor{keyword}{false}) \{}
-\DoxyCodeLine{108   \textcolor{keyword}{auto} muesliParameters = muesli::materialProperties\{\};}
-\DoxyCodeLine{109   muesliParameters.insert(\{\textcolor{stringliteral}{"{}alpha0"{}}, alpha[0]\});}
-\DoxyCodeLine{110   muesliParameters.insert(\{\textcolor{stringliteral}{"{}alpha1"{}}, alpha[1]\});}
-\DoxyCodeLine{111   muesliParameters.insert(\{\textcolor{stringliteral}{"{}alpha2"{}}, alpha[2]\});}
-\DoxyCodeLine{112   \textcolor{keywordflow}{if} (incompressible)}
-\DoxyCodeLine{113     addTag(muesliParameters, \textcolor{stringliteral}{"{}incompressible"{}});}
-\DoxyCodeLine{114   \textcolor{keywordflow}{return} FiniteStrain<muesli::mooneyMaterial>(muesliParameters);}
-\DoxyCodeLine{115 \}}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{117 \} \textcolor{comment}{// namespace Ikarus::Materials}}
-\DoxyCodeLine{118 }
-\DoxyCodeLine{119 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{120 \textcolor{preprocessor}{  \#error Muesli materials depends on the Muesli library, which is not included}}
-\DoxyCodeLine{121 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{101   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01556_aff873ee9040c5829ce113cd28771221c}{name}}() \{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}Linear Stress"{}}); \}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{keyword}{private}:}
+\DoxyCodeLine{104   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} sNaN = std::numeric\_limits<int>::signaling\_NaN();}
+\DoxyCodeLine{105 \};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 \} \textcolor{comment}{// namespace Ikarus::PS}}
 
 \end{DoxyCode}

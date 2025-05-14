@@ -1,4 +1,4 @@
 var a00050 =
 [
-    [ "lambertW0", "a00050.html#a5dd4fe61d5a2366ba3e8bf4d55d451e1", null ]
+    [ "Python::Conversion< autodiff::Real< order, T > >", "a02280.html", "a02280" ]
 ];

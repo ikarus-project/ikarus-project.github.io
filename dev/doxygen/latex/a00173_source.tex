@@ -1,55 +1,57 @@
-\hypertarget{a00173_source}{}\doxysection{registerferequirements.\+hh}
-\label{a00173_source}\index{registerferequirements.hh@{registerferequirements.hh}}
+\hypertarget{a00173_source}{}\doxysection{fefactory.\+hh}
+\label{a00173_source}\index{fefactory.hh@{fefactory.hh}}
 \mbox{\hyperlink{a00173}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{4 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{5 }
-\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <dune/python/common/typeregistry.hh>}}
-\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
-\DoxyCodeLine{8 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00170}{ikarus/python/finiteelements/scalarwrapper.hh}}>}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00511}{Ikarus::Python}} \{}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{keyword}{template} <\textcolor{keyword}{class }FE, \textcolor{keyword}{class}... options>}
-\DoxyCodeLine{14 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00511_a32c3989a8ef1dbc581313ef17a0c6f5b}{registerFERequirement}}(pybind11::handle scope, pybind11::class\_<FE, options...> cls) \{}
-\DoxyCodeLine{15   \textcolor{keyword}{using }\mbox{\hyperlink{a01508}{FERequirements}}     = \textcolor{keyword}{typename} \mbox{\hyperlink{a01892_a86c0fea1b37e487f3c78cde6facca9c3}{FE::Requirement}};}
-\DoxyCodeLine{16   \textcolor{keyword}{using }SolutionVectorType = \textcolor{keyword}{typename} \mbox{\hyperlink{a01508_a438e8f848c50755740ef8ee17620a284}{FERequirements::SolutionVectorType}};}
-\DoxyCodeLine{17   \textcolor{keyword}{using }ParameterType      = \textcolor{keyword}{typename} \mbox{\hyperlink{a01508_a50a1c42fc0b05811dfc370217fb70169}{FERequirements::ParameterType}};}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{19   \textcolor{keyword}{using }ParameterType = \textcolor{keyword}{typename} \mbox{\hyperlink{a01508_a50a1c42fc0b05811dfc370217fb70169}{FERequirements::ParameterType}};}
-\DoxyCodeLine{20   \textcolor{keyword}{using namespace }pybind11::literals;}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22   cls.def(}
-\DoxyCodeLine{23       \textcolor{stringliteral}{"{}createRequirement"{}}, [](pybind11::object \textcolor{comment}{/* self */}) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a01508}{FERequirements}}(); \},}
-\DoxyCodeLine{24       pybind11::return\_value\_policy::copy);}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00332}{ikarus/finiteelements/febase.hh}}>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
+\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK, \textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false>}
+\DoxyCodeLine{22 \textcolor{keyword}{struct }\mbox{\hyperlink{a01500}{FEFactory}}}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   \textcolor{keyword}{using }\mbox{\hyperlink{a01500_ae4167551b40097429f804066c4973256}{Skills}} = SK;}
 \DoxyCodeLine{25 }
-\DoxyCodeLine{26   \textcolor{keyword}{auto} includes     = Dune::Python::IncludeFiles\{\textcolor{stringliteral}{"{}ikarus/finiteelements/ferequirements.hh"{}}\};}
-\DoxyCodeLine{27   \textcolor{keyword}{auto} [req, isNew] = Dune::Python::insertClass<FERequirements>(}
-\DoxyCodeLine{28       scope, \textcolor{stringliteral}{"{}FERequirements"{}}, Dune::Python::GenerateTypeName(Dune::className<FERequirements>()), includes);}
+\DoxyCodeLine{26 \textcolor{keyword}{private}:}
+\DoxyCodeLine{27   \textcolor{keyword}{const} BH* basisHandler\_;}
+\DoxyCodeLine{28   SK skills\_;}
 \DoxyCodeLine{29 }
-\DoxyCodeLine{30   \textcolor{keywordflow}{if} (isNew) \{}
-\DoxyCodeLine{31     req.def(\mbox{\hyperlink{a00492_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}());}
-\DoxyCodeLine{32     req.def(pybind11::init<SolutionVectorType\&, ParameterType\&>());}
-\DoxyCodeLine{33 }
-\DoxyCodeLine{34     req.def(}
-\DoxyCodeLine{35         \textcolor{stringliteral}{"{}insertGlobalSolution"{}},}
-\DoxyCodeLine{36         [](\mbox{\hyperlink{a01508}{FERequirements}}\& self, SolutionVectorType solVec) \{ self.\mbox{\hyperlink{a01508_a628bce13e9dce05097b6a1126b2dada2}{insertGlobalSolution}}(solVec); \},}
-\DoxyCodeLine{37         \textcolor{stringliteral}{"{}solutionVector"{}}\_a.noconvert());}
-\DoxyCodeLine{38     req.def(}
-\DoxyCodeLine{39         \textcolor{stringliteral}{"{}globalSolution"{}}, [](\mbox{\hyperlink{a01508}{FERequirements}}\& self) \{ \textcolor{keywordflow}{return} self.\mbox{\hyperlink{a01508_a9701fdddf89b019507963dd2f68912da}{globalSolution}}(); \},}
-\DoxyCodeLine{40         pybind11::return\_value\_policy::reference\_internal);}
-\DoxyCodeLine{41     req.def(}
-\DoxyCodeLine{42         \textcolor{stringliteral}{"{}insertParameter"{}},}
-\DoxyCodeLine{43         [](\mbox{\hyperlink{a01508}{FERequirements}}\& self, \mbox{\hyperlink{a02016}{ScalarWrapper<double>}}\& parVal) \{ self.\mbox{\hyperlink{a01508_aa183270a9a133844c208380d254d3796}{insertParameter}}(parVal.\mbox{\hyperlink{a02016_a0f885d047f898e549e8ece9cac3adea8}{value}}()); \},}
-\DoxyCodeLine{44         pybind11::keep\_alive<1, 2>(), \textcolor{stringliteral}{"{}parameterValue"{}}\_a.noconvert());}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{46     req.def(\textcolor{stringliteral}{"{}parameter"{}}, [](\textcolor{keyword}{const} \mbox{\hyperlink{a01508}{FERequirements}}\& self) \{ \textcolor{keywordflow}{return} self.\mbox{\hyperlink{a01508_abe2632437241140248ed986d745bd53a}{parameter}}(); \});}
-\DoxyCodeLine{47   \}}
-\DoxyCodeLine{48 \}}
-\DoxyCodeLine{49 \} \textcolor{comment}{// namespace Ikarus::Python}}
+\DoxyCodeLine{30 \textcolor{keyword}{public}:}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SK2 = SK>}
+\DoxyCodeLine{37   \mbox{\hyperlink{a01500_aacbb6c8ee45484144edb78306da79456}{FEFactory}}(\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{const} SK2\& sk)}
+\DoxyCodeLine{38       : basisHandler\_\{\&basisHandler\},}
+\DoxyCodeLine{39         skills\_\{sk\} \{\}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   \textcolor{keyword}{auto} \mbox{\hyperlink{a01500_aa324bf69fc6e9d878cdaf1b2a8667196}{operator()}}() \{}
+\DoxyCodeLine{42     \textcolor{keywordflow}{return} std::apply(}
+\DoxyCodeLine{43         [\&]<\textcolor{keyword}{typename}... Args>(Args\&\&... args) \{}
+\DoxyCodeLine{44           \textcolor{comment}{// the template would not be needed,}}
+\DoxyCodeLine{45           \textcolor{comment}{// when https://www.open-\/std.org/jtc1/sc22/wg21/docs/papers/2019/p1814r0.html}}
+\DoxyCodeLine{46           \textcolor{comment}{// will be implemented in clang. It is already implemented in gcc 12.2}}
+\DoxyCodeLine{47           \textcolor{keyword}{typename} \mbox{\hyperlink{a01492}{PreFE<BH, useFlat, useEigenRef>::template}} \mbox{\hyperlink{a01488}{FE<std::decay\_t<Args>::template}} Skill...> fe(}
+\DoxyCodeLine{48               *basisHandler\_, std::forward<Args>(args)...);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50           \textcolor{keywordflow}{return} fe;}
+\DoxyCodeLine{51         \},}
+\DoxyCodeLine{52         skills\_.args);}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{67 \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false, \textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK>}
+\DoxyCodeLine{68 \textcolor{keyword}{auto} \mbox{\hyperlink{a00492_a59639a9a20f036a4f1c0794f65595662}{makeFE}}(\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{const} SK\& sk) \{}
+\DoxyCodeLine{69   \mbox{\hyperlink{a01500}{FEFactory<BH, SK, useFlat, useEigenRef>}} factory(basisHandler, sk);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   \textcolor{keywordflow}{return} factory();}
+\DoxyCodeLine{72 \}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{84 \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} useEigenRef = false, \textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK>}
+\DoxyCodeLine{85 \textcolor{keyword}{auto} \mbox{\hyperlink{a00492_aa80712fed165a22f02670f195488fe5f}{makeFEWithUnTouchedBasis}}(\textcolor{keyword}{const} BH\& basisHandler, SK\&\& sk) \{}
+\DoxyCodeLine{86   \mbox{\hyperlink{a01500}{FEFactory<BH, SK, false, useEigenRef>}} factory(basisHandler, std::forward<SK>(sk));}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88   \textcolor{keywordflow}{return} factory();}
+\DoxyCodeLine{89 \}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

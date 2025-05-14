@@ -1,5 +1,5 @@
-\hypertarget{a00272_source}{}\doxysection{ogden.\+hh}
-\label{a00272_source}\index{ogden.hh@{ogden.hh}}
+\hypertarget{a00272_source}{}\doxysection{easvariants.\+hh}
+\label{a00272_source}\index{easvariants.hh@{easvariants.hh}}
 \mbox{\hyperlink{a00272}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
@@ -7,144 +7,145 @@
 \DoxyCodeLine{3 }
 \DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00308}{ikarus/finiteelements/mechanics/materials/materialhelpers.hh}}>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00293}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00005}{ikarus/utils/tensorutils.hh}}>}}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00503}{Ikarus::Materials}} \{}
-\DoxyCodeLine{17 }
-\DoxyCodeLine{39 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST\_, \textcolor{keywordtype}{int} n, PrincipalStretchTags tag>}
-\DoxyCodeLine{40 \textcolor{keyword}{struct }\mbox{\hyperlink{a01684}{OgdenT}}}
-\DoxyCodeLine{41 \{}
-\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{a01684_ac3e4137441a45fd58b4dc9f9f6d5fb9e}{ScalarType}} = ST\_;}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{44   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST = ScalarType>}
-\DoxyCodeLine{45   \textcolor{keyword}{using }\mbox{\hyperlink{a01684_a2ad1ff72f65e6d792878a06d4dc2bf30}{PrincipalStretches}} = Eigen::Vector<ST, 3>;}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00492_aec3d3c4647af5c01e1bf18637b3c89fe}{PrincipalStretchTags}} \mbox{\hyperlink{a01684_aa855e364c62dfcff5ee47ae04973e9a5}{stretchTag}} = tag;}
-\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01684_a4812a748c0df58031f26bf4d8bbff37e}{numMatParameters}}            = n;}
-\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01684_a5b88a4ff271dcdde64f5a08fcadd9b85}{dim}}                         = 3;}
-\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01684_a5828b2c22e985dc66871605fb834a873}{usesDeviatoricStretches}}    = \mbox{\hyperlink{a01684_aa855e364c62dfcff5ee47ae04973e9a5}{stretchTag}} == \mbox{\hyperlink{a00492_aec3d3c4647af5c01e1bf18637b3c89feaae6dc167631992e1312a197d5c3c39f8}{PrincipalStretchTags::deviatoric}};}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{52   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST = ScalarType>}
-\DoxyCodeLine{53   \textcolor{keyword}{using }\mbox{\hyperlink{a01684_ac33ad2eb2b73263e513dd3461c57f5df}{FirstDerivative}} = Eigen::Vector<ST, dim>;}
-\DoxyCodeLine{54   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST = ScalarType>}
-\DoxyCodeLine{55   \textcolor{keyword}{using }\mbox{\hyperlink{a01684_a971bfbea9f8f2e1dd6f98f1acfaa8217}{SecondDerivative}} = Eigen::Matrix<ST, dim, dim>;}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57   \textcolor{keyword}{using }\mbox{\hyperlink{a01684_a0164eb06fa929e1608493879f3832c80}{MaterialParameters}} = std::array<double, numMatParameters>;}
-\DoxyCodeLine{58   \textcolor{keyword}{using }\mbox{\hyperlink{a01684_a9b01e9124f3fa51d8a1a5881bd842bd9}{MaterialExponents}}  = std::array<double, numMatParameters>;}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{60   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01684_af415cd72d105db7efb92a77286c3ed61}{name}}() noexcept \{}
-\DoxyCodeLine{61     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Ogden (n = "{}} + std::to\_string(\mbox{\hyperlink{a01684_a4812a748c0df58031f26bf4d8bbff37e}{numMatParameters}}) + \textcolor{stringliteral}{"{}, stretch type = "{}} + \mbox{\hyperlink{a00492_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(tag) + \textcolor{stringliteral}{"{})"{}};}
-\DoxyCodeLine{62   \}}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{70   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01684_a793fd3b05467714b5b630b904855f3ce}{OgdenT}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01684_a0164eb06fa929e1608493879f3832c80}{MaterialParameters}}\& mpt, \textcolor{keyword}{const} \mbox{\hyperlink{a01684_a9b01e9124f3fa51d8a1a5881bd842bd9}{MaterialExponents}}\& mex)}
-\DoxyCodeLine{71       : materialParameters\_\{mpt\},}
-\DoxyCodeLine{72         materialExponents\_\{mex\} \{\}}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{77   \mbox{\hyperlink{a01684_a0164eb06fa929e1608493879f3832c80}{MaterialParameters}} \mbox{\hyperlink{a01684_a83461b830e07a4078ce77cda6b2af5a5}{materialParametersImpl}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} materialParameters\_; \}}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{82   \textcolor{keyword}{const} \mbox{\hyperlink{a01684_a9b01e9124f3fa51d8a1a5881bd842bd9}{MaterialExponents}}\& \mbox{\hyperlink{a01684_a5123ba0830430d313b96a7bc53ba08ce}{materialExponents}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} materialExponents\_; \}}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{92   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{93   \textcolor{keyword}{auto} \mbox{\hyperlink{a01684_aedb6f5d097a629d1992873adfcfddaca}{storedEnergyImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01684_a2ad1ff72f65e6d792878a06d4dc2bf30}{PrincipalStretches<ST>}}\& lambda)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{94     \textcolor{keyword}{auto}\& mu    = materialParameters\_;}
-\DoxyCodeLine{95     \textcolor{keyword}{auto}\& alpha = materialExponents\_;}
-\DoxyCodeLine{96 }
-\DoxyCodeLine{97     ST energy\{\};}
-\DoxyCodeLine{98 }
-\DoxyCodeLine{99     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01684_a5828b2c22e985dc66871605fb834a873}{usesDeviatoricStretches}}) \{}
-\DoxyCodeLine{100       \textcolor{keyword}{auto} lambdaBar = Impl::deviatoricStretches(lambda);}
-\DoxyCodeLine{101       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i : parameterRange())}
-\DoxyCodeLine{102         energy += mu[i] / alpha[i] * (lambdaBar.array().pow(alpha[i]).sum() -\/ 3);}
-\DoxyCodeLine{103     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{104       \textcolor{keyword}{auto} J    = lambda[0] * lambda[1] * lambda[2];}
-\DoxyCodeLine{105       \textcolor{keyword}{auto} logJ = log(J);}
-\DoxyCodeLine{106       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i : parameterRange())}
-\DoxyCodeLine{107         energy += mu[i] / alpha[i] * (lambda.array().pow(alpha[i]).sum() -\/ 3) -\/ mu[i] * logJ;}
-\DoxyCodeLine{108     \}}
-\DoxyCodeLine{109     \textcolor{keywordflow}{return} energy;}
-\DoxyCodeLine{110   \}}
-\DoxyCodeLine{111 }
-\DoxyCodeLine{120   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{121   \textcolor{keyword}{auto} \mbox{\hyperlink{a01684_a47d6472e966e0dfa7918237ea7e4fba8}{firstDerivativeImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01684_a2ad1ff72f65e6d792878a06d4dc2bf30}{PrincipalStretches<ST>}}\& lambda)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{122     \textcolor{keyword}{auto}\& mu       = materialParameters\_;}
-\DoxyCodeLine{123     \textcolor{keyword}{auto}\& alpha    = materialExponents\_;}
-\DoxyCodeLine{124     \textcolor{keyword}{auto} dWdLambda = \mbox{\hyperlink{a01684_ac33ad2eb2b73263e513dd3461c57f5df}{FirstDerivative<ST>::Zero}}().eval();}
-\DoxyCodeLine{125 }
-\DoxyCodeLine{126     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01684_a5828b2c22e985dc66871605fb834a873}{usesDeviatoricStretches}}) \{}
-\DoxyCodeLine{127       \textcolor{keyword}{auto} lambdaBar    = Impl::deviatoricStretches(lambda);}
-\DoxyCodeLine{128       \textcolor{keyword}{auto} dWdLambdaBar = Eigen::Array<ST, dim, 1>::Zero().eval();}
-\DoxyCodeLine{129 }
-\DoxyCodeLine{130       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} j : parameterRange())}
-\DoxyCodeLine{131         dWdLambdaBar += mu[j] * lambdaBar.array().pow(alpha[j] -\/ 1);}
-\DoxyCodeLine{132 }
-\DoxyCodeLine{133       \textcolor{keyword}{const} ST sumLambdaBar = (lambdaBar.array() * dWdLambdaBar).sum();}
-\DoxyCodeLine{134       dWdLambda             = (lambdaBar.array() * dWdLambdaBar -\/ (1.0 / 3.0) * sumLambdaBar) / lambda.array();}
-\DoxyCodeLine{135     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{136       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} j : parameterRange())}
-\DoxyCodeLine{137         dWdLambda.array() += (mu[j] * (lambda.array().pow(alpha[j]) -\/ 1)) / lambda.array();}
-\DoxyCodeLine{138 }
-\DoxyCodeLine{139     \textcolor{keywordflow}{return} dWdLambda;}
-\DoxyCodeLine{140   \}}
-\DoxyCodeLine{141 }
-\DoxyCodeLine{150   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{151   \textcolor{keyword}{auto} \mbox{\hyperlink{a01684_a0c57c366c288614b425baabf11930fa2}{secondDerivativeImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01684_a2ad1ff72f65e6d792878a06d4dc2bf30}{PrincipalStretches<ST>}}\& lambda)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{152     \textcolor{keyword}{auto}\& mu    = materialParameters\_;}
-\DoxyCodeLine{153     \textcolor{keyword}{auto}\& alpha = materialExponents\_;}
-\DoxyCodeLine{154     \textcolor{keyword}{auto} dS     = \mbox{\hyperlink{a01684_a971bfbea9f8f2e1dd6f98f1acfaa8217}{SecondDerivative<ST>::Zero}}().eval();}
-\DoxyCodeLine{155 }
-\DoxyCodeLine{156     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01684_a5828b2c22e985dc66871605fb834a873}{usesDeviatoricStretches}}) \{}
-\DoxyCodeLine{157       \textcolor{keyword}{const} \textcolor{keyword}{auto} lambdaBar = Impl::deviatoricStretches(lambda);}
-\DoxyCodeLine{158       \textcolor{keyword}{const} \textcolor{keyword}{auto} dWdLambda = \mbox{\hyperlink{a01684_a47d6472e966e0dfa7918237ea7e4fba8}{firstDerivativeImpl}}(lambda);}
-\DoxyCodeLine{159 }
-\DoxyCodeLine{160       \textcolor{keyword}{auto} lambdaBarPowSum = Eigen::Array<ST, dim, 1>::Zero().eval();}
-\DoxyCodeLine{161       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : parameterRange())}
-\DoxyCodeLine{162         lambdaBarPowSum[p] = lambdaBar.array().pow(alpha[p]).sum();}
-\DoxyCodeLine{163 }
-\DoxyCodeLine{164       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} a : dimensionRange()) \{}
-\DoxyCodeLine{165         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} b : dimensionRange()) \{}
-\DoxyCodeLine{166           \textcolor{keywordflow}{if} (a == b)}
-\DoxyCodeLine{167             \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : parameterRange())}
-\DoxyCodeLine{168               dS(a, b) += mu[p] * alpha[p] * (1.0 / 3.0 * pow(lambdaBar[a], alpha[p]) + 1.0 / 9.0 * lambdaBarPowSum[p]);}
-\DoxyCodeLine{169 }
-\DoxyCodeLine{170           \textcolor{keywordflow}{else}}
-\DoxyCodeLine{171             \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : parameterRange())}
-\DoxyCodeLine{172               dS(a, b) += mu[p] * alpha[p] *}
-\DoxyCodeLine{173                           (-\/(1.0 / 3.0) * (pow(lambdaBar[a], alpha[p]) + pow(lambdaBar[b], alpha[p])) +}
-\DoxyCodeLine{174                            1.0 / 9.0 * lambdaBarPowSum[p]);}
-\DoxyCodeLine{175 }
-\DoxyCodeLine{176           dS(a, b) *= 1.0 / (lambda[a] * lambda[b]);}
-\DoxyCodeLine{177           \textcolor{keywordflow}{if} (a == b)}
-\DoxyCodeLine{178             dS(a, b) -\/= (2.0 / lambda[a]) * dWdLambda[a];}
-\DoxyCodeLine{179         \}}
-\DoxyCodeLine{180       \}}
-\DoxyCodeLine{181     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{182       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} j : parameterRange()) \{}
-\DoxyCodeLine{183         dS.diagonal().array() +=}
-\DoxyCodeLine{184             (-\/2 * mu[j] * (lambda.array().pow(alpha[j]) -\/ 1) + mu[j] * lambda.array().pow(alpha[j]) * alpha[j]) /}
-\DoxyCodeLine{185             lambda.array().square();}
-\DoxyCodeLine{186       \}}
-\DoxyCodeLine{187     \}}
-\DoxyCodeLine{188     \textcolor{keywordflow}{return} dS;}
-\DoxyCodeLine{189   \}}
-\DoxyCodeLine{190 }
-\DoxyCodeLine{196   \textcolor{keyword}{template} <\textcolor{keyword}{typename} STO>}
-\DoxyCodeLine{197   \textcolor{keyword}{auto} \mbox{\hyperlink{a01684_a6e193a52046c0fd18c9386f526c40ed2}{rebind}}()\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{198     \textcolor{keywordflow}{return} \mbox{\hyperlink{a01684}{OgdenT<STO, numMatParameters, stretchTag>}}(materialParameters\_, materialExponents\_);}
-\DoxyCodeLine{199   \}}
-\DoxyCodeLine{200 }
-\DoxyCodeLine{201 \textcolor{keyword}{private}:}
-\DoxyCodeLine{202   \mbox{\hyperlink{a01684_a0164eb06fa929e1608493879f3832c80}{MaterialParameters}} materialParameters\_;}
-\DoxyCodeLine{203   \mbox{\hyperlink{a01684_a9b01e9124f3fa51d8a1a5881bd842bd9}{MaterialExponents}} materialExponents\_;}
-\DoxyCodeLine{204 }
-\DoxyCodeLine{205   \textcolor{keyword}{inline} \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} parameterRange() \{ \textcolor{keywordflow}{return} Dune::range(\mbox{\hyperlink{a01684_a4812a748c0df58031f26bf4d8bbff37e}{numMatParameters}}); \}}
-\DoxyCodeLine{206   \textcolor{keyword}{inline} \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} dimensionRange() \{ \textcolor{keywordflow}{return} Dune::range(\mbox{\hyperlink{a01684_a5b88a4ff271dcdde64f5a08fcadd9b85}{dim}}); \}}
-\DoxyCodeLine{207 \};}
-\DoxyCodeLine{208 }
-\DoxyCodeLine{212 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} n, PrincipalStretchTags tag>}
-\DoxyCodeLine{213 \textcolor{keyword}{using }\mbox{\hyperlink{a01684}{Ogden}} = \mbox{\hyperlink{a01684}{OgdenT<double, n, tag>}};}
-\DoxyCodeLine{214 }
-\DoxyCodeLine{215 \} \textcolor{comment}{// namespace Ikarus::Materials}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00284}{ikarus/finiteelements/mechanics/strainenhancements/easfunctions.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03461}{ikarus/finiteelements/mechanics/strainenhancements/easvariants/displacementgradient.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00275}{ikarus/finiteelements/mechanics/strainenhancements/easvariants/linearandglstrains.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00014}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00504}{Ikarus::EAS}} \{}
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{19   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} myDim, \textcolor{keyword}{typename} EASFunction>}
+\DoxyCodeLine{20   \textcolor{keyword}{struct }EASType;}
+\DoxyCodeLine{21   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{22   \textcolor{keyword}{struct }EASType<GEO, 3, EAS::LinearStrain>}
+\DoxyCodeLine{23   \{}
+\DoxyCodeLine{24     \textcolor{keyword}{using }type = std::variant<E0<GEO>, E9<GEO>, E21<GEO>>;}
+\DoxyCodeLine{25   \};}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{27   \textcolor{keyword}{struct }EASType<GEO, 2, EAS::LinearStrain>}
+\DoxyCodeLine{28   \{}
+\DoxyCodeLine{29     \textcolor{keyword}{using }type = std::variant<E0<GEO>, E4<GEO>, E5<GEO>, E7<GEO>, E11<GEO>>;}
+\DoxyCodeLine{30   \};}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} myDim>}
+\DoxyCodeLine{32   \textcolor{keyword}{struct }EASType<GEO, myDim, EAS::GreenLagrangeStrain>}
+\DoxyCodeLine{33   \{}
+\DoxyCodeLine{34     \textcolor{keyword}{using }type = EASType<GEO, myDim, EAS::LinearStrain>::type;}
+\DoxyCodeLine{35   \};}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{37   \textcolor{keyword}{struct }EASType<GEO, 2, EAS::DisplacementGradient>}
+\DoxyCodeLine{38   \{}
+\DoxyCodeLine{39     \textcolor{keyword}{using }type = std::variant<H0<GEO>, H4<GEO>>;}
+\DoxyCodeLine{40   \};}
+\DoxyCodeLine{41   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{42   \textcolor{keyword}{struct }EASType<GEO, 3, EAS::DisplacementGradient>}
+\DoxyCodeLine{43   \{}
+\DoxyCodeLine{44     \textcolor{keyword}{using }type = std::variant<H0<GEO>, H9<GEO>>;}
+\DoxyCodeLine{45   \};}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} myDim>}
+\DoxyCodeLine{47   \textcolor{keyword}{struct }EASType<GEO, myDim, EAS::DisplacementGradientTransposed>}
+\DoxyCodeLine{48   \{}
+\DoxyCodeLine{49     \textcolor{keyword}{using }type = EASType<GEO, myDim, EAS::DisplacementGradient>::type;}
+\DoxyCodeLine{50   \};}
+\DoxyCodeLine{51 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{58 \textcolor{keyword}{template} <\textcolor{keyword}{typename} EASFunction, \textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{59 \textcolor{keyword}{struct }\mbox{\hyperlink{a01828}{EASVariant}}}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01828_ae8c4b486b6bbe10b62dba045808ccd8e}{myDim}} = GEO::mydimension;}
+\DoxyCodeLine{62   \textcolor{keyword}{using }\mbox{\hyperlink{a01828_a8c1fa0ebb484cb9acd1ada539c13e545}{Variant}}              = Impl::EASType<GEO, myDim, EASFunction>::type;}
+\DoxyCodeLine{63   \textcolor{keyword}{static\_assert}((\mbox{\hyperlink{a01828_ae8c4b486b6bbe10b62dba045808ccd8e}{myDim}} == 2) or (\mbox{\hyperlink{a01828_ae8c4b486b6bbe10b62dba045808ccd8e}{myDim}} == 3), \textcolor{stringliteral}{"{}EAS variants are only available for 2D and 3D elements."{}});}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{70   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
+\DoxyCodeLine{71   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01828_ab58eeeea1f61ad59fccf49983f8249f7}{operator()}}(F\&\& f)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{72     std::visit([\&]<\textcolor{keyword}{typename} EAST>(\textcolor{keyword}{const} EAST\& easFunction) \{ f(easFunction); \}, var\_);}
+\DoxyCodeLine{73   \}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{79   \textcolor{keyword}{auto} \mbox{\hyperlink{a01828_a459b3a4dd4d25d37d6cc3239dbb3e9db}{numberOfInternalVariables}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{80     \textcolor{keywordflow}{return} std::visit([]<\textcolor{keyword}{typename} EAST>(\textcolor{keyword}{const} EAST\&) -\/> \textcolor{keywordtype}{int} \{ \textcolor{keywordflow}{return} EAST::enhancedStrainSize; \}, var\_);}
+\DoxyCodeLine{81   \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{88   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01828_a9c2b9332eb9cd4f9e72932553245d46b}{isDisplacmentBased}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a01828_a459b3a4dd4d25d37d6cc3239dbb3e9db}{numberOfInternalVariables}}() == 0; \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01828_ad973e74eaff77bc3246e9af225afed52}{setEASType}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{a01828_a459b3a4dd4d25d37d6cc3239dbb3e9db}{numberOfInternalVariables}}) \{}
+\DoxyCodeLine{91     numberOfEASParameters\_ = \mbox{\hyperlink{a01828_a459b3a4dd4d25d37d6cc3239dbb3e9db}{numberOfInternalVariables}};}
+\DoxyCodeLine{92     \textcolor{keywordflow}{if} (geometry\_)}
+\DoxyCodeLine{93       createEASType();}
+\DoxyCodeLine{94   \}}
+\DoxyCodeLine{95   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01828_a0f20349ee52ac98f8768463f5489e7eb}{bind}}(\textcolor{keyword}{const} GEO\& geometry) \{}
+\DoxyCodeLine{96     geometry\_ = std::make\_optional<GEO>(geometry);}
+\DoxyCodeLine{97     createEASType();}
+\DoxyCodeLine{98   \}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{keyword}{private}:}
+\DoxyCodeLine{101   \textcolor{keywordtype}{void} createEASType() \{}
+\DoxyCodeLine{102     \textcolor{keyword}{const} std::string\& errorMessage = \textcolor{stringliteral}{"{}The given EAS parameters are not available for enhancing "{}} +}
+\DoxyCodeLine{103                                       EASFunction::name() + \textcolor{stringliteral}{"{} strain measure for the "{}} + std::to\_string(\mbox{\hyperlink{a01828_ae8c4b486b6bbe10b62dba045808ccd8e}{myDim}}) +}
+\DoxyCodeLine{104                                       \textcolor{stringliteral}{"{}D case."{}};}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<EASFunction, EAS::LinearStrain> or std::same\_as<EASFunction, EAS::GreenLagrangeStrain>) \{}
+\DoxyCodeLine{107       \textcolor{keywordflow}{if} (numberOfEASParameters\_ == 0) \{}
+\DoxyCodeLine{108         var\_ = \mbox{\hyperlink{a01852}{E0}}(geometry\_.value());}
+\DoxyCodeLine{109         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{110       \}}
+\DoxyCodeLine{111       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01828_ae8c4b486b6bbe10b62dba045808ccd8e}{myDim}} == 2) \{}
+\DoxyCodeLine{112         \textcolor{keywordflow}{switch} (numberOfEASParameters\_) \{}
+\DoxyCodeLine{113           \textcolor{keywordflow}{case} 4:}
+\DoxyCodeLine{114             var\_ = E4(geometry\_.value());}
+\DoxyCodeLine{115             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{116           \textcolor{keywordflow}{case} 5:}
+\DoxyCodeLine{117             var\_ = E5(geometry\_.value());}
+\DoxyCodeLine{118             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{119           \textcolor{keywordflow}{case} 7:}
+\DoxyCodeLine{120             var\_ = E7(geometry\_.value());}
+\DoxyCodeLine{121             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{122           \textcolor{keywordflow}{case} 11:}
+\DoxyCodeLine{123             var\_ = E11(geometry\_.value());}
+\DoxyCodeLine{124             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{125           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{126             DUNE\_THROW(Dune::NotImplemented, errorMessage);}
+\DoxyCodeLine{127         \}}
+\DoxyCodeLine{128       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01828_ae8c4b486b6bbe10b62dba045808ccd8e}{myDim}} == 3) \{}
+\DoxyCodeLine{129         \textcolor{keywordflow}{switch} (numberOfEASParameters\_) \{}
+\DoxyCodeLine{130           \textcolor{keywordflow}{case} 9:}
+\DoxyCodeLine{131             var\_ = E9(geometry\_.value());}
+\DoxyCodeLine{132             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{133           \textcolor{keywordflow}{case} 21:}
+\DoxyCodeLine{134             var\_ = E21(geometry\_.value());}
+\DoxyCodeLine{135             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{136           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{137             DUNE\_THROW(Dune::NotImplemented, errorMessage);}
+\DoxyCodeLine{138         \}}
+\DoxyCodeLine{139       \}}
+\DoxyCodeLine{140     \}}
+\DoxyCodeLine{141     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<EASFunction, EAS::DisplacementGradient> or}
+\DoxyCodeLine{142                   std::same\_as<EASFunction, EAS::DisplacementGradientTransposed>) \{}
+\DoxyCodeLine{143       \textcolor{keywordflow}{if} (numberOfEASParameters\_ == 0) \{}
+\DoxyCodeLine{144         var\_ = H0(geometry\_.value());}
+\DoxyCodeLine{145         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{146       \}}
+\DoxyCodeLine{147       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01828_ae8c4b486b6bbe10b62dba045808ccd8e}{myDim}} == 2) \{}
+\DoxyCodeLine{148         \textcolor{keywordflow}{switch} (numberOfEASParameters\_) \{}
+\DoxyCodeLine{149           \textcolor{keywordflow}{case} 4:}
+\DoxyCodeLine{150             var\_ = H4(geometry\_.value());}
+\DoxyCodeLine{151             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{152           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{153             DUNE\_THROW(Dune::NotImplemented, errorMessage);}
+\DoxyCodeLine{154         \}}
+\DoxyCodeLine{155       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01828_ae8c4b486b6bbe10b62dba045808ccd8e}{myDim}} == 3) \{}
+\DoxyCodeLine{156         \textcolor{keywordflow}{switch} (numberOfEASParameters\_) \{}
+\DoxyCodeLine{157           \textcolor{keywordflow}{case} 9:}
+\DoxyCodeLine{158             var\_ = H9(geometry\_.value());}
+\DoxyCodeLine{159             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{160           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{161             DUNE\_THROW(Dune::NotImplemented, errorMessage);}
+\DoxyCodeLine{162         \}}
+\DoxyCodeLine{163       \}}
+\DoxyCodeLine{164     \}}
+\DoxyCodeLine{165   \}}
+\DoxyCodeLine{166   std::optional<GEO> geometry\_;}
+\DoxyCodeLine{167   \mbox{\hyperlink{a01828_a8c1fa0ebb484cb9acd1ada539c13e545}{Variant}} var\_;}
+\DoxyCodeLine{168   \textcolor{keywordtype}{int} numberOfEASParameters\_;}
+\DoxyCodeLine{169 \};}
+\DoxyCodeLine{170 \} \textcolor{comment}{// namespace Ikarus::EAS}}
 
 \end{DoxyCode}

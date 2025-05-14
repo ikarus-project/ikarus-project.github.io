@@ -1,54 +1,23 @@
-\hypertarget{a00179}{}\doxysection{flatassembler.\+hh File Reference}
-\label{a00179}\index{flatassembler.hh@{flatassembler.hh}}
+\hypertarget{a00179}{}\doxysection{numericalmaterialinversion.\+hh File Reference}
+\label{a00179}\index{numericalmaterialinversion.hh@{numericalmaterialinversion.hh}}
 
 
-\mbox{\hyperlink{a00522}{Python}} bindings for assemblers.  
+Implementation of the numerical scheme for material inverison for generic hyperelastic material models.  
 
 
-{\ttfamily \#include $<$dune/python/common/typeregistry.\+hh$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/eigen.\+h$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/pybind11.\+h$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/stl.\+h$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/stl\+\_\+bind.\+h$>$}\newline
-{\ttfamily \#include $<$ikarus/assembler/dirichletbcenforcement.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/ferequirements.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/basis.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/interface.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/materialhelpers.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/strainconversions.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/tensorutils.\+hh$>$}\newline
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{a00492}{Ikarus}}
 \item 
-namespace \mbox{\hyperlink{a00511}{Ikarus\+::\+Python}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Macros}
-\begin{DoxyCompactItemize}
-\item 
-\#define \mbox{\hyperlink{a00179_adda74d8564a01c0a9851a4379308a8b2}{MAKE\+\_\+\+ASSEMBLER\+\_\+\+REGISTERY\+\_\+\+FUNCTION}}(name)
+namespace \mbox{\hyperlink{a00503}{Ikarus\+::\+Materials}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Assembler , class... options$>$ }\\void \mbox{\hyperlink{a00484_ga87d3c6e620be5df59ba6923751caae86}{Ikarus\+::\+Python\+::register\+Flat\+Assembler}} (pybind11\+::handle scope, pybind11\+::class\+\_\+$<$ Assembler, options... $>$ cls)
-\begin{DoxyCompactList}\small\item\em Register \mbox{\hyperlink{a00511}{Python}} bindings for a assembler class. ~\newline
-. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Assembler , class... options$>$ }\\void \mbox{\hyperlink{a00511_aeab1c5f959a22f95b40b0a7576f9c896}{Ikarus\+::\+Python\+::register\+Sparse\+Flat\+Assembler}} (pybind11\+::handle scope, pybind11\+::class\+\_\+$<$ Assembler, options... $>$ cls)
-\item 
-{\footnotesize template$<$class Assembler , class... options$>$ }\\void \mbox{\hyperlink{a00511_a2b0faffde20690631657489c79ec809b}{Ikarus\+::\+Python\+::register\+Dense\+Flat\+Assembler}} (pybind11\+::handle scope, pybind11\+::class\+\_\+$<$ Assembler, options... $>$ cls)
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{a00179_adda74d8564a01c0a9851a4379308a8b2}\label{a00179_adda74d8564a01c0a9851a4379308a8b2}} 
-\index{flatassembler.hh@{flatassembler.hh}!MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION@{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION}}
-\index{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION@{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION}!flatassembler.hh@{flatassembler.hh}}
-\doxysubsubsection{\texorpdfstring{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION}{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION}}
-{\footnotesize\ttfamily \#define MAKE\+\_\+\+ASSEMBLER\+\_\+\+REGISTERY\+\_\+\+FUNCTION(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{class }Assembler, \textcolor{keyword}{class}... options>                                               \(\backslash\)}
-\DoxyCodeLine{  void \textcolor{keyword}{register}\#\#name(pybind11::handle scope, pybind11::class\_<Assembler, options...> cls) \{ \(\backslash\)}
-\DoxyCodeLine{    registerFlatAssembler(scope, cls);                                                       \(\backslash\)}
-\DoxyCodeLine{  \}}
-
-\end{DoxyCode}
+{\footnotesize template$<$Concepts\+::\+Material Material, typename Derived $>$ }\\auto \mbox{\hyperlink{a00503_a8fbddf32993e15f5f5c590c599a2b5f3}{Ikarus\+::\+Materials\+::numerical\+Material\+Inversion}} (const Material \&mat, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&S, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&Estart=Derived\+::\+Zero().eval(), const double tol=1e-\/12, const int max\+Iter=20)
+\begin{DoxyCompactList}\small\item\em Computes numerically an approximation of the complementary strain energy function and returns the material tangent and strain tensor for a given stress state. \end{DoxyCompactList}\end{DoxyCompactItemize}

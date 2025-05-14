@@ -1,4 +1,6 @@
 var a00173 =
 [
-    [ "registerFERequirement", "a00173.html#a32c3989a8ef1dbc581313ef17a0c6f5b", null ]
+    [ "Ikarus::FEFactory< BH, SK, useFlat, useEigenRef >", "a01500.html", "a01500" ],
+    [ "makeFE", "a00173.html#a59639a9a20f036a4f1c0794f65595662", null ],
+    [ "makeFEWithUnTouchedBasis", "a00173.html#aa80712fed165a22f02670f195488fe5f", null ]
 ];

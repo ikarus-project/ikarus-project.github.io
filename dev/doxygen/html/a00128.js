@@ -1,26 +1,14 @@
 var a00128 =
 [
-    [ "ControlMessages", "a00128.html#ga35fa62fd2d4186a9750af3d0692f2893", [
-      [ "BEGIN", "a00128.html#gga35fa62fd2d4186a9750af3d0692f2893a19aad9f2fe3ce0023298ab83f7e75775", null ],
-      [ "CONTROL_STARTED", "a00128.html#gga35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0", null ],
-      [ "CONTROL_ENDED", "a00128.html#gga35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938", null ],
-      [ "STEP_STARTED", "a00128.html#gga35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945", null ],
-      [ "STEP_ENDED", "a00128.html#gga35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2", null ],
-      [ "SOLUTION_CHANGED", "a00128.html#gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577", null ],
-      [ "END", "a00128.html#gga35fa62fd2d4186a9750af3d0692f2893ab1a326c06d88bf042f73d70f50197905", null ]
+    [ "Ikarus::GeneralizedSymEigenSolver< SolverType, MT >", "a02020.html", null ],
+    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Spectra, MT >", "a02024.html", "a02024" ],
+    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Eigen, MT >", "a02028.html", "a02028" ],
+    [ "Ikarus::PartialGeneralizedSymEigenSolver< MT >", "a02032.html", "a02032" ],
+    [ "EigenValueSolverType", "a00128.html#a76f328509ccf00e93bba2416f01620e4", [
+      [ "BEGIN", "a00128.html#a76f328509ccf00e93bba2416f01620e4a19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Spectra", "a00128.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69", null ],
+      [ "Eigen", "a00128.html#a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833", null ],
+      [ "END", "a00128.html#a76f328509ccf00e93bba2416f01620e4ab1a326c06d88bf042f73d70f50197905", null ]
     ] ],
-    [ "NonLinearSolverMessages", "a00128.html#ga662b2b6a80547adf4b9ce8b30d87fab5", [
-      [ "BEGIN", "a00128.html#gga662b2b6a80547adf4b9ce8b30d87fab5a19aad9f2fe3ce0023298ab83f7e75775", null ],
-      [ "INIT", "a00128.html#gga662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498", null ],
-      [ "ITERATION_STARTED", "a00128.html#gga662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4", null ],
-      [ "ITERATION_ENDED", "a00128.html#gga662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815", null ],
-      [ "RESIDUALNORM_UPDATED", "a00128.html#gga662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14", null ],
-      [ "CORRECTIONNORM_UPDATED", "a00128.html#gga662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78", null ],
-      [ "CORRECTION_UPDATED", "a00128.html#gga662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4", null ],
-      [ "SOLUTION_CHANGED", "a00128.html#gga662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577", null ],
-      [ "FINISHED_SUCESSFULLY", "a00128.html#gga662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931", null ],
-      [ "END", "a00128.html#gga662b2b6a80547adf4b9ce8b30d87fab5ab1a326c06d88bf042f73d70f50197905", null ]
-    ] ],
-    [ "toString", "a00128.html#a63ef8cfbc0625cd1e47dd1e0ef3005d5", null ],
-    [ "toString", "a00128.html#a9257a4c7e7fe20e33c31511719052edc", null ]
+    [ "toString", "a00128.html#acc08b9ea0e95d84b7f5b9cc272eb453f", null ]
 ];

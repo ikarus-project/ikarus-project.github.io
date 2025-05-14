@@ -1,14 +1,34 @@
-\hypertarget{a00263}{}\doxysection{stressconversions.\+hh File Reference}
-\label{a00263}\index{stressconversions.hh@{stressconversions.hh}}
+\hypertarget{a00263}{}\doxysection{nonlinearelastic.\+hh File Reference}
+\label{a00263}\index{nonlinearelastic.hh@{nonlinearelastic.hh}}
 
 
-Implementation of transformations for different stress measures.  
+Definition of the Non\+Linear\+Elastic class for finite element mechanics computations.  
 
 
-{\ttfamily \#include \char`\"{}tags.\+hh\char`\"{}}\newline
-{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/materialhelpers.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/tensorutils.\+hh$>$}\newline
+{\ttfamily \#include $<$dune/fufem/boundarypatch.\+hh$>$}\newline
+{\ttfamily \#include $<$dune/geometry/quadraturerules.\+hh$>$}\newline
+{\ttfamily \#include $<$dune/geometry/type.\+hh$>$}\newline
+{\ttfamily \#include $<$dune/localfefunctions/cachedlocal\+Basis/cachedlocal\+Basis.\+hh$>$}\newline
+{\ttfamily \#include $<$dune/localfefunctions/expressions/green\+Lagrange\+Strains.\+hh$>$}\newline
+{\ttfamily \#include $<$dune/localfefunctions/impl/standard\+Local\+Function.\+hh$>$}\newline
+{\ttfamily \#include $<$dune/localfefunctions/manifolds/real\+Tuple.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/febase.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/fehelper.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/ferequirements.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/loads.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/tags.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/strainenhancements/easfunctions.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/physicshelper.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/defaultfunctions.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/eigendunetransformations.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/linearalgebrahelper.\+hh$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{a01780}{Ikarus\+::\+Non\+Linear\+Elastic\+Pre$<$ MAT $>$}}
+\begin{DoxyCompactList}\small\item\em A \mbox{\hyperlink{a01492}{Pre\+FE}} struct for non-\/linear elastic elements. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{a01776}{Ikarus\+::\+Non\+Linear\+Elastic$<$ Pre\+FE, FE, PRE $>$}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{a01776}{Non\+Linear\+Elastic}} class represents a non-\/linear elastic finite element. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -17,13 +37,5 @@ namespace \mbox{\hyperlink{a00492}{Ikarus}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00492_aac5f712024c37b9014278c6b91b79f41}{Ikarus\+::create\+PK2\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create PK2 stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00492_acda5fb24a857866c8be72dcb94edc70f}{Ikarus\+::create\+PK1\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create PK1 stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00492_ac072123f9f65284646424ff6fb2a3661}{Ikarus\+::create\+Kirchhoff\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create Kirchhoff stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00492_ad5371a3a1c5123b3241a103c6c844b88}{Ikarus\+::create\+Cauchy\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create Cauchy stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags from, Stress\+Tags to, typename DerivedS , typename DerivedF $>$ }\\auto \mbox{\hyperlink{a00492_a15a168e678f7086c461b0aab8eb69349}{Ikarus\+::transform\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ DerivedS $>$ \&s\+Raw, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Transform stress measures from one type to another. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$Concepts\+::\+Material MAT$>$ }\\auto \mbox{\hyperlink{a00492_a6f028adf5a1a78301381fe92b241d550}{Ikarus\+::non\+Linear\+Elastic}} (const MAT \&mat)
+\begin{DoxyCompactList}\small\item\em A helper function to create a non-\/linear elastic pre finite element. \end{DoxyCompactList}\end{DoxyCompactItemize}

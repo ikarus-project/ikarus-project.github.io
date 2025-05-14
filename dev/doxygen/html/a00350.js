@@ -1,8 +1,5 @@
 var a00350 =
 [
-    [ "Ikarus::PS::SX< GEO, ass >", "a01584.html", "a01584" ],
-    [ "Ikarus::PS::S5< GEO >", "a01588.html", "a01588" ],
-    [ "Ikarus::PS::S18< GEO >", "a01592.html", "a01592" ],
-    [ "Ikarus::PS::S24< GEO >", "a01596.html", "a01596" ],
-    [ "Ikarus::PS::S30< GEO >", "a01600.html", "a01600" ]
+    [ "makeDenseFlatAssembler", "a00350.html#aa2e289f3c26f24717a19b05b5561538c", null ],
+    [ "makeSparseFlatAssembler", "a00350.html#a7b31ad9106d0c3d4052413bcbf5ea596", null ]
 ];

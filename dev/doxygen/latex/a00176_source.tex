@@ -1,114 +1,80 @@
-\hypertarget{a00176_source}{}\doxysection{flatassemblermanipulator.\+hh}
-\label{a00176_source}\index{flatassemblermanipulator.hh@{flatassemblermanipulator.hh}}
+\hypertarget{a00176_source}{}\doxysection{linearelasticity.\+hh}
+\label{a00176_source}\index{linearelasticity.hh@{linearelasticity.hh}}
 \mbox{\hyperlink{a00176}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dune/python/common/typeregistry.hh>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <dune/python/pybind11/eigen.h>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl.h>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl\_bind.h>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03446}{ikarus/finiteelements/mechanics/materials/interface.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00218}{ikarus/finiteelements/mechanics/materials/svk.hh}}>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00503}{Ikarus::Materials}} \{}
 \DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00434}{ikarus/assembler/dirichletbcenforcement.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00233}{ikarus/finiteelements/ferequirements.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00179}{ikarus/python/assembler/flatassembler.hh}}>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00170}{ikarus/python/finiteelements/scalarwrapper.hh}}>}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03467}{ikarus/utils/basis.hh}}>}}
-\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00041}{ikarus/utils/traits.hh}}>}}
-\DoxyCodeLine{23 }
-\DoxyCodeLine{24 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00511}{Ikarus::Python}} \{}
-\DoxyCodeLine{25 }
-\DoxyCodeLine{26 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{27 }
-\DoxyCodeLine{28   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NewType, \textcolor{keyword}{typename} F, \textcolor{keyword}{typename}... Args, \textcolor{keywordtype}{size\_t}... Indices>}
-\DoxyCodeLine{29   \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) forward\_last\_as(F\&\& f, std::index\_sequence<Indices...>, Args\&\&... args) \{}
-\DoxyCodeLine{30     \textcolor{keyword}{auto} tup = std::forward\_as\_tuple(args...);}
-\DoxyCodeLine{31     \textcolor{keywordflow}{return} f(std::get<Indices>(tup)..., NewType(std::get<\textcolor{keyword}{sizeof}...(Args) -\/ 1>(tup)));}
-\DoxyCodeLine{32   \}}
-\DoxyCodeLine{33 }
-\DoxyCodeLine{34   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NewType, \textcolor{keyword}{typename} F>}
-\DoxyCodeLine{35   \textcolor{keyword}{auto} wrapFunctionAndReplaceLastType(F\&\& f) \{}
-\DoxyCodeLine{36     \textcolor{keywordflow}{return} [f](\textcolor{keyword}{auto}\&\&... args) -\/> \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) \{}
-\DoxyCodeLine{37       \textcolor{keywordflow}{return} forward\_last\_as<NewType>(f, std::make\_index\_sequence<\textcolor{keyword}{sizeof}...(args) -\/ 1>\{\},}
-\DoxyCodeLine{38                                       std::forward<decltype(args)>(args)...);}
-\DoxyCodeLine{39     \};}
-\DoxyCodeLine{40   \}}
-\DoxyCodeLine{41 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{42 }
-\DoxyCodeLine{43 \textcolor{comment}{// Since Pybind11 create a new scipy.sparse.csr\_matrix from an Eigen::SparseMatrix, we have to create our own wrapper,}}
-\DoxyCodeLine{44 \textcolor{comment}{// which allows the modification of scalar entries of the sparse matrix in Python}}
-\DoxyCodeLine{45 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{46 \textcolor{keyword}{struct }\mbox{\hyperlink{a02012}{SparseMatrixWrapper}}}
-\DoxyCodeLine{47 \{}
-\DoxyCodeLine{48   \mbox{\hyperlink{a02012_adea8b485a2a498cb28c69debdb841f21}{SparseMatrixWrapper}}(Eigen::SparseMatrix<T>\& matrix)}
-\DoxyCodeLine{49       : \mbox{\hyperlink{a02012_a32da660f4237007b18c282ea7bb38b8b}{matrixRef}}(matrix) \{\}}
-\DoxyCodeLine{50   std::reference\_wrapper<Eigen::SparseMatrix<T>> \mbox{\hyperlink{a02012_a32da660f4237007b18c282ea7bb38b8b}{matrixRef}};}
-\DoxyCodeLine{51 \};}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{53 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{54 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00511_a09b4a81e2d6d0619406854f6dc3fc8f7}{registerSparseMatrixWrapper}}(pybind11::handle scope) \{}
-\DoxyCodeLine{55   \textcolor{keyword}{auto} includes              = Dune::Python::IncludeFiles\{\textcolor{stringliteral}{"{}ikarus/finiteelements/flatassemblermanipulator.hh"{}}\};}
-\DoxyCodeLine{56   \textcolor{keyword}{auto} [lv, isNotRegistered] = Dune::Python::insertClass<SparseMatrixWrapper<T>>(}
-\DoxyCodeLine{57       scope, \textcolor{stringliteral}{"{}SparseMatrixWrapper"{}}, Dune::Python::GenerateTypeName(Dune::className<\mbox{\hyperlink{a02012}{SparseMatrixWrapper<T>}}>()),}
-\DoxyCodeLine{58       includes);}
-\DoxyCodeLine{59   \textcolor{keywordflow}{if} (isNotRegistered) \{}
-\DoxyCodeLine{60     lv.def(\mbox{\hyperlink{a00492_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}<Eigen::SparseMatrix<T>\&>())}
-\DoxyCodeLine{61         .def(\textcolor{stringliteral}{"{}\_\_setitem\_\_"{}}, [](\mbox{\hyperlink{a02012}{SparseMatrixWrapper<T>}}\& self, std::array<int, 2> index,}
-\DoxyCodeLine{62                                \textcolor{keywordtype}{double} val) \{ self.\mbox{\hyperlink{a02012_a32da660f4237007b18c282ea7bb38b8b}{matrixRef}}.get().coeffRef(index[0], index[1]) = val; \})}
-\DoxyCodeLine{63         .def(\textcolor{stringliteral}{"{}\_\_getitem\_\_"{}}, [](\mbox{\hyperlink{a02012}{SparseMatrixWrapper<T>}}\& self, std::array<int, 2> index) \{}
-\DoxyCodeLine{64           \textcolor{keywordflow}{return} self.\mbox{\hyperlink{a02012_a32da660f4237007b18c282ea7bb38b8b}{matrixRef}}.get().coeffRef(index[0], index[1]);}
-\DoxyCodeLine{65         \});}
-\DoxyCodeLine{66   \}}
-\DoxyCodeLine{67 \}}
-\DoxyCodeLine{68 }
-\DoxyCodeLine{69 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a01364}{AssemblerManipulator}}, \textcolor{keyword}{class}... options>}
-\DoxyCodeLine{70 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00511_aad35f78683b64303a28d3b8b4f83aa37}{registerAssemblerManipulator}}(pybind11::handle scope, pybind11::class\_<AssemblerManipulator, options...> cls) \{}
-\DoxyCodeLine{71   \textcolor{keyword}{using }pybind11::operator\textcolor{stringliteral}{"{}"{}}\_a;}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{73   \mbox{\hyperlink{a00484_ga87d3c6e620be5df59ba6923751caae86}{registerFlatAssembler}}(scope, cls);}
-\DoxyCodeLine{74   registerSparseMatrixWrapper<double>(scope);}
-\DoxyCodeLine{75 }
-\DoxyCodeLine{76   \textcolor{keyword}{using }UnderlyingAssembler = \textcolor{keyword}{typename} AssemblerManipulator::WrappedAssembler;}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78   cls.def(\mbox{\hyperlink{a00492_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} UnderlyingAssembler\& as) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a01364}{AssemblerManipulator}}(as); \}));}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{80   \textcolor{keyword}{using }NewArgs = std::tuple<}
-\DoxyCodeLine{81       \mbox{\hyperlink{a02016}{ScalarWrapper<std::reference\_wrapper<typename AssemblerManipulator::ScalarType>}}>,}
-\DoxyCodeLine{82       Eigen::Ref<typename AssemblerManipulator::VectorType>,}
-\DoxyCodeLine{83       std::conditional\_t<std::is\_same\_v<typename AssemblerManipulator::MatrixType, Eigen::SparseMatrix<double>>,}
-\DoxyCodeLine{84                          \mbox{\hyperlink{a02012}{SparseMatrixWrapper<double>}}, Eigen::Ref<Eigen::MatrixXd>>>;}
-\DoxyCodeLine{85   Dune::Hybrid::forEach(Dune::Hybrid::integralRange(}
-\DoxyCodeLine{86                             Dune::index\_constant<std::tuple\_size\_v<typename AssemblerManipulator::CallBackTypes>>()),}
-\DoxyCodeLine{87                         [\&](\textcolor{keyword}{auto} i) \{}
-\DoxyCodeLine{88                           \textcolor{keyword}{using }F          = std::tuple\_element\_t<i, typename AssemblerManipulator::CallBackTypes>;}
-\DoxyCodeLine{89                           \textcolor{keyword}{using }NewArg     = std::tuple\_element\_t<i, NewArgs>;}
-\DoxyCodeLine{90                           std::string name = std::string(\textcolor{stringliteral}{"{}add"{}}) +}
-\DoxyCodeLine{91                                              (i == 0     ? \textcolor{stringliteral}{"{}Scalar"{}}}
-\DoxyCodeLine{92                                               : (i == 1) ? \textcolor{stringliteral}{"{}Vector"{}}}
-\DoxyCodeLine{93                                                          : \textcolor{stringliteral}{"{}Matrix"{}}) +}
-\DoxyCodeLine{94                                              std::string(\textcolor{stringliteral}{"{}CallBack"{}});}
-\DoxyCodeLine{95                           \textcolor{keyword}{using }Traits            = \mbox{\hyperlink{a02336}{Ikarus::traits::FunctionTraits<F>}};}
-\DoxyCodeLine{96                           \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} lastIndex = Traits::numberOfArguments -\/ 1;}
-\DoxyCodeLine{97                           \textcolor{comment}{// From Python we need a callback that accepts the wrapped types since otherwise Python}}
-\DoxyCodeLine{98                           \textcolor{comment}{// creates copies and no modification is possible Therefore, from Python we get a callback in}}
-\DoxyCodeLine{99                           \textcolor{comment}{// the style of Fmod= std::function<void(...,Wrapped<Type>)> but in the assembler we store can}}
-\DoxyCodeLine{100                           \textcolor{comment}{// only store F=std::function<void(...,Type\&)> wrapFunctionAndReplaceLastType takes care of}}
-\DoxyCodeLine{101                           \textcolor{comment}{// this and wraps the "{}Fmod"{} call inside a "{}F"{} function}}
-\DoxyCodeLine{102                           \textcolor{keyword}{using }FMod =}
-\DoxyCodeLine{103                               \textcolor{keyword}{typename} \mbox{\hyperlink{a02348}{Ikarus::traits::ChangeArgTypeAtPos<F, lastIndex, NewArg>::NewFunctionType}};}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{105                           cls.def(name.c\_str(), [\&](\mbox{\hyperlink{a01364}{AssemblerManipulator}}\& self, FMod f) \{}
-\DoxyCodeLine{106                             F fOrig = Impl::wrapFunctionAndReplaceLastType<NewArg>(std::forward<FMod>(f));}
-\DoxyCodeLine{107 }
-\DoxyCodeLine{108                             self.bind(std::move(fOrig));}
-\DoxyCodeLine{109                           \});}
-\DoxyCodeLine{110                         \});}
-\DoxyCodeLine{111 \}}
-\DoxyCodeLine{112 }
-\DoxyCodeLine{113 \} \textcolor{comment}{// namespace Ikarus::Python}}
+\DoxyCodeLine{33 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{a01752}{LinearElasticityT}} : \mbox{\hyperlink{a01748}{Material}}<LinearElasticityT<ST>>}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36   \textcolor{keyword}{using }\mbox{\hyperlink{a01752_ab4db5d32aab85031851f53ffb57244d3}{ScalarType}} = ST;}
+\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{a01760}{Base}}       = \mbox{\hyperlink{a01760}{StVenantKirchhoffT<ScalarType>}};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{a01752_a6fc59c96a4b7c84a87bfbb154c4d5359}{field\_type}}         = \mbox{\hyperlink{a01752_ab4db5d32aab85031851f53ffb57244d3}{ScalarType}};}
+\DoxyCodeLine{40   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01752_a8a0160b6a92fd1d320b8d642de402ce7}{dim}} = \mbox{\hyperlink{a01760_a6c753a1072ccabce719340b617e647e7}{Base::dim}};}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01752_ac8d0e018aa9e1b9fdd0effec8ad74dba}{StrainMatrix}}       = \textcolor{keyword}{typename} \mbox{\hyperlink{a01760_a7f9b9e2520e939b6c38bc8fe6452716f}{Base::StrainMatrix}};}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{a01752_a775186da978d65fb557c170ca9a3a6f2}{StressMatrix}}       = \mbox{\hyperlink{a01752_ac8d0e018aa9e1b9fdd0effec8ad74dba}{StrainMatrix}};}
+\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{a01752_ac181a3bd0adf38399b1613a7e4028145}{MaterialTensor}}     = \textcolor{keyword}{typename} \mbox{\hyperlink{a01760_acd3ff90a473ab0f184c04ff710f0640b}{Base::MaterialTensor}};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \textcolor{keyword}{using }\mbox{\hyperlink{a01752_ad12f92c56d1187f958192ac9bdd55fc3}{MaterialParameters}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a01760_a69400b816844f93fc27adeab860b8a47}{Base::MaterialParameters}};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01752_a5b013f72a62a678aaf658287610a7b69}{strainTag}}              = \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}};}
+\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01752_a313c8617a56a0f6e3b34afd780d6c21c}{stressTag}}              = \mbox{\hyperlink{a00481_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}};}
+\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01752_a9c47f61a3009439174e0077cacdaa000}{tangentModuliTag}}       = \mbox{\hyperlink{a00481_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{TangentModuliTags::Material}};}
+\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01752_ae3fc1c847d10fa8a3f050b5b34668f08}{energyAcceptsVoigt}}     = \mbox{\hyperlink{a01760_ae62a6d88db837e254b04d445ba9887d6}{Base::energyAcceptsVoigt}};}
+\DoxyCodeLine{51   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01752_a38ed5779521303455b5381ba72c1b568}{stressToVoigt}}          = \mbox{\hyperlink{a01760_ada24449a84864acc3a226f539dd1207b}{Base::stressToVoigt}};}
+\DoxyCodeLine{52   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01752_ad5d073c95b1b2a7382c5ee0f750db512}{stressAcceptsVoigt}}     = \mbox{\hyperlink{a01760_aa9c1139f575cb45aafb6541bf18df9a1}{Base::stressAcceptsVoigt}};}
+\DoxyCodeLine{53   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01752_ad15d556e5b85d84458d9b4988fcf3658}{moduliToVoigt}}          = \mbox{\hyperlink{a01760_a565aec5081b00d174a75171a328ec376}{Base::moduliToVoigt}};}
+\DoxyCodeLine{54   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01752_a360dde39068b805f20fc6afdd4cbbe9e}{moduliAcceptsVoigt}}     = \mbox{\hyperlink{a01760_ad856f729911290f013cefb91b3efcd6a}{Base::moduliAcceptsVoigt}};}
+\DoxyCodeLine{55   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} \mbox{\hyperlink{a01752_a0f569ed9c3fcc79b2606732661ddec96}{derivativeFactorImpl}} = \mbox{\hyperlink{a01760_a9a18d987624d47406ebff09243b23595}{Base::derivativeFactorImpl}};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01752_a6adc7a0dd69bb642adcd5061d373b888}{nameImpl}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}LinearElasticity"{}}; \}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{64   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01752_ad8595b9538b491e09afa21cdde902fde}{LinearElasticityT}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01752_ad12f92c56d1187f958192ac9bdd55fc3}{MaterialParameters}}\& mpt)}
+\DoxyCodeLine{65       : svk\_\{mpt\} \{\}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{70   \mbox{\hyperlink{a01752_ad12f92c56d1187f958192ac9bdd55fc3}{MaterialParameters}} \mbox{\hyperlink{a01752_a53bd9b23a1d424e4896b74513e5f4cf2}{materialParametersImpl}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} svk\_.\mbox{\hyperlink{a01760_ae62fdcbfcd8b34d2714ca15cc2893fd8}{materialParametersImpl}}(); \}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{79   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{80   \mbox{\hyperlink{a01752_ab4db5d32aab85031851f53ffb57244d3}{ScalarType}} \mbox{\hyperlink{a01752_aa989daa2ce5cfc4702e92eab7a09d95a}{storedEnergyImpl}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{81     \textcolor{keywordflow}{return} svk\_.template \mbox{\hyperlink{a01752_aa989daa2ce5cfc4702e92eab7a09d95a}{storedEnergyImpl}}(E);}
+\DoxyCodeLine{82   \}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{92   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{93   \textcolor{keyword}{auto} \mbox{\hyperlink{a01752_a0ec2d3782e6a40bba083365ce423d35d}{stressesImpl}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{94     \textcolor{keywordflow}{return} svk\_.template stressesImpl<voigt>(E);}
+\DoxyCodeLine{95   \}}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{105   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{106   \textcolor{keyword}{auto} \mbox{\hyperlink{a01752_acf599d41478f105fa80b5a147edd4f76}{tangentModuliImpl}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{107     \textcolor{keywordflow}{return} svk\_.template tangentModuliImpl<voigt>(E);}
+\DoxyCodeLine{108   \}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{116   \textcolor{keyword}{template} <\textcolor{keyword}{typename} STO>}
+\DoxyCodeLine{117   \textcolor{keyword}{auto} \mbox{\hyperlink{a01752_a10f3c8da4ae7e6129f666d52ff799912}{rebind}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{118     \mbox{\hyperlink{a01752}{LinearElasticityT<STO>}} leRebound\{svk\_.template rebind<STO>().\mbox{\hyperlink{a01760_ae62fdcbfcd8b34d2714ca15cc2893fd8}{materialParametersImpl}}()\};}
+\DoxyCodeLine{119     \textcolor{keywordflow}{return} leRebound;}
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{129   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{130   \textcolor{keyword}{auto} \mbox{\hyperlink{a01752_a296f724591c005d8f797137798da6df4}{materialInversionImpl}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& S)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{131     \textcolor{keywordflow}{return} svk\_.template \mbox{\hyperlink{a01752_a296f724591c005d8f797137798da6df4}{materialInversionImpl}}(S);}
+\DoxyCodeLine{132   \}}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134 \textcolor{keyword}{private}:}
+\DoxyCodeLine{135   \mbox{\hyperlink{a01760}{StVenantKirchhoffT<ScalarType>}} svk\_;}
+\DoxyCodeLine{136 \};}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{141 \textcolor{keyword}{using }\mbox{\hyperlink{a01752}{LinearElasticity}} = \mbox{\hyperlink{a01752}{LinearElasticityT<double>}};}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143 \} \textcolor{comment}{// namespace Ikarus::Materials}}
 
 \end{DoxyCode}

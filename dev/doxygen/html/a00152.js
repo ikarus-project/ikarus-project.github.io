@@ -1,5 +1,8 @@
 var a00152 =
 [
-    [ "draw_xy", "a00152.html#a4c07b9ce66d5837a4052977b3dd1eeb0", null ],
-    [ "drawFunction", "a00152.html#ae2cefb2db97492f0b6e5987cb95ad40b", null ]
+    [ "Ikarus::NRSettings", "a02052.html", "a02052" ],
+    [ "Ikarus::NewtonRaphsonConfig< LS, UF >", "a02056.html", "a02056" ],
+    [ "createNonlinearSolver", "a00152.html#a504e2e9645fa26419d815df9bd245add", null ],
+    [ "makeNewtonRaphson", "a00152.html#a191d086649c8d24d7fbacf71d1704cb3", null ],
+    [ "NewtonRaphson", "a00152.html#ab2dbf68d1a4f806b32c9f46073602b2c", null ]
 ];

@@ -1,26 +1,43 @@
-\hypertarget{a00392}{}\doxysection{autodiffmat.\+hh File Reference}
-\label{a00392}\index{autodiffmat.hh@{autodiffmat.hh}}
+\hypertarget{a00392}{}\doxysection{pathfollowing.\+hh File Reference}
+\label{a00392}\index{pathfollowing.hh@{pathfollowing.hh}}
 
 
-Implementation of the Auto\+Diff-\/based material model.  
+Defines the Path\+Following class.  
 
 
-{\ttfamily \#include $<$autodiff/forward/dual.\+hpp$>$}\newline
-{\ttfamily \#include $<$autodiff/forward/dual/dual.\+hpp$>$}\newline
-{\ttfamily \#include $<$autodiff/forward/dual/eigen.\+hpp$>$}\newline
-{\ttfamily \#include $<$autodiff/forward/utils/derivative.\+hpp$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/interface.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/materialhelpers.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/tensorutils.\+hh$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/adaptivestepsizing.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/controlinfos.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/controlroutinebase.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/controlroutinefactory.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/pathfollowingfunctions.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/newtonraphsonwithscalarsubsidiaryfunction.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/nonlinearsolverfactory.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/broadcaster/broadcastermessages.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/differentiablefunctionfactory.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/pathfollowing.\+inl$>$}\newline
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{a01480}{Ikarus\+::\+Experimental\+::\+Auto\+Diff\+MAT$<$ Real\+MAT, force\+Auto\+Diff\+V, force\+Auto\+Diff\+S $>$}}
-\begin{DoxyCompactList}\small\item\em Implementation of a Auto\+Diff-\/based material model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+struct \mbox{\hyperlink{a01448}{Ikarus\+::\+Path\+Following\+State$<$ D $>$}}
+\begin{DoxyCompactList}\small\item\em State for path following control routine. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{a01460}{Ikarus\+::\+Path\+Following\+Config$<$ PF\+\_\+, ASS\+\_\+ $>$}}
+\begin{DoxyCompactList}\small\item\em Config for the Path-\/\+Following control routine. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{a01456}{Ikarus\+::\+Path\+Following$<$ NLS, PF, ASS $>$}}
+\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{a01456}{Path\+Following}} control routine for path-\/following analysis. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{a00492}{Ikarus}}
-\item 
-namespace \mbox{\hyperlink{a00495}{Ikarus\+::\+Experimental}}
 \end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename F $>$ }\\using \mbox{\hyperlink{a00492_a55422e7318ffa2a289aee49663f1e2e1}{Ikarus\+::\+Path\+Following\+State\+Type}} = Impl\+::\+Path\+Following\+State\+Factory$<$ F $>$\+::type
+\begin{DoxyCompactList}\small\item\em Helper to deduce the correct types for \mbox{\hyperlink{a01432}{Control\+Routine\+State}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename NLS , typename PFConfig $>$ \newline
+requires traits\+::is\+Specialization$<$Path\+Following\+Config, std\+::remove\+\_\+cvref\+\_\+t$<$PFConfig$>$$>$}\\\+::value auto \mbox{\hyperlink{a00492_a8e39557c3fe94302f5bf3ecb457d27f0}{Ikarus\+::create\+Control\+Routine}} (PFConfig \&\&config, NLS \&\&nonlinear\+Solver)
+\begin{DoxyCompactList}\small\item\em Function to create a path following instance. \end{DoxyCompactList}\end{DoxyCompactItemize}

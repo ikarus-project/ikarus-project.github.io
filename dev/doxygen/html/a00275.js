@@ -1,5 +1,11 @@
 var a00275 =
 [
-    [ "Ikarus::ArrudaBoyceMatParameters", "a01652.html", "a01652" ],
-    [ "ArrudaBoyce", "a00275.html#a70cada02f1f5f294f44c438fb1270982", null ]
+    [ "Ikarus::EAS::EX< GEO, ess >", "a01848.html", "a01848" ],
+    [ "Ikarus::EAS::E0< GEO >", "a01852.html", "a01852" ],
+    [ "Ikarus::EAS::E4< GEO >", "a01856.html", "a01856" ],
+    [ "Ikarus::EAS::E5< GEO >", "a01860.html", "a01860" ],
+    [ "Ikarus::EAS::E7< GEO >", "a01864.html", "a01864" ],
+    [ "Ikarus::EAS::E11< GEO >", "a01868.html", "a01868" ],
+    [ "Ikarus::EAS::E9< GEO >", "a01872.html", "a01872" ],
+    [ "Ikarus::EAS::E21< GEO >", "a01876.html", "a01876" ]
 ];

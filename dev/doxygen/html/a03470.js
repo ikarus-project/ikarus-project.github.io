@@ -1,5 +1,4 @@
 var a03470 =
 [
-    [ "Ikarus::Concepts::DeviatoricFunction", "a02350.html", null ],
-    [ "Ikarus::Concepts::VolumetricFunction", "a02351.html", null ]
+    [ "registerBasisHandler", "a03470.html#ga2f6146bb687ad25cfb413fbcfd470788", null ]
 ];

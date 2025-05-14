@@ -1,29 +1,37 @@
-\hypertarget{a00182}{}\doxysection{resultfunction.\+hh File Reference}
-\label{a00182}\index{resultfunction.hh@{resultfunction.hh}}
+\hypertarget{a00182}{}\doxysection{vanishingstress.\+hh File Reference}
+\label{a00182}\index{vanishingstress.hh@{vanishingstress.hh}}
 
 
-\mbox{\hyperlink{a00492}{Ikarus}} Result Function for Stress and other finite element results.  
+Defines the Vanishing\+Stress material model and related functions.  
 
 
-{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
-{\ttfamily \#include $<$dune/vtk/gridfunctions/vtkfunctionwrapper.\+hh$>$}\newline
-{\ttfamily \#include $<$dune/vtk/vtkwriter.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/ferequirements.\+hh$>$}\newline
+{\ttfamily \#include \char`\"{}materialhelpers.\+hh\char`\"{}}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/interface.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/newtonraphson.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/nonlinearsolverfactory.\+hh$>$}\newline
 {\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/differentiablefunction.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/tensorutils.\+hh$>$}\newline
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{a01964}{Ikarus\+::\+Result\+Function$<$ AS, RT, User\+Function $>$}}
-\begin{DoxyCompactList}\small\item\em Wrapper to evaluate results for a vtkwriter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+struct \mbox{\hyperlink{a01768}{Ikarus\+::\+Materials\+::\+Vanishing\+Stress$<$ stress\+Index\+Pair, MI $>$}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{a01768}{Vanishing\+Stress}} material model that enforces stress components to be zero. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{a00492}{Ikarus}}
+\item 
+namespace \mbox{\hyperlink{a00503}{Ikarus\+::\+Materials}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$template$<$ typename, int, int $>$ class RT, typename User\+Function  = Impl\+::\+Default\+User\+Function, Concepts\+::\+Flat\+Assembler AS$>$ }\\auto \mbox{\hyperlink{a00492_aba0432efad1cef6c956ccf108829682c}{Ikarus\+::make\+Result\+Function}} (std\+::shared\+\_\+ptr$<$ AS $>$ assembler, Dune\+::\+VTK\+::\+Precision prec=Dune\+::\+VTK\+::\+Precision\+::float64, User\+Function \&\&user\+Function=\{\})
-\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a01964}{Result\+Function}} as a shared\+\_\+ptr. \end{DoxyCompactList}\item 
-{\footnotesize template$<$template$<$ typename, int, int $>$ class RT, typename User\+Function , Concepts\+::\+Flat\+Assembler AS$>$ }\\auto \mbox{\hyperlink{a00492_aa4430d7f94a172d765fba38d393450a0}{Ikarus\+::make\+Result\+Function}} (std\+::shared\+\_\+ptr$<$ AS $>$ assembler, User\+Function \&\&user\+Function)
-\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a01964}{Result\+Function}} as a shared\+\_\+ptr. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$Matrix\+Index\+Pair... stress\+Index\+Pair, typename Material\+Impl $>$ }\\auto \mbox{\hyperlink{a00503_a3fc342156c1fa3be5bd78c8baffd0df7}{Ikarus\+::\+Materials\+::make\+Vanishing\+Stress}} (Material\+Impl mat, typename Material\+Impl\+::\+Scalar\+Type p\+\_\+tol=1e-\/12)
+\begin{DoxyCompactList}\small\item\em Factory function to create a \mbox{\hyperlink{a01768}{Vanishing\+Stress}} material with specified stress indices. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Material\+Impl $>$ }\\auto \mbox{\hyperlink{a00503_aa7b4cfc28796165e32b16cb12ab8ccd4}{Ikarus\+::\+Materials\+::plane\+Stress}} (const Material\+Impl \&mat, typename Material\+Impl\+::\+Scalar\+Type tol=1e-\/8)
+\begin{DoxyCompactList}\small\item\em Factory function to create a \mbox{\hyperlink{a01768}{Vanishing\+Stress}} material for plane stress conditions. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Material\+Impl $>$ }\\auto \mbox{\hyperlink{a00503_a87bf89dc04e6f4021681129ae4e9a0ee}{Ikarus\+::\+Materials\+::shell\+Material}} (const Material\+Impl \&mat, typename Material\+Impl\+::\+Scalar\+Type tol=1e-\/8)
+\begin{DoxyCompactList}\small\item\em Factory function to create a \mbox{\hyperlink{a01768}{Vanishing\+Stress}} material for a shell material with zero normal stress condition. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Material\+Impl $>$ }\\auto \mbox{\hyperlink{a00503_ab89e3a8a28d4e7241ab9dfd41fbbd153}{Ikarus\+::\+Materials\+::beam\+Material}} (const Material\+Impl \&mat, typename Material\+Impl\+::\+Scalar\+Type tol=1e-\/8)
+\begin{DoxyCompactList}\small\item\em Factory function to create a \mbox{\hyperlink{a01768}{Vanishing\+Stress}} material for a beam material with two zero normal stress condition. \end{DoxyCompactList}\end{DoxyCompactItemize}

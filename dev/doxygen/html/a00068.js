@@ -1,4 +1,4 @@
 var a00068 =
 [
-    [ "polyfit", "a00068.html#ga0d3a38551806e4de3ff44f311847ba51", null ]
+    [ "lambertW0", "a00068.html#a5dd4fe61d5a2366ba3e8bf4d55d451e1", null ]
 ];

@@ -1,23 +1,40 @@
-\hypertarget{a00152}{}\doxysection{matplothelper.\+hh File Reference}
-\label{a00152}\index{matplothelper.hh@{matplothelper.hh}}
+\hypertarget{a00152}{}\doxysection{newtonraphson.\+hh File Reference}
+\label{a00152}\index{newtonraphson.hh@{newtonraphson.hh}}
 
 
-Helper function for the matplot library.  
+Implementation of the Newton-\/\+Raphson method for solving nonlinear equations.  
 
 
-{\ttfamily \#include $<$matplot/matplot.\+h$>$}\newline
-{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/linearsolver/linearsolver.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/nonlinearsolverbase.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/nonlinearsolverstate.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/solverinfos.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/broadcaster/broadcaster.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/broadcaster/broadcastermessages.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/defaultfunctions.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/linearalgebrahelper.\+hh$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{a02052}{Ikarus\+::\+NRSettings}}
+\item 
+struct \mbox{\hyperlink{a02056}{Ikarus\+::\+Newton\+Raphson\+Config$<$ LS, UF $>$}}
+\begin{DoxyCompactList}\small\item\em Config for the Newton-\/\+Raphson solver. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{a02048}{Ikarus\+::\+Newton\+Raphson$<$ F, LS, UF $>$}}
+\begin{DoxyCompactList}\small\item\em Implementation of the Newton-\/\+Raphson method for solving nonlinear equations. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{a00492}{Ikarus}}
-\item 
-namespace \mbox{\hyperlink{a00519}{Ikarus\+::plot}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{a00519_a4c07b9ce66d5837a4052977b3dd1eeb0}{Ikarus\+::plot\+::draw\+\_\+xy}} (const Eigen\+::\+Vector\+Xd \&x, const Eigen\+::\+Vector\+Xd \&y)
-\begin{DoxyCompactList}\small\item\em Draw a 2D plot with given x and y vectors. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename Function\+Type $>$ }\\void \mbox{\hyperlink{a00519_ae2cefb2db97492f0b6e5987cb95ad40b}{Ikarus\+::plot\+::draw\+Function}} (Function\+Type \&\&f, std\+::pair$<$ double, double $>$ \&\&x\+Range, int e\+Valuation\+Points=100)
-\begin{DoxyCompactList}\small\item\em Draw the plot of a mathematical function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$typename F , typename NRConfig $>$ \newline
+requires traits\+::is\+Specialization$<$Newton\+Raphson\+Config, std\+::remove\+\_\+cvref\+\_\+t$<$NRConfig$>$$>$}\\\+::value auto \mbox{\hyperlink{a00492_a504e2e9645fa26419d815df9bd245add}{Ikarus\+::create\+Nonlinear\+Solver}} (NRConfig \&\&config, F \&\&f)
+\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a02048}{Newton\+Raphson}} solver instance. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F , typename LS  = utils\+::\+Solver\+Default, typename UF  = utils\+::\+Update\+Default$>$ }\\auto \mbox{\hyperlink{a00492_a191d086649c8d24d7fbacf71d1704cb3}{Ikarus\+::make\+Newton\+Raphson}} (const F \&f, LS \&\&linear\+Solver=\{\}, UF \&\&update\+Function=\{\})
+\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a02048}{Newton\+Raphson}} solver instance. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F , typename LS  = utils\+::\+Solver\+Default, typename UF  = utils\+::\+Update\+Default$>$ }\\\mbox{\hyperlink{a00492_ab2dbf68d1a4f806b32c9f46073602b2c}{Ikarus\+::\+Newton\+Raphson}} (const F \&f, LS \&\&linear\+Solver=\{\}, UF \&\&update\+Function=\{\}) -\/$>$ Newton\+Raphson$<$ F, std\+::remove\+\_\+cvref\+\_\+t$<$ LS $>$, std\+::remove\+\_\+cvref\+\_\+t$<$ UF $>$ $>$
+\end{DoxyCompactItemize}

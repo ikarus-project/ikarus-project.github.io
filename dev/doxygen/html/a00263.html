@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: stressconversions.hh File Reference</title>
+    <title>ikarus: nonlinearelastic.hh File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -156,21 +156,44 @@ $(document).ready(function(){initNavTree('a00263.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">stressconversions.hh File Reference<div class="ingroups"><a class="el" href="a00473.html">Ikarus Modules</a> &raquo; <a class="el" href="a00480.html">Materials</a></div></div></div>
+  <div class="headertitle"><div class="title">nonlinearelastic.hh File Reference<div class="ingroups"><a class="el" href="a00473.html">Ikarus Modules</a> &raquo; <a class="el" href="a00476.html">Finite Elements</a> &raquo; <a class="el" href="a00477.html">Mechanics</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of transformations for different stress measures.  
+<p>Definition of the NonLinearElastic class for finite element mechanics computations.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00293_source.html">tags.hh</a>&quot;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00308_source.html">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00005_source.html">ikarus/utils/tensorutils.hh</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;dune/fufem/boundarypatch.hh&gt;</code><br />
+<code>#include &lt;dune/geometry/quadraturerules.hh&gt;</code><br />
+<code>#include &lt;dune/geometry/type.hh&gt;</code><br />
+<code>#include &lt;dune/localfefunctions/cachedlocalBasis/cachedlocalBasis.hh&gt;</code><br />
+<code>#include &lt;dune/localfefunctions/expressions/greenLagrangeStrains.hh&gt;</code><br />
+<code>#include &lt;dune/localfefunctions/impl/standardLocalFunction.hh&gt;</code><br />
+<code>#include &lt;dune/localfefunctions/manifolds/realTuple.hh&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00332_source.html">ikarus/finiteelements/febase.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00170_source.html">ikarus/finiteelements/fehelper.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00317_source.html">ikarus/finiteelements/ferequirements.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00251_source.html">ikarus/finiteelements/mechanics/loads.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00224_source.html">ikarus/finiteelements/mechanics/materials/tags.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00284_source.html">ikarus/finiteelements/mechanics/strainenhancements/easfunctions.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00320_source.html">ikarus/finiteelements/physicshelper.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00038_source.html">ikarus/utils/defaultfunctions.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00047_source.html">ikarus/utils/eigendunetransformations.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00044_source.html">ikarus/utils/linearalgebrahelper.hh</a>&gt;</code><br />
 </div>
 <p><a href="a00263_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01780.html">Ikarus::NonLinearElasticPre&lt; MAT &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="a01492.html" title="PreFE struct acts as a convenient wrapper for the FE class to access different type traits.">PreFE</a> struct for non-linear elastic elements.  <a href="a01780.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01776.html">Ikarus::NonLinearElastic&lt; PreFE, FE, PRE &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01776.html" title="NonLinearElastic class represents a non-linear elastic finite element.">NonLinearElastic</a> class represents a non-linear elastic finite element.  <a href="a01776.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:a00492"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00492.html">Ikarus</a></td></tr>
@@ -178,26 +201,10 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aac5f712024c37b9014278c6b91b79f41"><td class="memTemplParams" colspan="2">template&lt;StressTags tag, typename Derived &gt; </td></tr>
-<tr class="memitem:aac5f712024c37b9014278c6b91b79f41"><td class="memTemplItemLeft" align="right" valign="top">Derived&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00492.html#aac5f712024c37b9014278c6b91b79f41">Ikarus::createPK2Stress</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;sMB, const Eigen::MatrixBase&lt; Derived &gt; &amp;F)</td></tr>
-<tr class="memdesc:aac5f712024c37b9014278c6b91b79f41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create PK2 stress matrix based on the input.  <a href="a00492.html#aac5f712024c37b9014278c6b91b79f41">More...</a><br /></td></tr>
-<tr class="separator:aac5f712024c37b9014278c6b91b79f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acda5fb24a857866c8be72dcb94edc70f"><td class="memTemplParams" colspan="2">template&lt;StressTags tag, typename Derived &gt; </td></tr>
-<tr class="memitem:acda5fb24a857866c8be72dcb94edc70f"><td class="memTemplItemLeft" align="right" valign="top">Derived&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00492.html#acda5fb24a857866c8be72dcb94edc70f">Ikarus::createPK1Stress</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;sMB, const Eigen::MatrixBase&lt; Derived &gt; &amp;F)</td></tr>
-<tr class="memdesc:acda5fb24a857866c8be72dcb94edc70f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create PK1 stress matrix based on the input.  <a href="a00492.html#acda5fb24a857866c8be72dcb94edc70f">More...</a><br /></td></tr>
-<tr class="separator:acda5fb24a857866c8be72dcb94edc70f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac072123f9f65284646424ff6fb2a3661"><td class="memTemplParams" colspan="2">template&lt;StressTags tag, typename Derived &gt; </td></tr>
-<tr class="memitem:ac072123f9f65284646424ff6fb2a3661"><td class="memTemplItemLeft" align="right" valign="top">Derived&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00492.html#ac072123f9f65284646424ff6fb2a3661">Ikarus::createKirchhoffStress</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;sMB, const Eigen::MatrixBase&lt; Derived &gt; &amp;F)</td></tr>
-<tr class="memdesc:ac072123f9f65284646424ff6fb2a3661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create Kirchhoff stress matrix based on the input.  <a href="a00492.html#ac072123f9f65284646424ff6fb2a3661">More...</a><br /></td></tr>
-<tr class="separator:ac072123f9f65284646424ff6fb2a3661"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5371a3a1c5123b3241a103c6c844b88"><td class="memTemplParams" colspan="2">template&lt;StressTags tag, typename Derived &gt; </td></tr>
-<tr class="memitem:ad5371a3a1c5123b3241a103c6c844b88"><td class="memTemplItemLeft" align="right" valign="top">Derived&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00492.html#ad5371a3a1c5123b3241a103c6c844b88">Ikarus::createCauchyStress</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;sMB, const Eigen::MatrixBase&lt; Derived &gt; &amp;F)</td></tr>
-<tr class="memdesc:ad5371a3a1c5123b3241a103c6c844b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create Cauchy stress matrix based on the input.  <a href="a00492.html#ad5371a3a1c5123b3241a103c6c844b88">More...</a><br /></td></tr>
-<tr class="separator:ad5371a3a1c5123b3241a103c6c844b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15a168e678f7086c461b0aab8eb69349"><td class="memTemplParams" colspan="2">template&lt;StressTags from, StressTags to, typename DerivedS , typename DerivedF &gt; </td></tr>
-<tr class="memitem:a15a168e678f7086c461b0aab8eb69349"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00492.html#a15a168e678f7086c461b0aab8eb69349">Ikarus::transformStress</a> (const Eigen::MatrixBase&lt; DerivedS &gt; &amp;sRaw, const Eigen::MatrixBase&lt; DerivedF &gt; &amp;F)</td></tr>
-<tr class="memdesc:a15a168e678f7086c461b0aab8eb69349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform stress measures from one type to another.  <a href="a00492.html#a15a168e678f7086c461b0aab8eb69349">More...</a><br /></td></tr>
-<tr class="separator:a15a168e678f7086c461b0aab8eb69349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f028adf5a1a78301381fe92b241d550"><td class="memTemplParams" colspan="2">template&lt;Concepts::Material MAT&gt; </td></tr>
+<tr class="memitem:a6f028adf5a1a78301381fe92b241d550"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00492.html#a6f028adf5a1a78301381fe92b241d550">Ikarus::nonLinearElastic</a> (const MAT &amp;mat)</td></tr>
+<tr class="memdesc:a6f028adf5a1a78301381fe92b241d550"><td class="mdescLeft">&#160;</td><td class="mdescRight">A helper function to create a non-linear elastic pre finite element.  <a href="a00492.html#a6f028adf5a1a78301381fe92b241d550">More...</a><br /></td></tr>
+<tr class="separator:a6f028adf5a1a78301381fe92b241d550"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -209,7 +216,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="a00263.html">stressconversions.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="a00263.html">nonlinearelastic.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

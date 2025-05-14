@@ -1,8 +1,10 @@
 var a00209 =
 [
-    [ "Ikarus::NRSettings", "a02052.html", "a02052" ],
-    [ "Ikarus::NewtonRaphsonConfig< LS, UF >", "a02056.html", "a02056" ],
-    [ "createNonlinearSolver", "a00209.html#a504e2e9645fa26419d815df9bd245add", null ],
-    [ "makeNewtonRaphson", "a00209.html#a191d086649c8d24d7fbacf71d1704cb3", null ],
-    [ "NewtonRaphson", "a00209.html#ab2dbf68d1a4f806b32c9f46073602b2c", null ]
+    [ "makeArrudaBoyce", "a00209.html#af561f0434312c4d30c22e4438f2c9a1a", null ],
+    [ "makeBlatzKo", "a00209.html#aa724b5f1275a41f266ad6aae180ed317", null ],
+    [ "makeGent", "a00209.html#a02bb70b49abcfa023ae81f4f4f1d27de", null ],
+    [ "makeInvariantBased", "a00209.html#a03ec75f725d4772d6e33532501cd10a8", null ],
+    [ "makeMooneyRivlin", "a00209.html#a7ac025ab0f41d2021008bd54e51135b1", null ],
+    [ "makeOgden", "a00209.html#af8c1c0f27639b0883f98f4e814aca8e5", null ],
+    [ "makeYeoh", "a00209.html#a00567c7322e1a28e7575c67a19631201", null ]
 ];

@@ -1,8 +1,11 @@
 var a00428 =
 [
-    [ "Ikarus::AssemblerManipulator< A, ScalarAss >", "a01368.html", "a01368" ],
-    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss >", "a01372.html", "a01372" ],
-    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss, MatrixAss >", "a01376.html", "a01376" ],
-    [ "BASECLASSMEMBERFUNCTION", "a00428.html#ab88748ddf71ad00ec25d8e9dabcefa82", null ],
-    [ "makeAssemblerManipulator", "a00428.html#afc83c2d114028f47280b981daf728ebe", null ]
+    [ "registerAssumedStressPre", "a00428.html#afe5e1b30c11329edc511f6db03ff2c85", null ],
+    [ "registerEnhancedAssumedStrainsPre", "a00428.html#a79dfab8379c15a5c5da0d3e5a415f0a3", null ],
+    [ "registerKirchhoffLoveShellPre", "a00428.html#a0ef1ab14030985bd8af2551f51ceeeb6", null ],
+    [ "registerLinearElasticPre", "a00428.html#a04d0c82e615a65a1ba027cb77bbf784d", null ],
+    [ "registerNeumannBoundaryLoadPre", "a00428.html#a813121e686b5d64d6ef1e11bd4bfc59b", null ],
+    [ "registerNonLinearElasticPre", "a00428.html#ab45b29a3ca18f1c8bf87263c60d14711", null ],
+    [ "registerTrussPre", "a00428.html#a5004d72f594d4ceecaebb33ee71f80cf", null ],
+    [ "registerVolumeLoadPre", "a00428.html#a1f597ae7aac82dc24a8a2669f86fc12b", null ]
 ];

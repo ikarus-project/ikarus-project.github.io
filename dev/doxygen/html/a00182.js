@@ -1,5 +1,7 @@
 var a00182 =
 [
-    [ "makeResultFunction", "a00182.html#aba0432efad1cef6c956ccf108829682c", null ],
-    [ "makeResultFunction", "a00182.html#aa4430d7f94a172d765fba38d393450a0", null ]
+    [ "beamMaterial", "a00182.html#ab89e3a8a28d4e7241ab9dfd41fbbd153", null ],
+    [ "makeVanishingStress", "a00182.html#a3fc342156c1fa3be5bd78c8baffd0df7", null ],
+    [ "planeStress", "a00182.html#aa7b4cfc28796165e32b16cb12ab8ccd4", null ],
+    [ "shellMaterial", "a00182.html#a87bf89dc04e6f4021681129ae4e9a0ee", null ]
 ];
