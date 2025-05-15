@@ -1,26 +1,37 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="a02387" kind="concept">
-    <compoundname>Ikarus::Concepts::ScalarFlatAssembler</compoundname>
-    <includes refid="a03440" local="no">ikarus/utils/concepts.hh</includes>
+    <compoundname>Ikarus::Concepts::ControlRoutineState</compoundname>
+    <includes refid="a03429" local="no">ikarus/utils/concepts.hh</includes>
     <templateparamlist>
       <param>
-        <type>typename T</type>
+        <type>typename S</type>
       </param>
     </templateparamlist>
-    <initializer>template&lt;typename T&gt;
-concept <ref refid="a02387" kindref="compound">Ikarus::Concepts::ScalarFlatAssembler</ref> = 
-      Concepts::FlatAssembler&lt;T&gt; and requires(T t, const typename T::FERequirement&amp; req,
-                                              typename T::AffordanceCollectionType affordance, DBCOption dbcOption) {
-        { t.scalar(req, affordance.scalarAffordance()) } -&gt; std::convertible_to&lt;const double&amp;&gt;;
-        { t.scalar() } -&gt; std::convertible_to&lt;const double&amp;&gt;;
-      }    </initializer>
+    <initializer>template&lt;typename S&gt;
+concept <ref refid="a02387" kindref="compound">Ikarus::Concepts::ControlRoutineState</ref> =  requires(S s) {
+    typename S::Domain;
+
+    { s.information } -&gt; std::same_as&lt;const ControlInformation&amp;&gt;;
+    { s.loadStep } -&gt; std::convertible_to&lt;int&gt;;
+    { s.stepSize } -&gt; std::convertible_to&lt;double&gt;;
+    { s.domain } -&gt; std::same_as&lt;const typename S::Domain&amp;&gt;;
+  }    </initializer>
     <briefdescription>
-<para>Concept representing the requirements for a ScalarFlatAssembler.</para>
-<para>A type T satisfies ScalarFlatAssembler if it is a FlatAssembler and if it provides the necessary scalar() member functions. </para>
+<para>Concept to check if a type represents a control routine state. </para>
     </briefdescription>
     <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>S</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the type to be checked </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
     </detaileddescription>
-    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="545" column="3"/>
+    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="649" column="3"/>
   </compounddef>
 </doxygen>

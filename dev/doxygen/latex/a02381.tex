@@ -1,8 +1,10 @@
-\hypertarget{a02381}{}\doxysection{Ikarus\+::Concepts\+::Sparse\+Eigen\+Matrix Concept Reference}
-\label{a02381}\index{Ikarus::Concepts::SparseEigenMatrix@{Ikarus::Concepts::SparseEigenMatrix}}
+\hypertarget{a02381}{}\doxysection{Ikarus\+::Concepts\+::Matrix\+Flat\+Assembler Concept Reference}
+\label{a02381}\index{Ikarus::Concepts::MatrixFlatAssembler@{Ikarus::Concepts::MatrixFlatAssembler}}
 
 
-Concept defining the requirements for sparse \mbox{\hyperlink{a00509}{Eigen}} matrices.  
+Concept representing the requirements for a Matrix\+Flat\+Assembler.
+
+A type T satisfies Matrix\+Flat\+Assembler if it is a Vector\+Flat\+Assembler and if it provides the necessary matrix() member functions.  
 
 
 
@@ -12,15 +14,13 @@ Concept defining the requirements for sparse \mbox{\hyperlink{a00509}{Eigen}} ma
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02381}{Ikarus::Concepts::SparseEigenMatrix}} =  traits::isSpecializationTypeNonTypeAndType<Eigen::SparseMatrix, M>::value}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02381}{Ikarus::Concepts::MatrixFlatAssembler}} =  \mbox{\hyperlink{a02380}{Concepts::VectorFlatAssembler<T>}} and}
+\DoxyCodeLine{                                \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{                                         \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00492_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{                                  \{ t.matrix(req, affordance.matrixAffordance(), dbcOption) \};}
+\DoxyCodeLine{                                  \{ t.matrix(dbcOption) \};}
+\DoxyCodeLine{                                  \{ t.matrix() \};}
+\DoxyCodeLine{                                \}}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em M} & Type representing a sparse \mbox{\hyperlink{a00509}{Eigen}} matrix. \\
-\hline
-\end{DoxyTemplParams}

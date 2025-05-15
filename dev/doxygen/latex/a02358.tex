@@ -1,8 +1,8 @@
-\hypertarget{a02358}{}\doxysection{Ikarus\+::Concepts\+::Flat\+Lexicographic\+Basis Concept Reference}
-\label{a02358}\index{Ikarus::Concepts::FlatLexicographicBasis@{Ikarus::Concepts::FlatLexicographicBasis}}
+\hypertarget{a02358}{}\doxysection{Ikarus\+::Concepts\+::Linear\+Solver\+Check Concept Reference}
+\label{a02358}\index{Ikarus::Concepts::LinearSolverCheck@{Ikarus::Concepts::LinearSolverCheck}}
 
 
-Concept to check if a basis uses Flat\+Lexicographic indexing strategy.  
+Concept to check if a linear solver implements all the needed functions for given vector and matrix types.  
 
 
 
@@ -12,19 +12,23 @@ Concept to check if a basis uses Flat\+Lexicographic indexing strategy.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} B>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02358}{Ikarus::Concepts::FlatLexicographicBasis}} =  \textcolor{keyword}{requires} \{}
-\DoxyCodeLine{    std::is\_same\_v<typename B::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::FlatLexicographic>;}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} LS, \textcolor{keyword}{typename} M, \textcolor{keyword}{typename} V>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02358}{Ikarus::Concepts::LinearSolverCheck}} =  \textcolor{keyword}{requires}(LS linearSolver, M A, V vec) \{}
+\DoxyCodeLine{    linearSolver.analyzePattern(A);}
+\DoxyCodeLine{    linearSolver.factorize(A);}
+\DoxyCodeLine{    linearSolver.solve(vec, vec);}
 \DoxyCodeLine{  \}}
 
 \end{DoxyCode}
 
 
 \doxysubsection{Detailed Description}
-This concept checks if the given Basis type uses Flat\+Lexicographic indexing strategy.
-
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em B} & The basis type. \\
+{\em LS} & The linear solver type. \\
+\hline
+{\em M} & The matrix type. \\
+\hline
+{\em V} & The vector type. \\
 \hline
 \end{DoxyTemplParams}

@@ -16,7 +16,7 @@
 \DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00146}{ikarus/solver/nonlinearsolver/solverinfos.hh}}>}}
 \DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00374}{ikarus/utils/broadcaster/broadcaster.hh}}>}}
 \DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00377}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03440}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03429}{ikarus/utils/concepts.hh}}>}}
 \DoxyCodeLine{21 }
 \DoxyCodeLine{22 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
 \DoxyCodeLine{23 }
@@ -66,7 +66,7 @@
 \DoxyCodeLine{71                                           UF) -\/> \mbox{\hyperlink{a02068}{NewtonRaphsonWithSubsidiaryFunctionConfig<LS, UF>}};}
 \DoxyCodeLine{72 }
 \DoxyCodeLine{73 \textcolor{keyword}{template} <\textcolor{keyword}{typename} UF>}
-\DoxyCodeLine{74 \mbox{\hyperlink{a02068}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a02064}{NewtonRaphsonWithSubsidiaryFunctionSettings}}, \mbox{\hyperlink{a02176}{utils::SolverDefault}},}
+\DoxyCodeLine{74 \mbox{\hyperlink{a02068}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a02064}{NewtonRaphsonWithSubsidiaryFunctionSettings}}, \mbox{\hyperlink{a02168}{utils::SolverDefault}},}
 \DoxyCodeLine{75                                           UF) -\/> \mbox{\hyperlink{a02068}{NewtonRaphsonWithSubsidiaryFunctionConfig<utils::SolverDefault, UF>}};}
 \DoxyCodeLine{76 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{85 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} NRConfig>}
@@ -107,7 +107,7 @@
 \DoxyCodeLine{130   \textcolor{keyword}{using }\mbox{\hyperlink{a02060_adff6308a3d8a1ffd821ed3c959f75eaf}{Domain}}         = \textcolor{keyword}{typename} SignatureTraits::Domain; }
 \DoxyCodeLine{131   \textcolor{keyword}{using }\mbox{\hyperlink{a02060_aabdaaf7b2ce5d0cdc3aff157970e46f4}{CorrectionType}} = \textcolor{keyword}{typename} SignatureTraits::template Range<0>; }
 \DoxyCodeLine{132   \textcolor{keyword}{using }\mbox{\hyperlink{a02060_ab3e940fc11375dc2e24d07dc5343e4f3}{JacobianType}}   = \textcolor{keyword}{typename} SignatureTraits::template Range<1>;}
-\DoxyCodeLine{134   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02060_a7a5aff92f9ae604cab722da156b4a93b}{isLinearSolver}} = \mbox{\hyperlink{a02366}{Ikarus::Concepts::LinearSolverCheck<LS, JacobianType, CorrectionType>}};}
+\DoxyCodeLine{134   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02060_a7a5aff92f9ae604cab722da156b4a93b}{isLinearSolver}} = \mbox{\hyperlink{a02358}{Ikarus::Concepts::LinearSolverCheck<LS, JacobianType, CorrectionType>}};}
 \DoxyCodeLine{135 }
 \DoxyCodeLine{137   \textcolor{keyword}{using }\mbox{\hyperlink{a02060_aac6019863abe7aa9455b092c4afd2cb7}{UpdateFunctionType}}     = UF;}
 \DoxyCodeLine{138   \textcolor{keyword}{using }\mbox{\hyperlink{a02060_af8cf0ee680a0ec1ef74c5e2d7194caf4}{DifferentiableFunction}} = F; }
@@ -127,96 +127,97 @@
 \DoxyCodeLine{173       \textcolor{stringliteral}{"{}The solve method returns information of the solution process. You should store this information and check if "{}}}
 \DoxyCodeLine{174       \textcolor{stringliteral}{"{}it was successful"{}})]] \mbox{\hyperlink{a02100}{NonLinearSolverInformation}}}
 \DoxyCodeLine{175   \mbox{\hyperlink{a02060_a78c8188338a25f36d2f42e7740dfb521}{solve}}(\mbox{\hyperlink{a02060_adff6308a3d8a1ffd821ed3c959f75eaf}{Domain}}\& req, SubsidiaryType\&\& subsidiaryFunction, \mbox{\hyperlink{a01464}{SubsidiaryArgs}}\& subsidiaryArgs) \{}
-\DoxyCodeLine{176     \textcolor{keyword}{using }enum \mbox{\hyperlink{a00486_ga662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}};}
-\DoxyCodeLine{177     this-\/>notify(\mbox{\hyperlink{a00486_gga662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498}{INIT}});}
-\DoxyCodeLine{178 }
-\DoxyCodeLine{180     \mbox{\hyperlink{a02100}{Ikarus::NonLinearSolverInformation}} solverInformation;}
-\DoxyCodeLine{181     solverInformation.\mbox{\hyperlink{a02100_acb65d72d7b2291a9b0d958ce0e4e0887}{success}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{176     \textcolor{keyword}{using }enum \mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}};}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178     \mbox{\hyperlink{a02100}{Ikarus::NonLinearSolverInformation}} solverInformation\{\};}
+\DoxyCodeLine{179     \textcolor{keyword}{auto} state = \textcolor{keyword}{typename} \mbox{\hyperlink{a02080}{NewtonRaphsonWithSubsidiaryFunction::State}}\{}
+\DoxyCodeLine{180         .\mbox{\hyperlink{a02080_a4ea3cec63a27f4699e529393f4304850}{domain}} = req, .correction = correction\_, .information = solverInformation\};}
+\DoxyCodeLine{181     this-\/>\mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498}{INIT}}, state);}
 \DoxyCodeLine{182 }
-\DoxyCodeLine{183     \textcolor{keyword}{auto}\& lambda = req.parameter();}
-\DoxyCodeLine{184     \textcolor{keyword}{auto}\& x      = req.globalSolution();}
-\DoxyCodeLine{185 }
-\DoxyCodeLine{189 }
-\DoxyCodeLine{190     \textcolor{keyword}{auto} lambdaDummy = lambda;}
-\DoxyCodeLine{191     \textcolor{keyword}{auto} DDummy      = x;}
-\DoxyCodeLine{192     x.setZero();}
-\DoxyCodeLine{193     lambda            = 1.0;}
-\DoxyCodeLine{194     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) rx = residualFunction\_(req);}
-\DoxyCodeLine{195     \textcolor{keyword}{const} \textcolor{keyword}{auto} Fext0  = (-\/rx).eval(); \textcolor{comment}{// dRdlambda(lambda)}}
-\DoxyCodeLine{196     lambda            = lambdaDummy;}
-\DoxyCodeLine{197     x                 = DDummy;}
-\DoxyCodeLine{198 }
-\DoxyCodeLine{199     rx                = residualFunction\_(req);}
-\DoxyCodeLine{200     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) Ax = jacobianFunction\_(req);}
-\DoxyCodeLine{201 }
-\DoxyCodeLine{202     Eigen::VectorXd deltaD;}
-\DoxyCodeLine{203     deltaD.resizeLike(rx);}
-\DoxyCodeLine{204     deltaD.setZero();}
-\DoxyCodeLine{205 }
-\DoxyCodeLine{206     subsidiaryArgs.\mbox{\hyperlink{a01464_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.resizeLike(Fext0);}
+\DoxyCodeLine{183     solverInformation.success = \textcolor{keyword}{true};}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185     \textcolor{keyword}{auto}\& lambda = req.parameter();}
+\DoxyCodeLine{186     \textcolor{keyword}{auto}\& x      = req.globalSolution();}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{191 }
+\DoxyCodeLine{192     \textcolor{keyword}{auto} lambdaDummy = lambda;}
+\DoxyCodeLine{193     \textcolor{keyword}{auto} DDummy      = x;}
+\DoxyCodeLine{194     x.setZero();}
+\DoxyCodeLine{195     lambda            = 1.0;}
+\DoxyCodeLine{196     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) rx = residualFunction\_(req);}
+\DoxyCodeLine{197     \textcolor{keyword}{const} \textcolor{keyword}{auto} Fext0  = (-\/rx).eval(); \textcolor{comment}{// dRdlambda(lambda)}}
+\DoxyCodeLine{198     lambda            = lambdaDummy;}
+\DoxyCodeLine{199     x                 = DDummy;}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{201     rx                = residualFunction\_(req);}
+\DoxyCodeLine{202     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) Ax = jacobianFunction\_(req);}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204     Eigen::VectorXd deltaD;}
+\DoxyCodeLine{205     deltaD.resizeLike(rx);}
+\DoxyCodeLine{206     deltaD.setZero();}
 \DoxyCodeLine{207 }
-\DoxyCodeLine{208     subsidiaryFunction(subsidiaryArgs);}
-\DoxyCodeLine{209     \textcolor{keyword}{auto} rNorm = sqrt(rx.dot(rx));}
-\DoxyCodeLine{210     \textcolor{keyword}{decltype}(rNorm) dNorm;}
-\DoxyCodeLine{211     \textcolor{keywordtype}{int} iter\{0\};}
-\DoxyCodeLine{212     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02060_a7a5aff92f9ae604cab722da156b4a93b}{isLinearSolver}})}
-\DoxyCodeLine{213       linearSolver\_.analyzePattern(Ax);}
-\DoxyCodeLine{214 }
-\DoxyCodeLine{215     \textcolor{keyword}{auto} solverState = \textcolor{keyword}{typename} \mbox{\hyperlink{a02080}{NewtonRaphsonWithSubsidiaryFunction::State}}\{.\mbox{\hyperlink{a02080_a4ea3cec63a27f4699e529393f4304850}{domain}} = req, .correction = correction\_\};}
-\DoxyCodeLine{216 }
-\DoxyCodeLine{217     Eigen::MatrixX2<double> residual2d, sol2d;}
-\DoxyCodeLine{218 }
-\DoxyCodeLine{220     \textcolor{keywordflow}{while} (rNorm > settings\_.\mbox{\hyperlink{a02064_a7e8e3668e5eca2b115ec77fcaabc8899}{tol}} \&\& iter < settings\_.\mbox{\hyperlink{a02064_a7ef35a86ec4e9a39bcc54182c5dc17b7}{maxIter}}) \{}
-\DoxyCodeLine{221       this-\/>notify(\mbox{\hyperlink{a00486_gga662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4}{ITERATION\_STARTED}});}
-\DoxyCodeLine{222 }
-\DoxyCodeLine{224       residual2d.resize(rx.rows(), 2);}
-\DoxyCodeLine{225       residual2d << -\/rx, Fext0;}
-\DoxyCodeLine{226       sol2d.resize(rx.rows(), 2);}
-\DoxyCodeLine{227 }
-\DoxyCodeLine{228       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02060_a7a5aff92f9ae604cab722da156b4a93b}{isLinearSolver}}) \{}
-\DoxyCodeLine{229         linearSolver\_.factorize(Ax);}
-\DoxyCodeLine{230         linearSolver\_.solve(sol2d, residual2d);}
-\DoxyCodeLine{231       \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{232         sol2d = linearSolver\_(residual2d, Ax);}
-\DoxyCodeLine{233       \}}
-\DoxyCodeLine{234 }
-\DoxyCodeLine{235       subsidiaryFunction(subsidiaryArgs);}
-\DoxyCodeLine{236 }
-\DoxyCodeLine{237       \textcolor{keyword}{const} \textcolor{keywordtype}{double} deltalambda = (-\/subsidiaryArgs.\mbox{\hyperlink{a01464_a628b23aa9e90c0e0ba1461ad2241645a}{f}} -\/ subsidiaryArgs.\mbox{\hyperlink{a01464_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.dot(sol2d.col(0))) /}
-\DoxyCodeLine{238                                  (subsidiaryArgs.\mbox{\hyperlink{a01464_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.dot(sol2d.col(1)) + subsidiaryArgs.\mbox{\hyperlink{a01464_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}});}
-\DoxyCodeLine{239       deltaD = sol2d.col(0) + deltalambda * sol2d.col(1);}
-\DoxyCodeLine{240 }
-\DoxyCodeLine{241       solverState.dNorm     = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(dNorm);}
-\DoxyCodeLine{242       solverState.rNorm     = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(rNorm);}
-\DoxyCodeLine{243       solverState.iteration = iter;}
-\DoxyCodeLine{244       this-\/>notify(\mbox{\hyperlink{a00486_gga662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4}{CORRECTION\_UPDATED}}, solverState);}
-\DoxyCodeLine{245 }
-\DoxyCodeLine{246       updateFunction\_(x, deltaD);}
-\DoxyCodeLine{247       updateFunction\_(subsidiaryArgs.\mbox{\hyperlink{a01464_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}, deltaD);}
-\DoxyCodeLine{248 }
-\DoxyCodeLine{249       lambda += deltalambda;}
-\DoxyCodeLine{250       subsidiaryArgs.\mbox{\hyperlink{a01464_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} += deltalambda;}
-\DoxyCodeLine{251 }
-\DoxyCodeLine{252       dNorm = sqrt(deltaD.dot(deltaD) + deltalambda * deltalambda);}
-\DoxyCodeLine{253       rx    = residualFunction\_(req);}
-\DoxyCodeLine{254       Ax    = jacobianFunction\_(req);}
-\DoxyCodeLine{255       rNorm = sqrt(rx.dot(rx) + subsidiaryArgs.\mbox{\hyperlink{a01464_a628b23aa9e90c0e0ba1461ad2241645a}{f}} * subsidiaryArgs.\mbox{\hyperlink{a01464_a628b23aa9e90c0e0ba1461ad2241645a}{f}});}
-\DoxyCodeLine{256 }
-\DoxyCodeLine{257       this-\/>notify(\mbox{\hyperlink{a00486_gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{SOLUTION\_CHANGED}}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(lambda));}
-\DoxyCodeLine{258       this-\/>notify(\mbox{\hyperlink{a00486_gga662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78}{CORRECTIONNORM\_UPDATED}}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(dNorm));}
-\DoxyCodeLine{259       this-\/>notify(\mbox{\hyperlink{a00486_gga662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14}{RESIDUALNORM\_UPDATED}}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(rNorm));}
-\DoxyCodeLine{260       this-\/>notify(\mbox{\hyperlink{a00486_gga662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815}{ITERATION\_ENDED}});}
+\DoxyCodeLine{208     subsidiaryArgs.\mbox{\hyperlink{a01464_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.resizeLike(Fext0);}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{210     subsidiaryFunction(subsidiaryArgs);}
+\DoxyCodeLine{211     \textcolor{keyword}{auto} rNorm                     = sqrt(rx.dot(rx));}
+\DoxyCodeLine{212     solverInformation.residualNorm = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(rNorm);}
+\DoxyCodeLine{213     \textcolor{keyword}{decltype}(rNorm) dNorm;}
+\DoxyCodeLine{214     \textcolor{keywordtype}{int} iter\{0\};}
+\DoxyCodeLine{215     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02060_a7a5aff92f9ae604cab722da156b4a93b}{isLinearSolver}})}
+\DoxyCodeLine{216       linearSolver\_.analyzePattern(Ax);}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218     Eigen::MatrixX2<double> residual2d, sol2d;}
+\DoxyCodeLine{219 }
+\DoxyCodeLine{221     \textcolor{keywordflow}{while} (rNorm > settings\_.\mbox{\hyperlink{a02064_a7e8e3668e5eca2b115ec77fcaabc8899}{tol}} \&\& iter < settings\_.\mbox{\hyperlink{a02064_a7ef35a86ec4e9a39bcc54182c5dc17b7}{maxIter}}) \{}
+\DoxyCodeLine{222       this-\/>\mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4}{ITERATION\_STARTED}}, state);}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{225       residual2d.resize(rx.rows(), 2);}
+\DoxyCodeLine{226       residual2d << -\/rx, Fext0;}
+\DoxyCodeLine{227       sol2d.resize(rx.rows(), 2);}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{229       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02060_a7a5aff92f9ae604cab722da156b4a93b}{isLinearSolver}}) \{}
+\DoxyCodeLine{230         linearSolver\_.factorize(Ax);}
+\DoxyCodeLine{231         linearSolver\_.solve(sol2d, residual2d);}
+\DoxyCodeLine{232       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{233         sol2d = linearSolver\_(residual2d, Ax);}
+\DoxyCodeLine{234       \}}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236       subsidiaryFunction(subsidiaryArgs);}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{238       \textcolor{keyword}{const} \textcolor{keywordtype}{double} deltalambda = (-\/subsidiaryArgs.\mbox{\hyperlink{a01464_a628b23aa9e90c0e0ba1461ad2241645a}{f}} -\/ subsidiaryArgs.\mbox{\hyperlink{a01464_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.dot(sol2d.col(0))) /}
+\DoxyCodeLine{239                                  (subsidiaryArgs.\mbox{\hyperlink{a01464_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.dot(sol2d.col(1)) + subsidiaryArgs.\mbox{\hyperlink{a01464_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}});}
+\DoxyCodeLine{240       deltaD = sol2d.col(0) + deltalambda * sol2d.col(1);}
+\DoxyCodeLine{241 }
+\DoxyCodeLine{242       this-\/>\mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4}{CORRECTION\_UPDATED}}, state);}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{244       updateFunction\_(x, deltaD);}
+\DoxyCodeLine{245       updateFunction\_(subsidiaryArgs.\mbox{\hyperlink{a01464_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}, deltaD);}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{247       lambda += deltalambda;}
+\DoxyCodeLine{248       subsidiaryArgs.\mbox{\hyperlink{a01464_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} += deltalambda;}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{250       dNorm                            = sqrt(deltaD.dot(deltaD) + deltalambda * deltalambda);}
+\DoxyCodeLine{251       solverInformation.correctionNorm = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(dNorm);}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{253       rx                             = residualFunction\_(req);}
+\DoxyCodeLine{254       Ax                             = jacobianFunction\_(req);}
+\DoxyCodeLine{255       rNorm                          = sqrt(rx.dot(rx) + subsidiaryArgs.\mbox{\hyperlink{a01464_a628b23aa9e90c0e0ba1461ad2241645a}{f}} * subsidiaryArgs.\mbox{\hyperlink{a01464_a628b23aa9e90c0e0ba1461ad2241645a}{f}});}
+\DoxyCodeLine{256       solverInformation.residualNorm = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(rNorm);}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258       this-\/>\mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00492_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{SOLUTION\_CHANGED}}, state);}
+\DoxyCodeLine{259       this-\/>\mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78}{CORRECTIONNORM\_UPDATED}}, state);}
+\DoxyCodeLine{260       this-\/>\mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14}{RESIDUALNORM\_UPDATED}}, state);}
 \DoxyCodeLine{261 }
 \DoxyCodeLine{262       ++iter;}
-\DoxyCodeLine{263     \}}
-\DoxyCodeLine{264 }
-\DoxyCodeLine{265     \textcolor{keywordflow}{if} (iter == settings\_.\mbox{\hyperlink{a02064_a7ef35a86ec4e9a39bcc54182c5dc17b7}{maxIter}})}
-\DoxyCodeLine{266       solverInformation.\mbox{\hyperlink{a02100_acb65d72d7b2291a9b0d958ce0e4e0887}{success}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{267     solverInformation.\mbox{\hyperlink{a02100_a81570cd3d9f6589a4d1ba81211f41b99}{iterations}}     = iter;}
-\DoxyCodeLine{268     solverInformation.\mbox{\hyperlink{a02100_ab09859737734f97734f20624f9f3c934}{residualNorm}}   = rNorm;}
-\DoxyCodeLine{269     solverInformation.\mbox{\hyperlink{a02100_a66f51414779f3e563557157fb688f18b}{correctionNorm}} = dNorm;}
-\DoxyCodeLine{270     \textcolor{keywordflow}{if} (solverInformation.\mbox{\hyperlink{a02100_acb65d72d7b2291a9b0d958ce0e4e0887}{success}})}
-\DoxyCodeLine{271       this-\/>notify(\mbox{\hyperlink{a00486_gga662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931}{FINISHED\_SUCESSFULLY}}, iter);}
+\DoxyCodeLine{263       solverInformation.iterations = iter;}
+\DoxyCodeLine{264       this-\/>\mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815}{ITERATION\_ENDED}}, state);}
+\DoxyCodeLine{265     \}}
+\DoxyCodeLine{266 }
+\DoxyCodeLine{267     \textcolor{keywordflow}{if} (iter == settings\_.\mbox{\hyperlink{a02064_a7ef35a86ec4e9a39bcc54182c5dc17b7}{maxIter}})}
+\DoxyCodeLine{268       solverInformation.success = \textcolor{keyword}{false};}
+\DoxyCodeLine{269     solverInformation.iterations = iter;}
+\DoxyCodeLine{270     \textcolor{keywordflow}{if} (solverInformation.success)}
+\DoxyCodeLine{271       this-\/>\mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931}{FINISHED\_SUCESSFULLY}}, state);}
 \DoxyCodeLine{272 }
 \DoxyCodeLine{273     \textcolor{keywordflow}{return} solverInformation;}
 \DoxyCodeLine{274   \}}

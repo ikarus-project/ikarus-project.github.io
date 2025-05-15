@@ -1,14 +1,14 @@
 var annotated_dup =
 [
     [ "Dune", "a00518.html", [
-      [ "FieldVector", "a02204.html", null ]
+      [ "FieldVector", "a02196.html", null ]
     ] ],
     [ "Eigen", "a00509.html", [
       [ "internal", "a00510.html", [
         [ "traits< TruncatedConjugateGradient< MatrixType_, UpLo, Preconditioner_ > >", "a02008.html", "a02008" ]
       ] ],
-      [ "EigenBase", "a02148.html", null ],
-      [ "SparseMatrixBase", "a02284.html", null ],
+      [ "EigenBase", "a02140.html", null ],
+      [ "SparseMatrixBase", "a02276.html", null ],
       [ "TCGInfo", "a02000.html", "a02000" ],
       [ "TruncatedConjugateGradient", "a02004.html", "a02004" ]
     ] ],
@@ -90,27 +90,27 @@ var annotated_dup =
         [ "VonMises", "a01940.html", "a01940" ]
       ] ],
       [ "traits", "a00517.html", [
-        [ "ChangeArgTypeAtPos", "a02348.html", null ],
-        [ "FunctionTraits", "a02336.html", null ],
-        [ "hasType", "a02292.html", null ],
-        [ "Index", "a02328.html", null ],
-        [ "is_tuple< std::tuple< T... > >", "a02288.html", null ],
-        [ "isSharedPtr", "a02296.html", null ],
-        [ "isSpecialization< U, U< T... > >", "a02308.html", null ],
-        [ "isSpecializationNonTypeAndTypes< Type, Type< T, N... > >", "a02312.html", null ],
-        [ "isSpecializationNonTypeNonTypeAndTypes< Type, Type< T, R, N... > >", "a02316.html", null ],
-        [ "isSpecializationNonTypes< Type, Type< N... > >", "a02324.html", null ],
-        [ "isSpecializationTypeNonTypeAndType< Type, Type< T, M, N > >", "a02320.html", null ],
-        [ "isUniquePtr", "a02300.html", null ],
-        [ "Rebind", "a02332.html", null ],
-        [ "remove_pointer", "a02304.html", "a02304" ],
-        [ "ReplaceTypeAtPos", "a02340.html", null ],
-        [ "TupleToFunctionType", "a02344.html", null ]
+        [ "ChangeArgTypeAtPos", "a02340.html", null ],
+        [ "FunctionTraits", "a02328.html", null ],
+        [ "hasType", "a02284.html", null ],
+        [ "Index", "a02320.html", null ],
+        [ "is_tuple< std::tuple< T... > >", "a02280.html", null ],
+        [ "isSharedPtr", "a02288.html", null ],
+        [ "isSpecialization< U, U< T... > >", "a02300.html", null ],
+        [ "isSpecializationNonTypeAndTypes< Type, Type< T, N... > >", "a02304.html", null ],
+        [ "isSpecializationNonTypeNonTypeAndTypes< Type, Type< T, R, N... > >", "a02308.html", null ],
+        [ "isSpecializationNonTypes< Type, Type< N... > >", "a02316.html", null ],
+        [ "isSpecializationTypeNonTypeAndType< Type, Type< T, M, N > >", "a02312.html", null ],
+        [ "isUniquePtr", "a02292.html", null ],
+        [ "Rebind", "a02324.html", null ],
+        [ "remove_pointer", "a02296.html", "a02296" ],
+        [ "ReplaceTypeAtPos", "a02332.html", null ],
+        [ "TupleToFunctionType", "a02336.html", null ]
       ] ],
       [ "utils", "a00513.html", [
-        [ "CheckFlags", "a02252.html", "a02252" ],
-        [ "SolverDefault", "a02176.html", "a02176" ],
-        [ "UpdateDefault", "a02180.html", "a02180" ]
+        [ "CheckFlags", "a02244.html", "a02244" ],
+        [ "SolverDefault", "a02168.html", "a02168" ],
+        [ "UpdateDefault", "a02172.html", "a02172" ]
       ] ],
       [ "Vtk", "a00507.html", [
         [ "DefaultVTKWriterManager", "a01996.html", "a01996" ],
@@ -130,25 +130,23 @@ var annotated_dup =
       [ "AssumedStressPre", "a01552.html", "a01552" ],
       [ "AutoDiffFE", "a01484.html", "a01484" ],
       [ "BasisHandler", "a02132.html", "a02132" ],
-      [ "Broadcaster", "a02136.html", null ],
-      [ "Broadcaster< void(Args...)>", "a02140.html", "a02140" ],
-      [ "Broadcasters", "a02144.html", "a02144" ],
+      [ "Broadcaster", "a02136.html", "a02136" ],
       [ "BulkModulusAndLamesFirstParameter", "a01928.html", "a01928" ],
       [ "ControlInformation", "a01420.html", "a01420" ],
-      [ "ControlLogger", "a02260.html", "a02260" ],
+      [ "ControlLogger", "a02252.html", "a02252" ],
       [ "ControlRoutineBase", "a01424.html", "a01424" ],
       [ "ControlRoutineFactory", "a01428.html", "a01428" ],
       [ "ControlRoutineState", "a01432.html", "a01432" ],
-      [ "ControlSubsamplingVertexVTKWriter", "a02264.html", "a02264" ],
+      [ "ControlSubsamplingVertexVTKWriter", "a02256.html", "a02256" ],
       [ "ConvertLameConstants", "a01936.html", "a01936" ],
       [ "DefaultMembraneStrain", "a01772.html", "a01772" ],
       [ "DenseFlatAssembler", "a01408.html", "a01408" ],
-      [ "DeriveSizeType", "a02208.html", null ],
-      [ "DeriveSizeType< std::vector< bool > >", "a02216.html", "a02216" ],
-      [ "DeriveSizeType< T >", "a02212.html", "a02212" ],
-      [ "DifferentiableFunction< Range(D), DerivativeTraits, F, FF... >", "a02196.html", "a02196" ],
-      [ "DifferentiableFunctionFactory", "a02200.html", "a02200" ],
-      [ "DirichletValues", "a02220.html", "a02220" ],
+      [ "DeriveSizeType", "a02200.html", null ],
+      [ "DeriveSizeType< std::vector< bool > >", "a02208.html", "a02208" ],
+      [ "DeriveSizeType< T >", "a02204.html", "a02204" ],
+      [ "DifferentiableFunction< Range(D), DerivativeTraits, F, FF... >", "a02188.html", "a02188" ],
+      [ "DifferentiableFunctionFactory", "a02192.html", "a02192" ],
+      [ "DirichletValues", "a02212.html", "a02212" ],
       [ "DisplacementControl", "a01476.html", "a01476" ],
       [ "EnhancedAssumedStrains", "a01604.html", "a01604" ],
       [ "EnhancedAssumedStrainsPre", "a01608.html", "a01608" ],
@@ -158,18 +156,18 @@ var annotated_dup =
       [ "FERequirements", "a01508.html", "a01508" ],
       [ "FETraits", "a01544.html", "a01544" ],
       [ "FlatAssemblerBase", "a01380.html", "a01380" ],
-      [ "FlatIndexMergingStrategy", "a02232.html", "a02232" ],
-      [ "FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedInterleaved >", "a02236.html", "a02236" ],
-      [ "FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedLexicographic >", "a02240.html", "a02240" ],
-      [ "FlatPreBasis", "a02228.html", "a02228" ],
-      [ "FlatPreBasis< Dune::Functions::CompositePreBasis< IMS, SPB... > >", "a02244.html", "a02244" ],
-      [ "FlatPreBasis< Dune::Functions::PowerPreBasis< IMS, SPB, C > >", "a02248.html", "a02248" ],
+      [ "FlatIndexMergingStrategy", "a02224.html", "a02224" ],
+      [ "FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedInterleaved >", "a02228.html", "a02228" ],
+      [ "FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedLexicographic >", "a02232.html", "a02232" ],
+      [ "FlatPreBasis", "a02220.html", "a02220" ],
+      [ "FlatPreBasis< Dune::Functions::CompositePreBasis< IMS, SPB... > >", "a02236.html", "a02236" ],
+      [ "FlatPreBasis< Dune::Functions::PowerPreBasis< IMS, SPB, C > >", "a02240.html", "a02240" ],
       [ "GeneralizedSymEigenSolver", "a02020.html", null ],
       [ "GeneralizedSymEigenSolver< EigenValueSolverType::Eigen, MT >", "a02028.html", "a02028" ],
       [ "GeneralizedSymEigenSolver< EigenValueSolverType::Spectra, MT >", "a02024.html", "a02024" ],
-      [ "GenericListener", "a02268.html", "a02268" ],
+      [ "GenericListener", "a02260.html", "a02260" ],
       [ "GentMatParameters", "a01668.html", "a01668" ],
-      [ "IkarusInstance", "a02256.html", "a02256" ],
+      [ "IkarusInstance", "a02248.html", "a02248" ],
       [ "KirchhoffLoveShell", "a01612.html", "a01612" ],
       [ "KirchhoffLoveShellPre", "a01616.html", "a01616" ],
       [ "KlArgs", "a01624.html", "a01624" ],
@@ -177,7 +175,7 @@ var annotated_dup =
       [ "LinearElastic", "a01628.html", "a01628" ],
       [ "LinearElasticPre", "a01632.html", "a01632" ],
       [ "LinearSolverTemplate", "a02036.html", "a02036" ],
-      [ "Listener", "a02272.html", "a02272" ],
+      [ "Listener", "a02264.html", "a02264" ],
       [ "LoadControl", "a01440.html", "a01440" ],
       [ "LoadControlConfig", "a01444.html", "a01444" ],
       [ "LoadControlSubsidiaryFunction", "a01472.html", "a01472" ],
@@ -194,7 +192,7 @@ var annotated_dup =
       [ "NonlinearSolverBase", "a02072.html", "a02072" ],
       [ "NonlinearSolverFactory", "a02076.html", "a02076" ],
       [ "NonLinearSolverInformation", "a02100.html", "a02100" ],
-      [ "NonLinearSolverLogger", "a02276.html", "a02276" ],
+      [ "NonLinearSolverLogger", "a02268.html", "a02268" ],
       [ "NonlinearSolverState", "a02080.html", "a02080" ],
       [ "NRSettings", "a02052.html", "a02052" ],
       [ "PartialGeneralizedSymEigenSolver", "a02032.html", "a02032" ],
@@ -229,8 +227,8 @@ var annotated_dup =
       [ "YoungsModulusAndShearModulus", "a01916.html", "a01916" ]
     ] ],
     [ "Python", "a00522.html", [
-      [ "Conversion< autodiff::Real< order, T > >", "a02280.html", "a02280" ]
+      [ "Conversion< autodiff::Real< order, T > >", "a02272.html", "a02272" ]
     ] ],
     [ "ScalarWrapper", "a02016.html", "a02016" ],
-    [ "TrustRegionSettings", "a02408.html", null ]
+    [ "TrustRegionSettings", "a02401.html", null ]
 ];

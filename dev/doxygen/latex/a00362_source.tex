@@ -5,72 +5,73 @@
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <string>}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <dune/functions/gridfunctions/discreteglobalbasisfunction.hh>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/grid/io/file/vtk/subsamplingvtkwriter.hh>}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <Eigen/Core>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00377}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00359}{ikarus/utils/listener/listener.hh}}>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#pragma GCC diagnostic push}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#pragma GCC diagnostic ignored "{}-\/Wswitch-\/enum"{}}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{32 \textcolor{keyword}{template} <\textcolor{keyword}{typename} B>}
-\DoxyCodeLine{33 \textcolor{keyword}{class }\mbox{\hyperlink{a02264}{ControlSubsamplingVertexVTKWriter}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02272}{Listener}}}
-\DoxyCodeLine{34 \{}
-\DoxyCodeLine{35   \textcolor{keyword}{using }Basis                     = B;}
-\DoxyCodeLine{36   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} components = Basis::LocalView::Tree::degree() == 0 ? 1 : Basis::LocalView::Tree::degree();}
-\DoxyCodeLine{37 }
-\DoxyCodeLine{38 \textcolor{keyword}{public}:}
-\DoxyCodeLine{48   \mbox{\hyperlink{a02264_a1e07865751a32e0a1dd29e8f001babc3}{ControlSubsamplingVertexVTKWriter}}(\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keyword}{const} Eigen::VectorXd\& sol, \textcolor{keywordtype}{int} refinementLevels = 0)}
-\DoxyCodeLine{49       : basis\_\{\&\mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}\},}
-\DoxyCodeLine{50         vtkWriter\_(\mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.gridView(), \mbox{\hyperlink{a00518}{Dune}}::refinementLevels(refinementLevels)),}
-\DoxyCodeLine{51         solution\_\{\&sol\} \{\}}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{53   \textcolor{keyword}{template} <\textcolor{keyword}{typename} BC>}
-\DoxyCodeLine{54   \mbox{\hyperlink{a02264}{ControlSubsamplingVertexVTKWriter}}\& \mbox{\hyperlink{a02264_a3dae604f656fc27f82a60b713d1fb0cf}{subscribeTo}}(BC\& bc) \{}
-\DoxyCodeLine{55     this-\/>\mbox{\hyperlink{a02272_a754e8fbe950f23d4610009475e35ed98}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00486_ga35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message) \{ this-\/>\mbox{\hyperlink{a02264_afb324017dac0d22e505d87a6c1684032}{updateImpl}}(message); \});}
-\DoxyCodeLine{56     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{57   \}}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{68   \textcolor{keyword}{auto} \mbox{\hyperlink{a02264_afec0c3fe2aa8cac3e9970d8c9720c219}{setFieldInfo}}(std::string\&\& name, Dune::VTK::FieldInfo::Type type, std::size\_t size,}
-\DoxyCodeLine{69                     Dune::VTK::Precision prec = Dune::VTK::Precision::float32) \{}
-\DoxyCodeLine{70     fieldInfo\_      = Dune::VTK::FieldInfo(std::move(name), type, size, prec);}
-\DoxyCodeLine{71     isFieldInfoSet\_ = \textcolor{keyword}{true};}
-\DoxyCodeLine{72   \}}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{79   \textcolor{keyword}{auto} \mbox{\hyperlink{a02264_a8061e516e4c6626a2f6ea160e692e4e1}{setFileNamePrefix}}(std::string\&\& name) \{ prefixString\_ = std::move(name); \}}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{89   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02264_afb324017dac0d22e505d87a6c1684032}{updateImpl}}(\mbox{\hyperlink{a00486_ga35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message) \{}
-\DoxyCodeLine{90     assert(isFieldInfoSet\_ \&\& \textcolor{stringliteral}{"{}You need to call setFieldInfo first!"{}});}
-\DoxyCodeLine{91     \textcolor{keywordflow}{switch} (message) \{}
-\DoxyCodeLine{92       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00486_gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{ControlMessages::SOLUTION\_CHANGED}}: \{}
-\DoxyCodeLine{93         \textcolor{keyword}{auto} disp = Dune::Functions::makeDiscreteGlobalBasisFunction<Dune::FieldVector<double, components>>(*basis\_,}
-\DoxyCodeLine{94                                                                                                             *solution\_);}
-\DoxyCodeLine{95         vtkWriter\_.addVertexData(disp, fieldInfo\_);}
-\DoxyCodeLine{96         vtkWriter\_.write(prefixString\_ + std::to\_string(step\_++));}
-\DoxyCodeLine{97       \} \textcolor{keywordflow}{break};}
-\DoxyCodeLine{98       \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{99         \textcolor{keywordflow}{break}; \textcolor{comment}{// default: do nothing when notified}}
-\DoxyCodeLine{100     \}}
-\DoxyCodeLine{101   \}}
-\DoxyCodeLine{102 }
-\DoxyCodeLine{103 \textcolor{keyword}{private}:}
-\DoxyCodeLine{104   \textcolor{keyword}{const} Basis* basis\_;}
-\DoxyCodeLine{105   Dune::SubsamplingVTKWriter<typename Basis::GridView> vtkWriter\_;}
-\DoxyCodeLine{106   \textcolor{keyword}{const} Eigen::VectorXd* solution\_;}
-\DoxyCodeLine{107   \textcolor{keywordtype}{int} step\_\{0\};}
-\DoxyCodeLine{108   Dune::VTK::FieldInfo fieldInfo\_\{\textcolor{stringliteral}{"{}Default"{}}, Dune::VTK::FieldInfo::Type::scalar, 1\};}
-\DoxyCodeLine{109   std::string prefixString\_\{\};}
-\DoxyCodeLine{110   \textcolor{keywordtype}{bool} isFieldInfoSet\_\{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{111 \};}
-\DoxyCodeLine{112 \} \textcolor{comment}{// namespace Ikarus}}
-\DoxyCodeLine{113 \textcolor{preprocessor}{\#pragma GCC diagnostic pop}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/functions/gridfunctions/discreteglobalbasisfunction.hh>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/grid/io/file/vtk/subsamplingvtkwriter.hh>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00377}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03429}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00359}{ikarus/utils/listener/listener.hh}}>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{31 \textcolor{keyword}{template} <\textcolor{keyword}{typename} B>}
+\DoxyCodeLine{32 \textcolor{keyword}{class }\mbox{\hyperlink{a02256}{ControlSubsamplingVertexVTKWriter}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02264}{Listener}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34   \textcolor{keyword}{using }Basis                     = B;}
+\DoxyCodeLine{35   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} components = Basis::LocalView::Tree::degree() == 0 ? 1 : Basis::LocalView::Tree::degree();}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{public}:}
+\DoxyCodeLine{46   \mbox{\hyperlink{a02256_aa9bc2f8915db560b403dc97a151d3e35}{ControlSubsamplingVertexVTKWriter}}(\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keywordtype}{int} refinementLevels = 0)}
+\DoxyCodeLine{47       : basis\_\{\mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}\},}
+\DoxyCodeLine{48         vtkWriter\_(\mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.gridView(), \mbox{\hyperlink{a00518}{Dune}}::refinementLevels(refinementLevels)) \{\}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \textcolor{keyword}{template} <\textcolor{keyword}{typename} BC>}
+\DoxyCodeLine{51   \mbox{\hyperlink{a02256}{ControlSubsamplingVertexVTKWriter}}\& \mbox{\hyperlink{a02256_a3dae604f656fc27f82a60b713d1fb0cf}{subscribeTo}}(BC\& bc) \{}
+\DoxyCodeLine{52     this-\/>\mbox{\hyperlink{a02264_a199840d6ead51d771d5522acff779a4f}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00492_a35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message, \textcolor{keyword}{const} BC::State\& state) \{ this-\/>\mbox{\hyperlink{a02256_a03d2c1668d6894f3e4f3c5d3ef1c54f6}{update}}(message, state); \});}
+\DoxyCodeLine{53     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{65   \textcolor{keyword}{auto} \mbox{\hyperlink{a02256_afec0c3fe2aa8cac3e9970d8c9720c219}{setFieldInfo}}(std::string\&\& name, Dune::VTK::FieldInfo::Type type, std::size\_t size,}
+\DoxyCodeLine{66                     Dune::VTK::Precision prec = Dune::VTK::Precision::float32) \{}
+\DoxyCodeLine{67     fieldInfo\_      = Dune::VTK::FieldInfo(std::move(name), type, size, prec);}
+\DoxyCodeLine{68     isFieldInfoSet\_ = \textcolor{keyword}{true};}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{76   \textcolor{keyword}{auto} \mbox{\hyperlink{a02256_a8061e516e4c6626a2f6ea160e692e4e1}{setFileNamePrefix}}(std::string\&\& name) \{ prefixString\_ = std::move(name); \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{87   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02256_a03d2c1668d6894f3e4f3c5d3ef1c54f6}{update}}(\mbox{\hyperlink{a00492_a35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message, \textcolor{keyword}{const} \mbox{\hyperlink{a02387}{Concepts::ControlRoutineState}} \textcolor{keyword}{auto}\& state) \{}
+\DoxyCodeLine{88     assert(isFieldInfoSet\_ \&\& \textcolor{stringliteral}{"{}You need to call setFieldInfo first!"{}});}
+\DoxyCodeLine{89     \textcolor{keywordflow}{switch} (message) \{}
+\DoxyCodeLine{90       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00492_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{ControlMessages::SOLUTION\_CHANGED}}: \{}
+\DoxyCodeLine{91         \textcolor{keyword}{auto} disp = Dune::Functions::makeDiscreteGlobalBasisFunction<Dune::FieldVector<double, components>>(}
+\DoxyCodeLine{92             basis\_, state.domain.globalSolution());}
+\DoxyCodeLine{93         vtkWriter\_.addVertexData(disp, fieldInfo\_);}
+\DoxyCodeLine{94         vtkWriter\_.write(prefixString\_ + std::to\_string(step\_++));}
+\DoxyCodeLine{95       \} \textcolor{keywordflow}{break};}
+\DoxyCodeLine{96       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{97         \textcolor{keywordflow}{break}; \textcolor{comment}{// default: do nothing when notified}}
+\DoxyCodeLine{98     \}}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{keyword}{private}:}
+\DoxyCodeLine{102   \textcolor{keyword}{const} Basis\& basis\_;}
+\DoxyCodeLine{103   Dune::SubsamplingVTKWriter<typename Basis::GridView> vtkWriter\_;}
+\DoxyCodeLine{104   \textcolor{keywordtype}{int} step\_\{0\};}
+\DoxyCodeLine{105   Dune::VTK::FieldInfo fieldInfo\_\{\textcolor{stringliteral}{"{}Default"{}}, Dune::VTK::FieldInfo::Type::scalar, 1\};}
+\DoxyCodeLine{106   std::string prefixString\_\{\};}
+\DoxyCodeLine{107   \textcolor{keywordtype}{bool} isFieldInfoSet\_\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{108 \};}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
+\DoxyCodeLine{111 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Basis>}
+\DoxyCodeLine{112 ControlSubsamplingVertexVTKWriter(\textcolor{keyword}{const} Basis\&, \textcolor{keywordtype}{int}) -\/> ControlSubsamplingVertexVTKWriter<Basis>;}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

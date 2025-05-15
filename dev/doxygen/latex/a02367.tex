@@ -1,8 +1,8 @@
-\hypertarget{a02367}{}\doxysection{Ikarus\+::Concepts\+::Non\+Linear\+Solver\+Check\+For\+Path\+Following Concept Reference}
-\label{a02367}\index{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing@{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}}
+\hypertarget{a02367}{}\doxysection{Ikarus\+::Concepts\+::Divide\+Able Concept Reference}
+\label{a02367}\index{Ikarus::Concepts::DivideAble@{Ikarus::Concepts::DivideAble}}
 
 
-Concept to check if a non-\/linear solver with its non-\/linear operator satisfies requirements for path following.  
+Concept defining the requirements for types that support division.  
 
 
 
@@ -12,14 +12,8 @@ Concept to check if a non-\/linear solver with its non-\/linear operator satisfi
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02367}{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}} =  \textcolor{keyword}{requires} \{}
-\DoxyCodeLine{    not(std::is\_same\_v<typename NLS::DifferentiableFunction::Domain, double> and}
-\DoxyCodeLine{        ((traits::isSpecializationTypeAndNonTypes<}
-\DoxyCodeLine{             Eigen::Matrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value) or}
-\DoxyCodeLine{         (traits::isSpecializationTypeNonTypeAndType<}
-\DoxyCodeLine{             Eigen::SparseMatrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value)));}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02367}{Ikarus::Concepts::DivideAble}} =  \textcolor{keyword}{requires}(L x, R y) \{ x / y; \}}
 
 \end{DoxyCode}
 
@@ -27,6 +21,9 @@ Concept to check if a non-\/linear solver with its non-\/linear operator satisfi
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em NLS} & The non-\/linear solver type. \\
+{\em L} & Type of the left operand. \\
+\hline
+{\em R} & Type of the right operand.\\
 \hline
 \end{DoxyTemplParams}
+The concept specifies that instances of types {\ttfamily L} and {\ttfamily R} can be divided using the {\ttfamily /} operator. 

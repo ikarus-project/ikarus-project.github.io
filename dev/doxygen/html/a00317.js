@@ -2,7 +2,7 @@ var a00317 =
 [
     [ "Ikarus::AffordanceCollection< Affordances >", "a01504.html", "a01504" ],
     [ "Ikarus::FERequirements< sol, para, SV, PM >", "a01508.html", "a01508" ],
-    [ "Ikarus::FEAffordance", "a02349.html", null ],
+    [ "Ikarus::FEAffordance", "a02341.html", null ],
     [ "FEParameter", "a00317.html#ga0c1577fd05efee8475b0f7fef795bbbe", [
       [ "BEGIN", "a00317.html#gga0c1577fd05efee8475b0f7fef795bbbea19aad9f2fe3ce0023298ab83f7e75775", null ],
       [ "noParameter", "a00317.html#gga0c1577fd05efee8475b0f7fef795bbbea298c62e2f9918b280f40eb210c44fdbe", null ],

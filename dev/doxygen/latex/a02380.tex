@@ -1,8 +1,10 @@
-\hypertarget{a02380}{}\doxysection{Ikarus\+::Concepts\+::Eigen\+Matrix Concept Reference}
-\label{a02380}\index{Ikarus::Concepts::EigenMatrix@{Ikarus::Concepts::EigenMatrix}}
+\hypertarget{a02380}{}\doxysection{Ikarus\+::Concepts\+::Vector\+Flat\+Assembler Concept Reference}
+\label{a02380}\index{Ikarus::Concepts::VectorFlatAssembler@{Ikarus::Concepts::VectorFlatAssembler}}
 
 
-Concept defining the requirements for \mbox{\hyperlink{a00509}{Eigen}} matrices. This also includes \mbox{\hyperlink{a00509}{Eigen}} vectors.  
+Concept representing the requirements for a Vector\+Flat\+Assembler.
+
+A type T satisfies Vector\+Flat\+Assembler if it is a Scalar\+Flat\+Assembler and if it provides the necessary vector() member functions.  
 
 
 
@@ -12,15 +14,15 @@ Concept defining the requirements for \mbox{\hyperlink{a00509}{Eigen}} matrices.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02380}{Ikarus::Concepts::EigenMatrix}} =  traits::isSpecializationTypeAndNonTypes<Eigen::Matrix, M>::value}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02380}{Ikarus::Concepts::VectorFlatAssembler}} =  \mbox{\hyperlink{a02379}{Concepts::ScalarFlatAssembler<T>}} and}
+\DoxyCodeLine{                                \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{                                         \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00492_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{                                  \{}
+\DoxyCodeLine{                                    t.vector(req, affordance.vectorAffordance(), dbcOption)}
+\DoxyCodeLine{                                  \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{                                  \{ t.vector(dbcOption) \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{                                  \{ t.vector() \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{                                \}}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em M} & Type representing an \mbox{\hyperlink{a00509}{Eigen}} vector. \\
-\hline
-\end{DoxyTemplParams}

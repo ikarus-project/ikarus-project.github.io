@@ -28,7 +28,7 @@ var a00503 =
     [ "VF8", "a01732.html", "a01732" ],
     [ "VF9", "a01736.html", "a01736" ],
     [ "Volumetric", "a01696.html", "a01696" ],
-    [ "CorrectStrainSize", "a02352.html", null ],
+    [ "CorrectStrainSize", "a02344.html", null ],
     [ "ArrudaBoyce", "a00503.html#a70cada02f1f5f294f44c438fb1270982", null ],
     [ "BlatzKo", "a00503.html#a7c7d4e399e30b088b7253771704bd01b", null ],
     [ "Gent", "a00503.html#a8d05a34baf0684f0e4e2a10a721bb80d", null ],

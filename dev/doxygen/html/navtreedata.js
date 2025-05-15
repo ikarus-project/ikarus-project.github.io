@@ -30,8 +30,8 @@ var NAVTREE =
       [ "Modules", "index.html#mods", null ],
       [ "How to cite", "index.html#autotoc_md3", null ]
     ] ],
-    [ "Copyright holders", "a03429.html", null ],
-    [ "Bibliography", "a03497.html", null ],
+    [ "Copyright holders", "a03418.html", null ],
+    [ "Bibliography", "a03486.html", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -72,22 +72,22 @@ var NAVTREEINDEX =
 [
 "a00005.html",
 "a00302.html",
-"a00487.html#ga2f675229501979101656ec4dee7764d5",
-"a00492.html#aff7184c8b9bf7333cce42c28dc459851",
-"a01368.html#ae4ed17fb7f07d2e51a7d9c358452e551",
-"a01404.html#a09fdcb8077bc6e8b181dd86c1820568c",
-"a01480.html",
-"a01528.html#ae5c30a9c8da8fe6bb01b1cee0fc43155",
-"a01604.html#ac00c91a371e5c1b42bbc0a26715693ef",
-"a01676.html#adbd84a167004698fa848ab487f25aa74",
-"a01756.html",
-"a01832.html#a2fc709060acb33971c2affff2892a9df",
-"a01872.html#a4ae0daad7e73632e2375141f0d79bfa7",
-"a01964.html#af7e853295439736348e50ee08cdced8a",
-"a02060.html#a4d09a5f7879cb3f0e053f463b6044d07",
-"a02200.html#aa362a29341818929bae2f15c4271e351",
-"a02366.html",
-"functions_type_k.html"
+"a00487.html#gaceb8dc8f6f43516dabf75155b1f22d4c",
+"a00498.html#abd125ab98018456fb4bd3bdfe28466dc",
+"a01372.html#a073d6709deb7c8af88e80d78a9d9d52e",
+"a01404.html#a363ca54e8c3ae9838ab7621cecf24930",
+"a01464.html#a628b23aa9e90c0e0ba1461ad2241645a",
+"a01508.html#afcbcf3a8d82d63bea10e53acff1b6340",
+"a01600.html#aa640cbe01ca4f363dc0e6c52d856c4e7",
+"a01672.html#a5d96044e7cd8acc2cb3d1aeaf4bb24d7",
+"a01752.html#a6fc59c96a4b7c84a87bfbb154c4d5359",
+"a01828.html#a0f20349ee52ac98f8768463f5489e7eb",
+"a01868.html#a845df016c4d4e29c081f66a09709740a",
+"a01952.html#a14fd89ab2a84416e5f1024c9930f7371",
+"a02052.html#a97d470d26a862189812ddceae07e2545",
+"a02136.html#a34a8a1247a245acc29e1b4b34985771e",
+"a02345.html",
+"functions_func_~.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

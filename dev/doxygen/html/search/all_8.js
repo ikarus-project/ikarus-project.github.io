@@ -12,7 +12,7 @@ var searchData=
   ['hasmatrixaffordance_9',['hasMatrixAffordance',['../a01504.html#a34091db9c2c461a74f8fd9d99253b0a3',1,'Ikarus::AffordanceCollection']]],
   ['hasscalaraffordance_10',['hasScalarAffordance',['../a01504.html#abff0c7489d3ce4d83bf7f078e3e6bdfe',1,'Ikarus::AffordanceCollection']]],
   ['hasskill_11',['hasSkill',['../a01892.html#ad037d914bd0a3933ebe3fc11caa84e39',1,'Ikarus::FEMixin']]],
-  ['hastype_12',['hasType',['../a02292.html',1,'Ikarus::traits']]],
+  ['hastype_12',['hasType',['../a02284.html',1,'Ikarus::traits']]],
   ['hastypespecialization_13',['hasTypeSpecialization',['../a00489.html#gaec2a5de0482441ef1e1c68fb7ff8a0bc',1,'Ikarus::utils']]],
   ['hasvectoraffordance_14',['hasVectorAffordance',['../a01504.html#ae6aad73f09ae60f45f049a71307cb98a',1,'Ikarus::AffordanceCollection']]],
   ['hasvolumetricpart_15',['hasVolumetricPart',['../a01688.html#ada824f063862cafe0415c1631a73f2fd',1,'Ikarus::Materials::Hyperelastic']]],

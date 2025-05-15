@@ -18,7 +18,7 @@
 \DoxyCodeLine{20 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00299}{ikarus/finiteelements/mechanics/assumedstress/asvariants.hh}}>}}
 \DoxyCodeLine{21 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00224}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
 \DoxyCodeLine{22 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00377}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
-\DoxyCodeLine{23 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a03440}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a03429}{ikarus/utils/concepts.hh}}>}}
 \DoxyCodeLine{24 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00044}{ikarus/utils/linearalgebrahelper.hh}}>}}
 \DoxyCodeLine{25 }
 \DoxyCodeLine{26 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
@@ -63,7 +63,7 @@
 \DoxyCodeLine{80   \textcolor{keyword}{using }\mbox{\hyperlink{a01548_aad957d9e9cad372e7aa356046947e3da}{MaterialMatrix}}           = Eigen::Matrix<double, strainDim, strainDim>;}
 \DoxyCodeLine{81 }
 \DoxyCodeLine{86   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01548_a5fe5dccda6b7424b3beb55f7b323d996}{AssumedStress}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01552}{Pre}}\& pre) \{}
-\DoxyCodeLine{87     \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02398}{Concepts::Formulations::TotalLagrangian<FE::strainType, FE::stressType>}},}
+\DoxyCodeLine{87     \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02391}{Concepts::Formulations::TotalLagrangian<FE::strainType, FE::stressType>}},}
 \DoxyCodeLine{88                   \textcolor{stringliteral}{"{}PS method is only implemented for the total Lagrangian setting."{}});}
 \DoxyCodeLine{89     \textcolor{keyword}{static\_assert}(not(FE::strainType == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}}) or (std::same\_as<ASF, PS::LinearStress>),}
 \DoxyCodeLine{90                   \textcolor{stringliteral}{"{}If FE::strainType is linear, then the assumed stress must also be linear."{}});}
@@ -76,7 +76,7 @@
 \DoxyCodeLine{107 }
 \DoxyCodeLine{121   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT>}
 \DoxyCodeLine{122   \textcolor{keyword}{requires}(AssumedStress::template supportsResultType<RT>())}
-\DoxyCodeLine{123   \textcolor{keyword}{auto} \mbox{\hyperlink{a01548_a8b68a8ed8d206e95cc3fe9d9f0aa3174}{calculateAtImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01508}{Requirement}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a02204}{Dune::FieldVector<double, Traits::mydim>}}\& local,}
+\DoxyCodeLine{123   \textcolor{keyword}{auto} \mbox{\hyperlink{a01548_a8b68a8ed8d206e95cc3fe9d9f0aa3174}{calculateAtImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01508}{Requirement}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a02196}{Dune::FieldVector<double, Traits::mydim>}}\& local,}
 \DoxyCodeLine{124                        Dune::PriorityTag<2>) \textcolor{keyword}{const} \{}
 \DoxyCodeLine{125     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isSameResultType<RT, ResultTypes::linearStress> or isSameResultType<RT, ResultTypes::PK2Stress> or}
 \DoxyCodeLine{126                   isSameResultType<RT, ResultTypes::linearStressFull> or}
@@ -199,7 +199,7 @@
 \DoxyCodeLine{262 }
 \DoxyCodeLine{263     \textcolor{comment}{// This will not work in the context of autodiff because `AutoDiffFE` class doesn't include static condensation of}}
 \DoxyCodeLine{264     \textcolor{comment}{// the internal variable}}
-\DoxyCodeLine{265     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not \mbox{\hyperlink{a02392}{Concepts::AutodiffScalar<ScalarType>}}) \{}
+\DoxyCodeLine{265     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not \mbox{\hyperlink{a02384}{Concepts::AutodiffScalar<ScalarType>}}) \{}
 \DoxyCodeLine{266       \textcolor{keyword}{const} \textcolor{keyword}{auto} geo            = underlying().localView().element().geometry();}
 \DoxyCodeLine{267       \textcolor{keyword}{const} \textcolor{keyword}{auto} strainFunction = underlying().strainFunction(par, dx);}
 \DoxyCodeLine{268 }
@@ -262,8 +262,8 @@
 \DoxyCodeLine{325   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01548_a4fd07faa1d680dade9eeab779d44cd2e}{subscribeToImpl}}(BC\& bc) \{}
 \DoxyCodeLine{326     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<MT, NonLinearSolverMessages>) \{}
 \DoxyCodeLine{327       \textcolor{keyword}{using }NLSState = \textcolor{keyword}{typename} BC::State;}
-\DoxyCodeLine{328       underlying().subscribe(bc, [\&](\mbox{\hyperlink{a00486_ga662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keyword}{const} NLSState\& state) \{}
-\DoxyCodeLine{329         \textcolor{keywordflow}{if} (message == \mbox{\hyperlink{a00486_gga662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4}{NonLinearSolverMessages::CORRECTION\_UPDATED}})}
+\DoxyCodeLine{328       underlying().subscribe(bc, [\&](\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keyword}{const} NLSState\& state) \{}
+\DoxyCodeLine{329         \textcolor{keywordflow}{if} (message == \mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4}{NonLinearSolverMessages::CORRECTION\_UPDATED}})}
 \DoxyCodeLine{330           this-\/>\mbox{\hyperlink{a01548_a8bd2e3ec372af9da5168f4f634d47437}{updateStateImpl}}(state.domain, state.correction);}
 \DoxyCodeLine{331       \});}
 \DoxyCodeLine{332     \}}

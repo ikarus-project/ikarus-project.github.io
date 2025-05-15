@@ -13,38 +13,38 @@ var a00487 =
       [ "untouched", "a02132.html#aa3e286f5563f510fc4b0eaa005eb0a2b", null ],
       [ "untouched", "a02132.html#ae0b732f8499254cce741cb6f36f36e9f", null ]
     ] ],
-    [ "Ikarus::DirichletValues< B, FC >", "a02220.html", [
-      [ "BackendType", "a02220.html#a3db820fbcd2b7edf58ce3b21b261f621", null ],
-      [ "Basis", "a02220.html#a2e6f1ef4a810a7269303f54a6f74539f", null ],
-      [ "FlagsType", "a02220.html#aa71c2b94b37f2b4e83f9f1e059e6fe4c", null ],
-      [ "SizeType", "a02220.html#ace0ece5adceb26d9db00c7c096568ea0", null ],
-      [ "DirichletValues", "a02220.html#aeb81ceb2617369a584dd12f4574ab1dc", null ],
-      [ "basis", "a02220.html#ae783c95d2e4b55d9d37f4c141b1d719b", null ],
-      [ "container", "a02220.html#af8495b65eac223b7b6c64f07b31cc814", null ],
-      [ "evaluateInhomogeneousBoundaryCondition", "a02220.html#ac3950f8821f8e8c1f2a8b8f8a7e86875", null ],
-      [ "evaluateInhomogeneousBoundaryConditionDerivative", "a02220.html#a5d7fdc80dfd3ebdcb58f0770844f71da", null ],
-      [ "fixBoundaryDOFs", "a02220.html#a3b40113e1bf44f2e269242d677afcc55", null ],
-      [ "fixDOFs", "a02220.html#a956ce2cdc09731f001821c7b59d49e85", null ],
-      [ "fixedDOFsize", "a02220.html#aeb299b04b2777be56012b32a3b2e6a9c", null ],
-      [ "isConstrained", "a02220.html#a1b1fccdb71619c0a49aa24977682d43a", null ],
-      [ "isConstrained", "a02220.html#a1cdd766b0feb7e85ac3d3df10704e659", null ],
-      [ "reset", "a02220.html#ab8ae184ec5c0c79a893a8111d7315442", null ],
-      [ "setSingleDOF", "a02220.html#a179a4b05a361fc9ea0a3e935dcf0e45a", null ],
-      [ "setSingleDOF", "a02220.html#a2c8ce98339eddd3f3bf1cdbf4e07a45f", null ],
-      [ "size", "a02220.html#a010fa7b0721c137eb61221493e52dc92", null ],
-      [ "storeInhomogeneousBoundaryCondition", "a02220.html#abc3413114cb9272944e1b44606c6a0a1", null ],
-      [ "worldDimension", "a02220.html#a79e90730d4ac67efb5e38590c0429df5", null ]
+    [ "Ikarus::DirichletValues< B, FC >", "a02212.html", [
+      [ "BackendType", "a02212.html#a3db820fbcd2b7edf58ce3b21b261f621", null ],
+      [ "Basis", "a02212.html#a2e6f1ef4a810a7269303f54a6f74539f", null ],
+      [ "FlagsType", "a02212.html#aa71c2b94b37f2b4e83f9f1e059e6fe4c", null ],
+      [ "SizeType", "a02212.html#ace0ece5adceb26d9db00c7c096568ea0", null ],
+      [ "DirichletValues", "a02212.html#aeb81ceb2617369a584dd12f4574ab1dc", null ],
+      [ "basis", "a02212.html#ae783c95d2e4b55d9d37f4c141b1d719b", null ],
+      [ "container", "a02212.html#af8495b65eac223b7b6c64f07b31cc814", null ],
+      [ "evaluateInhomogeneousBoundaryCondition", "a02212.html#ac3950f8821f8e8c1f2a8b8f8a7e86875", null ],
+      [ "evaluateInhomogeneousBoundaryConditionDerivative", "a02212.html#a5d7fdc80dfd3ebdcb58f0770844f71da", null ],
+      [ "fixBoundaryDOFs", "a02212.html#a3b40113e1bf44f2e269242d677afcc55", null ],
+      [ "fixDOFs", "a02212.html#a956ce2cdc09731f001821c7b59d49e85", null ],
+      [ "fixedDOFsize", "a02212.html#aeb299b04b2777be56012b32a3b2e6a9c", null ],
+      [ "isConstrained", "a02212.html#a1b1fccdb71619c0a49aa24977682d43a", null ],
+      [ "isConstrained", "a02212.html#a1cdd766b0feb7e85ac3d3df10704e659", null ],
+      [ "reset", "a02212.html#ab8ae184ec5c0c79a893a8111d7315442", null ],
+      [ "setSingleDOF", "a02212.html#a179a4b05a361fc9ea0a3e935dcf0e45a", null ],
+      [ "setSingleDOF", "a02212.html#a2c8ce98339eddd3f3bf1cdbf4e07a45f", null ],
+      [ "size", "a02212.html#a010fa7b0721c137eb61221493e52dc92", null ],
+      [ "storeInhomogeneousBoundaryCondition", "a02212.html#abc3413114cb9272944e1b44606c6a0a1", null ],
+      [ "worldDimension", "a02212.html#a79e90730d4ac67efb5e38590c0429df5", null ]
     ] ],
-    [ "Ikarus::FlatPreBasis< PreBasis >", "a02228.html", [
-      [ "type", "a02228.html#a448426468de3637416804f6ef6f8ce90", null ],
-      [ "create", "a02228.html#af5414357864c26a827136edac1a085f4", null ],
-      [ "create", "a02228.html#a9c133ba014522aa8c8d90f2a3835c7e1", null ]
+    [ "Ikarus::FlatPreBasis< PreBasis >", "a02220.html", [
+      [ "type", "a02220.html#a448426468de3637416804f6ef6f8ce90", null ],
+      [ "create", "a02220.html#af5414357864c26a827136edac1a085f4", null ],
+      [ "create", "a02220.html#a9c133ba014522aa8c8d90f2a3835c7e1", null ]
     ] ],
-    [ "Ikarus::utils::SolverDefault", "a02176.html", [
-      [ "operator()", "a02176.html#a4797d17bf96aa9e387567878a9591d7a", null ]
+    [ "Ikarus::utils::SolverDefault", "a02168.html", [
+      [ "operator()", "a02168.html#a4797d17bf96aa9e387567878a9591d7a", null ]
     ] ],
-    [ "Ikarus::utils::UpdateDefault", "a02180.html", [
-      [ "operator()", "a02180.html#a23b7d9d2df3caa179c9fbc353efaed36", null ]
+    [ "Ikarus::utils::UpdateDefault", "a02172.html", [
+      [ "operator()", "a02172.html#a23b7d9d2df3caa179c9fbc353efaed36", null ]
     ] ],
     [ "MAKE_ENUM", "a00487.html#ga14ad7d33267cea1c93f97f3998081657", null ],
     [ "addBindingsToUtils", "a00487.html#ga1fbedbac54712740abe25ceab2990472", null ],

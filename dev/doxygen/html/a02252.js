@@ -1,6 +1,10 @@
 var a02252 =
 [
-    [ "draw", "a02252.html#a08fa473dcdfbdb5dcf759546ea2da3b8", null ],
-    [ "tolerance", "a02252.html#a6c1e702608ca901f9f7efca524560b25", null ],
-    [ "writeSlopeStatementIfFailed", "a02252.html#ac9946207ee221c94e843ea7c048a16a3", null ]
+    [ "Token", "a02252.html#affba2430c95defc9bb0494af2d8120b7", null ],
+    [ "subscribe", "a02252.html#a199840d6ead51d771d5522acff779a4f", null ],
+    [ "subscribeTo", "a02252.html#a0138d15920218568fc349acd1b40950f", null ],
+    [ "unSubscribe", "a02252.html#a1c964a476680631977b516351efd8712", null ],
+    [ "unSubscribeAll", "a02252.html#a6ebf859d4e38acc6e9b7436b097fba26", null ],
+    [ "unSubscribeLast", "a02252.html#a78725a274f6b1817a5792bb0e519d3d9", null ],
+    [ "update", "a02252.html#a7b709d4594a7918cbff23f1f9e5aa73e", null ]
 ];

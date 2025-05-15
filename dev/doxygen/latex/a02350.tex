@@ -1,44 +1,30 @@
-\hypertarget{a02350}{}\doxysection{Ikarus\+::Concepts\+::Deviatoric\+Function Concept Reference}
-\label{a02350}\index{Ikarus::Concepts::DeviatoricFunction@{Ikarus::Concepts::DeviatoricFunction}}
+\hypertarget{a02350}{}\doxysection{Ikarus\+::Concepts\+::Flat\+Lexicographic\+Basis Concept Reference}
+\label{a02350}\index{Ikarus::Concepts::FlatLexicographicBasis@{Ikarus::Concepts::FlatLexicographicBasis}}
 
 
-Concept to check if the underlying function is a deviatoric function.  
+Concept to check if a basis uses Flat\+Lexicographic indexing strategy.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} DF>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02350}{Ikarus::Concepts::DeviatoricFunction}} =  \textcolor{keyword}{requires}(DF dm, \textcolor{keyword}{const} \textcolor{keyword}{typename} DF::template PrincipalStretches<>\& lambda) \{}
-\DoxyCodeLine{  \textcolor{keyword}{typename} DF::ScalarType;}
-\DoxyCodeLine{}
-\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template PrincipalStretches<>;}
-\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template FirstDerivative<>;}
-\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template SecondDerivative<>;}
-\DoxyCodeLine{}
-\DoxyCodeLine{  \textcolor{keyword}{typename} DF::MaterialParameters;}
-\DoxyCodeLine{}
-\DoxyCodeLine{  \textcolor{keyword}{requires} \mbox{\hyperlink{a02379}{Concepts::EigenVector<typename DF::template FirstDerivative<>}}>;}
-\DoxyCodeLine{  \textcolor{keyword}{requires} \mbox{\hyperlink{a02380}{Concepts::EigenMatrix<typename DF::template SecondDerivative<>}}>;}
-\DoxyCodeLine{  \textcolor{keyword}{requires} std::is\_same\_v<typename DF::template PrincipalStretches<>, \textcolor{keyword}{typename} DF::template FirstDerivative<>>;}
-\DoxyCodeLine{}
-\DoxyCodeLine{  \{ dm.storedEnergyImpl(lambda) \} -\/> std::same\_as<typename DF::ScalarType>;}
-\DoxyCodeLine{  \{ dm.firstDerivativeImpl(lambda) \} -\/> std::same\_as<typename DF::template FirstDerivative<>>;}
-\DoxyCodeLine{  \{ dm.secondDerivativeImpl(lambda) \} -\/> std::same\_as<typename DF::template SecondDerivative<>>;}
-\DoxyCodeLine{  \{ dm.materialParametersImpl() \} -\/> std::same\_as<typename DF::MaterialParameters>;}
-\DoxyCodeLine{  \{ dm.name() \} -\/> std::convertible\_to<std::string>;}
-\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} B>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02350}{Ikarus::Concepts::FlatLexicographicBasis}} =  \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{    std::is\_same\_v<typename B::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::FlatLexicographic>;}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
 
 
 \doxysubsection{Detailed Description}
+This concept checks if the given Basis type uses Flat\+Lexicographic indexing strategy.
+
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em Type} & of the deviatoric function. \\
+{\em B} & The basis type. \\
 \hline
 \end{DoxyTemplParams}

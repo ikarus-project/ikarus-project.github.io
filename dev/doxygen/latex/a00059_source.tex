@@ -12,14 +12,14 @@
 \DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
 \DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/grid/utility/hierarchicsearch.hh>}}
 \DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03440}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03429}{ikarus/utils/concepts.hh}}>}}
 \DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00062}{ikarus/utils/traversal.hh}}>}}
 \DoxyCodeLine{18 }
 \DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00513}{Ikarus::utils}} \{}
 \DoxyCodeLine{29 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} size, \textcolor{keyword}{typename} LV>}
 \DoxyCodeLine{30 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00487_gae9098182120929a0d21cff1c38f5ca84}{obtainLagrangeGlobalNodePositions}}(\textcolor{keyword}{const} LV\& localView,}
-\DoxyCodeLine{31                                        std::vector<\mbox{\hyperlink{a02204}{Dune::FieldVector<double, size>}}>\& lagrangeNodeGlobalCoords) \{}
-\DoxyCodeLine{32   \textcolor{keyword}{auto} fT = [\&]([[maybe\_unused]] \textcolor{keywordtype}{int} nodeNumber, \mbox{\hyperlink{a02204}{Dune::FieldVector<double, size>}}\&\& localCoordinate) \{}
+\DoxyCodeLine{31                                        std::vector<\mbox{\hyperlink{a02196}{Dune::FieldVector<double, size>}}>\& lagrangeNodeGlobalCoords) \{}
+\DoxyCodeLine{32   \textcolor{keyword}{auto} fT = [\&]([[maybe\_unused]] \textcolor{keywordtype}{int} nodeNumber, \mbox{\hyperlink{a02196}{Dune::FieldVector<double, size>}}\&\& localCoordinate) \{}
 \DoxyCodeLine{33     lagrangeNodeGlobalCoords.emplace\_back(localView.element().geometry().global(localCoordinate));}
 \DoxyCodeLine{34     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{35   \};}
@@ -27,8 +27,8 @@
 \DoxyCodeLine{37 \}}
 \DoxyCodeLine{38 }
 \DoxyCodeLine{49 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} size, \textcolor{keyword}{typename} Basis>}
-\DoxyCodeLine{50 \textcolor{keyword}{auto} \mbox{\hyperlink{a00487_gaa19ed04a701aaa500f7c486addae2d2e}{globalIndexFromGlobalPosition}}(\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keyword}{const} \mbox{\hyperlink{a02204}{Dune::FieldVector<double, size>}}\& pos) \{}
-\DoxyCodeLine{51   \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02356}{Concepts::LagrangeNode}}<std::remove\_cvref\_t<\textcolor{keyword}{decltype}(\mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.localView().tree().child(0))>>,}
+\DoxyCodeLine{50 \textcolor{keyword}{auto} \mbox{\hyperlink{a00487_gaa19ed04a701aaa500f7c486addae2d2e}{globalIndexFromGlobalPosition}}(\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keyword}{const} \mbox{\hyperlink{a02196}{Dune::FieldVector<double, size>}}\& pos) \{}
+\DoxyCodeLine{51   \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02348}{Concepts::LagrangeNode}}<std::remove\_cvref\_t<\textcolor{keyword}{decltype}(\mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.localView().tree().child(0))>>,}
 \DoxyCodeLine{52                 \textcolor{stringliteral}{"{}globalIndexFromGlobalPosition is only supported for Lagrange basis"{}});}
 \DoxyCodeLine{53   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} tol = 1e-\/8;}
 \DoxyCodeLine{54   \textcolor{keyword}{using }LocalView      = std::remove\_cvref\_t<\textcolor{keyword}{decltype}(\mbox{\hyperlink{a00525_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.localView())>;}
@@ -41,7 +41,7 @@
 \DoxyCodeLine{61   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& node = localView.tree();}
 \DoxyCodeLine{62   std::optional<std::array<MultiIndex, size>> \mbox{\hyperlink{a00496_a44e16df41148f7e4538be224814a3423}{globalIndices}};}
 \DoxyCodeLine{63 }
-\DoxyCodeLine{64   \textcolor{keyword}{auto} fT = [\&](\textcolor{keywordtype}{int} nodeNumber, \mbox{\hyperlink{a02204}{Dune::FieldVector<double, size>}}\&\& localCoordinate) \{}
+\DoxyCodeLine{64   \textcolor{keyword}{auto} fT = [\&](\textcolor{keywordtype}{int} nodeNumber, \mbox{\hyperlink{a02196}{Dune::FieldVector<double, size>}}\&\& localCoordinate) \{}
 \DoxyCodeLine{65     \textcolor{keywordflow}{if} (Dune::FloatCmp::eq(geo.global(localCoordinate), pos, tol)) \{}
 \DoxyCodeLine{66       \mbox{\hyperlink{a00496_a44e16df41148f7e4538be224814a3423}{globalIndices}}.emplace();}
 \DoxyCodeLine{67       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < size; j++)}
@@ -74,7 +74,7 @@
 \DoxyCodeLine{109 }
 \DoxyCodeLine{117 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
 \DoxyCodeLine{118 \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) \mbox{\hyperlink{a00513_af8ee685bd6d75a8b5f737eafd53860ae}{maybeDeref}}(T\& t) \{}
-\DoxyCodeLine{119   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02394}{Concepts::PointerOrSmartPointer<T>}})}
+\DoxyCodeLine{119   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02386}{Concepts::PointerOrSmartPointer<T>}})}
 \DoxyCodeLine{120     \textcolor{keywordflow}{return} *t;}
 \DoxyCodeLine{121   \textcolor{keywordflow}{else}}
 \DoxyCodeLine{122     \textcolor{keywordflow}{return} t;}

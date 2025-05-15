@@ -5,7 +5,7 @@ var a00477 =
     [ "enhancedassumedstrains.hh", "a00245.html", null ],
     [ "linearelastic.hh", "a00314.html", null ],
     [ "loads.hh", "a00251.html", null ],
-    [ "ikarus/finiteelements/mechanics/materials.hh", "a03431.html", null ],
+    [ "ikarus/finiteelements/mechanics/materials.hh", "a03420.html", null ],
     [ "nonlinearelastic.hh", "a00263.html", null ],
     [ "truss.hh", "a00254.html", null ],
     [ "Ikarus::AssumedStress< PreFE, FE, ASF >", "a01548.html", [

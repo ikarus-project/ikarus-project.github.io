@@ -1,8 +1,13 @@
 var a02256 =
 [
-    [ "IkarusInstance", "a02256.html#ab4ee067880d13079efa9b45cd0bcef43", null ],
-    [ "enableFileLogger", "a02256.html#a833f9b23184e3d0f5b06f5b7b85d9233", null ],
-    [ "getInstance", "a02256.html#a76a31b1d9f5b1fba7180451b1edddf0a", null ],
-    [ "operator=", "a02256.html#a7f11ddf595903d8796cbff4943e620a6", null ],
-    [ "init", "a02256.html#a4865c52ed9d7e9c0f00e8bd5295ee853", null ]
+    [ "Token", "a02256.html#affba2430c95defc9bb0494af2d8120b7", null ],
+    [ "ControlSubsamplingVertexVTKWriter", "a02256.html#aa9bc2f8915db560b403dc97a151d3e35", null ],
+    [ "setFieldInfo", "a02256.html#afec0c3fe2aa8cac3e9970d8c9720c219", null ],
+    [ "setFileNamePrefix", "a02256.html#a8061e516e4c6626a2f6ea160e692e4e1", null ],
+    [ "subscribe", "a02256.html#a199840d6ead51d771d5522acff779a4f", null ],
+    [ "subscribeTo", "a02256.html#a3dae604f656fc27f82a60b713d1fb0cf", null ],
+    [ "unSubscribe", "a02256.html#a1c964a476680631977b516351efd8712", null ],
+    [ "unSubscribeAll", "a02256.html#a6ebf859d4e38acc6e9b7436b097fba26", null ],
+    [ "unSubscribeLast", "a02256.html#a78725a274f6b1817a5792bb0e519d3d9", null ],
+    [ "update", "a02256.html#a03d2c1668d6894f3e4f3c5d3ef1c54f6", null ]
 ];

@@ -1,5 +1,5 @@
 var a00516 =
 [
-    [ "TotalLagrangian", "a02398.html", null ],
-    [ "TwoPoint", "a02399.html", null ]
+    [ "TotalLagrangian", "a02391.html", null ],
+    [ "TwoPoint", "a02392.html", null ]
 ];

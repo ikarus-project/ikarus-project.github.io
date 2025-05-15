@@ -10,12 +10,12 @@ var searchData=
   ['si_5fbicgstab_7',['si_BiCGSTAB',['../a00492.html#a731a9ee6621f91193c15f31b9a399906a3ba09bd833aa666cbeca9bfd4a33be6f',1,'Ikarus']]],
   ['si_5fconjugategradient_8',['si_ConjugateGradient',['../a00492.html#a731a9ee6621f91193c15f31b9a399906a43e7ad1498548ecfbe9359418877c793',1,'Ikarus']]],
   ['si_5fleastsquaresconjugategradient_9',['si_LeastSquaresConjugateGradient',['../a00492.html#a731a9ee6621f91193c15f31b9a399906a64a3b585d23ed07479c1452d49f397bb',1,'Ikarus']]],
-  ['solution_5fchanged_10',['SOLUTION_CHANGED',['../a00486.html#gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577',1,'Ikarus::SOLUTION_CHANGED()'],['../a00486.html#gga662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577',1,'Ikarus::SOLUTION_CHANGED()']]],
+  ['solution_5fchanged_10',['SOLUTION_CHANGED',['../a00492.html#a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577',1,'Ikarus::SOLUTION_CHANGED()'],['../a00492.html#a662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577',1,'Ikarus::SOLUTION_CHANGED()']]],
   ['sparse_11',['Sparse',['../a00492.html#a4763ca5888a027ed9b8d965d67cbb9aba7407fb7e6a4df6392aaabd2368157312',1,'Ikarus']]],
   ['spatial_12',['Spatial',['../a00481.html#gga05ac785124262c1e323d2f937d520a1ba33d7f1ec5fe18e7ba799474138e71504',1,'Ikarus']]],
   ['spectra_13',['Spectra',['../a00492.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69',1,'Ikarus']]],
-  ['step_5fended_14',['STEP_ENDED',['../a00486.html#gga35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2',1,'Ikarus']]],
-  ['step_5fstarted_15',['STEP_STARTED',['../a00486.html#gga35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945',1,'Ikarus']]],
+  ['step_5fended_14',['STEP_ENDED',['../a00492.html#a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2',1,'Ikarus']]],
+  ['step_5fstarted_15',['STEP_STARTED',['../a00492.html#a35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945',1,'Ikarus']]],
   ['stiffness_16',['stiffness',['../a00492.html#a390d5311179ec61d163a29c943b3d1a0a086e8b527490b8abe606a8dd76586ab1',1,'Ikarus']]],
   ['stiffnessdiffbucklingvector_17',['stiffnessdiffBucklingVector',['../a00492.html#a390d5311179ec61d163a29c943b3d1a0adaa7ff7d704732b763943e3355764532',1,'Ikarus']]]
 ];

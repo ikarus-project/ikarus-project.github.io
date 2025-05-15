@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="a01892" kind="struct" language="C++" prot="public">
     <compoundname>Ikarus::FEMixin</compoundname>
-    <basecompoundref refid="a02272" prot="public" virt="non-virtual">Ikarus::Listener</basecompoundref>
+    <basecompoundref refid="a02264" prot="public" virt="non-virtual">Ikarus::Listener</basecompoundref>
     <basecompoundref refid="a01908" prot="public" virt="non-virtual">Ikarus::Skills&lt; PreFE, PreFE::template FE&lt; Skills... &gt; &gt;</basecompoundref>
     <includes refid="a00335" local="no">ikarus/finiteelements/mixin.hh</includes>
     <innerclass refid="a01896" prot="public">Ikarus::FEMixin::RequirementType</innerclass>
@@ -76,7 +76,7 @@
         </inbodydescription>
         <location file="/__w/ikarus/ikarus/repo/ikarus/finiteelements/mixin.hh" line="95" column="3" bodyfile="/__w/ikarus/ikarus/repo/ikarus/finiteelements/mixin.hh" bodystart="95" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="a02272_1affba2430c95defc9bb0494af2d8120b7" prot="public" static="no">
+      <memberdef kind="typedef" id="a02264_1affba2430c95defc9bb0494af2d8120b7" prot="public" static="no">
         <type>std::shared_ptr&lt; void &gt;</type>
         <definition>using Ikarus::Listener::Token =  std::shared_ptr&lt;void&gt;</definition>
         <argsstring></argsstring>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="28" column="3" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="28" bodyend="-1"/>
+        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="30" column="3" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="a01908_1a2ad44dcb1253eaebcbc976a2725b9d02" prot="public" static="no">
         <type>std::tuple&lt; ARGS... &gt;</type>
@@ -291,10 +291,10 @@
           <declname>req</declname>
         </param>
         <param>
-          <type>const <ref refid="a02204" kindref="compound">Dune::FieldVector</ref>&lt; double, <ref refid="a01544_1ae15b8efa9f66a3caee81d99dd5c648de" kindref="member">Traits::mydim</ref> &gt; &amp;</type>
+          <type>const <ref refid="a02196" kindref="compound">Dune::FieldVector</ref>&lt; double, <ref refid="a01544_1ae15b8efa9f66a3caee81d99dd5c648de" kindref="member">Traits::mydim</ref> &gt; &amp;</type>
           <declname>local</declname>
         </param>
-    <requiresclause>requires(FEMixin m, const Requirement&amp; req, const <ref refid="a02204" kindref="compound">Dune::FieldVector</ref>&lt;double, Traits::mydim&gt;&amp; local) { m.template calculateAtImpl&lt;RT&gt;(req, local, Dune::PriorityTag&lt;10&gt;()); }    </requiresclause>
+    <requiresclause>requires(FEMixin m, const Requirement&amp; req, const <ref refid="a02196" kindref="compound">Dune::FieldVector</ref>&lt;double, Traits::mydim&gt;&amp; local) { m.template calculateAtImpl&lt;RT&gt;(req, local, Dune::PriorityTag&lt;10&gt;()); }    </requiresclause>
         <briefdescription>
 <para>Calculate the element values at a specific location for a given ResultType. </para>
         </briefdescription>
@@ -649,7 +649,7 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>auto </para>
+<simplesect kind="return"><para>this-pointer </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -657,18 +657,15 @@
         </inbodydescription>
         <location file="/__w/ikarus/ikarus/repo/ikarus/finiteelements/mixin.hh" line="313" column="8" bodyfile="/__w/ikarus/ikarus/repo/ikarus/finiteelements/mixin.hh" bodystart="313" bodyend="318"/>
       </memberdef>
-      <memberdef kind="function" id="a02272_1a754e8fbe950f23d4610009475e35ed98" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="a02264_1a199840d6ead51d771d5522acff779a4f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>typename <ref refid="a02136" kindref="compound">Broadcaster</ref></type>
           </param>
-          <param>
-            <type>typename F</type>
-          </param>
         </templateparamlist>
         <type>auto</type>
         <definition>auto Ikarus::Listener::subscribe</definition>
-        <argsstring>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</argsstring>
+        <argsstring>(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</argsstring>
         <name>subscribe</name>
         <qualifiedname>Ikarus::Listener::subscribe</qualifiedname>
         <param>
@@ -676,28 +673,19 @@
           <declname>broadcaster</declname>
         </param>
         <param>
-          <type>F &amp;&amp;</type>
-          <declname>f</declname>
+          <type>std::function&lt; void(typename <ref refid="a02136_1abc47e2a26f85e3bdd3886d82d458d5da" kindref="member">Broadcaster::MessageType</ref>, const typename <ref refid="a02136_1ac1cbfd25b275106de2e554ebf3154684" kindref="member">Broadcaster::State</ref> &amp;)&gt;</type>
+          <declname>callback</declname>
         </param>
         <briefdescription>
 <para>Function to subscribe to a broadcaster with a given function (either a lambda, std::function or function pointer). </para>
         </briefdescription>
         <detaileddescription>
-<para>This function deducts the types of the arguments itself and then forwards it. If there are problems with type deduction use the function below and specify the types of the arguments manually.</para>
 <para><parameterlist kind="templateparam"><parameteritem>
 <parameternamelist>
 <parametername><ref refid="a02136" kindref="compound">Broadcaster</ref></parametername>
 </parameternamelist>
 <parameterdescription>
-<para>the type of the <ref refid="a02136" kindref="compound">Broadcaster</ref> (for example a NonlinearSolver or ControlRoutine), can either be a pointer or value. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>F</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>the type of the function </para>
+<para>the type of the <ref refid="a02136" kindref="compound">Broadcaster</ref> (for example a NonlinearSolver or ControlRoutine) </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -711,7 +699,7 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>f</parametername>
+<parametername>callback</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>the function </para>
@@ -722,91 +710,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="43" column="8" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="43" bodyend="47"/>
-        <referencedby refid="a02260_1a0138d15920218568fc349acd1b40950f" compoundref="a00365" startline="26" endline="34">Ikarus::ControlLogger::subscribeTo</referencedby>
-        <referencedby refid="a02264_1a3dae604f656fc27f82a60b713d1fb0cf" compoundref="a00362" startline="54" endline="57">Ikarus::ControlSubsamplingVertexVTKWriter&lt; B &gt;::subscribeTo</referencedby>
-        <referencedby refid="a02268_1a94e27d86511a5f8ea886301f370f878b" compoundref="a00368" startline="44" endline="47">Ikarus::GenericListener&lt; M &gt;::subscribeTo</referencedby>
-        <referencedby refid="a02276_1a85a6115d67cb908c480e4d9e3b2bbd64" compoundref="a00371" startline="24" endline="29">Ikarus::NonLinearSolverLogger::subscribeTo</referencedby>
+        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="41" column="8" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="41" bodyend="46"/>
+        <referencedby refid="a02260_1a300293b7f6313589e5cc536bced6ae72" compoundref="a00368" startline="41" endline="45">Ikarus::GenericListener&lt; BC &gt;::GenericListener</referencedby>
+        <referencedby refid="a02252_1a0138d15920218568fc349acd1b40950f" compoundref="a00365" startline="26" endline="29">Ikarus::ControlLogger::subscribeTo</referencedby>
+        <referencedby refid="a02256_1a3dae604f656fc27f82a60b713d1fb0cf" compoundref="a00362" startline="51" endline="54">Ikarus::ControlSubsamplingVertexVTKWriter&lt; B &gt;::subscribeTo</referencedby>
+        <referencedby refid="a02268_1a85a6115d67cb908c480e4d9e3b2bbd64" compoundref="a00371" startline="26" endline="29">Ikarus::NonLinearSolverLogger::subscribeTo</referencedby>
       </memberdef>
-      <memberdef kind="function" id="a02272_1ade04c7b4066c6ef381429aff2e2ce7a7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <templateparamlist>
-          <param>
-            <type>typename <ref refid="a02136" kindref="compound">Broadcaster</ref></type>
-          </param>
-          <param>
-            <type>typename Signature</type>
-          </param>
-          <param>
-            <type>typename F</type>
-          </param>
-        </templateparamlist>
-        <type>auto</type>
-        <definition>auto Ikarus::Listener::subscribe</definition>
-        <argsstring>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</argsstring>
-        <name>subscribe</name>
-        <qualifiedname>Ikarus::Listener::subscribe</qualifiedname>
-        <param>
-          <type><ref refid="a02136" kindref="compound">Broadcaster</ref> &amp;</type>
-          <declname>broadcaster</declname>
-        </param>
-        <param>
-          <type>F &amp;&amp;</type>
-          <declname>f</declname>
-        </param>
-    <requiresclause>(not Concepts::PointerOrSmartPointer&lt;Broadcaster&gt;)    </requiresclause>
-        <briefdescription>
-<para>Function to subscribe to a broadcaster with a given function (either a lambda, std::function or function pointer). </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="templateparam"><parameteritem>
-<parameternamelist>
-<parametername><ref refid="a02136" kindref="compound">Broadcaster</ref></parametername>
-</parameternamelist>
-<parameterdescription>
-<para>the type of the <ref refid="a02136" kindref="compound">Broadcaster</ref> (for example a NonlinearSolver or ControlRoutine), can either be a pointer or value. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>Signature</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>the exact signature of the function F </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>F</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>the type of the function </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>broadcaster</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>the broadcaster </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>f</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>the function </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="61" column="8" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="61" bodyend="64"/>
-      </memberdef>
-      <memberdef kind="function" id="a02272_1a6ebf859d4e38acc6e9b7436b097fba26" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="a02264_1a6ebf859d4e38acc6e9b7436b097fba26" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void Ikarus::Listener::unSubscribeAll</definition>
         <argsstring>()</argsstring>
@@ -819,9 +729,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="69" column="8" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="69" bodyend="69"/>
+        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="51" column="8" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="51" bodyend="58"/>
       </memberdef>
-      <memberdef kind="function" id="a02272_1a78725a274f6b1817a5792bb0e519d3d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="a02264_1a78725a274f6b1817a5792bb0e519d3d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void Ikarus::Listener::unSubscribeLast</definition>
         <argsstring>()</argsstring>
@@ -834,25 +744,26 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="74" column="8" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="74" bodyend="74"/>
+        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="63" column="8" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="63" bodyend="68"/>
       </memberdef>
-      <memberdef kind="function" id="a02272_1a924202b41205145b4ceda14957ea66c2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="a02264_1a1c964a476680631977b516351efd8712" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
         <definition>void Ikarus::Listener::unSubscribe</definition>
-        <argsstring>(Token &amp;&amp;ts)</argsstring>
+        <argsstring>(const Token &amp;token)</argsstring>
         <name>unSubscribe</name>
         <qualifiedname>Ikarus::Listener::unSubscribe</qualifiedname>
         <param>
-          <type><ref refid="a02272_1affba2430c95defc9bb0494af2d8120b7" kindref="member">Token</ref> &amp;&amp;</type>
-          <declname>ts</declname>
+          <type>const <ref refid="a02264_1affba2430c95defc9bb0494af2d8120b7" kindref="member">Token</ref> &amp;</type>
+          <declname>token</declname>
         </param>
         <briefdescription>
+<para>Unsubscribe from a specific token. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="76" column="8" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="76" bodyend="80"/>
+        <location file="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" line="73" column="8" bodyfile="/__w/ikarus/ikarus/repo/ikarus/utils/listener/listener.hh" bodystart="73" bodyend="79"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -1319,7 +1230,7 @@
       </node>
       <node id="2">
         <label>Ikarus::Listener</label>
-        <link refid="a02272"/>
+        <link refid="a02264"/>
       </node>
       <node id="4">
         <label>Ikarus::Skills&lt; ARGS &gt;</label>
@@ -1344,7 +1255,7 @@
       </node>
       <node id="2">
         <label>Ikarus::Listener</label>
-        <link refid="a02272"/>
+        <link refid="a02264"/>
       </node>
       <node id="4">
         <label>Ikarus::Skills&lt; ARGS &gt;</label>
@@ -1388,17 +1299,16 @@
       <member refid="a01892_1af20e97c72e6f0bcec8e156aa367f126c" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>LocalView</name></member>
       <member refid="a01892_1a86c0fea1b37e487f3c78cde6facca9c3" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>Requirement</name></member>
       <member refid="a01892_1a4205275b92317f29f0cbd1d7476fdf5e" prot="private" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>requirementDetected</name></member>
-      <member refid="a02272_1a754e8fbe950f23d4610009475e35ed98" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>subscribe</name></member>
-      <member refid="a02272_1ade04c7b4066c6ef381429aff2e2ce7a7" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>subscribe</name></member>
+      <member refid="a02264_1a199840d6ead51d771d5522acff779a4f" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>subscribe</name></member>
       <member refid="a01892_1a02bb1631492bf126d60551971986cc21" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>subscribeTo</name></member>
       <member refid="a01892_1ada59c15363d83f6e635ecd6e1672d6a4" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>SupportedResultTypes</name></member>
-      <member refid="a02272_1affba2430c95defc9bb0494af2d8120b7" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>Token</name></member>
+      <member refid="a02264_1affba2430c95defc9bb0494af2d8120b7" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>Token</name></member>
       <member refid="a01892_1a78dab4c9a5818baef9889f3e0523b562" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>Traits</name></member>
       <member refid="a01892_1acbf5789e676110b6a812fbc67aca366d" prot="protected" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>underlying</name></member>
       <member refid="a01892_1aa3008bb76b6b23ca15c55a1d1485d484" prot="protected" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>underlying</name></member>
-      <member refid="a02272_1a924202b41205145b4ceda14957ea66c2" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>unSubscribe</name></member>
-      <member refid="a02272_1a6ebf859d4e38acc6e9b7436b097fba26" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>unSubscribeAll</name></member>
-      <member refid="a02272_1a78725a274f6b1817a5792bb0e519d3d9" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>unSubscribeLast</name></member>
+      <member refid="a02264_1a1c964a476680631977b516351efd8712" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>unSubscribe</name></member>
+      <member refid="a02264_1a6ebf859d4e38acc6e9b7436b097fba26" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>unSubscribeAll</name></member>
+      <member refid="a02264_1a78725a274f6b1817a5792bb0e519d3d9" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>unSubscribeLast</name></member>
       <member refid="a01892_1a37c9abe267940c5374402d6e4624cf21" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>updateState</name></member>
       <member refid="a01892_1a1eeb8c1a6f93d0c7aa5f8f15b85a22d5" prot="public" virt="non-virtual"><scope>Ikarus::FEMixin</scope><name>worldDim</name></member>
     </listofallmembers>

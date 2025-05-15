@@ -5,34 +5,83 @@
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00377}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00359}{ikarus/utils/listener/listener.hh}}>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <spdlog/spdlog.h>}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
-\DoxyCodeLine{20 \textcolor{keyword}{class }\mbox{\hyperlink{a02276}{NonLinearSolverLogger}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02272}{Listener}}}
-\DoxyCodeLine{21 \{}
-\DoxyCodeLine{22 \textcolor{keyword}{public}:}
-\DoxyCodeLine{23   \textcolor{keyword}{template} <\textcolor{keyword}{typename} BC>}
-\DoxyCodeLine{24   \mbox{\hyperlink{a02276}{NonLinearSolverLogger}}\& \mbox{\hyperlink{a02276_a85a6115d67cb908c480e4d9e3b2bbd64}{subscribeTo}}(BC\& bc) \{}
-\DoxyCodeLine{25     this-\/>\mbox{\hyperlink{a02272_a754e8fbe950f23d4610009475e35ed98}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00486_ga662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message) \{ this-\/>\mbox{\hyperlink{a02276_acec5619338e9f9b6e12127321263b668}{updateImpl}}(message); \});}
-\DoxyCodeLine{26     this-\/>\mbox{\hyperlink{a02272_a754e8fbe950f23d4610009475e35ed98}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00486_ga662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keywordtype}{double} val) \{ this-\/>\mbox{\hyperlink{a02276_acec5619338e9f9b6e12127321263b668}{updateImpl}}(message, val); \});}
-\DoxyCodeLine{27     this-\/>\mbox{\hyperlink{a02272_a754e8fbe950f23d4610009475e35ed98}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00486_ga662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keywordtype}{int} intVal) \{ this-\/>\mbox{\hyperlink{a02276_acec5619338e9f9b6e12127321263b668}{updateImpl}}(message, intVal); \});}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00377}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03429}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00359}{ikarus/utils/listener/listener.hh}}>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{22 \textcolor{keyword}{class }\mbox{\hyperlink{a02268}{NonLinearSolverLogger}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02264}{Listener}}}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24 \textcolor{keyword}{public}:}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} BC>}
+\DoxyCodeLine{26   \mbox{\hyperlink{a02268}{NonLinearSolverLogger}}\& \mbox{\hyperlink{a02268_a85a6115d67cb908c480e4d9e3b2bbd64}{subscribeTo}}(BC\& bc) \{}
+\DoxyCodeLine{27     this-\/>\mbox{\hyperlink{a02264_a199840d6ead51d771d5522acff779a4f}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keyword}{const} BC::State\& state) \{ this-\/>\mbox{\hyperlink{a02268_a8497b574aac79647dca0c8b9ddbdc5bc}{update}}(message, state); \});}
 \DoxyCodeLine{28     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
 \DoxyCodeLine{29   \}}
 \DoxyCodeLine{30 }
-\DoxyCodeLine{36   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02276_acec5619338e9f9b6e12127321263b668}{updateImpl}}(\mbox{\hyperlink{a00486_ga662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message);}
-\DoxyCodeLine{37 }
-\DoxyCodeLine{44   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02276_a9c031ddeebd167fa4d49b5d7d5ec99bf}{updateImpl}}(\mbox{\hyperlink{a00486_ga662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keywordtype}{double} val);}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{52   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02276_a7d979e36cd2bd61ffedc4d14f4c879a7}{updateImpl}}(\mbox{\hyperlink{a00486_ga662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keywordtype}{int} intVal);}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54 \textcolor{keyword}{private}:}
-\DoxyCodeLine{55   \textcolor{keywordtype}{int} iters\_\{0\};}
-\DoxyCodeLine{56   \textcolor{keywordtype}{double} dNorm\_\{0\};}
-\DoxyCodeLine{57   \textcolor{keywordtype}{double} rNorm\_\{0\};}
-\DoxyCodeLine{58   \textcolor{keywordtype}{double} lambda\_\{0\};}
-\DoxyCodeLine{59 \};}
-\DoxyCodeLine{60 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{37   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02268_a8497b574aac79647dca0c8b9ddbdc5bc}{update}}(\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keyword}{const} \mbox{\hyperlink{a02388}{Concepts::NonLinearSolverState}} \textcolor{keyword}{auto}\& state) \{}
+\DoxyCodeLine{38     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isDomainAVector = \mbox{\hyperlink{a02371}{Concepts::EigenVector}}<\textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(state)>::Domain>;}
+\DoxyCodeLine{39     \textcolor{keywordflow}{switch} (message) \{}
+\DoxyCodeLine{40       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498}{NonLinearSolverMessages::INIT}}:}
+\DoxyCodeLine{41         init<isDomainAVector>();}
+\DoxyCodeLine{42         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{43       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815}{NonLinearSolverMessages::ITERATION\_ENDED}}:}
+\DoxyCodeLine{44         iterationEnded<isDomainAVector>();}
+\DoxyCodeLine{45         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{46       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14}{NonLinearSolverMessages::RESIDUALNORM\_UPDATED}}:}
+\DoxyCodeLine{47         rNorm\_ = state.information.residualNorm;}
+\DoxyCodeLine{48         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{49       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577}{NonLinearSolverMessages::SOLUTION\_CHANGED}}:}
+\DoxyCodeLine{50         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not isDomainAVector)}
+\DoxyCodeLine{51           lambda\_ = state.domain.parameter();}
+\DoxyCodeLine{52         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{53       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78}{NonLinearSolverMessages::CORRECTIONNORM\_UPDATED}}:}
+\DoxyCodeLine{54         dNorm\_ = state.information.correctionNorm;}
+\DoxyCodeLine{55         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{56       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931}{NonLinearSolverMessages::FINISHED\_SUCESSFULLY}}:}
+\DoxyCodeLine{57         finishedSuccessfully(state.information.iterations);}
+\DoxyCodeLine{58         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{59       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{60         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{61     \}}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{keyword}{private}:}
+\DoxyCodeLine{65   \textcolor{keywordtype}{int} iters\_\{0\};}
+\DoxyCodeLine{66   \textcolor{keywordtype}{double} dNorm\_\{0\};}
+\DoxyCodeLine{67   \textcolor{keywordtype}{double} rNorm\_\{0\};}
+\DoxyCodeLine{68   \textcolor{keywordtype}{double} lambda\_\{0\};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} isDomainAVector>}
+\DoxyCodeLine{71   \textcolor{keywordtype}{void} init() \{}
+\DoxyCodeLine{72     iters\_ = 1;}
+\DoxyCodeLine{73     rNorm\_ = 0.0;}
+\DoxyCodeLine{74     dNorm\_ = 0.0;}
+\DoxyCodeLine{75     spdlog::info(\textcolor{stringliteral}{"{}Non-\/linear solver started:"{}});}
+\DoxyCodeLine{76     \textcolor{keywordflow}{if} (not isDomainAVector) \{}
+\DoxyCodeLine{77       spdlog::info(\textcolor{stringliteral}{"{}\{:<11\} \{:<20\} \{:<20\} \{:<20\}"{}}, \textcolor{stringliteral}{"{}Ite"{}}, \textcolor{stringliteral}{"{}normR"{}}, \textcolor{stringliteral}{"{}normD"{}}, \textcolor{stringliteral}{"{}lambda"{}});}
+\DoxyCodeLine{78       spdlog::info(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}});}
+\DoxyCodeLine{79     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{80       spdlog::info(\textcolor{stringliteral}{"{}\{:<11\} \{:<20\} \{:<20\}"{}}, \textcolor{stringliteral}{"{}Ite"{}}, \textcolor{stringliteral}{"{}normR"{}}, \textcolor{stringliteral}{"{}normD"{}});}
+\DoxyCodeLine{81       spdlog::info(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}});}
+\DoxyCodeLine{82     \}}
+\DoxyCodeLine{83   \}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} isDomainAVector>}
+\DoxyCodeLine{86   \textcolor{keywordtype}{void} iterationEnded() \{}
+\DoxyCodeLine{87     \textcolor{keywordflow}{if} (not isDomainAVector)}
+\DoxyCodeLine{88       spdlog::info(\textcolor{stringliteral}{"{}\{\} \{:<10d\} \{:<20.2e\} \{:<20.2e\} \{:<20.2e\}"{}}, \textcolor{stringliteral}{"{}"{}}, iters\_, rNorm\_, dNorm\_, lambda\_);}
+\DoxyCodeLine{89     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{90       spdlog::info(\textcolor{stringliteral}{"{}\{\} \{:<10d\} \{:<20.2e\} \{:<20.2e\}"{}}, \textcolor{stringliteral}{"{}"{}}, iters\_, rNorm\_, dNorm\_);}
+\DoxyCodeLine{91     ++iters\_;}
+\DoxyCodeLine{92   \}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94   \textcolor{keywordtype}{void} finishedSuccessfully(\textcolor{keywordtype}{int} numberOfIterations) \{ spdlog::info(\textcolor{stringliteral}{"{}Number of iterations: \{\}"{}}, numberOfIterations); \}}
+\DoxyCodeLine{95 \};}
+\DoxyCodeLine{96 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

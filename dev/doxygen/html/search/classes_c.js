@@ -13,7 +13,7 @@ var searchData=
   ['nonlinearsolverbase_3c_20f_20_3e_10',['NonlinearSolverBase&lt; F &gt;',['../a02072.html',1,'Ikarus']]],
   ['nonlinearsolverfactory_11',['NonlinearSolverFactory',['../a02076.html',1,'Ikarus']]],
   ['nonlinearsolverinformation_12',['NonLinearSolverInformation',['../a02100.html',1,'Ikarus']]],
-  ['nonlinearsolverlogger_13',['NonLinearSolverLogger',['../a02276.html',1,'Ikarus']]],
+  ['nonlinearsolverlogger_13',['NonLinearSolverLogger',['../a02268.html',1,'Ikarus']]],
   ['nonlinearsolverstate_14',['NonlinearSolverState',['../a02080.html',1,'Ikarus']]],
   ['noop_15',['NoOp',['../a01412.html',1,'Ikarus::AdaptiveStepSizing']]],
   ['nrsettings_16',['NRSettings',['../a02052.html',1,'Ikarus']]]

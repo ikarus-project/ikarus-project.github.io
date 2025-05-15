@@ -1,8 +1,8 @@
-\hypertarget{a02354}{}\doxysection{Ikarus\+::Concepts\+::Eigen\+Type Concept Reference}
-\label{a02354}\index{Ikarus::Concepts::EigenType@{Ikarus::Concepts::EigenType}}
+\hypertarget{a02354}{}\doxysection{Ikarus\+::Concepts\+::Dune\+Local\+Basis Concept Reference}
+\label{a02354}\index{Ikarus::Concepts::DuneLocalBasis@{Ikarus::Concepts::DuneLocalBasis}}
 
 
-Concept to check if a type is derived from Eigen\+::\+Matrix\+Base.  
+Concept to check if a local basis is a dune\+Local\+Basis.  
 
 
 
@@ -12,8 +12,21 @@ Concept to check if a type is derived from Eigen\+::\+Matrix\+Base.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02354}{Ikarus::Concepts::EigenType}} =  std::is\_base\_of\_v<Eigen::MatrixBase<std::decay\_t<T>>, std::decay\_t<T>>}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} DLB>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02354}{Ikarus::Concepts::DuneLocalBasis}} =  \textcolor{keyword}{requires}(DLB\& duneLocalBasis) \{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::RangeType;}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::JacobianType;}
+\DoxyCodeLine{    DLB::Traits::dimDomain;}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::DomainType;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::DomainFieldType;}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::RangeFieldType;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    duneLocalBasis.evaluateFunction(std::declval<typename DLB::Traits::DomainType>(),}
+\DoxyCodeLine{                                    std::declval<std::vector<typename DLB::Traits::RangeType>\&>());}
+\DoxyCodeLine{    duneLocalBasis.evaluateJacobian(std::declval<typename DLB::Traits::DomainType>(),}
+\DoxyCodeLine{                                    std::declval<std::vector<typename DLB::Traits::JacobianType>\&>());}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
 
@@ -21,6 +34,6 @@ Concept to check if a type is derived from Eigen\+::\+Matrix\+Base.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em T} & The type to check. \\
+{\em DLB} & The dune local basis type . \\
 \hline
 \end{DoxyTemplParams}

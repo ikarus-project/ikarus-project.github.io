@@ -15,11 +15,11 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/assembler/</path>
     <filename>a00338.html</filename>
     <includes id="a00341" name="dirichletbcenforcement.hh" local="no" imported="no">ikarus/assembler/dirichletbcenforcement.hh</includes>
-    <includes id="a03443" name="assembler/interface.hh" local="no" imported="no">ikarus/assembler/interface.hh</includes>
+    <includes id="a03432" name="assembler/interface.hh" local="no" imported="no">ikarus/assembler/interface.hh</includes>
     <includes id="a00170" name="fehelper.hh" local="no" imported="no">ikarus/finiteelements/fehelper.hh</includes>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
-    <includes id="a03479" name="utils/dirichletvalues.hh" local="no" imported="no">ikarus/utils/dirichletvalues.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03468" name="utils/dirichletvalues.hh" local="no" imported="no">ikarus/utils/dirichletvalues.hh</includes>
     <class kind="struct">Ikarus::ScalarManipulator</class>
     <class kind="struct">Ikarus::VectorManipulator</class>
     <class kind="struct">Ikarus::MatrixManipulator</class>
@@ -79,7 +79,7 @@
     <name>simpleassemblers.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/assembler/</path>
     <filename>a00350.html</filename>
-    <includes id="a03443" name="assembler/interface.hh" local="no" imported="no">ikarus/assembler/interface.hh</includes>
+    <includes id="a03432" name="assembler/interface.hh" local="no" imported="no">ikarus/assembler/interface.hh</includes>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
     <includes id="a00344" name="simpleassemblers.inl" local="yes" imported="no">simpleassemblers.inl</includes>
     <class kind="class">Ikarus::ScalarFlatAssembler</class>
@@ -142,7 +142,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/controlroutines/</path>
     <filename>a00386.html</filename>
     <includes id="a00377" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <class kind="struct">Ikarus::ControlRoutineFactory</class>
     <namespace>Ikarus</namespace>
   </compound>
@@ -150,6 +150,7 @@
     <name>controlroutinestate.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/controlroutines/</path>
     <filename>a00401.html</filename>
+    <includes id="a00410" name="controlinfos.hh" local="no" imported="no">ikarus/controlroutines/controlinfos.hh</includes>
     <includes id="a00020" name="traits.hh" local="no" imported="no">ikarus/utils/traits.hh</includes>
     <class kind="struct">Ikarus::ControlRoutineState</class>
     <namespace>Ikarus</namespace>
@@ -185,6 +186,7 @@
     <name>loadcontrol.inl</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/controlroutines/</path>
     <filename>a00404.html</filename>
+    <includes id="a00395" name="loadcontrol.hh" local="no" imported="no">ikarus/controlroutines/loadcontrol.hh</includes>
     <namespace>Ikarus</namespace>
   </compound>
   <compound kind="file">
@@ -226,7 +228,7 @@
     <filename>a00398.html</filename>
     <includes id="a00389" name="adaptivestepsizing.hh" local="no" imported="no">ikarus/controlroutines/adaptivestepsizing.hh</includes>
     <includes id="a00410" name="controlinfos.hh" local="no" imported="no">ikarus/controlroutines/controlinfos.hh</includes>
-    <includes id="a00413" name="pathfollowingfunctions.hh" local="no" imported="no">ikarus/controlroutines/pathfollowingfunctions.hh</includes>
+    <includes id="a00392" name="pathfollowing.hh" local="no" imported="no">ikarus/controlroutines/pathfollowing.hh</includes>
     <includes id="a00140" name="newtonraphsonwithscalarsubsidiaryfunction.hh" local="no" imported="no">ikarus/solver/nonlinearsolver/newtonraphsonwithscalarsubsidiaryfunction.hh</includes>
     <includes id="a00377" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
     <includes id="a00011" name="differentiablefunction.hh" local="no" imported="no">ikarus/utils/differentiablefunction.hh</includes>
@@ -237,7 +239,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/controlroutines/</path>
     <filename>a00413.html</filename>
     <includes id="a00155" name="linearsolver.hh" local="no" imported="no">ikarus/solver/linearsolver/linearsolver.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00038" name="defaultfunctions.hh" local="no" imported="no">ikarus/utils/defaultfunctions.hh</includes>
     <includes id="a00020" name="traits.hh" local="no" imported="no">ikarus/utils/traits.hh</includes>
     <class kind="struct">Ikarus::SubsidiaryArgs</class>
@@ -250,7 +252,7 @@
     <name>autodiffmat.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/experimental/</path>
     <filename>a00353.html</filename>
-    <includes id="a03446" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
+    <includes id="a03435" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
     <includes id="a00230" name="materialhelpers.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::Experimental::AutoDiffMAT</class>
@@ -333,7 +335,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/</path>
     <filename>a00317.html</filename>
     <includes id="a00323" name="feresulttypes.hh" local="no" imported="no">ikarus/finiteelements/feresulttypes.hh</includes>
-    <includes id="a03473" name="utils/basis.hh" local="no" imported="no">ikarus/utils/basis.hh</includes>
+    <includes id="a03462" name="utils/basis.hh" local="no" imported="no">ikarus/utils/basis.hh</includes>
     <includes id="a00077" name="makeenum.hh" local="no" imported="no">ikarus/utils/makeenum.hh</includes>
     <class kind="struct">Ikarus::AffordanceCollection</class>
     <class kind="class">Ikarus::FERequirements</class>
@@ -704,7 +706,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/</path>
     <filename>a00329.html</filename>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <class kind="struct">Ikarus::FETraits</class>
     <namespace>Ikarus</namespace>
   </compound>
@@ -718,7 +720,7 @@
     <includes id="a00299" name="asvariants.hh" local="no" imported="no">ikarus/finiteelements/mechanics/assumedstress/asvariants.hh</includes>
     <includes id="a00224" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00377" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00044" name="linearalgebrahelper.hh" local="no" imported="no">ikarus/utils/linearalgebrahelper.hh</includes>
     <class kind="struct">Ikarus::AssumedStressPre</class>
     <class kind="class">Ikarus::AssumedStress</class>
@@ -789,7 +791,7 @@
     <includes id="a00224" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00272" name="easvariants.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easvariants.hh</includes>
     <includes id="a00377" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <class kind="struct">Ikarus::EnhancedAssumedStrainsPre</class>
     <class kind="class">Ikarus::EnhancedAssumedStrains</class>
     <namespace>Ikarus</namespace>
@@ -832,7 +834,7 @@
     <includes id="a00170" name="fehelper.hh" local="no" imported="no">ikarus/finiteelements/fehelper.hh</includes>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
     <includes id="a00323" name="feresulttypes.hh" local="no" imported="no">ikarus/finiteelements/feresulttypes.hh</includes>
-    <includes id="a03431" name="ikarus/finiteelements/mechanics/materials.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials.hh</includes>
+    <includes id="a03420" name="ikarus/finiteelements/mechanics/materials.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials.hh</includes>
     <includes id="a00224" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00284" name="easfunctions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easfunctions.hh</includes>
     <includes id="a00320" name="physicshelper.hh" local="no" imported="no">ikarus/finiteelements/physicshelper.hh</includes>
@@ -875,7 +877,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/loads/</path>
     <filename>a00257.html</filename>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00020" name="traits.hh" local="no" imported="no">ikarus/utils/traits.hh</includes>
     <class kind="struct">Ikarus::VolumeLoadPre</class>
     <class kind="class">Ikarus::VolumeLoad</class>
@@ -905,7 +907,7 @@
   <compound kind="file">
     <name>ikarus/finiteelements/mechanics/materials.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/</path>
-    <filename>a03431.html</filename>
+    <filename>a03420.html</filename>
     <includes id="a00209" name="factory.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/factory.hh</includes>
     <includes id="a00176" name="linearelasticity.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/linearelasticity.hh</includes>
     <includes id="a00218" name="svk.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/svk.hh</includes>
@@ -916,9 +918,9 @@
   <compound kind="file">
     <name>python/ikarus/materials/materials.hh</name>
     <path>/__w/ikarus/ikarus/repo/python/ikarus/materials/</path>
-    <filename>a03434.html</filename>
+    <filename>a03423.html</filename>
     <includes id="a00455" name="pythonhelpers.hh" local="yes" imported="no">../pythonhelpers.hh</includes>
-    <includes id="a03431" name="ikarus/finiteelements/mechanics/materials.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials.hh</includes>
+    <includes id="a03420" name="ikarus/finiteelements/mechanics/materials.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials.hh</includes>
     <includes id="a00224" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00422" name="material.hh" local="no" imported="no">ikarus/python/finiteelements/material.hh</includes>
     <member kind="function">
@@ -932,8 +934,8 @@
   <compound kind="file">
     <name>finiteelements/mechanics/materials/hyperelastic/concepts.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/hyperelastic/</path>
-    <filename>a03437.html</filename>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <filename>a03426.html</filename>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <namespace>Ikarus</namespace>
     <namespace>Ikarus::Concepts</namespace>
     <concept>Ikarus::Concepts::DeviatoricFunction</concept>
@@ -942,7 +944,7 @@
   <compound kind="file">
     <name>utils/concepts.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/</path>
-    <filename>a03440.html</filename>
+    <filename>a03429.html</filename>
     <includes id="a00341" name="dirichletbcenforcement.hh" local="yes" imported="no">ikarus/assembler/dirichletbcenforcement.hh</includes>
     <includes id="a00224" name="tags.hh" local="yes" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00020" name="traits.hh" local="no" imported="no">ikarus/utils/traits.hh</includes>
@@ -992,6 +994,7 @@
     <concept>Ikarus::Concepts::SmartPointer</concept>
     <concept>Ikarus::Concepts::PointerOrSmartPointer</concept>
     <concept>Ikarus::Concepts::ControlRoutineState</concept>
+    <concept>Ikarus::Concepts::NonLinearSolverState</concept>
     <concept>Ikarus::Concepts::ReferenceConfiguraionStrain</concept>
     <concept>Ikarus::Concepts::ReferenceConfiguraionStress</concept>
     <concept>Ikarus::Concepts::Formulations::TotalLagrangian</concept>
@@ -1002,21 +1005,21 @@
     <member kind="define">
       <type>#define</type>
       <name>MAKE_EIGEN_FIXED_VECTOR_CONCEPT</name>
-      <anchorfile>a03440.html</anchorfile>
+      <anchorfile>a03429.html</anchorfile>
       <anchor>ac8757039febcebb4741b376dc8258d6d</anchor>
       <arglist>(Size)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>MAKE_EIGEN_FIXED_MATRIX_CONCEPT</name>
-      <anchorfile>a03440.html</anchorfile>
+      <anchorfile>a03429.html</anchorfile>
       <anchor>a5556bdb5e6cc63333c07f9ef487fb478</anchor>
       <arglist>(Size1, Size2)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>MAKE_EIGEN_FIXED_MATRIX_OR_VOIGT_CONCEPT</name>
-      <anchorfile>a03440.html</anchorfile>
+      <anchorfile>a03429.html</anchorfile>
       <anchor>aba360f830591dbc713b7fa692d614101</anchor>
       <arglist>(Size1, Size2)</arglist>
     </member>
@@ -1059,7 +1062,7 @@
     <name>blatzko.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/</path>
     <filename>a00194.html</filename>
-    <includes id="a03446" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
+    <includes id="a03435" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
     <includes id="a00230" name="materialhelpers.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</includes>
     <includes id="a00224" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
@@ -1108,11 +1111,11 @@
   <compound kind="file">
     <name>assembler/interface.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/assembler/</path>
-    <filename>a03443.html</filename>
+    <filename>a03432.html</filename>
     <includes id="a00341" name="dirichletbcenforcement.hh" local="no" imported="no">ikarus/assembler/dirichletbcenforcement.hh</includes>
     <includes id="a00170" name="fehelper.hh" local="no" imported="no">ikarus/finiteelements/fehelper.hh</includes>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
-    <includes id="a03479" name="utils/dirichletvalues.hh" local="no" imported="no">ikarus/utils/dirichletvalues.hh</includes>
+    <includes id="a03468" name="utils/dirichletvalues.hh" local="no" imported="no">ikarus/utils/dirichletvalues.hh</includes>
     <class kind="class">Ikarus::FlatAssemblerBase</class>
     <class kind="class">Ikarus::ScalarAssembler</class>
     <class kind="class">Ikarus::VectorAssembler</class>
@@ -1122,8 +1125,8 @@
   <compound kind="file">
     <name>finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/</path>
-    <filename>a03452.html</filename>
-    <includes id="a03437" name="finiteelements/mechanics/materials/hyperelastic/concepts.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</includes>
+    <filename>a03441.html</filename>
+    <includes id="a03426" name="finiteelements/mechanics/materials/hyperelastic/concepts.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::Materials::Deviatoric</class>
     <namespace>Ikarus</namespace>
@@ -1132,11 +1135,11 @@
   <compound kind="file">
     <name>finiteelements/mechanics/materials/hyperelastic/interface.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/hyperelastic/</path>
-    <filename>a03449.html</filename>
-    <includes id="a03437" name="finiteelements/mechanics/materials/hyperelastic/concepts.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</includes>
-    <includes id="a03452" name="finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh</includes>
+    <filename>a03438.html</filename>
+    <includes id="a03426" name="finiteelements/mechanics/materials/hyperelastic/concepts.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</includes>
+    <includes id="a03441" name="finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh</includes>
     <includes id="a00206" name="volumetricfunctions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/volumetricfunctions.hh</includes>
-    <includes id="a03446" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
+    <includes id="a03435" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
     <includes id="a00230" name="materialhelpers.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::Materials::Hyperelastic</class>
@@ -1146,8 +1149,8 @@
   <compound kind="file">
     <name>finiteelements/mechanics/materials/hyperelastic/volumetric/interface.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/</path>
-    <filename>a03455.html</filename>
-    <includes id="a03437" name="finiteelements/mechanics/materials/hyperelastic/concepts.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</includes>
+    <filename>a03444.html</filename>
+    <includes id="a03426" name="finiteelements/mechanics/materials/hyperelastic/concepts.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</includes>
     <includes id="a00320" name="physicshelper.hh" local="no" imported="no">ikarus/finiteelements/physicshelper.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::Materials::Volumetric</class>
@@ -1157,13 +1160,13 @@
   <compound kind="file">
     <name>finiteelements/mechanics/materials/interface.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/</path>
-    <filename>a03446.html</filename>
+    <filename>a03435.html</filename>
     <includes id="a00230" name="materialhelpers.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</includes>
     <includes id="a00179" name="numericalmaterialinversion.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/numericalmaterialinversion.hh</includes>
     <includes id="a00227" name="strainconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/strainconversions.hh</includes>
     <includes id="a00224" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00320" name="physicshelper.hh" local="no" imported="no">ikarus/finiteelements/physicshelper.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00044" name="linearalgebrahelper.hh" local="no" imported="no">ikarus/utils/linearalgebrahelper.hh</includes>
     <includes id="a00020" name="traits.hh" local="no" imported="no">ikarus/utils/traits.hh</includes>
     <class kind="struct">Ikarus::Materials::Material</class>
@@ -1222,10 +1225,10 @@
     <includes id="a00188" name="arrudaboyce.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/arrudaboyce.hh</includes>
     <includes id="a00194" name="blatzko.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/blatzko.hh</includes>
     <includes id="a00185" name="gent.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/gent.hh</includes>
-    <includes id="a03452" name="finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh</includes>
+    <includes id="a03441" name="finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/interface.hh</includes>
     <includes id="a00203" name="invariantbased.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/invariantbased.hh</includes>
     <includes id="a00197" name="ogden.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/deviatoric/ogden.hh</includes>
-    <includes id="a03449" name="finiteelements/mechanics/materials/hyperelastic/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/interface.hh</includes>
+    <includes id="a03438" name="finiteelements/mechanics/materials/hyperelastic/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/interface.hh</includes>
     <includes id="a00212" name="neohooke.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/neohooke.hh</includes>
     <includes id="a00206" name="volumetricfunctions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/volumetricfunctions.hh</includes>
     <includes id="a00224" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
@@ -1285,7 +1288,7 @@
     <name>neohooke.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/hyperelastic/</path>
     <filename>a00212.html</filename>
-    <includes id="a03446" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
+    <includes id="a03435" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
     <includes id="a00230" name="materialhelpers.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</includes>
     <includes id="a00068" name="lambertw.hh" local="no" imported="no">ikarus/utils/lambertw.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
@@ -1304,8 +1307,8 @@
     <name>volumetricfunctions.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/</path>
     <filename>a00206.html</filename>
-    <includes id="a03437" name="finiteelements/mechanics/materials/hyperelastic/concepts.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</includes>
-    <includes id="a03455" name="finiteelements/mechanics/materials/hyperelastic/volumetric/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/interface.hh</includes>
+    <includes id="a03426" name="finiteelements/mechanics/materials/hyperelastic/concepts.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</includes>
+    <includes id="a03444" name="finiteelements/mechanics/materials/hyperelastic/volumetric/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/interface.hh</includes>
     <includes id="a00320" name="physicshelper.hh" local="no" imported="no">ikarus/finiteelements/physicshelper.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::Materials::VF0</class>
@@ -1334,7 +1337,7 @@
     <name>linearelasticity.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/</path>
     <filename>a00176.html</filename>
-    <includes id="a03446" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
+    <includes id="a03435" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
     <includes id="a00218" name="svk.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/svk.hh</includes>
     <class kind="struct">Ikarus::Materials::LinearElasticityT</class>
     <namespace>Ikarus</namespace>
@@ -1351,7 +1354,7 @@
     <name>materialhelpers.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/</path>
     <filename>a00230.html</filename>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::Materials::MatrixIndexPair</class>
     <namespace>Ikarus</namespace>
@@ -1381,7 +1384,7 @@
     <name>numericalmaterialinversion.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/</path>
     <filename>a00179.html</filename>
-    <includes id="a03446" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
+    <includes id="a03435" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
     <includes id="a00230" name="materialhelpers.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</includes>
     <includes id="a00227" name="strainconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/strainconversions.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
@@ -1480,7 +1483,7 @@
     <name>svk.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/</path>
     <filename>a00218.html</filename>
-    <includes id="a03446" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
+    <includes id="a03435" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
     <includes id="a00230" name="materialhelpers.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::Materials::StVenantKirchhoffT</class>
@@ -1585,7 +1588,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/</path>
     <filename>a00221.html</filename>
     <includes id="a00230" name="materialhelpers.hh" local="yes" imported="no">materialhelpers.hh</includes>
-    <includes id="a03446" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
+    <includes id="a03435" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
     <includes id="a00227" name="strainconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/strainconversions.hh</includes>
     <includes id="a00152" name="newtonraphson.hh" local="no" imported="no">ikarus/solver/nonlinearsolver/newtonraphson.hh</includes>
     <includes id="a00011" name="differentiablefunction.hh" local="no" imported="no">ikarus/utils/differentiablefunction.hh</includes>
@@ -1612,10 +1615,10 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/</path>
     <filename>a00182.html</filename>
     <includes id="a00230" name="materialhelpers.hh" local="yes" imported="no">materialhelpers.hh</includes>
-    <includes id="a03446" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
+    <includes id="a03435" name="finiteelements/mechanics/materials/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/interface.hh</includes>
     <includes id="a00152" name="newtonraphson.hh" local="no" imported="no">ikarus/solver/nonlinearsolver/newtonraphson.hh</includes>
     <includes id="a00143" name="nonlinearsolverfactory.hh" local="no" imported="no">ikarus/solver/nonlinearsolver/nonlinearsolverfactory.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00011" name="differentiablefunction.hh" local="no" imported="no">ikarus/utils/differentiablefunction.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::Materials::VanishingStress</class>
@@ -1686,7 +1689,7 @@
     <name>easfunctions.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/</path>
     <filename>a00284.html</filename>
-    <includes id="a03458" name="easfunctions/displacementgradient.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easfunctions/displacementgradient.hh</includes>
+    <includes id="a03447" name="easfunctions/displacementgradient.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easfunctions/displacementgradient.hh</includes>
     <includes id="a00293" name="displacementgradienttransposed.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easfunctions/displacementgradienttransposed.hh</includes>
     <includes id="a00290" name="greenlagrangestrain.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easfunctions/greenlagrangestrain.hh</includes>
     <includes id="a00287" name="linearstrain.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easfunctions/linearstrain.hh</includes>
@@ -1721,7 +1724,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/</path>
     <filename>a00272.html</filename>
     <includes id="a00284" name="easfunctions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easfunctions.hh</includes>
-    <includes id="a03461" name="easvariants/displacementgradient.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easvariants/displacementgradient.hh</includes>
+    <includes id="a03450" name="easvariants/displacementgradient.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easvariants/displacementgradient.hh</includes>
     <includes id="a00275" name="linearandglstrains.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easvariants/linearandglstrains.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::EAS::EASVariant</class>
@@ -1731,7 +1734,7 @@
   <compound kind="file">
     <name>easfunctions/displacementgradient.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easfunctions/</path>
-    <filename>a03458.html</filename>
+    <filename>a03447.html</filename>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::EAS::DisplacementGradient</class>
     <namespace>Ikarus</namespace>
@@ -1740,7 +1743,7 @@
   <compound kind="file">
     <name>easvariants/displacementgradient.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/strainenhancements/easvariants/</path>
-    <filename>a03461.html</filename>
+    <filename>a03450.html</filename>
     <includes id="a00278" name="helperfunctions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easvariants/helperfunctions.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::EAS::HX</class>
@@ -1898,7 +1901,7 @@
     <name>resultevaluators.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/io/</path>
     <filename>a00161.html</filename>
-    <includes id="a03431" name="ikarus/finiteelements/mechanics/materials.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials.hh</includes>
+    <includes id="a03420" name="ikarus/finiteelements/mechanics/materials.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials.hh</includes>
     <includes id="a00014" name="tensorutils.hh" local="no" imported="no">ikarus/utils/tensorutils.hh</includes>
     <class kind="struct">Ikarus::ResultEvaluators::VonMises</class>
     <class kind="struct">Ikarus::ResultEvaluators::HydrostaticStress</class>
@@ -1913,7 +1916,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/io/</path>
     <filename>a00167.html</filename>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <class kind="class">Ikarus::ResultFunction</class>
     <namespace>Ikarus</namespace>
     <member kind="function">
@@ -1968,10 +1971,10 @@
   <compound kind="file">
     <name>io/vtkwriter.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/io/</path>
-    <filename>a03464.html</filename>
+    <filename>a03453.html</filename>
     <includes id="a00158" name="vtkdatatag.hh" local="yes" imported="no">vtkdatatag.hh</includes>
     <includes id="a00167" name="resultfunction.hh" local="no" imported="no">ikarus/io/resultfunction.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <class kind="struct">Ikarus::Vtk::Writer</class>
     <class kind="struct">Ikarus::Vtk::IsStructured</class>
     <class kind="struct">Ikarus::Vtk::IsStructured&lt; Dune::YaspGrid&lt; dim, Coordinates &gt; &gt;</class>
@@ -1996,10 +1999,10 @@
   <compound kind="file">
     <name>python/io/vtkwriter.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/python/io/</path>
-    <filename>a03467.html</filename>
+    <filename>a03456.html</filename>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
     <includes id="a00158" name="vtkdatatag.hh" local="no" imported="no">ikarus/io/vtkdatatag.hh</includes>
-    <includes id="a03464" name="io/vtkwriter.hh" local="no" imported="no">ikarus/io/vtkwriter.hh</includes>
+    <includes id="a03453" name="io/vtkwriter.hh" local="no" imported="no">ikarus/io/vtkwriter.hh</includes>
     <namespace>Ikarus</namespace>
     <namespace>Ikarus::Python</namespace>
     <member kind="function">
@@ -2046,7 +2049,7 @@
     <filename>a00431.html</filename>
     <includes id="a00341" name="dirichletbcenforcement.hh" local="no" imported="no">ikarus/assembler/dirichletbcenforcement.hh</includes>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
-    <includes id="a03473" name="utils/basis.hh" local="no" imported="no">ikarus/utils/basis.hh</includes>
+    <includes id="a03462" name="utils/basis.hh" local="no" imported="no">ikarus/utils/basis.hh</includes>
     <namespace>Ikarus</namespace>
     <namespace>Ikarus::Python</namespace>
     <member kind="define">
@@ -2086,7 +2089,7 @@
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
     <includes id="a00431" name="flatassembler.hh" local="no" imported="no">ikarus/python/assembler/flatassembler.hh</includes>
     <includes id="a00425" name="scalarwrapper.hh" local="no" imported="no">ikarus/python/finiteelements/scalarwrapper.hh</includes>
-    <includes id="a03473" name="utils/basis.hh" local="no" imported="no">ikarus/utils/basis.hh</includes>
+    <includes id="a03462" name="utils/basis.hh" local="no" imported="no">ikarus/utils/basis.hh</includes>
     <includes id="a00020" name="traits.hh" local="no" imported="no">ikarus/utils/traits.hh</includes>
     <class kind="struct">Ikarus::Python::SparseMatrixWrapper</class>
     <namespace>Ikarus</namespace>
@@ -2133,8 +2136,8 @@
     <name>material.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/python/finiteelements/</path>
     <filename>a00422.html</filename>
-    <includes id="a03431" name="ikarus/finiteelements/mechanics/materials.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03420" name="ikarus/finiteelements/mechanics/materials.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <namespace>Ikarus</namespace>
     <namespace>Ikarus::Python</namespace>
     <member kind="define">
@@ -2282,7 +2285,7 @@
     <name>generalizedeigensolver.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/solver/eigenvaluesolver/</path>
     <filename>a00128.html</filename>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00077" name="makeenum.hh" local="no" imported="no">ikarus/utils/makeenum.hh</includes>
     <class kind="struct">Ikarus::GeneralizedSymEigenSolver</class>
     <class kind="struct">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;</class>
@@ -2440,7 +2443,7 @@
     <includes id="a00146" name="solverinfos.hh" local="no" imported="no">ikarus/solver/nonlinearsolver/solverinfos.hh</includes>
     <includes id="a00374" name="broadcaster.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcaster.hh</includes>
     <includes id="a00377" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00038" name="defaultfunctions.hh" local="no" imported="no">ikarus/utils/defaultfunctions.hh</includes>
     <includes id="a00044" name="linearalgebrahelper.hh" local="no" imported="no">ikarus/utils/linearalgebrahelper.hh</includes>
     <class kind="struct">Ikarus::NRSettings</class>
@@ -2479,7 +2482,7 @@
     <includes id="a00146" name="solverinfos.hh" local="no" imported="no">ikarus/solver/nonlinearsolver/solverinfos.hh</includes>
     <includes id="a00374" name="broadcaster.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcaster.hh</includes>
     <includes id="a00377" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <class kind="struct">Ikarus::NewtonRaphsonWithSubsidiaryFunctionSettings</class>
     <class kind="struct">Ikarus::NewtonRaphsonWithSubsidiaryFunctionConfig</class>
     <class kind="class">Ikarus::NewtonRaphsonWithSubsidiaryFunction</class>
@@ -2530,6 +2533,7 @@
     <name>nonlinearsolverstate.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/solver/nonlinearsolver/</path>
     <filename>a00134.html</filename>
+    <includes id="a00146" name="solverinfos.hh" local="no" imported="no">ikarus/solver/nonlinearsolver/solverinfos.hh</includes>
     <includes id="a00020" name="traits.hh" local="no" imported="no">ikarus/utils/traits.hh</includes>
     <class kind="struct">Ikarus::NonlinearSolverState</class>
     <namespace>Ikarus</namespace>
@@ -2782,9 +2786,9 @@
   <compound kind="file">
     <name>python/basis/basis.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/python/basis/</path>
-    <filename>a03470.html</filename>
+    <filename>a03459.html</filename>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
-    <includes id="a03473" name="utils/basis.hh" local="no" imported="no">ikarus/utils/basis.hh</includes>
+    <includes id="a03462" name="utils/basis.hh" local="no" imported="no">ikarus/utils/basis.hh</includes>
     <namespace>Ikarus</namespace>
     <namespace>Ikarus::Python</namespace>
     <member kind="function">
@@ -2798,7 +2802,7 @@
   <compound kind="file">
     <name>utils/basis.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/</path>
-    <filename>a03473.html</filename>
+    <filename>a03462.html</filename>
     <includes id="a00017" name="flatprebasis.hh" local="no" imported="no">ikarus/utils/flatprebasis.hh</includes>
     <class kind="class">Ikarus::BasisHandler</class>
     <namespace>Ikarus</namespace>
@@ -2821,8 +2825,7 @@
     <name>broadcaster.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/broadcaster/</path>
     <filename>a00374.html</filename>
-    <class kind="class">Ikarus::Broadcaster&lt; void(Args...)&gt;</class>
-    <class kind="class">Ikarus::Broadcasters</class>
+    <class kind="class">Ikarus::Broadcaster</class>
     <namespace>Ikarus</namespace>
   </compound>
   <compound kind="file">
@@ -2834,33 +2837,33 @@
     <member kind="enumeration">
       <type></type>
       <name>ControlMessages</name>
-      <anchorfile>a00486.html</anchorfile>
-      <anchor>ga35fa62fd2d4186a9750af3d0692f2893</anchor>
+      <anchorfile>a00492.html</anchorfile>
+      <anchor>a35fa62fd2d4186a9750af3d0692f2893</anchor>
       <arglist></arglist>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a19aad9f2fe3ce0023298ab83f7e75775">BEGIN</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0">CONTROL_STARTED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938">CONTROL_ENDED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945">STEP_STARTED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">STEP_ENDED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">SOLUTION_CHANGED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893ab1a326c06d88bf042f73d70f50197905">END</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893a19aad9f2fe3ce0023298ab83f7e75775">BEGIN</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0">CONTROL_STARTED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938">CONTROL_ENDED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945">STEP_STARTED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">STEP_ENDED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">SOLUTION_CHANGED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893ab1a326c06d88bf042f73d70f50197905">END</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
       <name>NonLinearSolverMessages</name>
-      <anchorfile>a00486.html</anchorfile>
-      <anchor>ga662b2b6a80547adf4b9ce8b30d87fab5</anchor>
+      <anchorfile>a00492.html</anchorfile>
+      <anchor>a662b2b6a80547adf4b9ce8b30d87fab5</anchor>
       <arglist></arglist>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a19aad9f2fe3ce0023298ab83f7e75775">BEGIN</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498">INIT</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4">ITERATION_STARTED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815">ITERATION_ENDED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14">RESIDUALNORM_UPDATED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78">CORRECTIONNORM_UPDATED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4">CORRECTION_UPDATED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577">SOLUTION_CHANGED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931">FINISHED_SUCESSFULLY</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5ab1a326c06d88bf042f73d70f50197905">END</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a19aad9f2fe3ce0023298ab83f7e75775">BEGIN</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498">INIT</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4">ITERATION_STARTED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815">ITERATION_ENDED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14">RESIDUALNORM_UPDATED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78">CORRECTIONNORM_UPDATED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4">CORRECTION_UPDATED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577">SOLUTION_CHANGED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931">FINISHED_SUCESSFULLY</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5ab1a326c06d88bf042f73d70f50197905">END</enumvalue>
     </member>
     <member kind="function">
       <type>constexpr std::string</type>
@@ -2938,7 +2941,7 @@
   <compound kind="file">
     <name>python/dirichletvalues/dirichletvalues.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/python/dirichletvalues/</path>
-    <filename>a03476.html</filename>
+    <filename>a03465.html</filename>
     <includes id="a00317" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
     <namespace>Ikarus</namespace>
     <namespace>Ikarus::Python</namespace>
@@ -2960,8 +2963,8 @@
   <compound kind="file">
     <name>utils/dirichletvalues.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/</path>
-    <filename>a03479.html</filename>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <filename>a03468.html</filename>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <class kind="struct">Ikarus::DeriveSizeType&lt; T &gt;</class>
     <class kind="struct">Ikarus::DeriveSizeType&lt; std::vector&lt; bool &gt; &gt;</class>
     <class kind="class">Ikarus::DirichletValues</class>
@@ -3099,7 +3102,7 @@
     <name>functionhelper.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/</path>
     <filename>a00059.html</filename>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00062" name="traversal.hh" local="no" imported="no">ikarus/utils/traversal.hh</includes>
     <namespace>Ikarus</namespace>
     <namespace>Ikarus::utils</namespace>
@@ -3187,7 +3190,7 @@
     <name>lambertw.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/</path>
     <filename>a00068.html</filename>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <namespace>Ikarus</namespace>
     <namespace>Ikarus::util</namespace>
     <member kind="function">
@@ -3202,7 +3205,7 @@
     <name>linearalgebrahelper.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/</path>
     <filename>a00044.html</filename>
-    <includes id="a03440" name="utils/concepts.hh" local="yes" imported="no">concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="yes" imported="no">concepts.hh</includes>
     <includes id="a00020" name="traits.hh" local="yes" imported="no">traits.hh</includes>
     <namespace>Ikarus</namespace>
     <member kind="function">
@@ -3449,6 +3452,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/listener/</path>
     <filename>a00365.html</filename>
     <includes id="a00377" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00359" name="listener.hh" local="no" imported="no">ikarus/utils/listener/listener.hh</includes>
     <class kind="class">Ikarus::ControlLogger</class>
     <namespace>Ikarus</namespace>
@@ -3458,6 +3462,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/listener/</path>
     <filename>a00362.html</filename>
     <includes id="a00377" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00359" name="listener.hh" local="no" imported="no">ikarus/utils/listener/listener.hh</includes>
     <class kind="class">Ikarus::ControlSubsamplingVertexVTKWriter</class>
     <namespace>Ikarus</namespace>
@@ -3470,14 +3475,19 @@
     <includes id="a00359" name="listener.hh" local="no" imported="no">ikarus/utils/listener/listener.hh</includes>
     <class kind="class">Ikarus::GenericListener</class>
     <namespace>Ikarus</namespace>
+    <member kind="function">
+      <type></type>
+      <name>GenericListener</name>
+      <anchorfile>a00492.html</anchorfile>
+      <anchor>abf2bcdf0a180600b42282f124ef381de</anchor>
+      <arglist>(BC &amp;, MT, F &amp;&amp;) -&gt; GenericListener&lt; BC &gt;</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>listener.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/listener/</path>
     <filename>a00359.html</filename>
-    <includes id="a00059" name="functionhelper.hh" local="no" imported="no">ikarus/utils/functionhelper.hh</includes>
-    <includes id="a00020" name="traits.hh" local="no" imported="no">ikarus/utils/traits.hh</includes>
-    <class kind="struct">Ikarus::Listener</class>
+    <class kind="class">Ikarus::Listener</class>
     <namespace>Ikarus</namespace>
   </compound>
   <compound kind="file">
@@ -3485,6 +3495,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/listener/</path>
     <filename>a00371.html</filename>
     <includes id="a00377" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00359" name="listener.hh" local="no" imported="no">ikarus/utils/listener/listener.hh</includes>
     <class kind="class">Ikarus::NonLinearSolverLogger</class>
     <namespace>Ikarus</namespace>
@@ -3637,7 +3648,7 @@
     <name>tensorutils.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/</path>
     <filename>a00014.html</filename>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <includes id="a00032" name="math.hh" local="no" imported="no">ikarus/utils/math.hh</includes>
     <namespace>Ikarus</namespace>
     <member kind="function">
@@ -3812,7 +3823,7 @@
     <name>traversal.hh</name>
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/</path>
     <filename>a00062.html</filename>
-    <includes id="a03440" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a03429" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
     <namespace>Ikarus</namespace>
     <namespace>Ikarus::utils</namespace>
     <member kind="function">
@@ -3840,7 +3851,7 @@
     <path>/__w/ikarus/ikarus/repo/python/ikarus/</path>
     <filename>a00452.html</filename>
     <includes id="a00446" name="io.hh" local="yes" imported="no">io/io.hh</includes>
-    <includes id="a03434" name="python/ikarus/materials/materials.hh" local="yes" imported="no">materials/materials.hh</includes>
+    <includes id="a03423" name="python/ikarus/materials/materials.hh" local="yes" imported="no">materials/materials.hh</includes>
     <includes id="a00455" name="pythonhelpers.hh" local="yes" imported="no">pythonhelpers.hh</includes>
     <includes id="a00458" name="utils.hh" local="yes" imported="no">utils/utils.hh</includes>
     <includes id="a00341" name="dirichletbcenforcement.hh" local="no" imported="no">ikarus/assembler/dirichletbcenforcement.hh</includes>
@@ -3963,7 +3974,7 @@
   <compound kind="file">
     <name>assembler/__init__.py</name>
     <path>/__w/ikarus/ikarus/repo/python/ikarus/assembler/</path>
-    <filename>a03482.html</filename>
+    <filename>a03471.html</filename>
     <namespace>ikarus</namespace>
     <namespace>ikarus::assembler</namespace>
     <member kind="function">
@@ -3991,7 +4002,7 @@
   <compound kind="file">
     <name>finite_elements/__init__.py</name>
     <path>/__w/ikarus/ikarus/repo/python/ikarus/finite_elements/</path>
-    <filename>a03485.html</filename>
+    <filename>a03474.html</filename>
     <namespace>ikarus</namespace>
     <namespace>ikarus::finite_elements</namespace>
     <member kind="function">
@@ -4089,7 +4100,7 @@
   <compound kind="file">
     <name>io/__init__.py</name>
     <path>/__w/ikarus/ikarus/repo/python/ikarus/io/</path>
-    <filename>a03488.html</filename>
+    <filename>a03477.html</filename>
     <namespace>ikarus</namespace>
     <namespace>ikarus::io</namespace>
     <member kind="function">
@@ -4110,7 +4121,7 @@
   <compound kind="file">
     <name>materials/__init__.py</name>
     <path>/__w/ikarus/ikarus/repo/python/ikarus/materials/</path>
-    <filename>a03491.html</filename>
+    <filename>a03480.html</filename>
     <namespace>ikarus</namespace>
     <namespace>ikarus::materials</namespace>
     <member kind="function">
@@ -4138,7 +4149,7 @@
   <compound kind="file">
     <name>utils/__init__.py</name>
     <path>/__w/ikarus/ikarus/repo/python/ikarus/utils/</path>
-    <filename>a03494.html</filename>
+    <filename>a03483.html</filename>
     <namespace>ikarus</namespace>
     <namespace>ikarus::utils</namespace>
     <member kind="function">
@@ -4376,10 +4387,10 @@
       <arglist>(typename F::Domain &amp;req, F &amp;residual, SubsidiaryArgs &amp;args)</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>constexpr std::string</type>
       <name>name</name>
       <anchorfile>a01468.html</anchorfile>
-      <anchor>afa77b974566da3b74cb5b35693540c16</anchor>
+      <anchor>a93e75059eef2f2cb682cf0cc33503aa5</anchor>
       <arglist>() const</arglist>
     </member>
   </compound>
@@ -5080,11 +5091,25 @@
       <arglist></arglist>
     </member>
     <member kind="function">
+      <type>auto</type>
+      <name>subscribeTo</name>
+      <anchorfile>a01484.html</anchorfile>
+      <anchor>afc32bd395acc3b2bc9a701681566bf0b</anchor>
+      <arglist>(BC &amp;bc)</arglist>
+    </member>
+    <member kind="function">
       <type>const RealFE &amp;</type>
       <name>realFE</name>
       <anchorfile>a01484.html</anchorfile>
       <anchor>a8bd5af319955bc66a08c074858df2303</anchor>
       <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>RealFE &amp;</type>
+      <name>realFE</name>
+      <anchorfile>a01484.html</anchorfile>
+      <anchor>a8eabf67c2202c225891dee92efb12495</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -5475,62 +5500,59 @@
       <arglist></arglist>
     </member>
   </compound>
-  <compound kind="struct">
+  <compound kind="class">
     <name>Ikarus::Broadcaster</name>
     <filename>a02136.html</filename>
-    <templarg>class Args</templarg>
-  </compound>
-  <compound kind="class">
-    <name>Ikarus::Broadcaster&lt; void(Args...)&gt;</name>
-    <filename>a02140.html</filename>
-    <templarg>typename... Args</templarg>
+    <templarg>typename MT</templarg>
+    <templarg>typename S</templarg>
     <member kind="typedef">
-      <type>std::shared_ptr&lt; F &gt;</type>
+      <type>MT</type>
+      <name>MessageType</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>abc47e2a26f85e3bdd3886d82d458d5da</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>S</type>
+      <name>State</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>ac1cbfd25b275106de2e554ebf3154684</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; void(MT, const State &amp;)&gt;</type>
+      <name>Callback</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a34a8a1247a245acc29e1b4b34985771e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::shared_ptr&lt; Callback &gt;</type>
       <name>Token</name>
-      <anchorfile>a02140.html</anchorfile>
-      <anchor>a8e938f0fd10e39653bc9cb90109a37e7</anchor>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a5abf58d509c6594898811fe1519e498c</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type>Token</type>
       <name>registerListener</name>
-      <anchorfile>a02140.html</anchorfile>
-      <anchor>ac41fb9825ac6c6ced84a22e9b0c2f9a1</anchor>
-      <arglist>(F f)</arglist>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a50f7d8360254792256006fe4ead0350c</anchor>
+      <arglist>(Callback callback)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unregisterListener</name>
-      <anchorfile>a02140.html</anchorfile>
-      <anchor>a3dcfad0abe0d83dbec232a77bc2a8e49</anchor>
-      <arglist>(Token &amp;&amp;t)</arglist>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>af78c5019f3563fe5ee567f98a3d63e6e</anchor>
+      <arglist>(Token token)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>notify</name>
-      <anchorfile>a02140.html</anchorfile>
-      <anchor>ab19ef3d9951ffca426daf0912eaedb31</anchor>
-      <arglist>(Args... args)</arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>Ikarus::Broadcasters</name>
-    <filename>a02144.html</filename>
-    <templarg>typename... Signatures</templarg>
-    <base>Broadcaster&lt; Signatures &gt;</base>
-    <member kind="function">
-      <type>Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>abc95263ead8ea6d71c2b017a1ea250be</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>const Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>af25ec90e8c2c7df3d7b033e6e6a06dc1</anchor>
-      <arglist>() const</arglist>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a0cc3593f3af31f30ea97adc1d040c8f2</anchor>
+      <arglist>(MT message, const State &amp;data)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -5553,32 +5575,32 @@
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::ChangeArgTypeAtPos</name>
-    <filename>a02348.html</filename>
+    <filename>a02340.html</filename>
     <templarg>typename Func</templarg>
     <templarg>std::size_t Pos</templarg>
     <templarg>typename NewType</templarg>
   </compound>
   <compound kind="struct">
     <name>Ikarus::utils::CheckFlags</name>
-    <filename>a02252.html</filename>
+    <filename>a02244.html</filename>
     <member kind="variable">
       <type>bool</type>
       <name>draw</name>
-      <anchorfile>a02252.html</anchorfile>
+      <anchorfile>a02244.html</anchorfile>
       <anchor>a08fa473dcdfbdb5dcf759546ea2da3b8</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>bool</type>
       <name>writeSlopeStatementIfFailed</name>
-      <anchorfile>a02252.html</anchorfile>
+      <anchorfile>a02244.html</anchorfile>
       <anchor>ac9946207ee221c94e843ea7c048a16a3</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>double</type>
       <name>tolerance</name>
-      <anchorfile>a02252.html</anchorfile>
+      <anchorfile>a02244.html</anchorfile>
       <anchor>a6c1e702608ca901f9f7efca524560b25</anchor>
       <arglist></arglist>
     </member>
@@ -5586,6 +5608,13 @@
   <compound kind="struct">
     <name>Ikarus::ControlInformation</name>
     <filename>a01420.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ControlInformation</name>
+      <anchorfile>a01420.html</anchorfile>
+      <anchor>a00a16a688e5e3d9971f321d7b5461fd3</anchor>
+      <arglist>(const std::string &amp;n=&quot;&quot;)</arglist>
+    </member>
     <member kind="variable">
       <type>bool</type>
       <name>success</name>
@@ -5607,94 +5636,66 @@
       <anchor>a4712b189651e59cd46fd43b2e6a326bf</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>a01420.html</anchorfile>
+      <anchor>a75aa6bc77cf77715f5dc037becb3a00d</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>Ikarus::ControlLogger</name>
-    <filename>a02260.html</filename>
+    <filename>a02252.html</filename>
     <base>Ikarus::Listener</base>
     <member kind="typedef">
       <type>std::shared_ptr&lt; void &gt;</type>
       <name>Token</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>affba2430c95defc9bb0494af2d8120b7</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type>ControlLogger &amp;</type>
       <name>subscribeTo</name>
-      <anchorfile>a02260.html</anchorfile>
+      <anchorfile>a02252.html</anchorfile>
       <anchor>a0138d15920218568fc349acd1b40950f</anchor>
       <arglist>(BC &amp;bc)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
-      <name>updateImpl</name>
-      <anchorfile>a02260.html</anchorfile>
-      <anchor>abffbd8ad50249587de065b395844a574</anchor>
-      <arglist>(ControlMessages message)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>updateImpl</name>
-      <anchorfile>a02260.html</anchorfile>
-      <anchor>a73d938055b8a139eed7e023d7e7007d6</anchor>
-      <arglist>(ControlMessages message, const std::string &amp;val)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>updateImpl</name>
-      <anchorfile>a02260.html</anchorfile>
-      <anchor>a27405f0351dbe3539e0d56cb79dd4da3</anchor>
-      <arglist>(ControlMessages message, int val1, const std::string &amp;val2)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>updateImpl</name>
-      <anchorfile>a02260.html</anchorfile>
-      <anchor>a472e94d0275e6c3053d6e2ef52c8a5ba</anchor>
-      <arglist>(ControlMessages message, int val1, double val2)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>updateImpl</name>
-      <anchorfile>a02260.html</anchorfile>
-      <anchor>a7df303bdeb8dc2842eff0bbbf126ebe2</anchor>
+      <name>update</name>
+      <anchorfile>a02252.html</anchorfile>
+      <anchor>a7b709d4594a7918cbff23f1f9e5aa73e</anchor>
       <arglist>(ControlMessages message, const Concepts::ControlRoutineState auto &amp;state)</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a754e8fbe950f23d4610009475e35ed98</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
-    </member>
-    <member kind="function">
-      <type>auto</type>
-      <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>ade04c7b4066c6ef381429aff2e2ce7a7</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a199840d6ead51d771d5522acff779a4f</anchor>
+      <arglist>(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeAll</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a6ebf859d4e38acc6e9b7436b097fba26</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeLast</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a78725a274f6b1817a5792bb0e519d3d9</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a924202b41205145b4ceda14957ea66c2</anchor>
-      <arglist>(Token &amp;&amp;ts)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a1c964a476680631977b516351efd8712</anchor>
+      <arglist>(const Token &amp;token)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -5703,7 +5704,7 @@
     <templarg>typename F</templarg>
     <templarg>typename S</templarg>
     <templarg>typename... Args</templarg>
-    <base>Broadcasters&lt; void(ControlMessages), void(ControlMessages, const std::string &amp;), void(ControlMessages, int, const std::string &amp;), void(ControlMessages, int, double), void(ControlMessages, const ControlRoutineStateType&lt; F &gt; &amp;), Args... &gt;</base>
+    <base>Broadcaster&lt; ControlMessages, ControlRoutineStateType&lt; F &gt; &gt;</base>
     <member kind="typedef">
       <type>S</type>
       <name>State</name>
@@ -5711,19 +5712,47 @@
       <anchor>a44e1213982ed14a09fdd94318fb31595</anchor>
       <arglist></arglist>
     </member>
-    <member kind="function">
-      <type>Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>abc95263ead8ea6d71c2b017a1ea250be</anchor>
-      <arglist>()</arglist>
+    <member kind="typedef">
+      <type>ControlMessages</type>
+      <name>MessageType</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>abc47e2a26f85e3bdd3886d82d458d5da</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; void(ControlMessages, const State &amp;)&gt;</type>
+      <name>Callback</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a34a8a1247a245acc29e1b4b34985771e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::shared_ptr&lt; Callback &gt;</type>
+      <name>Token</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a5abf58d509c6594898811fe1519e498c</anchor>
+      <arglist></arglist>
     </member>
     <member kind="function">
-      <type>const Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>af25ec90e8c2c7df3d7b033e6e6a06dc1</anchor>
-      <arglist>() const</arglist>
+      <type>Token</type>
+      <name>registerListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a50f7d8360254792256006fe4ead0350c</anchor>
+      <arglist>(Callback callback)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>unregisterListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>af78c5019f3563fe5ee567f98a3d63e6e</anchor>
+      <arglist>(Token token)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>notify</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a0cc3593f3af31f30ea97adc1d040c8f2</anchor>
+      <arglist>(ControlMessages message, const State &amp;data)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -5756,6 +5785,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>const ControlInformation &amp;</type>
+      <name>information</name>
+      <anchorfile>a01432.html</anchorfile>
+      <anchor>ae77969212613b62a7c5e40e5e15f891b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>int</type>
       <name>loadStep</name>
       <anchorfile>a01432.html</anchorfile>
@@ -5772,115 +5808,108 @@
   </compound>
   <compound kind="class">
     <name>Ikarus::ControlSubsamplingVertexVTKWriter</name>
-    <filename>a02264.html</filename>
+    <filename>a02256.html</filename>
     <templarg>typename B</templarg>
     <base>Ikarus::Listener</base>
     <member kind="typedef">
       <type>std::shared_ptr&lt; void &gt;</type>
       <name>Token</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>affba2430c95defc9bb0494af2d8120b7</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>ControlSubsamplingVertexVTKWriter</name>
-      <anchorfile>a02264.html</anchorfile>
-      <anchor>a1e07865751a32e0a1dd29e8f001babc3</anchor>
-      <arglist>(const Basis &amp;basis, const Eigen::VectorXd &amp;sol, int refinementLevels=0)</arglist>
+      <anchorfile>a02256.html</anchorfile>
+      <anchor>aa9bc2f8915db560b403dc97a151d3e35</anchor>
+      <arglist>(const Basis &amp;basis, int refinementLevels=0)</arglist>
     </member>
     <member kind="function">
       <type>ControlSubsamplingVertexVTKWriter &amp;</type>
       <name>subscribeTo</name>
-      <anchorfile>a02264.html</anchorfile>
+      <anchorfile>a02256.html</anchorfile>
       <anchor>a3dae604f656fc27f82a60b713d1fb0cf</anchor>
       <arglist>(BC &amp;bc)</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>setFieldInfo</name>
-      <anchorfile>a02264.html</anchorfile>
+      <anchorfile>a02256.html</anchorfile>
       <anchor>afec0c3fe2aa8cac3e9970d8c9720c219</anchor>
       <arglist>(std::string &amp;&amp;name, Dune::VTK::FieldInfo::Type type, std::size_t size, Dune::VTK::Precision prec=Dune::VTK::Precision::float32)</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>setFileNamePrefix</name>
-      <anchorfile>a02264.html</anchorfile>
+      <anchorfile>a02256.html</anchorfile>
       <anchor>a8061e516e4c6626a2f6ea160e692e4e1</anchor>
       <arglist>(std::string &amp;&amp;name)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
-      <name>updateImpl</name>
+      <name>update</name>
+      <anchorfile>a02256.html</anchorfile>
+      <anchor>a03d2c1668d6894f3e4f3c5d3ef1c54f6</anchor>
+      <arglist>(ControlMessages message, const Concepts::ControlRoutineState auto &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>subscribe</name>
       <anchorfile>a02264.html</anchorfile>
-      <anchor>afb324017dac0d22e505d87a6c1684032</anchor>
-      <arglist>(ControlMessages message)</arglist>
-    </member>
-    <member kind="function">
-      <type>auto</type>
-      <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a754e8fbe950f23d4610009475e35ed98</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
-    </member>
-    <member kind="function">
-      <type>auto</type>
-      <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>ade04c7b4066c6ef381429aff2e2ce7a7</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
+      <anchor>a199840d6ead51d771d5522acff779a4f</anchor>
+      <arglist>(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeAll</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a6ebf859d4e38acc6e9b7436b097fba26</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeLast</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a78725a274f6b1817a5792bb0e519d3d9</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a924202b41205145b4ceda14957ea66c2</anchor>
-      <arglist>(Token &amp;&amp;ts)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a1c964a476680631977b516351efd8712</anchor>
+      <arglist>(const Token &amp;token)</arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Python::Conversion&lt; autodiff::Real&lt; order, T &gt; &gt;</name>
-    <filename>a02280.html</filename>
+    <filename>a02272.html</filename>
     <templarg>std::size_t order</templarg>
     <templarg>class T</templarg>
     <member kind="enumvalue">
       <name>useDefaultConstructorConversion</name>
-      <anchorfile>a02280.html</anchorfile>
+      <anchorfile>a02272.html</anchorfile>
       <anchor>ad71914c7a22c638ccacc40edb226c0caa800d3df3de5cd47119ccc5a0c89f2841</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>useDefaultConstructorConversion</name>
-      <anchorfile>a02280.html</anchorfile>
+      <anchorfile>a02272.html</anchorfile>
       <anchor>ad71914c7a22c638ccacc40edb226c0caa800d3df3de5cd47119ccc5a0c89f2841</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" static="yes">
       <type>static void</type>
       <name>toC</name>
-      <anchorfile>a02280.html</anchorfile>
+      <anchorfile>a02272.html</anchorfile>
       <anchor>aab78500f06d24b5eb1cd894b68eec03c</anchor>
       <arglist>(PyObject *list, autodiff::Real&lt; order, T &gt; &amp;v)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static PyObject *</type>
       <name>toPy</name>
-      <anchorfile>a02280.html</anchorfile>
+      <anchorfile>a02272.html</anchorfile>
       <anchor>ae7c12c134c747ccf36ff0bf9c453f69e</anchor>
       <arglist>(const autodiff::Real&lt; order, T &gt; &amp;v)</arglist>
     </member>
@@ -6462,28 +6491,28 @@
   </compound>
   <compound kind="struct">
     <name>Ikarus::DeriveSizeType</name>
-    <filename>a02208.html</filename>
+    <filename>a02200.html</filename>
     <templarg>class</templarg>
   </compound>
   <compound kind="struct">
     <name>Ikarus::DeriveSizeType&lt; std::vector&lt; bool &gt; &gt;</name>
-    <filename>a02216.html</filename>
+    <filename>a02208.html</filename>
     <member kind="typedef">
       <type>std::vector&lt; bool &gt;::size_type</type>
       <name>SizeType</name>
-      <anchorfile>a02216.html</anchorfile>
+      <anchorfile>a02208.html</anchorfile>
       <anchor>a737ba53080c8f2b8d01f458dd574de9c</anchor>
       <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::DeriveSizeType&lt; T &gt;</name>
-    <filename>a02212.html</filename>
+    <filename>a02204.html</filename>
     <templarg>Concepts::EigenVector T</templarg>
     <member kind="typedef">
       <type>Eigen::Index</type>
       <name>SizeType</name>
-      <anchorfile>a02212.html</anchorfile>
+      <anchorfile>a02204.html</anchorfile>
       <anchor>ad2f15a80c92d0ac72c16edbe30b7e9ba</anchor>
       <arglist></arglist>
     </member>
@@ -6682,7 +6711,7 @@
   </compound>
   <compound kind="class">
     <name>Ikarus::DifferentiableFunction&lt; Range(D), DerivativeTraits, F, FF... &gt;</name>
-    <filename>a02196.html</filename>
+    <filename>a02188.html</filename>
     <templarg>class Range</templarg>
     <templarg>class D</templarg>
     <templarg>template&lt; class &gt; class DerivativeTraits</templarg>
@@ -6691,220 +6720,220 @@
     <member kind="typedef">
       <type>std::remove_cvref_t&lt; D &gt;</type>
       <name>Domain</name>
-      <anchorfile>a02196.html</anchorfile>
+      <anchorfile>a02188.html</anchorfile>
       <anchor>a09179a83de8c99be9dd8f99f3641d53d</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>DerivativeTraitsFromCallables&lt; Impl::Functions&lt; F, FF... &gt;, D &gt;</type>
       <name>Traits</name>
-      <anchorfile>a02196.html</anchorfile>
+      <anchorfile>a02188.html</anchorfile>
       <anchor>acb47479c6db16067792b5185cdb84206</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>DifferentiableFunction&lt; typename Traits::template Range&lt; 1 &gt;(D), DerivativeTraits, FF... &gt;</type>
       <name>Derivative</name>
-      <anchorfile>a02196.html</anchorfile>
+      <anchorfile>a02188.html</anchorfile>
       <anchor>a12d99506e19b1dc61336d4f5a1e741ea</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>DifferentiableFunction</name>
-      <anchorfile>a02196.html</anchorfile>
+      <anchorfile>a02188.html</anchorfile>
       <anchor>a09d7f95dc6a3721ed6ae7d9b35476e0e</anchor>
       <arglist>(FFF &amp;&amp;... f)</arglist>
     </member>
     <member kind="function">
       <type>Range</type>
       <name>operator()</name>
-      <anchorfile>a02196.html</anchorfile>
+      <anchorfile>a02188.html</anchorfile>
       <anchor>acd243bc8a0fa61139b8980f63b1d1f15</anchor>
       <arglist>(const D &amp;x) const</arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr auto</type>
       <name>nDerivatives</name>
-      <anchorfile>a02196.html</anchorfile>
+      <anchorfile>a02188.html</anchorfile>
       <anchor>a750354e710bf4d55502d50772d379005</anchor>
       <arglist></arglist>
     </member>
     <member kind="friend">
       <type>friend Derivative</type>
       <name>derivative</name>
-      <anchorfile>a02196.html</anchorfile>
+      <anchorfile>a02188.html</anchorfile>
       <anchor>af9e5d98d20808a3651b0d7ecb05d6c46</anchor>
       <arglist>(const DifferentiableFunction &amp;t)</arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::DifferentiableFunctionFactory</name>
-    <filename>a02200.html</filename>
+    <filename>a02192.html</filename>
     <member kind="function" static="yes">
       <type>static auto</type>
       <name>op</name>
-      <anchorfile>a02200.html</anchorfile>
+      <anchorfile>a02192.html</anchorfile>
       <anchor>aa362a29341818929bae2f15c4271e351</anchor>
       <arglist>(Assembler &amp;&amp;as, AffordanceCollection&lt; Affordances... &gt; affordances, DBCOption dbcOption=DBCOption::Full)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static auto</type>
       <name>op</name>
-      <anchorfile>a02200.html</anchorfile>
+      <anchorfile>a02192.html</anchorfile>
       <anchor>aa8bd3774b63c814a3feb6d4a7b715045</anchor>
       <arglist>(Assembler &amp;&amp;as, DBCOption dbcOption)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static auto</type>
       <name>op</name>
-      <anchorfile>a02200.html</anchorfile>
+      <anchorfile>a02192.html</anchorfile>
       <anchor>a3b1c188a5de2bdd9da826d4c0a9b353d</anchor>
       <arglist>(Assembler &amp;&amp;as)</arglist>
     </member>
   </compound>
   <compound kind="class">
     <name>Ikarus::DirichletValues</name>
-    <filename>a02220.html</filename>
+    <filename>a02212.html</filename>
     <templarg>typename B</templarg>
     <templarg>typename FC</templarg>
     <member kind="typedef">
       <type>std::remove_cvref_t&lt; B &gt;</type>
       <name>Basis</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a2e6f1ef4a810a7269303f54a6f74539f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>FC</type>
       <name>FlagsType</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>aa71c2b94b37f2b4e83f9f1e059e6fe4c</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>decltype(Dune::Functions::istlVectorBackend(std::declval&lt; FlagsType &amp; &gt;()))</type>
       <name>BackendType</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a3db820fbcd2b7edf58ce3b21b261f621</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>typename DeriveSizeType&lt; FlagsType &gt;::SizeType</type>
       <name>SizeType</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>ace0ece5adceb26d9db00c7c096568ea0</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>DirichletValues</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>aeb81ceb2617369a584dd12f4574ab1dc</anchor>
       <arglist>(const B &amp;basis)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>fixBoundaryDOFs</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a3b40113e1bf44f2e269242d677afcc55</anchor>
       <arglist>(F &amp;&amp;f, TreePath &amp;&amp;treePath={})</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>fixDOFs</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a956ce2cdc09731f001821c7b59d49e85</anchor>
       <arglist>(F &amp;&amp;f)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>setSingleDOF</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a179a4b05a361fc9ea0a3e935dcf0e45a</anchor>
       <arglist>(const MultiIndex i, bool flag)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>setSingleDOF</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a2c8ce98339eddd3f3bf1cdbf4e07a45f</anchor>
       <arglist>(std::size_t i, bool flag)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>reset</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>ab8ae184ec5c0c79a893a8111d7315442</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>const auto &amp;</type>
       <name>basis</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>ae783c95d2e4b55d9d37f4c141b1d719b</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
       <name>isConstrained</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a1b1fccdb71619c0a49aa24977682d43a</anchor>
       <arglist>(const MultiIndex &amp;multiIndex) const</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
       <name>isConstrained</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a1cdd766b0feb7e85ac3d3df10704e659</anchor>
       <arglist>(std::size_t i) const</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>fixedDOFsize</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>aeb299b04b2777be56012b32a3b2e6a9c</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>size</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a010fa7b0721c137eb61221493e52dc92</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>auto &amp;</type>
       <name>container</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>af8495b65eac223b7b6c64f07b31cc814</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>storeInhomogeneousBoundaryCondition</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>abc3413114cb9272944e1b44606c6a0a1</anchor>
       <arglist>(F &amp;&amp;f)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>evaluateInhomogeneousBoundaryCondition</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>ac3950f8821f8e8c1f2a8b8f8a7e86875</anchor>
       <arglist>(Eigen::VectorXd &amp;xIh, const double &amp;lambda)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>evaluateInhomogeneousBoundaryConditionDerivative</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a5d7fdc80dfd3ebdcb58f0770844f71da</anchor>
       <arglist>(Eigen::VectorXd &amp;xIh, const double &amp;lambda)</arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr int</type>
       <name>worldDimension</name>
-      <anchorfile>a02220.html</anchorfile>
+      <anchorfile>a02212.html</anchorfile>
       <anchor>a79e90730d4ac67efb5e38590c0429df5</anchor>
       <arglist></arglist>
     </member>
@@ -6941,10 +6970,10 @@
       <arglist>(typename F::Domain &amp;req, F &amp;residual, SubsidiaryArgs &amp;args)</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>constexpr std::string</type>
       <name>name</name>
       <anchorfile>a01476.html</anchorfile>
-      <anchor>a16cd9773e9704597d967f144d674bcd4</anchor>
+      <anchor>a9083793b2c3f52cae4b7e766452e1bcd</anchor>
       <arglist>() const</arglist>
     </member>
   </compound>
@@ -7650,7 +7679,7 @@
   </compound>
   <compound kind="struct">
     <name>Eigen::EigenBase</name>
-    <filename>a02148.html</filename>
+    <filename>a02140.html</filename>
     <templarg>typename Derived</templarg>
   </compound>
   <compound kind="class">
@@ -7988,7 +8017,7 @@
     <member kind="typedef">
       <type>std::shared_ptr&lt; void &gt;</type>
       <name>Token</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>affba2430c95defc9bb0494af2d8120b7</anchor>
       <arglist></arglist>
     </member>
@@ -8086,37 +8115,30 @@
     <member kind="function">
       <type>auto</type>
       <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a754e8fbe950f23d4610009475e35ed98</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
-    </member>
-    <member kind="function">
-      <type>auto</type>
-      <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>ade04c7b4066c6ef381429aff2e2ce7a7</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a199840d6ead51d771d5522acff779a4f</anchor>
+      <arglist>(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeAll</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a6ebf859d4e38acc6e9b7436b097fba26</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeLast</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a78725a274f6b1817a5792bb0e519d3d9</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a924202b41205145b4ceda14957ea66c2</anchor>
-      <arglist>(Token &amp;&amp;ts)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a1c964a476680631977b516351efd8712</anchor>
+      <arglist>(const Token &amp;token)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static consteval bool</type>
@@ -8266,7 +8288,7 @@
     <member kind="typedef">
       <type>std::shared_ptr&lt; void &gt;</type>
       <name>Token</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>affba2430c95defc9bb0494af2d8120b7</anchor>
       <arglist></arglist>
     </member>
@@ -8336,37 +8358,30 @@
     <member kind="function">
       <type>auto</type>
       <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a754e8fbe950f23d4610009475e35ed98</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
-    </member>
-    <member kind="function">
-      <type>auto</type>
-      <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>ade04c7b4066c6ef381429aff2e2ce7a7</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a199840d6ead51d771d5522acff779a4f</anchor>
+      <arglist>(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeAll</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a6ebf859d4e38acc6e9b7436b097fba26</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeLast</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a78725a274f6b1817a5792bb0e519d3d9</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a924202b41205145b4ceda14957ea66c2</anchor>
-      <arglist>(Token &amp;&amp;ts)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a1c964a476680631977b516351efd8712</anchor>
+      <arglist>(const Token &amp;token)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static consteval bool</type>
@@ -8708,7 +8723,7 @@
   </compound>
   <compound kind="class">
     <name>Dune::FieldVector</name>
-    <filename>a02204.html</filename>
+    <filename>a02196.html</filename>
     <templarg>class K</templarg>
     <templarg>int N</templarg>
   </compound>
@@ -8937,129 +8952,129 @@
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatIndexMergingStrategy</name>
-    <filename>a02232.html</filename>
+    <filename>a02224.html</filename>
     <templarg>class IMS</templarg>
     <member kind="typedef">
       <type>IMS</type>
       <name>type</name>
-      <anchorfile>a02232.html</anchorfile>
+      <anchorfile>a02224.html</anchorfile>
       <anchor>aa18699c386a7d8e60d0f53cbc4a83261</anchor>
       <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatIndexMergingStrategy&lt; Dune::Functions::BasisFactory::BlockedInterleaved &gt;</name>
-    <filename>a02236.html</filename>
+    <filename>a02228.html</filename>
     <member kind="typedef">
       <type>Dune::Functions::BasisFactory::FlatInterleaved</type>
       <name>type</name>
-      <anchorfile>a02236.html</anchorfile>
+      <anchorfile>a02228.html</anchorfile>
       <anchor>a0a464466ec348e17886e7c49c03964d6</anchor>
       <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatIndexMergingStrategy&lt; Dune::Functions::BasisFactory::BlockedLexicographic &gt;</name>
-    <filename>a02240.html</filename>
+    <filename>a02232.html</filename>
     <member kind="typedef">
       <type>Dune::Functions::BasisFactory::FlatLexicographic</type>
       <name>type</name>
-      <anchorfile>a02240.html</anchorfile>
+      <anchorfile>a02232.html</anchorfile>
       <anchor>add1dc46010d8b320cd215e331a3f1fa4</anchor>
       <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatPreBasis</name>
-    <filename>a02228.html</filename>
+    <filename>a02220.html</filename>
     <templarg>class PreBasis</templarg>
     <member kind="typedef">
       <type>PreBasis</type>
       <name>type</name>
-      <anchorfile>a02228.html</anchorfile>
+      <anchorfile>a02220.html</anchorfile>
       <anchor>a448426468de3637416804f6ef6f8ce90</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" static="yes">
       <type>static type</type>
       <name>create</name>
-      <anchorfile>a02228.html</anchorfile>
+      <anchorfile>a02220.html</anchorfile>
       <anchor>a9c133ba014522aa8c8d90f2a3835c7e1</anchor>
       <arglist>(PB const &amp;preBasis)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static const PreBasis &amp;</type>
       <name>create</name>
-      <anchorfile>a02228.html</anchorfile>
+      <anchorfile>a02220.html</anchorfile>
       <anchor>af5414357864c26a827136edac1a085f4</anchor>
       <arglist>(const PreBasis &amp;preBasis)</arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatPreBasis&lt; Dune::Functions::CompositePreBasis&lt; IMS, SPB... &gt; &gt;</name>
-    <filename>a02244.html</filename>
+    <filename>a02236.html</filename>
     <templarg>class IMS</templarg>
     <templarg>class... SPB</templarg>
     <member kind="typedef">
       <type>typename FlatIndexMergingStrategy&lt; IMS &gt;::type</type>
       <name>FIMS</name>
-      <anchorfile>a02244.html</anchorfile>
+      <anchorfile>a02236.html</anchorfile>
       <anchor>a2387375090283dac7ebbfb8bc58e1994</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Dune::Functions::CompositePreBasis&lt; FIMS, FlatPreBasis_t&lt; SPB &gt;... &gt;</type>
       <name>type</name>
-      <anchorfile>a02244.html</anchorfile>
+      <anchorfile>a02236.html</anchorfile>
       <anchor>a5b93764f4d9fd3897ad37658526e37fd</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" static="yes">
       <type>static type</type>
       <name>create</name>
-      <anchorfile>a02244.html</anchorfile>
+      <anchorfile>a02236.html</anchorfile>
       <anchor>aaaf91aed22e7c32c6f2c26ff961ae3e1</anchor>
       <arglist>(const PreBasis &amp;preBasis)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static type</type>
       <name>create</name>
-      <anchorfile>a02244.html</anchorfile>
+      <anchorfile>a02236.html</anchorfile>
       <anchor>aab16d08ac65576f292078b2c4f135645</anchor>
       <arglist>(const PreBasis &amp;preBasis, std::index_sequence&lt; I... &gt;)</arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatPreBasis&lt; Dune::Functions::PowerPreBasis&lt; IMS, SPB, C &gt; &gt;</name>
-    <filename>a02248.html</filename>
+    <filename>a02240.html</filename>
     <templarg>class IMS</templarg>
     <templarg>class SPB</templarg>
     <templarg>std::size_t C</templarg>
     <member kind="typedef">
       <type>typename FlatIndexMergingStrategy&lt; IMS &gt;::type</type>
       <name>FIMS</name>
-      <anchorfile>a02248.html</anchorfile>
+      <anchorfile>a02240.html</anchorfile>
       <anchor>aef8f8b43a63a4bf4c7c3bc193c4ee1f0</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Dune::Functions::PowerPreBasis&lt; FIMS, FlatPreBasis_t&lt; SPB &gt;, C &gt;</type>
       <name>type</name>
-      <anchorfile>a02248.html</anchorfile>
+      <anchorfile>a02240.html</anchorfile>
       <anchor>ae56d4cd604948715e51d517f27d7f0c9</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" static="yes">
       <type>static type</type>
       <name>create</name>
-      <anchorfile>a02248.html</anchorfile>
+      <anchorfile>a02240.html</anchorfile>
       <anchor>ad2ce954f09e165f4440f6e4139ed0b85</anchor>
       <arglist>(const PreBasis &amp;preBasis)</arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::FunctionTraits</name>
-    <filename>a02336.html</filename>
+    <filename>a02328.html</filename>
     <templarg>typename T</templarg>
     <templarg>typename</templarg>
   </compound>
@@ -9228,71 +9243,57 @@
   </compound>
   <compound kind="class">
     <name>Ikarus::GenericListener</name>
-    <filename>a02268.html</filename>
-    <templarg>typename M</templarg>
+    <filename>a02260.html</filename>
+    <templarg>typename BC</templarg>
     <base>Ikarus::Listener</base>
     <member kind="typedef">
       <type>std::shared_ptr&lt; void &gt;</type>
       <name>Token</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>affba2430c95defc9bb0494af2d8120b7</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>GenericListener</name>
-      <anchorfile>a02268.html</anchorfile>
-      <anchor>add78d125acf8d7c8545973b97dfeced4</anchor>
-      <arglist>(Messages message, F &amp;&amp;f)</arglist>
-    </member>
-    <member kind="function">
-      <type>GenericListener &amp;</type>
-      <name>subscribeTo</name>
-      <anchorfile>a02268.html</anchorfile>
-      <anchor>a94e27d86511a5f8ea886301f370f878b</anchor>
-      <arglist>(BC &amp;bc)</arglist>
+      <anchorfile>a02260.html</anchorfile>
+      <anchor>a300293b7f6313589e5cc536bced6ae72</anchor>
+      <arglist>(BC &amp;bc, Messages message, F &amp;&amp;f)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>updateImpl</name>
-      <anchorfile>a02268.html</anchorfile>
-      <anchor>a58a0a7529fe7f30b569d6473489bb082</anchor>
-      <arglist>(Messages message)</arglist>
+      <anchorfile>a02260.html</anchorfile>
+      <anchor>a8323287350936b97e14bdf500b071d61</anchor>
+      <arglist>(Messages message, const State &amp;state)</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a754e8fbe950f23d4610009475e35ed98</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
-    </member>
-    <member kind="function">
-      <type>auto</type>
-      <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>ade04c7b4066c6ef381429aff2e2ce7a7</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a199840d6ead51d771d5522acff779a4f</anchor>
+      <arglist>(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeAll</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a6ebf859d4e38acc6e9b7436b097fba26</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeLast</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a78725a274f6b1817a5792bb0e519d3d9</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a924202b41205145b4ceda14957ea66c2</anchor>
-      <arglist>(Token &amp;&amp;ts)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a1c964a476680631977b516351efd8712</anchor>
+      <arglist>(const Token &amp;token)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -9748,7 +9749,7 @@
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::hasType</name>
-    <filename>a02292.html</filename>
+    <filename>a02284.html</filename>
     <templarg>typename T</templarg>
     <templarg>typename Tuple</templarg>
   </compound>
@@ -10156,46 +10157,46 @@
   </compound>
   <compound kind="class">
     <name>Ikarus::IkarusInstance</name>
-    <filename>a02256.html</filename>
+    <filename>a02248.html</filename>
     <member kind="function">
       <type>void</type>
       <name>enableFileLogger</name>
-      <anchorfile>a02256.html</anchorfile>
+      <anchorfile>a02248.html</anchorfile>
       <anchor>a833f9b23184e3d0f5b06f5b7b85d9233</anchor>
       <arglist>(std::string &amp;&amp;filename=&quot;&quot;)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>IkarusInstance</name>
-      <anchorfile>a02256.html</anchorfile>
+      <anchorfile>a02248.html</anchorfile>
       <anchor>ab4ee067880d13079efa9b45cd0bcef43</anchor>
       <arglist>(const IkarusInstance &amp;)=delete</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>operator=</name>
-      <anchorfile>a02256.html</anchorfile>
+      <anchorfile>a02248.html</anchorfile>
       <anchor>a7f11ddf595903d8796cbff4943e620a6</anchor>
       <arglist>(const IkarusInstance &amp;)=delete</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static IkarusInstance &amp;</type>
       <name>getInstance</name>
-      <anchorfile>a02256.html</anchorfile>
+      <anchorfile>a02248.html</anchorfile>
       <anchor>a76a31b1d9f5b1fba7180451b1edddf0a</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="friend" protection="private">
       <type>friend void</type>
       <name>init</name>
-      <anchorfile>a02256.html</anchorfile>
+      <anchorfile>a02248.html</anchorfile>
       <anchor>a4865c52ed9d7e9c0f00e8bd5295ee853</anchor>
       <arglist>(int argc, char **argv, bool enableFileLogger)</arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::Index</name>
-    <filename>a02328.html</filename>
+    <filename>a02320.html</filename>
     <templarg>class T</templarg>
     <templarg>class Tuple</templarg>
   </compound>
@@ -10340,30 +10341,30 @@
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::is_tuple&lt; std::tuple&lt; T... &gt; &gt;</name>
-    <filename>a02288.html</filename>
+    <filename>a02280.html</filename>
     <templarg>typename... T</templarg>
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::isSharedPtr</name>
-    <filename>a02296.html</filename>
+    <filename>a02288.html</filename>
     <templarg>typename T</templarg>
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::isSpecialization&lt; U, U&lt; T... &gt; &gt;</name>
-    <filename>a02308.html</filename>
+    <filename>a02300.html</filename>
     <templarg>template&lt; typename... &gt; class U</templarg>
     <templarg>typename... T</templarg>
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::isSpecializationNonTypeAndTypes&lt; Type, Type&lt; T, N... &gt; &gt;</name>
-    <filename>a02312.html</filename>
+    <filename>a02304.html</filename>
     <templarg>template&lt; auto, typename... &gt; class Type</templarg>
     <templarg>auto T</templarg>
     <templarg>typename... N</templarg>
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::isSpecializationNonTypeNonTypeAndTypes&lt; Type, Type&lt; T, R, N... &gt; &gt;</name>
-    <filename>a02316.html</filename>
+    <filename>a02308.html</filename>
     <templarg>template&lt; auto, auto, typename... &gt; class Type</templarg>
     <templarg>auto T</templarg>
     <templarg>auto R</templarg>
@@ -10371,13 +10372,13 @@
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::isSpecializationNonTypes&lt; Type, Type&lt; N... &gt; &gt;</name>
-    <filename>a02324.html</filename>
+    <filename>a02316.html</filename>
     <templarg>template&lt; auto... &gt; class Type</templarg>
     <templarg>auto... N</templarg>
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::isSpecializationTypeNonTypeAndType&lt; Type, Type&lt; T, M, N &gt; &gt;</name>
-    <filename>a02320.html</filename>
+    <filename>a02312.html</filename>
     <templarg>template&lt; typename, auto, typename &gt; class Type</templarg>
     <templarg>typename T</templarg>
     <templarg>auto M</templarg>
@@ -10396,7 +10397,7 @@
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::isUniquePtr</name>
-    <filename>a02300.html</filename>
+    <filename>a02292.html</filename>
     <templarg>typename T</templarg>
   </compound>
   <compound kind="struct">
@@ -11620,50 +11621,43 @@
       <arglist>()</arglist>
     </member>
   </compound>
-  <compound kind="struct">
+  <compound kind="class">
     <name>Ikarus::Listener</name>
-    <filename>a02272.html</filename>
+    <filename>a02264.html</filename>
     <member kind="typedef">
       <type>std::shared_ptr&lt; void &gt;</type>
       <name>Token</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>affba2430c95defc9bb0494af2d8120b7</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a754e8fbe950f23d4610009475e35ed98</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
-    </member>
-    <member kind="function">
-      <type>auto</type>
-      <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>ade04c7b4066c6ef381429aff2e2ce7a7</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a199840d6ead51d771d5522acff779a4f</anchor>
+      <arglist>(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeAll</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a6ebf859d4e38acc6e9b7436b097fba26</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeLast</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a78725a274f6b1817a5792bb0e519d3d9</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a924202b41205145b4ceda14957ea66c2</anchor>
-      <arglist>(Token &amp;&amp;ts)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a1c964a476680631977b516351efd8712</anchor>
+      <arglist>(const Token &amp;token)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -11678,11 +11672,32 @@
       <anchor>a44e1213982ed14a09fdd94318fb31595</anchor>
       <arglist></arglist>
     </member>
+    <member kind="typedef">
+      <type>ControlMessages</type>
+      <name>MessageType</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>abc47e2a26f85e3bdd3886d82d458d5da</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; void(ControlMessages, const State &amp;)&gt;</type>
+      <name>Callback</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a34a8a1247a245acc29e1b4b34985771e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::shared_ptr&lt; Callback &gt;</type>
+      <name>Token</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a5abf58d509c6594898811fe1519e498c</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>constexpr std::string</type>
       <name>name</name>
       <anchorfile>a01440.html</anchorfile>
-      <anchor>ab0c5144a3b5d67f3c582772a48271105</anchor>
+      <anchor>a0819073e26d34868b5580d052ea5804c</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -11707,18 +11722,25 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>abc95263ead8ea6d71c2b017a1ea250be</anchor>
-      <arglist>()</arglist>
+      <type>Token</type>
+      <name>registerListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a50f7d8360254792256006fe4ead0350c</anchor>
+      <arglist>(Callback callback)</arglist>
     </member>
     <member kind="function">
-      <type>const Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>af25ec90e8c2c7df3d7b033e6e6a06dc1</anchor>
-      <arglist>() const</arglist>
+      <type>void</type>
+      <name>unregisterListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>af78c5019f3563fe5ee567f98a3d63e6e</anchor>
+      <arglist>(Token token)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>notify</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a0cc3593f3af31f30ea97adc1d040c8f2</anchor>
+      <arglist>(ControlMessages message, const State &amp;data)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -11771,10 +11793,10 @@
       <arglist>(typename F::Domain &amp;req, F &amp;residual, SubsidiaryArgs &amp;args)</arglist>
     </member>
     <member kind="function">
-      <type>constexpr auto</type>
+      <type>constexpr std::string</type>
       <name>name</name>
       <anchorfile>a01472.html</anchorfile>
-      <anchor>a6e2ee6e5a234c1b14ce197f4a1460ed3</anchor>
+      <anchor>aacf91307a0836a96c75320a3cd6a549e</anchor>
       <arglist>() const</arglist>
     </member>
   </compound>
@@ -12428,6 +12450,27 @@
       <anchor>a6b3059dcd3fdc9cb9d393a85a799dd6d</anchor>
       <arglist></arglist>
     </member>
+    <member kind="typedef">
+      <type>NonLinearSolverMessages</type>
+      <name>MessageType</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>abc47e2a26f85e3bdd3886d82d458d5da</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; void(NonLinearSolverMessages, const State &amp;)&gt;</type>
+      <name>Callback</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a34a8a1247a245acc29e1b4b34985771e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::shared_ptr&lt; Callback &gt;</type>
+      <name>Token</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a5abf58d509c6594898811fe1519e498c</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>NewtonRaphson</name>
@@ -12443,10 +12486,10 @@
       <arglist>(const Settings &amp;settings)</arglist>
     </member>
     <member kind="function">
-      <type>Ikarus::NonLinearSolverInformation</type>
+      <type>NonLinearSolverInformation</type>
       <name>solve</name>
       <anchorfile>a02048.html</anchorfile>
-      <anchor>a621f710e849d4be7d8f65da592b5567c</anchor>
+      <anchor>abf74e49848c18f307eafc08b67892dd0</anchor>
       <arglist>(Domain &amp;x)</arglist>
     </member>
     <member kind="function">
@@ -12457,18 +12500,25 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>abc95263ead8ea6d71c2b017a1ea250be</anchor>
-      <arglist>()</arglist>
+      <type>Token</type>
+      <name>registerListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a50f7d8360254792256006fe4ead0350c</anchor>
+      <arglist>(Callback callback)</arglist>
     </member>
     <member kind="function">
-      <type>const Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>af25ec90e8c2c7df3d7b033e6e6a06dc1</anchor>
-      <arglist>() const</arglist>
+      <type>void</type>
+      <name>unregisterListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>af78c5019f3563fe5ee567f98a3d63e6e</anchor>
+      <arglist>(Token token)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>notify</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a0cc3593f3af31f30ea97adc1d040c8f2</anchor>
+      <arglist>(NonLinearSolverMessages message, const State &amp;data)</arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr bool</type>
@@ -12596,6 +12646,27 @@
       <anchor>a6b3059dcd3fdc9cb9d393a85a799dd6d</anchor>
       <arglist></arglist>
     </member>
+    <member kind="typedef">
+      <type>NonLinearSolverMessages</type>
+      <name>MessageType</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>abc47e2a26f85e3bdd3886d82d458d5da</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; void(NonLinearSolverMessages, const State &amp;)&gt;</type>
+      <name>Callback</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a34a8a1247a245acc29e1b4b34985771e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::shared_ptr&lt; Callback &gt;</type>
+      <name>Token</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a5abf58d509c6594898811fe1519e498c</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>NewtonRaphsonWithSubsidiaryFunction</name>
@@ -12625,18 +12696,25 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>abc95263ead8ea6d71c2b017a1ea250be</anchor>
-      <arglist>()</arglist>
+      <type>Token</type>
+      <name>registerListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a50f7d8360254792256006fe4ead0350c</anchor>
+      <arglist>(Callback callback)</arglist>
     </member>
     <member kind="function">
-      <type>const Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>af25ec90e8c2c7df3d7b033e6e6a06dc1</anchor>
-      <arglist>() const</arglist>
+      <type>void</type>
+      <name>unregisterListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>af78c5019f3563fe5ee567f98a3d63e6e</anchor>
+      <arglist>(Token token)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>notify</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a0cc3593f3af31f30ea97adc1d040c8f2</anchor>
+      <arglist>(NonLinearSolverMessages message, const State &amp;data)</arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr bool</type>
@@ -13059,7 +13137,7 @@
     <filename>a02072.html</filename>
     <templarg>typename F</templarg>
     <templarg>typename... Args</templarg>
-    <base>Broadcasters&lt; void(NonLinearSolverMessages), void(NonLinearSolverMessages, double), void(NonLinearSolverMessages, int), void(NonLinearSolverMessages, const NonlinearSolverStateType&lt; F &gt; &amp;), Args... &gt;</base>
+    <base>Broadcaster&lt; NonLinearSolverMessages, NonlinearSolverStateType&lt; F &gt; &gt;</base>
     <member kind="typedef">
       <type>NonlinearSolverStateType&lt; F &gt;</type>
       <name>State</name>
@@ -13067,19 +13145,47 @@
       <anchor>a6b3059dcd3fdc9cb9d393a85a799dd6d</anchor>
       <arglist></arglist>
     </member>
-    <member kind="function">
-      <type>Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>abc95263ead8ea6d71c2b017a1ea250be</anchor>
-      <arglist>()</arglist>
+    <member kind="typedef">
+      <type>NonLinearSolverMessages</type>
+      <name>MessageType</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>abc47e2a26f85e3bdd3886d82d458d5da</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; void(NonLinearSolverMessages, const State &amp;)&gt;</type>
+      <name>Callback</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a34a8a1247a245acc29e1b4b34985771e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::shared_ptr&lt; Callback &gt;</type>
+      <name>Token</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a5abf58d509c6594898811fe1519e498c</anchor>
+      <arglist></arglist>
     </member>
     <member kind="function">
-      <type>const Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>af25ec90e8c2c7df3d7b033e6e6a06dc1</anchor>
-      <arglist>() const</arglist>
+      <type>Token</type>
+      <name>registerListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a50f7d8360254792256006fe4ead0350c</anchor>
+      <arglist>(Callback callback)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>unregisterListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>af78c5019f3563fe5ee567f98a3d63e6e</anchor>
+      <arglist>(Token token)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>notify</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a0cc3593f3af31f30ea97adc1d040c8f2</anchor>
+      <arglist>(NonLinearSolverMessages message, const State &amp;data)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -13149,77 +13255,56 @@
   </compound>
   <compound kind="class">
     <name>Ikarus::NonLinearSolverLogger</name>
-    <filename>a02276.html</filename>
+    <filename>a02268.html</filename>
     <base>Ikarus::Listener</base>
     <member kind="typedef">
       <type>std::shared_ptr&lt; void &gt;</type>
       <name>Token</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>affba2430c95defc9bb0494af2d8120b7</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type>NonLinearSolverLogger &amp;</type>
       <name>subscribeTo</name>
-      <anchorfile>a02276.html</anchorfile>
+      <anchorfile>a02268.html</anchorfile>
       <anchor>a85a6115d67cb908c480e4d9e3b2bbd64</anchor>
       <arglist>(BC &amp;bc)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
-      <name>updateImpl</name>
-      <anchorfile>a02276.html</anchorfile>
-      <anchor>acec5619338e9f9b6e12127321263b668</anchor>
-      <arglist>(NonLinearSolverMessages message)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>updateImpl</name>
-      <anchorfile>a02276.html</anchorfile>
-      <anchor>a9c031ddeebd167fa4d49b5d7d5ec99bf</anchor>
-      <arglist>(NonLinearSolverMessages message, double val)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>updateImpl</name>
-      <anchorfile>a02276.html</anchorfile>
-      <anchor>a7d979e36cd2bd61ffedc4d14f4c879a7</anchor>
-      <arglist>(NonLinearSolverMessages message, int intVal)</arglist>
+      <name>update</name>
+      <anchorfile>a02268.html</anchorfile>
+      <anchor>a8497b574aac79647dca0c8b9ddbdc5bc</anchor>
+      <arglist>(NonLinearSolverMessages message, const Concepts::NonLinearSolverState auto &amp;state)</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a754e8fbe950f23d4610009475e35ed98</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
-    </member>
-    <member kind="function">
-      <type>auto</type>
-      <name>subscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>ade04c7b4066c6ef381429aff2e2ce7a7</anchor>
-      <arglist>(Broadcaster &amp;broadcaster, F &amp;&amp;f)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a199840d6ead51d771d5522acff779a4f</anchor>
+      <arglist>(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeAll</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a6ebf859d4e38acc6e9b7436b097fba26</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribeLast</name>
-      <anchorfile>a02272.html</anchorfile>
+      <anchorfile>a02264.html</anchorfile>
       <anchor>a78725a274f6b1817a5792bb0e519d3d9</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>unSubscribe</name>
-      <anchorfile>a02272.html</anchorfile>
-      <anchor>a924202b41205145b4ceda14957ea66c2</anchor>
-      <arglist>(Token &amp;&amp;ts)</arglist>
+      <anchorfile>a02264.html</anchorfile>
+      <anchor>a1c964a476680631977b516351efd8712</anchor>
+      <arglist>(const Token &amp;token)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -13256,24 +13341,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>double</type>
-      <name>rNorm</name>
+      <type>const NonLinearSolverInformation &amp;</type>
+      <name>information</name>
       <anchorfile>a02080.html</anchorfile>
-      <anchor>af81ab1acd711a67863b3dc24eb9d9063</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>double</type>
-      <name>dNorm</name>
-      <anchorfile>a02080.html</anchorfile>
-      <anchor>abd156cd4954d285b8993cfcc705ba89d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>iteration</name>
-      <anchorfile>a02080.html</anchorfile>
-      <anchor>aa2855c6b05caa2bdabd5ec5e6f6ab70a</anchor>
+      <anchor>ab210c63c062c5c05126aa35b6d97f79a</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -13563,6 +13634,27 @@
       <anchor>a44e1213982ed14a09fdd94318fb31595</anchor>
       <arglist></arglist>
     </member>
+    <member kind="typedef">
+      <type>ControlMessages</type>
+      <name>MessageType</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>abc47e2a26f85e3bdd3886d82d458d5da</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; void(ControlMessages, const State &amp;)&gt;</type>
+      <name>Callback</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a34a8a1247a245acc29e1b4b34985771e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::shared_ptr&lt; Callback &gt;</type>
+      <name>Token</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a5abf58d509c6594898811fe1519e498c</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>constexpr auto</type>
       <name>name</name>
@@ -13592,18 +13684,25 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>abc95263ead8ea6d71c2b017a1ea250be</anchor>
-      <arglist>()</arglist>
+      <type>Token</type>
+      <name>registerListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a50f7d8360254792256006fe4ead0350c</anchor>
+      <arglist>(Callback callback)</arglist>
     </member>
     <member kind="function">
-      <type>const Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>af25ec90e8c2c7df3d7b033e6e6a06dc1</anchor>
-      <arglist>() const</arglist>
+      <type>void</type>
+      <name>unregisterListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>af78c5019f3563fe5ee567f98a3d63e6e</anchor>
+      <arglist>(Token token)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>notify</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a0cc3593f3af31f30ea97adc1d040c8f2</anchor>
+      <arglist>(ControlMessages message, const State &amp;data)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -13670,6 +13769,13 @@
       <name>domain</name>
       <anchorfile>a01448.html</anchorfile>
       <anchor>a86de29d69928db78bcad0f1b52a63965</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>const ControlInformation &amp;</type>
+      <name>information</name>
+      <anchorfile>a01448.html</anchorfile>
+      <anchor>a7f77db2bee39d79bf48a4fc60b84590a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -13835,25 +13941,25 @@
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::Rebind</name>
-    <filename>a02332.html</filename>
+    <filename>a02324.html</filename>
     <templarg>class Container</templarg>
     <templarg>class NewType</templarg>
   </compound>
   <compound kind="class">
     <name>Ikarus::traits::remove_pointer</name>
-    <filename>a02304.html</filename>
+    <filename>a02296.html</filename>
     <templarg>typename T</templarg>
     <member kind="typedef">
       <type>typename decltype(test(0))::type</type>
       <name>type</name>
-      <anchorfile>a02304.html</anchorfile>
+      <anchorfile>a02296.html</anchorfile>
       <anchor>aeb039b36424f998cbf10801e5609eb8c</anchor>
       <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::ReplaceTypeAtPos</name>
-    <filename>a02340.html</filename>
+    <filename>a02332.html</filename>
     <templarg>typename Tuple</templarg>
     <templarg>std::size_t Pos</templarg>
     <templarg>typename NewType</templarg>
@@ -14972,11 +15078,11 @@
   </compound>
   <compound kind="struct">
     <name>Ikarus::utils::SolverDefault</name>
-    <filename>a02176.html</filename>
+    <filename>a02168.html</filename>
     <member kind="function">
       <type>constexpr auto</type>
       <name>operator()</name>
-      <anchorfile>a02176.html</anchorfile>
+      <anchorfile>a02168.html</anchorfile>
       <anchor>a4797d17bf96aa9e387567878a9591d7a</anchor>
       <arglist>(A &amp;&amp;a, B &amp;&amp;b) const</arglist>
     </member>
@@ -15418,7 +15524,7 @@
   </compound>
   <compound kind="class">
     <name>Eigen::SparseMatrixBase</name>
-    <filename>a02284.html</filename>
+    <filename>a02276.html</filename>
     <templarg>typename Derived</templarg>
   </compound>
   <compound kind="struct">
@@ -16518,6 +16624,27 @@
       <anchor>a6b3059dcd3fdc9cb9d393a85a799dd6d</anchor>
       <arglist></arglist>
     </member>
+    <member kind="typedef">
+      <type>NonLinearSolverMessages</type>
+      <name>MessageType</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>abc47e2a26f85e3bdd3886d82d458d5da</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; void(NonLinearSolverMessages, const State &amp;)&gt;</type>
+      <name>Callback</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a34a8a1247a245acc29e1b4b34985771e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::shared_ptr&lt; Callback &gt;</type>
+      <name>Token</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a5abf58d509c6594898811fe1519e498c</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>TrustRegion</name>
@@ -16554,18 +16681,25 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>abc95263ead8ea6d71c2b017a1ea250be</anchor>
-      <arglist>()</arglist>
+      <type>Token</type>
+      <name>registerListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a50f7d8360254792256006fe4ead0350c</anchor>
+      <arglist>(Callback callback)</arglist>
     </member>
     <member kind="function">
-      <type>const Broadcaster&lt; M &gt; &amp;</type>
-      <name>station</name>
-      <anchorfile>a02144.html</anchorfile>
-      <anchor>af25ec90e8c2c7df3d7b033e6e6a06dc1</anchor>
-      <arglist>() const</arglist>
+      <type>void</type>
+      <name>unregisterListener</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>af78c5019f3563fe5ee567f98a3d63e6e</anchor>
+      <arglist>(Token token)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>notify</name>
+      <anchorfile>a02136.html</anchorfile>
+      <anchor>a0cc3593f3af31f30ea97adc1d040c8f2</anchor>
+      <arglist>(NonLinearSolverMessages message, const State &amp;data)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -16611,21 +16745,21 @@
   </compound>
   <compound kind="struct">
     <name>TrustRegionSettings</name>
-    <filename>a02408.html</filename>
+    <filename>a02401.html</filename>
   </compound>
   <compound kind="struct">
     <name>Ikarus::traits::TupleToFunctionType</name>
-    <filename>a02344.html</filename>
+    <filename>a02336.html</filename>
     <templarg>typename R</templarg>
     <templarg>typename Tuple</templarg>
   </compound>
   <compound kind="struct">
     <name>Ikarus::utils::UpdateDefault</name>
-    <filename>a02180.html</filename>
+    <filename>a02172.html</filename>
     <member kind="function">
       <type>constexpr void</type>
       <name>operator()</name>
-      <anchorfile>a02180.html</anchorfile>
+      <anchorfile>a02172.html</anchorfile>
       <anchor>a23b7d9d2df3caa179c9fbc353efaed36</anchor>
       <arglist>(A &amp;&amp;a, B &amp;&amp;b) const</arglist>
     </member>
@@ -18551,223 +18685,227 @@
   </compound>
   <compound kind="concept">
     <name>Ikarus::Concepts::AdaptiveStepSizingStrategy</name>
-    <filename>a02365.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::AddAble</name>
-    <filename>a02369.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::AddAssignAble</name>
-    <filename>a02373.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::AutodiffScalar</name>
-    <filename>a02392.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::BlockedIndexBasis</name>
-    <filename>a02363.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::BlockedInterLeavedBasis</name>
-    <filename>a02360.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::BlockedLexicographicBasis</name>
-    <filename>a02361.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::ControlRoutineState</name>
-    <filename>a02395.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::DataCollector</name>
-    <filename>a02390.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::DenseOrSparseEigenMatrix</name>
-    <filename>a02382.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::DeviatoricFunction</name>
-    <filename>a02350.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::DivideAble</name>
-    <filename>a02375.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::DivideAssignAble</name>
-    <filename>a02372.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::DuneLocalBasis</name>
-    <filename>a02362.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::EigenMatrix</name>
-    <filename>a02380.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::EigenType</name>
-    <filename>a02354.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::EigenValueSolver</name>
-    <filename>a02402.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::EigenVector</name>
-    <filename>a02379.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::FlatAssembler</name>
-    <filename>a02386.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::FlatIndexBasis</name>
-    <filename>a02359.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::FlatInterLeavedBasis</name>
-    <filename>a02355.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::FlatLexicographicBasis</name>
-    <filename>a02358.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::Formulations::TotalLagrangian</name>
-    <filename>a02398.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::Formulations::TwoPoint</name>
-    <filename>a02399.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::GeometricallyLinearMaterial</name>
-    <filename>a02401.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::GridView</name>
-    <filename>a02391.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::IsFunctorWithArgs</name>
-    <filename>a02378.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::IsMaterial</name>
-    <filename>a02383.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::LagrangeNode</name>
-    <filename>a02356.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::LagrangeNodeOfOrder</name>
     <filename>a02357.html</filename>
   </compound>
   <compound kind="concept">
-    <name>Ikarus::Concepts::LinearSolverCheck</name>
-    <filename>a02366.html</filename>
+    <name>Ikarus::Concepts::AddAble</name>
+    <filename>a02361.html</filename>
   </compound>
   <compound kind="concept">
-    <name>Ikarus::Concepts::Material</name>
-    <filename>a02400.html</filename>
+    <name>Ikarus::Concepts::AddAssignAble</name>
+    <filename>a02365.html</filename>
   </compound>
   <compound kind="concept">
-    <name>Ikarus::Concepts::MatrixFlatAssembler</name>
-    <filename>a02389.html</filename>
+    <name>Ikarus::Concepts::AutodiffScalar</name>
+    <filename>a02384.html</filename>
   </compound>
   <compound kind="concept">
-    <name>Ikarus::Concepts::MPTuple</name>
-    <filename>a02353.html</filename>
+    <name>Ikarus::Concepts::BlockedIndexBasis</name>
+    <filename>a02355.html</filename>
   </compound>
   <compound kind="concept">
-    <name>Ikarus::Concepts::MultiplyAble</name>
-    <filename>a02368.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::MultiplyAssignAble</name>
-    <filename>a02371.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::NegateAble</name>
-    <filename>a02376.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::NonLinearSolverCheckForPathFollowing</name>
-    <filename>a02367.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::PathFollowingStrategy</name>
-    <filename>a02364.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::PointerOrSmartPointer</name>
-    <filename>a02394.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::ReferenceConfiguraionStrain</name>
-    <filename>a02396.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::ReferenceConfiguraionStress</name>
-    <filename>a02397.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::ResultType</name>
-    <filename>a02385.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::ScalarFlatAssembler</name>
-    <filename>a02387.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::SmartPointer</name>
-    <filename>a02393.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::SparseEigenMatrix</name>
-    <filename>a02381.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::SubstractAble</name>
-    <filename>a02370.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::SubstractAssignAble</name>
-    <filename>a02374.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::TransposeAble</name>
-    <filename>a02377.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::VectorFlatAssembler</name>
-    <filename>a02388.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Concepts::VolumetricFunction</name>
-    <filename>a02351.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::FEAffordance</name>
-    <filename>a02349.html</filename>
-  </compound>
-  <compound kind="concept">
-    <name>Ikarus::Materials::CorrectStrainSize</name>
+    <name>Ikarus::Concepts::BlockedInterLeavedBasis</name>
     <filename>a02352.html</filename>
   </compound>
   <compound kind="concept">
+    <name>Ikarus::Concepts::BlockedLexicographicBasis</name>
+    <filename>a02353.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::ControlRoutineState</name>
+    <filename>a02387.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::DataCollector</name>
+    <filename>a02382.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::DenseOrSparseEigenMatrix</name>
+    <filename>a02374.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::DeviatoricFunction</name>
+    <filename>a02342.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::DivideAble</name>
+    <filename>a02367.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::DivideAssignAble</name>
+    <filename>a02364.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::DuneLocalBasis</name>
+    <filename>a02354.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::EigenMatrix</name>
+    <filename>a02372.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::EigenType</name>
+    <filename>a02346.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::EigenValueSolver</name>
+    <filename>a02395.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::EigenVector</name>
+    <filename>a02371.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::FlatAssembler</name>
+    <filename>a02378.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::FlatIndexBasis</name>
+    <filename>a02351.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::FlatInterLeavedBasis</name>
+    <filename>a02347.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::FlatLexicographicBasis</name>
+    <filename>a02350.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::Formulations::TotalLagrangian</name>
+    <filename>a02391.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::Formulations::TwoPoint</name>
+    <filename>a02392.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::GeometricallyLinearMaterial</name>
+    <filename>a02394.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::GridView</name>
+    <filename>a02383.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::IsFunctorWithArgs</name>
+    <filename>a02370.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::IsMaterial</name>
+    <filename>a02375.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::LagrangeNode</name>
+    <filename>a02348.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::LagrangeNodeOfOrder</name>
+    <filename>a02349.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::LinearSolverCheck</name>
+    <filename>a02358.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::Material</name>
+    <filename>a02393.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::MatrixFlatAssembler</name>
+    <filename>a02381.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::MPTuple</name>
+    <filename>a02345.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::MultiplyAble</name>
+    <filename>a02360.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::MultiplyAssignAble</name>
+    <filename>a02363.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::NegateAble</name>
+    <filename>a02368.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::NonLinearSolverCheckForPathFollowing</name>
+    <filename>a02359.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::NonLinearSolverState</name>
+    <filename>a02388.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::PathFollowingStrategy</name>
+    <filename>a02356.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::PointerOrSmartPointer</name>
+    <filename>a02386.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::ReferenceConfiguraionStrain</name>
+    <filename>a02389.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::ReferenceConfiguraionStress</name>
+    <filename>a02390.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::ResultType</name>
+    <filename>a02377.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::ScalarFlatAssembler</name>
+    <filename>a02379.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::SmartPointer</name>
+    <filename>a02385.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::SparseEigenMatrix</name>
+    <filename>a02373.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::SubstractAble</name>
+    <filename>a02362.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::SubstractAssignAble</name>
+    <filename>a02366.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::TransposeAble</name>
+    <filename>a02369.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::VectorFlatAssembler</name>
+    <filename>a02380.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Concepts::VolumetricFunction</name>
+    <filename>a02343.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::FEAffordance</name>
+    <filename>a02341.html</filename>
+  </compound>
+  <compound kind="concept">
+    <name>Ikarus::Materials::CorrectStrainSize</name>
+    <filename>a02344.html</filename>
+  </compound>
+  <compound kind="concept">
     <name>Ikarus::traits::EigenSparseMatrix</name>
-    <filename>a02404.html</filename>
+    <filename>a02397.html</filename>
   </compound>
   <compound kind="concept">
     <name>Ikarus::traits::Pointer</name>
-    <filename>a02403.html</filename>
+    <filename>a02396.html</filename>
   </compound>
   <compound kind="namespace">
     <name>Dune</name>
@@ -18839,9 +18977,7 @@
     <class kind="struct">Ikarus::AssumedStressPre</class>
     <class kind="class">Ikarus::AutoDiffFE</class>
     <class kind="class">Ikarus::BasisHandler</class>
-    <class kind="struct">Ikarus::Broadcaster</class>
-    <class kind="class">Ikarus::Broadcaster&lt; void(Args...)&gt;</class>
-    <class kind="class">Ikarus::Broadcasters</class>
+    <class kind="class">Ikarus::Broadcaster</class>
     <class kind="struct">Ikarus::BulkModulusAndLamesFirstParameter</class>
     <class kind="struct">Ikarus::ControlInformation</class>
     <class kind="class">Ikarus::ControlLogger</class>
@@ -18886,7 +19022,7 @@
     <class kind="class">Ikarus::LinearElastic</class>
     <class kind="struct">Ikarus::LinearElasticPre</class>
     <class kind="class">Ikarus::LinearSolverTemplate</class>
-    <class kind="struct">Ikarus::Listener</class>
+    <class kind="class">Ikarus::Listener</class>
     <class kind="class">Ikarus::LoadControl</class>
     <class kind="struct">Ikarus::LoadControlConfig</class>
     <class kind="struct">Ikarus::LoadControlSubsidiaryFunction</class>
@@ -19183,33 +19319,33 @@
     <member kind="enumeration">
       <type></type>
       <name>ControlMessages</name>
-      <anchorfile>a00486.html</anchorfile>
-      <anchor>ga35fa62fd2d4186a9750af3d0692f2893</anchor>
+      <anchorfile>a00492.html</anchorfile>
+      <anchor>a35fa62fd2d4186a9750af3d0692f2893</anchor>
       <arglist></arglist>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a19aad9f2fe3ce0023298ab83f7e75775">BEGIN</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0">CONTROL_STARTED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938">CONTROL_ENDED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945">STEP_STARTED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">STEP_ENDED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">SOLUTION_CHANGED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893ab1a326c06d88bf042f73d70f50197905">END</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893a19aad9f2fe3ce0023298ab83f7e75775">BEGIN</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0">CONTROL_STARTED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938">CONTROL_ENDED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945">STEP_STARTED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">STEP_ENDED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">SOLUTION_CHANGED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a35fa62fd2d4186a9750af3d0692f2893ab1a326c06d88bf042f73d70f50197905">END</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
       <name>NonLinearSolverMessages</name>
-      <anchorfile>a00486.html</anchorfile>
-      <anchor>ga662b2b6a80547adf4b9ce8b30d87fab5</anchor>
+      <anchorfile>a00492.html</anchorfile>
+      <anchor>a662b2b6a80547adf4b9ce8b30d87fab5</anchor>
       <arglist></arglist>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a19aad9f2fe3ce0023298ab83f7e75775">BEGIN</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498">INIT</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4">ITERATION_STARTED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815">ITERATION_ENDED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14">RESIDUALNORM_UPDATED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78">CORRECTIONNORM_UPDATED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4">CORRECTION_UPDATED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577">SOLUTION_CHANGED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931">FINISHED_SUCESSFULLY</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5ab1a326c06d88bf042f73d70f50197905">END</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a19aad9f2fe3ce0023298ab83f7e75775">BEGIN</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498">INIT</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4">ITERATION_STARTED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815">ITERATION_ENDED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14">RESIDUALNORM_UPDATED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78">CORRECTIONNORM_UPDATED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4">CORRECTION_UPDATED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577">SOLUTION_CHANGED</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931">FINISHED_SUCESSFULLY</enumvalue>
+      <enumvalue file="a00492.html" anchor="a662b2b6a80547adf4b9ce8b30d87fab5ab1a326c06d88bf042f73d70f50197905">END</enumvalue>
     </member>
     <member kind="function">
       <type>auto</type>
@@ -20059,6 +20195,13 @@
       <arglist>(const Eigen::MatrixBase&lt; Derived &gt; &amp;E)</arglist>
     </member>
     <member kind="function">
+      <type></type>
+      <name>GenericListener</name>
+      <anchorfile>a00492.html</anchorfile>
+      <anchor>abf2bcdf0a180600b42282f124ef381de</anchor>
+      <arglist>(BC &amp;, MT, F &amp;&amp;) -&gt; GenericListener&lt; BC &gt;</arglist>
+    </member>
+    <member kind="function">
       <type>MessageType &amp;</type>
       <name>increment</name>
       <anchorfile>a00487.html</anchorfile>
@@ -20375,6 +20518,7 @@
     <concept>Ikarus::Concepts::SmartPointer</concept>
     <concept>Ikarus::Concepts::PointerOrSmartPointer</concept>
     <concept>Ikarus::Concepts::ControlRoutineState</concept>
+    <concept>Ikarus::Concepts::NonLinearSolverState</concept>
     <concept>Ikarus::Concepts::ReferenceConfiguraionStrain</concept>
     <concept>Ikarus::Concepts::ReferenceConfiguraionStress</concept>
     <concept>Ikarus::Concepts::Material</concept>
@@ -21840,38 +21984,13 @@
     <name>observer</name>
     <title>Observer</title>
     <filename>a00486.html</filename>
-    <class kind="class">Ikarus::NonLinearSolverLogger</class>
-    <member kind="enumeration">
-      <type></type>
-      <name>ControlMessages</name>
-      <anchorfile>a00486.html</anchorfile>
-      <anchor>ga35fa62fd2d4186a9750af3d0692f2893</anchor>
-      <arglist></arglist>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a19aad9f2fe3ce0023298ab83f7e75775">BEGIN</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0">CONTROL_STARTED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938">CONTROL_ENDED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945">STEP_STARTED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">STEP_ENDED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">SOLUTION_CHANGED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga35fa62fd2d4186a9750af3d0692f2893ab1a326c06d88bf042f73d70f50197905">END</enumvalue>
-    </member>
-    <member kind="enumeration">
-      <type></type>
-      <name>NonLinearSolverMessages</name>
-      <anchorfile>a00486.html</anchorfile>
-      <anchor>ga662b2b6a80547adf4b9ce8b30d87fab5</anchor>
-      <arglist></arglist>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a19aad9f2fe3ce0023298ab83f7e75775">BEGIN</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498">INIT</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4">ITERATION_STARTED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815">ITERATION_ENDED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14">RESIDUALNORM_UPDATED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78">CORRECTIONNORM_UPDATED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4">CORRECTION_UPDATED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577">SOLUTION_CHANGED</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931">FINISHED_SUCESSFULLY</enumvalue>
-      <enumvalue file="a00486.html" anchor="gga662b2b6a80547adf4b9ce8b30d87fab5ab1a326c06d88bf042f73d70f50197905">END</enumvalue>
-    </member>
+    <file>broadcaster.hh</file>
+    <file>broadcastermessages.hh</file>
+    <file>controllogger.hh</file>
+    <file>controlvtkwriter.hh</file>
+    <file>genericlistener.hh</file>
+    <file>listener.hh</file>
+    <file>nonlinearsolverlogger.hh</file>
   </compound>
   <compound kind="group">
     <name>utils</name>
@@ -22480,7 +22599,7 @@
   <compound kind="page">
     <name>md____w_ikarus_ikarus_repo_LICENSE</name>
     <title>Copyright holders</title>
-    <filename>a03429.html</filename>
+    <filename>a03418.html</filename>
   </compound>
   <compound kind="page">
     <name>index</name>

@@ -5,74 +5,55 @@
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <functional>}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
 \DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{keyword}{template} <\textcolor{keyword}{class} Args>}
-\DoxyCodeLine{17 \textcolor{keyword}{struct }\mbox{\hyperlink{a02136}{Broadcaster}};}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{24 \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{25 \textcolor{keyword}{class }\mbox{\hyperlink{a02136}{Broadcaster}}<void(Args...)>}
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{24 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MT, \textcolor{keyword}{typename} S>}
+\DoxyCodeLine{25 \textcolor{keyword}{class }\mbox{\hyperlink{a02136}{Broadcaster}}}
 \DoxyCodeLine{26 \{}
-\DoxyCodeLine{27   \textcolor{keyword}{using }F = std::function<void(Args...)>;}
-\DoxyCodeLine{28 }
-\DoxyCodeLine{29   \textcolor{comment}{// The functions are stored as weak pointer, therefore the Broadcaster has no ownership over them.}}
-\DoxyCodeLine{30   std::vector<std::weak\_ptr<F>> listeners;}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32 \textcolor{keyword}{public}:}
-\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a02140_a8e938f0fd10e39653bc9cb90109a37e7}{Token}} = std::shared\_ptr<F>;}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{44   \mbox{\hyperlink{a02140_a8e938f0fd10e39653bc9cb90109a37e7}{Token}} \mbox{\hyperlink{a02140_ac41fb9825ac6c6ced84a22e9b0c2f9a1}{registerListener}}(F f) \{}
-\DoxyCodeLine{45     \textcolor{keyword}{auto} sp = std::make\_shared<F>(std::move(f));}
-\DoxyCodeLine{46     listeners.push\_back(sp);}
-\DoxyCodeLine{47     \textcolor{keywordflow}{return} sp;}
-\DoxyCodeLine{48   \}}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50   \textcolor{comment}{// Unregister a listener}}
-\DoxyCodeLine{51   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02140_a3dcfad0abe0d83dbec232a77bc2a8e49}{unregisterListener}}(\mbox{\hyperlink{a02140_a8e938f0fd10e39653bc9cb90109a37e7}{Token}}\&\& t) \{ t = \textcolor{keyword}{nullptr}; \}}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{56   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02140_ab19ef3d9951ffca426daf0912eaedb31}{notify}}(Args... args) \{}
-\DoxyCodeLine{57     trim();}
-\DoxyCodeLine{58     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& w : listeners) \{}
-\DoxyCodeLine{59       \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} p = w.lock()) \{}
-\DoxyCodeLine{60         (*p)(args...);}
-\DoxyCodeLine{61       \}}
-\DoxyCodeLine{62     \}}
-\DoxyCodeLine{63   \}}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65 \textcolor{keyword}{private}:}
-\DoxyCodeLine{66   \textcolor{comment}{// Remove expired listeners, we need that because the weak pointers could already be invalidated (i.e. refcount == 0).}}
-\DoxyCodeLine{67   \textcolor{keywordtype}{void} trim() \{}
-\DoxyCodeLine{68     listeners.erase(std::remove\_if(listeners.begin(), listeners.end(), [](\textcolor{keyword}{auto}\& p) \{ return p.expired(); \}),}
-\DoxyCodeLine{69                     listeners.end());}
-\DoxyCodeLine{70   \}}
-\DoxyCodeLine{71 \};}
+\DoxyCodeLine{27 \textcolor{keyword}{public}:}
+\DoxyCodeLine{28   \textcolor{keyword}{using }\mbox{\hyperlink{a02136_abc47e2a26f85e3bdd3886d82d458d5da}{MessageType}} = MT;}
+\DoxyCodeLine{29   \textcolor{keyword}{using }\mbox{\hyperlink{a02136_ac1cbfd25b275106de2e554ebf3154684}{State}}       = S;}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31   \textcolor{keyword}{using }\mbox{\hyperlink{a02136_a34a8a1247a245acc29e1b4b34985771e}{Callback}} = std::function<void(MT, \textcolor{keyword}{const} \mbox{\hyperlink{a02136_ac1cbfd25b275106de2e554ebf3154684}{State}}\&)>;}
+\DoxyCodeLine{32   \textcolor{keyword}{using }\mbox{\hyperlink{a02136_a5abf58d509c6594898811fe1519e498c}{Token}}    = std::shared\_ptr<Callback>;}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{43   \mbox{\hyperlink{a02136_a5abf58d509c6594898811fe1519e498c}{Token}} \mbox{\hyperlink{a02136_a50f7d8360254792256006fe4ead0350c}{registerListener}}(\mbox{\hyperlink{a02136_a34a8a1247a245acc29e1b4b34985771e}{Callback}} callback) \{}
+\DoxyCodeLine{44     \textcolor{keyword}{auto} sp = std::make\_shared<Callback>(std::move(callback));}
+\DoxyCodeLine{45     listeners.push\_back(sp);}
+\DoxyCodeLine{46     \textcolor{keywordflow}{return} sp;}
+\DoxyCodeLine{47   \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{52   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02136_af78c5019f3563fe5ee567f98a3d63e6e}{unregisterListener}}(\mbox{\hyperlink{a02136_a5abf58d509c6594898811fe1519e498c}{Token}} token) \{}
+\DoxyCodeLine{53     \textcolor{keywordflow}{if} (token) \{}
+\DoxyCodeLine{54       token.reset();}
+\DoxyCodeLine{55     \}}
+\DoxyCodeLine{56   \}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{61   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(MT message, \textcolor{keyword}{const} \mbox{\hyperlink{a02136_ac1cbfd25b275106de2e554ebf3154684}{State}}\& data) \{}
+\DoxyCodeLine{62     trim();}
+\DoxyCodeLine{63     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& weakCb : listeners) \{}
+\DoxyCodeLine{64       \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} callback = weakCb.lock()) \{}
+\DoxyCodeLine{65         (*callback)(message, data);}
+\DoxyCodeLine{66       \}}
+\DoxyCodeLine{67     \}}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{keyword}{private}:}
+\DoxyCodeLine{71   std::vector<std::weak\_ptr<Callback>> listeners;}
 \DoxyCodeLine{72 }
-\DoxyCodeLine{79 \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Signatures>}
-\DoxyCodeLine{80 \textcolor{keyword}{class }\mbox{\hyperlink{a02144}{Broadcasters}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02136}{Broadcaster}}<Signatures>...}
-\DoxyCodeLine{81 \{}
-\DoxyCodeLine{82 \textcolor{keyword}{public}:}
-\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{a02136}{Broadcaster}}<Signatures>::registerListener...;}
-\DoxyCodeLine{84   \textcolor{keyword}{using }\mbox{\hyperlink{a02136}{Broadcaster}}<Signatures>::unregisterListener...;}
-\DoxyCodeLine{85   \textcolor{keyword}{using }\mbox{\hyperlink{a02136}{Broadcaster}}<Signatures>::notify...;}
-\DoxyCodeLine{86 }
-\DoxyCodeLine{87   \textcolor{comment}{// Access a specific broadcaster for a given message type}}
-\DoxyCodeLine{88   \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{89   \mbox{\hyperlink{a02136}{Broadcaster<M>}}\& \mbox{\hyperlink{a02144_abc95263ead8ea6d71c2b017a1ea250be}{station}}() \{}
-\DoxyCodeLine{90     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{91   \}}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{93   \textcolor{comment}{// Access a specific broadcaster for a given message type (const version)}}
-\DoxyCodeLine{94   \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{95   \textcolor{keyword}{const} \mbox{\hyperlink{a02136}{Broadcaster<M>}}\& \mbox{\hyperlink{a02144_af25ec90e8c2c7df3d7b033e6e6a06dc1}{station}}()\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{96     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{97   \}}
-\DoxyCodeLine{98 \};}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{100 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{73   \textcolor{keywordtype}{void} trim() \{}
+\DoxyCodeLine{74     listeners.erase(}
+\DoxyCodeLine{75         std::remove\_if(listeners.begin(), listeners.end(), [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& weakCb) \{ return weakCb.expired(); \}),}
+\DoxyCodeLine{76         listeners.end());}
+\DoxyCodeLine{77   \}}
+\DoxyCodeLine{78 \};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}
