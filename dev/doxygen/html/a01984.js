@@ -10,7 +10,7 @@ var a01984 =
     [ "Writer", "a01984.html#a7f632eb9736d0518bfccc57782911611", null ],
     [ "Writer", "a01984.html#a2bd5df12f7819102911d2ec09ce8a977", null ],
     [ "addAllResults", "a01984.html#a1e3b740ff000dacda0ade44cc0646d9d", null ],
-    [ "addInterpolation", "a01984.html#a40effe127a60fe7ae01bb7511a581d08", null ],
+    [ "addInterpolation", "a01984.html#a8c9074230eff3e4b2518c4ab657b6c26", null ],
     [ "addResult", "a01984.html#a80776ad077f50b77de658392cb8736fe", null ],
     [ "addResultFunction", "a01984.html#a658290b81fbe3d75d228ea393f5a6d47", null ]
 ];

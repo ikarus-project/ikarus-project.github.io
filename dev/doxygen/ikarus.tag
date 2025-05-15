@@ -18473,8 +18473,8 @@
       <type>void</type>
       <name>addInterpolation</name>
       <anchorfile>a01984.html</anchorfile>
-      <anchor>a40effe127a60fe7ae01bb7511a581d08</anchor>
-      <arglist>(R &amp;&amp;vals, const Basis &amp;basis, const std::string &amp;name, DataTag dataTag=DataTag::asPointData)</arglist>
+      <anchor>a8c9074230eff3e4b2518c4ab657b6c26</anchor>
+      <arglist>(R &amp;&amp;vals, Basis &amp;&amp;basis, const std::string &amp;name, DataTag dataTag=DataTag::asPointData)</arglist>
     </member>
   </compound>
   <compound kind="struct">
