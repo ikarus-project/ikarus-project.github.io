@@ -44,23 +44,34 @@
 \DoxyCodeLine{74         loadSteps\_\{loadSteps\},}
 \DoxyCodeLine{75         parameterBegin\_\{tbeginEnd[0]\},}
 \DoxyCodeLine{76         parameterEnd\_\{tbeginEnd[1]\},}
-\DoxyCodeLine{77         stepSize\_\{(parameterEnd\_ -\/ parameterBegin\_) / loadSteps\_\} \{\}}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{84   \mbox{\hyperlink{a01420}{ControlInformation}} \mbox{\hyperlink{a01440_aca267aa96227250abd37487214918f1a}{run}}(\textcolor{keyword}{typename} NLS::Domain\& x);}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86   \textcolor{comment}{/* \(\backslash\)brief returns the nonlinear solver */}}
-\DoxyCodeLine{87   NLS\& \mbox{\hyperlink{a01440_a1df0028dc2a38a90bb01ba85aa901a0d}{nonLinearSolver}}() \{ \textcolor{keywordflow}{return} *nonLinearSolver\_; \}}
+\DoxyCodeLine{77         stepSize\_\{(parameterEnd\_ -\/ parameterBegin\_) / loadSteps\_\} \{}
+\DoxyCodeLine{78     \textcolor{keywordflow}{if} (loadSteps\_ <= 0)}
+\DoxyCodeLine{79       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Number of load steps should be greater than zero."{}});}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{87   \mbox{\hyperlink{a01420}{ControlInformation}} \mbox{\hyperlink{a01440_aca267aa96227250abd37487214918f1a}{run}}(\textcolor{keyword}{typename} NLS::Domain\& x);}
 \DoxyCodeLine{88 }
-\DoxyCodeLine{89 \textcolor{keyword}{private}:}
-\DoxyCodeLine{90   std::shared\_ptr<NLS> nonLinearSolver\_;}
-\DoxyCodeLine{91   \textcolor{keywordtype}{int} loadSteps\_;}
-\DoxyCodeLine{92   \textcolor{keywordtype}{double} parameterBegin\_;}
-\DoxyCodeLine{93   \textcolor{keywordtype}{double} parameterEnd\_;}
-\DoxyCodeLine{94   \textcolor{keywordtype}{double} stepSize\_;}
-\DoxyCodeLine{95 \};}
-\DoxyCodeLine{96 }
-\DoxyCodeLine{97 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{89   \textcolor{comment}{/* \(\backslash\)brief returns the nonlinear solver */}}
+\DoxyCodeLine{90   NLS\& \mbox{\hyperlink{a01440_a1df0028dc2a38a90bb01ba85aa901a0d}{nonLinearSolver}}() \{ \textcolor{keywordflow}{return} *nonLinearSolver\_; \}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92 \textcolor{keyword}{private}:}
+\DoxyCodeLine{93   std::shared\_ptr<NLS> nonLinearSolver\_;}
+\DoxyCodeLine{94   \textcolor{keywordtype}{int} loadSteps\_;}
+\DoxyCodeLine{95   \textcolor{keywordtype}{double} parameterBegin\_;}
+\DoxyCodeLine{96   \textcolor{keywordtype}{double} parameterEnd\_;}
+\DoxyCodeLine{97   \textcolor{keywordtype}{double} stepSize\_;}
 \DoxyCodeLine{98 }
-\DoxyCodeLine{99 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00404}{ikarus/controlroutines/loadcontrol.inl}}>}}
+\DoxyCodeLine{99   \textcolor{keywordtype}{void} updateAndNotifyControlInfo(\mbox{\hyperlink{a01420}{ControlInformation}}\& info, \textcolor{keyword}{const} \mbox{\hyperlink{a02100}{NonLinearSolverInformation}}\& solverInfo,}
+\DoxyCodeLine{100                                   \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01432}{LoadControl::State}}\& state) \{}
+\DoxyCodeLine{101     info.\mbox{\hyperlink{a01420_aedbd5de28f127726884cb99b067313bf}{solverInfos}}.push\_back(solverInfo);}
+\DoxyCodeLine{102     info.\mbox{\hyperlink{a01420_a4712b189651e59cd46fd43b2e6a326bf}{totalIterations}} += solverInfo.\mbox{\hyperlink{a02100_a81570cd3d9f6589a4d1ba81211f41b99}{iterations}};}
+\DoxyCodeLine{103     this-\/>\mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00492_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{ControlMessages::SOLUTION\_CHANGED}}, state);}
+\DoxyCodeLine{104     this-\/>\mbox{\hyperlink{a02136_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00492_a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2}{ControlMessages::STEP\_ENDED}}, state);}
+\DoxyCodeLine{105   \}}
+\DoxyCodeLine{106 \};}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00404}{ikarus/controlroutines/loadcontrol.inl}}>}}
 
 \end{DoxyCode}
