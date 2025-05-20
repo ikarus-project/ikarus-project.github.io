@@ -1,0 +1,474 @@
+\hypertarget{a03429_source}{}\doxysection{utils/concepts.hh}
+\label{a03429_source}\index{concepts.hh@{concepts.hh}}
+\mbox{\hyperlink{a03429}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <concepts>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/basistags.hh>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/lagrangebasis.hh>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <autodiff/forward/dual/dual.hpp>}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00341}{ikarus/assembler/dirichletbcenforcement.hh}}"{}}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00224}{ikarus/finiteelements/mechanics/materials/tags.hh}}"{}}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00020}{ikarus/utils/traits.hh}}>}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00509}{Eigen}} \{}
+\DoxyCodeLine{29 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{30 \textcolor{keyword}{struct }\mbox{\hyperlink{a02140}{EigenBase}};}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{struct }ControlInformation;}
+\DoxyCodeLine{36 \textcolor{keyword}{struct }NonLinearSolverInformation;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{39 \textcolor{keyword}{auto} \mbox{\hyperlink{a00492_ac2c6469be19ce4ef2e630bfa1c5a5e24}{transpose}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02140}{Eigen::EigenBase<Derived>}}\& A);}
+\DoxyCodeLine{40 \textcolor{keyword}{namespace }Concepts \{}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{48   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{49   \textcolor{keyword}{concept }\mbox{\hyperlink{a02346}{EigenType}} = std::is\_base\_of\_v<Eigen::MatrixBase<std::decay\_t<T>>, std::decay\_t<T>>;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{59   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Basis>}
+\DoxyCodeLine{60   \textcolor{keyword}{concept }\mbox{\hyperlink{a02347}{FlatInterLeavedBasis}} = \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{61     std::is\_same\_v<typename Basis::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::FlatInterleaved>;}
+\DoxyCodeLine{62   \};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{65     \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keyword}{typename}> \textcolor{keyword}{class }U, \textcolor{keyword}{typename} T>}
+\DoxyCodeLine{66     \textcolor{keyword}{struct }LagrangeNodeHelper : std::false\_type}
+\DoxyCodeLine{67     \{}
+\DoxyCodeLine{68     \};}
+\DoxyCodeLine{69     \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keyword}{typename}> \textcolor{keyword}{class }U, \textcolor{keyword}{typename} GV, \textcolor{keywordtype}{int} k, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{70     \textcolor{keyword}{struct }LagrangeNodeHelper<U, U<GV, k, R>> : std::true\_type}
+\DoxyCodeLine{71     \{}
+\DoxyCodeLine{72     \};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74     \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keyword}{typename}> \textcolor{keyword}{class }U, \textcolor{keyword}{typename} T, \textcolor{keywordtype}{int} k>}
+\DoxyCodeLine{75     \textcolor{keyword}{struct }LagrangeNodeHelperOfOrder : std::false\_type}
+\DoxyCodeLine{76     \{}
+\DoxyCodeLine{77     \};}
+\DoxyCodeLine{78     \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keyword}{typename}> \textcolor{keyword}{class }U, \textcolor{keyword}{typename} GV, \textcolor{keywordtype}{int} k, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{79     \textcolor{keyword}{struct }LagrangeNodeHelperOfOrder<U, U<GV, k, R>, k> : std::true\_type}
+\DoxyCodeLine{80     \{}
+\DoxyCodeLine{81     \};}
+\DoxyCodeLine{82   \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{91   \textcolor{keyword}{template} <\textcolor{keyword}{typename} N>}
+\DoxyCodeLine{92   \textcolor{keyword}{concept }\mbox{\hyperlink{a02348}{LagrangeNode}} = Impl::LagrangeNodeHelper<Dune::Functions::LagrangeNode, N>::value;}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{101   \textcolor{keyword}{template} <\textcolor{keyword}{typename} N, \textcolor{keywordtype}{int} order>}
+\DoxyCodeLine{102   \textcolor{keyword}{concept }\mbox{\hyperlink{a02349}{LagrangeNodeOfOrder}} = Impl::LagrangeNodeHelperOfOrder<Dune::Functions::LagrangeNode, N, order>::value;}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{112   \textcolor{keyword}{template} <\textcolor{keyword}{typename} B>}
+\DoxyCodeLine{113   \textcolor{keyword}{concept }\mbox{\hyperlink{a02350}{FlatLexicographicBasis}} = \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{114     std::is\_same\_v<typename B::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::FlatLexicographic>;}
+\DoxyCodeLine{115   \};}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{125   \textcolor{keyword}{template} <\textcolor{keyword}{typename} B>}
+\DoxyCodeLine{126   \textcolor{keyword}{concept }\mbox{\hyperlink{a02351}{FlatIndexBasis}} = \mbox{\hyperlink{a02350}{FlatLexicographicBasis<B>}} or \mbox{\hyperlink{a02347}{FlatInterLeavedBasis<B>}};}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{136   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Basis>}
+\DoxyCodeLine{137   \textcolor{keyword}{concept }\mbox{\hyperlink{a02352}{BlockedInterLeavedBasis}} = \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{138     std::is\_same\_v<typename Basis::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::BlockedInterleaved>;}
+\DoxyCodeLine{139   \};}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{149   \textcolor{keyword}{template} <\textcolor{keyword}{typename} B>}
+\DoxyCodeLine{150   \textcolor{keyword}{concept }\mbox{\hyperlink{a02353}{BlockedLexicographicBasis}} = \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{151     std::is\_same\_v<typename B::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::BlockedLexicographic>;}
+\DoxyCodeLine{152   \};}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{159   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DLB>}
+\DoxyCodeLine{160   \textcolor{keyword}{concept }\mbox{\hyperlink{a02354}{DuneLocalBasis}} = \textcolor{keyword}{requires}(DLB\& duneLocalBasis) \{}
+\DoxyCodeLine{161     \textcolor{keyword}{typename} DLB::Traits::RangeType;}
+\DoxyCodeLine{162     \textcolor{keyword}{typename} DLB::Traits::JacobianType;}
+\DoxyCodeLine{163     DLB::Traits::dimDomain;}
+\DoxyCodeLine{164     \textcolor{keyword}{typename} DLB::Traits::DomainType;}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166     \textcolor{keyword}{typename} DLB::Traits::DomainFieldType;}
+\DoxyCodeLine{167     \textcolor{keyword}{typename} DLB::Traits::RangeFieldType;}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169     duneLocalBasis.evaluateFunction(std::declval<typename DLB::Traits::DomainType>(),}
+\DoxyCodeLine{170                                     std::declval<std::vector<typename DLB::Traits::RangeType>\&>());}
+\DoxyCodeLine{171     duneLocalBasis.evaluateJacobian(std::declval<typename DLB::Traits::DomainType>(),}
+\DoxyCodeLine{172                                     std::declval<std::vector<typename DLB::Traits::JacobianType>\&>());}
+\DoxyCodeLine{173   \};}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{184   \textcolor{keyword}{template} <\textcolor{keyword}{typename} B>}
+\DoxyCodeLine{185   \textcolor{keyword}{concept }\mbox{\hyperlink{a02355}{BlockedIndexBasis}} = \mbox{\hyperlink{a02353}{BlockedLexicographicBasis<B>}} or \mbox{\hyperlink{a02352}{BlockedInterLeavedBasis<B>}};}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{194   \textcolor{keyword}{template} <\textcolor{keyword}{typename} PF, \textcolor{keyword}{typename} F, \textcolor{keyword}{typename} SA>}
+\DoxyCodeLine{195   \textcolor{keyword}{concept }\mbox{\hyperlink{a02356}{PathFollowingStrategy}} = \textcolor{keyword}{requires}(PF pft, F nop, SA args, \textcolor{keyword}{typename} F::Domain req) \{}
+\DoxyCodeLine{196     \{ pft(args) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{197     \{ pft.initialPrediction(req, nop, args) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{198     \{ pft.intermediatePrediction(req, nop, args) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{199   \};}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{209   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ASS, \textcolor{keyword}{typename} NLSI, \textcolor{keyword}{typename} SA, \textcolor{keyword}{typename} DifferentiableFunction>}
+\DoxyCodeLine{210   \textcolor{keyword}{concept }\mbox{\hyperlink{a02357}{AdaptiveStepSizingStrategy}} =}
+\DoxyCodeLine{211       \textcolor{keyword}{requires}(ASS adaptiveStepSizing, NLSI info, SA args, DifferentiableFunction nop) \{}
+\DoxyCodeLine{212         \{ adaptiveStepSizing(info, args, nop) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{213         \{ adaptiveStepSizing.targetIterations() \} -\/> std::same\_as<int>;}
+\DoxyCodeLine{214         \{ adaptiveStepSizing.setTargetIterations(std::declval<int>()) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{215       \};}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{225   \textcolor{keyword}{template} <\textcolor{keyword}{typename} LS, \textcolor{keyword}{typename} M, \textcolor{keyword}{typename} V>}
+\DoxyCodeLine{226   \textcolor{keyword}{concept }\mbox{\hyperlink{a02358}{LinearSolverCheck}} = \textcolor{keyword}{requires}(LS linearSolver, M A, V vec) \{}
+\DoxyCodeLine{227     linearSolver.analyzePattern(A);}
+\DoxyCodeLine{228     linearSolver.factorize(A);}
+\DoxyCodeLine{229     linearSolver.solve(vec, vec);}
+\DoxyCodeLine{230   \};}
+\DoxyCodeLine{231 }
+\DoxyCodeLine{239   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{240   \textcolor{keyword}{concept }\mbox{\hyperlink{a02359}{NonLinearSolverCheckForPathFollowing}} = \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{241     not(std::is\_same\_v<typename NLS::DifferentiableFunction::Domain, double> and}
+\DoxyCodeLine{242         ((traits::isSpecializationTypeAndNonTypes<}
+\DoxyCodeLine{243              Eigen::Matrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value) or}
+\DoxyCodeLine{244          (traits::isSpecializationTypeNonTypeAndType<}
+\DoxyCodeLine{245              Eigen::SparseMatrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value)));}
+\DoxyCodeLine{246   \};}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{255   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{256   \textcolor{keyword}{concept }\mbox{\hyperlink{a02360}{MultiplyAble}} = \textcolor{keyword}{requires}(L x, R y) \{ x* y; \};}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{265   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{266   \textcolor{keyword}{concept }\mbox{\hyperlink{a02361}{AddAble}} = \textcolor{keyword}{requires}(L x, R y) \{ x + y; \};}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{275   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{276   \textcolor{keyword}{concept }\mbox{\hyperlink{a02362}{SubstractAble}} = \textcolor{keyword}{requires}(L x, R y) \{ x -\/ y; \};}
+\DoxyCodeLine{277 }
+\DoxyCodeLine{286   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{287   \textcolor{keyword}{concept }\mbox{\hyperlink{a02363}{MultiplyAssignAble}} = \textcolor{keyword}{requires}(L x, R y) \{ x *= y; \};}
+\DoxyCodeLine{288 }
+\DoxyCodeLine{297   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{298   \textcolor{keyword}{concept }\mbox{\hyperlink{a02364}{DivideAssignAble}} = \textcolor{keyword}{requires}(L x, R y) \{ x /= y; \};}
+\DoxyCodeLine{299 }
+\DoxyCodeLine{308   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{309   \textcolor{keyword}{concept }\mbox{\hyperlink{a02365}{AddAssignAble}} = \textcolor{keyword}{requires}(L x, R y) \{ x += y; \};}
+\DoxyCodeLine{310 }
+\DoxyCodeLine{319   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{320   \textcolor{keyword}{concept }\mbox{\hyperlink{a02366}{SubstractAssignAble}} = \textcolor{keyword}{requires}(L x, R y) \{ x -\/= y; \};}
+\DoxyCodeLine{321 }
+\DoxyCodeLine{329   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{330   \textcolor{keyword}{concept }\mbox{\hyperlink{a02367}{DivideAble}} = \textcolor{keyword}{requires}(L x, R y) \{ x / y; \};}
+\DoxyCodeLine{331 }
+\DoxyCodeLine{338   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L>}
+\DoxyCodeLine{339   \textcolor{keyword}{concept }\mbox{\hyperlink{a02368}{NegateAble}} = \textcolor{keyword}{requires}(L x) \{ -\/x; \};}
+\DoxyCodeLine{340 }
+\DoxyCodeLine{347   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L>}
+\DoxyCodeLine{348   \textcolor{keyword}{concept }\mbox{\hyperlink{a02369}{TransposeAble}} = \textcolor{keyword}{requires}(L x) \{ \mbox{\hyperlink{a00492_ac2c6469be19ce4ef2e630bfa1c5a5e24}{transpose}}(x); \};}
+\DoxyCodeLine{349 }
+\DoxyCodeLine{356   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Op, \textcolor{keyword}{typename}... Args>}
+\DoxyCodeLine{357   \textcolor{keyword}{concept }\mbox{\hyperlink{a02370}{IsFunctorWithArgs}} = \textcolor{keyword}{requires}(Op op, Args... args) \{ op(args...); \};}
+\DoxyCodeLine{358 }
+\DoxyCodeLine{364   \textcolor{keyword}{template} <\textcolor{keyword}{typename} V>}
+\DoxyCodeLine{365   \textcolor{keyword}{concept }\mbox{\hyperlink{a02371}{EigenVector}} = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{bool}\textcolor{keyword}{>}(V::IsVectorAtCompileTime);}
+\DoxyCodeLine{366 }
+\DoxyCodeLine{372   \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
+\DoxyCodeLine{373   \textcolor{keyword}{concept }\mbox{\hyperlink{a02372}{EigenMatrix}} = traits::isSpecializationTypeAndNonTypes<Eigen::Matrix, M>::value;}
+\DoxyCodeLine{374 }
+\DoxyCodeLine{380   \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
+\DoxyCodeLine{381   \textcolor{keyword}{concept }\mbox{\hyperlink{a02373}{SparseEigenMatrix}} = traits::isSpecializationTypeNonTypeAndType<Eigen::SparseMatrix, M>::value;}
+\DoxyCodeLine{382 }
+\DoxyCodeLine{388   \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
+\DoxyCodeLine{389   \textcolor{keyword}{concept }\mbox{\hyperlink{a02374}{DenseOrSparseEigenMatrix}} = \mbox{\hyperlink{a02373}{SparseEigenMatrix<M>}} or \mbox{\hyperlink{a02372}{EigenMatrix<M>}};}
+\DoxyCodeLine{390 }
+\DoxyCodeLine{391 \textcolor{preprocessor}{\#define MAKE\_EIGEN\_FIXED\_VECTOR\_CONCEPT(Size) \(\backslash\)}}
+\DoxyCodeLine{392 \textcolor{preprocessor}{  template <typename V>                       \(\backslash\)}}
+\DoxyCodeLine{393 \textcolor{preprocessor}{  concept EigenVector\#\#Size =                 \(\backslash\)}}
+\DoxyCodeLine{394 \textcolor{preprocessor}{      static\_cast<bool>(V::IsVectorAtCompileTime) and static\_cast<bool>(V::SizeAtCompileTime == Size);}}
+\DoxyCodeLine{395 }
+\DoxyCodeLine{396   \mbox{\hyperlink{a03429_ac8757039febcebb4741b376dc8258d6d}{MAKE\_EIGEN\_FIXED\_VECTOR\_CONCEPT}}(1)}
+\DoxyCodeLine{397   \mbox{\hyperlink{a03429_ac8757039febcebb4741b376dc8258d6d}{MAKE\_EIGEN\_FIXED\_VECTOR\_CONCEPT}}(2)}
+\DoxyCodeLine{398   \mbox{\hyperlink{a03429_ac8757039febcebb4741b376dc8258d6d}{MAKE\_EIGEN\_FIXED\_VECTOR\_CONCEPT}}(3)}
+\DoxyCodeLine{399   \mbox{\hyperlink{a03429_ac8757039febcebb4741b376dc8258d6d}{MAKE\_EIGEN\_FIXED\_VECTOR\_CONCEPT}}(4)}
+\DoxyCodeLine{400   \mbox{\hyperlink{a03429_ac8757039febcebb4741b376dc8258d6d}{MAKE\_EIGEN\_FIXED\_VECTOR\_CONCEPT}}(5)}
+\DoxyCodeLine{401   \mbox{\hyperlink{a03429_ac8757039febcebb4741b376dc8258d6d}{MAKE\_EIGEN\_FIXED\_VECTOR\_CONCEPT}}(6)}
+\DoxyCodeLine{402 }
+\DoxyCodeLine{403 \textcolor{preprocessor}{\#define MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT(Size1, Size2)                                                           \(\backslash\)}}
+\DoxyCodeLine{404 \textcolor{preprocessor}{  template <typename M>                                                                                         \(\backslash\)}}
+\DoxyCodeLine{405 \textcolor{preprocessor}{  concept EigenMatrix\#\#Size1\#\#Size2 = static\_cast<bool>(std::remove\_cvref\_t<M>::RowsAtCompileTime == Size1) and \(\backslash\)}}
+\DoxyCodeLine{406 \textcolor{preprocessor}{                                      static\_cast<bool>(std::remove\_cvref\_t<M>::ColsAtCompileTime == Size2);}}
+\DoxyCodeLine{407 }
+\DoxyCodeLine{408   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(1, 1)}
+\DoxyCodeLine{409 }
+\DoxyCodeLine{410   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(1, 2)}
+\DoxyCodeLine{411   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(2, 2)}
+\DoxyCodeLine{412 }
+\DoxyCodeLine{413   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(1, 3)}
+\DoxyCodeLine{414   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(2, 3)}
+\DoxyCodeLine{415   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(3, 2)}
+\DoxyCodeLine{416   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(3, 3)}
+\DoxyCodeLine{417 }
+\DoxyCodeLine{418   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(1, 4)}
+\DoxyCodeLine{419   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(2, 4)}
+\DoxyCodeLine{420   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(3, 4)}
+\DoxyCodeLine{421   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(4, 2)}
+\DoxyCodeLine{422   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(4, 3)}
+\DoxyCodeLine{423   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(4, 4)}
+\DoxyCodeLine{424 }
+\DoxyCodeLine{425   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(1, 5)}
+\DoxyCodeLine{426   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(2, 5)}
+\DoxyCodeLine{427   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(3, 5)}
+\DoxyCodeLine{428   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(4, 5)}
+\DoxyCodeLine{429   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(5, 2)}
+\DoxyCodeLine{430   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(5, 3)}
+\DoxyCodeLine{431   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(5, 4)}
+\DoxyCodeLine{432   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(5, 5)}
+\DoxyCodeLine{433 }
+\DoxyCodeLine{434   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(1, 6)}
+\DoxyCodeLine{435   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(2, 6)}
+\DoxyCodeLine{436   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(3, 6)}
+\DoxyCodeLine{437   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(4, 6)}
+\DoxyCodeLine{438   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(5, 6)}
+\DoxyCodeLine{439   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(6, 2)}
+\DoxyCodeLine{440   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(6, 3)}
+\DoxyCodeLine{441   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(6, 4)}
+\DoxyCodeLine{442   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(6, 5)}
+\DoxyCodeLine{443   \mbox{\hyperlink{a03429_a5556bdb5e6cc63333c07f9ef487fb478}{MAKE\_EIGEN\_FIXED\_MATRIX\_CONCEPT}}(6, 6)}
+\DoxyCodeLine{444 }
+\DoxyCodeLine{445 \textcolor{preprocessor}{\#define MAKE\_EIGEN\_FIXED\_MATRIX\_OR\_VOIGT\_CONCEPT(Size1, Size2) \(\backslash\)}}
+\DoxyCodeLine{446 \textcolor{preprocessor}{  template <typename M>                                        \(\backslash\)}}
+\DoxyCodeLine{447 \textcolor{preprocessor}{  concept EigenMatrixOrVoigtNotation\#\#Size1 = EigenMatrix\#\#Size1\#\#Size1<M> or EigenVector\#\#Size2<M>;}}
+\DoxyCodeLine{448 }
+\DoxyCodeLine{449   \mbox{\hyperlink{a03429_aba360f830591dbc713b7fa692d614101}{MAKE\_EIGEN\_FIXED\_MATRIX\_OR\_VOIGT\_CONCEPT}}(1, 1)}
+\DoxyCodeLine{450   \mbox{\hyperlink{a03429_aba360f830591dbc713b7fa692d614101}{MAKE\_EIGEN\_FIXED\_MATRIX\_OR\_VOIGT\_CONCEPT}}(2, 3)}
+\DoxyCodeLine{451   \mbox{\hyperlink{a03429_aba360f830591dbc713b7fa692d614101}{MAKE\_EIGEN\_FIXED\_MATRIX\_OR\_VOIGT\_CONCEPT}}(3, 6)}
+\DoxyCodeLine{452 }
+\DoxyCodeLine{453   namespace Impl \{}
+\DoxyCodeLine{454     \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}...> \textcolor{keyword}{class }MaterialToCheck, \textcolor{keyword}{typename} Material>}
+\DoxyCodeLine{455     \textcolor{keyword}{consteval} \textcolor{keywordtype}{bool} isMaterial() \{}
+\DoxyCodeLine{456       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (traits::isSpecialization<MaterialToCheck, Material>::value)}
+\DoxyCodeLine{457         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{458 }
+\DoxyCodeLine{459       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Material::isReduced) \{}
+\DoxyCodeLine{460         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (traits::isSpecialization<MaterialToCheck, typename Material::Underlying>::value) \{}
+\DoxyCodeLine{461           \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{462         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{463           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{464         \}}
+\DoxyCodeLine{465       \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{466         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{467     \}}
+\DoxyCodeLine{468   \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{469 }
+\DoxyCodeLine{482   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}...> \textcolor{keyword}{class }MaterialToCheck, \textcolor{keyword}{typename} \mbox{\hyperlink{a00481_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}}>}
+\DoxyCodeLine{483   \textcolor{keyword}{concept }\mbox{\hyperlink{a02375}{IsMaterial}} = Impl::isMaterial<MaterialToCheck, Material>();}
+\DoxyCodeLine{484 }
+\DoxyCodeLine{485   \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{486     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{487     \textcolor{keyword}{concept }\mbox{\hyperlink{a02377}{ResultType}} = \textcolor{keyword}{requires}(T t) \{}
+\DoxyCodeLine{488       \textcolor{keyword}{typename} T::type;                             \textcolor{comment}{// The nested type 'type'}}
+\DoxyCodeLine{489       \textcolor{keyword}{typename} T::Vectorizer;                       \textcolor{comment}{// The nested type 'Vectorizer'}}
+\DoxyCodeLine{490       \textcolor{keyword}{typename} T::Matricizer;                       \textcolor{comment}{// The nested type 'Matricizer'}}
+\DoxyCodeLine{491       \{ \mbox{\hyperlink{a00492_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(t) \} -\/> std::same\_as<std::string>; \textcolor{comment}{// The toString function}}
+\DoxyCodeLine{492     \};}
+\DoxyCodeLine{493   \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{494 }
+\DoxyCodeLine{504   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{typename} RT>}
+\DoxyCodeLine{505   \textcolor{keyword}{concept }\mbox{\hyperlink{a02377}{ResultType}} =}
+\DoxyCodeLine{506       Impl::ResultType<RT<double, 1, 1>> or Impl::ResultType<RT<double, 1, 2>> or Impl::ResultType<RT<double, 1, 3>> or}
+\DoxyCodeLine{507       Impl::ResultType<RT<double, 2, 3>> or Impl::ResultType<RT<double, 3, 3>>;}
+\DoxyCodeLine{508 }
+\DoxyCodeLine{516   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{517   \textcolor{keyword}{concept }\mbox{\hyperlink{a02378}{FlatAssembler}} = \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{518                                    \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00492_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{519     \{ t.requirement() \} -\/> std::convertible\_to<typename T::FERequirement\&>;}
+\DoxyCodeLine{520     \{ t.affordanceCollection() \} -\/> std::convertible\_to<typename T::AffordanceCollectionType>;}
+\DoxyCodeLine{521     \{ t.dBCOption() \} -\/> std::convertible\_to<DBCOption>;}
+\DoxyCodeLine{522 }
+\DoxyCodeLine{523     \{ t.bind(req, affordance, dbcOption) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{524     \{ t.bind(req) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{525     \{ t.bind(affordance) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{526     \{ t.bind(dbcOption) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{527 }
+\DoxyCodeLine{528     \{ t.bound() \} -\/> std::convertible\_to<bool>;}
+\DoxyCodeLine{529     \{ t.boundToRequirement() \} -\/> std::convertible\_to<bool>;}
+\DoxyCodeLine{530     \{ t.boundToAffordanceCollection() \} -\/> std::convertible\_to<bool>;}
+\DoxyCodeLine{531     \{ t.boundToDBCOption() \} -\/> std::convertible\_to<bool>;}
+\DoxyCodeLine{532     \{ t.estimateOfConnectivity() \} -\/> std::convertible\_to<size\_t>;}
+\DoxyCodeLine{533 }
+\DoxyCodeLine{534     \{ t.createFullVector(std::declval<Eigen::Ref<const Eigen::VectorXd>>()) \} -\/> std::convertible\_to<Eigen::VectorXd>;}
+\DoxyCodeLine{535     \{ t.constraintsBelow(std::declval<size\_t>()) \} -\/> std::convertible\_to<size\_t>;}
+\DoxyCodeLine{536     \{ t.isConstrained(std::declval<size\_t>()) \} -\/> std::convertible\_to<bool>;}
+\DoxyCodeLine{537     \{ t.size() \} -\/> std::convertible\_to<size\_t>;}
+\DoxyCodeLine{538     \{ t.reducedSize() \} -\/> std::convertible\_to<size\_t>;}
+\DoxyCodeLine{539   \};}
+\DoxyCodeLine{540 }
+\DoxyCodeLine{547   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{548   \textcolor{keyword}{concept }\mbox{\hyperlink{a02379}{ScalarFlatAssembler}} =}
+\DoxyCodeLine{549       \mbox{\hyperlink{a02378}{Concepts::FlatAssembler<T>}} and \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{550                                               \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00492_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{551         \{ t.scalar(req, affordance.scalarAffordance()) \} -\/> std::convertible\_to<const double\&>;}
+\DoxyCodeLine{552         \{ t.scalar() \} -\/> std::convertible\_to<const double\&>;}
+\DoxyCodeLine{553       \};}
+\DoxyCodeLine{554 }
+\DoxyCodeLine{561   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{562   \textcolor{keyword}{concept }\mbox{\hyperlink{a02380}{VectorFlatAssembler}} = \mbox{\hyperlink{a02379}{Concepts::ScalarFlatAssembler<T>}} and}
+\DoxyCodeLine{563                                 \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{564                                          \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00492_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{565                                   \{}
+\DoxyCodeLine{566                                     t.vector(req, affordance.vectorAffordance(), dbcOption)}
+\DoxyCodeLine{567                                   \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{568                                   \{ t.vector(dbcOption) \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{569                                   \{ t.vector() \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{570                                 \};}
+\DoxyCodeLine{571 }
+\DoxyCodeLine{578   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{579   \textcolor{keyword}{concept }\mbox{\hyperlink{a02381}{MatrixFlatAssembler}} = \mbox{\hyperlink{a02380}{Concepts::VectorFlatAssembler<T>}} and}
+\DoxyCodeLine{580                                 \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{581                                          \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00492_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{582                                   \{ t.matrix(req, affordance.matrixAffordance(), dbcOption) \};}
+\DoxyCodeLine{583                                   \{ t.matrix(dbcOption) \};}
+\DoxyCodeLine{584                                   \{ t.matrix() \};}
+\DoxyCodeLine{585                                 \};}
+\DoxyCodeLine{586 }
+\DoxyCodeLine{587   \textcolor{comment}{// adapted from /dune/dune-\/vtk/dune/vtk/utility/concepts.hh}}
+\DoxyCodeLine{588   \textcolor{keyword}{template} <\textcolor{keyword}{class} DC>}
+\DoxyCodeLine{589   \textcolor{keyword}{concept }\mbox{\hyperlink{a02382}{DataCollector}} = \textcolor{keyword}{requires}(DC dc) \{}
+\DoxyCodeLine{590     \textcolor{keyword}{typename} DC::GridView;}
+\DoxyCodeLine{591     \{ dc.update() \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{592     \{ dc.numPoints() \} -\/> std::convertible\_to<std::uint64\_t>;}
+\DoxyCodeLine{593     \{ dc.numCells() \} -\/> std::convertible\_to<std::uint64\_t>;}
+\DoxyCodeLine{594     \{ dc.gridView() \} -\/> std::same\_as<const typename DC::GridView\&>;}
+\DoxyCodeLine{595   \};}
+\DoxyCodeLine{596 }
+\DoxyCodeLine{597   \textcolor{keyword}{template} <\textcolor{keyword}{class} GV>}
+\DoxyCodeLine{598   \textcolor{keyword}{concept }\mbox{\hyperlink{a02383}{GridView}} = \textcolor{keyword}{requires}(GV g) \{}
+\DoxyCodeLine{599     \textcolor{keyword}{typename} GV::Grid;}
+\DoxyCodeLine{600     GV::dimension;}
+\DoxyCodeLine{601     GV::dimensionworld;}
+\DoxyCodeLine{602 }
+\DoxyCodeLine{603     \{ g.grid() \};}
+\DoxyCodeLine{604   \};}
+\DoxyCodeLine{605 }
+\DoxyCodeLine{606   \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{607     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{608     \textcolor{keyword}{struct }is\_dual : std::false\_type}
+\DoxyCodeLine{609     \{}
+\DoxyCodeLine{610     \};}
+\DoxyCodeLine{611 }
+\DoxyCodeLine{612     \textcolor{comment}{// Specialization for Dual<T, U>: this will be true for Dual types}}
+\DoxyCodeLine{613     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} U>}
+\DoxyCodeLine{614     \textcolor{keyword}{struct }is\_dual<autodiff::detail::Dual<T, U>> : std::true\_type}
+\DoxyCodeLine{615     \{}
+\DoxyCodeLine{616     \};}
+\DoxyCodeLine{617   \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{618 }
+\DoxyCodeLine{624   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{625   \textcolor{keyword}{concept }\mbox{\hyperlink{a02384}{AutodiffScalar}} = Impl::is\_dual<T>::value;}
+\DoxyCodeLine{626 }
+\DoxyCodeLine{632   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{633   \textcolor{keyword}{concept }\mbox{\hyperlink{a02385}{SmartPointer}} = traits::isSharedPtr<T>::value || traits::isUniquePtr<T>::value;}
+\DoxyCodeLine{634 }
+\DoxyCodeLine{640   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{641   \textcolor{keyword}{concept }\mbox{\hyperlink{a02386}{PointerOrSmartPointer}} = \mbox{\hyperlink{a02385}{SmartPointer<T>}} || \mbox{\hyperlink{a02396}{traits::Pointer<T>}};}
+\DoxyCodeLine{642 }
+\DoxyCodeLine{648   \textcolor{keyword}{template} <\textcolor{keyword}{typename} S>}
+\DoxyCodeLine{649   \textcolor{keyword}{concept }\mbox{\hyperlink{a02387}{ControlRoutineState}} = \textcolor{keyword}{requires}(S s) \{}
+\DoxyCodeLine{650     \textcolor{keyword}{typename} S::Domain;}
+\DoxyCodeLine{651 }
+\DoxyCodeLine{652     \{ s.information \} -\/> std::same\_as<const ControlInformation\&>;}
+\DoxyCodeLine{653     \{ s.loadStep \} -\/> std::convertible\_to<int>;}
+\DoxyCodeLine{654     \{ s.stepSize \} -\/> std::convertible\_to<double>;}
+\DoxyCodeLine{655     \{ s.domain \} -\/> std::same\_as<const typename S::Domain\&>;}
+\DoxyCodeLine{656   \};}
+\DoxyCodeLine{657 }
+\DoxyCodeLine{663   \textcolor{keyword}{template} <\textcolor{keyword}{typename} S>}
+\DoxyCodeLine{664   \textcolor{keyword}{concept }\mbox{\hyperlink{a02388}{NonLinearSolverState}} = \textcolor{keyword}{requires}(S s) \{}
+\DoxyCodeLine{665     \textcolor{keyword}{typename} S::Domain;}
+\DoxyCodeLine{666     \textcolor{keyword}{typename} S::CorrectionType;}
+\DoxyCodeLine{667 }
+\DoxyCodeLine{668     \{ s.information \} -\/> std::same\_as<const NonLinearSolverInformation\&>;}
+\DoxyCodeLine{669     \{ s.domain \} -\/> std::same\_as<const typename S::Domain\&>;}
+\DoxyCodeLine{670     \{ s.correction \} -\/> std::same\_as<const typename S::CorrectionType\&>;}
+\DoxyCodeLine{671   \};}
+\DoxyCodeLine{672 }
+\DoxyCodeLine{676   \textcolor{keyword}{template} <StrainTags tag>}
+\DoxyCodeLine{677   \textcolor{keyword}{concept }\mbox{\hyperlink{a02389}{ReferenceConfiguraionStrain}} = (tag == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e}{StrainTags::greenLagrangian}}) or}
+\DoxyCodeLine{678                                         (tag == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8faea40a9960a7a89c4f366beeab85d07d2}{StrainTags::rightCauchyGreenTensor}}) or (tag == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}});}
+\DoxyCodeLine{679 }
+\DoxyCodeLine{683   \textcolor{keyword}{template} <StressTags tag>}
+\DoxyCodeLine{684   \textcolor{keyword}{concept }\mbox{\hyperlink{a02390}{ReferenceConfiguraionStress}} = (tag == \mbox{\hyperlink{a00481_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}}) or (tag == \mbox{\hyperlink{a00481_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}});}
+\DoxyCodeLine{685 }
+\DoxyCodeLine{686   \textcolor{keyword}{namespace }Formulations \{}
+\DoxyCodeLine{693     \textcolor{keyword}{template} <StrainTags T1, StressTags T2>}
+\DoxyCodeLine{694     \textcolor{keyword}{concept }\mbox{\hyperlink{a02391}{TotalLagrangian}} = (T1 == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}} and T2 == \mbox{\hyperlink{a00481_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}}) or}
+\DoxyCodeLine{695                               (T1 == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e}{StrainTags::greenLagrangian}} and T2 == \mbox{\hyperlink{a00481_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}});}
+\DoxyCodeLine{696 }
+\DoxyCodeLine{703     \textcolor{keyword}{template} <StrainTags T1, StressTags T2>}
+\DoxyCodeLine{704     \textcolor{keyword}{concept }\mbox{\hyperlink{a02392}{TwoPoint}} =}
+\DoxyCodeLine{705         (T1 == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8fa61fc106262d2e2049866894bb4f862a5}{StrainTags::deformationGradient}} or T1 == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8fa0eb1f1f7a6a355c2f4260b74c21d80f3}{StrainTags::displacementGradient}}) and T2 == \mbox{\hyperlink{a00481_gga70b4ce43c53cc5e949d49919f437501eac34dd77ffb9238275b93ea1897664a7e}{StressTags::PK1}};}
+\DoxyCodeLine{706   \} \textcolor{comment}{// namespace Formulations}}
+\DoxyCodeLine{707 }
+\DoxyCodeLine{714   \textcolor{keyword}{template} <\textcolor{keyword}{typename} M>}
+\DoxyCodeLine{715   \textcolor{keyword}{concept }\mbox{\hyperlink{a02393}{Material}} = \textcolor{keyword}{requires}(M m, Eigen::Matrix3d C) \{}
+\DoxyCodeLine{716     M::strainTag;}
+\DoxyCodeLine{717     M::stressTag;}
+\DoxyCodeLine{718     M::tangentModuliTag;}
+\DoxyCodeLine{719     M::derivativeFactor;}
+\DoxyCodeLine{720     M::isReduced;}
+\DoxyCodeLine{721 }
+\DoxyCodeLine{722     \textcolor{keyword}{typename} M::ScalarType;}
+\DoxyCodeLine{723 }
+\DoxyCodeLine{724     \{ m.name() \} -\/> std::convertible\_to<std::string>;}
+\DoxyCodeLine{725     \{ m.materialParameters() \} -\/> std::same\_as<typename M::MaterialParameters>;}
+\DoxyCodeLine{726     \{ m.template storedEnergy<M::strainTag>(C) \} -\/> std::same\_as<typename M::ScalarType>;}
+\DoxyCodeLine{727     \{ m.template stresses<M::strainTag>(C) \};}
+\DoxyCodeLine{728     \{ m.template tangentModuli<M::strainTag>(C) \};}
+\DoxyCodeLine{729   \};}
+\DoxyCodeLine{730 }
+\DoxyCodeLine{737   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MAT>}
+\DoxyCodeLine{738   \textcolor{keyword}{concept }\mbox{\hyperlink{a02394}{GeometricallyLinearMaterial}} = \mbox{\hyperlink{a02393}{Material<MAT>}} \&\& (MAT::strainTag == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}});}
+\DoxyCodeLine{739 }
+\DoxyCodeLine{746   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ES>}
+\DoxyCodeLine{747   \textcolor{keyword}{concept }\mbox{\hyperlink{a02395}{EigenValueSolver}} = \textcolor{keyword}{requires}(ES es) \{}
+\DoxyCodeLine{748     \textcolor{keyword}{typename} ES::MatrixType;}
+\DoxyCodeLine{749     \textcolor{keyword}{typename} ES::ScalarType;}
+\DoxyCodeLine{750     \{ es.compute() \} -\/> std::same\_as<bool>;}
+\DoxyCodeLine{751     \{ es.eigenvalues() \} -\/> std::convertible\_to<Eigen::VectorX<typename ES::ScalarType>>;}
+\DoxyCodeLine{752     \{ es.eigenvectors() \} -\/> std::convertible\_to<Eigen::MatrixX<typename ES::ScalarType>>;}
+\DoxyCodeLine{753     \{ es.nev() \} -\/> std::convertible\_to<int>;}
+\DoxyCodeLine{754   \};}
+\DoxyCodeLine{755 }
+\DoxyCodeLine{756 \} \textcolor{comment}{// namespace Concepts}}
+\DoxyCodeLine{757 }
+\DoxyCodeLine{758 \textcolor{keyword}{namespace }traits \{}
+\DoxyCodeLine{759 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
+\DoxyCodeLine{760 }
+\DoxyCodeLine{761   \textcolor{comment}{// Primary template: for non-\/pointer types.}}
+\DoxyCodeLine{762   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keywordtype}{bool} = Concepts::Po\textcolor{keywordtype}{int}erOrSmartPo\textcolor{keywordtype}{int}er<T>>}
+\DoxyCodeLine{763   \textcolor{keyword}{struct }MaybeDereference}
+\DoxyCodeLine{764   \{}
+\DoxyCodeLine{765     \textcolor{keyword}{using }type = T;}
+\DoxyCodeLine{766   \};}
+\DoxyCodeLine{767 }
+\DoxyCodeLine{768   \textcolor{comment}{// Specialization: for pointer (or smart pointer) types.}}
+\DoxyCodeLine{769   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{770   \textcolor{keyword}{struct }MaybeDereference<T, true>}
+\DoxyCodeLine{771   \{}
+\DoxyCodeLine{772     \textcolor{comment}{// We know T is pointer-\/like, so *std::declval<T\&>() is well-\/formed.}}
+\DoxyCodeLine{773     \textcolor{keyword}{using }type = std::remove\_reference\_t<decltype(*std::declval<T\&>())>;}
+\DoxyCodeLine{774   \};}
+\DoxyCodeLine{775 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{776 }
+\DoxyCodeLine{777   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{778   \textcolor{keyword}{using }\mbox{\hyperlink{a00517_ac043159fa5129b78437c4cc7616ce706}{MaybeDereferencedType}} = \textcolor{keyword}{typename} MaybeDereference<T>::type;}
+\DoxyCodeLine{779 }
+\DoxyCodeLine{780 \} \textcolor{comment}{// namespace traits}}
+\DoxyCodeLine{781 }
+\DoxyCodeLine{782 \} \textcolor{comment}{// namespace Ikarus}}
+
+\end{DoxyCode}
