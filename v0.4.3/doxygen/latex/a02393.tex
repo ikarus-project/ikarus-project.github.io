@@ -1,0 +1,36 @@
+\hypertarget{a02393}{}\doxysection{Ikarus\+::Concepts\+::Material Concept Reference}
+\label{a02393}\index{Ikarus::Concepts::Material@{Ikarus::Concepts::Material}}
+
+
+Concept representing a material interface.  
+
+
+
+
+{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} M>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02393}{Ikarus::Concepts::Material}} =  \textcolor{keyword}{requires}(M m, Eigen::Matrix3d C) \{}
+\DoxyCodeLine{    M::strainTag;}
+\DoxyCodeLine{    M::stressTag;}
+\DoxyCodeLine{    M::tangentModuliTag;}
+\DoxyCodeLine{    M::derivativeFactor;}
+\DoxyCodeLine{    M::isReduced;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} M::ScalarType;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \{ m.name() \} -\/> std::convertible\_to<std::string>;}
+\DoxyCodeLine{    \{ m.materialParameters() \} -\/> std::same\_as<typename M::MaterialParameters>;}
+\DoxyCodeLine{    \{ m.template storedEnergy<M::strainTag>(C) \} -\/> std::same\_as<typename M::ScalarType>;}
+\DoxyCodeLine{    \{ m.template stresses<M::strainTag>(C) \};}
+\DoxyCodeLine{    \{ m.template tangentModuli<M::strainTag>(C) \};}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+A type M satisfies the material interface if it provides the necessary member functions and type. 
