@@ -1,4 +1,5 @@
 var a00035 =
 [
-    [ "getLinearIndex", "a00035.html#a6cfefe8fc3c51b09b7633cf8397a67e9", null ]
+    [ "forEachLagrangeNodePosition", "a00035.html#ad8f6a5b5d6fb5a916fd5791adf5ef4d9", null ],
+    [ "forEachLeafOrPowerLeafNode", "a00035.html#a63742d75d099b93da7ddf6e78a3c1f56", null ]
 ];

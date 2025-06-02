@@ -1,4 +1,4 @@
 var a00266 =
 [
-    [ "Ikarus::DefaultMembraneStrain", "a01772.html", "a01772" ]
+    [ "Ikarus::Materials::MatrixIndexPair", "a01756.html", "a01756" ]
 ];

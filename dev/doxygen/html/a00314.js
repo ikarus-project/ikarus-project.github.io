@@ -1,5 +1,5 @@
 var a00314 =
 [
-    [ "Ikarus::LinearElasticPre< MAT >", "a01632.html", "a01632" ],
-    [ "linearElastic", "a00314.html#af9e2c0087fa5819ca15d064776034a6f", null ]
+    [ "Ikarus::GentMatParameters", "a01668.html", "a01668" ],
+    [ "Gent", "a00314.html#a8d05a34baf0684f0e4e2a10a721bb80d", null ]
 ];

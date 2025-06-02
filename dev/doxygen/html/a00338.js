@@ -1,6 +1,5 @@
 var a00338 =
 [
-    [ "Ikarus::ScalarManipulator< Wrapper, Assembler >", "a01348.html", "a01348" ],
-    [ "Ikarus::VectorManipulator< Wrapper, Assembler >", "a01352.html", "a01352" ],
-    [ "Ikarus::MatrixManipulator< Wrapper, Assembler >", "a01356.html", "a01356" ]
+    [ "Ikarus::AssumedStressPre< ASType >", "a01552.html", "a01552" ],
+    [ "assumedStress", "a00338.html#ace14ee68dd67562bfc182f1de3f53d47", null ]
 ];

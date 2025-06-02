@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: resultfunction.hh Source File</title>
+    <title>ikarus: genericlistener.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,137 +155,57 @@ $(document).ready(function(){initNavTree('a00167_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">resultfunction.hh</div></div>
+  <div class="headertitle"><div class="title">genericlistener.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00167.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;spdlog/spdlog.h&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;dune/vtk/gridfunctions/vtkfunctionwrapper.hh&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;dune/vtk/vtkwriter.hh&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00164.html">ikarus/utils/broadcaster/broadcastermessages.hh</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">ikarus/utils/listener/listener.hh</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00492.html">Ikarus</a> {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a00317.html">ikarus/finiteelements/ferequirements.hh</a>&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a03429.html">ikarus/utils/concepts.hh</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00492.html">Ikarus</a> {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span>Impl {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keyword">struct </span>DefaultUserFunction</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> FiniteElement, <span class="keywordtype">int</span> dim&gt;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">double</span> operator()(<span class="keyword">const</span> R&amp; resultArray, <span class="keyword">const</span> <a class="code hl_class" href="a02196.html">Dune::FieldVector&lt;double, dim&gt;</a>&amp; pos, <span class="keyword">const</span> FiniteElement&amp; fe,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                      <span class="keyword">const</span> <span class="keywordtype">int</span> comp)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      <span class="keywordflow">return</span> resultArray[comp];</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    };</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  };</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>} <span class="comment">// namespace Impl</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> AS, <span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>&gt; <span class="keyword">class </span>RT, <span class="keyword">typename</span> UserFunction = Impl::DefaultUserFunction&gt;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">requires</span>(Concepts::FlatAssembler&lt;AS&gt; and Concepts::ResultType&lt;RT&gt;)</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a01964.html">   57</a></span><span class="keyword">class</span> <a class="code hl_class" href="a01964.html">ResultFunction</a> : <span class="keyword">public</span> Dune::VTKFunction&lt;typename AS::GridView&gt;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a01964.html#ab7712895c055876ce68b119ee5be512b">   60</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01964.html#ab7712895c055876ce68b119ee5be512b">Assembler</a>         = AS;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="a01964.html#ae02316521c3591dee26cf26d3cc1aafe">   61</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01964.html#ae02316521c3591dee26cf26d3cc1aafe">GridView</a>          = <span class="keyword">typename</span> Assembler::GridView;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a01964.html#a04e04c52ed60c19be684faa4767ed795">   62</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01964.html#a04e04c52ed60c19be684faa4767ed795">FERequirementType</a> = <span class="keyword">typename</span> Assembler::FERequirement;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a01964.html#a593fc23022f4622064a1659c0805a44f">   63</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01964.html#a593fc23022f4622064a1659c0805a44f">FEContainer</a>       = <span class="keyword">typename</span> Assembler::FEContainer;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a01964.html#a8c19ba544b970530a3d2421eef882c72">   64</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01964.html#a8c19ba544b970530a3d2421eef882c72">FiniteElement</a>     = <span class="keyword">typename</span> std::remove_cvref_t&lt;FEContainer&gt;::value_type;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a01964.html#a916f6362e75f7b8f9f8e9b5acd7fb3ae">   66</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01964.html#a916f6362e75f7b8f9f8e9b5acd7fb3ae">ctype</a>                  = <span class="keyword">typename</span> GridView::ctype;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a01964.html#af7e853295439736348e50ee08cdced8a">   67</a></span>  <span class="keyword">constexpr</span> <span class="keyword">static</span> <span class="keywordtype">int</span> griddim = GridView::dimension;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a01964.html#a6da0b532274ad8ed0c79e7012fbf81fd">   68</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01964.html#a6da0b532274ad8ed0c79e7012fbf81fd">Entity</a>                 = <span class="keyword">typename</span> GridView::template Codim&lt;0&gt;::Entity;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="a01964.html#add24f14249cce07c37dd92e3f81cf50c">   80</a></span>  <span class="keywordtype">double</span> <a class="code hl_function" href="a01964.html#add24f14249cce07c37dd92e3f81cf50c">evaluate</a>(<span class="keywordtype">int</span> comp, <span class="keyword">const</span> <a class="code hl_typedef" href="a01964.html#a6da0b532274ad8ed0c79e7012fbf81fd">Entity</a>&amp; e, <span class="keyword">const</span> <a class="code hl_class" href="a02196.html">Dune::FieldVector&lt;ctype, griddim&gt;</a>&amp; local)<span class="keyword"> const override </span>{</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">const</span> <span class="keyword">auto</span> index = gridView().indexSet().index(e);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> evaluateComponent(index, local, comp);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  }</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a01964.html#a29d17ce2c3a99be49e322d527b42748a">   92</a></span>  [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="a01964.html#a29d17ce2c3a99be49e322d527b42748a">ncomps</a>()<span class="keyword"> const override </span>{</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_same_v&lt;UserFunction, Impl::DefaultUserFunction&gt;) {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>      <a class="code hl_class" href="a02196.html">Dune::FieldVector&lt;ctype, griddim&gt;</a> val(0.0);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>      <span class="keyword">auto</span> sigma = finiteElements().at(0).template calculateAt&lt;RT&gt;(requirement(), val).asVec();</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>      <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(sigma.size());</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    } <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>      <span class="keywordflow">return</span> userFunction_.ncomps();</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="a01964.html#aaefbf5aea92c097023ed3d628a25f2cf">  108</a></span>  [[nodiscard]] <span class="keyword">constexpr</span> std::string <a class="code hl_function" href="a01964.html#aaefbf5aea92c097023ed3d628a25f2cf">name</a>()<span class="keyword"> const override </span>{</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">requires</span> { userFunction_.name(); })</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>      <span class="keywordflow">return</span> userFunction_.name();</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>      <span class="keywordflow">return</span> toString&lt;RT&gt;();</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  }</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a01964.html#aa2ce1b66145ac6962be8189061f42d45">  123</a></span>  Dune::VTK::Precision <a class="code hl_function" href="a01964.html#aa2ce1b66145ac6962be8189061f42d45">precision</a>()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> prec_; }</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> UF = UserFunction&gt;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="a01964.html#aa37e3d1ee3abfa48ae5bfd300a01c09b">  136</a></span>  <a class="code hl_function" href="a01964.html#aa37e3d1ee3abfa48ae5bfd300a01c09b">ResultFunction</a>(std::shared_ptr&lt;Assembler&gt; assembler, Dune::VTK::Precision prec = Dune::VTK::Precision::float64,</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                 UF&amp;&amp; userFunction = {})</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>      : assembler_(assembler),</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        prec_{prec},</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        userFunction_{std::forward&lt;UF&gt;(userFunction)} {}</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>  <span class="keywordtype">double</span> evaluateComponent(<span class="keywordtype">int</span> eleID, <span class="keyword">const</span> <a class="code hl_class" href="a02196.html">Dune::FieldVector&lt;ctype, griddim&gt;</a>&amp; local, <span class="keywordtype">int</span> comp)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; fe = finiteElements().at(eleID);</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keyword">auto</span> result    = fe.template calculateAt&lt;RT&gt;(requirement(), local).asVec();</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keywordflow">return</span> userFunction_(result, local, fe, comp);</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>  }</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>  <span class="keyword">const</span> FEContainer&amp; finiteElements()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> assembler_-&gt;finiteElements(); }</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>  <span class="keyword">const</span> FERequirementType&amp; requirement()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> assembler_-&gt;requirement(); }</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  <span class="keyword">const</span> GridView&amp; gridView()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> assembler_-&gt;gridView(); }</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>  std::shared_ptr&lt;Assembler&gt; assembler_;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>  Dune::VTK::Precision prec_;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>  UserFunction userFunction_;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>};</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>&gt; <span class="keyword">class </span>RT, <span class="keyword">typename</span> UserFunction = Impl::DefaultUserFunction,</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>          Concepts::FlatAssembler AS&gt;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="a00492.html#aba0432efad1cef6c956ccf108829682c">  175</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00492.html#aba0432efad1cef6c956ccf108829682c">makeResultFunction</a>(std::shared_ptr&lt;AS&gt; assembler, Dune::VTK::Precision prec = Dune::VTK::Precision::float64,</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                        UserFunction&amp;&amp; userFunction = {}) {</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>  <span class="keywordflow">return</span> std::make_shared&lt;ResultFunction&lt;AS, RT, UserFunction&gt;&gt;(assembler, prec,</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                                                                std::forward&lt;UserFunction&gt;(userFunction));</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>}</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>&gt; <span class="keyword">class </span>RT, <span class="keyword">typename</span> UserFunction, Concepts::FlatAssembler AS&gt;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="a00492.html#aa4430d7f94a172d765fba38d393450a0">  192</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00492.html#aba0432efad1cef6c956ccf108829682c">makeResultFunction</a>(std::shared_ptr&lt;AS&gt; assembler, UserFunction&amp;&amp; userFunction) {</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>  <span class="keywordflow">return</span> makeResultFunction&lt;RT&gt;(assembler, Dune::VTK::Precision::float64, std::forward&lt;UserFunction&gt;(userFunction));</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>}</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>&gt; <span class="keyword">class </span>RT, <span class="keyword">typename</span> UserFunction = Impl::DefaultUserFunction,</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>          Concepts::FlatAssembler AS&gt;</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="a00492.html#ad8472943b9877db27039331c847154f1">  214</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00492.html#ad8472943b9877db27039331c847154f1">makeResultVtkFunction</a>(std::shared_ptr&lt;AS&gt; assembler, UserFunction&amp;&amp; userFunction = {}) {</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>  <span class="keywordflow">return</span> Dune::Vtk::VTKFunctionWrapper&lt;typename AS::GridView&gt;(std::make_shared&lt;ResultFunction&lt;AS, RT, UserFunction&gt;&gt;(</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>      assembler, Dune::VTK::Precision::float64, std::forward&lt;UserFunction&gt;(userFunction)));</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>}</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>} <span class="comment">// namespace Ikarus</span></div>
-<div class="ttc" id="aa00317_html"><div class="ttname"><a href="a00317.html">ferequirements.hh</a></div><div class="ttdoc">Definition of the LinearElastic class for finite element mechanics computations.</div></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> BC&gt;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a02260.html">   25</a></span><span class="keyword">class </span><a class="code hl_class" href="a02260.html">GenericListener</a> : <span class="keyword">public</span> <a class="code hl_class" href="a02264.html">Listener</a></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">using </span>Messages = BC::MessageType;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  <span class="keyword">using </span>State    = BC::State;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a02260.html#a300293b7f6313589e5cc536bced6ae72">   41</a></span>  <a class="code hl_function" href="a02260.html#a300293b7f6313589e5cc536bced6ae72">GenericListener</a>(BC&amp; bc, Messages message, F&amp;&amp; f)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      : message_{message},</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        f_{std::forward&lt;F&gt;(f)} {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    this-&gt;<a class="code hl_function" href="a02264.html#a199840d6ead51d771d5522acff779a4f">subscribe</a>(bc, [&amp;](Messages message, <span class="keyword">const</span> BC::State&amp; state) { this-&gt;<a class="code hl_function" href="a02260.html#a8323287350936b97e14bdf500b071d61">updateImpl</a>(message, state); });</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a02260.html#a8323287350936b97e14bdf500b071d61">   47</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02260.html#a8323287350936b97e14bdf500b071d61">updateImpl</a>(Messages message, <span class="keyword">const</span> State&amp; state) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span> (message_ == message)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      f_(state);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  Messages message_;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  std::function&lt;void(<span class="keyword">const</span> State&amp;)&gt; f_;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>};</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> BC, <span class="keyword">typename</span> MT, <span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a00492.html#abf2bcdf0a180600b42282f124ef381de">   58</a></span><a class="code hl_function" href="a00492.html#abf2bcdf0a180600b42282f124ef381de">GenericListener</a>(BC&amp;, MT, F&amp;&amp;) -&gt; <a class="code hl_class" href="a02260.html">GenericListener&lt;BC&gt;</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">broadcastermessages.hh</a></div><div class="ttdoc">Enums for observer messages.</div></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">listener.hh</a></div><div class="ttdoc">Implementation of the observer design pattern with broadcasters.</div></div>
 <div class="ttc" id="aa00492_html"><div class="ttname"><a href="a00492.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa00492_html_aba0432efad1cef6c956ccf108829682c"><div class="ttname"><a href="a00492.html#aba0432efad1cef6c956ccf108829682c">Ikarus::makeResultFunction</a></div><div class="ttdeci">auto makeResultFunction(std::shared_ptr&lt; AS &gt; assembler, Dune::VTK::Precision prec=Dune::VTK::Precision::float64, UserFunction &amp;&amp;userFunction={})</div><div class="ttdoc">Function to create a ResultFunction as a shared_ptr.</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:175</div></div>
-<div class="ttc" id="aa00492_html_ad8472943b9877db27039331c847154f1"><div class="ttname"><a href="a00492.html#ad8472943b9877db27039331c847154f1">Ikarus::makeResultVtkFunction</a></div><div class="ttdeci">auto makeResultVtkFunction(std::shared_ptr&lt; AS &gt; assembler, UserFunction &amp;&amp;userFunction={})</div><div class="ttdoc">Function to create a ResultFunction as a gridfunction that can be used with dune-vtk.</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:214</div></div>
-<div class="ttc" id="aa01964_html"><div class="ttname"><a href="a01964.html">Ikarus::ResultFunction</a></div><div class="ttdoc">Wrapper to evaluate results for a vtkwriter. Works both out-of-the-box with Dune::VTK and Dune::Vtk.</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:58</div></div>
-<div class="ttc" id="aa01964_html_a04e04c52ed60c19be684faa4767ed795"><div class="ttname"><a href="a01964.html#a04e04c52ed60c19be684faa4767ed795">Ikarus::ResultFunction::FERequirementType</a></div><div class="ttdeci">typename Assembler::FERequirement FERequirementType</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:62</div></div>
-<div class="ttc" id="aa01964_html_a29d17ce2c3a99be49e322d527b42748a"><div class="ttname"><a href="a01964.html#a29d17ce2c3a99be49e322d527b42748a">Ikarus::ResultFunction::ncomps</a></div><div class="ttdeci">int ncomps() const override</div><div class="ttdoc">Get the number of components.</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:92</div></div>
-<div class="ttc" id="aa01964_html_a593fc23022f4622064a1659c0805a44f"><div class="ttname"><a href="a01964.html#a593fc23022f4622064a1659c0805a44f">Ikarus::ResultFunction::FEContainer</a></div><div class="ttdeci">typename Assembler::FEContainer FEContainer</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:63</div></div>
-<div class="ttc" id="aa01964_html_a6da0b532274ad8ed0c79e7012fbf81fd"><div class="ttname"><a href="a01964.html#a6da0b532274ad8ed0c79e7012fbf81fd">Ikarus::ResultFunction::Entity</a></div><div class="ttdeci">typename GridView::template Codim&lt; 0 &gt;::Entity Entity</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:68</div></div>
-<div class="ttc" id="aa01964_html_a8c19ba544b970530a3d2421eef882c72"><div class="ttname"><a href="a01964.html#a8c19ba544b970530a3d2421eef882c72">Ikarus::ResultFunction::FiniteElement</a></div><div class="ttdeci">typename std::remove_cvref_t&lt; FEContainer &gt;::value_type FiniteElement</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:64</div></div>
-<div class="ttc" id="aa01964_html_a916f6362e75f7b8f9f8e9b5acd7fb3ae"><div class="ttname"><a href="a01964.html#a916f6362e75f7b8f9f8e9b5acd7fb3ae">Ikarus::ResultFunction::ctype</a></div><div class="ttdeci">typename GridView::ctype ctype</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:66</div></div>
-<div class="ttc" id="aa01964_html_aa2ce1b66145ac6962be8189061f42d45"><div class="ttname"><a href="a01964.html#aa2ce1b66145ac6962be8189061f42d45">Ikarus::ResultFunction::precision</a></div><div class="ttdeci">Dune::VTK::Precision precision() const override</div><div class="ttdoc">Get the precision used for this result.</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:123</div></div>
-<div class="ttc" id="aa01964_html_aa37e3d1ee3abfa48ae5bfd300a01c09b"><div class="ttname"><a href="a01964.html#aa37e3d1ee3abfa48ae5bfd300a01c09b">Ikarus::ResultFunction::ResultFunction</a></div><div class="ttdeci">ResultFunction(std::shared_ptr&lt; Assembler &gt; assembler, Dune::VTK::Precision prec=Dune::VTK::Precision::float64, UF &amp;&amp;userFunction={})</div><div class="ttdoc">Construct a new Result Function object.</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:136</div></div>
-<div class="ttc" id="aa01964_html_aaefbf5aea92c097023ed3d628a25f2cf"><div class="ttname"><a href="a01964.html#aaefbf5aea92c097023ed3d628a25f2cf">Ikarus::ResultFunction::name</a></div><div class="ttdeci">constexpr std::string name() const override</div><div class="ttdoc">Get the name of the result type.</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:108</div></div>
-<div class="ttc" id="aa01964_html_ab7712895c055876ce68b119ee5be512b"><div class="ttname"><a href="a01964.html#ab7712895c055876ce68b119ee5be512b">Ikarus::ResultFunction::Assembler</a></div><div class="ttdeci">AS Assembler</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:60</div></div>
-<div class="ttc" id="aa01964_html_add24f14249cce07c37dd92e3f81cf50c"><div class="ttname"><a href="a01964.html#add24f14249cce07c37dd92e3f81cf50c">Ikarus::ResultFunction::evaluate</a></div><div class="ttdeci">double evaluate(int comp, const Entity &amp;e, const Dune::FieldVector&lt; ctype, griddim &gt; &amp;local) const override</div><div class="ttdoc">Evaluate the component at a given entity and local coordinates.</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:80</div></div>
-<div class="ttc" id="aa01964_html_ae02316521c3591dee26cf26d3cc1aafe"><div class="ttname"><a href="a01964.html#ae02316521c3591dee26cf26d3cc1aafe">Ikarus::ResultFunction::GridView</a></div><div class="ttdeci">typename Assembler::GridView GridView</div><div class="ttdef"><b>Definition:</b> resultfunction.hh:61</div></div>
-<div class="ttc" id="aa02196_html"><div class="ttname"><a href="a02196.html">Dune::FieldVector</a></div><div class="ttdef"><b>Definition:</b> utils/dirichletvalues.hh:32</div></div>
-<div class="ttc" id="aa03429_html"><div class="ttname"><a href="a03429.html">concepts.hh</a></div><div class="ttdoc">Several concepts.</div></div>
+<div class="ttc" id="aa00492_html_abf2bcdf0a180600b42282f124ef381de"><div class="ttname"><a href="a00492.html#abf2bcdf0a180600b42282f124ef381de">Ikarus::GenericListener</a></div><div class="ttdeci">GenericListener(BC &amp;, MT, F &amp;&amp;) -&gt; GenericListener&lt; BC &gt;</div></div>
+<div class="ttc" id="aa02260_html"><div class="ttname"><a href="a02260.html">Ikarus::GenericListener</a></div><div class="ttdoc">GenericListener class for observing specific messages. This class template implements an listener for...</div><div class="ttdef"><b>Definition:</b> genericlistener.hh:26</div></div>
+<div class="ttc" id="aa02260_html_a300293b7f6313589e5cc536bced6ae72"><div class="ttname"><a href="a02260.html#a300293b7f6313589e5cc536bced6ae72">Ikarus::GenericListener::GenericListener</a></div><div class="ttdeci">GenericListener(BC &amp;bc, Messages message, F &amp;&amp;f)</div><div class="ttdoc">Constructor for GenericListener.</div><div class="ttdef"><b>Definition:</b> genericlistener.hh:41</div></div>
+<div class="ttc" id="aa02260_html_a8323287350936b97e14bdf500b071d61"><div class="ttname"><a href="a02260.html#a8323287350936b97e14bdf500b071d61">Ikarus::GenericListener::updateImpl</a></div><div class="ttdeci">void updateImpl(Messages message, const State &amp;state)</div><div class="ttdef"><b>Definition:</b> genericlistener.hh:47</div></div>
+<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">Ikarus::Listener</a></div><div class="ttdoc">Implements a listener.</div><div class="ttdef"><b>Definition:</b> listener.hh:28</div></div>
+<div class="ttc" id="aa02264_html_a199840d6ead51d771d5522acff779a4f"><div class="ttname"><a href="a02264.html#a199840d6ead51d771d5522acff779a4f">Ikarus::Listener::subscribe</a></div><div class="ttdeci">auto subscribe(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</div><div class="ttdoc">Function to subscribe to a broadcaster with a given function (either a lambda, std::function or funct...</div><div class="ttdef"><b>Definition:</b> listener.hh:41</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -296,7 +216,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_cd0257e5a0a5e21e0bd17a30fdd07a18.html">io</a></li><li class="navelem"><a class="el" href="a00167.html">resultfunction.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="dir_a36f9627d192b5cf01f286cebe1a270d.html">listener</a></li><li class="navelem"><a class="el" href="a00167.html">genericlistener.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: loadcontrol.hh Source File</title>
+    <title>ikarus: controlinfos.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,106 +155,41 @@ $(document).ready(function(){initNavTree('a00395_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">loadcontrol.hh</div></div>
+  <div class="headertitle"><div class="title">controlinfos.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00395.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;dune/common/hybridutilities.hh&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00410.html">ikarus/controlroutines/controlinfos.hh</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a00407.html">ikarus/controlroutines/controlroutinebase.hh</a>&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a00386.html">ikarus/controlroutines/controlroutinefactory.hh</a>&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a00374.html">ikarus/utils/broadcaster/broadcaster.hh</a>&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00492.html">Ikarus</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> NLS&gt;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">class </span>LoadControl;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a01444.html">   29</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01444.html">LoadControlConfig</a></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a01444.html#a2ae5fe40bc992c66ecf6f77cf47df36f">   31</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="a01444.html#a2ae5fe40bc992c66ecf6f77cf47df36f">loadSteps</a>{};</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a01444.html#aff235e0efbb1f26c7fa6d7db8c1852f3">   32</a></span>  <span class="keywordtype">double</span> <a class="code hl_variable" href="a01444.html#aff235e0efbb1f26c7fa6d7db8c1852f3">tbegin</a>{};</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a01444.html#a18f4648fe682b18a39d4c3fb43518fb4">   33</a></span>  <span class="keywordtype">double</span> <a class="code hl_variable" href="a01444.html#a18f4648fe682b18a39d4c3fb43518fb4">tEnd</a>{};</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> NLS&gt;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a00492.html#a5aec737453e85d8a0cd6061b39300694">   45</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00492.html#a5aec737453e85d8a0cd6061b39300694">createControlRoutine</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a01444.html">LoadControlConfig</a>&amp; config, NLS&amp;&amp; nonlinearSolver) {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordflow">return</span> <a class="code hl_class" href="a01440.html">LoadControl</a>(std::forward&lt;NLS&gt;(nonlinearSolver), config.<a class="code hl_variable" href="a01444.html#a2ae5fe40bc992c66ecf6f77cf47df36f">loadSteps</a>, std::array{config.tbegin, config.tEnd});</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> NLS&gt;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a01440.html">   59</a></span><span class="keyword">class </span><a class="code hl_class" href="a01440.html">LoadControl</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a01424.html">ControlRoutineBase</a>&lt;typename NLS::DifferentiableFunction&gt;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a01440.html#a0819073e26d34868b5580d052ea5804c">   63</a></span>  <span class="keyword">constexpr</span> std::string <a class="code hl_function" href="a01440.html#a0819073e26d34868b5580d052ea5804c">name</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;Load Control Method&quot;</span>; }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a01440.html#a073af96d9cd179a918cf18656be19947">   72</a></span>  <a class="code hl_function" href="a01440.html#a073af96d9cd179a918cf18656be19947">LoadControl</a>(<span class="keyword">const</span> std::shared_ptr&lt;NLS&gt;&amp; <a class="code hl_function" href="a01440.html#a1df0028dc2a38a90bb01ba85aa901a0d">nonLinearSolver</a>, <span class="keywordtype">int</span> loadSteps, <span class="keyword">const</span> std::array&lt;double, 2&gt;&amp; tbeginEnd)</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>      : nonLinearSolver_{<a class="code hl_function" href="a01440.html#a1df0028dc2a38a90bb01ba85aa901a0d">nonLinearSolver</a>},</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        loadSteps_{loadSteps},</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        parameterBegin_{tbeginEnd[0]},</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        parameterEnd_{tbeginEnd[1]},</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        stepSize_{(parameterEnd_ - parameterBegin_) / loadSteps_} {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">if</span> (loadSteps_ &lt;= 0)</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>      DUNE_THROW(Dune::InvalidStateException, <span class="stringliteral">&quot;Number of load steps should be greater than zero.&quot;</span>);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  }</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  <a class="code hl_struct" href="a01420.html">ControlInformation</a> <a class="code hl_function" href="a01440.html#aca267aa96227250abd37487214918f1a">run</a>(<span class="keyword">typename</span> NLS::Domain&amp; x);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  <span class="comment">/* \brief returns the nonlinear solver */</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="a01440.html#a1df0028dc2a38a90bb01ba85aa901a0d">   90</a></span>  NLS&amp; <a class="code hl_function" href="a01440.html#a1df0028dc2a38a90bb01ba85aa901a0d">nonLinearSolver</a>() { <span class="keywordflow">return</span> *nonLinearSolver_; }</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  std::shared_ptr&lt;NLS&gt; nonLinearSolver_;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  <span class="keywordtype">int</span> loadSteps_;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <span class="keywordtype">double</span> parameterBegin_;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="keywordtype">double</span> parameterEnd_;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  <span class="keywordtype">double</span> stepSize_;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  <span class="keywordtype">void</span> updateAndNotifyControlInfo(<a class="code hl_struct" href="a01420.html">ControlInformation</a>&amp; info, <span class="keyword">const</span> <a class="code hl_struct" href="a02100.html">NonLinearSolverInformation</a>&amp; solverInfo,</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                                  <span class="keyword">const</span> <span class="keyword">typename</span> <a class="code hl_struct" href="a01432.html">LoadControl::State</a>&amp; state) {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    info.<a class="code hl_variable" href="a01420.html#aedbd5de28f127726884cb99b067313bf">solverInfos</a>.push_back(solverInfo);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    info.<a class="code hl_variable" href="a01420.html#a4712b189651e59cd46fd43b2e6a326bf">totalIterations</a> += solverInfo.<a class="code hl_variable" href="a02100.html#a81570cd3d9f6589a4d1ba81211f41b99">iterations</a>;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    this-&gt;<a class="code hl_function" href="a02136.html#a0cc3593f3af31f30ea97adc1d040c8f2">notify</a>(<a class="code hl_enumvalue" href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">ControlMessages::SOLUTION_CHANGED</a>, state);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    this-&gt;<a class="code hl_function" href="a02136.html#a0cc3593f3af31f30ea97adc1d040c8f2">notify</a>(<a class="code hl_enumvalue" href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">ControlMessages::STEP_ENDED</a>, state);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  }</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>};</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>} <span class="comment">// namespace Ikarus</span></div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">#include &lt;<a class="code" href="a00404.html">ikarus/controlroutines/loadcontrol.inl</a>&gt;</span></div>
-<div class="ttc" id="aa00374_html"><div class="ttname"><a href="a00374.html">broadcaster.hh</a></div><div class="ttdoc">Implementation of the observer design pattern with broadcasters.</div></div>
-<div class="ttc" id="aa00386_html"><div class="ttname"><a href="a00386.html">controlroutinefactory.hh</a></div><div class="ttdoc">Factory for controlroutines.</div></div>
-<div class="ttc" id="aa00404_html"><div class="ttname"><a href="a00404.html">loadcontrol.inl</a></div><div class="ttdoc">Implementation of the run function.</div></div>
-<div class="ttc" id="aa00407_html"><div class="ttname"><a href="a00407.html">controlroutinebase.hh</a></div><div class="ttdoc">Base for all control routines.</div></div>
-<div class="ttc" id="aa00410_html"><div class="ttname"><a href="a00410.html">controlinfos.hh</a></div><div class="ttdoc">Defines the ControlInformation structure for storing control results.</div></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00377.html">ikarus/solver/nonlinearsolver/solverinfos.hh</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00492.html">Ikarus</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a01420.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01420.html">ControlInformation</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a01420.html#a00a16a688e5e3d9971f321d7b5461fd3">   24</a></span>  <a class="code hl_function" href="a01420.html#a00a16a688e5e3d9971f321d7b5461fd3">ControlInformation</a>(<span class="keyword">const</span> std::string&amp; n = <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>      : <a class="code hl_variable" href="a01420.html#a75aa6bc77cf77715f5dc037becb3a00d">name</a>(n) {}</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a01420.html#aaeccd3cd24ed5d809397ab055da1b695">   27</a></span>  <span class="keywordtype">bool</span> <a class="code hl_variable" href="a01420.html#aaeccd3cd24ed5d809397ab055da1b695">success</a>{<span class="keyword">false</span>}; </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  std::vector&lt;Ikarus::NonLinearSolverInformation&gt;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a01420.html#aedbd5de28f127726884cb99b067313bf">   29</a></span>      <a class="code hl_variable" href="a01420.html#aedbd5de28f127726884cb99b067313bf">solverInfos</a>{};      </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a01420.html#a4712b189651e59cd46fd43b2e6a326bf">   30</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="a01420.html#a4712b189651e59cd46fd43b2e6a326bf">totalIterations</a>{0}; </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a01420.html#a75aa6bc77cf77715f5dc037becb3a00d">   31</a></span>  std::string <a class="code hl_variable" href="a01420.html#a75aa6bc77cf77715f5dc037becb3a00d">name</a>{};     </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="ttc" id="aa00377_html"><div class="ttname"><a href="a00377.html">solverinfos.hh</a></div><div class="ttdoc">Implementation of the solver information returned by the nonlinear solvers.</div></div>
 <div class="ttc" id="aa00492_html"><div class="ttname"><a href="a00492.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa00492_html_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577"><div class="ttname"><a href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">Ikarus::ControlMessages::SOLUTION_CHANGED</a></div><div class="ttdeci">@ SOLUTION_CHANGED</div></div>
-<div class="ttc" id="aa00492_html_a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2"><div class="ttname"><a href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">Ikarus::ControlMessages::STEP_ENDED</a></div><div class="ttdeci">@ STEP_ENDED</div></div>
-<div class="ttc" id="aa00492_html_a5aec737453e85d8a0cd6061b39300694"><div class="ttname"><a href="a00492.html#a5aec737453e85d8a0cd6061b39300694">Ikarus::createControlRoutine</a></div><div class="ttdeci">auto createControlRoutine(const LoadControlConfig &amp;config, NLS &amp;&amp;nonlinearSolver)</div><div class="ttdoc">Function to create a load control instance.</div><div class="ttdef"><b>Definition:</b> loadcontrol.hh:45</div></div>
 <div class="ttc" id="aa01420_html"><div class="ttname"><a href="a01420.html">Ikarus::ControlInformation</a></div><div class="ttdoc">Structure containing information about the control results.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:23</div></div>
+<div class="ttc" id="aa01420_html_a00a16a688e5e3d9971f321d7b5461fd3"><div class="ttname"><a href="a01420.html#a00a16a688e5e3d9971f321d7b5461fd3">Ikarus::ControlInformation::ControlInformation</a></div><div class="ttdeci">ControlInformation(const std::string &amp;n=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:24</div></div>
 <div class="ttc" id="aa01420_html_a4712b189651e59cd46fd43b2e6a326bf"><div class="ttname"><a href="a01420.html#a4712b189651e59cd46fd43b2e6a326bf">Ikarus::ControlInformation::totalIterations</a></div><div class="ttdeci">int totalIterations</div><div class="ttdoc">Total number of iterations performed.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:30</div></div>
+<div class="ttc" id="aa01420_html_a75aa6bc77cf77715f5dc037becb3a00d"><div class="ttname"><a href="a01420.html#a75aa6bc77cf77715f5dc037becb3a00d">Ikarus::ControlInformation::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Information about the name of the control method.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:31</div></div>
+<div class="ttc" id="aa01420_html_aaeccd3cd24ed5d809397ab055da1b695"><div class="ttname"><a href="a01420.html#aaeccd3cd24ed5d809397ab055da1b695">Ikarus::ControlInformation::success</a></div><div class="ttdeci">bool success</div><div class="ttdoc">Flag indicating the success of the control.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:27</div></div>
 <div class="ttc" id="aa01420_html_aedbd5de28f127726884cb99b067313bf"><div class="ttname"><a href="a01420.html#aedbd5de28f127726884cb99b067313bf">Ikarus::ControlInformation::solverInfos</a></div><div class="ttdeci">std::vector&lt; Ikarus::NonLinearSolverInformation &gt; solverInfos</div><div class="ttdoc">Vector containing information from nonlinear solvers.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:29</div></div>
-<div class="ttc" id="aa01424_html"><div class="ttname"><a href="a01424.html">Ikarus::ControlRoutineBase</a></div><div class="ttdoc">Base for all control routines. Defines the message interface that can be broadcasted to listeners.</div><div class="ttdef"><b>Definition:</b> controlroutinebase.hh:24</div></div>
-<div class="ttc" id="aa01432_html"><div class="ttname"><a href="a01432.html">Ikarus::ControlRoutineState</a></div><div class="ttdoc">State for control routines.</div><div class="ttdef"><b>Definition:</b> controlroutinestate.hh:23</div></div>
-<div class="ttc" id="aa01440_html"><div class="ttname"><a href="a01440.html">Ikarus::LoadControl</a></div><div class="ttdoc">The LoadControl control routine increases the parameter of the fe requirements given in run function ...</div><div class="ttdef"><b>Definition:</b> loadcontrol.hh:60</div></div>
-<div class="ttc" id="aa01440_html_a073af96d9cd179a918cf18656be19947"><div class="ttname"><a href="a01440.html#a073af96d9cd179a918cf18656be19947">Ikarus::LoadControl::LoadControl</a></div><div class="ttdeci">LoadControl(const std::shared_ptr&lt; NLS &gt; &amp;nonLinearSolver, int loadSteps, const std::array&lt; double, 2 &gt; &amp;tbeginEnd)</div><div class="ttdoc">Constructor for LoadControl.</div><div class="ttdef"><b>Definition:</b> loadcontrol.hh:72</div></div>
-<div class="ttc" id="aa01440_html_a0819073e26d34868b5580d052ea5804c"><div class="ttname"><a href="a01440.html#a0819073e26d34868b5580d052ea5804c">Ikarus::LoadControl::name</a></div><div class="ttdeci">constexpr std::string name() const</div><div class="ttdoc">The name of the LoadControl method.</div><div class="ttdef"><b>Definition:</b> loadcontrol.hh:63</div></div>
-<div class="ttc" id="aa01440_html_a1df0028dc2a38a90bb01ba85aa901a0d"><div class="ttname"><a href="a01440.html#a1df0028dc2a38a90bb01ba85aa901a0d">Ikarus::LoadControl::nonLinearSolver</a></div><div class="ttdeci">NLS &amp; nonLinearSolver()</div><div class="ttdef"><b>Definition:</b> loadcontrol.hh:90</div></div>
-<div class="ttc" id="aa01440_html_aca267aa96227250abd37487214918f1a"><div class="ttname"><a href="a01440.html#aca267aa96227250abd37487214918f1a">Ikarus::LoadControl::run</a></div><div class="ttdeci">ControlInformation run(typename NLS::Domain &amp;x)</div><div class="ttdoc">Executes the LoadControl routine.</div><div class="ttdef"><b>Definition:</b> loadcontrol.inl:19</div></div>
-<div class="ttc" id="aa01444_html"><div class="ttname"><a href="a01444.html">Ikarus::LoadControlConfig</a></div><div class="ttdoc">Config for the Load-Control control routine.</div><div class="ttdef"><b>Definition:</b> loadcontrol.hh:30</div></div>
-<div class="ttc" id="aa01444_html_a18f4648fe682b18a39d4c3fb43518fb4"><div class="ttname"><a href="a01444.html#a18f4648fe682b18a39d4c3fb43518fb4">Ikarus::LoadControlConfig::tEnd</a></div><div class="ttdeci">double tEnd</div><div class="ttdef"><b>Definition:</b> loadcontrol.hh:33</div></div>
-<div class="ttc" id="aa01444_html_a2ae5fe40bc992c66ecf6f77cf47df36f"><div class="ttname"><a href="a01444.html#a2ae5fe40bc992c66ecf6f77cf47df36f">Ikarus::LoadControlConfig::loadSteps</a></div><div class="ttdeci">int loadSteps</div><div class="ttdef"><b>Definition:</b> loadcontrol.hh:31</div></div>
-<div class="ttc" id="aa01444_html_aff235e0efbb1f26c7fa6d7db8c1852f3"><div class="ttname"><a href="a01444.html#aff235e0efbb1f26c7fa6d7db8c1852f3">Ikarus::LoadControlConfig::tbegin</a></div><div class="ttdeci">double tbegin</div><div class="ttdef"><b>Definition:</b> loadcontrol.hh:32</div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">Ikarus::NonLinearSolverInformation</a></div><div class="ttdoc">Information about the result of a non-linear solver.</div><div class="ttdef"><b>Definition:</b> solverinfos.hh:21</div></div>
-<div class="ttc" id="aa02100_html_a81570cd3d9f6589a4d1ba81211f41b99"><div class="ttname"><a href="a02100.html#a81570cd3d9f6589a4d1ba81211f41b99">Ikarus::NonLinearSolverInformation::iterations</a></div><div class="ttdeci">int iterations</div><div class="ttdef"><b>Definition:</b> solverinfos.hh:31</div></div>
-<div class="ttc" id="aa02136_html_a0cc3593f3af31f30ea97adc1d040c8f2"><div class="ttname"><a href="a02136.html#a0cc3593f3af31f30ea97adc1d040c8f2">Ikarus::Broadcaster&lt; ControlMessages, ControlRoutineStateType&lt; NLS::DifferentiableFunction &gt; &gt;::notify</a></div><div class="ttdeci">void notify(ControlMessages message, const State &amp;data)</div><div class="ttdoc">This calls all the registered functions.</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:61</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -265,7 +200,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_a97b071c9c6f7bcc51f4d0bc7519f177.html">controlroutines</a></li><li class="navelem"><a class="el" href="a00395.html">loadcontrol.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_a97b071c9c6f7bcc51f4d0bc7519f177.html">controlroutines</a></li><li class="navelem"><a class="el" href="a00395.html">controlinfos.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

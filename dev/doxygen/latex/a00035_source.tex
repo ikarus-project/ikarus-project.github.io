@@ -1,24 +1,58 @@
-\hypertarget{a00035_source}{}\doxysection{eigensparseaddon.\+hh}
-\label{a00035_source}\index{eigensparseaddon.hh@{eigensparseaddon.hh}}
+\hypertarget{a00035_source}{}\doxysection{traversal.\+hh}
+\label{a00035_source}\index{traversal.hh@{traversal.hh}}
 \mbox{\hyperlink{a00035}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{19 \textcolor{keyword}{inline} Index \mbox{\hyperlink{a00035_a6cfefe8fc3c51b09b7633cf8397a67e9}{getLinearIndex}}(Index row, Index col)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{20   eigen\_assert(row >= 0 \&\& row < rows() \&\& col >= 0 \&\& col < cols());}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22   \textcolor{keyword}{const} Index outer = IsRowMajor ? row : col;}
-\DoxyCodeLine{23   \textcolor{keyword}{const} Index inner = IsRowMajor ? col : row;}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25   Index start = m\_outerIndex[outer];}
-\DoxyCodeLine{26   Index end   = m\_innerNonZeros ? m\_outerIndex[outer] + m\_innerNonZeros[outer] : m\_outerIndex[outer + 1];}
-\DoxyCodeLine{27   eigen\_assert(end >= start \&\& \textcolor{stringliteral}{"{}you probably called coeffRef on a non finalized matrix"{}});}
-\DoxyCodeLine{28 }
-\DoxyCodeLine{29   Index p = m\_data.searchLowerIndex(start, end -\/ 1, StorageIndex(inner));}
-\DoxyCodeLine{30   \textcolor{keywordflow}{return} p;}
-\DoxyCodeLine{31 \}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03468}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00513}{Ikarus::utils}} \{}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{30 \textcolor{keyword}{template} <\textcolor{keyword}{class} T, \textcolor{keyword}{class} TreePath, \textcolor{keyword}{class} PowerFunc, \textcolor{keyword}{class} LeafFunc>}
+\DoxyCodeLine{31 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00513_a63742d75d099b93da7ddf6e78a3c1f56}{forEachLeafOrPowerLeafNode}}(T\&\& tree, TreePath\&\& treePath, PowerFunc\&\& powerFunc, LeafFunc\&\& leafFunc) \{}
+\DoxyCodeLine{32   \textcolor{keyword}{using }Tree = std::decay\_t<T>;}
+\DoxyCodeLine{33   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Tree::isLeaf) \{}
+\DoxyCodeLine{34     leafFunc(tree, treePath);}
+\DoxyCodeLine{35   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Tree::isPower) \{}
+\DoxyCodeLine{36     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Tree::template Child<Dune::Indices::\_0>::Type::isLeaf) \{}
+\DoxyCodeLine{37       powerFunc(tree, treePath);}
+\DoxyCodeLine{38     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{39       \textcolor{keywordflow}{for} (std::size\_t i = 0; i < tree.degree(); ++i) \{}
+\DoxyCodeLine{40         \textcolor{keyword}{auto} childTreePath = Dune::TypeTree::push\_back(treePath, i);}
+\DoxyCodeLine{41         \mbox{\hyperlink{a00513_a63742d75d099b93da7ddf6e78a3c1f56}{forEachLeafOrPowerLeafNode}}(tree.child(i), childTreePath, powerFunc, leafFunc);}
+\DoxyCodeLine{42       \}}
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{45     \textcolor{keyword}{auto} indices = std::make\_index\_sequence<Tree::degree()>\{\};}
+\DoxyCodeLine{46     Dune::Hybrid::forEach(indices, [\&](\textcolor{keyword}{auto} i) \{}
+\DoxyCodeLine{47       \textcolor{keyword}{auto} childTreePath = Dune::TypeTree::push\_back(treePath, i);}
+\DoxyCodeLine{48       \mbox{\hyperlink{a00513_a63742d75d099b93da7ddf6e78a3c1f56}{forEachLeafOrPowerLeafNode}}(tree.child(i), childTreePath, powerFunc, leafFunc);}
+\DoxyCodeLine{49     \});}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51 \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{63 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LV, \textcolor{keyword}{typename} F, \textcolor{keywordtype}{int} myDim = LV::Element::mydimension>}
+\DoxyCodeLine{64 \textcolor{keyword}{requires}(std::convertible\_to<F, std::function<bool(\textcolor{keywordtype}{int}, \mbox{\hyperlink{a02196}{Dune::FieldVector<double, myDim>}} \&\&)>>)}
+\DoxyCodeLine{65 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00513_ad8f6a5b5d6fb5a916fd5791adf5ef4d9}{forEachLagrangeNodePosition}}(\textcolor{keyword}{const} LV\& localView, F\&\& f) \{}
+\DoxyCodeLine{66   \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02348}{Concepts::LagrangeNode}}<std::remove\_cvref\_t<\textcolor{keyword}{decltype}(localView.tree().child(0))>>,}
+\DoxyCodeLine{67                 \textcolor{stringliteral}{"{}forEachLagrangeNodePosition is only supported for Lagrange power basis"{}});}
+\DoxyCodeLine{68   assert(localView.bound() \&\& \textcolor{stringliteral}{"{}The local view must be bound to an element"{}});}
+\DoxyCodeLine{69   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localFE = localView.tree().child(0).finiteElement();}
+\DoxyCodeLine{70   std::vector<Dune::FieldVector<double, myDim>> lagrangeNodeCoords;}
+\DoxyCodeLine{71   lagrangeNodeCoords.resize(localFE.size());}
+\DoxyCodeLine{72   std::vector<double> out;}
+\DoxyCodeLine{73   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < myDim; i++) \{}
+\DoxyCodeLine{74     \textcolor{keyword}{auto} ithCoord = [\&i](\textcolor{keyword}{const} \mbox{\hyperlink{a02196}{Dune::FieldVector<double, myDim>}}\& x) \{ \textcolor{keywordflow}{return} x[i]; \};}
+\DoxyCodeLine{75     localFE.localInterpolation().interpolate(ithCoord, out);}
+\DoxyCodeLine{76     \textcolor{keywordflow}{for} (std::size\_t j = 0; j < out.size(); j++)}
+\DoxyCodeLine{77       lagrangeNodeCoords[j][i] = out[j];}
+\DoxyCodeLine{78   \}}
+\DoxyCodeLine{79   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} nodeNumber = 0; \textcolor{keyword}{auto}\& nCoord : lagrangeNodeCoords)}
+\DoxyCodeLine{80     \textcolor{keywordflow}{if} (f(nodeNumber++, std::move(nCoord)))}
+\DoxyCodeLine{81       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{82 \}}
+\DoxyCodeLine{83 \} \textcolor{comment}{// namespace Ikarus::utils}}
 
 \end{DoxyCode}

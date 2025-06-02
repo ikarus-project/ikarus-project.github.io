@@ -1,8 +1,7 @@
 var a00152 =
 [
-    [ "Ikarus::NRSettings", "a02052.html", "a02052" ],
-    [ "Ikarus::NewtonRaphsonConfig< LS, UF >", "a02056.html", "a02056" ],
-    [ "createNonlinearSolver", "a00152.html#a504e2e9645fa26419d815df9bd245add", null ],
-    [ "makeNewtonRaphson", "a00152.html#a191d086649c8d24d7fbacf71d1704cb3", null ],
-    [ "NewtonRaphson", "a00152.html#ab2dbf68d1a4f806b32c9f46073602b2c", null ]
+    [ "MAKE_ASSEMBLER_REGISTERY_FUNCTION", "a00152.html#adda74d8564a01c0a9851a4379308a8b2", null ],
+    [ "registerDenseFlatAssembler", "a00152.html#a2b0faffde20690631657489c79ec809b", null ],
+    [ "registerFlatAssembler", "a00152.html#ga87d3c6e620be5df59ba6923751caae86", null ],
+    [ "registerSparseFlatAssembler", "a00152.html#aeab1c5f959a22f95b40b0a7576f9c896", null ]
 ];

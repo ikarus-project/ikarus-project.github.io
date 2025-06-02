@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: numericalmaterialinversion.hh Source File</title>
+    <title>ikarus: controllogger.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,74 +155,76 @@ $(document).ready(function(){initNavTree('a00179_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">numericalmaterialinversion.hh</div></div>
+  <div class="headertitle"><div class="title">controllogger.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00179.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a03435.html">ikarus/finiteelements/mechanics/materials/interface.hh</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00230.html">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00227.html">ikarus/finiteelements/mechanics/materials/strainconversions.hh</a>&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00014.html">ikarus/utils/tensorutils.hh</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00164.html">ikarus/utils/broadcaster/broadcastermessages.hh</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a03468.html">ikarus/utils/concepts.hh</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">ikarus/utils/listener/listener.hh</a>&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00503.html">Ikarus::Materials</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00492.html">Ikarus</a> {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">template</span> &lt;Concepts::Material Material, <span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a00503.html#a8fbddf32993e15f5f5c590c599a2b5f3">   34</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00503.html#a8fbddf32993e15f5f5c590c599a2b5f3">numericalMaterialInversion</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a01748.html">Material</a>&amp; mat, <span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; S,</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                                <span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; Estart = Derived::Zero().eval(),</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                                <span class="keyword">const</span> <span class="keywordtype">double</span> tol = 1e-12, <span class="keyword">const</span> <span class="keywordtype">int</span> maxIter = 20) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">static_assert</span>(Concepts::EigenMatrix33&lt;<span class="keyword">decltype</span>(S)&gt; or Concepts::EigenMatrix22&lt;<span class="keyword">decltype</span>(S)&gt;);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keyword">static_assert</span>(<a class="code hl_concept" href="a02390.html">Concepts::ReferenceConfiguraionStress&lt;Material::stressTag&gt;</a> and</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                <a class="code hl_concept" href="a02389.html">Concepts::ReferenceConfiguraionStrain&lt;Material::strainTag&gt;</a>);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="keyword">constexpr</span> <span class="keywordtype">int</span> dim      = Derived::CompileTimeTraits::RowsAtCompileTime;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keyword">constexpr</span> <span class="keywordtype">int</span> dimVoigt = (dim * (dim + 1)) / 2;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keyword">constexpr</span> <span class="keyword">auto</span> strainTag =</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>      Material::strainTag == <a class="code hl_enumvalue" href="a00481.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">StrainTags::linear</a> ? <a class="code hl_enumvalue" href="a00481.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">StrainTags::linear</a> : <a class="code hl_enumvalue" href="a00481.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">StrainTags::greenLagrangian</a>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keyword">using </span>ST       = Derived::Scalar;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">using </span>VoigtVec = Eigen::Vector&lt;ST, dimVoigt&gt;;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  VoigtVec Es     = <a class="code hl_function" href="a00488.html#gaea992dee85d054f8dc1c99d3a7f4fe06">toVoigt</a>(Estart.derived()); <span class="comment">// starting value</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  VoigtVec Svoigt = <a class="code hl_function" href="a00488.html#gaea992dee85d054f8dc1c99d3a7f4fe06">toVoigt</a>(S.derived(), <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="keyword">auto</span> r = VoigtVec::Zero().eval();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">auto</span> D = Eigen::Matrix&lt;ST, dimVoigt, dimVoigt&gt;::Zero().eval();</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : Dune::range(maxIter)) {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    r = (Svoigt - mat.template stresses&lt;strainTag, true&gt;(Es)).eval();</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">if</span> (r.norm() &lt; tol and i &gt; 0)</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (i == maxIter)</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      DUNE_THROW(</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>          Dune::MathError,</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>          <span class="stringliteral">&quot;Numerical material inversion failed to converge within the maximum number of iterations for the material: &quot;</span> +</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>              mat.<a class="code hl_function" href="a01748.html#a03ae10e8656beed2aa69c8a9d27907e5">name</a>());</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    D = mat.template tangentModuli&lt;strainTag, true&gt;(Es).inverse().eval(); <span class="comment">// voigt</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    Es += (D * r).eval();</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  }</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordflow">return</span> std::make_pair(D, transformStrain&lt;strainTag, Material::strainTag&gt;(Es).eval());</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace Ikarus::Materials</span></div>
-<div class="ttc" id="aa00014_html"><div class="ttname"><a href="a00014.html">tensorutils.hh</a></div><div class="ttdoc">Helper for the Eigen::Tensor types.</div></div>
-<div class="ttc" id="aa00227_html"><div class="ttname"><a href="a00227.html">strainconversions.hh</a></div><div class="ttdoc">Implementation of transformations for different strain measures.</div></div>
-<div class="ttc" id="aa00230_html"><div class="ttname"><a href="a00230.html">materialhelpers.hh</a></div><div class="ttdoc">helper functions used by material model implementations.</div></div>
-<div class="ttc" id="aa00481_html_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa"><div class="ttname"><a href="a00481.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">Ikarus::StrainTags::linear</a></div><div class="ttdeci">@ linear</div></div>
-<div class="ttc" id="aa00481_html_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e"><div class="ttname"><a href="a00481.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">Ikarus::StrainTags::greenLagrangian</a></div><div class="ttdeci">@ greenLagrangian</div></div>
-<div class="ttc" id="aa00488_html_gaea992dee85d054f8dc1c99d3a7f4fe06"><div class="ttname"><a href="a00488.html#gaea992dee85d054f8dc1c99d3a7f4fe06">Ikarus::toVoigt</a></div><div class="ttdeci">constexpr Eigen::Index toVoigt(Eigen::Index i, Eigen::Index j) noexcept</div><div class="ttdoc">Converts 2D indices to Voigt notation index.</div><div class="ttdef"><b>Definition:</b> tensorutils.hh:182</div></div>
-<div class="ttc" id="aa00503_html"><div class="ttname"><a href="a00503.html">Ikarus::Materials</a></div><div class="ttdef"><b>Definition:</b> arrudaboyce.hh:27</div></div>
-<div class="ttc" id="aa00503_html_a8fbddf32993e15f5f5c590c599a2b5f3"><div class="ttname"><a href="a00503.html#a8fbddf32993e15f5f5c590c599a2b5f3">Ikarus::Materials::numericalMaterialInversion</a></div><div class="ttdeci">auto numericalMaterialInversion(const Material &amp;mat, const Eigen::MatrixBase&lt; Derived &gt; &amp;S, const Eigen::MatrixBase&lt; Derived &gt; &amp;Estart=Derived::Zero().eval(), const double tol=1e-12, const int maxIter=20)</div><div class="ttdoc">Computes numerically an approximation of the complementary strain energy function and returns the mat...</div><div class="ttdef"><b>Definition:</b> numericalmaterialinversion.hh:34</div></div>
-<div class="ttc" id="aa01748_html"><div class="ttname"><a href="a01748.html">Ikarus::Materials::Material</a></div><div class="ttdoc">Interface classf or materials.</div><div class="ttdef"><b>Definition:</b> finiteelements/mechanics/materials/interface.hh:82</div></div>
-<div class="ttc" id="aa01748_html_a03ae10e8656beed2aa69c8a9d27907e5"><div class="ttname"><a href="a01748.html#a03ae10e8656beed2aa69c8a9d27907e5">Ikarus::Materials::Material::name</a></div><div class="ttdeci">static constexpr std::string name()</div><div class="ttdoc">Get the name of the implemented material.</div><div class="ttdef"><b>Definition:</b> finiteelements/mechanics/materials/interface.hh:112</div></div>
-<div class="ttc" id="aa02389_html"><div class="ttname"><a href="a02389.html">Ikarus::Concepts::ReferenceConfiguraionStrain</a></div><div class="ttdoc">Returns true if a given straintag is related only to the reference configuration.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:677</div></div>
-<div class="ttc" id="aa02390_html"><div class="ttname"><a href="a02390.html">Ikarus::Concepts::ReferenceConfiguraionStress</a></div><div class="ttdoc">Returns true if a given stresstag is related only to the reference configuration.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:684</div></div>
-<div class="ttc" id="aa03435_html"><div class="ttname"><a href="a03435.html">interface.hh</a></div><div class="ttdoc">Contains the Material interface class and related template functions for material properties.</div></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a02252.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a02252.html">ControlLogger</a> : <span class="keyword">public</span> <a class="code hl_class" href="a02264.html">Listener</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> BC&gt;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a02252.html#a0138d15920218568fc349acd1b40950f">   26</a></span>  <a class="code hl_class" href="a02252.html">ControlLogger</a>&amp; <a class="code hl_function" href="a02252.html#a0138d15920218568fc349acd1b40950f">subscribeTo</a>(BC&amp; bc) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    this-&gt;<a class="code hl_function" href="a02264.html#a199840d6ead51d771d5522acff779a4f">subscribe</a>(bc, [&amp;](<a class="code hl_enumeration" href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message, <span class="keyword">const</span> BC::State&amp; state) { this-&gt;<a class="code hl_function" href="a02252.html#a7b709d4594a7918cbff23f1f9e5aa73e">update</a>(message, state); });</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a02252.html#a7b709d4594a7918cbff23f1f9e5aa73e">   37</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02252.html#a7b709d4594a7918cbff23f1f9e5aa73e">update</a>(<a class="code hl_enumeration" href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893">ControlMessages</a> message, <span class="keyword">const</span> <a class="code hl_concept" href="a02387.html">Concepts::ControlRoutineState</a> <span class="keyword">auto</span>&amp; state) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">switch</span> (message) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">ControlMessages::STEP_ENDED</a>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        stepEnded();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0">ControlMessages::CONTROL_STARTED</a>:</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        controlStarted(state.information.name);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>      <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945">ControlMessages::STEP_STARTED</a>:</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        stepStarted(state.loadStep, state.stepSize);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938">ControlMessages::CONTROL_ENDED</a>:</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        controlEnded(state.information.totalIterations, state.information.name);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>      <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">break</span>; <span class="comment">// default: do nothing when notified</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keyword">using </span>TimePoint = std::chrono::time_point&lt;std::chrono::high_resolution_clock&gt;;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  TimePoint start_{};</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  TimePoint stop_{};</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  std::chrono::milliseconds duration_{};</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordtype">void</span> stepEnded();</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keywordtype">void</span> controlStarted(<span class="keyword">const</span> std::string&amp; name);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keywordtype">void</span> controlEnded(<span class="keywordtype">int</span> totalIterations, <span class="keyword">const</span> std::string&amp; name);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="keywordtype">void</span> stepStarted(<span class="keywordtype">int</span> stepNumber, <span class="keywordtype">double</span> stepSize);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">broadcastermessages.hh</a></div><div class="ttdoc">Enums for observer messages.</div></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">listener.hh</a></div><div class="ttdoc">Implementation of the observer design pattern with broadcasters.</div></div>
+<div class="ttc" id="aa00492_html"><div class="ttname"><a href="a00492.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
+<div class="ttc" id="aa00492_html_a35fa62fd2d4186a9750af3d0692f2893"><div class="ttname"><a href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893">Ikarus::ControlMessages</a></div><div class="ttdeci">ControlMessages</div><div class="ttdoc">Enum class defining control-routine-related messages.</div><div class="ttdef"><b>Definition:</b> broadcastermessages.hh:18</div></div>
+<div class="ttc" id="aa00492_html_a35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945"><div class="ttname"><a href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945">Ikarus::ControlMessages::STEP_STARTED</a></div><div class="ttdeci">@ STEP_STARTED</div></div>
+<div class="ttc" id="aa00492_html_a35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938"><div class="ttname"><a href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938">Ikarus::ControlMessages::CONTROL_ENDED</a></div><div class="ttdeci">@ CONTROL_ENDED</div></div>
+<div class="ttc" id="aa00492_html_a35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0"><div class="ttname"><a href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0">Ikarus::ControlMessages::CONTROL_STARTED</a></div><div class="ttdeci">@ CONTROL_STARTED</div></div>
+<div class="ttc" id="aa00492_html_a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2"><div class="ttname"><a href="a00492.html#a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">Ikarus::ControlMessages::STEP_ENDED</a></div><div class="ttdeci">@ STEP_ENDED</div></div>
+<div class="ttc" id="aa02252_html"><div class="ttname"><a href="a02252.html">Ikarus::ControlLogger</a></div><div class="ttdoc">Implementation of an observer for logging control routines.</div><div class="ttdef"><b>Definition:</b> controllogger.hh:23</div></div>
+<div class="ttc" id="aa02252_html_a0138d15920218568fc349acd1b40950f"><div class="ttname"><a href="a02252.html#a0138d15920218568fc349acd1b40950f">Ikarus::ControlLogger::subscribeTo</a></div><div class="ttdeci">ControlLogger &amp; subscribeTo(BC &amp;bc)</div><div class="ttdef"><b>Definition:</b> controllogger.hh:26</div></div>
+<div class="ttc" id="aa02252_html_a7b709d4594a7918cbff23f1f9e5aa73e"><div class="ttname"><a href="a02252.html#a7b709d4594a7918cbff23f1f9e5aa73e">Ikarus::ControlLogger::update</a></div><div class="ttdeci">void update(ControlMessages message, const Concepts::ControlRoutineState auto &amp;state)</div><div class="ttdoc">Implementation of the update method for logging control messages with a control routine state.</div><div class="ttdef"><b>Definition:</b> controllogger.hh:37</div></div>
+<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">Ikarus::Listener</a></div><div class="ttdoc">Implements a listener.</div><div class="ttdef"><b>Definition:</b> listener.hh:28</div></div>
+<div class="ttc" id="aa02264_html_a199840d6ead51d771d5522acff779a4f"><div class="ttname"><a href="a02264.html#a199840d6ead51d771d5522acff779a4f">Ikarus::Listener::subscribe</a></div><div class="ttdeci">auto subscribe(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</div><div class="ttdoc">Function to subscribe to a broadcaster with a given function (either a lambda, std::function or funct...</div><div class="ttdef"><b>Definition:</b> listener.hh:41</div></div>
+<div class="ttc" id="aa02387_html"><div class="ttname"><a href="a02387.html">Ikarus::Concepts::ControlRoutineState</a></div><div class="ttdoc">Concept to check if a type represents a control routine state.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:649</div></div>
+<div class="ttc" id="aa03468_html"><div class="ttname"><a href="a03468.html">concepts.hh</a></div><div class="ttdoc">Several concepts.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -233,7 +235,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="a00179.html">numericalmaterialinversion.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="dir_a36f9627d192b5cf01f286cebe1a270d.html">listener</a></li><li class="navelem"><a class="el" href="a00179.html">controllogger.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

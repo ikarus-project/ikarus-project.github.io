@@ -1,11 +1,5 @@
 var a00158 =
 [
-    [ "DataTag", "a00158.html#af59748ac04116ae85cd64ea8675d273b", [
-      [ "BEGIN", "a00158.html#af59748ac04116ae85cd64ea8675d273ba19aad9f2fe3ce0023298ab83f7e75775", null ],
-      [ "asCellData", "a00158.html#af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546", null ],
-      [ "asPointData", "a00158.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b", null ],
-      [ "asCellAndPointData", "a00158.html#af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926", null ],
-      [ "END", "a00158.html#af59748ac04116ae85cd64ea8675d273bab1a326c06d88bf042f73d70f50197905", null ]
-    ] ],
-    [ "toString", "a00158.html#af96368dfca1767b52605f507c5fea4d5", null ]
+    [ "draw_xy", "a00158.html#a4c07b9ce66d5837a4052977b3dd1eeb0", null ],
+    [ "drawFunction", "a00158.html#ae2cefb2db97492f0b6e5987cb95ad40b", null ]
 ];

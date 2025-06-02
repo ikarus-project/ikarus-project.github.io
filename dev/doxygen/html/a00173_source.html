@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: fefactory.hh Source File</title>
+    <title>ikarus: listener.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,70 +155,75 @@ $(document).ready(function(){initNavTree('a00173_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">fefactory.hh</div></div>
+  <div class="headertitle"><div class="title">listener.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00173.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00332.html">ikarus/finiteelements/febase.hh</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00492.html">Ikarus</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> BH, <span class="keyword">typename</span> SK, <span class="keywordtype">bool</span> useFlat = true, <span class="keywordtype">bool</span> useEigenRef = false&gt;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a01500.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01500.html">FEFactory</a></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a01500.html#ae4167551b40097429f804066c4973256">   24</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01500.html#ae4167551b40097429f804066c4973256">Skills</a> = SK;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">const</span> BH* basisHandler_;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  SK skills_;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SK2 = SK&gt;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a01500.html#aacbb6c8ee45484144edb78306da79456">   37</a></span>  <a class="code hl_function" href="a01500.html#aacbb6c8ee45484144edb78306da79456">FEFactory</a>(<span class="keyword">const</span> BH&amp; basisHandler, <span class="keyword">const</span> SK2&amp; sk)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      : basisHandler_{&amp;basisHandler},</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        skills_{sk} {}</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a01500.html#aa324bf69fc6e9d878cdaf1b2a8667196">   41</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01500.html#aa324bf69fc6e9d878cdaf1b2a8667196">operator()</a>() {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> std::apply(</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        [&amp;]&lt;<span class="keyword">typename</span>... Args&gt;(Args&amp;&amp;... args) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>          <span class="comment">// the template would not be needed,</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>          <span class="comment">// when https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1814r0.html</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>          <span class="comment">// will be implemented in clang. It is already implemented in gcc 12.2</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>          <span class="keyword">typename</span> <a class="code hl_struct" href="a01492.html">PreFE&lt;BH, useFlat, useEigenRef&gt;::template</a> <a class="code hl_class" href="a01488.html">FE&lt;std::decay_t&lt;Args&gt;::template</a> Skill...&gt; fe(</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>              *basisHandler_, std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>          <span class="keywordflow">return</span> fe;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        },</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        skills_.args);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> useFlat = true, <span class="keywordtype">bool</span> useEigenRef = false, <span class="keyword">typename</span> BH, <span class="keyword">typename</span> SK&gt;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a00492.html#a59639a9a20f036a4f1c0794f65595662">   68</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00492.html#a59639a9a20f036a4f1c0794f65595662">makeFE</a>(<span class="keyword">const</span> BH&amp; basisHandler, <span class="keyword">const</span> SK&amp; sk) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <a class="code hl_struct" href="a01500.html">FEFactory&lt;BH, SK, useFlat, useEigenRef&gt;</a> factory(basisHandler, sk);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keywordflow">return</span> factory();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> useEigenRef = false, <span class="keyword">typename</span> BH, <span class="keyword">typename</span> SK&gt;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a00492.html#aa80712fed165a22f02670f195488fe5f">   85</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00492.html#aa80712fed165a22f02670f195488fe5f">makeFEWithUnTouchedBasis</a>(<span class="keyword">const</span> BH&amp; basisHandler, SK&amp;&amp; sk) {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <a class="code hl_struct" href="a01500.html">FEFactory&lt;BH, SK, false, useEigenRef&gt;</a> factory(basisHandler, std::forward&lt;SK&gt;(sk));</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  <span class="keywordflow">return</span> factory();</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>} <span class="comment">// namespace Ikarus</span></div>
-<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">febase.hh</a></div><div class="ttdoc">Contains the FE class, which is used as a base class for all finite elements. It provides information...</div></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;cassert&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00492.html">Ikarus</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a02264.html">   27</a></span><span class="keyword">class </span><a class="code hl_class" href="a02264.html">Listener</a></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a02264.html#affba2430c95defc9bb0494af2d8120b7">   30</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02264.html#affba2430c95defc9bb0494af2d8120b7">Token</a> = std::shared_ptr&lt;void&gt;;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Broadcaster&gt;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a02264.html#a199840d6ead51d771d5522acff779a4f">   41</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a02264.html#a199840d6ead51d771d5522acff779a4f">subscribe</a>(<a class="code hl_class" href="a02136.html">Broadcaster</a>&amp; broadcaster,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                 std::function&lt;<span class="keywordtype">void</span>(<span class="keyword">typename</span> <a class="code hl_typedef" href="a02136.html#abc47e2a26f85e3bdd3886d82d458d5da">Broadcaster::MessageType</a>, <span class="keyword">const</span> <span class="keyword">typename</span> <a class="code hl_typedef" href="a02136.html#ac1cbfd25b275106de2e554ebf3154684">Broadcaster::State</a>&amp;)&gt; callback) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">auto</span> token = broadcaster.<a class="code hl_function" href="a02136.html#a50f7d8360254792256006fe4ead0350c">registerListener</a>(std::move(callback));</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    tokens.push_back(token);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> token;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a02264.html#a6ebf859d4e38acc6e9b7436b097fba26">   51</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02264.html#a6ebf859d4e38acc6e9b7436b097fba26">unSubscribeAll</a>() {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; token : tokens) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      <span class="keywordflow">if</span> (token) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        token.reset();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    tokens.clear();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a02264.html#a78725a274f6b1817a5792bb0e519d3d9">   63</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02264.html#a78725a274f6b1817a5792bb0e519d3d9">unSubscribeLast</a>() {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span> (!tokens.empty()) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>      tokens.back().reset();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      tokens.pop_back();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a02264.html#a1c964a476680631977b516351efd8712">   73</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02264.html#a1c964a476680631977b516351efd8712">unSubscribe</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a02264.html#affba2430c95defc9bb0494af2d8120b7">Token</a>&amp; token) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">auto</span> it = std::ranges::find(tokens, token);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">if</span> (it != tokens.end()) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>      (*it).reset();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>      tokens.erase(it);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  std::vector&lt;Token&gt; tokens;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>} <span class="comment">// namespace Ikarus</span></div>
 <div class="ttc" id="aa00492_html"><div class="ttname"><a href="a00492.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa00492_html_a59639a9a20f036a4f1c0794f65595662"><div class="ttname"><a href="a00492.html#a59639a9a20f036a4f1c0794f65595662">Ikarus::makeFE</a></div><div class="ttdeci">auto makeFE(const BH &amp;basisHandler, const SK &amp;sk)</div><div class="ttdoc">A function to create a finite element using the flat version of the basis.</div><div class="ttdef"><b>Definition:</b> fefactory.hh:68</div></div>
-<div class="ttc" id="aa00492_html_aa80712fed165a22f02670f195488fe5f"><div class="ttname"><a href="a00492.html#aa80712fed165a22f02670f195488fe5f">Ikarus::makeFEWithUnTouchedBasis</a></div><div class="ttdeci">auto makeFEWithUnTouchedBasis(const BH &amp;basisHandler, SK &amp;&amp;sk)</div><div class="ttdoc">A function to create a finite element using the untouched version of the basis.</div><div class="ttdef"><b>Definition:</b> fefactory.hh:85</div></div>
-<div class="ttc" id="aa01488_html"><div class="ttname"><a href="a01488.html">Ikarus::FE</a></div><div class="ttdoc">FE class is a base class for all finite elements.</div><div class="ttdef"><b>Definition:</b> febase.hh:79</div></div>
-<div class="ttc" id="aa01492_html"><div class="ttname"><a href="a01492.html">Ikarus::PreFE</a></div><div class="ttdoc">PreFE struct acts as a convenient wrapper for the FE class to access different type traits.</div><div class="ttdef"><b>Definition:</b> febase.hh:33</div></div>
-<div class="ttc" id="aa01500_html"><div class="ttname"><a href="a01500.html">Ikarus::FEFactory</a></div><div class="ttdoc">FEFactory is a convenient wrapper to forward arguments to PreFE and create and construct a factory of...</div><div class="ttdef"><b>Definition:</b> fefactory.hh:23</div></div>
-<div class="ttc" id="aa01500_html_aa324bf69fc6e9d878cdaf1b2a8667196"><div class="ttname"><a href="a01500.html#aa324bf69fc6e9d878cdaf1b2a8667196">Ikarus::FEFactory::operator()</a></div><div class="ttdeci">auto operator()()</div><div class="ttdef"><b>Definition:</b> fefactory.hh:41</div></div>
-<div class="ttc" id="aa01500_html_aacbb6c8ee45484144edb78306da79456"><div class="ttname"><a href="a01500.html#aacbb6c8ee45484144edb78306da79456">Ikarus::FEFactory::FEFactory</a></div><div class="ttdeci">FEFactory(const BH &amp;basisHandler, const SK2 &amp;sk)</div><div class="ttdoc">constructor for FEFactory</div><div class="ttdef"><b>Definition:</b> fefactory.hh:37</div></div>
-<div class="ttc" id="aa01500_html_ae4167551b40097429f804066c4973256"><div class="ttname"><a href="a01500.html#ae4167551b40097429f804066c4973256">Ikarus::FEFactory::Skills</a></div><div class="ttdeci">SK Skills</div><div class="ttdef"><b>Definition:</b> fefactory.hh:24</div></div>
+<div class="ttc" id="aa02136_html"><div class="ttname"><a href="a02136.html">Ikarus::Broadcaster</a></div><div class="ttdoc">Implements a Broadcaster for a given MessageType and BroadcasterState.</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:26</div></div>
+<div class="ttc" id="aa02136_html_a50f7d8360254792256006fe4ead0350c"><div class="ttname"><a href="a02136.html#a50f7d8360254792256006fe4ead0350c">Ikarus::Broadcaster::registerListener</a></div><div class="ttdeci">Token registerListener(Callback callback)</div><div class="ttdoc">This method is used to register a Listener function.</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:43</div></div>
+<div class="ttc" id="aa02136_html_abc47e2a26f85e3bdd3886d82d458d5da"><div class="ttname"><a href="a02136.html#abc47e2a26f85e3bdd3886d82d458d5da">Ikarus::Broadcaster::MessageType</a></div><div class="ttdeci">MT MessageType</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:28</div></div>
+<div class="ttc" id="aa02136_html_ac1cbfd25b275106de2e554ebf3154684"><div class="ttname"><a href="a02136.html#ac1cbfd25b275106de2e554ebf3154684">Ikarus::Broadcaster::State</a></div><div class="ttdeci">S State</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:29</div></div>
+<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">Ikarus::Listener</a></div><div class="ttdoc">Implements a listener.</div><div class="ttdef"><b>Definition:</b> listener.hh:28</div></div>
+<div class="ttc" id="aa02264_html_a199840d6ead51d771d5522acff779a4f"><div class="ttname"><a href="a02264.html#a199840d6ead51d771d5522acff779a4f">Ikarus::Listener::subscribe</a></div><div class="ttdeci">auto subscribe(Broadcaster &amp;broadcaster, std::function&lt; void(typename Broadcaster::MessageType, const typename Broadcaster::State &amp;)&gt; callback)</div><div class="ttdoc">Function to subscribe to a broadcaster with a given function (either a lambda, std::function or funct...</div><div class="ttdef"><b>Definition:</b> listener.hh:41</div></div>
+<div class="ttc" id="aa02264_html_a1c964a476680631977b516351efd8712"><div class="ttname"><a href="a02264.html#a1c964a476680631977b516351efd8712">Ikarus::Listener::unSubscribe</a></div><div class="ttdeci">void unSubscribe(const Token &amp;token)</div><div class="ttdoc">Unsubscribe from a specific token.</div><div class="ttdef"><b>Definition:</b> listener.hh:73</div></div>
+<div class="ttc" id="aa02264_html_a6ebf859d4e38acc6e9b7436b097fba26"><div class="ttname"><a href="a02264.html#a6ebf859d4e38acc6e9b7436b097fba26">Ikarus::Listener::unSubscribeAll</a></div><div class="ttdeci">void unSubscribeAll()</div><div class="ttdoc">Unsubscribe from all listeners. At the moment unsubscribing can't be done more granularly.</div><div class="ttdef"><b>Definition:</b> listener.hh:51</div></div>
+<div class="ttc" id="aa02264_html_a78725a274f6b1817a5792bb0e519d3d9"><div class="ttname"><a href="a02264.html#a78725a274f6b1817a5792bb0e519d3d9">Ikarus::Listener::unSubscribeLast</a></div><div class="ttdeci">void unSubscribeLast()</div><div class="ttdoc">Unsubscribe from the last subscribed listener.</div><div class="ttdef"><b>Definition:</b> listener.hh:63</div></div>
+<div class="ttc" id="aa02264_html_affba2430c95defc9bb0494af2d8120b7"><div class="ttname"><a href="a02264.html#affba2430c95defc9bb0494af2d8120b7">Ikarus::Listener::Token</a></div><div class="ttdeci">std::shared_ptr&lt; void &gt; Token</div><div class="ttdef"><b>Definition:</b> listener.hh:30</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -229,7 +234,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="a00173.html">fefactory.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="dir_a36f9627d192b5cf01f286cebe1a270d.html">listener</a></li><li class="navelem"><a class="el" href="a00173.html">listener.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -1,5 +1,5 @@
-\hypertarget{a00206_source}{}\doxysection{volumetricfunctions.\+hh}
-\label{a00206_source}\index{volumetricfunctions.hh@{volumetricfunctions.hh}}
+\hypertarget{a00206_source}{}\doxysection{enhancedassumedstrains.\+hh}
+\label{a00206_source}\index{enhancedassumedstrains.hh@{enhancedassumedstrains.hh}}
 \mbox{\hyperlink{a00206}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
@@ -7,280 +7,331 @@
 \DoxyCodeLine{3 }
 \DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03426}{ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh}}>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03444}{ikarus/finiteelements/mechanics/materials/hyperelastic/volumetric/interface.hh}}>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00320}{ikarus/finiteelements/physicshelper.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00014}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#if HAVE\_DUNE\_LOCALFEFUNCTIONS}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{  \#include <dune/localfefunctions/derivativetransformators.hh>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{  \#include <dune/localfefunctions/linearAlgebraHelper.hh>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{  \#include <dune/localfefunctions/meta.hh>}}
 \DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00503}{Ikarus::Materials}} \{}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{a01700}{VF0}}}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{28   ST \mbox{\hyperlink{a01700_aa5aa48384c51bd2887d6e7cc1d14f643}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& \textcolor{comment}{/* J */})\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{29     \textcolor{keywordflow}{return} 0;}
-\DoxyCodeLine{30   \};}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{33   ST \mbox{\hyperlink{a01700_a790f67ba8f92d2d324341f18991ef85b}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& \textcolor{comment}{/* J */})\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{34     \textcolor{keywordflow}{return} 0;}
-\DoxyCodeLine{35   \}}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{38   ST \mbox{\hyperlink{a01700_a8798f30f657a0caadb152793c01939f4}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& \textcolor{comment}{/* J */})\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{39     \textcolor{keywordflow}{return} 0;}
-\DoxyCodeLine{40   \};}
+\DoxyCodeLine{17 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00353}{ikarus/finiteelements/fehelper.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00200}{ikarus/finiteelements/ferequirements.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00284}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00218}{ikarus/finiteelements/mechanics/strainenhancements/easvariants.hh}}>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00164}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a03468}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00492}{Ikarus}} \{}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE, \textcolor{keyword}{typename} ES>}
+\DoxyCodeLine{27 \textcolor{keyword}{class }EnhancedAssumedStrains;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{33 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ES>}
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{a01608}{EnhancedAssumedStrainsPre}}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01608_ad3f656852fb77372e8978f37b9ffdd2b}{numberOfParameters}}\{\};}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
+\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{a01604}{Skill}} = \mbox{\hyperlink{a01604}{EnhancedAssumedStrains<PreFE, FE, ES>}};}
+\DoxyCodeLine{40 \};}
 \DoxyCodeLine{41 }
-\DoxyCodeLine{42   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01700_a7162d4394add6d097ce12178766ff39d}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}None"{}}; \}}
-\DoxyCodeLine{43 \};}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{51 \textcolor{keyword}{struct }\mbox{\hyperlink{a01704}{VF1}}}
-\DoxyCodeLine{52 \{}
-\DoxyCodeLine{53   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{54   ST \mbox{\hyperlink{a01704_a338308b128926fc805d4d4d663aff6a7}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{55     \textcolor{keywordflow}{return} 0.5 * pow(J -\/ 1, 2);}
-\DoxyCodeLine{56   \};}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{59   ST \mbox{\hyperlink{a01704_aed01cb97b7a26f3c74842740083bb09b}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{60     \textcolor{keywordflow}{return} J -\/ 1;}
-\DoxyCodeLine{61   \}}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{64   ST \mbox{\hyperlink{a01704_a155d0ba10fd77a2abc055ab5205328c2}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& \textcolor{comment}{/* J */})\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{65     \textcolor{keywordflow}{return} 1;}
-\DoxyCodeLine{66   \};}
+\DoxyCodeLine{53 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE, \textcolor{keyword}{typename} ESF>}
+\DoxyCodeLine{54 \textcolor{keyword}{class }\mbox{\hyperlink{a01604}{EnhancedAssumedStrains}}}
+\DoxyCodeLine{55     : \textcolor{keyword}{public} std::conditional\_t<std::same\_as<ESF, EAS::LinearStrain>,}
+\DoxyCodeLine{56                                 ResultTypeBase<ResultTypes::linearStress, ResultTypes::linearStressFull>,}
+\DoxyCodeLine{57                                 ResultTypeBase<ResultTypes::PK2Stress, ResultTypes::PK2StressFull>>}
+\DoxyCodeLine{58 \{}
+\DoxyCodeLine{59 \textcolor{keyword}{public}:}
+\DoxyCodeLine{60   \textcolor{keyword}{using }\mbox{\hyperlink{a01544}{Traits}}                 = \mbox{\hyperlink{a01492_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};}
+\DoxyCodeLine{61   \textcolor{keyword}{using }\mbox{\hyperlink{a01508}{Requirement}}            = \mbox{\hyperlink{a01508}{FERequirements<FESolutions::displacement, FEParameter::loadfactor>}};}
+\DoxyCodeLine{62   \textcolor{keyword}{using }\mbox{\hyperlink{a01604_ae8c32f3ee8ba987e8fa6489d52055059}{LocalView}}              = \textcolor{keyword}{typename} \mbox{\hyperlink{a01544_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}};}
+\DoxyCodeLine{63   \textcolor{keyword}{using }\mbox{\hyperlink{a01604_ab5f3b484fc10ad533578d6753803af2c}{Geometry}}               = \textcolor{keyword}{typename} \mbox{\hyperlink{a01544_a0b7be1104fba2d190e3fed46f291a851}{Traits::Geometry}};}
+\DoxyCodeLine{64   \textcolor{keyword}{using }\mbox{\hyperlink{a01604_ae6860635f3940c1662438bfbf97866f9}{GridView}}               = \textcolor{keyword}{typename} \mbox{\hyperlink{a01544_a3ec0294824df467074f5070cb58f5a91}{Traits::GridView}};}
+\DoxyCodeLine{65   \textcolor{keyword}{using }\mbox{\hyperlink{a01608}{Pre}}                    = \mbox{\hyperlink{a01608}{EnhancedAssumedStrainsPre<ESF>}};}
+\DoxyCodeLine{66   \textcolor{keyword}{using }\mbox{\hyperlink{a01604_a8eefdbeb272ca872d11141f57d588db5}{EnhancedStrainFunction}} = ESF;}
 \DoxyCodeLine{67 }
-\DoxyCodeLine{68   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01704_a6fe8e9320969b744fdad1d912b30ccf2}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 1"{}}; \}}
-\DoxyCodeLine{69 \};}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{77 \textcolor{keyword}{struct }\mbox{\hyperlink{a01708}{VF2}}}
-\DoxyCodeLine{78 \{}
-\DoxyCodeLine{79   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{80   ST \mbox{\hyperlink{a01708_a20d42e07a203ea7490e553d543ffa6e7}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{81     \textcolor{keywordflow}{return} 0.25 * (pow(J -\/ 1, 2) + pow(log(J), 2));}
-\DoxyCodeLine{82   \};}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{84   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{85   ST \mbox{\hyperlink{a01708_a43be6b98bc601b128169e0ac25ee4353}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{86     \textcolor{keywordflow}{return} 0.5 * (J -\/ 1 + 1 / J * log(J));}
+\DoxyCodeLine{68   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01604_ac00c91a371e5c1b42bbc0a26715693ef}{myDim}} = \mbox{\hyperlink{a01544_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{71   \textcolor{keyword}{using }\mbox{\hyperlink{a01604_a0df8a283fb466f111ddbea76582af9a8}{VectorXOptRef}} = std::optional<std::reference\_wrapper<const Eigen::VectorX<ST>>>;}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT>}
+\DoxyCodeLine{74   \textcolor{keyword}{using }\mbox{\hyperlink{a01528}{RTWrapperType}} = \mbox{\hyperlink{a01528}{ResultWrapper<RT<typename Traits::ctype, Traits::mydim, Traits::worlddim>}}, \mbox{\hyperlink{a00492_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{ResultShape::Vector}}>;}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{80   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01604_ab209554de084320de8b4c7980cb1357f}{EnhancedAssumedStrains}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01608}{Pre}}\& pre) \{}
+\DoxyCodeLine{81     \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02391}{Concepts::Formulations::TotalLagrangian<FE::strainType, FE::stressType>}},}
+\DoxyCodeLine{82                   \textcolor{stringliteral}{"{}EAS method is only implemented for the total Lagrangian setting."{}});}
+\DoxyCodeLine{83     \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{84         not(FE::strainType == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}}) or (std::same\_as<EnhancedStrainFunction, EAS::LinearStrain>),}
+\DoxyCodeLine{85         \textcolor{stringliteral}{"{}If FE::strainType is linear, then enhancedStrain must also be linear."{}});}
+\DoxyCodeLine{86     this-\/>\mbox{\hyperlink{a01604_aa95b10281c1b2f2a1ab9209175e0d262}{setEASType}}(pre.\mbox{\hyperlink{a01608_ad3f656852fb77372e8978f37b9ffdd2b}{numberOfParameters}});}
 \DoxyCodeLine{87   \}}
 \DoxyCodeLine{88 }
-\DoxyCodeLine{89   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{90   ST \mbox{\hyperlink{a01708_ae410b1dfa4f556edec07518bebf9e665}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{91     \textcolor{keyword}{auto} Jsq = pow(J, 2);}
-\DoxyCodeLine{92     \textcolor{keywordflow}{return} 1 / (2 * Jsq) * (1 + Jsq -\/ log(J));}
-\DoxyCodeLine{93   \}}
-\DoxyCodeLine{94 }
-\DoxyCodeLine{95   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01708_a64618cc163294693ae8c3a4a780bde21}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 2"{}}; \}}
-\DoxyCodeLine{96 \};}
-\DoxyCodeLine{97 }
-\DoxyCodeLine{104 \textcolor{keyword}{struct }\mbox{\hyperlink{a01712}{VF3}}}
-\DoxyCodeLine{105 \{}
-\DoxyCodeLine{106   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{107   ST \mbox{\hyperlink{a01712_a47a88c62f6c7a05a4f9e872b5baf6b5c}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{108     \textcolor{keywordflow}{return} 0.5 * pow(log(J), 2);}
-\DoxyCodeLine{109   \};}
-\DoxyCodeLine{110 }
-\DoxyCodeLine{111   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{112   ST \mbox{\hyperlink{a01712_a14cfe492905461636ef0a9bcdc767729}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{113     \textcolor{keywordflow}{return} 1 / J * log(J);}
-\DoxyCodeLine{114   \}}
-\DoxyCodeLine{115 }
-\DoxyCodeLine{116   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{117   ST \mbox{\hyperlink{a01712_a52cc4b556207f4d14ccfd052ccccacd5}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{118     \textcolor{keywordflow}{return} 1 / pow(J, 2) * (1 -\/ log(J));}
-\DoxyCodeLine{119   \}}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{121   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01712_a1f7229327fb66cb6a1fe8ec463caed70}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 3"{}}; \}}
-\DoxyCodeLine{122 \};}
-\DoxyCodeLine{123 }
-\DoxyCodeLine{130 \textcolor{keyword}{struct }\mbox{\hyperlink{a01716}{VF4}}}
-\DoxyCodeLine{131 \{}
-\DoxyCodeLine{132   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{133   ST \mbox{\hyperlink{a01716_ac81f14cb8a5089c1667be79b1ac7990a}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{134     \textcolor{keywordflow}{return} (1 / pow(beta\_, 2)) * ((1 / pow(J, beta\_)) -\/ 1 + beta\_ * log(J));}
-\DoxyCodeLine{135   \};}
-\DoxyCodeLine{136 }
-\DoxyCodeLine{137   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{138   ST \mbox{\hyperlink{a01716_ac8d63d352fad9c356f180cde2d314ad8}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{139     \textcolor{keywordflow}{return} (1 / beta\_) * ((1 / J) -\/ (1 / (pow(J, 1 + beta\_))));}
-\DoxyCodeLine{140   \}}
-\DoxyCodeLine{141 }
-\DoxyCodeLine{142   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{143   ST \mbox{\hyperlink{a01716_afc6475c7d6ae590ecaa4ca5d405f4114}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{144     \textcolor{keywordflow}{return} (1 / beta\_) * ((1 / pow(J, 2 + beta\_)) * (1 + beta\_ -\/ pow(J, beta\_)));}
-\DoxyCodeLine{145   \}}
-\DoxyCodeLine{146 }
-\DoxyCodeLine{147   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01716_a7799f521147479e08eb8a6cff05044ac}{VF4}}(\textcolor{keywordtype}{double} \mbox{\hyperlink{a01716_a7f795f3f3751c0e13bff4d6dfd36a062}{beta}})}
-\DoxyCodeLine{148       : beta\_(\mbox{\hyperlink{a01716_a7f795f3f3751c0e13bff4d6dfd36a062}{beta}}) \{\}}
-\DoxyCodeLine{149 }
-\DoxyCodeLine{150   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01716_a02fcb186d1ec945936be176443d5758b}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 4"{}}; \}}
-\DoxyCodeLine{151 }
-\DoxyCodeLine{152   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01716_a7f795f3f3751c0e13bff4d6dfd36a062}{beta}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} beta\_; \}}
+\DoxyCodeLine{94   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01604_aa89e2424db2dcbde4f708207683df310}{isDisplacementBased}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} easVariant\_.\mbox{\hyperlink{a01828_a9c2b9332eb9cd4f9e72932553245d46b}{isDisplacmentBased}}(); \}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{101   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01604_ae0b8a200f23ad7e9ff7114c5bc32b5da}{easVariant}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} easVariant\_; \}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{108   \textcolor{keyword}{auto} \mbox{\hyperlink{a01604_afe78c55c3e63ce60cd68871a9f24b54a}{numberOfInternalVariables}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} easVariant\_.\mbox{\hyperlink{a01828_a459b3a4dd4d25d37d6cc3239dbb3e9db}{numberOfInternalVariables}}(); \}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{124   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT>}
+\DoxyCodeLine{125   \textcolor{keyword}{requires}(EnhancedAssumedStrains::template supportsResultType<RT>())}
+\DoxyCodeLine{126   \textcolor{keyword}{auto} \mbox{\hyperlink{a01604_a68520c3d823f6c3c024de222f874d06e}{calculateAtImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01508}{Requirement}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a02196}{Dune::FieldVector<double, Traits::mydim>}}\& local,}
+\DoxyCodeLine{127                        Dune::PriorityTag<2>) \textcolor{keyword}{const} \{}
+\DoxyCodeLine{128     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isSameResultType<RT, ResultTypes::linearStress> or isSameResultType<RT, ResultTypes::PK2Stress> or}
+\DoxyCodeLine{129                   isSameResultType<RT, ResultTypes::linearStressFull> or}
+\DoxyCodeLine{130                   isSameResultType<RT, ResultTypes::PK2StressFull>) \{}
+\DoxyCodeLine{131       \textcolor{keyword}{const} \textcolor{keyword}{auto} ufunc     = underlying().displacementFunction(req);}
+\DoxyCodeLine{132       \textcolor{keyword}{const} \textcolor{keyword}{auto} rFunction = underlying().template resultFunction<RT>();}
+\DoxyCodeLine{133       \textcolor{keyword}{auto} disp            = \mbox{\hyperlink{a00487_ga545d74839895f4576a3b8c97d72abefd}{Dune::viewAsFlatEigenVector}}(ufunc.coefficientsRef());}
+\DoxyCodeLine{134       \textcolor{keyword}{const} \textcolor{keyword}{auto} geo       = underlying().localView().element().geometry();}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136       \mbox{\hyperlink{a01528}{RTWrapperType<RT>}} resultWrapper\{\};}
+\DoxyCodeLine{137       \textcolor{keyword}{auto} calculateAtContribution = [\&]<\textcolor{keyword}{typename} EAST>(\textcolor{keyword}{const} EAST\& easFunction) \{}
+\DoxyCodeLine{138         Eigen::VectorXd alpha;}
+\DoxyCodeLine{139         alpha.setZero(\mbox{\hyperlink{a01604_afe78c55c3e63ce60cd68871a9f24b54a}{numberOfInternalVariables}}());}
+\DoxyCodeLine{140         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (EAST::enhancedStrainSize != 0) \{}
+\DoxyCodeLine{141           \textcolor{keyword}{typename} EAST::DType D;}
+\DoxyCodeLine{142           calculateDAndLMatrix(easFunction, req, D, L\_);}
+\DoxyCodeLine{143           alpha = -\/D.inverse() * L\_ * disp;}
+\DoxyCodeLine{144         \}}
+\DoxyCodeLine{145         \textcolor{keyword}{const} \textcolor{keyword}{auto} enhancedStrain = EnhancedStrainFunction::value(geo, ufunc, local, easFunction, alpha);}
+\DoxyCodeLine{146         resultWrapper             = rFunction(enhancedStrain);}
+\DoxyCodeLine{147       \};}
+\DoxyCodeLine{148       easVariant\_(calculateAtContribution);}
+\DoxyCodeLine{149       \textcolor{keywordflow}{return} resultWrapper;}
+\DoxyCodeLine{150     \}}
+\DoxyCodeLine{151     DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}The requested result type is not supported"{}});}
+\DoxyCodeLine{152   \}}
 \DoxyCodeLine{153 }
-\DoxyCodeLine{154 \textcolor{keyword}{private}:}
-\DoxyCodeLine{155   \textcolor{keywordtype}{double} beta\_;}
-\DoxyCodeLine{156 \};}
-\DoxyCodeLine{157 }
-\DoxyCodeLine{164 \textcolor{keyword}{struct }\mbox{\hyperlink{a01720}{VF5}}}
-\DoxyCodeLine{165 \{}
-\DoxyCodeLine{166   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{167   ST \mbox{\hyperlink{a01720_a127c5734f784408c38af27dce518d4c0}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{168     \textcolor{keywordflow}{return} 0.25 * (pow(J, 2) -\/ 1 -\/ 2 * log(J));}
-\DoxyCodeLine{169   \};}
-\DoxyCodeLine{170 }
-\DoxyCodeLine{171   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{172   ST \mbox{\hyperlink{a01720_a0cee73d4d6d8e1c3aa613d2f3a09acc4}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{173     \textcolor{keywordflow}{return} 0.5 * (J -\/ (1 / J));}
-\DoxyCodeLine{174   \}}
-\DoxyCodeLine{175 }
-\DoxyCodeLine{176   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{177   ST \mbox{\hyperlink{a01720_a64c0fa11bcb344ef5e46a04a1f896f50}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{178     \textcolor{keywordflow}{return} 0.5 * (1 + (1 / pow(J, 2)));}
-\DoxyCodeLine{179   \}}
-\DoxyCodeLine{180 }
-\DoxyCodeLine{181   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01720_afc557a4c45721e3314b1e50ff4cd7acb}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 5"{}}; \}}
-\DoxyCodeLine{182 \};}
-\DoxyCodeLine{183 }
-\DoxyCodeLine{190 \textcolor{keyword}{struct }\mbox{\hyperlink{a01724}{VF6}}}
-\DoxyCodeLine{191 \{}
-\DoxyCodeLine{192   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{193   ST \mbox{\hyperlink{a01724_ac4317a6d3fddc93e111121c92fafa036}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{194     \textcolor{keywordflow}{return} J -\/ log(J) -\/ 1;}
-\DoxyCodeLine{195   \};}
-\DoxyCodeLine{196 }
-\DoxyCodeLine{197   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{198   ST \mbox{\hyperlink{a01724_afc42c803d95faabfb6638bcefb54a1be}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{199     \textcolor{keywordflow}{return} 1 -\/ (1 / J);}
-\DoxyCodeLine{200   \}}
-\DoxyCodeLine{201 }
-\DoxyCodeLine{202   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{203   ST \mbox{\hyperlink{a01724_ad0d2f475946d1de3ebdf5c196c788125}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{204     \textcolor{keywordflow}{return} 1 / pow(J, 2);}
-\DoxyCodeLine{205   \}}
-\DoxyCodeLine{206 }
-\DoxyCodeLine{207   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01724_a1ca250e16c82f619292ac0dcc0b2bec1}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 6"{}}; \}}
-\DoxyCodeLine{208 \};}
-\DoxyCodeLine{209 }
-\DoxyCodeLine{216 \textcolor{keyword}{struct }\mbox{\hyperlink{a01728}{VF7}}}
-\DoxyCodeLine{217 \{}
-\DoxyCodeLine{218   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{219   ST \mbox{\hyperlink{a01728_a1f32f89384e4acf87b3b56b98dc71df1}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{220     \textcolor{keywordflow}{return} pow(J, beta\_) * (beta\_ * log(J) -\/ 1) + 1;}
-\DoxyCodeLine{221   \};}
-\DoxyCodeLine{222 }
-\DoxyCodeLine{223   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{224   ST \mbox{\hyperlink{a01728_a5b0254324378287665dd6b5917922235}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{225     \textcolor{keywordflow}{return} pow(beta\_, 2) * (1.0 / pow(J, 1.0 -\/ beta\_)) * log(J);}
-\DoxyCodeLine{226   \}}
-\DoxyCodeLine{227 }
-\DoxyCodeLine{228   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{229   ST \mbox{\hyperlink{a01728_a8482e9e68f39aac65fc3b8f0fd710ea8}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{230     \textcolor{keywordflow}{return} pow(beta\_, 2) * pow(J, beta\_ -\/ 2.0) * (1 + (beta\_ -\/ 1) * log(J));}
-\DoxyCodeLine{231   \}}
-\DoxyCodeLine{232 }
-\DoxyCodeLine{233   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01728_a3a5752f8bfccbc3a306f3d2fc4e9e3d1}{VF7}}(\textcolor{keywordtype}{double} \mbox{\hyperlink{a01728_a82bdc9ff4d1e5505bdbd6414d6842af3}{beta}})}
-\DoxyCodeLine{234       : beta\_(\mbox{\hyperlink{a01728_a82bdc9ff4d1e5505bdbd6414d6842af3}{beta}}) \{\}}
-\DoxyCodeLine{235 }
-\DoxyCodeLine{236   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01728_a6d593945d7de9dc41bb1ab31081f6f9e}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 7"{}}; \}}
-\DoxyCodeLine{237 }
-\DoxyCodeLine{238   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01728_a82bdc9ff4d1e5505bdbd6414d6842af3}{beta}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} beta\_; \}}
-\DoxyCodeLine{239 }
-\DoxyCodeLine{240 \textcolor{keyword}{private}:}
-\DoxyCodeLine{241   \textcolor{keywordtype}{double} beta\_;}
-\DoxyCodeLine{242 \};}
-\DoxyCodeLine{243 }
-\DoxyCodeLine{250 \textcolor{keyword}{struct }\mbox{\hyperlink{a01732}{VF8}}}
-\DoxyCodeLine{251 \{}
-\DoxyCodeLine{252   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{253   ST \mbox{\hyperlink{a01732_aae445faa8c15b00ca0fc391ddb56fef5}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{254     \textcolor{keywordflow}{return} J * log(J) -\/ J + 1;}
-\DoxyCodeLine{255   \};}
-\DoxyCodeLine{256 }
-\DoxyCodeLine{257   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{258   ST \mbox{\hyperlink{a01732_a37bc38c22447c5c16860db9b958eba23}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{259     \textcolor{keywordflow}{return} log(J);}
-\DoxyCodeLine{260   \}}
-\DoxyCodeLine{261 }
-\DoxyCodeLine{262   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{263   ST \mbox{\hyperlink{a01732_a9a4a01686e4e375a8e0b06433724c82c}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{264     \textcolor{keywordflow}{return} 1 / J;}
-\DoxyCodeLine{265   \}}
+\DoxyCodeLine{159   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01604_aa95b10281c1b2f2a1ab9209175e0d262}{setEASType}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{a01604_afe78c55c3e63ce60cd68871a9f24b54a}{numberOfInternalVariables}}) \{}
+\DoxyCodeLine{160     \textcolor{keywordflow}{if} (\mbox{\hyperlink{a01604_afe78c55c3e63ce60cd68871a9f24b54a}{numberOfInternalVariables}} != 0)}
+\DoxyCodeLine{161       \mbox{\hyperlink{a01604_a3eb18cfb3c6e0c02a8ac8e0940510507}{easApplicabilityCheck}}();}
+\DoxyCodeLine{162     easVariant\_.\mbox{\hyperlink{a01828_ad973e74eaff77bc3246e9af225afed52}{setEASType}}(\mbox{\hyperlink{a01604_afe78c55c3e63ce60cd68871a9f24b54a}{numberOfInternalVariables}});}
+\DoxyCodeLine{163     initializeState();}
+\DoxyCodeLine{164   \}}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{171   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01604_abc041e84d13db33fad994e9c28364866}{internalVariable}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} alpha\_; \}}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{174   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01604_a824ba0bf6ef6986b9405f2144e2d87f4}{bindImpl}}() \{}
+\DoxyCodeLine{175     assert(underlying().localView().bound());}
+\DoxyCodeLine{176     easVariant\_.\mbox{\hyperlink{a01828_a0f20349ee52ac98f8768463f5489e7eb}{bind}}(underlying().localView().element().geometry());}
+\DoxyCodeLine{177     initializeState();}
+\DoxyCodeLine{178   \}}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{189   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01604_af8541f825e5562cdbb8af0e75ce0a744}{updateStateImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01508}{Requirement}}\& par,}
+\DoxyCodeLine{190                        \textcolor{keyword}{const} std::remove\_reference\_t<\textcolor{keyword}{typename} Traits::template VectorType<>>\& correction) \{}
+\DoxyCodeLine{191     \textcolor{keyword}{using }ScalarType = \mbox{\hyperlink{a01544_a1b3bb63050509bf769c72be3c790db69}{Traits::ctype}};}
+\DoxyCodeLine{192     \mbox{\hyperlink{a01604_a3eb18cfb3c6e0c02a8ac8e0940510507}{easApplicabilityCheck}}();}
+\DoxyCodeLine{193     \textcolor{keyword}{auto} correctAlpha = [\&]<\textcolor{keyword}{typename} EAST>(\textcolor{keyword}{const} EAST\& easFunction) \{}
+\DoxyCodeLine{194       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (EAST::enhancedStrainSize != 0) \{}
+\DoxyCodeLine{195         \textcolor{keyword}{const} \textcolor{keyword}{auto}\& Rtilde      = calculateRtilde<ScalarType>(par);}
+\DoxyCodeLine{196         \textcolor{keyword}{const} \textcolor{keyword}{auto} localdxBlock = Ikarus::FEHelper::localSolutionBlockVector<Traits, Eigen::VectorXd, double>(}
+\DoxyCodeLine{197             correction, underlying().localView());}
+\DoxyCodeLine{198         \textcolor{keyword}{const} \textcolor{keyword}{auto} localdx               = \mbox{\hyperlink{a00487_ga545d74839895f4576a3b8c97d72abefd}{Dune::viewAsFlatEigenVector}}(localdxBlock);}
+\DoxyCodeLine{199         \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} enhancedStrainSize = EAST::enhancedStrainSize;}
+\DoxyCodeLine{200         Eigen::Matrix<double, enhancedStrainSize, enhancedStrainSize> D;}
+\DoxyCodeLine{201         calculateDAndLMatrix(easFunction, par, D, L\_);}
+\DoxyCodeLine{202         this-\/>alpha\_ -\/= D.inverse() * (Rtilde + (L\_ * localdx));}
+\DoxyCodeLine{203       \}}
+\DoxyCodeLine{204     \};}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206     easVariant\_(correctAlpha);}
+\DoxyCodeLine{207   \}}
+\DoxyCodeLine{208 }
+\DoxyCodeLine{209   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{a01604_a3eb18cfb3c6e0c02a8ac8e0940510507}{easApplicabilityCheck}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{210     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& numberOfNodes = underlying().numberOfNodes();}
+\DoxyCodeLine{211     \textcolor{keywordflow}{if} (not((numberOfNodes == 4 and \mbox{\hyperlink{a01544_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}} == 2) or (numberOfNodes == 9 and \mbox{\hyperlink{a01544_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}} == 2) or}
+\DoxyCodeLine{212             (numberOfNodes == 8 and \mbox{\hyperlink{a01544_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}} == 3)) and}
+\DoxyCodeLine{213         (not \mbox{\hyperlink{a01604_aa89e2424db2dcbde4f708207683df310}{isDisplacementBased}}()))}
+\DoxyCodeLine{214       DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}EAS is only supported for Q1, Q2 and H1 elements"{}});}
+\DoxyCodeLine{215   \}}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{217   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{218   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01604_a272aea085a5f19ba986ced81c9345c10}{calculateMatrixImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01508}{Requirement}}\& par, \textcolor{keyword}{const} \mbox{\hyperlink{a00492_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}}\& affordance,}
+\DoxyCodeLine{219                            \textcolor{keyword}{typename} Traits::template MatrixType<> K,}
+\DoxyCodeLine{220                            \textcolor{keyword}{const} \mbox{\hyperlink{a01604_a0df8a283fb466f111ddbea76582af9a8}{VectorXOptRef<ScalarType>}}\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{221     \textcolor{keywordflow}{if} (affordance != \mbox{\hyperlink{a00492_a390d5311179ec61d163a29c943b3d1a0a086e8b527490b8abe606a8dd76586ab1}{MatrixAffordance::stiffness}})}
+\DoxyCodeLine{222       DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}MatrixAffordance not implemented: "{}} + \mbox{\hyperlink{a00492_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(affordance));}
+\DoxyCodeLine{223     \mbox{\hyperlink{a01604_a3eb18cfb3c6e0c02a8ac8e0940510507}{easApplicabilityCheck}}();}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225     \textcolor{keyword}{const} \textcolor{keyword}{auto} geo           = underlying().localView().element().geometry();}
+\DoxyCodeLine{226     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction    = underlying().displacementFunction(par, dx);}
+\DoxyCodeLine{227     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& kMFunction   = underlying().template materialStiffnessMatrixFunction<ScalarType>(par, K, dx);}
+\DoxyCodeLine{228     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& kGFunction   = underlying().template geometricStiffnessMatrixFunction<ScalarType>(par, K, dx);}
+\DoxyCodeLine{229     \textcolor{keyword}{const} \textcolor{keyword}{auto} numberOfNodes = underlying().numberOfNodes();}
+\DoxyCodeLine{230     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis   = underlying().localBasis();}
+\DoxyCodeLine{231 }
+\DoxyCodeLine{232     \textcolor{keyword}{auto} calculateMatrixContribution = [\&]<\textcolor{keyword}{typename} EAST>(\textcolor{keyword}{const} EAST\& easFunction) \{}
+\DoxyCodeLine{233       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : uFunction.viewOverIntegrationPoints()) \{}
+\DoxyCodeLine{234         \textcolor{keyword}{const} \textcolor{keyword}{auto} enhancedStrain = EnhancedStrainFunction::value(geo, uFunction, gp.position(), easFunction, alpha\_);}
+\DoxyCodeLine{235         \textcolor{keyword}{const} \textcolor{keyword}{auto} stresses       = underlying().stress(enhancedStrain);}
+\DoxyCodeLine{236         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < numberOfNodes; ++i) \{}
+\DoxyCodeLine{237           \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_dI = EnhancedStrainFunction::template firstDerivative<0>(geo, uFunction, localBasis, gpIndex,}
+\DoxyCodeLine{238                                                                                 gp.position(), easFunction, alpha\_, i);}
+\DoxyCodeLine{239           \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} j = 0; j < numberOfNodes; ++j) \{}
+\DoxyCodeLine{240             \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_dJ = EnhancedStrainFunction::template firstDerivative<0>(}
+\DoxyCodeLine{241                 geo, uFunction, localBasis, gpIndex, gp.position(), easFunction, alpha\_, j);}
+\DoxyCodeLine{242             \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_dd = EnhancedStrainFunction::template secondDerivative<0>(}
+\DoxyCodeLine{243                 geo, uFunction, localBasis, gpIndex, gp.position(), stresses, easFunction, alpha\_, i, j);}
+\DoxyCodeLine{244             kMFunction(enhancedStrain, E\_dI, E\_dJ, i, j, gp);}
+\DoxyCodeLine{245             kGFunction(E\_dd, i, j, gp);}
+\DoxyCodeLine{246           \}}
+\DoxyCodeLine{247         \}}
+\DoxyCodeLine{248       \}}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{250       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (EAST::enhancedStrainSize != 0) \{}
+\DoxyCodeLine{251         \textcolor{keyword}{typename} EAST::DType D;}
+\DoxyCodeLine{252         calculateDAndLMatrix(easFunction, par, D, L\_);}
+\DoxyCodeLine{253         K.template triangularView<Eigen::Upper>() -\/= L\_.transpose() * D.inverse() * L\_;}
+\DoxyCodeLine{254         K.template triangularView<Eigen::StrictlyLower>() = K.transpose();}
+\DoxyCodeLine{255       \}}
+\DoxyCodeLine{256     \};}
+\DoxyCodeLine{257     easVariant\_(calculateMatrixContribution);}
+\DoxyCodeLine{258   \}}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{261   \textcolor{keyword}{inline} ScalarType \mbox{\hyperlink{a01604_a8cde088c25f1aec4b98a68f9bd8910a9}{calculateScalarImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01508}{Requirement}}\& par, \mbox{\hyperlink{a00492_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}} affordance,}
+\DoxyCodeLine{262                                         \textcolor{keyword}{const} \mbox{\hyperlink{a01604_a0df8a283fb466f111ddbea76582af9a8}{VectorXOptRef<ScalarType>}}\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{263     \mbox{\hyperlink{a01604_a3eb18cfb3c6e0c02a8ac8e0940510507}{easApplicabilityCheck}}();}
+\DoxyCodeLine{264     \textcolor{keywordflow}{if} (\mbox{\hyperlink{a01604_aa89e2424db2dcbde4f708207683df310}{isDisplacementBased}}())}
+\DoxyCodeLine{265       \textcolor{keywordflow}{return} underlying().template energyFunction<ScalarType>(par, dx)();}
 \DoxyCodeLine{266 }
-\DoxyCodeLine{267   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01732_ae3cef9c7726783cd5b30469408ae8c3d}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 8"{}}; \}}
-\DoxyCodeLine{268 \};}
-\DoxyCodeLine{269 }
-\DoxyCodeLine{276 \textcolor{keyword}{struct }\mbox{\hyperlink{a01736}{VF9}}}
-\DoxyCodeLine{277 \{}
-\DoxyCodeLine{278   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{279   ST \mbox{\hyperlink{a01736_a2445c6e4daa70c16124a5d9b1134af7e}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{280     \textcolor{keywordflow}{return} (1.0 / 32.0) * pow(pow(J, 2) -\/ pow(J, -\/2), 2);}
-\DoxyCodeLine{281   \};}
-\DoxyCodeLine{282 }
-\DoxyCodeLine{283   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{284   ST \mbox{\hyperlink{a01736_aa255c74c2939fe0cbb4ca204bc3c033f}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{285     \textcolor{keywordflow}{return} (1.0 / 8.0) * (pow(J, 3) -\/ (1.0 / pow(J, 5)));}
-\DoxyCodeLine{286   \}}
-\DoxyCodeLine{287 }
-\DoxyCodeLine{288   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{289   ST \mbox{\hyperlink{a01736_afddaa70a69c4055b71a6d0b5d7173724}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{290     \textcolor{keywordflow}{return} (1.0 / 8.0) * (5.0 * pow(J, -\/6) + (3.0 * pow(J, 2)));}
-\DoxyCodeLine{291   \}}
-\DoxyCodeLine{292 }
-\DoxyCodeLine{293   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01736_ab66e7831f4f14d74e7dd9935d638595a}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 9"{}}; \}}
-\DoxyCodeLine{294 \};}
-\DoxyCodeLine{295 }
-\DoxyCodeLine{303 \textcolor{keyword}{struct }\mbox{\hyperlink{a01740}{VF10}}}
-\DoxyCodeLine{304 \{}
-\DoxyCodeLine{305   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{306   ST \mbox{\hyperlink{a01740_a8b3daf273f45361fa0d502e7eb595346}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{307     \textcolor{keywordflow}{return} (J / beta\_) * (1 -\/ (pow(J, -\/beta\_) / (1 -\/ beta\_))) + (1.0 / (beta\_ -\/ 1));}
-\DoxyCodeLine{308   \};}
-\DoxyCodeLine{309 }
-\DoxyCodeLine{310   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{311   ST \mbox{\hyperlink{a01740_a16f0895b405ee23b4aa2ca3247d497b4}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{312     \textcolor{keywordflow}{return} (1 / beta\_) * (1 -\/ pow(J, -\/beta\_));}
-\DoxyCodeLine{313   \}}
-\DoxyCodeLine{314 }
-\DoxyCodeLine{315   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{316   ST \mbox{\hyperlink{a01740_a1617d331cf00e783868ffc8673edb487}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{317     \textcolor{keywordflow}{return} pow(J, -\/1 -\/ beta\_);}
+\DoxyCodeLine{267     DUNE\_THROW(Dune::NotImplemented,}
+\DoxyCodeLine{268                \textcolor{stringliteral}{"{}EAS element do not support any scalar calculations, i.e. they are not derivable from a potential"{}});}
+\DoxyCodeLine{269   \}}
+\DoxyCodeLine{270 }
+\DoxyCodeLine{271   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{272   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01604_a4edc5f10929b9e3c2a6735c3d812655b}{calculateVectorImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01508}{Requirement}}\& par, \mbox{\hyperlink{a00492_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} affordance,}
+\DoxyCodeLine{273                            \textcolor{keyword}{typename} Traits::template VectorType<ScalarType> force,}
+\DoxyCodeLine{274                            \textcolor{keyword}{const} \mbox{\hyperlink{a01604_a0df8a283fb466f111ddbea76582af9a8}{VectorXOptRef<ScalarType>}}\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{275     \textcolor{keywordflow}{if} (affordance != \mbox{\hyperlink{a00492_aab9e3e38507d1db7602bc750718c302aa2c05161a7e67e946ddc889571aac4e89}{VectorAffordance::forces}})}
+\DoxyCodeLine{276       DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}VectorAffordance not implemented: "{}} + \mbox{\hyperlink{a00492_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(affordance));}
+\DoxyCodeLine{277     \mbox{\hyperlink{a01604_a3eb18cfb3c6e0c02a8ac8e0940510507}{easApplicabilityCheck}}();}
+\DoxyCodeLine{278 }
+\DoxyCodeLine{279     \textcolor{keyword}{const} \textcolor{keyword}{auto} geo           = underlying().localView().element().geometry();}
+\DoxyCodeLine{280     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction    = underlying().displacementFunction(par, dx);}
+\DoxyCodeLine{281     \textcolor{keyword}{const} \textcolor{keyword}{auto} numberOfNodes = underlying().numberOfNodes();}
+\DoxyCodeLine{282     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis   = underlying().localBasis();}
+\DoxyCodeLine{283     \textcolor{keyword}{const} \textcolor{keyword}{auto} fIntFunction  = underlying().template internalForcesFunction<ScalarType>(par, force, dx);}
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285     \textcolor{keyword}{auto} calculateForceContribution = [\&]<\textcolor{keyword}{typename} EAST>(\textcolor{keyword}{const} EAST\& easFunction) \{}
+\DoxyCodeLine{286       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : uFunction.viewOverIntegrationPoints()) \{}
+\DoxyCodeLine{287         \textcolor{keyword}{const} \textcolor{keyword}{auto} enhancedStrain = EnhancedStrainFunction::value(geo, uFunction, gp.position(), easFunction, alpha\_);}
+\DoxyCodeLine{288         \textcolor{keyword}{const} \textcolor{keyword}{auto} stresses       = underlying().stress(enhancedStrain);}
+\DoxyCodeLine{289         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < numberOfNodes; ++i) \{}
+\DoxyCodeLine{290           \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_dI = EnhancedStrainFunction::template firstDerivative<0>(geo, uFunction, localBasis, gpIndex,}
+\DoxyCodeLine{291                                                                                 gp.position(), easFunction, alpha\_, i);}
+\DoxyCodeLine{292           fIntFunction(stresses, E\_dI, i, gp);}
+\DoxyCodeLine{293         \}}
+\DoxyCodeLine{294       \}}
+\DoxyCodeLine{295       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (EAST::enhancedStrainSize != 0) \{}
+\DoxyCodeLine{296         \textcolor{comment}{// Here, L\_ and D doesn't see the ScalarType, while Rtilde sees it. This is needed because only then when we use}}
+\DoxyCodeLine{297         \textcolor{comment}{// automatic differentiation w.r.t to the displacements, we get the correct static-\/condensed stiffness matrix.}}
+\DoxyCodeLine{298         \textcolor{comment}{// If L\_ and D sees the ScalarType, then their derivatives w.r.t. the displacements is also performed which is}}
+\DoxyCodeLine{299         \textcolor{comment}{// then not equivalent to the static-\/condensed stiffness matrix in general.}}
+\DoxyCodeLine{300         \textcolor{keyword}{typename} EAST::DType D;}
+\DoxyCodeLine{301         calculateDAndLMatrix(easFunction, par, D, L\_);}
+\DoxyCodeLine{302         \textcolor{keyword}{const} \textcolor{keyword}{auto}\& Rtilde = calculateRtilde(par, dx);}
+\DoxyCodeLine{303         force -\/= L\_.transpose() * D.inverse() * Rtilde;}
+\DoxyCodeLine{304       \}}
+\DoxyCodeLine{305     \};}
+\DoxyCodeLine{306     easVariant\_(calculateForceContribution);}
+\DoxyCodeLine{307   \}}
+\DoxyCodeLine{308 }
+\DoxyCodeLine{309   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MT, \textcolor{keyword}{typename} BC>}
+\DoxyCodeLine{310   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01604_adc3a3939e8e88760da1ea59e20ecd833}{subscribeToImpl}}(BC\& bc) \{}
+\DoxyCodeLine{311     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<MT, NonLinearSolverMessages>) \{}
+\DoxyCodeLine{312       \textcolor{keyword}{using }NLSState = \textcolor{keyword}{typename} BC::State;}
+\DoxyCodeLine{313       underlying().subscribe(bc, [\&](\mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keyword}{const} NLSState\& state) \{}
+\DoxyCodeLine{314         \textcolor{keywordflow}{if} (message == \mbox{\hyperlink{a00492_a662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4}{NonLinearSolverMessages::CORRECTION\_UPDATED}})}
+\DoxyCodeLine{315           this-\/>\mbox{\hyperlink{a01604_af8541f825e5562cdbb8af0e75ce0a744}{updateStateImpl}}(state.domain, state.correction);}
+\DoxyCodeLine{316       \});}
+\DoxyCodeLine{317     \}}
 \DoxyCodeLine{318   \}}
 \DoxyCodeLine{319 }
-\DoxyCodeLine{320   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01740_a70aac39a68cf1301729aabff50255b4d}{VF10}}(\textcolor{keywordtype}{double} \mbox{\hyperlink{a01740_a0d1a430961cf9ed01796413c4cf2af2b}{beta}})}
-\DoxyCodeLine{321       : beta\_(\mbox{\hyperlink{a01740_a0d1a430961cf9ed01796413c4cf2af2b}{beta}}) \{\}}
-\DoxyCodeLine{322 }
-\DoxyCodeLine{323   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01740_a54c2c00d7e3045852991a836027d075c}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 10"{}}; \}}
+\DoxyCodeLine{320 \textcolor{keyword}{private}:}
+\DoxyCodeLine{321   \mbox{\hyperlink{a01828}{EAS::EASVariant<ESF, Geometry>}} easVariant\_;}
+\DoxyCodeLine{322   \textcolor{keyword}{mutable} Eigen::MatrixXd L\_;}
+\DoxyCodeLine{323   Eigen::VectorXd alpha\_;}
 \DoxyCodeLine{324 }
-\DoxyCodeLine{325   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01740_a0d1a430961cf9ed01796413c4cf2af2b}{beta}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} beta\_; \}}
-\DoxyCodeLine{326 }
-\DoxyCodeLine{327 \textcolor{keyword}{private}:}
-\DoxyCodeLine{328   \textcolor{keywordtype}{double} beta\_;}
-\DoxyCodeLine{329 \};}
-\DoxyCodeLine{330 }
-\DoxyCodeLine{337 \textcolor{keyword}{struct }\mbox{\hyperlink{a01744}{VF11}}}
-\DoxyCodeLine{338 \{}
-\DoxyCodeLine{339   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{340   ST \mbox{\hyperlink{a01744_adfd1b65736d8621c0b0d186bd7c95cdd}{storedEnergyImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{341     \textcolor{keywordflow}{return} (1.0 / 50.0) * (pow(J, 5.0) + pow(J, -\/5.0) -\/ 2.0);}
-\DoxyCodeLine{342   \};}
+\DoxyCodeLine{325   \textcolor{comment}{//> CRTP}}
+\DoxyCodeLine{326   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& underlying()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{a01488}{FE}}\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{327   \textcolor{keyword}{auto}\& underlying() \{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}FE\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{328 }
+\DoxyCodeLine{332   \textcolor{keywordtype}{void} initializeState() \{}
+\DoxyCodeLine{333     alpha\_.resize(\mbox{\hyperlink{a01604_afe78c55c3e63ce60cd68871a9f24b54a}{numberOfInternalVariables}}());}
+\DoxyCodeLine{334     alpha\_.setZero();}
+\DoxyCodeLine{335   \}}
+\DoxyCodeLine{336 }
+\DoxyCodeLine{337   \textcolor{keyword}{template} <\textcolor{keywordtype}{int} enhancedStrainSize>}
+\DoxyCodeLine{338   \textcolor{keywordtype}{void} calculateDAndLMatrix(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& easFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& par,}
+\DoxyCodeLine{339                             Eigen::Matrix<double, enhancedStrainSize, enhancedStrainSize>\& DMat,}
+\DoxyCodeLine{340                             Eigen::MatrixX<double>\& LMat)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{341     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00518}{Dune}};}
+\DoxyCodeLine{342     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
 \DoxyCodeLine{343 }
-\DoxyCodeLine{344   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{345   ST \mbox{\hyperlink{a01744_a530d06ace0e5329ab2a8e3e6139ef6b1}{firstDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{346     \textcolor{keywordflow}{return} (1.0 / 10.0) * (pow(J, 4.0) -\/ pow(J, -\/6.0));}
-\DoxyCodeLine{347   \}}
-\DoxyCodeLine{348 }
-\DoxyCodeLine{349   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{350   ST \mbox{\hyperlink{a01744_a02b23af7b9dc9a646d444c6d1b91ca39}{secondDerivativeImpl}}(\textcolor{keyword}{const} ST\& J)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{351     \textcolor{keywordflow}{return} (1.0 / 10.0) * (4 * pow(J, 3.0) + 6 * pow(J, -\/7.0));}
-\DoxyCodeLine{352   \}}
-\DoxyCodeLine{353 }
-\DoxyCodeLine{354   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01744_a61777f0baa543107f9bead5cee9fe148}{name}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Function 11"{}}; \}}
-\DoxyCodeLine{355 \};}
-\DoxyCodeLine{356 }
-\DoxyCodeLine{357 \textcolor{keyword}{using }\mbox{\hyperlink{a01696}{NoVolumetricPart}} = \mbox{\hyperlink{a01696}{Volumetric<VF0>}};}
-\DoxyCodeLine{358 }
-\DoxyCodeLine{359 \} \textcolor{comment}{// namespace Ikarus::Materials}}
+\DoxyCodeLine{344     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction    = underlying().displacementFunction(par);}
+\DoxyCodeLine{345     \textcolor{keyword}{const} \textcolor{keyword}{auto} geo           = underlying().localView().element().geometry();}
+\DoxyCodeLine{346     \textcolor{keyword}{const} \textcolor{keyword}{auto} numberOfNodes = underlying().numberOfNodes();}
+\DoxyCodeLine{347     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis   = underlying().localBasis();}
+\DoxyCodeLine{348     DMat.setZero();}
+\DoxyCodeLine{349     LMat.setZero(enhancedStrainSize, underlying().localView().size());}
+\DoxyCodeLine{350     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : uFunction.viewOverIntegrationPoints()) \{}
+\DoxyCodeLine{351       \textcolor{keyword}{const} \textcolor{keyword}{auto} enhancedStrain = EnhancedStrainFunction::value(geo, uFunction, gp.position(), easFunction, alpha\_);}
+\DoxyCodeLine{352       \textcolor{keyword}{const} \textcolor{keyword}{auto} C              = underlying().materialTangent(enhancedStrain);}
+\DoxyCodeLine{353       \textcolor{keyword}{const} \textcolor{keyword}{auto} stresses       = underlying().stress(enhancedStrain);}
+\DoxyCodeLine{354       \textcolor{keyword}{const} \textcolor{keywordtype}{double} intElement   = geo.integrationElement(gp.position()) * gp.weight();}
+\DoxyCodeLine{355       \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_a  = EnhancedStrainFunction::template firstDerivative<1>(geo, uFunction, localBasis, gpIndex,}
+\DoxyCodeLine{356                                                                             gp.position(), easFunction, alpha\_);}
+\DoxyCodeLine{357       \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_aa = EnhancedStrainFunction::template secondDerivative<1>(}
+\DoxyCodeLine{358           geo, uFunction, localBasis, gpIndex, gp.position(), stresses, easFunction, alpha\_);}
+\DoxyCodeLine{359       DMat += (E\_a.transpose() * C * E\_a + E\_aa) * intElement;}
+\DoxyCodeLine{360       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0U; i < numberOfNodes; ++i) \{}
+\DoxyCodeLine{361         \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_dI = EnhancedStrainFunction::template firstDerivative<0>(geo, uFunction, localBasis, gpIndex,}
+\DoxyCodeLine{362                                                                               gp.position(), easFunction, alpha\_, i);}
+\DoxyCodeLine{363         \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_ad = EnhancedStrainFunction::template secondDerivative<2>(}
+\DoxyCodeLine{364             geo, uFunction, localBasis, gpIndex, gp.position(), stresses, easFunction, alpha\_, i);}
+\DoxyCodeLine{365         LMat.template block<enhancedStrainSize, myDim>(0, \mbox{\hyperlink{a01604_ac00c91a371e5c1b42bbc0a26715693ef}{myDim}} * i) +=}
+\DoxyCodeLine{366             (E\_a.transpose() * C * E\_dI + E\_ad) * intElement;}
+\DoxyCodeLine{367       \}}
+\DoxyCodeLine{368     \}}
+\DoxyCodeLine{369   \}}
+\DoxyCodeLine{370 }
+\DoxyCodeLine{371   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{372   Eigen::VectorX<ScalarType> calculateRtilde(\textcolor{keyword}{const} \mbox{\hyperlink{a01604_a0f31209650df33c8867e4f742b3b3d25}{Requirement}}\& par,}
+\DoxyCodeLine{373                                              \textcolor{keyword}{const} VectorXOptRef<ScalarType>\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{374     \textcolor{keyword}{const} \textcolor{keyword}{auto} geo         = underlying().localView().element().geometry();}
+\DoxyCodeLine{375     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction  = underlying().displacementFunction(par, dx);}
+\DoxyCodeLine{376     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis = underlying().localBasis();}
+\DoxyCodeLine{377     Eigen::VectorX<ScalarType> Rtilde;}
+\DoxyCodeLine{378     Rtilde.setZero(\mbox{\hyperlink{a01604_afe78c55c3e63ce60cd68871a9f24b54a}{numberOfInternalVariables}}());}
+\DoxyCodeLine{379 }
+\DoxyCodeLine{380     \textcolor{keyword}{auto} calculateRtildeContribution = [\&]<\textcolor{keyword}{typename} EAST>(\textcolor{keyword}{const} EAST\& easFunction) \{}
+\DoxyCodeLine{381       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : uFunction.viewOverIntegrationPoints()) \{}
+\DoxyCodeLine{382         \textcolor{keyword}{const} \textcolor{keyword}{auto} enhancedStrain = EnhancedStrainFunction::value(geo, uFunction, gp.position(), easFunction, alpha\_);}
+\DoxyCodeLine{383         \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_a = EnhancedStrainFunction::template firstDerivative<1>(geo, uFunction, localBasis, gpIndex,}
+\DoxyCodeLine{384                                                                              gp.position(), easFunction, alpha\_);}
+\DoxyCodeLine{385         \textcolor{keyword}{const} \textcolor{keywordtype}{double} intElement = geo.integrationElement(gp.position()) * gp.weight();}
+\DoxyCodeLine{386         \textcolor{keyword}{auto} stresses           = underlying().stress(enhancedStrain);}
+\DoxyCodeLine{387         Rtilde += (E\_a.transpose() * stresses).eval() * intElement;}
+\DoxyCodeLine{388       \}}
+\DoxyCodeLine{389     \};}
+\DoxyCodeLine{390 }
+\DoxyCodeLine{391     easVariant\_(calculateRtildeContribution);}
+\DoxyCodeLine{392     \textcolor{keywordflow}{return} Rtilde;}
+\DoxyCodeLine{393   \}}
+\DoxyCodeLine{394 \};}
+\DoxyCodeLine{395 }
+\DoxyCodeLine{402 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ES = EAS::LinearStrain>}
+\DoxyCodeLine{403 \textcolor{keyword}{auto} \mbox{\hyperlink{a00492_a51eabb3b467590d93f00cbe48c58a1c0}{eas}}(\textcolor{keywordtype}{int} numberOfInternalVariables = 0) \{}
+\DoxyCodeLine{404   \mbox{\hyperlink{a01608}{EnhancedAssumedStrainsPre<ES>}} pre(numberOfInternalVariables);}
+\DoxyCodeLine{405 }
+\DoxyCodeLine{406   \textcolor{keywordflow}{return} pre;}
+\DoxyCodeLine{407 \}}
+\DoxyCodeLine{408 }
+\DoxyCodeLine{409 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{410 }
+\DoxyCodeLine{411 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{412 \textcolor{preprocessor}{  \#error EnhancedAssumedStrains depends on dune-\/localfefunctions, which is not included}}
+\DoxyCodeLine{413 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

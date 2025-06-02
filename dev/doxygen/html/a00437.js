@@ -1,4 +1,8 @@
 var a00437 =
 [
-    [ "registerBoundaryPatch", "a00437.html#a331fd78be5a4155963abe5829282c8f1", null ]
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss >", "a01368.html", "a01368" ],
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss >", "a01372.html", "a01372" ],
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss, MatrixAss >", "a01376.html", "a01376" ],
+    [ "BASECLASSMEMBERFUNCTION", "a00437.html#ab88748ddf71ad00ec25d8e9dabcefa82", null ],
+    [ "makeAssemblerManipulator", "a00437.html#afc83c2d114028f47280b981daf728ebe", null ]
 ];

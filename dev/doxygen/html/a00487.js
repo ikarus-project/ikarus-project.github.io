@@ -57,7 +57,7 @@ var a00487 =
     [ "Ikarus::enlargeIfReduced", "a00487.html#ga30500f2c49b7d1997c7eb7b6ee90ad75", null ],
     [ "Ikarus::utils::findLineSegment", "a00487.html#ga16e7d5f51cc42190c090e727495c1609", null ],
     [ "Ikarus::flatPreBasis", "a00487.html#ga0728039472747184e9eb2ec0992a4a2b", null ],
-    [ "Ikarus::utils::globalIndexFromGlobalPosition", "a00487.html#gaa19ed04a701aaa500f7c486addae2d2e", null ],
+    [ "Ikarus::utils::globalIndexFromGlobalPosition", "a00487.html#gad3d42db776c355317260011c95b0ce67", null ],
     [ "Ikarus::utils::hessianN", "a00487.html#ga2a6c26beeb8d52283e82939ca585dc20", null ],
     [ "Ikarus::increment", "a00487.html#ga5db6e8f04892e85e6b17e276cdbd0e54", null ],
     [ "Ikarus::norm", "a00487.html#ga0ffc0c74dbd9aeee3e53b199a21b828c", null ],

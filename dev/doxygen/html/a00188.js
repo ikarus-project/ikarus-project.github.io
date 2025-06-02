@@ -1,5 +1,6 @@
 var a00188 =
 [
-    [ "Ikarus::ArrudaBoyceMatParameters", "a01652.html", "a01652" ],
-    [ "ArrudaBoyce", "a00188.html#a70cada02f1f5f294f44c438fb1270982", null ]
+    [ "makeResultFunction", "a00188.html#aba0432efad1cef6c956ccf108829682c", null ],
+    [ "makeResultFunction", "a00188.html#aa4430d7f94a172d765fba38d393450a0", null ],
+    [ "makeResultVtkFunction", "a00188.html#ad8472943b9877db27039331c847154f1", null ]
 ];

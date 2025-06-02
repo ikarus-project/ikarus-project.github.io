@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: generalizedeigensolver.hh Source File</title>
+    <title>ikarus: boundarypatch.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,308 +155,45 @@ $(document).ready(function(){initNavTree('a00128_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">generalizedeigensolver.hh</div></div>
+  <div class="headertitle"><div class="title">boundarypatch.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00128.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;Spectra/MatOp/SparseCholesky.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;Spectra/MatOp/SparseGenMatProd.h&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;Spectra/SymEigsSolver.h&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;Spectra/SymGEigsSolver.h&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;Eigen/SparseCore&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;dune/common/bitsetvector.hh&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;dune/python/pybind11/eigen.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;dune/python/pybind11/functional.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;dune/python/pybind11/pybind11.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;dune/python/pybind11/stl.h&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00511.html">Ikarus::Python</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// Python wrapper for the BoundaryPatch C++ class</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>BoundaryPatch, <span class="keyword">class</span>... options&gt;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a00511.html#a331fd78be5a4155963abe5829282c8f1">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00511.html#a331fd78be5a4155963abe5829282c8f1">registerBoundaryPatch</a>(pybind11::handle scope, pybind11::class_&lt;BoundaryPatch, options...&gt; cls) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keyword">using </span>pybind11::operator<span class="stringliteral">&quot;&quot;</span>_a;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">using </span>GridView = <span class="keyword">typename</span> BoundaryPatch::GridView;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a03429.html">ikarus/utils/concepts.hh</a>&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a00077.html">ikarus/utils/makeenum.hh</a>&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00492.html">Ikarus</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a00492.html#a76f328509ccf00e93bba2416f01620e4">   29</a></span><a class="code hl_define" href="a00487.html#ga14ad7d33267cea1c93f97f3998081657">MAKE_ENUM</a>(<a class="code hl_enumeration" href="a00492.html#a76f328509ccf00e93bba2416f01620e4">EigenValueSolverType</a>, Spectra, <a class="code hl_namespace" href="a00509.html">Eigen</a>);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">template</span> &lt;EigenValueSolverType SolverType, Concepts::DenseOrSparseEigenMatrix MT&gt;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a02020.html">   32</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02020.html">GeneralizedSymEigenSolver</a></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>{</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">template</span> &lt;Concepts::DenseOrSparseEigenMatrix MT&gt;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a02024.html">   48</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02020.html">GeneralizedSymEigenSolver</a>&lt;<a class="code hl_enumeration" href="a00492.html#a76f328509ccf00e93bba2416f01620e4">EigenValueSolverType</a>::<a class="code hl_enumvalue" href="a00492.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">Spectra</a>, MT&gt;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a02024.html#a8485726e6883eb6d7252bd9baf0e4627">   50</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02024.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a>              = <span class="keyword">typename</span> MT::Scalar;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a02024.html#a06b59538903b72e9807a691a97dd607f">   51</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> isDense = <a class="code hl_concept" href="a02372.html">Concepts::EigenMatrix&lt;MT&gt;</a>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a02024.html#a34c854289f61047252fa93db012d5f13">   53</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02024.html#a34c854289f61047252fa93db012d5f13">MatrixType</a> = MT;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a02024.html#a2ad6c5efe033c6628c0fd843cf2effba">   54</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02024.html#a2ad6c5efe033c6628c0fd843cf2effba">ProductType</a> =</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      std::conditional_t&lt;isDense, Spectra::DenseSymMatProd&lt;ScalarType&gt;, Spectra::SparseSymMatProd&lt;ScalarType&gt;&gt;;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a02024.html#a3f2e96d61612b8932eeef6d7491c27df">   56</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02024.html#a3f2e96d61612b8932eeef6d7491c27df">CholeskyType</a> =</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>      std::conditional_t&lt;isDense, Spectra::DenseCholesky&lt;ScalarType&gt;, Spectra::SparseCholesky&lt;ScalarType&gt;&gt;;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a02024.html#aad2054eef570f156a7e829177771d366">   59</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02024.html#aad2054eef570f156a7e829177771d366">SolverType</a> = Spectra::SymGEigsSolver&lt;ProductType, CholeskyType, Spectra::GEigsMode::Cholesky&gt;;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> MATA, <span class="keyword">typename</span> MATB&gt;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keyword">requires</span>(<a class="code hl_concept" href="a02374.html">Concepts::DenseOrSparseEigenMatrix&lt;std::remove_cvref_t&lt;MATA&gt;</a>&gt;)</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a02024.html#aa522db16d040aff20999cbdb4a4ad9e7">   71</a></span>  <a class="code hl_function" href="a02024.html#aa522db16d040aff20999cbdb4a4ad9e7">GeneralizedSymEigenSolver</a>(MATA&amp;&amp; A, MATB&amp;&amp; B)</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>      : nev_(A.rows()),</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        nevsPartition_(<span class="keyword">static_cast&lt;</span>Eigen::Index<span class="keyword">&gt;</span>(std::ceil(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(nev_) / 2)),</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                       <span class="keyword">static_cast&lt;</span>Eigen::Index<span class="keyword">&gt;</span>(nev_ - std::ceil(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(nev_) / 2))),</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        aOP_(std::forward&lt;MATA&gt;(A)),</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        bOP_(std::forward&lt;MATB&gt;(B)),</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        solverSmallest_(aOP_, bOP_, nevsPartition_.first, std::min(nevsPartition_.second * 2, nev_)),</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        solverGreatest_(aOP_, bOP_, nevsPartition_.second, nevsPartition_.second * 2) {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span> ((A.cols() != B.cols()) or (A.rows() != B.rows()) or (A.cols() != A.rows()))</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>      DUNE_THROW(Dune::InvalidStateException,</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                 <span class="stringliteral">&quot;GeneralizedSymEigenSolver: The passed matrices should have the same size&quot;</span>);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    eigenvalues_.resize(nev_);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    eigenvectors_.resize(A.rows(), nev_);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    assert(nevsPartition_.first + nevsPartition_.second == nev_);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <span class="keyword">template</span> &lt;Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB&gt;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="a02024.html#ab12080272383db20d35bcd196a2ac5bf">   96</a></span>  <a class="code hl_function" href="a02024.html#ab12080272383db20d35bcd196a2ac5bf">GeneralizedSymEigenSolver</a>(std::shared_ptr&lt;AssemblerA&gt; assemblerA, <span class="keyword">const</span> std::shared_ptr&lt;AssemblerB&gt;&amp; assemblerB)</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>      : <a class="code hl_struct" href="a02020.html">GeneralizedSymEigenSolver</a>(assemblerA-&gt;matrix(), assemblerB-&gt;matrix()) {}</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="a02024.html#a881ce0379cd715e2ed3c2cf5235b2a80">  107</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="a02024.html#a881ce0379cd715e2ed3c2cf5235b2a80">compute</a>(Eigen::Index maxit = 1000, <a class="code hl_typedef" href="a02024.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a> tolerance = 1e-10) {</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    solverSmallest_.init();</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    solverSmallest_.compute(Spectra::SortRule::SmallestAlge, maxit, tolerance, Spectra::SortRule::SmallestAlge);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    solverGreatest_.init();</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    solverGreatest_.compute(Spectra::SortRule::LargestAlge, maxit, tolerance, Spectra::SortRule::SmallestAlge);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    computed_ = solverSmallest_.info() == Spectra::CompInfo::Successful and</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                solverGreatest_.info() == Spectra::CompInfo::Successful;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">if</span> (not computed_)</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    eigenvalues_.head(nevsPartition_.first)      = solverSmallest_.eigenvalues();</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    eigenvectors_.leftCols(nevsPartition_.first) = solverSmallest_.eigenvectors();</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    eigenvalues_.tail(nevsPartition_.second)       = solverGreatest_.eigenvalues();</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    eigenvectors_.rightCols(nevsPartition_.second) = solverGreatest_.eigenvectors();</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">return</span> computed_;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>  }</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="a02024.html#ac4d3a189e6868e3a7a627faa87410cda">  133</a></span>  <span class="keyword">auto</span>&amp; <a class="code hl_function" href="a02024.html#ac4d3a189e6868e3a7a627faa87410cda">eigenvalues</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    assertCompute();</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordflow">return</span> eigenvalues_;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>  }</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="a02024.html#a0da3b9692e200b0366d22b1873046265">  143</a></span>  <span class="keyword">auto</span>&amp; <a class="code hl_function" href="a02024.html#a0da3b9692e200b0366d22b1873046265">eigenvectors</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    assertCompute();</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keywordflow">return</span> eigenvectors_;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>  }</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="a02024.html#a3a2cce50d798d9606488ce04e1ed3b1b">  149</a></span>  Eigen::Index <a class="code hl_function" href="a02024.html#a3a2cce50d798d9606488ce04e1ed3b1b">nev</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> nev_; }</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  Eigen::Index nev_;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>  std::pair&lt;Eigen::Index, Eigen::Index&gt; nevsPartition_;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>  ProductType aOP_;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>  CholeskyType bOP_;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>  SolverType solverSmallest_;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>  SolverType solverGreatest_;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>  Eigen::VectorXd eigenvalues_;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>  Eigen::MatrixXd eigenvectors_;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>  <span class="keywordtype">bool</span> computed_{};</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>  <span class="keywordtype">void</span> assertCompute()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">if</span> (not computed_)</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>      DUNE_THROW(Dune::InvalidStateException, <span class="stringliteral">&quot;Eigenvalues and -vectors not yet computed, please call compute() first&quot;</span>);</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>  }</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>};</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="keyword">template</span> &lt;Concepts::EigenMatrix MT&gt;</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="a02028.html">  178</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02020.html">GeneralizedSymEigenSolver</a>&lt;<a class="code hl_enumeration" href="a00492.html#a76f328509ccf00e93bba2416f01620e4">EigenValueSolverType</a>::<a class="code hl_namespace" href="a00509.html">Eigen</a>, MT&gt;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>{</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="a02028.html#acb730c16433e6c478ca52f87b3de64fa">  180</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02028.html#acb730c16433e6c478ca52f87b3de64fa">ScalarType</a> = <span class="keyword">typename</span> MT::Scalar;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="a02028.html#a24ec96630301a7cc83c79402d9960e7e">  181</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02028.html#a24ec96630301a7cc83c79402d9960e7e">MatrixType</a> = MT;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="a02028.html#ac4705f97e9192b82c9125045150c7df8">  182</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02028.html#ac4705f97e9192b82c9125045150c7df8">SolverType</a> = Eigen::GeneralizedSelfAdjointEigenSolver&lt;MatrixType&gt;;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> MATA, <span class="keyword">typename</span> MATB&gt;</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>  <span class="keyword">requires</span>(<a class="code hl_concept" href="a02372.html">Concepts::EigenMatrix&lt;std::remove_cvref_t&lt;MATA&gt;</a>&gt;)</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="a02028.html#a0e40e35371464734b3e81defd6518a8d">  194</a></span>  <a class="code hl_function" href="a02028.html#a0e40e35371464734b3e81defd6518a8d">GeneralizedSymEigenSolver</a>(MATA&amp;&amp; A, MATB&amp;&amp; B)</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>      : matA_(std::forward&lt;MATA&gt;(A)),</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        matB_(std::forward&lt;MATB&gt;(B)),</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        solver_(A.size()) {</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="keywordflow">if</span> ((A.cols() != B.cols()) or (A.rows() != B.rows()) or (A.cols() != A.rows()))</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>      DUNE_THROW(Dune::InvalidStateException,</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                 <span class="stringliteral">&quot;GeneralizedSymEigenSolver: The passed matrices should have the same size&quot;</span>);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  }</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  <span class="keyword">template</span> &lt;Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB&gt;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="a02028.html#a39fd88c9f56c29eb706f20d9724f3617">  212</a></span>  <a class="code hl_function" href="a02028.html#a39fd88c9f56c29eb706f20d9724f3617">GeneralizedSymEigenSolver</a>(std::shared_ptr&lt;AssemblerA&gt; assemblerA, std::shared_ptr&lt;AssemblerB&gt; assemblerB)</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>      : <a class="code hl_struct" href="a02020.html">GeneralizedSymEigenSolver</a>(assemblerA-&gt;matrix(), assemblerB-&gt;matrix()) {}</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="a02028.html#a3361c081b688b9409fd8ce0bb1b7e941">  223</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="a02028.html#a3361c081b688b9409fd8ce0bb1b7e941">compute</a>(<span class="keywordtype">int</span> options = Eigen::ComputeEigenvectors) {</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    solver_.compute(matA_, matB_, options);</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    computed_ = <span class="keyword">true</span>; <span class="comment">// SelfAdjointEigenSolver will always be successful if prerequisites are met</span></div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keywordflow">return</span> computed_;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>  }</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="a02028.html#ac1b4e531a28bfa6421cb502737a6e7bd">  234</a></span>  <span class="keyword">auto</span>&amp; <a class="code hl_function" href="a02028.html#ac1b4e531a28bfa6421cb502737a6e7bd">eigenvalues</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    assertCompute();</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keywordflow">return</span> solver_.eigenvalues();</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>  }</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="a02028.html#a3f737f055b0b95a618a7688b947fe600">  244</a></span>  <span class="keyword">auto</span>&amp; <a class="code hl_function" href="a02028.html#a3f737f055b0b95a618a7688b947fe600">eigenvectors</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    assertCompute();</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">return</span> solver_.eigenvectors();</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>  }</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="a02028.html#a186e0b90c15cd0ced10e709915e9106d">  250</a></span>  Eigen::Index <a class="code hl_function" href="a02028.html#a186e0b90c15cd0ced10e709915e9106d">nev</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> matA_.rows(); }</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>  MatrixType matA_;</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>  MatrixType matB_;</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>  SolverType solver_;</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>  <span class="keywordtype">bool</span> computed_{};</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>  <span class="keywordtype">void</span> assertCompute()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="keywordflow">if</span> (not computed_)</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      DUNE_THROW(Dune::InvalidStateException, <span class="stringliteral">&quot;Eigenvalues and -vectors not yet computed, please call compute() first&quot;</span>);</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>  }</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>};</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="keyword">namespace </span>Impl {</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>  <span class="keywordtype">void</span> assertNev(std::optional&lt;Eigen::Index&gt; nev, Eigen::Index nevMax) {</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordflow">if</span> (nev.has_value() and nev.value() &gt; nevMax)</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>      DUNE_THROW(Dune::InvalidStateException, <span class="stringliteral">&quot;You can not ask for more eigenvalues or eigenvectors than calculated.&quot;</span>);</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>  }</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>} <span class="comment">// namespace Impl</span></div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="keyword">template</span> &lt;Concepts::DenseOrSparseEigenMatrix MT&gt;</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno"><a class="line" href="a02032.html">  280</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02032.html">PartialGeneralizedSymEigenSolver</a></div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>{</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno"><a class="line" href="a02032.html#a513c516ce20c278d62cf1f57ac7fad30">  282</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02032.html#a513c516ce20c278d62cf1f57ac7fad30">ScalarType</a>              = <span class="keyword">typename</span> MT::Scalar;</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno"><a class="line" href="a02032.html#a3ab49bfc95265b5d34a7561dce57e281">  283</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="a02032.html#a3ab49bfc95265b5d34a7561dce57e281">isDense</a> = <a class="code hl_concept" href="a02372.html">Concepts::EigenMatrix&lt;MT&gt;</a>;</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno"><a class="line" href="a02032.html#a5b6d6b65d94fcffcfb735d3895a8cc72">  285</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02032.html#a5b6d6b65d94fcffcfb735d3895a8cc72">MatrixType</a> = MT;</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="a02032.html#ad605a2caddd2d5e4ab66bb49fb15ed46">  286</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02032.html#ad605a2caddd2d5e4ab66bb49fb15ed46">ProductType</a> =</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>      std::conditional_t&lt;isDense, Spectra::DenseSymMatProd&lt;ScalarType&gt;, Spectra::SparseSymMatProd&lt;ScalarType&gt;&gt;;</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno"><a class="line" href="a02032.html#a4bdbd71bd692358a71a84764c6502a1a">  288</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02032.html#a4bdbd71bd692358a71a84764c6502a1a">CholeskyType</a> =</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>      std::conditional_t&lt;isDense, Spectra::DenseCholesky&lt;ScalarType&gt;, Spectra::SparseCholesky&lt;ScalarType&gt;&gt;;</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno"><a class="line" href="a02032.html#a01afabce671be52c16e84f044ef4bdc6">  291</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02032.html#a01afabce671be52c16e84f044ef4bdc6">SolverType</a> = Spectra::SymGEigsSolver&lt;ProductType, CholeskyType, Spectra::GEigsMode::Cholesky&gt;;</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> MATA, <span class="keyword">typename</span> MATB&gt;</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>  <span class="keyword">requires</span>(<a class="code hl_concept" href="a02374.html">Concepts::DenseOrSparseEigenMatrix&lt;std::remove_cvref_t&lt;MATA&gt;</a>&gt;)</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno"><a class="line" href="a02032.html#afd6f6b240369c7c78dc49d281b0d030e">  303</a></span>  <a class="code hl_function" href="a02032.html#afd6f6b240369c7c78dc49d281b0d030e">PartialGeneralizedSymEigenSolver</a>(MATA&amp;&amp; A, MATB&amp;&amp; B, Eigen::Index <a class="code hl_function" href="a02032.html#a0cb9ba2cd8c3b4bff1d21e48afdd9235">nev</a>)</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>      : nev_(<a class="code hl_function" href="a02032.html#a0cb9ba2cd8c3b4bff1d21e48afdd9235">nev</a>),</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        aOP_(std::forward&lt;MATA&gt;(A)),</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        bOP_(std::forward&lt;MATB&gt;(B)),</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        solver_(aOP_, bOP_, <a class="code hl_function" href="a02032.html#a0cb9ba2cd8c3b4bff1d21e48afdd9235">nev</a>, 2 * <a class="code hl_function" href="a02032.html#a0cb9ba2cd8c3b4bff1d21e48afdd9235">nev</a> &lt;= A.cols() ? 2 * <a class="code hl_function" href="a02032.html#a0cb9ba2cd8c3b4bff1d21e48afdd9235">nev</a> : A.cols()) {</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keywordflow">if</span> ((A.cols() != B.cols()) or (A.rows() != B.rows()) or (A.cols() != A.rows()))</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>      DUNE_THROW(Dune::InvalidStateException,</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                 <span class="stringliteral">&quot;PartialGeneralizedSymEigenSolver: The passed matrices should have the same size&quot;</span>);</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>  }</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>  <span class="keyword">template</span> &lt;Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB&gt;</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno"><a class="line" href="a02032.html#a30255ff06e25ffd6755ebbe9cf1d970e">  322</a></span>  <a class="code hl_function" href="a02032.html#a30255ff06e25ffd6755ebbe9cf1d970e">PartialGeneralizedSymEigenSolver</a>(std::shared_ptr&lt;AssemblerA&gt; assemblerA, std::shared_ptr&lt;AssemblerB&gt; assemblerB,</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>                                   Eigen::Index <a class="code hl_function" href="a02032.html#a0cb9ba2cd8c3b4bff1d21e48afdd9235">nev</a>)</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>      : <a class="code hl_struct" href="a02032.html">PartialGeneralizedSymEigenSolver</a>(assemblerA-&gt;matrix(), assemblerB-&gt;matrix(), <a class="code hl_function" href="a02032.html#a0cb9ba2cd8c3b4bff1d21e48afdd9235">nev</a>) {}</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno"><a class="line" href="a02032.html#a09889ed1e8f82818aa2eaf27184945e7">  336</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="a02032.html#a09889ed1e8f82818aa2eaf27184945e7">compute</a>(Spectra::SortRule selection = Spectra::SortRule::SmallestAlge,</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>               Spectra::SortRule sortRule = Spectra::SortRule::SmallestAlge, Eigen::Index maxit = 1000,</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>               <a class="code hl_typedef" href="a02032.html#a513c516ce20c278d62cf1f57ac7fad30">ScalarType</a> tolerance = 1e-10) {</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    solver_.init();</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    solver_.compute(selection, maxit, tolerance, sortRule);</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    computed_ = solver_.info() == Spectra::CompInfo::Successful;</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="keywordflow">return</span> computed_;</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>  }</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno"><a class="line" href="a02032.html#a62935b3cc34d0da062d5d92b810cfb13">  351</a></span>  Eigen::VectorXd <a class="code hl_function" href="a02032.html#a62935b3cc34d0da062d5d92b810cfb13">eigenvalues</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    assertCompute();</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    <span class="keywordflow">return</span> solver_.eigenvalues();</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>  }</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno"><a class="line" href="a02032.html#af76d2d1284135cb2eeb833abbcb7b66d">  362</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a02032.html#af76d2d1284135cb2eeb833abbcb7b66d">eigenvectors</a>(std::optional&lt;Eigen::Index&gt; _nev = std::nullopt)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    Impl::assertNev(_nev, nev_);</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    assertCompute();</div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <span class="keywordflow">return</span> solver_.eigenvectors(_nev.value_or(nev_));</div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>  }</div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno"><a class="line" href="a02032.html#a0cb9ba2cd8c3b4bff1d21e48afdd9235">  368</a></span>  Eigen::Index <a class="code hl_function" href="a02032.html#a0cb9ba2cd8c3b4bff1d21e48afdd9235">nev</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> nev_; }</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span> </div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>  Eigen::Index nev_;</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>  <a class="code hl_typedef" href="a02032.html#ad605a2caddd2d5e4ab66bb49fb15ed46">ProductType</a> aOP_;</div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>  <a class="code hl_typedef" href="a02032.html#a4bdbd71bd692358a71a84764c6502a1a">CholeskyType</a> bOP_;</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>  <a class="code hl_typedef" href="a02032.html#a01afabce671be52c16e84f044ef4bdc6">SolverType</a> solver_;</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span> </div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>  <span class="keywordtype">bool</span> computed_{};</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span> </div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>  <span class="keywordtype">void</span> assertCompute()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <span class="keywordflow">if</span> (not computed_)</div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>      DUNE_THROW(Dune::InvalidStateException, <span class="stringliteral">&quot;Eigenvalues and -vectors not yet computed, please call compute() first&quot;</span>);</div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>  }</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>};</div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span> </div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span><span class="preprocessor">#ifndef DOXYGEN</span></div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span><span class="keyword">template</span> &lt;Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB&gt;</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span><span class="keyword">requires</span>(std::same_as&lt;typename AssemblerA::MatrixType, typename AssemblerB::MatrixType&gt;)</div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>PartialGeneralizedSymEigenSolver(std::shared_ptr&lt;AssemblerA&gt; as1, std::shared_ptr&lt;AssemblerB&gt; as2,</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>                                 Eigen::Index nev) -&gt; PartialGeneralizedSymEigenSolver&lt;typename AssemblerA::MatrixType&gt;;</div>
-<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span> </div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> MATA, <span class="keyword">typename</span> MATB&gt;</div>
-<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span><span class="keyword">requires</span>(Concepts::DenseOrSparseEigenMatrix&lt;std::remove_cvref_t&lt;MATA&gt;&gt; &amp;&amp;</div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>         std::same_as&lt;std::remove_cvref_t&lt;MATA&gt;, std::remove_cvref_t&lt;MATB&gt;&gt;)</div>
-<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>PartialGeneralizedSymEigenSolver(MATA&amp;&amp;, MATB&amp;&amp;,</div>
-<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>                                 Eigen::Index) -&gt; PartialGeneralizedSymEigenSolver&lt;std::remove_cvref_t&lt;MATA&gt;&gt;;</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span> </div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>} <span class="comment">// namespace Ikarus</span></div>
-<div class="ttc" id="aa00077_html"><div class="ttname"><a href="a00077.html">makeenum.hh</a></div><div class="ttdoc">Implementation of the make enum macro.</div></div>
-<div class="ttc" id="aa00487_html_ga14ad7d33267cea1c93f97f3998081657"><div class="ttname"><a href="a00487.html#ga14ad7d33267cea1c93f97f3998081657">MAKE_ENUM</a></div><div class="ttdeci">#define MAKE_ENUM(type,...)</div><div class="ttdoc">Macro to create an enumeration with a string conversion function.The macro creates an enum class with...</div><div class="ttdef"><b>Definition:</b> makeenum.hh:40</div></div>
-<div class="ttc" id="aa00492_html"><div class="ttname"><a href="a00492.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa00492_html_a76f328509ccf00e93bba2416f01620e4"><div class="ttname"><a href="a00492.html#a76f328509ccf00e93bba2416f01620e4">Ikarus::EigenValueSolverType</a></div><div class="ttdeci">EigenValueSolverType</div><div class="ttdoc">A strongly typed enum class representing the type of solver to use for the eigenvalue problem.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:29</div></div>
-<div class="ttc" id="aa00492_html_a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69"><div class="ttname"><a href="a00492.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">Ikarus::EigenValueSolverType::Spectra</a></div><div class="ttdeci">@ Spectra</div></div>
-<div class="ttc" id="aa00509_html"><div class="ttname"><a href="a00509.html">Eigen</a></div><div class="ttdef"><b>Definition:</b> truncatedconjugategradient.hh:24</div></div>
-<div class="ttc" id="aa02020_html"><div class="ttname"><a href="a02020.html">Ikarus::GeneralizedSymEigenSolver</a></div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:33</div></div>
-<div class="ttc" id="aa02024_html_a0da3b9692e200b0366d22b1873046265"><div class="ttname"><a href="a02024.html#a0da3b9692e200b0366d22b1873046265">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::eigenvectors</a></div><div class="ttdeci">auto &amp; eigenvectors() const</div><div class="ttdoc">Returns the eigenvectors of the generalized eigenvalue problem.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:143</div></div>
-<div class="ttc" id="aa02024_html_a2ad6c5efe033c6628c0fd843cf2effba"><div class="ttname"><a href="a02024.html#a2ad6c5efe033c6628c0fd843cf2effba">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::ProductType</a></div><div class="ttdeci">std::conditional_t&lt; isDense, Spectra::DenseSymMatProd&lt; ScalarType &gt;, Spectra::SparseSymMatProd&lt; ScalarType &gt; &gt; ProductType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:55</div></div>
-<div class="ttc" id="aa02024_html_a34c854289f61047252fa93db012d5f13"><div class="ttname"><a href="a02024.html#a34c854289f61047252fa93db012d5f13">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::MatrixType</a></div><div class="ttdeci">MT MatrixType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:53</div></div>
-<div class="ttc" id="aa02024_html_a3a2cce50d798d9606488ce04e1ed3b1b"><div class="ttname"><a href="a02024.html#a3a2cce50d798d9606488ce04e1ed3b1b">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::nev</a></div><div class="ttdeci">Eigen::Index nev() const</div><div class="ttdoc">Returns the number of eigenvalues of the problem.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:149</div></div>
-<div class="ttc" id="aa02024_html_a3f2e96d61612b8932eeef6d7491c27df"><div class="ttname"><a href="a02024.html#a3f2e96d61612b8932eeef6d7491c27df">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::CholeskyType</a></div><div class="ttdeci">std::conditional_t&lt; isDense, Spectra::DenseCholesky&lt; ScalarType &gt;, Spectra::SparseCholesky&lt; ScalarType &gt; &gt; CholeskyType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:57</div></div>
-<div class="ttc" id="aa02024_html_a8485726e6883eb6d7252bd9baf0e4627"><div class="ttname"><a href="a02024.html#a8485726e6883eb6d7252bd9baf0e4627">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::ScalarType</a></div><div class="ttdeci">typename MT::Scalar ScalarType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:50</div></div>
-<div class="ttc" id="aa02024_html_a881ce0379cd715e2ed3c2cf5235b2a80"><div class="ttname"><a href="a02024.html#a881ce0379cd715e2ed3c2cf5235b2a80">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::compute</a></div><div class="ttdeci">bool compute(Eigen::Index maxit=1000, ScalarType tolerance=1e-10)</div><div class="ttdoc">Starts the computation of the eigenvalue solver.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:107</div></div>
-<div class="ttc" id="aa02024_html_aa522db16d040aff20999cbdb4a4ad9e7"><div class="ttname"><a href="a02024.html#aa522db16d040aff20999cbdb4a4ad9e7">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::GeneralizedSymEigenSolver</a></div><div class="ttdeci">GeneralizedSymEigenSolver(MATA &amp;&amp;A, MATB &amp;&amp;B)</div><div class="ttdoc">Construct a new GeneralizedSymEigenSolver object.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:71</div></div>
-<div class="ttc" id="aa02024_html_aad2054eef570f156a7e829177771d366"><div class="ttname"><a href="a02024.html#aad2054eef570f156a7e829177771d366">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::SolverType</a></div><div class="ttdeci">Spectra::SymGEigsSolver&lt; ProductType, CholeskyType, Spectra::GEigsMode::Cholesky &gt; SolverType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:59</div></div>
-<div class="ttc" id="aa02024_html_ab12080272383db20d35bcd196a2ac5bf"><div class="ttname"><a href="a02024.html#ab12080272383db20d35bcd196a2ac5bf">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::GeneralizedSymEigenSolver</a></div><div class="ttdeci">GeneralizedSymEigenSolver(std::shared_ptr&lt; AssemblerA &gt; assemblerA, const std::shared_ptr&lt; AssemblerB &gt; &amp;assemblerB)</div><div class="ttdoc">Construct a new GeneralSymEigenSolver object.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:96</div></div>
-<div class="ttc" id="aa02024_html_ac4d3a189e6868e3a7a627faa87410cda"><div class="ttname"><a href="a02024.html#ac4d3a189e6868e3a7a627faa87410cda">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::eigenvalues</a></div><div class="ttdeci">auto &amp; eigenvalues() const</div><div class="ttdoc">Returns the eigenvalues of the generalized eigenvalue problem.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:133</div></div>
-<div class="ttc" id="aa02028_html_a0e40e35371464734b3e81defd6518a8d"><div class="ttname"><a href="a02028.html#a0e40e35371464734b3e81defd6518a8d">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::GeneralizedSymEigenSolver</a></div><div class="ttdeci">GeneralizedSymEigenSolver(MATA &amp;&amp;A, MATB &amp;&amp;B)</div><div class="ttdoc">Construct a new GeneralizedSymEigenSolver object.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:194</div></div>
-<div class="ttc" id="aa02028_html_a186e0b90c15cd0ced10e709915e9106d"><div class="ttname"><a href="a02028.html#a186e0b90c15cd0ced10e709915e9106d">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::nev</a></div><div class="ttdeci">Eigen::Index nev() const</div><div class="ttdoc">Returns the number of eigenvalues of the problem.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:250</div></div>
-<div class="ttc" id="aa02028_html_a24ec96630301a7cc83c79402d9960e7e"><div class="ttname"><a href="a02028.html#a24ec96630301a7cc83c79402d9960e7e">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::MatrixType</a></div><div class="ttdeci">MT MatrixType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:181</div></div>
-<div class="ttc" id="aa02028_html_a3361c081b688b9409fd8ce0bb1b7e941"><div class="ttname"><a href="a02028.html#a3361c081b688b9409fd8ce0bb1b7e941">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::compute</a></div><div class="ttdeci">bool compute(int options=Eigen::ComputeEigenvectors)</div><div class="ttdoc">Starts the computation of the eigenvalue solver.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:223</div></div>
-<div class="ttc" id="aa02028_html_a39fd88c9f56c29eb706f20d9724f3617"><div class="ttname"><a href="a02028.html#a39fd88c9f56c29eb706f20d9724f3617">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::GeneralizedSymEigenSolver</a></div><div class="ttdeci">GeneralizedSymEigenSolver(std::shared_ptr&lt; AssemblerA &gt; assemblerA, std::shared_ptr&lt; AssemblerB &gt; assemblerB)</div><div class="ttdoc">Construct a new GeneralSymEigenSolver object.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:212</div></div>
-<div class="ttc" id="aa02028_html_a3f737f055b0b95a618a7688b947fe600"><div class="ttname"><a href="a02028.html#a3f737f055b0b95a618a7688b947fe600">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::eigenvectors</a></div><div class="ttdeci">auto &amp; eigenvectors() const</div><div class="ttdoc">Returns the eigenvectors of the generalized eigenvalue problem.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:244</div></div>
-<div class="ttc" id="aa02028_html_ac1b4e531a28bfa6421cb502737a6e7bd"><div class="ttname"><a href="a02028.html#ac1b4e531a28bfa6421cb502737a6e7bd">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::eigenvalues</a></div><div class="ttdeci">auto &amp; eigenvalues() const</div><div class="ttdoc">Returns the eigenvalues of the generalized eigenvalue problem.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:234</div></div>
-<div class="ttc" id="aa02028_html_ac4705f97e9192b82c9125045150c7df8"><div class="ttname"><a href="a02028.html#ac4705f97e9192b82c9125045150c7df8">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::SolverType</a></div><div class="ttdeci">Eigen::GeneralizedSelfAdjointEigenSolver&lt; MatrixType &gt; SolverType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:182</div></div>
-<div class="ttc" id="aa02028_html_acb730c16433e6c478ca52f87b3de64fa"><div class="ttname"><a href="a02028.html#acb730c16433e6c478ca52f87b3de64fa">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::ScalarType</a></div><div class="ttdeci">typename MT::Scalar ScalarType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:180</div></div>
-<div class="ttc" id="aa02032_html"><div class="ttname"><a href="a02032.html">Ikarus::PartialGeneralizedSymEigenSolver</a></div><div class="ttdoc">This class implements a wrapper to the Spectra generalized eigen solver for square real symmetric mat...</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:281</div></div>
-<div class="ttc" id="aa02032_html_a01afabce671be52c16e84f044ef4bdc6"><div class="ttname"><a href="a02032.html#a01afabce671be52c16e84f044ef4bdc6">Ikarus::PartialGeneralizedSymEigenSolver::SolverType</a></div><div class="ttdeci">Spectra::SymGEigsSolver&lt; ProductType, CholeskyType, Spectra::GEigsMode::Cholesky &gt; SolverType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:291</div></div>
-<div class="ttc" id="aa02032_html_a09889ed1e8f82818aa2eaf27184945e7"><div class="ttname"><a href="a02032.html#a09889ed1e8f82818aa2eaf27184945e7">Ikarus::PartialGeneralizedSymEigenSolver::compute</a></div><div class="ttdeci">bool compute(Spectra::SortRule selection=Spectra::SortRule::SmallestAlge, Spectra::SortRule sortRule=Spectra::SortRule::SmallestAlge, Eigen::Index maxit=1000, ScalarType tolerance=1e-10)</div><div class="ttdoc">Starts the computation of the eigenvalue solver.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:336</div></div>
-<div class="ttc" id="aa02032_html_a0cb9ba2cd8c3b4bff1d21e48afdd9235"><div class="ttname"><a href="a02032.html#a0cb9ba2cd8c3b4bff1d21e48afdd9235">Ikarus::PartialGeneralizedSymEigenSolver::nev</a></div><div class="ttdeci">Eigen::Index nev() const</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:368</div></div>
-<div class="ttc" id="aa02032_html_a30255ff06e25ffd6755ebbe9cf1d970e"><div class="ttname"><a href="a02032.html#a30255ff06e25ffd6755ebbe9cf1d970e">Ikarus::PartialGeneralizedSymEigenSolver::PartialGeneralizedSymEigenSolver</a></div><div class="ttdeci">PartialGeneralizedSymEigenSolver(std::shared_ptr&lt; AssemblerA &gt; assemblerA, std::shared_ptr&lt; AssemblerB &gt; assemblerB, Eigen::Index nev)</div><div class="ttdoc">Construct a new PartialGeneralizedSymEigenSolver object.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:322</div></div>
-<div class="ttc" id="aa02032_html_a3ab49bfc95265b5d34a7561dce57e281"><div class="ttname"><a href="a02032.html#a3ab49bfc95265b5d34a7561dce57e281">Ikarus::PartialGeneralizedSymEigenSolver::isDense</a></div><div class="ttdeci">static constexpr bool isDense</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:283</div></div>
-<div class="ttc" id="aa02032_html_a4bdbd71bd692358a71a84764c6502a1a"><div class="ttname"><a href="a02032.html#a4bdbd71bd692358a71a84764c6502a1a">Ikarus::PartialGeneralizedSymEigenSolver::CholeskyType</a></div><div class="ttdeci">std::conditional_t&lt; isDense, Spectra::DenseCholesky&lt; ScalarType &gt;, Spectra::SparseCholesky&lt; ScalarType &gt; &gt; CholeskyType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:289</div></div>
-<div class="ttc" id="aa02032_html_a513c516ce20c278d62cf1f57ac7fad30"><div class="ttname"><a href="a02032.html#a513c516ce20c278d62cf1f57ac7fad30">Ikarus::PartialGeneralizedSymEigenSolver::ScalarType</a></div><div class="ttdeci">typename MT::Scalar ScalarType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:282</div></div>
-<div class="ttc" id="aa02032_html_a5b6d6b65d94fcffcfb735d3895a8cc72"><div class="ttname"><a href="a02032.html#a5b6d6b65d94fcffcfb735d3895a8cc72">Ikarus::PartialGeneralizedSymEigenSolver::MatrixType</a></div><div class="ttdeci">MT MatrixType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:285</div></div>
-<div class="ttc" id="aa02032_html_a62935b3cc34d0da062d5d92b810cfb13"><div class="ttname"><a href="a02032.html#a62935b3cc34d0da062d5d92b810cfb13">Ikarus::PartialGeneralizedSymEigenSolver::eigenvalues</a></div><div class="ttdeci">Eigen::VectorXd eigenvalues() const</div><div class="ttdoc">Returns the eigenvalues of the generalized eigenvalue problem.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:351</div></div>
-<div class="ttc" id="aa02032_html_ad605a2caddd2d5e4ab66bb49fb15ed46"><div class="ttname"><a href="a02032.html#ad605a2caddd2d5e4ab66bb49fb15ed46">Ikarus::PartialGeneralizedSymEigenSolver::ProductType</a></div><div class="ttdeci">std::conditional_t&lt; isDense, Spectra::DenseSymMatProd&lt; ScalarType &gt;, Spectra::SparseSymMatProd&lt; ScalarType &gt; &gt; ProductType</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:287</div></div>
-<div class="ttc" id="aa02032_html_af76d2d1284135cb2eeb833abbcb7b66d"><div class="ttname"><a href="a02032.html#af76d2d1284135cb2eeb833abbcb7b66d">Ikarus::PartialGeneralizedSymEigenSolver::eigenvectors</a></div><div class="ttdeci">auto eigenvectors(std::optional&lt; Eigen::Index &gt; _nev=std::nullopt) const</div><div class="ttdoc">Returns the eigenvectors of the generalized eigenvalue problem.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:362</div></div>
-<div class="ttc" id="aa02032_html_afd6f6b240369c7c78dc49d281b0d030e"><div class="ttname"><a href="a02032.html#afd6f6b240369c7c78dc49d281b0d030e">Ikarus::PartialGeneralizedSymEigenSolver::PartialGeneralizedSymEigenSolver</a></div><div class="ttdeci">PartialGeneralizedSymEigenSolver(MATA &amp;&amp;A, MATB &amp;&amp;B, Eigen::Index nev)</div><div class="ttdoc">Construct a new PartialGeneralizedSymEigenSolver object.</div><div class="ttdef"><b>Definition:</b> generalizedeigensolver.hh:303</div></div>
-<div class="ttc" id="aa02372_html"><div class="ttname"><a href="a02372.html">Ikarus::Concepts::EigenMatrix</a></div><div class="ttdoc">Concept defining the requirements for Eigen matrices. This also includes Eigen vectors.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:373</div></div>
-<div class="ttc" id="aa02374_html"><div class="ttname"><a href="a02374.html">Ikarus::Concepts::DenseOrSparseEigenMatrix</a></div><div class="ttdoc">Concept defining the requirements for sparse or dense Eigen matrices.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:389</div></div>
-<div class="ttc" id="aa03429_html"><div class="ttname"><a href="a03429.html">concepts.hh</a></div><div class="ttdoc">Several concepts.</div></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  cls.def(<a class="code hl_function" href="a00492.html#ac8243891c1b961e50a066140ab79a142">pybind11::init</a>([](<span class="keyword">const</span> GridView&amp; gv, Eigen::Ref&lt;Eigen::VectorX&lt;bool&gt;&gt; vec) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            Dune::BitSetVector&lt;1&gt; bitSetVector;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            bitSetVector.resize(vec.size());</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            for (<span class="keywordtype">size_t</span> i = 0; i &lt; vec.size(); ++i)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>              bitSetVector[i] = vec[i];</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <span class="keywordflow">return</span> <span class="keyword">new</span> BoundaryPatch(gv, bitSetVector);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>          }),</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>          pybind11::keep_alive&lt;1, 2&gt;(), pybind11::keep_alive&lt;1, 3&gt;());</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  cls.def(<span class="stringliteral">&quot;gridView&quot;</span>, &amp;BoundaryPatch::gridView);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace Ikarus::Python</span></div>
+<div class="ttc" id="aa00492_html_ac8243891c1b961e50a066140ab79a142"><div class="ttname"><a href="a00492.html#ac8243891c1b961e50a066140ab79a142">Ikarus::init</a></div><div class="ttdeci">void init(int argc, char **argv, bool enableFileLogger=true)</div><div class="ttdoc">Initializes the Ikarus framework.</div><div class="ttdef"><b>Definition:</b> init.hh:82</div></div>
+<div class="ttc" id="aa00511_html"><div class="ttname"><a href="a00511.html">Ikarus::Python</a></div><div class="ttdef"><b>Definition:</b> flatassembler.hh:21</div></div>
+<div class="ttc" id="aa00511_html_a331fd78be5a4155963abe5829282c8f1"><div class="ttname"><a href="a00511.html#a331fd78be5a4155963abe5829282c8f1">Ikarus::Python::registerBoundaryPatch</a></div><div class="ttdeci">void registerBoundaryPatch(pybind11::handle scope, pybind11::class_&lt; BoundaryPatch, options... &gt; cls)</div><div class="ttdef"><b>Definition:</b> boundarypatch.hh:16</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -467,7 +204,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_26588bed129c997bc132e8888f2113fa.html">solver</a></li><li class="navelem"><a class="el" href="dir_98f980ebc5bd2678f0b40cae0922840d.html">eigenvaluesolver</a></li><li class="navelem"><a class="el" href="a00128.html">generalizedeigensolver.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_6063e92d97cad5a47908d6a96069b24d.html">python</a></li><li class="navelem"><a class="el" href="dir_afe0d1ab0c4a41ee8553ea61e92b67bf.html">utils</a></li><li class="navelem"><a class="el" href="a00128.html">boundarypatch.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -1,4 +1,4 @@
 var a00299 =
 [
-    [ "Ikarus::PS::AssumedStressVariant< ASFunction, GEO >", "a01580.html", "a01580" ]
+    [ "BlatzKo", "a00299.html#a7c7d4e399e30b088b7253771704bd01b", null ]
 ];

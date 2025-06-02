@@ -1,4 +1,5 @@
 var a00194 =
 [
-    [ "BlatzKo", "a00194.html#a7c7d4e399e30b088b7253771704bd01b", null ]
+    [ "Ikarus::PreFE< BH, useFlat, useEigenRef >", "a01492.html", "a01492" ],
+    [ "Ikarus::FE< PreFE, Skills >", "a01488.html", "a01488" ]
 ];

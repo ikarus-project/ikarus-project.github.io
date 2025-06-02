@@ -1,5 +1,5 @@
 var dir_815382eaeaec466b12af3b09930503e4 =
 [
-    [ "broadcaster.hh", "a00374.html", "a00374" ],
-    [ "broadcastermessages.hh", "a00377.html", "a00377" ]
+    [ "broadcaster.hh", "a00161.html", "a00161" ],
+    [ "broadcastermessages.hh", "a00164.html", "a00164" ]
 ];
