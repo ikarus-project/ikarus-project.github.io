@@ -1,8 +1,8 @@
-\hypertarget{a02372}{}\doxysection{Ikarus\+::Concepts\+::Eigen\+Matrix Concept Reference}
-\label{a02372}\index{Ikarus::Concepts::EigenMatrix@{Ikarus::Concepts::EigenMatrix}}
+\hypertarget{a02372}{}\doxysection{Ikarus\+::Concepts\+::Path\+Following\+Strategy Concept Reference}
+\label{a02372}\index{Ikarus::Concepts::PathFollowingStrategy@{Ikarus::Concepts::PathFollowingStrategy}}
 
 
-Concept defining the requirements for \mbox{\hyperlink{a00509}{Eigen}} matrices. This also includes \mbox{\hyperlink{a00509}{Eigen}} vectors.  
+Concept defining the requirements for a path-\/following strategy.  
 
 
 
@@ -12,8 +12,12 @@ Concept defining the requirements for \mbox{\hyperlink{a00509}{Eigen}} matrices.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02372}{Ikarus::Concepts::EigenMatrix}} =  traits::isSpecializationTypeAndNonTypes<Eigen::Matrix, M>::value}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} PF, \textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} SA>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02372}{Ikarus::Concepts::PathFollowingStrategy}} =  \textcolor{keyword}{requires}(PF pft, NLS nls, SA args, \textcolor{keyword}{typename} NLS::Domain req) \{}
+\DoxyCodeLine{    \{ pft(req, nls, args) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{    \{ pft.initialPrediction(req, nls, args) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{    \{ pft.intermediatePrediction(req, nls, args) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
 
@@ -21,6 +25,10 @@ Concept defining the requirements for \mbox{\hyperlink{a00509}{Eigen}} matrices.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em M} & Type representing an \mbox{\hyperlink{a00509}{Eigen}} vector. \\
+{\em PF} & Type representing the path-\/following strategy. \\
+\hline
+{\em NLS} & Type representing the nonlinear solver. \\
+\hline
+{\em SA} & Type representing the subsidiary arguments. \\
 \hline
 \end{DoxyTemplParams}

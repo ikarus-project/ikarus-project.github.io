@@ -1,46 +1,48 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="a02391" kind="concept">
-    <compoundname>Ikarus::Concepts::Formulations::TotalLagrangian</compoundname>
-    <includes refid="a03468" local="no">ikarus/utils/concepts.hh</includes>
+    <compoundname>Ikarus::Concepts::IsMaterial</compoundname>
+    <includes refid="a03484" local="no">ikarus/utils/concepts.hh</includes>
     <templateparamlist>
       <param>
-        <type>StrainTags</type>
-        <declname>T1</declname>
-        <defname>T1</defname>
+        <type>template&lt; typename... &gt; class</type>
+        <declname>MaterialToCheck</declname>
+        <defname>MaterialToCheck</defname>
       </param>
       <param>
-        <type>StressTags</type>
-        <declname>T2</declname>
-        <defname>T2</defname>
+        <type>typename Material</type>
       </param>
     </templateparamlist>
-    <initializer>template&lt;StrainTags T1, StressTags T2&gt;
-concept <ref refid="a02391" kindref="compound">Ikarus::Concepts::Formulations::TotalLagrangian</ref> =  (T1 == StrainTags::linear and T2 == StressTags::linear) or
-                              (T1 == StrainTags::greenLagrangian and T2 == StressTags::PK2)    </initializer>
+    <initializer>template&lt;template&lt; typename... &gt; class MaterialToCheck, typename Material&gt;
+concept <ref refid="a02391" kindref="compound">Ikarus::Concepts::IsMaterial</ref> =  Impl::isMaterial&lt;MaterialToCheck, Material&gt;()    </initializer>
     <briefdescription>
-<para>Concept to check if the underlying strain and stress tag correspond to a total Lagrangian formulation. </para>
+<para>Concept defining the requirements for a material type. </para>
     </briefdescription>
     <detaileddescription>
 <para><parameterlist kind="templateparam"><parameteritem>
 <parameternamelist>
-<parametername>T1</parametername>
+<parametername>MaterialToCheck</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>The underlying strain tag. </para>
+<para>Template representing the material type to check. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>T2</parametername>
+<parametername>Material</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>The underlying stress tag. </para>
+<para>Type representing the material to be checked.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
+A type satisfies the IsMaterial concept if it meets one of the following conditions:</para>
+<para><orderedlist>
+<listitem><para>The material is a specialization of the specified template <computeroutput>MaterialToCheck</computeroutput>.</para>
+</listitem><listitem><para>The material is a specialization of <computeroutput>VanishingStress</computeroutput> or <computeroutput>VanishingStrain</computeroutput> (i.e. reduced) with an underlying type that is a specialization of the specified template <computeroutput>MaterialToCheck</computeroutput>. </para>
+</listitem></orderedlist>
 </para>
     </detaileddescription>
-    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="694" column="5"/>
+    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="483" column="3"/>
   </compounddef>
 </doxygen>

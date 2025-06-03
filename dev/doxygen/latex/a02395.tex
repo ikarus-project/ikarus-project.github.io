@@ -1,8 +1,10 @@
-\hypertarget{a02395}{}\doxysection{Ikarus\+::Concepts\+::Eigen\+Value\+Solver Concept Reference}
-\label{a02395}\index{Ikarus::Concepts::EigenValueSolver@{Ikarus::Concepts::EigenValueSolver}}
+\hypertarget{a02395}{}\doxysection{Ikarus\+::Concepts\+::Scalar\+Flat\+Assembler Concept Reference}
+\label{a02395}\index{Ikarus::Concepts::ScalarFlatAssembler@{Ikarus::Concepts::ScalarFlatAssembler}}
 
 
-Concept representing an eigenvalue solver interface.  
+Concept representing the requirements for a Scalar\+Flat\+Assembler.
+
+A type T satisfies Scalar\+Flat\+Assembler if it is a Flat\+Assembler and if it provides the necessary scalar() member functions.  
 
 
 
@@ -12,18 +14,12 @@ Concept representing an eigenvalue solver interface.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} ES>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02395}{Ikarus::Concepts::EigenValueSolver}} =  \textcolor{keyword}{requires}(ES es) \{}
-\DoxyCodeLine{    \textcolor{keyword}{typename} ES::MatrixType;}
-\DoxyCodeLine{    \textcolor{keyword}{typename} ES::ScalarType;}
-\DoxyCodeLine{    \{ es.compute() \} -\/> std::same\_as<bool>;}
-\DoxyCodeLine{    \{ es.eigenvalues() \} -\/> std::convertible\_to<Eigen::VectorX<typename ES::ScalarType>>;}
-\DoxyCodeLine{    \{ es.eigenvectors() \} -\/> std::convertible\_to<Eigen::MatrixX<typename ES::ScalarType>>;}
-\DoxyCodeLine{    \{ es.nev() \} -\/> std::convertible\_to<int>;}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02395}{Ikarus::Concepts::ScalarFlatAssembler}} = }
+\DoxyCodeLine{      \mbox{\hyperlink{a02394}{Concepts::FlatAssembler<T>}} and \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{                                              \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00495_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{        \{ t.scalar(req, affordance.scalarAffordance()) \} -\/> std::convertible\_to<const double\&>;}
+\DoxyCodeLine{        \{ t.scalar() \} -\/> std::convertible\_to<const double\&>;}
+\DoxyCodeLine{      \}}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-A type ES satisfies Eigen\+Value\+Solver if it provides the necessary member functions and type 

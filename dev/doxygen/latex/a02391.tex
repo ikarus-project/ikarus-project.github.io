@@ -1,8 +1,8 @@
-\hypertarget{a02391}{}\doxysection{Ikarus\+::Concepts\+::Formulations\+::Total\+Lagrangian Concept Reference}
-\label{a02391}\index{Ikarus::Concepts::Formulations::TotalLagrangian@{Ikarus::Concepts::Formulations::TotalLagrangian}}
+\hypertarget{a02391}{}\doxysection{Ikarus\+::Concepts\+::Is\+Material Concept Reference}
+\label{a02391}\index{Ikarus::Concepts::IsMaterial@{Ikarus::Concepts::IsMaterial}}
 
 
-Concept to check if the underlying strain and stress tag correspond to a total Lagrangian formulation.  
+Concept defining the requirements for a material type.  
 
 
 
@@ -12,9 +12,8 @@ Concept to check if the underlying strain and stress tag correspond to a total L
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<StrainTags T1, StressTags T2>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02391}{Ikarus::Concepts::Formulations::TotalLagrangian}} =  (T1 == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}} and T2 == \mbox{\hyperlink{a00481_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}}) or}
-\DoxyCodeLine{                              (T1 == \mbox{\hyperlink{a00481_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e}{StrainTags::greenLagrangian}} and T2 == \mbox{\hyperlink{a00481_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}})}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{template}< \textcolor{keyword}{typename}... > \textcolor{keyword}{class }MaterialToCheck, typename \mbox{\hyperlink{a02409}{Material}}>}
+\DoxyCodeLine{concept \mbox{\hyperlink{a00495}{Ikarus}}::\mbox{\hyperlink{a02391}{Concepts::IsMaterial}} =  Impl::isMaterial<MaterialToCheck, Material>()}
 
 \end{DoxyCode}
 
@@ -22,8 +21,15 @@ Concept to check if the underlying strain and stress tag correspond to a total L
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em T1} & The underlying strain tag. \\
+{\em Material\+To\+Check} & Template representing the material type to check. \\
 \hline
-{\em T2} & The underlying stress tag. \\
+{\em Material} & Type representing the material to be checked.\\
 \hline
 \end{DoxyTemplParams}
+A type satisfies the Is\+Material concept if it meets one of the following conditions\+:
+
+
+\begin{DoxyEnumerate}
+\item The material is a specialization of the specified template {\ttfamily Material\+To\+Check}.
+\item The material is a specialization of {\ttfamily Vanishing\+Stress} or {\ttfamily Vanishing\+Strain} (i.\+e. reduced) with an underlying type that is a specialization of the specified template {\ttfamily Material\+To\+Check}. 
+\end{DoxyEnumerate}

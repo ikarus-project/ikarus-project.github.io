@@ -9,7 +9,7 @@ var dir_d9d7fab038fcca5270fe0241ec433d4d =
     [ "kirchhoffloveshell.hh", "a00212.html", "a00212" ],
     [ "linearelastic.hh", "a00245.html", "a00245" ],
     [ "loads.hh", "a00203.html", null ],
-    [ "ikarus/finiteelements/mechanics/materials.hh", "a03420.html", null ],
+    [ "ikarus/finiteelements/mechanics/materials.hh", "a03436.html", null ],
     [ "membranestrains.hh", "a00335.html", "a00335" ],
     [ "nonlinearelastic.hh", "a00209.html", "a00209" ],
     [ "truss.hh", "a00263.html", "a00263" ]

@@ -1,25 +1,24 @@
-\hypertarget{a02359}{}\doxysection{Ikarus\+::Concepts\+::Non\+Linear\+Solver\+Check\+For\+Path\+Following Concept Reference}
-\label{a02359}\index{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing@{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}}
+\hypertarget{a02359}{}\doxysection{Ikarus\+::Concepts\+::Volumetric\+Function Concept Reference}
+\label{a02359}\index{Ikarus::Concepts::VolumetricFunction@{Ikarus::Concepts::VolumetricFunction}}
 
 
-Concept to check if a non-\/linear solver with its non-\/linear operator satisfies requirements for path following.  
+Concept to check if the underlying function is a volumetric function.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02359}{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}} =  \textcolor{keyword}{requires} \{}
-\DoxyCodeLine{    not(std::is\_same\_v<typename NLS::DifferentiableFunction::Domain, double> and}
-\DoxyCodeLine{        ((traits::isSpecializationTypeAndNonTypes<}
-\DoxyCodeLine{             Eigen::Matrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value) or}
-\DoxyCodeLine{         (traits::isSpecializationTypeNonTypeAndType<}
-\DoxyCodeLine{             Eigen::SparseMatrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value)));}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} VF>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02359}{Ikarus::Concepts::VolumetricFunction}} =  \textcolor{keyword}{requires}(VF vf, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& j) \{}
+\DoxyCodeLine{  \{ vf.storedEnergyImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.firstDerivativeImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.secondDerivativeImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.name() \} -\/> std::convertible\_to<std::string>;}
+\DoxyCodeLine{\}}
 
 \end{DoxyCode}
 
@@ -27,6 +26,6 @@ Concept to check if a non-\/linear solver with its non-\/linear operator satisfi
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em NLS} & The non-\/linear solver type. \\
+{\em Type} & of the volumetric function. \\
 \hline
 \end{DoxyTemplParams}

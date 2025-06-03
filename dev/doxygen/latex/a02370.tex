@@ -1,8 +1,8 @@
-\hypertarget{a02370}{}\doxysection{Ikarus\+::Concepts\+::Is\+Functor\+With\+Args Concept Reference}
-\label{a02370}\index{Ikarus::Concepts::IsFunctorWithArgs@{Ikarus::Concepts::IsFunctorWithArgs}}
+\hypertarget{a02370}{}\doxysection{Ikarus\+::Concepts\+::Dune\+Local\+Basis Concept Reference}
+\label{a02370}\index{Ikarus::Concepts::DuneLocalBasis@{Ikarus::Concepts::DuneLocalBasis}}
 
 
-Concept defining the requirements for functors with arguments.  
+Concept to check if a local basis is a dune\+Local\+Basis.  
 
 
 
@@ -12,8 +12,21 @@ Concept defining the requirements for functors with arguments.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} Op, \textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02370}{Ikarus::Concepts::IsFunctorWithArgs}} =  \textcolor{keyword}{requires}(Op op, Args... args) \{ op(args...); \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} DLB>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02370}{Ikarus::Concepts::DuneLocalBasis}} =  \textcolor{keyword}{requires}(DLB\& duneLocalBasis) \{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::RangeType;}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::JacobianType;}
+\DoxyCodeLine{    DLB::Traits::dimDomain;}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::DomainType;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::DomainFieldType;}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DLB::Traits::RangeFieldType;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    duneLocalBasis.evaluateFunction(std::declval<typename DLB::Traits::DomainType>(),}
+\DoxyCodeLine{                                    std::declval<std::vector<typename DLB::Traits::RangeType>\&>());}
+\DoxyCodeLine{    duneLocalBasis.evaluateJacobian(std::declval<typename DLB::Traits::DomainType>(),}
+\DoxyCodeLine{                                    std::declval<std::vector<typename DLB::Traits::JacobianType>\&>());}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
 
@@ -21,8 +34,6 @@ Concept defining the requirements for functors with arguments.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em Op} & Type of the functor. \\
-\hline
-{\em Args} & Types of the arguments. \\
+{\em DLB} & The dune local basis type . \\
 \hline
 \end{DoxyTemplParams}

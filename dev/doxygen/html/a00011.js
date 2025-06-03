@@ -1,7 +1,7 @@
 var a00011 =
 [
-    [ "Ikarus::traits::remove_pointer< T >", "a02296.html", "a02296" ],
-    [ "Ikarus::traits::EigenSparseMatrix", "a02397.html", null ],
+    [ "Ikarus::traits::remove_pointer< T >", "a02311.html", "a02311" ],
+    [ "Ikarus::traits::EigenSparseMatrix", "a02413.html", null ],
     [ "remove_pointer_t", "a00011.html#a472256748675b3006507836bd8034a0e", null ],
     [ "ReplaceTypeAtPos_t", "a00011.html#ac903f76dfaaaf40abfe1c532850db3d1", null ],
     [ "ReturnType", "a00011.html#ga0ba1bf25ee478b1b1d9e96c1dcd831a0", null ],

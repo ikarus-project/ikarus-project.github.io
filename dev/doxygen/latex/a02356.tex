@@ -1,23 +1,19 @@
-\hypertarget{a02356}{}\doxysection{Ikarus\+::Concepts\+::Path\+Following\+Strategy Concept Reference}
-\label{a02356}\index{Ikarus::Concepts::PathFollowingStrategy@{Ikarus::Concepts::PathFollowingStrategy}}
+\hypertarget{a02356}{}\doxysection{Ikarus\+::Concepts\+::Has\+Valid\+IDBCForce\+Function Concept Reference}
+\label{a02356}\index{Ikarus::Concepts::HasValidIDBCForceFunction@{Ikarus::Concepts::HasValidIDBCForceFunction}}
 
 
-Concept defining the requirements for a path-\/following strategy.  
+A concept to check if the underlying solver has a valid function to handle inhomogeneous Dirichlet BCs.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/controlroutines/common.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} PF, \textcolor{keyword}{typename} F, \textcolor{keyword}{typename} SA>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02356}{Ikarus::Concepts::PathFollowingStrategy}} =  \textcolor{keyword}{requires}(PF pft, F nop, SA args, \textcolor{keyword}{typename} F::Domain req) \{}
-\DoxyCodeLine{    \{ pft(args) \} -\/> std::same\_as<void>;}
-\DoxyCodeLine{    \{ pft.initialPrediction(req, nop, args) \} -\/> std::same\_as<void>;}
-\DoxyCodeLine{    \{ pft.intermediatePrediction(req, nop, args) \} -\/> std::same\_as<void>;}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02356}{Ikarus::Concepts::HasValidIDBCForceFunction}} =  not std::same\_as<typename NLS::IDBCForceFunction, utils::IDBCForceDefault>}
 
 \end{DoxyCode}
 
@@ -25,10 +21,6 @@ Concept defining the requirements for a path-\/following strategy.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em PF} & Type representing the path-\/following strategy. \\
-\hline
-{\em F} & Type representing the non-\/linear operator. \\
-\hline
-{\em SA} & Type representing the subsidiary arguments. \\
+{\em NLS} & Type of the nonlinear solver. \\
 \hline
 \end{DoxyTemplParams}

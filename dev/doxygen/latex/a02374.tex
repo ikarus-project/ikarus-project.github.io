@@ -1,8 +1,8 @@
-\hypertarget{a02374}{}\doxysection{Ikarus\+::Concepts\+::Dense\+Or\+Sparse\+Eigen\+Matrix Concept Reference}
-\label{a02374}\index{Ikarus::Concepts::DenseOrSparseEigenMatrix@{Ikarus::Concepts::DenseOrSparseEigenMatrix}}
+\hypertarget{a02374}{}\doxysection{Ikarus\+::Concepts\+::Linear\+Solver\+Check Concept Reference}
+\label{a02374}\index{Ikarus::Concepts::LinearSolverCheck@{Ikarus::Concepts::LinearSolverCheck}}
 
 
-Concept defining the requirements for sparse or dense \mbox{\hyperlink{a00509}{Eigen}} matrices.  
+Concept to check if a linear solver implements all the needed functions for given vector and matrix types.  
 
 
 
@@ -12,8 +12,12 @@ Concept defining the requirements for sparse or dense \mbox{\hyperlink{a00509}{E
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02374}{Ikarus::Concepts::DenseOrSparseEigenMatrix}} =  \mbox{\hyperlink{a02373}{SparseEigenMatrix<M>}} or \mbox{\hyperlink{a02372}{EigenMatrix<M>}}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} LS, \textcolor{keyword}{typename} M, \textcolor{keyword}{typename} V>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02374}{Ikarus::Concepts::LinearSolverCheck}} =  \textcolor{keyword}{requires}(LS linearSolver, M A, V vec) \{}
+\DoxyCodeLine{    linearSolver.analyzePattern(A);}
+\DoxyCodeLine{    linearSolver.factorize(A);}
+\DoxyCodeLine{    linearSolver.solve(vec, vec);}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
 
@@ -21,6 +25,10 @@ Concept defining the requirements for sparse or dense \mbox{\hyperlink{a00509}{E
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em M} & Type representing a dense or sparse \mbox{\hyperlink{a00509}{Eigen}} matrix. \\
+{\em LS} & The linear solver type. \\
+\hline
+{\em M} & The matrix type. \\
+\hline
+{\em V} & The vector type. \\
 \hline
 \end{DoxyTemplParams}

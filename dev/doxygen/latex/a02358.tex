@@ -1,23 +1,37 @@
-\hypertarget{a02358}{}\doxysection{Ikarus\+::Concepts\+::Linear\+Solver\+Check Concept Reference}
-\label{a02358}\index{Ikarus::Concepts::LinearSolverCheck@{Ikarus::Concepts::LinearSolverCheck}}
+\hypertarget{a02358}{}\doxysection{Ikarus\+::Concepts\+::Deviatoric\+Function Concept Reference}
+\label{a02358}\index{Ikarus::Concepts::DeviatoricFunction@{Ikarus::Concepts::DeviatoricFunction}}
 
 
-Concept to check if a linear solver implements all the needed functions for given vector and matrix types.  
+Concept to check if the underlying function is a deviatoric function.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} LS, \textcolor{keyword}{typename} M, \textcolor{keyword}{typename} V>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02358}{Ikarus::Concepts::LinearSolverCheck}} =  \textcolor{keyword}{requires}(LS linearSolver, M A, V vec) \{}
-\DoxyCodeLine{    linearSolver.analyzePattern(A);}
-\DoxyCodeLine{    linearSolver.factorize(A);}
-\DoxyCodeLine{    linearSolver.solve(vec, vec);}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} DF>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02358}{Ikarus::Concepts::DeviatoricFunction}} =  \textcolor{keyword}{requires}(DF dm, \textcolor{keyword}{const} \textcolor{keyword}{typename} DF::template PrincipalStretches<>\& lambda) \{}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::ScalarType;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template PrincipalStretches<>;}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template FirstDerivative<>;}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::template SecondDerivative<>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{typename} DF::MaterialParameters;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keyword}{requires} \mbox{\hyperlink{a02387}{Concepts::EigenVector<typename DF::template FirstDerivative<>}}>;}
+\DoxyCodeLine{  \textcolor{keyword}{requires} \mbox{\hyperlink{a02388}{Concepts::EigenMatrix<typename DF::template SecondDerivative<>}}>;}
+\DoxyCodeLine{  \textcolor{keyword}{requires} std::is\_same\_v<typename DF::template PrincipalStretches<>, \textcolor{keyword}{typename} DF::template FirstDerivative<>>;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \{ dm.storedEnergyImpl(lambda) \} -\/> std::same\_as<typename DF::ScalarType>;}
+\DoxyCodeLine{  \{ dm.firstDerivativeImpl(lambda) \} -\/> std::same\_as<typename DF::template FirstDerivative<>>;}
+\DoxyCodeLine{  \{ dm.secondDerivativeImpl(lambda) \} -\/> std::same\_as<typename DF::template SecondDerivative<>>;}
+\DoxyCodeLine{  \{ dm.materialParametersImpl() \} -\/> std::same\_as<typename DF::MaterialParameters>;}
+\DoxyCodeLine{  \{ dm.name() \} -\/> std::convertible\_to<std::string>;}
+\DoxyCodeLine{\}}
 
 \end{DoxyCode}
 
@@ -25,10 +39,6 @@ Concept to check if a linear solver implements all the needed functions for give
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em LS} & The linear solver type. \\
-\hline
-{\em M} & The matrix type. \\
-\hline
-{\em V} & The vector type. \\
+{\em Type} & of the deviatoric function. \\
 \hline
 \end{DoxyTemplParams}

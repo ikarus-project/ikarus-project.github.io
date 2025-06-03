@@ -1,8 +1,8 @@
 var a00392 =
 [
-    [ "Eigen::TCGInfo< Scalar >", "a02000.html", "a02000" ],
-    [ "Eigen::internal::traits< TruncatedConjugateGradient< MatrixType_, UpLo, Preconditioner_ > >", "a02008.html", "a02008" ],
-    [ "Eigen::TruncatedConjugateGradient< M, upLo, PC >", "a02004.html", "a02004" ],
+    [ "Eigen::TCGInfo< Scalar >", "a02003.html", "a02003" ],
+    [ "Eigen::internal::traits< TruncatedConjugateGradient< MatrixType_, UpLo, Preconditioner_ > >", "a02011.html", "a02011" ],
+    [ "Eigen::TruncatedConjugateGradient< M, upLo, PC >", "a02007.html", "a02007" ],
     [ "TCGStopReason", "a00392.html#a99c0436bed03f4dd4168a21f6b69ad5a", [
       [ "negativeCurvature", "a00392.html#a99c0436bed03f4dd4168a21f6b69ad5aa09116173dd03279374ae42ad40f940ba", null ],
       [ "exceededTrustRegion", "a00392.html#a99c0436bed03f4dd4168a21f6b69ad5aa9e095c14131d90a6c10c08cd802c8aed", null ],

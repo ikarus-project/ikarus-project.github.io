@@ -1,9 +1,9 @@
 var a00368 =
 [
-    [ "Ikarus::TRSettings", "a02104.html", "a02104" ],
-    [ "Ikarus::TrustRegionConfig< preConditioner, UF >", "a02108.html", "a02108" ],
-    [ "Ikarus::AlgoInfo", "a02116.html", "a02116" ],
-    [ "Ikarus::Stats", "a02120.html", "a02120" ],
+    [ "Ikarus::TRSettings", "a02111.html", "a02111" ],
+    [ "Ikarus::TrustRegionConfig< preConditioner, UF, IDBCF >", "a02115.html", "a02115" ],
+    [ "Ikarus::AlgoInfo", "a02123.html", "a02123" ],
+    [ "Ikarus::Stats", "a02127.html", "a02127" ],
     [ "PreConditioner", "a00368.html#ace28d4868cfc647491f7938f04ef6c66", [
       [ "IncompleteCholesky", "a00368.html#ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff", null ],
       [ "IdentityPreconditioner", "a00368.html#ace28d4868cfc647491f7938f04ef6c66a7a93111b975ec3c3824eab230f3ec608", null ],
@@ -17,6 +17,6 @@ var a00368 =
       [ "dontStop", "a00368.html#abd5d0cf356d1ae81f6ee827b0f47c674a8d2fa9685be8b8f8994bd8a73bfa8c9f", null ]
     ] ],
     [ "createNonlinearSolver", "a00368.html#a0dd04e52f828b895e862bdb2edd8b3d1", null ],
-    [ "makeTrustRegion", "a00368.html#a636b23770fcdf4445c218a6da93bbd15", null ],
-    [ "TrustRegion", "a00368.html#a237986b2942b7812d30e6c59766c7742", null ]
+    [ "makeTrustRegion", "a00368.html#a37b2b44fa6cbb2b6521791bcd9a2d5f6", null ],
+    [ "TrustRegion", "a00368.html#a770b17ee7c15dbad9ad94509dcacd711", null ]
 ];

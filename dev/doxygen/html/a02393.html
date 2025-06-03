@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: Ikarus::Concepts::Material Concept Reference</title>
+    <title>ikarus: Ikarus::Concepts::ResultType Concept Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,34 +155,27 @@ $(document).ready(function(){initNavTree('a02393.html',''); initResizable(); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Ikarus::Concepts::Material Concept Reference</div></div>
+  <div class="headertitle"><div class="title">Ikarus::Concepts::ResultType Concept Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Concept representing a material interface.  
+<p>A concept to check if a template type satisfies the ResultType requirements.  
 <a href="a02393.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a03468_source.html">ikarus/utils/concepts.hh</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03484_source.html">ikarus/utils/concepts.hh</a>&gt;</code></p>
 <h2 class="groupheader">Concept definition</h2>
-<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> M&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="a02393.html">Ikarus::Concepts::Material</a> =  <span class="keyword">requires</span>(M m, Eigen::Matrix3d C) {</div>
-<div class="line">    M::strainTag;</div>
-<div class="line">    M::stressTag;</div>
-<div class="line">    M::tangentModuliTag;</div>
-<div class="line">    M::derivativeFactor;</div>
-<div class="line">    M::isReduced;</div>
-<div class="line"> </div>
-<div class="line">    <span class="keyword">typename</span> M::ScalarType;</div>
-<div class="line"> </div>
-<div class="line">    { m.name() } -&gt; std::convertible_to&lt;std::string&gt;;</div>
-<div class="line">    { m.materialParameters() } -&gt; std::same_as&lt;typename M::MaterialParameters&gt;;</div>
-<div class="line">    { m.template storedEnergy&lt;M::strainTag&gt;(C) } -&gt; std::same_as&lt;typename M::ScalarType&gt;;</div>
-<div class="line">    { m.template stresses&lt;M::strainTag&gt;(C) };</div>
-<div class="line">    { m.template tangentModuli&lt;M::strainTag&gt;(C) };</div>
-<div class="line">  }</div>
-<div class="ttc" id="aa02393_html"><div class="ttname"><a href="a02393.html">Ikarus::Concepts::Material</a></div><div class="ttdoc">Concept representing a material interface.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:715</div></div>
+<div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">template</span>&lt; <span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span> &gt; <span class="keyword">typename</span> RT&gt;</div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="a02393.html">Ikarus::Concepts::ResultType</a> = </div>
+<div class="line">      Impl::ResultType&lt;RT&lt;double, 1, 1&gt;&gt; or Impl::ResultType&lt;RT&lt;double, 1, 2&gt;&gt; or Impl::ResultType&lt;RT&lt;double, 1, 3&gt;&gt; or</div>
+<div class="line">      Impl::ResultType&lt;RT&lt;double, 2, 3&gt;&gt; or Impl::ResultType&lt;RT&lt;double, 3, 3&gt;&gt;</div>
+<div class="ttc" id="aa02393_html"><div class="ttname"><a href="a02393.html">Ikarus::Concepts::ResultType</a></div><div class="ttdoc">A concept to check if a template type satisfies the ResultType requirements.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:505</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A type M satisfies the material interface if it provides the necessary member functions and type. </p>
+<div class="textblock"><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">RT</td><td>A template type with parameters (typename, int, int). The first parameter is the data type, and the next two parameters are the grid dimension and the world dimension. It checks for various instantiations to ensure they meet the ResultType concept. Specifically, it checks for the nested types 'type', 'Vectorizer', 'Matricizer', and the presence of a toString function returning a std::string. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -193,7 +186,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="a00492.html">Ikarus</a></li><li class="navelem"><a class="el" href="a00502.html">Concepts</a></li><li class="navelem"><a class="el" href="a02393.html">Material</a></li>
+        <li class="navelem"><a class="el" href="a00495.html">Ikarus</a></li><li class="navelem"><a class="el" href="a00498.html">Concepts</a></li><li class="navelem"><a class="el" href="a02393.html">ResultType</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

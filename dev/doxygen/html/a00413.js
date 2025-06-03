@@ -1,5 +1,5 @@
 var a00413 =
 [
-    [ "Ikarus::AdaptiveStepSizing::NoOp", "a01412.html", "a01412" ],
-    [ "Ikarus::AdaptiveStepSizing::IterationBased", "a01416.html", "a01416" ]
+    [ "Ikarus::ControlRoutineState< D >", "a01435.html", "a01435" ],
+    [ "ControlRoutineStateType", "a00413.html#ab71b02978dced6654ecc969879d4f21f", null ]
 ];

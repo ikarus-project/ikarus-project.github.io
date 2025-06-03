@@ -4,6 +4,8 @@ var a00008 =
     [ "correctionSize", "a00008.html#ga609664964681787f2f736f772b82a01e", null ],
     [ "createRandomVector", "a00008.html#ga821ecf80e4a83241318d825f49cd79e4", null ],
     [ "enlargeIfReduced", "a00008.html#ga30500f2c49b7d1997c7eb7b6ee90ad75", null ],
+    [ "floatingPointNorm", "a00008.html#ga6c1a3bc0de00bd284a560f7a9f5a5892", null ],
+    [ "floatingPointNorm", "a00008.html#gaf87cb4a7e6a64f2ba29d74c2e22d4f41", null ],
     [ "norm", "a00008.html#ga0ffc0c74dbd9aeee3e53b199a21b828c", null ],
     [ "norm", "a00008.html#gaceb8dc8f6f43516dabf75155b1f22d4c", null ],
     [ "operator*", "a00008.html#gacbc60e06e8e43a9bc14660189eb1baa1", null ],

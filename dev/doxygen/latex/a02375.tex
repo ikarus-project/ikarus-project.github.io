@@ -1,8 +1,8 @@
-\hypertarget{a02375}{}\doxysection{Ikarus\+::Concepts\+::Is\+Material Concept Reference}
-\label{a02375}\index{Ikarus::Concepts::IsMaterial@{Ikarus::Concepts::IsMaterial}}
+\hypertarget{a02375}{}\doxysection{Ikarus\+::Concepts\+::Non\+Linear\+Solver\+Check\+For\+Path\+Following Concept Reference}
+\label{a02375}\index{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing@{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}}
 
 
-Concept defining the requirements for a material type.  
+Concept to check if a non-\/linear solver with its non-\/linear operator satisfies requirements for path following.  
 
 
 
@@ -12,8 +12,14 @@ Concept defining the requirements for a material type.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{template}< \textcolor{keyword}{typename}... > \textcolor{keyword}{class }MaterialToCheck, typename \mbox{\hyperlink{a02393}{Material}}>}
-\DoxyCodeLine{concept \mbox{\hyperlink{a00492}{Ikarus}}::\mbox{\hyperlink{a02375}{Concepts::IsMaterial}} =  Impl::isMaterial<MaterialToCheck, Material>()}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02375}{Ikarus::Concepts::NonLinearSolverCheckForPathFollowing}} =  \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{    not(std::is\_same\_v<typename NLS::DifferentiableFunction::Domain, double> and}
+\DoxyCodeLine{        ((traits::isSpecializationTypeAndNonTypes<}
+\DoxyCodeLine{             Eigen::Matrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value) or}
+\DoxyCodeLine{         (traits::isSpecializationTypeNonTypeAndType<}
+\DoxyCodeLine{             Eigen::SparseMatrix, \textcolor{keyword}{typename} NLS::DifferentiableFunction::Traits::template Range<1>>::value)));}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}
 
@@ -21,15 +27,6 @@ Concept defining the requirements for a material type.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em Material\+To\+Check} & Template representing the material type to check. \\
-\hline
-{\em Material} & Type representing the material to be checked.\\
+{\em NLS} & The non-\/linear solver type. \\
 \hline
 \end{DoxyTemplParams}
-A type satisfies the Is\+Material concept if it meets one of the following conditions\+:
-
-
-\begin{DoxyEnumerate}
-\item The material is a specialization of the specified template {\ttfamily Material\+To\+Check}.
-\item The material is a specialization of {\ttfamily Vanishing\+Stress} or {\ttfamily Vanishing\+Strain} (i.\+e. reduced) with an underlying type that is a specialization of the specified template {\ttfamily Material\+To\+Check}. 
-\end{DoxyEnumerate}

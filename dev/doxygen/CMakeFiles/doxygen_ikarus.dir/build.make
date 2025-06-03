@@ -76,6 +76,7 @@ docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/assembler/interface.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/assembler/simpleassemblers.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/assembler/simpleassemblers.inl
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/controlroutines/adaptivestepsizing.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/controlroutines/common.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/controlroutines/controlinfos.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/controlroutines/controlroutinebase.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/controlroutines/controlroutinefactory.hh

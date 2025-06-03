@@ -1,8 +1,8 @@
-\hypertarget{a02393}{}\doxysection{Ikarus\+::Concepts\+::Material Concept Reference}
-\label{a02393}\index{Ikarus::Concepts::Material@{Ikarus::Concepts::Material}}
+\hypertarget{a02393}{}\doxysection{Ikarus\+::Concepts\+::Result\+Type Concept Reference}
+\label{a02393}\index{Ikarus::Concepts::ResultType@{Ikarus::Concepts::ResultType}}
 
 
-Concept representing a material interface.  
+A concept to check if a template type satisfies the Result\+Type requirements.  
 
 
 
@@ -12,25 +12,17 @@ Concept representing a material interface.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} M>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02393}{Ikarus::Concepts::Material}} =  \textcolor{keyword}{requires}(M m, Eigen::Matrix3d C) \{}
-\DoxyCodeLine{    M::strainTag;}
-\DoxyCodeLine{    M::stressTag;}
-\DoxyCodeLine{    M::tangentModuliTag;}
-\DoxyCodeLine{    M::derivativeFactor;}
-\DoxyCodeLine{    M::isReduced;}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \textcolor{keyword}{typename} M::ScalarType;}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \{ m.name() \} -\/> std::convertible\_to<std::string>;}
-\DoxyCodeLine{    \{ m.materialParameters() \} -\/> std::same\_as<typename M::MaterialParameters>;}
-\DoxyCodeLine{    \{ m.template storedEnergy<M::strainTag>(C) \} -\/> std::same\_as<typename M::ScalarType>;}
-\DoxyCodeLine{    \{ m.template stresses<M::strainTag>(C) \};}
-\DoxyCodeLine{    \{ m.template tangentModuli<M::strainTag>(C) \};}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{template}< \textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int} > \textcolor{keyword}{typename} RT>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02393}{Ikarus::Concepts::ResultType}} = }
+\DoxyCodeLine{      Impl::ResultType<RT<double, 1, 1>> or Impl::ResultType<RT<double, 1, 2>> or Impl::ResultType<RT<double, 1, 3>> or}
+\DoxyCodeLine{      Impl::ResultType<RT<double, 2, 3>> or Impl::ResultType<RT<double, 3, 3>>}
 
 \end{DoxyCode}
 
 
 \doxysubsection{Detailed Description}
-A type M satisfies the material interface if it provides the necessary member functions and type. 
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em RT} & A template type with parameters (typename, int, int). The first parameter is the data type, and the next two parameters are the grid dimension and the world dimension. It checks for various instantiations to ensure they meet the Result\+Type concept. Specifically, it checks for the nested types \textquotesingle{}type\textquotesingle{}, \textquotesingle{}Vectorizer\textquotesingle{}, \textquotesingle{}Matricizer\textquotesingle{}, and the presence of a to\+String function returning a std\+::string. \\
+\hline
+\end{DoxyTemplParams}
