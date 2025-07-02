@@ -1,4 +1,4 @@
 var a00248 =
 [
-    [ "Ikarus::PS::AssumedStressVariant< ASFunction, GEO >", "a01583.html", "a01583" ]
+    [ "Ikarus::PS::LinearStress", "a01559.html", "a01559" ]
 ];

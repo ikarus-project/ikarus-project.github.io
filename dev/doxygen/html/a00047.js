@@ -1,4 +1,4 @@
 var a00047 =
 [
-    [ "DerivativeTraitsFromCallables", "a00047.html#aff7184c8b9bf7333cce42c28dc459851", null ]
+    [ "polyfit", "a00047.html#ga0d3a38551806e4de3ff44f311847ba51", null ]
 ];

@@ -1,8 +1,8 @@
-\hypertarget{a02411}{}\doxysection{Ikarus\+::Concepts\+::Eigen\+Value\+Solver Concept Reference}
-\label{a02411}\index{Ikarus::Concepts::EigenValueSolver@{Ikarus::Concepts::EigenValueSolver}}
+\hypertarget{a02411}{}\doxysection{Ikarus\+::Concepts\+::Control\+Routine\+State Concept Reference}
+\label{a02411}\index{Ikarus::Concepts::ControlRoutineState@{Ikarus::Concepts::ControlRoutineState}}
 
 
-Concept representing an eigenvalue solver interface.  
+Concept to check if a type represents a control routine state.  
 
 
 
@@ -12,18 +12,22 @@ Concept representing an eigenvalue solver interface.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} ES>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02411}{Ikarus::Concepts::EigenValueSolver}} =  \textcolor{keyword}{requires}(ES es) \{}
-\DoxyCodeLine{    \textcolor{keyword}{typename} ES::MatrixType;}
-\DoxyCodeLine{    \textcolor{keyword}{typename} ES::ScalarType;}
-\DoxyCodeLine{    \{ es.compute() \} -\/> std::same\_as<bool>;}
-\DoxyCodeLine{    \{ es.eigenvalues() \} -\/> std::convertible\_to<Eigen::VectorX<typename ES::ScalarType>>;}
-\DoxyCodeLine{    \{ es.eigenvectors() \} -\/> std::convertible\_to<Eigen::MatrixX<typename ES::ScalarType>>;}
-\DoxyCodeLine{    \{ es.nev() \} -\/> std::convertible\_to<int>;}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} S>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02411}{Ikarus::Concepts::ControlRoutineState}} =  \textcolor{keyword}{requires}(S s) \{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} S::Domain;}
+\DoxyCodeLine{}
+\DoxyCodeLine{    \{ s.information \} -\/> std::same\_as<const ControlInformation\&>;}
+\DoxyCodeLine{    \{ s.loadStep \} -\/> std::convertible\_to<int>;}
+\DoxyCodeLine{    \{ s.stepSize \} -\/> std::convertible\_to<double>;}
+\DoxyCodeLine{    \{ s.domain \} -\/> std::same\_as<const typename S::Domain\&>;}
 \DoxyCodeLine{  \}}
 
 \end{DoxyCode}
 
 
 \doxysubsection{Detailed Description}
-A type ES satisfies Eigen\+Value\+Solver if it provides the necessary member functions and type 
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em S} & the type to be checked \\
+\hline
+\end{DoxyTemplParams}

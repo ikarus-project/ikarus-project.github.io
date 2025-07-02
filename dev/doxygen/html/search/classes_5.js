@@ -9,11 +9,11 @@ var searchData=
   ['fieldvector_6',['FieldVector',['../a02211.html',1,'Dune']]],
   ['fieldvector_3c_20double_2c_202_20_3e_7',['FieldVector&lt; double, 2 &gt;',['../a02211.html',1,'Dune']]],
   ['flatassemblerbase_8',['FlatAssemblerBase',['../a01383.html',1,'Ikarus']]],
-  ['flatindexmergingstrategy_9',['FlatIndexMergingStrategy',['../a02239.html',1,'Ikarus']]],
-  ['flatindexmergingstrategy_3c_20dune_3a_3afunctions_3a_3abasisfactory_3a_3ablockedinterleaved_20_3e_10',['FlatIndexMergingStrategy&lt; Dune::Functions::BasisFactory::BlockedInterleaved &gt;',['../a02243.html',1,'Ikarus']]],
-  ['flatindexmergingstrategy_3c_20dune_3a_3afunctions_3a_3abasisfactory_3a_3ablockedlexicographic_20_3e_11',['FlatIndexMergingStrategy&lt; Dune::Functions::BasisFactory::BlockedLexicographic &gt;',['../a02247.html',1,'Ikarus']]],
-  ['flatprebasis_12',['FlatPreBasis',['../a02235.html',1,'Ikarus']]],
-  ['flatprebasis_3c_20dune_3a_3afunctions_3a_3acompositeprebasis_3c_20ims_2c_20spb_2e_2e_2e_20_3e_20_3e_13',['FlatPreBasis&lt; Dune::Functions::CompositePreBasis&lt; IMS, SPB... &gt; &gt;',['../a02251.html',1,'Ikarus']]],
-  ['flatprebasis_3c_20dune_3a_3afunctions_3a_3apowerprebasis_3c_20ims_2c_20spb_2c_20c_20_3e_20_3e_14',['FlatPreBasis&lt; Dune::Functions::PowerPreBasis&lt; IMS, SPB, C &gt; &gt;',['../a02255.html',1,'Ikarus']]],
-  ['functiontraits_15',['FunctionTraits',['../a02343.html',1,'Ikarus::traits']]]
+  ['flatindexmergingstrategy_9',['FlatIndexMergingStrategy',['../a02247.html',1,'Ikarus']]],
+  ['flatindexmergingstrategy_3c_20dune_3a_3afunctions_3a_3abasisfactory_3a_3ablockedinterleaved_20_3e_10',['FlatIndexMergingStrategy&lt; Dune::Functions::BasisFactory::BlockedInterleaved &gt;',['../a02251.html',1,'Ikarus']]],
+  ['flatindexmergingstrategy_3c_20dune_3a_3afunctions_3a_3abasisfactory_3a_3ablockedlexicographic_20_3e_11',['FlatIndexMergingStrategy&lt; Dune::Functions::BasisFactory::BlockedLexicographic &gt;',['../a02255.html',1,'Ikarus']]],
+  ['flatprebasis_12',['FlatPreBasis',['../a02243.html',1,'Ikarus']]],
+  ['flatprebasis_3c_20dune_3a_3afunctions_3a_3acompositeprebasis_3c_20ims_2c_20spb_2e_2e_2e_20_3e_20_3e_13',['FlatPreBasis&lt; Dune::Functions::CompositePreBasis&lt; IMS, SPB... &gt; &gt;',['../a02259.html',1,'Ikarus']]],
+  ['flatprebasis_3c_20dune_3a_3afunctions_3a_3apowerprebasis_3c_20ims_2c_20spb_2c_20c_20_3e_20_3e_14',['FlatPreBasis&lt; Dune::Functions::PowerPreBasis&lt; IMS, SPB, C &gt; &gt;',['../a02263.html',1,'Ikarus']]],
+  ['functiontraits_15',['FunctionTraits',['../a02351.html',1,'Ikarus::traits']]]
 ];

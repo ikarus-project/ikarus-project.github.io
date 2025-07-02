@@ -1,4 +1,5 @@
 var a00014 =
 [
-    [ "lambertW0", "a00014.html#a5dd4fe61d5a2366ba3e8bf4d55d451e1", null ]
+    [ "forEachLagrangeNodePosition", "a00014.html#ad8f6a5b5d6fb5a916fd5791adf5ef4d9", null ],
+    [ "forEachLeafOrPowerLeafNode", "a00014.html#a63742d75d099b93da7ddf6e78a3c1f56", null ]
 ];

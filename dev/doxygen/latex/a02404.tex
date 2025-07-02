@@ -1,8 +1,10 @@
-\hypertarget{a02404}{}\doxysection{Ikarus\+::Concepts\+::Non\+Linear\+Solver\+State Concept Reference}
-\label{a02404}\index{Ikarus::Concepts::NonLinearSolverState@{Ikarus::Concepts::NonLinearSolverState}}
+\hypertarget{a02404}{}\doxysection{Ikarus\+::Concepts\+::Vector\+Flat\+Assembler Concept Reference}
+\label{a02404}\index{Ikarus::Concepts::VectorFlatAssembler@{Ikarus::Concepts::VectorFlatAssembler}}
 
 
-Concept to check if a type represents a nonlinear solver state.  
+Concept representing the requirements for a Vector\+Flat\+Assembler.
+
+A type T satisfies Vector\+Flat\+Assembler if it is a Scalar\+Flat\+Assembler and if it provides the necessary vector() member functions.  
 
 
 
@@ -12,22 +14,15 @@ Concept to check if a type represents a nonlinear solver state.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} S>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02404}{Ikarus::Concepts::NonLinearSolverState}} =  \textcolor{keyword}{requires}(S s) \{}
-\DoxyCodeLine{    \textcolor{keyword}{typename} S::Domain;}
-\DoxyCodeLine{    \textcolor{keyword}{typename} S::CorrectionType;}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \{ s.information \} -\/> std::same\_as<const NonLinearSolverInformation\&>;}
-\DoxyCodeLine{    \{ s.domain \} -\/> std::same\_as<const typename S::Domain\&>;}
-\DoxyCodeLine{    \{ s.correction \} -\/> std::same\_as<const typename S::CorrectionType\&>;}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02404}{Ikarus::Concepts::VectorFlatAssembler}} =  \mbox{\hyperlink{a02403}{Concepts::ScalarFlatAssembler<T>}} and}
+\DoxyCodeLine{                                \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{                                         \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00495_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{                                  \{}
+\DoxyCodeLine{                                    t.vector(req, affordance.vectorAffordance(), dbcOption)}
+\DoxyCodeLine{                                  \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{                                  \{ t.vector(dbcOption) \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{                                  \{ t.vector() \} -\/> std::convertible\_to<const Eigen::VectorXd\&>;}
+\DoxyCodeLine{                                \}}
 
 \end{DoxyCode}
-
-
-\doxysubsection{Detailed Description}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em S} & the type to be checked \\
-\hline
-\end{DoxyTemplParams}

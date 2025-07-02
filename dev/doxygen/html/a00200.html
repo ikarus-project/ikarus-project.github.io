@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: ferequirements.hh File Reference</title>
+    <title>ikarus: trustregion.hh File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -158,149 +158,86 @@ $(document).ready(function(){initNavTree('a00200.html',''); initResizable(); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#concepts">Concepts</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">ferequirements.hh File Reference<div class="ingroups"><a class="el" href="a00476.html">Ikarus Modules</a> &raquo; <a class="el" href="a00479.html">Finite Elements</a></div></div></div>
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">trustregion.hh File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of the LinearElastic class for finite element mechanics computations.  
+<p>Implementation of the Trust-region method for solving nonlinear equations.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;iosfwd&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;set&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;dune/common/exceptions.hh&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00347_source.html">ikarus/finiteelements/feresulttypes.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03466_source.html">ikarus/utils/basis.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00074_source.html">ikarus/utils/defaultfunctions.hh</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00056_source.html">ikarus/utils/makeenum.hh</a>&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
+<code>#include &lt;dune/common/float_cmp.hh&gt;</code><br />
+<code>#include &lt;dune/functions/common/signature.hh&gt;</code><br />
+<code>#include &lt;spdlog/spdlog.h&gt;</code><br />
+<code>#include &lt;Eigen/Sparse&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00188_source.html">ikarus/linearalgebra/truncatedconjugategradient.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00209_source.html">ikarus/solver/nonlinearsolver/nonlinearsolverbase.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00203_source.html">ikarus/solver/nonlinearsolver/solverinfos.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00413_source.html">ikarus/utils/broadcaster/broadcaster.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00410_source.html">ikarus/utils/broadcaster/broadcastermessages.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00068_source.html">ikarus/utils/defaultfunctions.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00080_source.html">ikarus/utils/linearalgebrahelper.hh</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00071_source.html">ikarus/utils/traits.hh</a>&gt;</code><br />
 </div>
 <p><a href="a00200_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01507.html">Ikarus::AffordanceCollection&lt; Affordances &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct representing a collection of affordances.  <a href="a01507.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02111.html">Ikarus::TRSettings</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01511.html">Ikarus::FERequirements&lt; sol, para, SV, PM &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class representing the requirements for finite element calculations.  <a href="a01511.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02115.html">Ikarus::TrustRegionConfig&lt; preConditioner, UF, IDBCF &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02123.html">Ikarus::AlgoInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Additional information about the <a class="el" href="a02119.html" title="Trust Region solver for non-linear optimization problems.">TrustRegion</a> algorithm.  <a href="a02123.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02127.html">Ikarus::Stats</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Information about the <a class="el" href="a02119.html" title="Trust Region solver for non-linear optimization problems.">TrustRegion</a> solver.  <a href="a02127.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02119.html">Ikarus::TrustRegion&lt; F, preConditioner, UF, IDBCF &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trust Region solver for non-linear optimization problems.  <a href="a02119.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:a00495"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html">Ikarus</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00502"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00502.html">Ikarus::AffordanceCollections</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
-Concepts</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02357.html">Ikarus::FEAffordance</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept to check if a given type is one of the predefined affordance enums or the AffordanceCollection. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:af6f894084edd9109762b86222995ef2a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#af6f894084edd9109762b86222995ef2a">Ikarus::ScalarAffordance</a> { <br />
-&#160;&#160;<a class="el" href="a00495.html#af6f894084edd9109762b86222995ef2aa19aad9f2fe3ce0023298ab83f7e75775">Ikarus::BEGIN</a>
-, <a class="el" href="a00495.html#af6f894084edd9109762b86222995ef2aa9a280b29988e2eac8c0767e0fcefb49c">Ikarus::noAffordance</a>
-, <a class="el" href="a00495.html#af6f894084edd9109762b86222995ef2aa814f34f472acef493e9ecf0ffccdcae6">Ikarus::mechanicalPotentialEnergy</a>
-, <a class="el" href="a00495.html#af6f894084edd9109762b86222995ef2aae45c0886135e58c01a313bda2d69e29a">Ikarus::microMagneticPotentialEnergy</a>
+<tr class="memitem:ace28d4868cfc647491f7938f04ef6c66"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#ace28d4868cfc647491f7938f04ef6c66">Ikarus::PreConditioner</a> { <a class="el" href="a00495.html#ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff">Ikarus::IncompleteCholesky</a>
+, <a class="el" href="a00495.html#ace28d4868cfc647491f7938f04ef6c66a7a93111b975ec3c3824eab230f3ec608">Ikarus::IdentityPreconditioner</a>
+, <a class="el" href="a00495.html#ace28d4868cfc647491f7938f04ef6c66a3c6b5404db3b7bf45a0302f376a53afc">Ikarus::DiagonalPreconditioner</a>
+ }</td></tr>
+<tr class="memdesc:ace28d4868cfc647491f7938f04ef6c66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of available preconditioners for the trust region solver.  <a href="a00495.html#ace28d4868cfc647491f7938f04ef6c66">More...</a><br /></td></tr>
+<tr class="separator:ace28d4868cfc647491f7938f04ef6c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd5d0cf356d1ae81f6ee827b0f47c674"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#abd5d0cf356d1ae81f6ee827b0f47c674">Ikarus::StopReason</a> { <br />
+&#160;&#160;<a class="el" href="a00495.html#abd5d0cf356d1ae81f6ee827b0f47c674a0c4f44592a7ae85baf42cb3fb4a5a3d1">Ikarus::gradientNormTolReached</a>
+, <a class="el" href="a00495.html#abd5d0cf356d1ae81f6ee827b0f47c674ad1c6a6016de417acc66b5ac44a1fdca3">Ikarus::correctionNormTolReached</a>
+, <a class="el" href="a00495.html#abd5d0cf356d1ae81f6ee827b0f47c674ad205528fe2a4412b89626ff7eee936f9">Ikarus::maximumTimeReached</a>
+, <a class="el" href="a00495.html#abd5d0cf356d1ae81f6ee827b0f47c674a5ed07f9461b91dd3a6ba961a0ed5c8fe">Ikarus::maximumIterationsReached</a>
 , <br />
-&#160;&#160;<a class="el" href="a00495.html#af6f894084edd9109762b86222995ef2aab1a326c06d88bf042f73d70f50197905">Ikarus::END</a>
+&#160;&#160;<a class="el" href="a00495.html#abd5d0cf356d1ae81f6ee827b0f47c674a8d2fa9685be8b8f8994bd8a73bfa8c9f">Ikarus::dontStop</a>
 <br />
  }</td></tr>
-<tr class="memdesc:af6f894084edd9109762b86222995ef2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">A strongly typed enum class representing the scalar affordance.  <a href="a00495.html#af6f894084edd9109762b86222995ef2a">More...</a><br /></td></tr>
-<tr class="separator:af6f894084edd9109762b86222995ef2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab9e3e38507d1db7602bc750718c302a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#aab9e3e38507d1db7602bc750718c302a">Ikarus::VectorAffordance</a> { <br />
-&#160;&#160;<a class="el" href="a00495.html#aab9e3e38507d1db7602bc750718c302aa19aad9f2fe3ce0023298ab83f7e75775">Ikarus::BEGIN</a>
-, <a class="el" href="a00495.html#aab9e3e38507d1db7602bc750718c302aa9a280b29988e2eac8c0767e0fcefb49c">Ikarus::noAffordance</a>
-, <a class="el" href="a00495.html#aab9e3e38507d1db7602bc750718c302aa2c05161a7e67e946ddc889571aac4e89">Ikarus::forces</a>
-, <a class="el" href="a00495.html#aab9e3e38507d1db7602bc750718c302aa3cc975e7798ac76d6af4f624e23c6ddc">Ikarus::microMagneticForces</a>
-, <br />
-&#160;&#160;<a class="el" href="a00495.html#aab9e3e38507d1db7602bc750718c302aab1a326c06d88bf042f73d70f50197905">Ikarus::END</a>
-<br />
- }</td></tr>
-<tr class="memdesc:aab9e3e38507d1db7602bc750718c302a"><td class="mdescLeft">&#160;</td><td class="mdescRight">A strongly typed enum class representing the vector affordance.  <a href="a00495.html#aab9e3e38507d1db7602bc750718c302a">More...</a><br /></td></tr>
-<tr class="separator:aab9e3e38507d1db7602bc750718c302a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a390d5311179ec61d163a29c943b3d1a0"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#a390d5311179ec61d163a29c943b3d1a0">Ikarus::MatrixAffordance</a> { <br />
-&#160;&#160;<a class="el" href="a00495.html#a390d5311179ec61d163a29c943b3d1a0a19aad9f2fe3ce0023298ab83f7e75775">Ikarus::BEGIN</a>
-, <a class="el" href="a00495.html#a390d5311179ec61d163a29c943b3d1a0a9a280b29988e2eac8c0767e0fcefb49c">Ikarus::noAffordance</a>
-, <a class="el" href="a00495.html#a390d5311179ec61d163a29c943b3d1a0a086e8b527490b8abe606a8dd76586ab1">Ikarus::stiffness</a>
-, <a class="el" href="a00495.html#a390d5311179ec61d163a29c943b3d1a0a3a130b44dd6ff9351e7734ac33096b62">Ikarus::materialstiffness</a>
-, <br />
-&#160;&#160;<a class="el" href="a00495.html#a390d5311179ec61d163a29c943b3d1a0ae15aaa3bcdfc63653ecc7de3f1d4794b">Ikarus::geometricstiffness</a>
-, <a class="el" href="a00495.html#a390d5311179ec61d163a29c943b3d1a0adaa7ff7d704732b763943e3355764532">Ikarus::stiffnessdiffBucklingVector</a>
-, <a class="el" href="a00495.html#a390d5311179ec61d163a29c943b3d1a0a1b0fce0a361af9d6e59694b4c51524f9">Ikarus::microMagneticHessian</a>
-, <a class="el" href="a00495.html#a390d5311179ec61d163a29c943b3d1a0ad90ccffa01275a7a7795fb6d1274e75f">Ikarus::mass</a>
-, <br />
-&#160;&#160;<a class="el" href="a00495.html#a390d5311179ec61d163a29c943b3d1a0ab1a326c06d88bf042f73d70f50197905">Ikarus::END</a>
-<br />
- }</td></tr>
-<tr class="memdesc:a390d5311179ec61d163a29c943b3d1a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A strongly typed enum class representing the matrix affordance.  <a href="a00495.html#a390d5311179ec61d163a29c943b3d1a0">More...</a><br /></td></tr>
-<tr class="separator:a390d5311179ec61d163a29c943b3d1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0c1577fd05efee8475b0f7fef795bbbe"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00482.html#ga0c1577fd05efee8475b0f7fef795bbbe">Ikarus::FEParameter</a> { <br />
-&#160;&#160;<a class="el" href="a00482.html#gga0c1577fd05efee8475b0f7fef795bbbea19aad9f2fe3ce0023298ab83f7e75775">Ikarus::FEParameter::BEGIN</a>
-, <a class="el" href="a00482.html#gga0c1577fd05efee8475b0f7fef795bbbea298c62e2f9918b280f40eb210c44fdbe">Ikarus::FEParameter::noParameter</a>
-, <a class="el" href="a00482.html#gga0c1577fd05efee8475b0f7fef795bbbeaf72bac0ac84c0315e7bcbb8aa84b2ff8">Ikarus::FEParameter::loadfactor</a>
-, <a class="el" href="a00482.html#gga0c1577fd05efee8475b0f7fef795bbbea07cc694b9b3fc636710fa08b6922c42b">Ikarus::FEParameter::time</a>
-, <br />
-&#160;&#160;<a class="el" href="a00482.html#gga0c1577fd05efee8475b0f7fef795bbbeab1a326c06d88bf042f73d70f50197905">Ikarus::FEParameter::END</a>
-<br />
- }</td></tr>
-<tr class="memdesc:ga0c1577fd05efee8475b0f7fef795bbbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">A strongly typed enum class representing the FE parameter.  <a href="a00482.html#ga0c1577fd05efee8475b0f7fef795bbbe">More...</a><br /></td></tr>
-<tr class="separator:ga0c1577fd05efee8475b0f7fef795bbbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaea763c94a1cecbeefc4f8661debcc5a3"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00482.html#gaea763c94a1cecbeefc4f8661debcc5a3">Ikarus::FESolutions</a> { <br />
-&#160;&#160;<a class="el" href="a00482.html#ggaea763c94a1cecbeefc4f8661debcc5a3a19aad9f2fe3ce0023298ab83f7e75775">Ikarus::FESolutions::BEGIN</a>
-, <a class="el" href="a00482.html#ggaea763c94a1cecbeefc4f8661debcc5a3a2100a151ce2773b3467509ae085aa505">Ikarus::FESolutions::noSolution</a>
-, <a class="el" href="a00482.html#ggaea763c94a1cecbeefc4f8661debcc5a3a0c2d35f5f278a229db5ba41d40120f1c">Ikarus::FESolutions::displacement</a>
-, <a class="el" href="a00482.html#ggaea763c94a1cecbeefc4f8661debcc5a3aac1a453d0cdc1f19d9479ccfaa8b082c">Ikarus::FESolutions::velocity</a>
-, <br />
-&#160;&#160;<a class="el" href="a00482.html#ggaea763c94a1cecbeefc4f8661debcc5a3a3d4e992d8d8a7d848724aa26ed7f4176">Ikarus::FESolutions::director</a>
-, <a class="el" href="a00482.html#ggaea763c94a1cecbeefc4f8661debcc5a3a58edccca94b76e0355ed45da28ece7ff">Ikarus::FESolutions::magnetizationAndVectorPotential</a>
-, <a class="el" href="a00482.html#ggaea763c94a1cecbeefc4f8661debcc5a3ab1a326c06d88bf042f73d70f50197905">Ikarus::FESolutions::END</a>
-<br />
- }</td></tr>
-<tr class="memdesc:gaea763c94a1cecbeefc4f8661debcc5a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">A strongly typed enum class representing the type of the solutions vectors.  <a href="a00482.html#gaea763c94a1cecbeefc4f8661debcc5a3">More...</a><br /></td></tr>
-<tr class="separator:gaea763c94a1cecbeefc4f8661debcc5a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:abd5d0cf356d1ae81f6ee827b0f47c674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of reasons for stopping the TrustRegion solver.  <a href="a00495.html#abd5d0cf356d1ae81f6ee827b0f47c674">More...</a><br /></td></tr>
+<tr class="separator:abd5d0cf356d1ae81f6ee827b0f47c674"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a93cb7668686a4b4a64389ca0a2533449"><td class="memItemLeft" align="right" valign="top">constexpr std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#a93cb7668686a4b4a64389ca0a2533449">Ikarus::toString</a> (ScalarAffordance _e)</td></tr>
-<tr class="separator:a93cb7668686a4b4a64389ca0a2533449"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecab2e77f1da6ec0d77b728b96f7fed8"><td class="memItemLeft" align="right" valign="top">constexpr std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#aecab2e77f1da6ec0d77b728b96f7fed8">Ikarus::toString</a> (VectorAffordance _e)</td></tr>
-<tr class="separator:aecab2e77f1da6ec0d77b728b96f7fed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e09faefb9fb22635de50c3d3ee57954"><td class="memItemLeft" align="right" valign="top">constexpr std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#a1e09faefb9fb22635de50c3d3ee57954">Ikarus::toString</a> (MatrixAffordance _e)</td></tr>
-<tr class="separator:a1e09faefb9fb22635de50c3d3ee57954"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b95b51e82bcb7c8990ff20bd8273ebf"><td class="memItemLeft" align="right" valign="top">constexpr std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#a2b95b51e82bcb7c8990ff20bd8273ebf">Ikarus::toString</a> (FEParameter _e)</td></tr>
-<tr class="separator:a2b95b51e82bcb7c8990ff20bd8273ebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad313676e121358d0076db4f79fbce4be"><td class="memItemLeft" align="right" valign="top">constexpr std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#ad313676e121358d0076db4f79fbce4be">Ikarus::toString</a> (FESolutions _e)</td></tr>
-<tr class="separator:ad313676e121358d0076db4f79fbce4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2597fb8b5ba646668b01bcc4e5f75818"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#a2597fb8b5ba646668b01bcc4e5f75818">Ikarus::vectorAffordance</a> (MatrixAffordance affordanceM)</td></tr>
-<tr class="separator:a2597fb8b5ba646668b01bcc4e5f75818"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f58a3849d4736e5cc314f6f995fe9e7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#a9f58a3849d4736e5cc314f6f995fe9e7">Ikarus::scalarAffordance</a> (MatrixAffordance affordanceM)</td></tr>
-<tr class="separator:a9f58a3849d4736e5cc314f6f995fe9e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac600b73743c56f0668ae66be56c37c87"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#ac600b73743c56f0668ae66be56c37c87">Ikarus::scalarAffordance</a> (VectorAffordance affordanceV)</td></tr>
-<tr class="separator:ac600b73743c56f0668ae66be56c37c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd125ab98018456fb4bd3bdfe28466dc"><td class="memItemLeft" align="right" valign="top">constexpr AffordanceCollection&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00502.html#abd125ab98018456fb4bd3bdfe28466dc">Ikarus::AffordanceCollections::elastoStatics</a> (ScalarAffordance::mechanicalPotentialEnergy, VectorAffordance::forces, MatrixAffordance::stiffness)</td></tr>
-<tr class="separator:abd125ab98018456fb4bd3bdfe28466dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a79f92cdef4ce37a01fd76e7cbc460cb4"><td class="memItemLeft" align="right" valign="top">constexpr VectorAffordance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#a79f92cdef4ce37a01fd76e7cbc460cb4">Ikarus::forces</a> = VectorAffordance::forces</td></tr>
-<tr class="separator:a79f92cdef4ce37a01fd76e7cbc460cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bd2b9f6fec9989fd5e5e9d7e3cd986e"><td class="memItemLeft" align="right" valign="top">constexpr MatrixAffordance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#a5bd2b9f6fec9989fd5e5e9d7e3cd986e">Ikarus::stiffness</a> = MatrixAffordance::stiffness</td></tr>
-<tr class="separator:a5bd2b9f6fec9989fd5e5e9d7e3cd986e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ceb0c9442d4755cb5c2bd47ea46a22f"><td class="memItemLeft" align="right" valign="top">constexpr MatrixAffordance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#a0ceb0c9442d4755cb5c2bd47ea46a22f">Ikarus::stiffnessdiffBucklingVector</a> = MatrixAffordance::stiffnessdiffBucklingVector</td></tr>
-<tr class="separator:a0ceb0c9442d4755cb5c2bd47ea46a22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8479f7f6217f57442ec18948b7aece1"><td class="memItemLeft" align="right" valign="top">constexpr MatrixAffordance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#ad8479f7f6217f57442ec18948b7aece1">Ikarus::mass</a> = MatrixAffordance::mass</td></tr>
-<tr class="separator:ad8479f7f6217f57442ec18948b7aece1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c6efe61469638e139724dc7c9bdaa9d"><td class="memItemLeft" align="right" valign="top">constexpr ScalarAffordance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html#a8c6efe61469638e139724dc7c9bdaa9d">Ikarus::potentialEnergy</a> = ScalarAffordance::mechanicalPotentialEnergy</td></tr>
-<tr class="separator:a8c6efe61469638e139724dc7c9bdaa9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd04e52f828b895e862bdb2edd8b3d1"><td class="memTemplParams" colspan="2">template&lt;typename F , typename TRConfig &gt; <br />
+requires traits::isSpecializationNonTypeAndTypes&lt;TrustRegionConfig, std::remove_cvref_t&lt;TRConfig&gt;&gt;</td></tr>
+<tr class="memitem:a0dd04e52f828b895e862bdb2edd8b3d1"><td class="memTemplItemLeft" align="right" valign="top">::value auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00495.html#a0dd04e52f828b895e862bdb2edd8b3d1">Ikarus::createNonlinearSolver</a> (TRConfig &amp;&amp;config, F &amp;&amp;f)</td></tr>
+<tr class="memdesc:a0dd04e52f828b895e862bdb2edd8b3d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to create a trust region non-linear solver.  <a href="a00495.html#a0dd04e52f828b895e862bdb2edd8b3d1">More...</a><br /></td></tr>
+<tr class="separator:a0dd04e52f828b895e862bdb2edd8b3d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37b2b44fa6cbb2b6521791bcd9a2d5f6"><td class="memTemplParams" colspan="2">template&lt;typename F , PreConditioner preConditioner = PreConditioner::IncompleteCholesky, typename UF  = utils::UpdateDefault, typename IDBCF  = utils::IDBCForceDefault&gt; </td></tr>
+<tr class="memitem:a37b2b44fa6cbb2b6521791bcd9a2d5f6"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00495.html#a37b2b44fa6cbb2b6521791bcd9a2d5f6">Ikarus::makeTrustRegion</a> (const F &amp;f, UF &amp;&amp;updateFunction={}, IDBCF &amp;&amp;idbcForceFunction={})</td></tr>
+<tr class="memdesc:a37b2b44fa6cbb2b6521791bcd9a2d5f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an instance of the <a class="el" href="a02119.html" title="Trust Region solver for non-linear optimization problems.">TrustRegion</a> solver.  <a href="a00495.html#a37b2b44fa6cbb2b6521791bcd9a2d5f6">More...</a><br /></td></tr>
+<tr class="separator:a37b2b44fa6cbb2b6521791bcd9a2d5f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a770b17ee7c15dbad9ad94509dcacd711"><td class="memTemplParams" colspan="2">template&lt;typename F , PreConditioner preConditioner = PreConditioner::IncompleteCholesky, typename UF2  = utils::UpdateDefault, typename IDBCF2  = utils::IDBCForceDefault&gt; </td></tr>
+<tr class="memitem:a770b17ee7c15dbad9ad94509dcacd711"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00495.html#a770b17ee7c15dbad9ad94509dcacd711">Ikarus::TrustRegion</a> (const F &amp;f, UF2 &amp;&amp;updateFunction={}, IDBCF2 &amp;&amp;idbcForceFunction={}) -&gt; TrustRegion&lt; F, preConditioner, std::remove_cvref_t&lt; UF2 &gt;, std::remove_cvref_t&lt; IDBCF2 &gt; &gt;</td></tr>
+<tr class="separator:a770b17ee7c15dbad9ad94509dcacd711"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -312,7 +249,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="a00200.html">ferequirements.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_26588bed129c997bc132e8888f2113fa.html">solver</a></li><li class="navelem"><a class="el" href="dir_bf30182dc97724dc8c2a6cdd4c321688.html">nonlinearsolver</a></li><li class="navelem"><a class="el" href="a00200.html">trustregion.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

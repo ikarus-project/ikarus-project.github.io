@@ -2,7 +2,7 @@ var a00512 =
 [
     [ "internal", "a00513.html", "a00513" ],
     [ "EigenBase", "a02147.html", null ],
-    [ "SparseMatrixBase", "a02291.html", null ],
+    [ "SparseMatrixBase", "a02299.html", null ],
     [ "TCGInfo", "a02003.html", "a02003" ],
     [ "TruncatedConjugateGradient", "a02007.html", "a02007" ],
     [ "TCGStopReason", "a00512.html#a99c0436bed03f4dd4168a21f6b69ad5a", [

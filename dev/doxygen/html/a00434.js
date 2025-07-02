@@ -1,6 +1,6 @@
 var a00434 =
 [
-    [ "Ikarus::ScalarManipulator< Wrapper, Assembler >", "a01351.html", "a01351" ],
-    [ "Ikarus::VectorManipulator< Wrapper, Assembler >", "a01355.html", "a01355" ],
-    [ "Ikarus::MatrixManipulator< Wrapper, Assembler >", "a01359.html", "a01359" ]
+    [ "makeResultFunction", "a00434.html#aba0432efad1cef6c956ccf108829682c", null ],
+    [ "makeResultFunction", "a00434.html#aa4430d7f94a172d765fba38d393450a0", null ],
+    [ "makeResultVtkFunction", "a00434.html#ad8472943b9877db27039331c847154f1", null ]
 ];

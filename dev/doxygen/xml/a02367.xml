@@ -1,31 +1,35 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="a02367" kind="concept">
-    <compoundname>Ikarus::Concepts::FlatIndexBasis</compoundname>
-    <includes refid="a03484" local="no">ikarus/utils/concepts.hh</includes>
+    <compoundname>Ikarus::Concepts::VolumetricFunction</compoundname>
+    <includes refid="a03450" local="no">ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh</includes>
     <templateparamlist>
       <param>
-        <type>typename B</type>
+        <type>typename VF</type>
       </param>
     </templateparamlist>
-    <initializer>template&lt;typename B&gt;
-concept <ref refid="a02367" kindref="compound">Ikarus::Concepts::FlatIndexBasis</ref> =  FlatLexicographicBasis&lt;B&gt; or FlatInterLeavedBasis&lt;B&gt;    </initializer>
+    <initializer>template&lt;typename VF&gt;
+concept <ref refid="a02367" kindref="compound">Ikarus::Concepts::VolumetricFunction</ref> =  requires(VF vf, const double&amp; j) {
+  { vf.storedEnergyImpl(j) } -&gt; std::same_as&lt;double&gt;;
+  { vf.firstDerivativeImpl(j) } -&gt; std::same_as&lt;double&gt;;
+  { vf.secondDerivativeImpl(j) } -&gt; std::same_as&lt;double&gt;;
+  { vf.name() } -&gt; std::convertible_to&lt;std::string&gt;;
+}    </initializer>
     <briefdescription>
-<para>Concept to check if a basis uses FlatIndex indexing strategy. </para>
+<para>Concept to check if the underlying function is a volumetric function. </para>
     </briefdescription>
     <detaileddescription>
-<para>This concept checks if the given Basis type uses either FlatLexicographic or FlatInterleaved indexing strategy.</para>
 <para><parameterlist kind="templateparam"><parameteritem>
 <parameternamelist>
-<parametername>B</parametername>
+<parametername>Type</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>The basis type. </para>
+<para>of the volumetric function. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
 </para>
     </detaileddescription>
-    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="126" column="3"/>
+    <location file="/__w/ikarus/ikarus/repo/ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.hh" line="53" column="1"/>
   </compounddef>
 </doxygen>

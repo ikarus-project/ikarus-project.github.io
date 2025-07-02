@@ -1,5 +1,14 @@
 var a00194 =
 [
-    [ "Ikarus::PreFE< BH, useFlat, useEigenRef >", "a01495.html", "a01495" ],
-    [ "Ikarus::FE< PreFE, Skills >", "a01491.html", "a01491" ]
+    [ "Ikarus::GeneralizedSymEigenSolver< SolverType, MT >", "a02023.html", null ],
+    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Spectra, MT >", "a02027.html", "a02027" ],
+    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Eigen, MT >", "a02031.html", "a02031" ],
+    [ "Ikarus::PartialGeneralizedSymEigenSolver< MT >", "a02035.html", "a02035" ],
+    [ "EigenValueSolverType", "a00194.html#a76f328509ccf00e93bba2416f01620e4", [
+      [ "BEGIN", "a00194.html#a76f328509ccf00e93bba2416f01620e4a19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Spectra", "a00194.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69", null ],
+      [ "Eigen", "a00194.html#a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833", null ],
+      [ "END", "a00194.html#a76f328509ccf00e93bba2416f01620e4ab1a326c06d88bf042f73d70f50197905", null ]
+    ] ],
+    [ "toString", "a00194.html#acc08b9ea0e95d84b7f5b9cc272eb453f", null ]
 ];

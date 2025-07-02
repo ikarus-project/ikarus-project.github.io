@@ -13,7 +13,7 @@ var searchData=
   ['skills_3c_20prefe_2c_20prefe_3a_3atemplate_20fe_3c_20skills_2e_2e_2e_20_3e_20_3e_10',['Skills&lt; PreFE, PreFE::template FE&lt; Skills... &gt; &gt;',['../a01911.html',1,'Ikarus']]],
   ['solverdefault_11',['SolverDefault',['../a02175.html',1,'Ikarus::utils']]],
   ['sparseflatassembler_12',['SparseFlatAssembler',['../a01407.html',1,'Ikarus']]],
-  ['sparsematrixbase_13',['SparseMatrixBase',['../a02291.html',1,'Eigen']]],
+  ['sparsematrixbase_13',['SparseMatrixBase',['../a02299.html',1,'Eigen']]],
   ['sparsematrixwrapper_14',['SparseMatrixWrapper',['../a02015.html',1,'Ikarus::Python']]],
   ['stats_15',['Stats',['../a02127.html',1,'Ikarus']]],
   ['stvenantkirchhofft_16',['StVenantKirchhoffT',['../a01763.html',1,'Ikarus::Materials']]],

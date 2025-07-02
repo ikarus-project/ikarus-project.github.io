@@ -1,7 +1,6 @@
 var a00242 =
 [
-    [ "Ikarus::VolumeLoadPre< wd >", "a01651.html", "a01651" ],
-    [ "volumeLoad", "a00242.html#a0eecc01634324520df56c4352eb15077", null ],
-    [ "volumeLoad", "a00242.html#a5038b2eef0efbcc123415c92d15b588d", null ],
-    [ "VolumeLoadPre", "a00242.html#a93a9eac09126da6a203f68af3e7c8ba2", null ]
+    [ "globalIndices", "a00242.html#a44e16df41148f7e4538be224814a3423", null ],
+    [ "globalIndicesFromLocalView", "a00242.html#a2a4ac5503d4288b339457aae427ff661", null ],
+    [ "localSolutionBlockVector", "a00242.html#a899043a23720a93e6ce9be9025c3a4bb", null ]
 ];

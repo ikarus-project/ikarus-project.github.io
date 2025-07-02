@@ -1,0 +1,61 @@
+\hypertarget{a00419_source}{}\doxysection{listener.\+hh}
+\label{a00419_source}\index{listener.hh@{listener.hh}}
+\mbox{\hyperlink{a00419}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <cassert>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00495}{Ikarus}} \{}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{27 \textcolor{keyword}{class }\mbox{\hyperlink{a02287}{Listener}}}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29 \textcolor{keyword}{public}:}
+\DoxyCodeLine{30   \textcolor{keyword}{using }\mbox{\hyperlink{a02287_affba2430c95defc9bb0494af2d8120b7}{Token}} = std::shared\_ptr<void>;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Broadcaster>}
+\DoxyCodeLine{41   \textcolor{keyword}{auto} \mbox{\hyperlink{a02287_a199840d6ead51d771d5522acff779a4f}{subscribe}}(\mbox{\hyperlink{a02143}{Broadcaster}}\& broadcaster,}
+\DoxyCodeLine{42                  std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{typename} \mbox{\hyperlink{a02143_abc47e2a26f85e3bdd3886d82d458d5da}{Broadcaster::MessageType}}, \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a02143_ac1cbfd25b275106de2e554ebf3154684}{Broadcaster::State}}\&)> callback) \{}
+\DoxyCodeLine{43     \textcolor{keyword}{auto} token = broadcaster.\mbox{\hyperlink{a02143_a50f7d8360254792256006fe4ead0350c}{registerListener}}(std::move(callback));}
+\DoxyCodeLine{44     tokens.push\_back(token);}
+\DoxyCodeLine{45     \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{46   \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{51   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02287_a6ebf859d4e38acc6e9b7436b097fba26}{unSubscribeAll}}() \{}
+\DoxyCodeLine{52     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& token : tokens) \{}
+\DoxyCodeLine{53       \textcolor{keywordflow}{if} (token) \{}
+\DoxyCodeLine{54         token.reset();}
+\DoxyCodeLine{55       \}}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57     tokens.clear();}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{63   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02287_a78725a274f6b1817a5792bb0e519d3d9}{unSubscribeLast}}() \{}
+\DoxyCodeLine{64     \textcolor{keywordflow}{if} (!tokens.empty()) \{}
+\DoxyCodeLine{65       tokens.back().reset();}
+\DoxyCodeLine{66       tokens.pop\_back();}
+\DoxyCodeLine{67     \}}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{73   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02287_a1c964a476680631977b516351efd8712}{unSubscribe}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02287_affba2430c95defc9bb0494af2d8120b7}{Token}}\& token) \{}
+\DoxyCodeLine{74     \textcolor{keyword}{auto} it = std::ranges::find(tokens, token);}
+\DoxyCodeLine{75     \textcolor{keywordflow}{if} (it != tokens.end()) \{}
+\DoxyCodeLine{76       (*it).reset();}
+\DoxyCodeLine{77       tokens.erase(it);}
+\DoxyCodeLine{78     \}}
+\DoxyCodeLine{79   \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{keyword}{private}:}
+\DoxyCodeLine{82   std::vector<Token> tokens;}
+\DoxyCodeLine{83 \};}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85 \} \textcolor{comment}{// namespace Ikarus}}
+
+\end{DoxyCode}

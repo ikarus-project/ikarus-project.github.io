@@ -13,6 +13,7 @@ var functions_type =
     [ "k", "functions_type_k.html", null ],
     [ "l", "functions_type_l.html", null ],
     [ "m", "functions_type_m.html", null ],
+    [ "n", "functions_type_n.html", null ],
     [ "p", "functions_type_p.html", null ],
     [ "r", "functions_type_r.html", null ],
     [ "s", "functions_type_s.html", null ],

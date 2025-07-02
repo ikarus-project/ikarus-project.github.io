@@ -1,28 +1,28 @@
-\hypertarget{a00197}{}\doxysection{mixin.\+hh File Reference}
-\label{a00197}\index{mixin.hh@{mixin.hh}}
+\hypertarget{a00197}{}\doxysection{newtonraphson.\+hh File Reference}
+\label{a00197}\index{newtonraphson.hh@{newtonraphson.hh}}
 
 
-Implementation of the finite element CRTP mixin class.  
+Implementation of the Newton-\/\+Raphson method for solving nonlinear equations.  
 
 
-{\ttfamily \#include $<$dune/common/tuplevector.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/fetraits.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/assumedstress.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/enhancedassumedstrains.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/linearsolver/linearsolver.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/nonlinearsolverbase.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/nonlinearsolverstate.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/solverinfos.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/broadcaster/broadcaster.\+hh$>$}\newline
 {\ttfamily \#include $<$ikarus/utils/broadcaster/broadcastermessages.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/functionhelper.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/listener/listener.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/defaultfunctions.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/linearalgebrahelper.\+hh$>$}\newline
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{a01895}{Ikarus\+::\+FEMixin$<$ Pre\+FE, Skills $>$}}
-\begin{DoxyCompactList}\small\item\em CRTP mixin class for finite elements with additional skills. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{a01903}{Ikarus\+::\+FEMixin$<$ Pre\+FE, Skills $>$\+::\+Requirement\+Type$<$ false, T $>$}}
+struct \mbox{\hyperlink{a02055}{Ikarus\+::\+NRSettings}}
 \item 
-struct \mbox{\hyperlink{a01907}{Ikarus\+::\+FEMixin$<$ Pre\+FE, Skills $>$\+::\+Requirement\+Type$<$ true, T $>$}}
-\item 
-struct \mbox{\hyperlink{a01911}{Ikarus\+::\+Skills$<$ ARGS $>$}}
-\begin{DoxyCompactList}\small\item\em Struct representing a collection of skills. \end{DoxyCompactList}\end{DoxyCompactItemize}
+struct \mbox{\hyperlink{a02059}{Ikarus\+::\+Newton\+Raphson\+Config$<$ LS, UF, IDBCF $>$}}
+\begin{DoxyCompactList}\small\item\em Config for the Newton-\/\+Raphson solver. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{a02051}{Ikarus\+::\+Newton\+Raphson$<$ F, LS, UF, IDBCF $>$}}
+\begin{DoxyCompactList}\small\item\em Implementation of the Newton-\/\+Raphson method for solving nonlinear equations. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -31,7 +31,10 @@ namespace \mbox{\hyperlink{a00495}{Ikarus}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{a00495_aefa492686bced0d5d9235bdb112f482e}{Ikarus\+::skills}} (const Args \&... args)
-\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a01911}{Skills}} instance with the given skills. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename... Args1, typename... Args2$>$ }\\auto \mbox{\hyperlink{a00495_a4f5729471c2a5801482188e6d42009ea}{Ikarus\+::merge}} (const Skills$<$ Args1... $>$ \&sk1, const Skills$<$ Args2... $>$ \&sk2)
-\begin{DoxyCompactList}\small\item\em Function to merge two \mbox{\hyperlink{a01911}{Skills}} instances. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$typename F , typename NRConfig $>$ \newline
+requires traits\+::is\+Specialization$<$Newton\+Raphson\+Config, std\+::remove\+\_\+cvref\+\_\+t$<$NRConfig$>$$>$}\\\+::value auto \mbox{\hyperlink{a00495_a504e2e9645fa26419d815df9bd245add}{Ikarus\+::create\+Nonlinear\+Solver}} (NRConfig \&\&config, F \&\&f)
+\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a02051}{Newton\+Raphson}} solver instance. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F , typename LS  = utils\+::\+Solver\+Default, typename UF  = utils\+::\+Update\+Default, typename IDBCF  = utils\+::\+IDBCForce\+Default$>$ }\\auto \mbox{\hyperlink{a00495_a4e47d2f973eca42ebf978ff03a5d885e}{Ikarus\+::make\+Newton\+Raphson}} (const F \&f, LS \&\&linear\+Solver=\{\}, UF \&\&update\+Function=\{\}, IDBCF \&\&idbc\+Force\+Function=\{\})
+\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a02051}{Newton\+Raphson}} solver instance. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F , typename LS  = utils\+::\+Solver\+Default, typename UF  = utils\+::\+Update\+Default, typename IDBCF  = utils\+::\+IDBCForce\+Default$>$ }\\\mbox{\hyperlink{a00495_aed1fac3912aaa9c17e87ec329c5f8301}{Ikarus\+::\+Newton\+Raphson}} (const F \&f, LS \&\&linear\+Solver=\{\}, UF \&\&update\+Function=\{\}, IDBCF \&\&idbc\+Force\+Function=\{\}) -\/$>$ Newton\+Raphson$<$ F, std\+::remove\+\_\+cvref\+\_\+t$<$ LS $>$, std\+::remove\+\_\+cvref\+\_\+t$<$ UF $>$, std\+::remove\+\_\+cvref\+\_\+t$<$ IDBCF $>$ $>$
+\end{DoxyCompactItemize}

@@ -1,11 +1,6 @@
 var a00182 =
 [
-    [ "DataTag", "a00182.html#af59748ac04116ae85cd64ea8675d273b", [
-      [ "BEGIN", "a00182.html#af59748ac04116ae85cd64ea8675d273ba19aad9f2fe3ce0023298ab83f7e75775", null ],
-      [ "asCellData", "a00182.html#af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546", null ],
-      [ "asPointData", "a00182.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b", null ],
-      [ "asCellAndPointData", "a00182.html#af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926", null ],
-      [ "END", "a00182.html#af59748ac04116ae85cd64ea8675d273bab1a326c06d88bf042f73d70f50197905", null ]
-    ] ],
-    [ "toString", "a00182.html#af96368dfca1767b52605f507c5fea4d5", null ]
+    [ "Ikarus::Concepts::HasValidIDBCForceFunction", "a02364.html", null ],
+    [ "createSPDLinearSolverFromNonLinearSolver", "a00182.html#a2c5057b73232617e81f5e44318e3ffa7", null ],
+    [ "idbcIncrement", "a00182.html#a9b0b6a51cf987a1cbade10295c9085cb", null ]
 ];

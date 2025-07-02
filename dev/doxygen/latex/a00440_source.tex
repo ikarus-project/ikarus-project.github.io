@@ -1,322 +1,138 @@
-\hypertarget{a00440_source}{}\doxysection{assemblermanipulatorfuser.\+hh}
-\label{a00440_source}\index{assemblermanipulatorfuser.hh@{assemblermanipulatorfuser.hh}}
+\hypertarget{a00440_source}{}\doxysection{autodiffmat.\+hh}
+\label{a00440_source}\index{autodiffmat.hh@{autodiffmat.hh}}
 \mbox{\hyperlink{a00440}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00434}{ikarus/assembler/assemblermanipulatorbuildingblocks.hh}}>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00495}{Ikarus}} \{}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{15   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}, \textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{typename} AInterface,}
-\DoxyCodeLine{16             \textcolor{keyword}{template} <\textcolor{keyword}{typename} Wrapper, \textcolor{keyword}{typename} Assembler> \textcolor{keyword}{typename} AImplementation>}
-\DoxyCodeLine{17   \textcolor{keyword}{struct }AssemblerInterfaceHelper}
-\DoxyCodeLine{18   \{}
-\DoxyCodeLine{19     \textcolor{keyword}{template} <\textcolor{keyword}{typename} WA, \textcolor{keyword}{typename} A, \textcolor{keyword}{typename} ReturnValueType>}
-\DoxyCodeLine{20     \textcolor{keyword}{using }Interface = AInterface<WA, typename A::FEContainer, typename A::DirichletValuesType, ReturnValueType>;}
-\DoxyCodeLine{21     \textcolor{keyword}{template} <\textcolor{keyword}{typename} WA, \textcolor{keyword}{typename} A>}
-\DoxyCodeLine{22     \textcolor{keyword}{using }Implementation = AImplementation<WA, A>;}
-\DoxyCodeLine{23   \};}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{35 \textcolor{comment}{}\textcolor{keyword}{template} <Concepts::FlatAssembler A, \textcolor{keyword}{typename}... Ass>}
-\DoxyCodeLine{36 \textcolor{keyword}{class }\mbox{\hyperlink{a01367}{AssemblerManipulator}};}
-\DoxyCodeLine{37 }
-\DoxyCodeLine{38 \textcolor{preprocessor}{\#define BASECLASSMEMBERFUNCTION(func, A)         \(\backslash\)}}
-\DoxyCodeLine{39 \textcolor{preprocessor}{  template <typename... Args>                    \(\backslash\)}}
-\DoxyCodeLine{40 \textcolor{preprocessor}{  decltype(auto) base\_\#\#func(Args... args) \{     \(\backslash\)}}
-\DoxyCodeLine{41 \textcolor{preprocessor}{    return A::func(std::forward<Args>(args)...); \(\backslash\)}}
-\DoxyCodeLine{42 \textcolor{preprocessor}{  \}}}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{52 \textcolor{keyword}{template} <Concepts::FlatAssembler A, \textcolor{keyword}{typename} ScalarAss>}
-\DoxyCodeLine{53 \textcolor{keyword}{class }\mbox{\hyperlink{a01367}{AssemblerManipulator}}<A, ScalarAss>}
-\DoxyCodeLine{54     : \textcolor{keyword}{public} ScalarAss::template Interface<AssemblerManipulator<A, ScalarAss>, A, typename A::ScalarType>,}
-\DoxyCodeLine{55       \textcolor{keyword}{public} ScalarAss::template Implementation<AssemblerManipulator<A, ScalarAss>, A>,}
-\DoxyCodeLine{56       \textcolor{keyword}{private} A}
-\DoxyCodeLine{57 \{}
-\DoxyCodeLine{58 \textcolor{keyword}{public}:}
-\DoxyCodeLine{59   \textcolor{keyword}{using }\mbox{\hyperlink{a01371_aeaad22dd904f173dd227a85ccb7f63a4}{WrappedAssembler}} = A;}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{62   \textcolor{keyword}{using }\mbox{\hyperlink{a01371_ae4ed17fb7f07d2e51a7d9c358452e551}{ScalarAssemblerImpl}}      = ScalarAss::template Implementation<AssemblerManipulator, WrappedAssembler>;}
-\DoxyCodeLine{63   \textcolor{keyword}{using }\mbox{\hyperlink{a01371_a260e635e4fac77e9f19ea8a460e19a64}{ScalarAssemblerInterface}} = ScalarAss::template Interface<AssemblerManipulator, A, typename A::ScalarType>;}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65   \textcolor{keyword}{friend} \mbox{\hyperlink{a01371_ab64a9c8c9de782ad8eb2a7474af6a6b8}{ScalarAssemblerImpl}};}
-\DoxyCodeLine{66   \textcolor{keyword}{friend} \mbox{\hyperlink{a01371_adbb012d9d185dc929dafa6e7b20b3c57}{ScalarAssemblerInterface}};}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68 \textcolor{keyword}{public}:}
-\DoxyCodeLine{69   \textcolor{comment}{// typdefs from FlatAssemblerBase}}
-\DoxyCodeLine{70   \textcolor{keyword}{using }typename WrappedAssembler::AffordanceCollectionType;}
-\DoxyCodeLine{71   \textcolor{keyword}{using }typename WrappedAssembler::Basis;}
-\DoxyCodeLine{72   \textcolor{keyword}{using }typename WrappedAssembler::DirichletValuesType;}
-\DoxyCodeLine{73   \textcolor{keyword}{using }typename WrappedAssembler::FEContainer;}
-\DoxyCodeLine{74   \textcolor{keyword}{using }typename WrappedAssembler::FERequirement;}
-\DoxyCodeLine{75   \textcolor{keyword}{using }typename WrappedAssembler::ScalarType;}
-\DoxyCodeLine{76   \textcolor{keyword}{using }typename WrappedAssembler::SizeType;}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78   \textcolor{comment}{// functions from FlatAssemblerBase}}
-\DoxyCodeLine{79   \textcolor{keyword}{using }WrappedAssembler::bind;}
-\DoxyCodeLine{80   \textcolor{keyword}{using }WrappedAssembler::bound;}
-\DoxyCodeLine{81   \textcolor{keyword}{using }WrappedAssembler::boundToAffordanceCollection;}
-\DoxyCodeLine{82   \textcolor{keyword}{using }WrappedAssembler::boundToDBCOption;}
-\DoxyCodeLine{83   \textcolor{keyword}{using }WrappedAssembler::boundToRequirement;}
-\DoxyCodeLine{84   \textcolor{keyword}{using }WrappedAssembler::createFullVector;}
-\DoxyCodeLine{85   \textcolor{keyword}{using }WrappedAssembler::createReducedVector;}
-\DoxyCodeLine{86   \textcolor{keyword}{using }\mbox{\hyperlink{a00529_a453691a9a22118c4736e30240481a281}{WrappedAssembler::dirichletValues}};}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88   \textcolor{keyword}{using }WrappedAssembler::affordanceCollection;}
-\DoxyCodeLine{89   \textcolor{keyword}{using }WrappedAssembler::constraintsBelow;}
-\DoxyCodeLine{90   \textcolor{keyword}{using }WrappedAssembler::dBCOption;}
-\DoxyCodeLine{91   \textcolor{keyword}{using }WrappedAssembler::estimateOfConnectivity;}
-\DoxyCodeLine{92   \textcolor{keyword}{using }WrappedAssembler::finiteElements;}
-\DoxyCodeLine{93   \textcolor{keyword}{using }WrappedAssembler::gridView;}
-\DoxyCodeLine{94   \textcolor{keyword}{using }WrappedAssembler::isConstrained;}
-\DoxyCodeLine{95   \textcolor{keyword}{using }WrappedAssembler::reducedSize;}
-\DoxyCodeLine{96   \textcolor{keyword}{using }WrappedAssembler::requirement;}
-\DoxyCodeLine{97   \textcolor{keyword}{using }WrappedAssembler::size;}
-\DoxyCodeLine{98 }
-\DoxyCodeLine{99   \textcolor{comment}{// functions from implementations}}
-\DoxyCodeLine{100   \textcolor{keyword}{using }ScalarAssemblerImpl::bind;}
-\DoxyCodeLine{101 }
-\DoxyCodeLine{102 \textcolor{keyword}{private}:}
-\DoxyCodeLine{103   \textcolor{keyword}{using }ScalarAssemblerImpl::getScalarImpl;}
-\DoxyCodeLine{104 }
-\DoxyCodeLine{105 \textcolor{keyword}{public}:}
-\DoxyCodeLine{106   \textcolor{comment}{// functions from interfaces of the new manipulator assembler}}
-\DoxyCodeLine{107   \textcolor{keyword}{using }ScalarAssemblerInterface::scalar;}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <autodiff/forward/dual.hpp>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <autodiff/forward/dual/dual.hpp>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <autodiff/forward/dual/eigen.hpp>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <autodiff/forward/utils/derivative.hpp>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03459}{ikarus/finiteelements/mechanics/materials/interface.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00344}{ikarus/finiteelements/mechanics/materials/materialhelpers.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00029}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00499}{Ikarus::Experimental}} \{}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{33 \textcolor{keyword}{template} <\textcolor{keyword}{typename} RealMAT, \textcolor{keywordtype}{bool} forceAutoDiffV = false, \textcolor{keywordtype}{bool} forceAutoDiffS = false>}
+\DoxyCodeLine{34 \textcolor{keyword}{struct }\mbox{\hyperlink{a01483}{AutoDiffMAT}} : \textcolor{keyword}{public} RealMAT}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36   \textcolor{keyword}{using }\mbox{\hyperlink{a01483_ab6fcce305186ba816ca0af2f641b7dc3}{ScalarType}}     = \textcolor{keyword}{typename} RealMAT::ScalarType;}
+\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{a01483_a00f904cac37ab84fc456159865a6513e}{StrainMatrix}}   = \textcolor{keyword}{typename} RealMAT::StrainMatrix;}
+\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{a01483_a3861221b2b1fcc0f40d8d063f5193be7}{StressMatrix}}   = \textcolor{keyword}{typename} RealMAT::StressMatrix;}
+\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{a01483_a40f5bf44cc55fedf7c97014011ea13b0}{MaterialTensor}} = \textcolor{keyword}{typename} RealMAT::MaterialTensor;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01483_a926857f779e6f02ba22e37ec3d4310a0}{MaterialParameters}} = \textcolor{keyword}{typename} RealMAT::MaterialParameters;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01483_a4f4176c5b13b653fd6d84e1dee5d9eaa}{dim}}           = RealMAT::dim;}
+\DoxyCodeLine{44   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01483_a810b5bd64df43f542e0f9a5b9cce5a12}{nVoigtIndices}} = \mbox{\hyperlink{a01483_a4f4176c5b13b653fd6d84e1dee5d9eaa}{dim}} * (\mbox{\hyperlink{a01483_a4f4176c5b13b653fd6d84e1dee5d9eaa}{dim}} + 1) / 2;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01483_a105d06949f7512446a83c4b9ba4fd64c}{strainTag}}              = RealMAT::strainTag;}
+\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01483_a77c8c9c1f9d4fa390a4a23c96358c1e8}{stressTag}}              = RealMAT::stressTag;}
+\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01483_aaf637a332a467408d19abc818f3da0dc}{tangentModuliTag}}       = RealMAT::tangentModuliTag;}
+\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01483_a66ac92cb8493e30a97101aee0636ad03}{energyAcceptsVoigt}}     = RealMAT::energyAcceptsVoigt;}
+\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01483_a96af9efb70873fd7691173e4e882ba76}{stressToVoigt}}          = RealMAT::stressToVoigt;}
+\DoxyCodeLine{51   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01483_ae1a917d6d6480813893beaa5125b8f6e}{stressAcceptsVoigt}}     = RealMAT::stressAcceptsVoigt;}
+\DoxyCodeLine{52   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01483_a00077996812cf9cc4e0d142b4a77e268}{moduliToVoigt}}          = RealMAT::moduliToVoigt;}
+\DoxyCodeLine{53   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01483_a7eaa006b1e668b10dddf90211419b48f}{moduliAcceptsVoigt}}     = RealMAT::moduliAcceptsVoigt;}
+\DoxyCodeLine{54   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} \mbox{\hyperlink{a01483_a1da0f005f8a1597fa880288cd61a5c3a}{derivativeFactorImpl}} = RealMAT::derivativeFactorImpl;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
+\DoxyCodeLine{64   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01483_ac17660b052b5c6b22e0c28ee46cc2865}{AutoDiffMAT}}(Args\&\&... args)}
+\DoxyCodeLine{65       : RealMAT\{std::forward<Args>(args)...\} \{\}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01483_a3d39ad61dd952d287ba1ef00d9fc6c28}{nameImpl}}() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}AutoDiff: "{}} + RealMAT::name(); \}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{72   \mbox{\hyperlink{a01483_a926857f779e6f02ba22e37ec3d4310a0}{MaterialParameters}} \mbox{\hyperlink{a01483_a2e8eefa09ee71009214007008991c7b7}{materialParametersImpl}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().materialParametersImpl(); \}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{80   \textcolor{keyword}{template} <StrainTags tag, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{81   \textcolor{keyword}{auto} \mbox{\hyperlink{a01483_a54d99b342a6c12ddd2ee3b748ca3d99f}{storedEnergy}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{82     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template storedEnergy<tag>(E); \}) \{}
+\DoxyCodeLine{83       \textcolor{keyword}{auto} mat\_ad = \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template rebind<autodiff::dual>();}
+\DoxyCodeLine{84       \textcolor{keywordflow}{return} mat\_ad.template storedEnergy<tag>(E);}
+\DoxyCodeLine{85     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{86       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<AutoDiffMAT>::value,}
+\DoxyCodeLine{87                     \textcolor{stringliteral}{"{}Appropriate storedEnergy function not is implemented for the chosen material model."{}});}
+\DoxyCodeLine{88     \}}
+\DoxyCodeLine{89   \}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{98   \textcolor{keyword}{template} <StrainTags tag, \textcolor{keywordtype}{bool} voigt = true, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{99   \textcolor{keyword}{auto} \mbox{\hyperlink{a01483_aa58ea268a050d8f2735e5098a0d519df}{stresses}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{100     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template stresses<tag>(E); \} and not(forceAutoDiffV or forceAutoDiffS)) \{}
+\DoxyCodeLine{101       \textcolor{keywordflow}{return} \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template stresses<tag>(E);}
+\DoxyCodeLine{102     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template storedEnergy<tag>(E); \}) \{}
+\DoxyCodeLine{103       \textcolor{keyword}{static\_assert}(!\mbox{\hyperlink{a02395}{Concepts::EigenVector<Derived>}},}
+\DoxyCodeLine{104                     \textcolor{stringliteral}{"{}The strain measure used for autodiff has to be in matrix notation."{}});}
+\DoxyCodeLine{105       \textcolor{keyword}{auto} mat\_ad = \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template rebind<autodiff::dual>();}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107       \textcolor{keyword}{auto} f = [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& x) \{ \textcolor{keywordflow}{return} mat\_ad.template storedEnergy<tag>(x); \};}
 \DoxyCodeLine{108 }
-\DoxyCodeLine{109   \textcolor{keyword}{using }\mbox{\hyperlink{a01371_a8b10e4fc60d5a41a51056800153a3288}{CallBackTypes}} =}
-\DoxyCodeLine{110       std::tuple<typename ScalarAss::template Implementation<AssemblerManipulator<A, ScalarAss>, A>::FunctionType>;}
-\DoxyCodeLine{111 }
-\DoxyCodeLine{118   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{119   \textcolor{keyword}{requires}(not std::is\_same\_v<std::remove\_cvref\_t<std::tuple\_element\_t<0, std::tuple<Args...>>>, \mbox{\hyperlink{a01367}{AssemblerManipulator}}>)}
-\DoxyCodeLine{120   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01371_a502e5187d87b7a8062903ca3608042ec}{AssemblerManipulator}}(Args\&\&... args)}
-\DoxyCodeLine{121       : \mbox{\hyperlink{a01371_aeaad22dd904f173dd227a85ccb7f63a4}{WrappedAssembler}}(std::forward<Args>(args)...) \{\}}
-\DoxyCodeLine{122 }
-\DoxyCodeLine{123 \textcolor{keyword}{private}:}
-\DoxyCodeLine{124   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getScalarImpl, A)}
-\DoxyCodeLine{125 }
-\DoxyCodeLine{126   A\& base() \{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
-\DoxyCodeLine{127   \textcolor{keyword}{const} A\& base()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
-\DoxyCodeLine{128 \};}
-\DoxyCodeLine{129 }
-\DoxyCodeLine{139 \textcolor{keyword}{template} <Concepts::FlatAssembler A, \textcolor{keyword}{typename} ScalarAss, \textcolor{keyword}{typename} VectorAss>}
-\DoxyCodeLine{140 \textcolor{keyword}{class }\mbox{\hyperlink{a01367}{AssemblerManipulator}}<A, ScalarAss, VectorAss>}
-\DoxyCodeLine{141     : \textcolor{keyword}{public} ScalarAss::template Interface<AssemblerManipulator<A, ScalarAss, VectorAss>, A, typename A::ScalarType>,}
-\DoxyCodeLine{142       \textcolor{keyword}{public} ScalarAss::template Implementation<AssemblerManipulator<A, ScalarAss, VectorAss>, A>,}
-\DoxyCodeLine{143       \textcolor{keyword}{public} VectorAss::template Interface<AssemblerManipulator<A, ScalarAss, VectorAss>, A, typename A::VectorType>,}
-\DoxyCodeLine{144       \textcolor{keyword}{public} VectorAss::template Implementation<AssemblerManipulator<A, ScalarAss, VectorAss>, A>,}
-\DoxyCodeLine{145       \textcolor{keyword}{private} A}
-\DoxyCodeLine{146 \{}
-\DoxyCodeLine{147 \textcolor{keyword}{public}:}
-\DoxyCodeLine{148   \textcolor{keyword}{using }\mbox{\hyperlink{a01375_a23910dd23aec1d66ae2163ae5c3feff2}{WrappedAssembler}} = A;}
-\DoxyCodeLine{149 }
-\DoxyCodeLine{150 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{151   \textcolor{keyword}{using }\mbox{\hyperlink{a01375_ad548d9c186819f0b92a304cc2f055ea5}{ScalarAssemblerImpl}}      = ScalarAss::template Implementation<AssemblerManipulator, WrappedAssembler>;}
-\DoxyCodeLine{152   \textcolor{keyword}{using }\mbox{\hyperlink{a01375_a34f8528f5c053818af2178851cc31b81}{VectorAssemblerImpl}}      = VectorAss::template Implementation<AssemblerManipulator, WrappedAssembler>;}
-\DoxyCodeLine{153   \textcolor{keyword}{using }\mbox{\hyperlink{a01375_ad011335ef113c9289854486361e6590c}{ScalarAssemblerInterface}} = ScalarAss::template Interface<AssemblerManipulator, A, typename A::ScalarType>;}
-\DoxyCodeLine{154   \textcolor{keyword}{using }\mbox{\hyperlink{a01375_a1009f6d702cf0d1dcf20816174a6b52a}{VectorAssemblerInterface}} = VectorAss::template Interface<AssemblerManipulator, A, typename A::VectorType>;}
+\DoxyCodeLine{109       Eigen::Vector<autodiff::dual, nVoigtIndices> dx = \mbox{\hyperlink{a00491_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(E.derived());}
+\DoxyCodeLine{110       autodiff::dual e;}
+\DoxyCodeLine{111       Eigen::Vector<double, nVoigtIndices> g;}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113       gradient(f, autodiff::wrt(dx), autodiff::at(dx), e, g);}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115       \textcolor{keywordflow}{return} (\mbox{\hyperlink{a01483_a1da0f005f8a1597fa880288cd61a5c3a}{derivativeFactorImpl}} * g).eval();}
+\DoxyCodeLine{116     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{117       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<AutoDiffMAT>::value,}
+\DoxyCodeLine{118                     \textcolor{stringliteral}{"{}Appropriate storedEnergy function not is implemented for the chosen material model."{}});}
+\DoxyCodeLine{119     \}}
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{129   \textcolor{keyword}{template} <StrainTags tag, \textcolor{keywordtype}{bool} voigt = true, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{130   \textcolor{keyword}{auto} \mbox{\hyperlink{a01483_abd22c052743105a646c9cb16d531c57a}{tangentModuli}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{131     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template tangentModuli<tag>(E); \} and not(forceAutoDiffV or forceAutoDiffS)) \{}
+\DoxyCodeLine{132       \textcolor{keywordflow}{return} \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template tangentModuli<tag>(E);}
+\DoxyCodeLine{133     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template stresses<tag>(E); \} and forceAutoDiffV and not forceAutoDiffS) \{}
+\DoxyCodeLine{134       \textcolor{keyword}{static\_assert}(!\mbox{\hyperlink{a02395}{Concepts::EigenVector<Derived>}},}
+\DoxyCodeLine{135                     \textcolor{stringliteral}{"{}The strain measure used for autodiff has to be in matrix notation."{}});}
+\DoxyCodeLine{136       \textcolor{keyword}{auto} mat\_ad = \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template rebind<autodiff::dual>();}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138       \textcolor{keyword}{auto} f = [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& x) \{ \textcolor{keywordflow}{return} mat\_ad.template stresses<tag>(x); \};}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140       \textcolor{keyword}{auto} dx = Eigen::Vector<autodiff::dual, nVoigtIndices>\{\};}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142       dx = \mbox{\hyperlink{a00491_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(E.derived());}
+\DoxyCodeLine{143       Eigen::VectorXdual g(\mbox{\hyperlink{a01483_a810b5bd64df43f542e0f9a5b9cce5a12}{nVoigtIndices}});}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145       \textcolor{keyword}{auto} h = Eigen::Matrix<double, nVoigtIndices, nVoigtIndices>\{\};}
+\DoxyCodeLine{146       jacobian(f, autodiff::wrt(dx), autodiff::at(dx), g, h);}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148       \textcolor{keywordflow}{return} (\mbox{\hyperlink{a01483_a1da0f005f8a1597fa880288cd61a5c3a}{derivativeFactorImpl}} * h).eval();}
+\DoxyCodeLine{149     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template storedEnergy<tag>(E); \}) \{}
+\DoxyCodeLine{150       \textcolor{keyword}{static\_assert}(!\mbox{\hyperlink{a02395}{Concepts::EigenVector<Derived>}},}
+\DoxyCodeLine{151                     \textcolor{stringliteral}{"{}The strain measure used for autodiff has to be in matrix notation."{}});}
+\DoxyCodeLine{152       \textcolor{keyword}{auto} mat\_ad = \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}().template rebind<autodiff::dual2nd>();}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{154       \textcolor{keyword}{auto} f = [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& x) \{ \textcolor{keywordflow}{return} mat\_ad.template storedEnergy<tag>(x); \};}
 \DoxyCodeLine{155 }
-\DoxyCodeLine{156   \textcolor{keyword}{friend} \mbox{\hyperlink{a01375_a073d6709deb7c8af88e80d78a9d9d52e}{ScalarAssemblerImpl}};}
-\DoxyCodeLine{157   \textcolor{keyword}{friend} \mbox{\hyperlink{a01375_a9a0d3c2f6a5fbb66d3ec88793685bcd4}{VectorAssemblerImpl}};}
-\DoxyCodeLine{158   \textcolor{keyword}{friend} \mbox{\hyperlink{a01375_a0110ff846e287a2e9bec794c35d94bc2}{ScalarAssemblerInterface}};}
-\DoxyCodeLine{159   \textcolor{keyword}{friend} \mbox{\hyperlink{a01375_add1c52fad1611dd03df81b50797a3540}{VectorAssemblerInterface}};}
-\DoxyCodeLine{160 }
-\DoxyCodeLine{161 \textcolor{keyword}{public}:}
-\DoxyCodeLine{162   \textcolor{comment}{// typdefs from FlatAssemblerBase}}
-\DoxyCodeLine{163   \textcolor{keyword}{using }typename WrappedAssembler::AffordanceCollectionType;}
-\DoxyCodeLine{164   \textcolor{keyword}{using }typename WrappedAssembler::Basis;}
-\DoxyCodeLine{165   \textcolor{keyword}{using }typename WrappedAssembler::DirichletValuesType;}
-\DoxyCodeLine{166   \textcolor{keyword}{using }typename WrappedAssembler::FEContainer;}
-\DoxyCodeLine{167   \textcolor{keyword}{using }typename WrappedAssembler::FERequirement;}
-\DoxyCodeLine{168   \textcolor{keyword}{using }typename WrappedAssembler::ScalarType;}
-\DoxyCodeLine{169   \textcolor{keyword}{using }typename WrappedAssembler::SizeType;}
-\DoxyCodeLine{170   \textcolor{keyword}{using }typename WrappedAssembler::VectorType;}
+\DoxyCodeLine{156       Eigen::Matrix<autodiff::dual2nd, nVoigtIndices, 1> dx = \mbox{\hyperlink{a00491_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(E.derived());}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158       autodiff::dual2nd e;}
+\DoxyCodeLine{159       Eigen::Matrix<double, nVoigtIndices, 1> g;}
+\DoxyCodeLine{160       Eigen::Matrix<double, nVoigtIndices, nVoigtIndices> h;}
+\DoxyCodeLine{161 }
+\DoxyCodeLine{162       h = autodiff::hessian(f, autodiff::wrt(dx), autodiff::at(dx), e, g);}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164       \textcolor{keywordflow}{return} (\mbox{\hyperlink{a01483_a1da0f005f8a1597fa880288cd61a5c3a}{derivativeFactorImpl}} * \mbox{\hyperlink{a01483_a1da0f005f8a1597fa880288cd61a5c3a}{derivativeFactorImpl}} * h).eval();}
+\DoxyCodeLine{165     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{166       \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{167           Dune::AlwaysFalse<AutoDiffMAT>::value,}
+\DoxyCodeLine{168           \textcolor{stringliteral}{"{}Appropriate storedEnergy and stresses functions are not implemented for the chosen material model."{}});}
+\DoxyCodeLine{169     \}}
+\DoxyCodeLine{170   \}}
 \DoxyCodeLine{171 }
-\DoxyCodeLine{172   \textcolor{comment}{// functions from FlatAssemblerBase}}
-\DoxyCodeLine{173   \textcolor{keyword}{using }WrappedAssembler::bind;}
-\DoxyCodeLine{174   \textcolor{keyword}{using }WrappedAssembler::bound;}
-\DoxyCodeLine{175   \textcolor{keyword}{using }WrappedAssembler::boundToAffordanceCollection;}
-\DoxyCodeLine{176   \textcolor{keyword}{using }WrappedAssembler::boundToDBCOption;}
-\DoxyCodeLine{177   \textcolor{keyword}{using }WrappedAssembler::boundToRequirement;}
-\DoxyCodeLine{178   \textcolor{keyword}{using }WrappedAssembler::createFullVector;}
-\DoxyCodeLine{179   \textcolor{keyword}{using }WrappedAssembler::createReducedVector;}
-\DoxyCodeLine{180   \textcolor{keyword}{using }\mbox{\hyperlink{a00529_a453691a9a22118c4736e30240481a281}{WrappedAssembler::dirichletValues}};}
-\DoxyCodeLine{181 }
-\DoxyCodeLine{182   \textcolor{keyword}{using }WrappedAssembler::affordanceCollection;}
-\DoxyCodeLine{183   \textcolor{keyword}{using }WrappedAssembler::constraintsBelow;}
-\DoxyCodeLine{184   \textcolor{keyword}{using }WrappedAssembler::dBCOption;}
-\DoxyCodeLine{185   \textcolor{keyword}{using }WrappedAssembler::estimateOfConnectivity;}
-\DoxyCodeLine{186   \textcolor{keyword}{using }WrappedAssembler::finiteElements;}
-\DoxyCodeLine{187   \textcolor{keyword}{using }WrappedAssembler::gridView;}
-\DoxyCodeLine{188   \textcolor{keyword}{using }WrappedAssembler::isConstrained;}
-\DoxyCodeLine{189   \textcolor{keyword}{using }WrappedAssembler::reducedSize;}
-\DoxyCodeLine{190   \textcolor{keyword}{using }WrappedAssembler::requirement;}
-\DoxyCodeLine{191   \textcolor{keyword}{using }WrappedAssembler::size;}
-\DoxyCodeLine{192 }
-\DoxyCodeLine{193   \textcolor{comment}{// functions from implementations}}
-\DoxyCodeLine{194   \textcolor{keyword}{using }ScalarAssemblerImpl::bind;}
-\DoxyCodeLine{195   \textcolor{keyword}{using }VectorAssemblerImpl::bind;}
-\DoxyCodeLine{196 }
-\DoxyCodeLine{197 \textcolor{keyword}{private}:}
-\DoxyCodeLine{198   \textcolor{keyword}{using }ScalarAssemblerImpl::getScalarImpl;}
-\DoxyCodeLine{199   \textcolor{keyword}{using }VectorAssemblerImpl::getRawVectorImpl;}
-\DoxyCodeLine{200   \textcolor{keyword}{using }VectorAssemblerImpl::getReducedVectorImpl;}
-\DoxyCodeLine{201   \textcolor{keyword}{using }VectorAssemblerImpl::getVectorImpl;}
-\DoxyCodeLine{202 }
-\DoxyCodeLine{203 \textcolor{keyword}{public}:}
-\DoxyCodeLine{204   \textcolor{comment}{// functions from interfaces of the new manipulator assembler}}
-\DoxyCodeLine{205   \textcolor{keyword}{using }ScalarAssemblerInterface::scalar;}
-\DoxyCodeLine{206   \textcolor{keyword}{using }VectorAssemblerInterface::vector;}
-\DoxyCodeLine{207 }
-\DoxyCodeLine{208   \textcolor{keyword}{using }\mbox{\hyperlink{a01375_a548596506a305bb51457e888633857ef}{CallBackTypes}} =}
-\DoxyCodeLine{209       std::tuple<typename ScalarAssemblerImpl::FunctionType, typename VectorAssemblerImpl::FunctionType>;}
-\DoxyCodeLine{210 }
-\DoxyCodeLine{217   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{218   \textcolor{keyword}{requires}(not std::is\_same\_v<std::remove\_cvref\_t<std::tuple\_element\_t<0, std::tuple<Args...>>>, \mbox{\hyperlink{a01367}{AssemblerManipulator}}>)}
-\DoxyCodeLine{219   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01375_aa7a37ed96edb529292f6d5c76f771d92}{AssemblerManipulator}}(Args\&\&... args)}
-\DoxyCodeLine{220       : \mbox{\hyperlink{a01375_a23910dd23aec1d66ae2163ae5c3feff2}{WrappedAssembler}}(std::forward<Args>(args)...) \{\}}
-\DoxyCodeLine{221 }
-\DoxyCodeLine{222 \textcolor{keyword}{private}:}
-\DoxyCodeLine{223   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getScalarImpl, WrappedAssembler)}
-\DoxyCodeLine{224   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getRawVectorImpl, WrappedAssembler)}
-\DoxyCodeLine{225   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getReducedVectorImpl, WrappedAssembler)}
-\DoxyCodeLine{226   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getVectorImpl, WrappedAssembler)}
-\DoxyCodeLine{227 }
-\DoxyCodeLine{228   WrappedAssembler\& base() \{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
-\DoxyCodeLine{229   \textcolor{keyword}{const} WrappedAssembler\& base()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
-\DoxyCodeLine{230 \};}
-\DoxyCodeLine{231 }
-\DoxyCodeLine{242 \textcolor{keyword}{template} <Concepts::FlatAssembler A, \textcolor{keyword}{typename} ScalarAss, \textcolor{keyword}{typename} VectorAss, \textcolor{keyword}{typename} MatrixAss>}
-\DoxyCodeLine{243 \textcolor{keyword}{class }\mbox{\hyperlink{a01367}{AssemblerManipulator}}<A, ScalarAss, VectorAss, MatrixAss>}
-\DoxyCodeLine{244     : \textcolor{keyword}{public} ScalarAss::template Interface<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A,}
-\DoxyCodeLine{245                                            typename A::ScalarType>,}
-\DoxyCodeLine{246       \textcolor{keyword}{public} ScalarAss::template Implementation<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A>,}
-\DoxyCodeLine{247       \textcolor{keyword}{public} VectorAss::template Interface<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A,}
-\DoxyCodeLine{248                                            typename A::VectorType>,}
-\DoxyCodeLine{249       \textcolor{keyword}{public} VectorAss::template Implementation<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A>,}
-\DoxyCodeLine{250       \textcolor{keyword}{public} MatrixAss::template Interface<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A,}
-\DoxyCodeLine{251                                            typename A::MatrixType>,}
-\DoxyCodeLine{252       \textcolor{keyword}{public} MatrixAss::template Implementation<AssemblerManipulator<A, ScalarAss, VectorAss, MatrixAss>, A>,}
-\DoxyCodeLine{253       \textcolor{keyword}{private} A}
-\DoxyCodeLine{254 \{}
-\DoxyCodeLine{255 \textcolor{keyword}{public}:}
-\DoxyCodeLine{256   \textcolor{keyword}{using }\mbox{\hyperlink{a01379_a62123a4b3e6532f92f9126bbb6ce90a7}{WrappedAssembler}} = A;}
-\DoxyCodeLine{257 }
-\DoxyCodeLine{258 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{259   \textcolor{keyword}{using }\mbox{\hyperlink{a01379_ae6e112a7cb6a5167ba97b53bb5c7d238}{ScalarAssemblerImpl}}      = ScalarAss::template Implementation<AssemblerManipulator, A>;}
-\DoxyCodeLine{260   \textcolor{keyword}{using }\mbox{\hyperlink{a01379_ae958fb1ffccb3bd993d73cdf2b404705}{VectorAssemblerImpl}}      = VectorAss::template Implementation<AssemblerManipulator, A>;}
-\DoxyCodeLine{261   \textcolor{keyword}{using }\mbox{\hyperlink{a01379_a4d15f9b228606ffd26ae5b511cd95ff3}{MatrixAssemblerImpl}}      = MatrixAss::template Implementation<AssemblerManipulator, A>;}
-\DoxyCodeLine{262   \textcolor{keyword}{using }\mbox{\hyperlink{a01379_a111dfa9dc910a06976a89677d7275575}{ScalarAssemblerInterface}} = ScalarAss::template Interface<AssemblerManipulator, A, typename A::ScalarType>;}
-\DoxyCodeLine{263   \textcolor{keyword}{using }\mbox{\hyperlink{a01379_a6cf604621f5a5391f9e79967b8977eb5}{VectorAssemblerInterface}} = VectorAss::template Interface<AssemblerManipulator, A, typename A::VectorType>;}
-\DoxyCodeLine{264   \textcolor{keyword}{using }\mbox{\hyperlink{a01379_a6a7c3a2c35ff4ef52ce0d3b4e304ed54}{MatrixAssemblerInterface}} = MatrixAss::template Interface<AssemblerManipulator, A, typename A::MatrixType>;}
-\DoxyCodeLine{265 }
-\DoxyCodeLine{266   \textcolor{keyword}{friend} \mbox{\hyperlink{a01379_a71d8c2e510825482ad8b865cdcc97865}{ScalarAssemblerImpl}};}
-\DoxyCodeLine{267   \textcolor{keyword}{friend} \mbox{\hyperlink{a01379_a58429a8398105c51c4582c1b72d7bc8c}{VectorAssemblerImpl}};}
-\DoxyCodeLine{268   \textcolor{keyword}{friend} \mbox{\hyperlink{a01379_a8218e9d8992798ad9d6377ee9c171f04}{MatrixAssemblerImpl}};}
-\DoxyCodeLine{269   \textcolor{keyword}{friend} \mbox{\hyperlink{a01379_a81430cd85aea660bdbbf36e6ec5a5499}{MatrixAssemblerInterface}};}
-\DoxyCodeLine{270   \textcolor{keyword}{friend} \mbox{\hyperlink{a01379_af20b695138ce2baa088d243c56b8a5fe}{ScalarAssemblerInterface}};}
-\DoxyCodeLine{271   \textcolor{keyword}{friend} \mbox{\hyperlink{a01379_a7122782f660bef5b917c0c566e791759}{VectorAssemblerInterface}};}
-\DoxyCodeLine{272 }
-\DoxyCodeLine{273 \textcolor{keyword}{public}:}
-\DoxyCodeLine{274   \textcolor{comment}{// typdefs from FlatAssemblerBase}}
-\DoxyCodeLine{275   \textcolor{keyword}{using }typename WrappedAssembler::AffordanceCollectionType;}
-\DoxyCodeLine{276   \textcolor{keyword}{using }typename WrappedAssembler::Basis;}
-\DoxyCodeLine{277   \textcolor{keyword}{using }typename WrappedAssembler::DirichletValuesType;}
-\DoxyCodeLine{278   \textcolor{keyword}{using }typename WrappedAssembler::FEContainer;}
-\DoxyCodeLine{279   \textcolor{keyword}{using }typename WrappedAssembler::FERequirement;}
-\DoxyCodeLine{280   \textcolor{keyword}{using }typename WrappedAssembler::MatrixType;}
-\DoxyCodeLine{281   \textcolor{keyword}{using }typename WrappedAssembler::ScalarType;}
-\DoxyCodeLine{282   \textcolor{keyword}{using }typename WrappedAssembler::SizeType;}
-\DoxyCodeLine{283   \textcolor{keyword}{using }typename WrappedAssembler::VectorType;}
-\DoxyCodeLine{284 }
-\DoxyCodeLine{285   \textcolor{comment}{// functions from FlatAssemblerBase}}
-\DoxyCodeLine{286   \textcolor{keyword}{using }WrappedAssembler::bind;}
-\DoxyCodeLine{287   \textcolor{keyword}{using }WrappedAssembler::bound;}
-\DoxyCodeLine{288   \textcolor{keyword}{using }WrappedAssembler::boundToAffordanceCollection;}
-\DoxyCodeLine{289   \textcolor{keyword}{using }WrappedAssembler::boundToDBCOption;}
-\DoxyCodeLine{290   \textcolor{keyword}{using }WrappedAssembler::boundToRequirement;}
-\DoxyCodeLine{291   \textcolor{keyword}{using }WrappedAssembler::createFullVector;}
-\DoxyCodeLine{292   \textcolor{keyword}{using }WrappedAssembler::createReducedVector;}
-\DoxyCodeLine{293   \textcolor{keyword}{using }\mbox{\hyperlink{a00529_a453691a9a22118c4736e30240481a281}{WrappedAssembler::dirichletValues}};}
-\DoxyCodeLine{294 }
-\DoxyCodeLine{295   \textcolor{keyword}{using }WrappedAssembler::affordanceCollection;}
-\DoxyCodeLine{296   \textcolor{keyword}{using }WrappedAssembler::constraintsBelow;}
-\DoxyCodeLine{297   \textcolor{keyword}{using }WrappedAssembler::dBCOption;}
-\DoxyCodeLine{298   \textcolor{keyword}{using }WrappedAssembler::estimateOfConnectivity;}
-\DoxyCodeLine{299   \textcolor{keyword}{using }WrappedAssembler::finiteElements;}
-\DoxyCodeLine{300   \textcolor{keyword}{using }WrappedAssembler::gridView;}
-\DoxyCodeLine{301   \textcolor{keyword}{using }WrappedAssembler::isConstrained;}
-\DoxyCodeLine{302   \textcolor{keyword}{using }WrappedAssembler::reducedSize;}
-\DoxyCodeLine{303   \textcolor{keyword}{using }WrappedAssembler::requirement;}
-\DoxyCodeLine{304   \textcolor{keyword}{using }WrappedAssembler::size;}
-\DoxyCodeLine{305 }
-\DoxyCodeLine{306   \textcolor{comment}{// functions from implementations}}
-\DoxyCodeLine{307   \textcolor{keyword}{using }MatrixAssemblerImpl::bind;}
-\DoxyCodeLine{308   \textcolor{keyword}{using }ScalarAssemblerImpl::bind;}
-\DoxyCodeLine{309   \textcolor{keyword}{using }VectorAssemblerImpl::bind;}
-\DoxyCodeLine{310 }
-\DoxyCodeLine{311 \textcolor{keyword}{private}:}
-\DoxyCodeLine{312   \textcolor{keyword}{using }MatrixAssemblerImpl::getMatrixImpl;}
-\DoxyCodeLine{313   \textcolor{keyword}{using }MatrixAssemblerImpl::getRawMatrixImpl;}
-\DoxyCodeLine{314   \textcolor{keyword}{using }MatrixAssemblerImpl::getReducedMatrixImpl;}
-\DoxyCodeLine{315   \textcolor{keyword}{using }ScalarAssemblerImpl::getScalarImpl;}
-\DoxyCodeLine{316   \textcolor{keyword}{using }VectorAssemblerImpl::getRawVectorImpl;}
-\DoxyCodeLine{317   \textcolor{keyword}{using }VectorAssemblerImpl::getReducedVectorImpl;}
-\DoxyCodeLine{318   \textcolor{keyword}{using }VectorAssemblerImpl::getVectorImpl;}
-\DoxyCodeLine{319 }
-\DoxyCodeLine{320 \textcolor{keyword}{public}:}
-\DoxyCodeLine{321   \textcolor{comment}{// functions from interfaces of the new manipulator assembler}}
-\DoxyCodeLine{322   \textcolor{keyword}{using }MatrixAssemblerInterface::matrix;}
-\DoxyCodeLine{323   \textcolor{keyword}{using }ScalarAssemblerInterface::scalar;}
-\DoxyCodeLine{324   \textcolor{keyword}{using }VectorAssemblerInterface::vector;}
-\DoxyCodeLine{325 }
-\DoxyCodeLine{326   \textcolor{keyword}{using }\mbox{\hyperlink{a01379_a0a878d8bc56fdbfbfbebc2ceb1ded67f}{CallBackTypes}} =}
-\DoxyCodeLine{327       std::tuple<\textcolor{keyword}{typename} ScalarAssemblerImpl::FunctionType, \textcolor{keyword}{typename} VectorAssemblerImpl::FunctionType,}
-\DoxyCodeLine{328                  \textcolor{keyword}{typename} MatrixAssemblerImpl::FunctionType>;}
-\DoxyCodeLine{329 }
-\DoxyCodeLine{336   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{337   \textcolor{keyword}{requires}(not std::is\_same\_v<std::remove\_cvref\_t<std::tuple\_element\_t<0, std::tuple<Args...>>>, \mbox{\hyperlink{a01367}{AssemblerManipulator}}>)}
-\DoxyCodeLine{338   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01379_ab1188db460e760d50f1bddda973a4915}{AssemblerManipulator}}(Args\&\&... args)}
-\DoxyCodeLine{339       : \mbox{\hyperlink{a01379_a62123a4b3e6532f92f9126bbb6ce90a7}{WrappedAssembler}}(std::forward<Args>(args)...) \{\}}
-\DoxyCodeLine{340 }
-\DoxyCodeLine{341 \textcolor{keyword}{private}:}
-\DoxyCodeLine{342   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getScalarImpl, A)}
-\DoxyCodeLine{343   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getRawVectorImpl, A)}
-\DoxyCodeLine{344   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getReducedVectorImpl, A)}
-\DoxyCodeLine{345   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getVectorImpl, A)}
-\DoxyCodeLine{346   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getRawMatrixImpl, A)}
-\DoxyCodeLine{347 }
-\DoxyCodeLine{348   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getReducedMatrixImpl, A)}
-\DoxyCodeLine{349 }
-\DoxyCodeLine{350   \mbox{\hyperlink{a00440_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(getMatrixImpl, A)}
-\DoxyCodeLine{351 }
-\DoxyCodeLine{352   A\& base() \{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
-\DoxyCodeLine{353   \textcolor{keyword}{const} A\& base()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
-\DoxyCodeLine{354 \};}
-\DoxyCodeLine{355 }
-\DoxyCodeLine{366 \textcolor{keyword}{template} <\textcolor{keyword}{typename} A>}
-\DoxyCodeLine{367 \textcolor{keyword}{auto} \mbox{\hyperlink{a00495_afc83c2d114028f47280b981daf728ebe}{makeAssemblerManipulator}}(A\&\& a) \{}
-\DoxyCodeLine{368   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} scal = \mbox{\hyperlink{a02395}{Concepts::ScalarFlatAssembler<std::remove\_cvref\_t<A>}}>;}
-\DoxyCodeLine{369   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} vec  = \mbox{\hyperlink{a02396}{Concepts::VectorFlatAssembler<std::remove\_cvref\_t<A>}}>;}
-\DoxyCodeLine{370   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} mat  = \mbox{\hyperlink{a02397}{Concepts::MatrixFlatAssembler<std::remove\_cvref\_t<A>}}>;}
-\DoxyCodeLine{371   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (scal \&\& vec \&\& mat)}
-\DoxyCodeLine{372     \textcolor{keywordflow}{return} std::make\_shared<}
-\DoxyCodeLine{373         \mbox{\hyperlink{a01367}{AssemblerManipulator}}<std::remove\_cvref\_t<A>, Impl::AssemblerInterfaceHelper<ScalarAssembler, ScalarManipulator>,}
-\DoxyCodeLine{374                              Impl::AssemblerInterfaceHelper<VectorAssembler, VectorManipulator>,}
-\DoxyCodeLine{375                              Impl::AssemblerInterfaceHelper<MatrixAssembler, MatrixManipulator>>>(std::forward<A>(a));}
-\DoxyCodeLine{376   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (scal \&\& vec)}
-\DoxyCodeLine{377     \textcolor{keywordflow}{return} std::make\_shared<}
-\DoxyCodeLine{378         \mbox{\hyperlink{a01367}{AssemblerManipulator}}<std::remove\_cvref\_t<A>, Impl::AssemblerInterfaceHelper<ScalarAssembler, ScalarManipulator>,}
-\DoxyCodeLine{379                              Impl::AssemblerInterfaceHelper<VectorAssembler, VectorManipulator>>>(std::forward<A>(a));}
-\DoxyCodeLine{380   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (scal)}
-\DoxyCodeLine{381     \textcolor{keywordflow}{return} std::make\_shared<\mbox{\hyperlink{a01367}{AssemblerManipulator}}<std::remove\_cvref\_t<A>,}
-\DoxyCodeLine{382                                                  Impl::AssemblerInterfaceHelper<ScalarAssembler, ScalarManipulator>>>(}
-\DoxyCodeLine{383         std::forward<A>(a));}
-\DoxyCodeLine{384 \}}
-\DoxyCodeLine{385 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{177   \textcolor{keyword}{const} RealMAT\& \mbox{\hyperlink{a01483_a6be4a5da8d5c803622ab210d70493c1c}{realMAT}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{179 \textcolor{keyword}{private}:}
+\DoxyCodeLine{180   \mbox{\hyperlink{a01483_a926857f779e6f02ba22e37ec3d4310a0}{MaterialParameters}} materialParameter\_;}
+\DoxyCodeLine{181 \};}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183 \} \textcolor{comment}{// namespace Ikarus::Experimental}}
 
 \end{DoxyCode}

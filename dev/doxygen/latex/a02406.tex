@@ -1,10 +1,5 @@
-\hypertarget{a02406}{}\doxysection{Ikarus\+::Concepts\+::Reference\+Configuraion\+Stress Concept Reference}
-\label{a02406}\index{Ikarus::Concepts::ReferenceConfiguraionStress@{Ikarus::Concepts::ReferenceConfiguraionStress}}
-
-
-Returns true if a given stresstag is related only to the reference configuration.  
-
-
+\hypertarget{a02406}{}\doxysection{Ikarus\+::Concepts\+::Data\+Collector Concept Reference}
+\label{a02406}\index{Ikarus::Concepts::DataCollector@{Ikarus::Concepts::DataCollector}}
 
 
 {\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
@@ -12,7 +7,13 @@ Returns true if a given stresstag is related only to the reference configuration
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<StressTags tag>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02406}{Ikarus::Concepts::ReferenceConfiguraionStress}} =  (tag == \mbox{\hyperlink{a00484_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}}) or (tag == \mbox{\hyperlink{a00484_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}})}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{class} DC>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02406}{Ikarus::Concepts::DataCollector}} =  \textcolor{keyword}{requires}(DC dc) \{}
+\DoxyCodeLine{    \textcolor{keyword}{typename} DC::GridView;}
+\DoxyCodeLine{    \{ dc.update() \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{    \{ dc.numPoints() \} -\/> std::convertible\_to<std::uint64\_t>;}
+\DoxyCodeLine{    \{ dc.numCells() \} -\/> std::convertible\_to<std::uint64\_t>;}
+\DoxyCodeLine{    \{ dc.gridView() \} -\/> std::same\_as<const typename DC::GridView\&>;}
+\DoxyCodeLine{  \}}
 
 \end{DoxyCode}

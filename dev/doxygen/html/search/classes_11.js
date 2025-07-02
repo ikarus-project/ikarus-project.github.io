@@ -13,6 +13,6 @@ var searchData=
   ['trusspre_10',['TrussPre',['../a01887.html',1,'Ikarus']]],
   ['trustregion_11',['TrustRegion',['../a02119.html',1,'Ikarus']]],
   ['trustregionconfig_12',['TrustRegionConfig',['../a02115.html',1,'Ikarus']]],
-  ['trustregionsettings_13',['TrustRegionSettings',['../a02417.html',1,'']]],
-  ['tupletofunctiontype_14',['TupleToFunctionType',['../a02351.html',1,'Ikarus::traits']]]
+  ['trustregionsettings_13',['TrustRegionSettings',['../a02425.html',1,'']]],
+  ['tupletofunctiontype_14',['TupleToFunctionType',['../a02359.html',1,'Ikarus::traits']]]
 ];

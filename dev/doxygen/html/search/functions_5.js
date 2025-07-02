@@ -13,14 +13,14 @@ var searchData=
   ['eigenvalues_10',['eigenvalues',['../a02027.html#ac4d3a189e6868e3a7a627faa87410cda',1,'Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::eigenvalues()'],['../a02031.html#ac1b4e531a28bfa6421cb502737a6e7bd',1,'Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::eigenvalues()'],['../a02035.html#a62935b3cc34d0da062d5d92b810cfb13',1,'Ikarus::PartialGeneralizedSymEigenSolver::eigenvalues()']]],
   ['eigenvectors_11',['eigenvectors',['../a02027.html#a0da3b9692e200b0366d22b1873046265',1,'Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;::eigenvectors()'],['../a02035.html#af76d2d1284135cb2eeb833abbcb7b66d',1,'Ikarus::PartialGeneralizedSymEigenSolver::eigenvectors()'],['../a02031.html#a3f737f055b0b95a618a7688b947fe600',1,'Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Eigen, MT &gt;::eigenvectors()']]],
   ['elastostatics_12',['elastoStatics',['../a00502.html#abd125ab98018456fb4bd3bdfe28466dc',1,'Ikarus::AffordanceCollections']]],
-  ['enablefilelogger_13',['enableFileLogger',['../a02263.html#a833f9b23184e3d0f5b06f5b7b85d9233',1,'Ikarus::IkarusInstance']]],
+  ['enablefilelogger_13',['enableFileLogger',['../a02271.html#a833f9b23184e3d0f5b06f5b7b85d9233',1,'Ikarus::IkarusInstance']]],
   ['energy_14',['energy',['../a02119.html#a249a3e9cd4af947d99625d7e5596e8ae',1,'Ikarus::TrustRegion::energy()'],['../a02119.html#ae4849fbb7f4c1c022cdfc606e9b69aee',1,'Ikarus::TrustRegion::energy() const']]],
   ['energyfunction_15',['energyFunction',['../a01631.html#a0c7a32dd54ed466b24c4f81bf2997653',1,'Ikarus::LinearElastic::energyFunction()'],['../a01779.html#a21d5ce0182badffc25d9a0a5884761fc',1,'Ikarus::NonLinearElastic::energyFunction()']]],
   ['enhancedassumedstrains_16',['EnhancedAssumedStrains',['../a01607.html#ab209554de084320de8b4c7980cb1357f',1,'Ikarus::EnhancedAssumedStrains']]],
   ['enlargeifreduced_17',['enlargeIfReduced',['../a00490.html#ga30500f2c49b7d1997c7eb7b6ee90ad75',1,'Ikarus']]],
   ['estimateofconnectivity_18',['estimateOfConnectivity',['../a01383.html#adf77b0e3c1dab4782a2da06fc712b9c5',1,'Ikarus::FlatAssemblerBase']]],
   ['evaluate_19',['evaluate',['../a01967.html#add24f14249cce07c37dd92e3f81cf50c',1,'Ikarus::ResultFunction']]],
-  ['evaluateinhomogeneousboundarycondition_20',['evaluateInhomogeneousBoundaryCondition',['../a02227.html#aad6e51cef8441f855748d5397440ae3d',1,'Ikarus::DirichletValues']]],
-  ['evaluateinhomogeneousboundaryconditionderivative_21',['evaluateInhomogeneousBoundaryConditionDerivative',['../a02227.html#a500e53c07ab01f9bd9eab0752254ed5e',1,'Ikarus::DirichletValues']]],
+  ['evaluateinhomogeneousboundarycondition_20',['evaluateInhomogeneousBoundaryCondition',['../a02235.html#aad6e51cef8441f855748d5397440ae3d',1,'Ikarus::DirichletValues']]],
+  ['evaluateinhomogeneousboundaryconditionderivative_21',['evaluateInhomogeneousBoundaryConditionDerivative',['../a02235.html#a500e53c07ab01f9bd9eab0752254ed5e',1,'Ikarus::DirichletValues']]],
   ['ex_22',['EX',['../a01851.html#a4c231edbb4522822f4fcb716874fa9a6',1,'Ikarus::EAS::EX::EX()=default'],['../a01851.html#ae0c874d1c2cfb52040282080f9cb2a3f',1,'Ikarus::EAS::EX::EX(const GEO &amp;geometry)']]]
 ];

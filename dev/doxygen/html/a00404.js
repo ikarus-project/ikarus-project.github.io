@@ -1,6 +1,5 @@
 var a00404 =
 [
-    [ "Ikarus::LoadControlConfig", "a01447.html", "a01447" ],
-    [ "Ikarus::LoadControl< NLS >", "a01443.html", "a01443" ],
-    [ "createControlRoutine", "a00404.html#a5aec737453e85d8a0cd6061b39300694", null ]
+    [ "draw_xy", "a00404.html#a4c07b9ce66d5837a4052977b3dd1eeb0", null ],
+    [ "drawFunction", "a00404.html#ae2cefb2db97492f0b6e5987cb95ad40b", null ]
 ];

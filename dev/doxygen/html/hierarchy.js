@@ -36,8 +36,8 @@ var hierarchy =
       [ "Ikarus::NonlinearSolverBase< F, Args >", "a02075.html", null ]
     ] ],
     [ "Ikarus::BulkModulusAndLamesFirstParameter", "a01931.html", null ],
-    [ "Ikarus::traits::ChangeArgTypeAtPos< Func, Pos, NewType >", "a02355.html", null ],
-    [ "Ikarus::utils::CheckFlags", "a02259.html", null ],
+    [ "Ikarus::traits::ChangeArgTypeAtPos< Func, Pos, NewType >", "a02363.html", null ],
+    [ "Ikarus::utils::CheckFlags", "a02267.html", null ],
     [ "std::conditional_t", null, [
       [ "Ikarus::AssumedStress< PreFE, FE, ASF >", "a01551.html", null ],
       [ "Ikarus::EnhancedAssumedStrains< PreFE, FE, ESF >", "a01607.html", null ]
@@ -45,7 +45,7 @@ var hierarchy =
     [ "Ikarus::ControlInformation", "a01423.html", null ],
     [ "Ikarus::ControlRoutineFactory", "a01431.html", null ],
     [ "Ikarus::ControlRoutineState< D >", "a01435.html", null ],
-    [ "Python::Conversion< autodiff::Real< order, T > >", "a02287.html", null ],
+    [ "Python::Conversion< autodiff::Real< order, T > >", "a02295.html", null ],
     [ "Ikarus::ConvertLameConstants< ValuePair >", "a01939.html", null ],
     [ "Ikarus::DefaultMembraneStrain", "a01775.html", null ],
     [ "Ikarus::Vtk::DefaultVTKWriterManager< GV >", "a01999.html", null ],
@@ -58,7 +58,7 @@ var hierarchy =
     [ "Dune::Functions::DifferentiableFunctionFromCallables", null, [
       [ "Ikarus::DifferentiableFunction< Range(D), DerivativeTraits, F, FF... >", "a02203.html", null ]
     ] ],
-    [ "Ikarus::DirichletValues< B, FC >", "a02227.html", null ],
+    [ "Ikarus::DirichletValues< B, FC >", "a02235.html", null ],
     [ "Ikarus::DisplacementControl", "a01479.html", null ],
     [ "Ikarus::EAS::DisplacementGradient", "a01787.html", null ],
     [ "Ikarus::EAS::DisplacementGradientTransposed", "a01791.html", null ],
@@ -90,9 +90,9 @@ var hierarchy =
     ] ],
     [ "std::false_type", null, [
       [ "Ikarus::Vtk::IsStructured< G >", "a01991.html", null ],
-      [ "Ikarus::traits::hasType< T, Tuple >", "a02299.html", null ],
-      [ "Ikarus::traits::isSharedPtr< T >", "a02303.html", null ],
-      [ "Ikarus::traits::isUniquePtr< T >", "a02307.html", null ]
+      [ "Ikarus::traits::hasType< T, Tuple >", "a02307.html", null ],
+      [ "Ikarus::traits::isSharedPtr< T >", "a02311.html", null ],
+      [ "Ikarus::traits::isUniquePtr< T >", "a02315.html", null ]
     ] ],
     [ "Ikarus::FEFactory< BH, SK, useFlat, useEigenRef >", "a01503.html", null ],
     [ "FEImpl", null, [
@@ -113,13 +113,13 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
-    [ "Ikarus::FlatIndexMergingStrategy< IMS >", "a02239.html", null ],
-    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedInterleaved >", "a02243.html", null ],
-    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedLexicographic >", "a02247.html", null ],
-    [ "Ikarus::FlatPreBasis< PreBasis >", "a02235.html", null ],
-    [ "Ikarus::FlatPreBasis< Dune::Functions::CompositePreBasis< IMS, SPB... > >", "a02251.html", null ],
-    [ "Ikarus::FlatPreBasis< Dune::Functions::PowerPreBasis< IMS, SPB, C > >", "a02255.html", null ],
-    [ "Ikarus::traits::FunctionTraits< T, typename >", "a02343.html", null ],
+    [ "Ikarus::FlatIndexMergingStrategy< IMS >", "a02247.html", null ],
+    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedInterleaved >", "a02251.html", null ],
+    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedLexicographic >", "a02255.html", null ],
+    [ "Ikarus::FlatPreBasis< PreBasis >", "a02243.html", null ],
+    [ "Ikarus::FlatPreBasis< Dune::Functions::CompositePreBasis< IMS, SPB... > >", "a02259.html", null ],
+    [ "Ikarus::FlatPreBasis< Dune::Functions::PowerPreBasis< IMS, SPB, C > >", "a02263.html", null ],
+    [ "Ikarus::traits::FunctionTraits< T, typename >", "a02351.html", null ],
     [ "Ikarus::GeneralizedSymEigenSolver< SolverType, MT >", "a02023.html", null ],
     [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Eigen, MT >", "a02031.html", null ],
     [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Spectra, MT >", "a02027.html", null ],
@@ -138,8 +138,8 @@ var hierarchy =
     ] ],
     [ "Ikarus::ResultEvaluators::HydrostaticStress", "a01947.html", null ],
     [ "Ikarus::utils::IDBCForceDefault", "a02183.html", null ],
-    [ "Ikarus::IkarusInstance", "a02263.html", null ],
-    [ "Ikarus::traits::Index< T, Tuple >", "a02335.html", null ],
+    [ "Ikarus::IkarusInstance", "a02271.html", null ],
+    [ "Ikarus::traits::Index< T, Tuple >", "a02343.html", null ],
     [ "Ikarus::Materials::InvariantBasedT< ST_, n >", "a01683.html", null ],
     [ "Ikarus::AdaptiveStepSizing::IterationBased", "a01419.html", null ],
     [ "IterativeSolverBase", null, [
@@ -155,15 +155,15 @@ var hierarchy =
     [ "Ikarus::LinearSolverTemplate< ST >", "a02039.html", null ],
     [ "Ikarus::EAS::LinearStrain", "a01799.html", null ],
     [ "Ikarus::PS::LinearStress", "a01559.html", null ],
-    [ "Ikarus::Listener", "a02279.html", [
+    [ "Ikarus::Listener", "a02287.html", [
       [ "Ikarus::FEMixin< PreFE, Skills... >", "a01895.html", [
         [ "Ikarus::FE< PreFE, Skills >", "a01491.html", null ]
       ] ],
-      [ "Ikarus::ControlLogger", "a02267.html", null ],
-      [ "Ikarus::ControlSubsamplingVertexVTKWriter< B >", "a02271.html", null ],
+      [ "Ikarus::ControlLogger", "a02275.html", null ],
+      [ "Ikarus::ControlSubsamplingVertexVTKWriter< B >", "a02279.html", null ],
       [ "Ikarus::FEMixin< PreFE, Skills >", "a01895.html", null ],
-      [ "Ikarus::GenericListener< BC >", "a02275.html", null ],
-      [ "Ikarus::NonLinearSolverLogger", "a02283.html", null ]
+      [ "Ikarus::GenericListener< BC >", "a02283.html", null ],
+      [ "Ikarus::NonLinearSolverLogger", "a02291.html", null ]
     ] ],
     [ "Ikarus::LoadControlConfig", "a01447.html", null ],
     [ "Ikarus::LoadControlSubsidiaryFunction", "a01475.html", null ],
@@ -219,9 +219,9 @@ var hierarchy =
     [ "RealMAT", null, [
       [ "Ikarus::Experimental::AutoDiffMAT< RealMAT, forceAutoDiffV, forceAutoDiffS >", "a01483.html", null ]
     ] ],
-    [ "Ikarus::traits::Rebind< Container, NewType >", "a02339.html", null ],
-    [ "Ikarus::traits::remove_pointer< T >", "a02311.html", null ],
-    [ "Ikarus::traits::ReplaceTypeAtPos< Tuple, Pos, NewType >", "a02347.html", null ],
+    [ "Ikarus::traits::Rebind< Container, NewType >", "a02347.html", null ],
+    [ "Ikarus::traits::remove_pointer< T >", "a02319.html", null ],
+    [ "Ikarus::traits::ReplaceTypeAtPos< Tuple, Pos, NewType >", "a02355.html", null ],
     [ "Ikarus::FEMixin< PreFE, Skills >::RequirementType< bool, typename >", "a01899.html", null ],
     [ "Ikarus::FEMixin< PreFE, Skills >::RequirementType< false, T >", "a01903.html", null ],
     [ "Ikarus::FEMixin< PreFE, Skills >::RequirementType< true, T >", "a01907.html", null ],
@@ -255,7 +255,7 @@ var hierarchy =
       [ "Ikarus::FEMixin< PreFE, Skills >", "a01895.html", null ]
     ] ],
     [ "Ikarus::utils::SolverDefault", "a02175.html", null ],
-    [ "Eigen::SparseMatrixBase< Derived >", "a02291.html", null ],
+    [ "Eigen::SparseMatrixBase< Derived >", "a02299.html", null ],
     [ "Ikarus::Python::SparseMatrixWrapper< T >", "a02015.html", null ],
     [ "Ikarus::Stats", "a02127.html", null ],
     [ "Ikarus::SubsidiaryArgs", "a01467.html", null ],
@@ -306,20 +306,20 @@ var hierarchy =
     [ "Ikarus::TRSettings", "a02111.html", null ],
     [ "std::true_type", null, [
       [ "Ikarus::Vtk::IsStructured< Dune::YaspGrid< dim, Coordinates > >", "a01995.html", null ],
-      [ "Ikarus::traits::isSpecialization< U, U< T... > >", "a02315.html", null ],
-      [ "Ikarus::traits::isSpecializationNonTypeAndTypes< Type, Type< T, N... > >", "a02319.html", null ],
-      [ "Ikarus::traits::isSpecializationNonTypeNonTypeAndTypes< Type, Type< T, R, N... > >", "a02323.html", null ],
-      [ "Ikarus::traits::isSpecializationNonTypes< Type, Type< N... > >", "a02331.html", null ],
-      [ "Ikarus::traits::isSpecializationTypeNonTypeAndType< Type, Type< T, M, N > >", "a02327.html", null ],
-      [ "Ikarus::traits::is_tuple< std::tuple< T... > >", "a02295.html", null ]
+      [ "Ikarus::traits::isSpecialization< U, U< T... > >", "a02323.html", null ],
+      [ "Ikarus::traits::isSpecializationNonTypeAndTypes< Type, Type< T, N... > >", "a02327.html", null ],
+      [ "Ikarus::traits::isSpecializationNonTypeNonTypeAndTypes< Type, Type< T, R, N... > >", "a02331.html", null ],
+      [ "Ikarus::traits::isSpecializationNonTypes< Type, Type< N... > >", "a02339.html", null ],
+      [ "Ikarus::traits::isSpecializationTypeNonTypeAndType< Type, Type< T, M, N > >", "a02335.html", null ],
+      [ "Ikarus::traits::is_tuple< std::tuple< T... > >", "a02303.html", null ]
     ] ],
     [ "Ikarus::TrussPre", "a01887.html", null ],
     [ "Ikarus::TrustRegionConfig< preConditioner, UF, IDBCF >", "a02115.html", null ],
-    [ "TrustRegionSettings", "a02417.html", null ],
+    [ "TrustRegionSettings", "a02425.html", null ],
     [ "std::tuple", null, [
       [ "Ikarus::AffordanceCollection< Affordances >", "a01507.html", null ]
     ] ],
-    [ "Ikarus::traits::TupleToFunctionType< R, Tuple >", "a02351.html", null ],
+    [ "Ikarus::traits::TupleToFunctionType< R, Tuple >", "a02359.html", null ],
     [ "Ikarus::utils::UpdateDefault", "a02187.html", null ],
     [ "Ikarus::VectorAssembler< VA, FEC, DV, VT >", "a01391.html", null ],
     [ "Ikarus::VectorAssembler< VectorFlatAssembler< FEC, DV >, FEC, DV, Eigen::VectorXd >", "a01391.html", [

@@ -1,276 +1,97 @@
-\hypertarget{a00233_source}{}\doxysection{linearandglstrains.\+hh}
-\label{a00233_source}\index{linearandglstrains.hh@{linearandglstrains.hh}}
+\hypertarget{a00233_source}{}\doxysection{febase.\+hh}
+\label{a00233_source}\index{febase.hh@{febase.hh}}
 \mbox{\hyperlink{a00233}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00236}{ikarus/finiteelements/mechanics/strainenhancements/easvariants/helperfunctions.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00059}{ikarus/utils/tensorutils.hh}}>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00507}{Ikarus::EAS}} \{}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00224}{ikarus/finiteelements/ferequirements.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00227}{ikarus/finiteelements/fetraits.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00230}{ikarus/finiteelements/mixin.hh}}>}}
 \DoxyCodeLine{18 }
-\DoxyCodeLine{22 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} ess>}
-\DoxyCodeLine{23 \textcolor{keyword}{struct }\mbox{\hyperlink{a01851}{EX}}}
-\DoxyCodeLine{24 \{}
-\DoxyCodeLine{25   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01851_a8a4a3db1432a9d2150b330221b947899}{myDim}}              = GEO::mydimension;}
-\DoxyCodeLine{26   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01851_a5188e802b339e7f290ebb47da5dee25e}{strainSize}}         = \mbox{\hyperlink{a01851_a8a4a3db1432a9d2150b330221b947899}{myDim}} * (\mbox{\hyperlink{a01851_a8a4a3db1432a9d2150b330221b947899}{myDim}} + 1) / 2;}
-\DoxyCodeLine{27   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01851_a9598dce571979e4a5dd623d32b4515bc}{enhancedStrainSize}} = ess;}
-\DoxyCodeLine{28   \textcolor{keyword}{using }\mbox{\hyperlink{a01851_ac194c58b07dc99120524d2af96b5594c}{AnsatzType}}                        = Eigen::Matrix<double, strainSize, enhancedStrainSize>;}
-\DoxyCodeLine{29   \textcolor{keyword}{using }\mbox{\hyperlink{a01851_a04cbff81230d7d475361da9aeffb0c30}{DType}}                             = Eigen::Matrix<double, enhancedStrainSize, enhancedStrainSize>;}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31   \mbox{\hyperlink{a01851_a4c231edbb4522822f4fcb716874fa9a6}{EX}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{32   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01851_ae0c874d1c2cfb52040282080f9cb2a3f}{EX}}(\textcolor{keyword}{const} GEO\& geometry)}
-\DoxyCodeLine{33       : \mbox{\hyperlink{a01851_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}\{std::make\_optional<GEO>(geometry)\},}
-\DoxyCodeLine{34         \mbox{\hyperlink{a01851_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}}\{Impl::transformationMatrixAtCenterWithDetJ(geometry).inverse()\} \{\}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{37   std::optional<GEO> \mbox{\hyperlink{a01851_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}};}
-\DoxyCodeLine{38   Eigen::Matrix<double, strainSize, strainSize> \mbox{\hyperlink{a01851_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}};}
-\DoxyCodeLine{39 \};}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{44 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{45 \textcolor{keyword}{struct }\mbox{\hyperlink{a01855}{E0}} : \mbox{\hyperlink{a01851}{EX}}<GEO, 0>}
-\DoxyCodeLine{46 \{}
-\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{a01851}{Base}}                              = \mbox{\hyperlink{a01851}{EX<GEO, 0>}};}
-\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01855_a4cdf729a09eb70125f8aff011899d238}{myDim}}              = \mbox{\hyperlink{a01851_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01855_a6652c22405d933b6c3c881a1ce097e8a}{strainSize}}         = \mbox{\hyperlink{a01851_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01855_ab535d80fb5d76e7571a2af6f2d99ba05}{enhancedStrainSize}} = \mbox{\hyperlink{a01851_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{a01855_a7617b4559fe46d6de79584c0416d6e35}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{52   \textcolor{keyword}{using }\mbox{\hyperlink{a01855_a3f990d6b37a21e4aa898c614472269f6}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54   \mbox{\hyperlink{a01855_ab913a61e292285b10c634a3675acd39a}{E0}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{55   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01855_a55a752a600d804fc245ebb226521aabf}{E0}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{56       : \mbox{\hyperlink{a01851}{Base}}(geo) \{\}}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58   \textcolor{comment}{// returns an Eigen zero expression for optimization purposes}}
-\DoxyCodeLine{59   \textcolor{keyword}{auto} \mbox{\hyperlink{a01855_a34d92583de6542b1cfd206d85a323978}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02211}{Dune::FieldVector<double, myDim>}}\& \textcolor{comment}{/*quadPos*/})\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} AnsatzType::Zero(); \}}
-\DoxyCodeLine{60 \};}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{71 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{72 \textcolor{keyword}{struct }\mbox{\hyperlink{a01859}{E4}} : \mbox{\hyperlink{a01851}{EX}}<GEO, 4>}
-\DoxyCodeLine{73 \{}
-\DoxyCodeLine{74   \textcolor{keyword}{using }\mbox{\hyperlink{a01851}{Base}}                              = \mbox{\hyperlink{a01851}{EX<GEO, 4>}};}
-\DoxyCodeLine{75   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01859_a9ab37e5defafbbd1e98c749c530478a4}{myDim}}              = \mbox{\hyperlink{a01851_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{76   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01859_aadcff75b2fd4e168533296a10dda7acf}{strainSize}}         = \mbox{\hyperlink{a01851_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{77   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01859_a372994e3063cd01cda2a8e576373b0e3}{enhancedStrainSize}} = \mbox{\hyperlink{a01851_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{78   \textcolor{keyword}{using }\mbox{\hyperlink{a01859_a71f35746b29078142e578f52494e8c0b}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{79   \textcolor{keyword}{using }\mbox{\hyperlink{a01859_a3db469244604a48b9011284957a3ee5e}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{81   \mbox{\hyperlink{a01859_ab40fc5581f14ba63ee3ad7bd432ea95e}{E4}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{82   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01859_a051a8aec258f2d14eb84f9a5d7882738}{E4}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{83       : \mbox{\hyperlink{a01851}{Base}}(geo) \{\}}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85   \mbox{\hyperlink{a01859_a71f35746b29078142e578f52494e8c0b}{AnsatzType}} \mbox{\hyperlink{a01859_a4a4aeecc4888e90eae43ee80521ca150}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02211}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{86     \mbox{\hyperlink{a01859_a71f35746b29078142e578f52494e8c0b}{AnsatzType}} M;}
-\DoxyCodeLine{87     M.setZero(\mbox{\hyperlink{a01859_aadcff75b2fd4e168533296a10dda7acf}{strainSize}}, \mbox{\hyperlink{a01859_a372994e3063cd01cda2a8e576373b0e3}{enhancedStrainSize}});}
-\DoxyCodeLine{88     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = quadPos[0];}
-\DoxyCodeLine{89     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = quadPos[1];}
-\DoxyCodeLine{90     M(0, 0)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{91     M(1, 1)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{92     M(2, 2)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{93     M(2, 3)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{94     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01851_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{95     M                 = this-\/>\mbox{\hyperlink{a01851_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{96     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{97   \}}
-\DoxyCodeLine{98 \};}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{107 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{108 \textcolor{keyword}{struct }\mbox{\hyperlink{a01863}{E5}} : \mbox{\hyperlink{a01851}{EX}}<GEO, 5>}
-\DoxyCodeLine{109 \{}
-\DoxyCodeLine{110   \textcolor{keyword}{using }\mbox{\hyperlink{a01851}{Base}}                              = \mbox{\hyperlink{a01851}{EX<GEO, 5>}};}
-\DoxyCodeLine{111   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01863_aa8c428e59199ac1570d4ac7df57d2a3e}{myDim}}              = \mbox{\hyperlink{a01851_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{112   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01863_a8115f72e8723b4c7997f625629f41c12}{strainSize}}         = \mbox{\hyperlink{a01851_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{113   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01863_a4ccc53fb31a4afc789e7ae09ca9caca0}{enhancedStrainSize}} = \mbox{\hyperlink{a01851_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{114   \textcolor{keyword}{using }\mbox{\hyperlink{a01863_af556954b99a491533ed819017627eead}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{115   \textcolor{keyword}{using }\mbox{\hyperlink{a01863_ad1b5cafe2dec3cbd44ea2a4aa9e8c8dc}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{117   \mbox{\hyperlink{a01863_ab22a2fcc33bde341d8b4a0a80f7b1316}{E5}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{118   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01863_a28ff367bbe360d647debef31fb5a2641}{E5}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{119       : \mbox{\hyperlink{a01851}{Base}}(geo) \{\}}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{121   \mbox{\hyperlink{a01863_af556954b99a491533ed819017627eead}{AnsatzType}} \mbox{\hyperlink{a01863_ab335dd10969a8382f7a2d2b3e850b888}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02211}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{122     \mbox{\hyperlink{a01863_af556954b99a491533ed819017627eead}{AnsatzType}} M;}
-\DoxyCodeLine{123     M.setZero();}
-\DoxyCodeLine{124     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = quadPos[0];}
-\DoxyCodeLine{125     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = quadPos[1];}
-\DoxyCodeLine{126     M(0, 0)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{127     M(1, 1)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{128     M(2, 2)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{129     M(2, 3)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{130     M(2, 4)           = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{131     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01851_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{132     M                 = this-\/>\mbox{\hyperlink{a01851_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{133     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{134   \}}
-\DoxyCodeLine{135 \};}
-\DoxyCodeLine{136 }
-\DoxyCodeLine{144 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{145 \textcolor{keyword}{struct }\mbox{\hyperlink{a01867}{E7}} : \mbox{\hyperlink{a01851}{EX}}<GEO, 7>}
-\DoxyCodeLine{146 \{}
-\DoxyCodeLine{147   \textcolor{keyword}{using }\mbox{\hyperlink{a01851}{Base}}                              = \mbox{\hyperlink{a01851}{EX<GEO, 7>}};}
-\DoxyCodeLine{148   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01867_a7f0450d53a9d7a10fc3ce7adc90aa7ab}{myDim}}              = \mbox{\hyperlink{a01851_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{149   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01867_a1260a0f1924c1ca8e2d4caa5678626da}{strainSize}}         = \mbox{\hyperlink{a01851_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{150   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01867_a53a65c5ed9776cca7c380581a278d56c}{enhancedStrainSize}} = \mbox{\hyperlink{a01851_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{151   \textcolor{keyword}{using }\mbox{\hyperlink{a01867_aad9614d395460149baa944ef0af88615}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{152   \textcolor{keyword}{using }\mbox{\hyperlink{a01867_aa282fd1f06340eaa157415dee66b3b5b}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{153 }
-\DoxyCodeLine{154   \mbox{\hyperlink{a01867_a69645abab2c5a66603dc2a74d2c5bd4a}{E7}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{155   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01867_a71e46bc70ac4b79f3a6f5fe79dd250bc}{E7}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{156       : \mbox{\hyperlink{a01851}{Base}}(geo) \{\}}
-\DoxyCodeLine{157 }
-\DoxyCodeLine{158   \mbox{\hyperlink{a01867_aad9614d395460149baa944ef0af88615}{AnsatzType}} \mbox{\hyperlink{a01867_aef10b7255d407b25a6f82f5ac23a0618}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02211}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{159     \mbox{\hyperlink{a01867_aad9614d395460149baa944ef0af88615}{AnsatzType}} M;}
-\DoxyCodeLine{160     M.setZero();}
-\DoxyCodeLine{161     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = quadPos[0];}
-\DoxyCodeLine{162     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = quadPos[1];}
-\DoxyCodeLine{163     M(0, 0)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{164     M(1, 1)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{165     M(2, 2)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{166     M(2, 3)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{167     M(0, 4)           = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{168     M(1, 5)           = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{169     M(2, 6)           = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{170     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01851_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{171     M                 = this-\/>\mbox{\hyperlink{a01851_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{172     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{173   \}}
-\DoxyCodeLine{174 \};}
-\DoxyCodeLine{175 }
-\DoxyCodeLine{185 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{186 \textcolor{keyword}{struct }\mbox{\hyperlink{a01871}{E11}} : \mbox{\hyperlink{a01851}{EX}}<GEO, 11>}
-\DoxyCodeLine{187 \{}
-\DoxyCodeLine{188   \textcolor{keyword}{using }\mbox{\hyperlink{a01851}{Base}}                              = \mbox{\hyperlink{a01851}{EX<GEO, 11>}};}
-\DoxyCodeLine{189   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01871_ac953809a2033d15ae8f19669a45a153c}{myDim}}              = \mbox{\hyperlink{a01851_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{190   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01871_a75f34fdcc9cd44346037535bd7f33c75}{strainSize}}         = \mbox{\hyperlink{a01851_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{191   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01871_a845df016c4d4e29c081f66a09709740a}{enhancedStrainSize}} = \mbox{\hyperlink{a01851_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{192   \textcolor{keyword}{using }\mbox{\hyperlink{a01871_a3855d7d46fc318bc5e072f7bfd0576e8}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{193   \textcolor{keyword}{using }\mbox{\hyperlink{a01871_ae66710839c9e49ab70e8b6066764ab42}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{194 }
-\DoxyCodeLine{195   \mbox{\hyperlink{a01871_aa94733217922dca62cbedbb5674a5cde}{E11}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{196   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01871_a959fceca1fe71f6a9599356263deee07}{E11}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{197       : \mbox{\hyperlink{a01851}{Base}}(geo) \{\}}
-\DoxyCodeLine{198 }
-\DoxyCodeLine{199   \mbox{\hyperlink{a01871_a3855d7d46fc318bc5e072f7bfd0576e8}{AnsatzType}} \mbox{\hyperlink{a01871_ac43dcaff623e34b82f824148aaee3bf0}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02211}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{200     \mbox{\hyperlink{a01871_a3855d7d46fc318bc5e072f7bfd0576e8}{AnsatzType}} M;}
-\DoxyCodeLine{201     M.setZero();}
-\DoxyCodeLine{202     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi    = quadPos[0];}
-\DoxyCodeLine{203     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta   = quadPos[1];}
-\DoxyCodeLine{204     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi\_t  = 2 * xi -\/ 1;}
-\DoxyCodeLine{205     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta\_t = 2 * eta -\/ 1;}
-\DoxyCodeLine{206 }
-\DoxyCodeLine{207     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi2    = xi\_t * xi\_t;}
-\DoxyCodeLine{208     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta2   = eta\_t * eta\_t;}
-\DoxyCodeLine{209     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi\_eta = xi\_t * eta\_t;}
-\DoxyCodeLine{210 }
-\DoxyCodeLine{211     M(0, 0) = 1 -\/ 3 * xi2;}
-\DoxyCodeLine{212     M(0, 1) = eta\_t -\/ 3 * xi2 * eta\_t;}
-\DoxyCodeLine{213     M(0, 2) = eta2 -\/ 3 * xi2 * eta2;}
-\DoxyCodeLine{214 }
-\DoxyCodeLine{215     M(1, 3) = 1 -\/ 3 * eta2;}
-\DoxyCodeLine{216     M(1, 4) = xi\_t -\/ 3 * xi\_t * eta2;}
-\DoxyCodeLine{217     M(1, 5) = xi2 -\/ 3 * xi2 * eta2;}
-\DoxyCodeLine{218 }
-\DoxyCodeLine{219     M(2, 6)  = 1 -\/ 3 * xi2;}
-\DoxyCodeLine{220     M(2, 7)  = 1 -\/ 3 * eta2;}
-\DoxyCodeLine{221     M(2, 8)  = eta\_t -\/ 3 * xi2 * eta\_t;}
-\DoxyCodeLine{222     M(2, 9)  = xi\_t -\/ 3 * xi\_t * eta2;}
-\DoxyCodeLine{223     M(2, 10) = 1 -\/ 3 * (xi2 + eta2) + 9 * xi2 * eta2;}
-\DoxyCodeLine{224 }
-\DoxyCodeLine{225     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01851_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{226     M                 = this-\/>\mbox{\hyperlink{a01851_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{227     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{228   \}}
-\DoxyCodeLine{229 \};}
-\DoxyCodeLine{230 }
-\DoxyCodeLine{238 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{239 \textcolor{keyword}{struct }\mbox{\hyperlink{a01875}{E9}} : \mbox{\hyperlink{a01851}{EX}}<GEO, 9>}
-\DoxyCodeLine{240 \{}
-\DoxyCodeLine{241   \textcolor{keyword}{using }\mbox{\hyperlink{a01851}{Base}}                              = \mbox{\hyperlink{a01851}{EX<GEO, 9>}};}
-\DoxyCodeLine{242   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01875_a1ba43f7bc9cd96582f9e5ef470604b84}{myDim}}              = \mbox{\hyperlink{a01851_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{243   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01875_aa7f31e471a74e93eafe94ba1b7a43615}{strainSize}}         = \mbox{\hyperlink{a01851_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{244   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01875_af103878374b381a5ef74c3198a597bf1}{enhancedStrainSize}} = \mbox{\hyperlink{a01851_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{245   \textcolor{keyword}{using }\mbox{\hyperlink{a01875_aecf37a10381af79c1a0f8c77ec691aad}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{246   \textcolor{keyword}{using }\mbox{\hyperlink{a01875_a3e36d1ec3766d70c4fed73fceda9a8da}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{247 }
-\DoxyCodeLine{248   \mbox{\hyperlink{a01875_a8b765dc4636274843a0de355cca446e0}{E9}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{249   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01875_a6a8d2dbc81641457af72e6d5279ed9c1}{E9}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{250       : \mbox{\hyperlink{a01851}{Base}}(geo) \{\}}
-\DoxyCodeLine{251 }
-\DoxyCodeLine{252   \mbox{\hyperlink{a01875_aecf37a10381af79c1a0f8c77ec691aad}{AnsatzType}} \mbox{\hyperlink{a01875_a2d21a427b56ebb5d54c8cee0e06dcf28}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02211}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{253     \mbox{\hyperlink{a01875_aecf37a10381af79c1a0f8c77ec691aad}{AnsatzType}} M;}
-\DoxyCodeLine{254     M.setZero();}
-\DoxyCodeLine{255     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = quadPos[0];}
-\DoxyCodeLine{256     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = quadPos[1];}
-\DoxyCodeLine{257     \textcolor{keyword}{const} \textcolor{keywordtype}{double} zeta = quadPos[2];}
-\DoxyCodeLine{258     M(0, 0)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{259     M(1, 1)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{260     M(2, 2)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{261     M(3, 3)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{262     M(3, 4)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{263     M(4, 5)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{264     M(4, 6)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{265     M(5, 7)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{266     M(5, 8)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{267     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01851_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{268     M                 = this-\/>\mbox{\hyperlink{a01851_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{269     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{270   \}}
-\DoxyCodeLine{271 \};}
-\DoxyCodeLine{272 }
-\DoxyCodeLine{280 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
-\DoxyCodeLine{281 \textcolor{keyword}{struct }\mbox{\hyperlink{a01879}{E21}} : \mbox{\hyperlink{a01851}{EX}}<GEO, 21>}
-\DoxyCodeLine{282 \{}
-\DoxyCodeLine{283   \textcolor{keyword}{using }\mbox{\hyperlink{a01851}{Base}}                              = \mbox{\hyperlink{a01851}{EX<GEO, 21>}};}
-\DoxyCodeLine{284   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01879_a39c0b1a4ae9b8a563b6949665cb57272}{myDim}}              = \mbox{\hyperlink{a01851_a8a4a3db1432a9d2150b330221b947899}{Base::myDim}};}
-\DoxyCodeLine{285   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01879_a641b25ed9808af7492b24c457b844d56}{strainSize}}         = \mbox{\hyperlink{a01851_a5188e802b339e7f290ebb47da5dee25e}{Base::strainSize}};}
-\DoxyCodeLine{286   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01879_a10b431218dfd309989a871d936acf4e7}{enhancedStrainSize}} = \mbox{\hyperlink{a01851_a9598dce571979e4a5dd623d32b4515bc}{Base::enhancedStrainSize}};}
-\DoxyCodeLine{287   \textcolor{keyword}{using }\mbox{\hyperlink{a01879_a9ad50cb902dea7b4d908357c1dc1cce0}{AnsatzType}}                        = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_ac194c58b07dc99120524d2af96b5594c}{Base::AnsatzType}};}
-\DoxyCodeLine{288   \textcolor{keyword}{using }\mbox{\hyperlink{a01879_a4c60ef054fb10f692e8d09f56d068780}{DType}}                             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01851_a04cbff81230d7d475361da9aeffb0c30}{Base::DType}};}
-\DoxyCodeLine{289 }
-\DoxyCodeLine{290   \mbox{\hyperlink{a01879_af34854fa3abca9df65b1dfc04f06c3a2}{E21}}() = \textcolor{keywordflow}{default};}
-\DoxyCodeLine{291   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01879_a452ad828addeea4f33be86ee0dfad2ea}{E21}}(\textcolor{keyword}{const} GEO\& geo)}
-\DoxyCodeLine{292       : \mbox{\hyperlink{a01851}{Base}}(geo) \{\}}
-\DoxyCodeLine{293 }
-\DoxyCodeLine{294   \mbox{\hyperlink{a01879_a9ad50cb902dea7b4d908357c1dc1cce0}{AnsatzType}} \mbox{\hyperlink{a01879_a8f2f99a985239beb0fa9f63a8d43995f}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02211}{Dune::FieldVector<double, myDim>}}\& quadPos)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{295     \mbox{\hyperlink{a01879_a9ad50cb902dea7b4d908357c1dc1cce0}{AnsatzType}} M;}
-\DoxyCodeLine{296     M.setZero();}
-\DoxyCodeLine{297     \textcolor{keyword}{const} \textcolor{keywordtype}{double} xi   = quadPos[0];}
-\DoxyCodeLine{298     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eta  = quadPos[1];}
-\DoxyCodeLine{299     \textcolor{keyword}{const} \textcolor{keywordtype}{double} zeta = quadPos[2];}
-\DoxyCodeLine{300     M(0, 0)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{301     M(1, 1)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{302     M(2, 2)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{303     M(3, 3)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{304     M(3, 4)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{305     M(4, 5)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{306     M(4, 6)           = 2 * zeta -\/ 1.0;}
-\DoxyCodeLine{307     M(5, 7)           = 2 * xi -\/ 1.0;}
-\DoxyCodeLine{308     M(5, 8)           = 2 * eta -\/ 1.0;}
-\DoxyCodeLine{309 }
-\DoxyCodeLine{310     M(3, 9)  = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{311     M(3, 10) = (2 * xi -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{312     M(4, 11) = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{313     M(4, 12) = (2 * eta -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{314     M(5, 13) = (2 * xi -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{315     M(5, 14) = (2 * eta -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{316 }
-\DoxyCodeLine{317     M(0, 15) = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{318     M(0, 16) = (2 * xi -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{319     M(1, 17) = (2 * xi -\/ 1.0) * (2 * eta -\/ 1.0);}
-\DoxyCodeLine{320     M(1, 18) = (2 * eta -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{321     M(2, 19) = (2 * xi -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{322     M(2, 20) = (2 * eta -\/ 1.0) * (2 * zeta -\/ 1.0);}
-\DoxyCodeLine{323 }
-\DoxyCodeLine{324     \textcolor{keyword}{const} \textcolor{keywordtype}{double} detJ = this-\/>\mbox{\hyperlink{a01851_a4ae0daad7e73632e2375141f0d79bfa7}{geometry\_}}-\/>integrationElement(quadPos);}
-\DoxyCodeLine{325     M                 = this-\/>\mbox{\hyperlink{a01851_a3a059a4e1309de264cd41d6f5a60744b}{T0InverseTransformed\_}} / detJ * M;}
-\DoxyCodeLine{326     \textcolor{keywordflow}{return} M;}
-\DoxyCodeLine{327   \}}
-\DoxyCodeLine{328 \};}
-\DoxyCodeLine{329 }
-\DoxyCodeLine{330 \} \textcolor{comment}{// namespace Ikarus::EAS}}
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00495}{Ikarus}} \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... Skills>}
+\DoxyCodeLine{22 \textcolor{keyword}{class }FE;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{31 \textcolor{keyword}{template} <\textcolor{keyword}{typename} BH, \textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false>}
+\DoxyCodeLine{32 \textcolor{keyword}{struct }\mbox{\hyperlink{a01495}{PreFE}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34   \textcolor{keyword}{using }\mbox{\hyperlink{a01495_a96f8fe069706faeb6233e8ad31588b66}{BasisHandler}}                      = BH;}
+\DoxyCodeLine{35   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01495_ac62b5b022663d48416e0560803590259}{worldDim}}           = BasisHandler::Basis::worlddim;}
+\DoxyCodeLine{36   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01495_a4227356aa324e40ecd1c09da5e56cb00}{useEigenReference}} = useEigenRef;}
+\DoxyCodeLine{37   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01495_a67f4db661ba63b8be2f15903c52f3ffd}{useFlatBasis}}      = useFlat;}
+\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{a01547}{Traits}}                            = \mbox{\hyperlink{a01547}{FETraits<BH, useEigenRef, useFlat>}};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... \mbox{\hyperlink{a01911}{Skills}}>}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01495_ac7266f723a312adbd690b47d5cd06a60}{FE}} = \mbox{\hyperlink{a01495_ac7266f723a312adbd690b47d5cd06a60}{FE}}<\mbox{\hyperlink{a01495}{PreFE}}, \mbox{\hyperlink{a01911}{Skills}}...>;}
+\DoxyCodeLine{42 \};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{45   \textcolor{comment}{// Since base classes are initialized, in declaration order before member variables, we have to make sure the}}
+\DoxyCodeLine{46   \textcolor{comment}{// localview\_ object of FE is defined. To do this we add this artificial inheritance by inheriting below first from}}
+\DoxyCodeLine{47   \textcolor{comment}{// FEInit, which initializes the localview object first, siche we the other FEMixin base class constructors are called}}
+\DoxyCodeLine{48   \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
+\DoxyCodeLine{49   \textcolor{keyword}{struct }FEInit}
+\DoxyCodeLine{50   \{}
+\DoxyCodeLine{51     \textcolor{keyword}{using }Traits       = \mbox{\hyperlink{a01495_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};              }
+\DoxyCodeLine{52     \textcolor{keyword}{using }\mbox{\hyperlink{a02139}{BasisHandler}} = \mbox{\hyperlink{a01547_a129085c175bca28f94c71699b734ba04}{Traits::BasisHandler}};       }
+\DoxyCodeLine{53     \textcolor{keyword}{using }LocalView    = \textcolor{keyword}{typename} \mbox{\hyperlink{a01547_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}}; }
+\DoxyCodeLine{54     \textcolor{keyword}{friend} \mbox{\hyperlink{a01491}{FE}};}
+\DoxyCodeLine{55     FEInit(\textcolor{keyword}{const} \mbox{\hyperlink{a02139}{BasisHandler}}\& basisHandler)}
+\DoxyCodeLine{56         : localView\_\{[\&]() -\/> LocalView \{}
+\DoxyCodeLine{57             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01547_ac93d8ec6254e0ca3668966e7a56886ac}{Traits::useFlatBasis}})}
+\DoxyCodeLine{58               \textcolor{keywordflow}{return} basisHandler.\mbox{\hyperlink{a02139_a259a6b38e59d58970716c03ac511d3c5}{flat}}().localView();}
+\DoxyCodeLine{59             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{60               \textcolor{keywordflow}{return} basisHandler.\mbox{\hyperlink{a02139_aa3e286f5563f510fc4b0eaa005eb0a2b}{untouched}}().localView();}
+\DoxyCodeLine{61           \}()\} \{\}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \textcolor{keyword}{private}:}
+\DoxyCodeLine{64     LocalView localView\_;}
+\DoxyCodeLine{65   \};}
+\DoxyCodeLine{66 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{77 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... Skills>}
+\DoxyCodeLine{78 \textcolor{keyword}{class }\mbox{\hyperlink{a01491}{FE}} : \textcolor{keyword}{private} Impl::FEInit<PreFE, FE<PreFE, Skills...>>, \textcolor{keyword}{public} \mbox{\hyperlink{a01895}{FEMixin}}<PreFE, Skills...>}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80   \textcolor{keyword}{friend} Impl::FEInit<PreFE, FE>;}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{a01895}{Mixin}} = \mbox{\hyperlink{a01895}{FEMixin}}<\mbox{\hyperlink{a01495}{PreFE}}, \mbox{\hyperlink{a01911}{Skills}}...>; }
+\DoxyCodeLine{84   \textcolor{keyword}{friend} \mbox{\hyperlink{a01491_a9651c0af07c052fe9be5546ad04fec26}{Mixin}};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{keyword}{public}:}
+\DoxyCodeLine{87   \textcolor{keyword}{using }\mbox{\hyperlink{a01547}{Traits}}       = \mbox{\hyperlink{a01495_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};                }
+\DoxyCodeLine{88   \textcolor{keyword}{using }\mbox{\hyperlink{a01491_a26398fefb73f4d51895e26152e368cf8}{BasisHandler}} = \mbox{\hyperlink{a01547_a129085c175bca28f94c71699b734ba04}{Traits::BasisHandler}};         }
+\DoxyCodeLine{89   \textcolor{keyword}{using }\mbox{\hyperlink{a01491_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}    = \textcolor{keyword}{typename} \mbox{\hyperlink{a01547_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}};   }
+\DoxyCodeLine{90   \textcolor{keyword}{using }\mbox{\hyperlink{a01491_a636f6e2bb1a51cd89f190d3744cdb7dd}{GridView}}     = \textcolor{keyword}{typename} \mbox{\hyperlink{a01547_a3ec0294824df467074f5070cb58f5a91}{Traits::GridView}};    }
+\DoxyCodeLine{91   \textcolor{keyword}{using }\mbox{\hyperlink{a01491_afcc1624cabc2a1e553af2eb4dd02190d}{GlobalIndex}}  = \textcolor{keyword}{typename} \mbox{\hyperlink{a01547_a77e825e03f2fae2bb4272c7888e478b6}{Traits::GlobalIndex}}; }
+\DoxyCodeLine{92   \textcolor{keyword}{using }\mbox{\hyperlink{a01491_ae329d665e853b0286679e97418d3acad}{GridElement}}  = \textcolor{keyword}{typename} \mbox{\hyperlink{a01547_ac4668b9c9142defdf3b70cca8eeb30c4}{Traits::Element}};     }
+\DoxyCodeLine{93   \textcolor{keyword}{using }typename \mbox{\hyperlink{a01895_a86c0fea1b37e487f3c78cde6facca9c3}{Mixin::Requirement}};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01491_aad639c76b46707f9ecf9dd58e25827f9}{myDim}}    = \mbox{\hyperlink{a01547_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}};}
+\DoxyCodeLine{96   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01491_a6b85ca6e6596543374c9ab104a471cec}{worldDim}} = \mbox{\hyperlink{a01547_a5d611e1d48285bac5c5ebd6fda9c7cc7}{Traits::worlddim}};}
+\DoxyCodeLine{97   \textcolor{keyword}{using }\mbox{\hyperlink{a01491_a327f5479545f9b5d615c07ce535b0007}{PreTuple}}                = std::tuple<typename Skills<PreFE, FE>::Pre...>;}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{105   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01491_a395b4b566b17bb390d82de3c89c00e9d}{FE}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01491_a26398fefb73f4d51895e26152e368cf8}{BasisHandler}}\& basisHandler, \textcolor{keyword}{typename} \mbox{\hyperlink{a01911}{Skills<PreFE, FE>::Pre}}... skillsArgs)}
+\DoxyCodeLine{106       : Impl::FEInit<\mbox{\hyperlink{a01495}{PreFE}}, \mbox{\hyperlink{a01491}{FE}}>(basisHandler),}
+\DoxyCodeLine{107         \mbox{\hyperlink{a01895}{FEMixin}}<\mbox{\hyperlink{a01495}{PreFE}}, \mbox{\hyperlink{a01911}{Skills}}...>(std::forward<typename \mbox{\hyperlink{a01911}{Skills}}<\mbox{\hyperlink{a01495}{PreFE}}, \mbox{\hyperlink{a01491}{FE}}>::Pre>(skillsArgs)...) \{\}}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{113   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01491_a3a23d70495e802f44ba4b9923804dda0}{bind}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01491_ae329d665e853b0286679e97418d3acad}{GridElement}}\& element) \{}
+\DoxyCodeLine{114     this-\/>localView\_.bind(element);}
+\DoxyCodeLine{115     \mbox{\hyperlink{a01895_ad64afd529f274032176261fea660b027}{Mixin::bind}}();}
+\DoxyCodeLine{116   \}}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{122   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{a01491_a1e05d6a5e50e3afd57c27adc0620e5b8}{size}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_.size(); \}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{128   \textcolor{keyword}{const} \mbox{\hyperlink{a01491_ae329d665e853b0286679e97418d3acad}{GridElement}}\& \mbox{\hyperlink{a01491_ae84fc54bd26077a2edb0ec07361d0716}{gridElement}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_.element(); \}}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{134   \textcolor{keyword}{const} \mbox{\hyperlink{a01491_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}\& \mbox{\hyperlink{a01491_a1425316afd592244682b9ccc48cf59ef}{localView}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_; \}}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{140   \mbox{\hyperlink{a01491_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}\& \mbox{\hyperlink{a01491_aa82acd5684364d92165b89e63d0eefb4}{localView}}() \{ \textcolor{keywordflow}{return} this-\/>localView\_; \}}
+\DoxyCodeLine{141 \};}
+\DoxyCodeLine{142 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

@@ -1,5 +1,5 @@
 var dir_f76a953843f5286ce5302f8a81053dae =
 [
-    [ "materials/__init__.py", "a03496.html", "a03496" ],
-    [ "python/ikarus/materials/materials.hh", "a03439.html", "a03439" ]
+    [ "materials/__init__.py", "a03504.html", "a03504" ],
+    [ "python/ikarus/materials/materials.hh", "a03447.html", "a03447" ]
 ];

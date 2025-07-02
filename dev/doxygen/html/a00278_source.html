@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: numericalmaterialinversion.hh Source File</title>
+    <title>ikarus: deviatoricinvariants.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,7 +155,7 @@ $(document).ready(function(){initNavTree('a00278_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">numericalmaterialinversion.hh</div></div>
+  <div class="headertitle"><div class="title">deviatoricinvariants.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00278.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
@@ -163,66 +163,96 @@ $(document).ready(function(){initNavTree('a00278_source.html',''); initResizable
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a03445.html">ikarus/finiteelements/mechanics/materials/interface.hh</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00266.html">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00287.html">ikarus/finiteelements/mechanics/materials/strainconversions.hh</a>&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00059.html">ikarus/utils/tensorutils.hh</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00506.html">Ikarus::Materials</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">template</span> &lt;Concepts::Material Material, <span class="keyword">typename</span> Derived&gt;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a00506.html#a8fbddf32993e15f5f5c590c599a2b5f3">   34</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00506.html#a8fbddf32993e15f5f5c590c599a2b5f3">numericalMaterialInversion</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a01751.html">Material</a>&amp; mat, <span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; S,</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                                <span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; Estart = Derived::Zero().eval(),</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                                <span class="keyword">const</span> <span class="keywordtype">double</span> tol = 1e-12, <span class="keyword">const</span> <span class="keywordtype">int</span> maxIter = 20) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">static_assert</span>(Concepts::EigenMatrix33&lt;<span class="keyword">decltype</span>(S)&gt; or Concepts::EigenMatrix22&lt;<span class="keyword">decltype</span>(S)&gt;);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keyword">static_assert</span>(<a class="code hl_concept" href="a02406.html">Concepts::ReferenceConfiguraionStress&lt;Material::stressTag&gt;</a> and</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                <a class="code hl_concept" href="a02405.html">Concepts::ReferenceConfiguraionStrain&lt;Material::strainTag&gt;</a>);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00344.html">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00329.html">ikarus/finiteelements/mechanics/materials/tags.hh</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00029.html">ikarus/utils/tensorutils.hh</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00506.html">Ikarus::Materials</a> {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> PS&gt;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a01667.html">   34</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01667.html">DeviatoricInvariants</a></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a01667.html#a594b1e1baa67392c9a6ed38d0cec9656">   36</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01667.html#a594b1e1baa67392c9a6ed38d0cec9656">PrincipalStretches</a> = PS;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a01667.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05">   37</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01667.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05">ScalarType</a>         = PrincipalStretches::value_type;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a01667.html#a255955dbd34611bebcea229cd2bdc99c">   38</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="a01667.html#a255955dbd34611bebcea229cd2bdc99c">dim</a> = PrincipalStretches::RowsAtCompileTime;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a01667.html#aaf9d0408fc09fd6a079e4da57429babd">   39</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01667.html#aaf9d0408fc09fd6a079e4da57429babd">Invariants</a>         = <a class="code hl_typedef" href="a01667.html#a594b1e1baa67392c9a6ed38d0cec9656">PrincipalStretches</a>;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="keyword">constexpr</span> <span class="keywordtype">int</span> dim      = Derived::CompileTimeTraits::RowsAtCompileTime;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keyword">constexpr</span> <span class="keywordtype">int</span> dimVoigt = (dim * (dim + 1)) / 2;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keyword">constexpr</span> <span class="keyword">auto</span> strainTag =</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>      Material::strainTag == <a class="code hl_enumvalue" href="a00484.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">StrainTags::linear</a> ? <a class="code hl_enumvalue" href="a00484.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">StrainTags::linear</a> : <a class="code hl_enumvalue" href="a00484.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">StrainTags::greenLagrangian</a>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keyword">using </span>ST       = Derived::Scalar;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">using </span>VoigtVec = Eigen::Vector&lt;ST, dimVoigt&gt;;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  VoigtVec Es     = <a class="code hl_function" href="a00491.html#gaea992dee85d054f8dc1c99d3a7f4fe06">toVoigt</a>(Estart.derived()); <span class="comment">// starting value</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  VoigtVec Svoigt = <a class="code hl_function" href="a00491.html#gaea992dee85d054f8dc1c99d3a7f4fe06">toVoigt</a>(S.derived(), <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a01667.html#a917eb1c93dec4d24ac5c72ee53500f8a">   41</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01667.html#a917eb1c93dec4d24ac5c72ee53500f8a">FirstDerivative</a>  = Eigen::Vector&lt;ScalarType, dim&gt;;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a01667.html#a4f189b9d6a9e468c63d5095e0c037cde">   42</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01667.html#a4f189b9d6a9e468c63d5095e0c037cde">SecondDerivative</a> = Eigen::Matrix&lt;ScalarType, dim, dim&gt;;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a01667.html#a1e4087df2fd42f21f14f18e4d9d768fc">   49</a></span>  <span class="keyword">explicit</span> <a class="code hl_function" href="a01667.html#a1e4087df2fd42f21f14f18e4d9d768fc">DeviatoricInvariants</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a01667.html#a594b1e1baa67392c9a6ed38d0cec9656">PrincipalStretches</a>&amp; lambda)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>      : lambda_{lambda} {}</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="keyword">auto</span> r = VoigtVec::Zero().eval();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">auto</span> D = Eigen::Matrix&lt;ST, dimVoigt, dimVoigt&gt;::Zero().eval();</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : Dune::range(maxIter)) {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    r = (Svoigt - mat.template stresses&lt;strainTag, true&gt;(Es)).eval();</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">if</span> (r.norm() &lt; tol and i &gt; 0)</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (i == maxIter)</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      DUNE_THROW(</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>          Dune::MathError,</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>          <span class="stringliteral">&quot;Numerical material inversion failed to converge within the maximum number of iterations for the material: &quot;</span> +</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>              mat.<a class="code hl_function" href="a01751.html#a03ae10e8656beed2aa69c8a9d27907e5">name</a>());</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    D = mat.template tangentModuli&lt;strainTag, true&gt;(Es).inverse().eval(); <span class="comment">// voigt</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    Es += (D * r).eval();</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  }</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordflow">return</span> std::make_pair(D, transformStrain&lt;strainTag, Material::strainTag&gt;(Es).eval());</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace Ikarus::Materials</span></div>
-<div class="ttc" id="aa00059_html"><div class="ttname"><a href="a00059.html">tensorutils.hh</a></div><div class="ttdoc">Helper for the Eigen::Tensor types.</div></div>
-<div class="ttc" id="aa00266_html"><div class="ttname"><a href="a00266.html">materialhelpers.hh</a></div><div class="ttdoc">helper functions used by material model implementations.</div></div>
-<div class="ttc" id="aa00287_html"><div class="ttname"><a href="a00287.html">strainconversions.hh</a></div><div class="ttdoc">Implementation of transformations for different strain measures.</div></div>
-<div class="ttc" id="aa00484_html_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa"><div class="ttname"><a href="a00484.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">Ikarus::StrainTags::linear</a></div><div class="ttdeci">@ linear</div></div>
-<div class="ttc" id="aa00484_html_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e"><div class="ttname"><a href="a00484.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">Ikarus::StrainTags::greenLagrangian</a></div><div class="ttdeci">@ greenLagrangian</div></div>
-<div class="ttc" id="aa00491_html_gaea992dee85d054f8dc1c99d3a7f4fe06"><div class="ttname"><a href="a00491.html#gaea992dee85d054f8dc1c99d3a7f4fe06">Ikarus::toVoigt</a></div><div class="ttdeci">constexpr Eigen::Index toVoigt(Eigen::Index i, Eigen::Index j) noexcept</div><div class="ttdoc">Converts 2D indices to Voigt notation index.</div><div class="ttdef"><b>Definition:</b> tensorutils.hh:182</div></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a01667.html#a9c016a61bba2d581b57c0f373a7f822c">   55</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01667.html#a9c016a61bba2d581b57c0f373a7f822c">value</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="a01667.html#aaf9d0408fc09fd6a079e4da57429babd">Invariants</a>&amp; invariants = Impl::invariants(lambda_);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_typedef" href="a01667.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05">ScalarType</a> W1                = invariants[0] * pow(invariants[2], -1.0 / 3.0);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_typedef" href="a01667.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05">ScalarType</a> W2                = invariants[1] * pow(invariants[2], -2.0 / 3.0);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">return</span> std::array&lt;ScalarType, 2&gt;{W1, W2};</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a01667.html#a981e70dd52fc55dcd29e0bfe6507b214">   65</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01667.html#a981e70dd52fc55dcd29e0bfe6507b214">firstDerivative</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="a01667.html#aaf9d0408fc09fd6a079e4da57429babd">Invariants</a>&amp; invariants            = Impl::invariants(lambda_);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">auto</span> [I1, I2, I3, I3Pow1by3, I3Pow2by3] = computeInvariants(invariants);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_typedef" href="a01667.html#a917eb1c93dec4d24ac5c72ee53500f8a">FirstDerivative</a> dW1dLambda = 2.0 * (3.0 * lambda_.cwisePow(2).array() - I1) / (3.0 * lambda_.array() * I3Pow1by3);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_typedef" href="a01667.html#a917eb1c93dec4d24ac5c72ee53500f8a">FirstDerivative</a> dW2dLambda =</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        -2.0 * (3.0 * I3 * lambda_.cwisePow(2).cwiseInverse().array() - I2) / (3.0 * lambda_.array() * I3Pow2by3);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">return</span> std::make_pair(dW1dLambda, dW2dLambda);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a01667.html#abc7cc84b8755a39dc78821033998f666">   79</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01667.html#abc7cc84b8755a39dc78821033998f666">secondDerivative</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="a01667.html#aaf9d0408fc09fd6a079e4da57429babd">Invariants</a>&amp; invariants            = Impl::invariants(lambda_);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">auto</span> ddW1dLambda                        = SecondDerivative::Zero().eval();</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">auto</span> ddW2dLambda                        = SecondDerivative::Zero().eval();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keyword">auto</span> [I1, I2, I3, I3Pow1by3, I3Pow2by3] = computeInvariants(invariants);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">auto</span> lam               = lambda_.array();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    ddW1dLambda.diagonal() = (2.0 / 9.0) * (5 * I1 - 3 * lam.square()) / (lam.square() * I3Pow1by3);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    ddW2dLambda.diagonal() = (2.0 / 9.0) * ((15.0 * I3 / lam.square()) - I2) / (lam.square() * I3Pow2by3);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> j : dimensionRange()) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> i : dimensionRange())</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">if</span> (i != j) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>          ddW1dLambda(i, j) = (4.0 / 9.0) * (I1 - 3 * (pow(lambda_[i], 2.0) + pow(lambda_[j], 2.0))) /</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                              (lambda_[i] * lambda_[j] * I3Pow1by3);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>          ddW2dLambda(i, j) = (-4.0 / 9.0) * (2.0 * I2 - 3 * pow(lambda_[i], 2.0) * pow(lambda_[j], 2.0)) /</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                              (lambda_[i] * lambda_[j] * I3Pow2by3);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">return</span> std::make_pair(ddW1dLambda, ddW2dLambda);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>  <a class="code hl_typedef" href="a01667.html#a594b1e1baa67392c9a6ed38d0cec9656">PrincipalStretches</a> lambda_;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>  <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> dimensionRange() { <span class="keywordflow">return</span> Dune::range(<a class="code hl_variable" href="a01667.html#a255955dbd34611bebcea229cd2bdc99c">dim</a>); }</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  <span class="keyword">auto</span> computeInvariants(<span class="keyword">const</span> <a class="code hl_typedef" href="a01667.html#aaf9d0408fc09fd6a079e4da57429babd">Invariants</a>&amp; invariants)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_typedef" href="a01667.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05">ScalarType</a> I1        = invariants[0];</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_typedef" href="a01667.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05">ScalarType</a> I2        = invariants[1];</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <a class="code hl_typedef" href="a01667.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05">ScalarType</a> I3        = invariants[2];</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_typedef" href="a01667.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05">ScalarType</a> I3Pow1by3 = pow(I3, 1.0 / 3.0);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <a class="code hl_typedef" href="a01667.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05">ScalarType</a> I3Pow2by3 = pow(I3, 2.0 / 3.0);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">return</span> std::make_tuple(I1, I2, I3, I3Pow1by3, I3Pow2by3);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>};</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>} <span class="comment">// namespace Ikarus::Materials</span></div>
+<div class="ttc" id="aa00029_html"><div class="ttname"><a href="a00029.html">tensorutils.hh</a></div><div class="ttdoc">Helper for the Eigen::Tensor types.</div></div>
+<div class="ttc" id="aa00329_html"><div class="ttname"><a href="a00329.html">tags.hh</a></div><div class="ttdoc">Definition of several material related enums.</div></div>
+<div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">materialhelpers.hh</a></div><div class="ttdoc">helper functions used by material model implementations.</div></div>
 <div class="ttc" id="aa00506_html"><div class="ttname"><a href="a00506.html">Ikarus::Materials</a></div><div class="ttdef"><b>Definition:</b> arrudaboyce.hh:27</div></div>
-<div class="ttc" id="aa00506_html_a8fbddf32993e15f5f5c590c599a2b5f3"><div class="ttname"><a href="a00506.html#a8fbddf32993e15f5f5c590c599a2b5f3">Ikarus::Materials::numericalMaterialInversion</a></div><div class="ttdeci">auto numericalMaterialInversion(const Material &amp;mat, const Eigen::MatrixBase&lt; Derived &gt; &amp;S, const Eigen::MatrixBase&lt; Derived &gt; &amp;Estart=Derived::Zero().eval(), const double tol=1e-12, const int maxIter=20)</div><div class="ttdoc">Computes numerically an approximation of the complementary strain energy function and returns the mat...</div><div class="ttdef"><b>Definition:</b> numericalmaterialinversion.hh:34</div></div>
-<div class="ttc" id="aa01751_html"><div class="ttname"><a href="a01751.html">Ikarus::Materials::Material</a></div><div class="ttdoc">Interface classf or materials.</div><div class="ttdef"><b>Definition:</b> finiteelements/mechanics/materials/interface.hh:82</div></div>
-<div class="ttc" id="aa01751_html_a03ae10e8656beed2aa69c8a9d27907e5"><div class="ttname"><a href="a01751.html#a03ae10e8656beed2aa69c8a9d27907e5">Ikarus::Materials::Material::name</a></div><div class="ttdeci">static constexpr std::string name()</div><div class="ttdoc">Get the name of the implemented material.</div><div class="ttdef"><b>Definition:</b> finiteelements/mechanics/materials/interface.hh:112</div></div>
-<div class="ttc" id="aa02405_html"><div class="ttname"><a href="a02405.html">Ikarus::Concepts::ReferenceConfiguraionStrain</a></div><div class="ttdoc">Returns true if a given straintag is related only to the reference configuration.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:677</div></div>
-<div class="ttc" id="aa02406_html"><div class="ttname"><a href="a02406.html">Ikarus::Concepts::ReferenceConfiguraionStress</a></div><div class="ttdoc">Returns true if a given stresstag is related only to the reference configuration.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:684</div></div>
-<div class="ttc" id="aa03445_html"><div class="ttname"><a href="a03445.html">interface.hh</a></div><div class="ttdoc">Contains the Material interface class and related template functions for material properties.</div></div>
+<div class="ttc" id="aa01667_html"><div class="ttname"><a href="a01667.html">Ikarus::Materials::DeviatoricInvariants</a></div><div class="ttdoc">Implementation of the deviatoric invariants and its derivatives.</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:35</div></div>
+<div class="ttc" id="aa01667_html_a1e4087df2fd42f21f14f18e4d9d768fc"><div class="ttname"><a href="a01667.html#a1e4087df2fd42f21f14f18e4d9d768fc">Ikarus::Materials::DeviatoricInvariants::DeviatoricInvariants</a></div><div class="ttdeci">DeviatoricInvariants(const PrincipalStretches &amp;lambda)</div><div class="ttdoc">Constructor for DeviatoricInvariants.</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:49</div></div>
+<div class="ttc" id="aa01667_html_a255955dbd34611bebcea229cd2bdc99c"><div class="ttname"><a href="a01667.html#a255955dbd34611bebcea229cd2bdc99c">Ikarus::Materials::DeviatoricInvariants::dim</a></div><div class="ttdeci">static constexpr int dim</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:38</div></div>
+<div class="ttc" id="aa01667_html_a4f189b9d6a9e468c63d5095e0c037cde"><div class="ttname"><a href="a01667.html#a4f189b9d6a9e468c63d5095e0c037cde">Ikarus::Materials::DeviatoricInvariants::SecondDerivative</a></div><div class="ttdeci">Eigen::Matrix&lt; ScalarType, dim, dim &gt; SecondDerivative</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:42</div></div>
+<div class="ttc" id="aa01667_html_a594b1e1baa67392c9a6ed38d0cec9656"><div class="ttname"><a href="a01667.html#a594b1e1baa67392c9a6ed38d0cec9656">Ikarus::Materials::DeviatoricInvariants::PrincipalStretches</a></div><div class="ttdeci">PS PrincipalStretches</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:36</div></div>
+<div class="ttc" id="aa01667_html_a917eb1c93dec4d24ac5c72ee53500f8a"><div class="ttname"><a href="a01667.html#a917eb1c93dec4d24ac5c72ee53500f8a">Ikarus::Materials::DeviatoricInvariants::FirstDerivative</a></div><div class="ttdeci">Eigen::Vector&lt; ScalarType, dim &gt; FirstDerivative</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:41</div></div>
+<div class="ttc" id="aa01667_html_a981e70dd52fc55dcd29e0bfe6507b214"><div class="ttname"><a href="a01667.html#a981e70dd52fc55dcd29e0bfe6507b214">Ikarus::Materials::DeviatoricInvariants::firstDerivative</a></div><div class="ttdeci">auto firstDerivative() const</div><div class="ttdoc">Computation of the first derivatives of the deviatoric invariants w.r.t the total principal stretches...</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:65</div></div>
+<div class="ttc" id="aa01667_html_a9c016a61bba2d581b57c0f373a7f822c"><div class="ttname"><a href="a01667.html#a9c016a61bba2d581b57c0f373a7f822c">Ikarus::Materials::DeviatoricInvariants::value</a></div><div class="ttdeci">auto value() const</div><div class="ttdoc">Computation of value of the deviatoric invariants.</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:55</div></div>
+<div class="ttc" id="aa01667_html_aa49ae6eeb1a2d0b8135ae48c5a3eff05"><div class="ttname"><a href="a01667.html#aa49ae6eeb1a2d0b8135ae48c5a3eff05">Ikarus::Materials::DeviatoricInvariants::ScalarType</a></div><div class="ttdeci">PrincipalStretches::value_type ScalarType</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:37</div></div>
+<div class="ttc" id="aa01667_html_aaf9d0408fc09fd6a079e4da57429babd"><div class="ttname"><a href="a01667.html#aaf9d0408fc09fd6a079e4da57429babd">Ikarus::Materials::DeviatoricInvariants::Invariants</a></div><div class="ttdeci">PrincipalStretches Invariants</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:39</div></div>
+<div class="ttc" id="aa01667_html_abc7cc84b8755a39dc78821033998f666"><div class="ttname"><a href="a01667.html#abc7cc84b8755a39dc78821033998f666">Ikarus::Materials::DeviatoricInvariants::secondDerivative</a></div><div class="ttdeci">auto secondDerivative() const</div><div class="ttdoc">Computation of the second derivatives of the deviatoric invariants w.r.t the total principal stretche...</div><div class="ttdef"><b>Definition:</b> deviatoricinvariants.hh:79</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -233,7 +263,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="a00278.html">numericalmaterialinversion.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="dir_a03d0955ec786907fd5e2d9460a59b20.html">hyperelastic</a></li><li class="navelem"><a class="el" href="dir_4ba2a7935bd4322f95edc73c65047dcd.html">deviatoric</a></li><li class="navelem"><a class="el" href="a00278.html">deviatoricinvariants.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

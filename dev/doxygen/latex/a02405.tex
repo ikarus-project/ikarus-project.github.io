@@ -1,8 +1,10 @@
-\hypertarget{a02405}{}\doxysection{Ikarus\+::Concepts\+::Reference\+Configuraion\+Strain Concept Reference}
-\label{a02405}\index{Ikarus::Concepts::ReferenceConfiguraionStrain@{Ikarus::Concepts::ReferenceConfiguraionStrain}}
+\hypertarget{a02405}{}\doxysection{Ikarus\+::Concepts\+::Matrix\+Flat\+Assembler Concept Reference}
+\label{a02405}\index{Ikarus::Concepts::MatrixFlatAssembler@{Ikarus::Concepts::MatrixFlatAssembler}}
 
 
-Returns true if a given straintag is related only to the reference configuration.  
+Concept representing the requirements for a Matrix\+Flat\+Assembler.
+
+A type T satisfies Matrix\+Flat\+Assembler if it is a Vector\+Flat\+Assembler and if it provides the necessary matrix() member functions.  
 
 
 
@@ -12,8 +14,13 @@ Returns true if a given straintag is related only to the reference configuration
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<StrainTags tag>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02405}{Ikarus::Concepts::ReferenceConfiguraionStrain}} =  (tag == \mbox{\hyperlink{a00484_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e}{StrainTags::greenLagrangian}}) or}
-\DoxyCodeLine{                                        (tag == \mbox{\hyperlink{a00484_ggacef1e451de1a99845c59d7391064fb8faea40a9960a7a89c4f366beeab85d07d2}{StrainTags::rightCauchyGreenTensor}}) or (tag == \mbox{\hyperlink{a00484_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}})}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02405}{Ikarus::Concepts::MatrixFlatAssembler}} =  \mbox{\hyperlink{a02404}{Concepts::VectorFlatAssembler<T>}} and}
+\DoxyCodeLine{                                \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{                                         \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00495_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{                                  \{ t.matrix(req, affordance.matrixAffordance(), dbcOption) \};}
+\DoxyCodeLine{                                  \{ t.matrix(dbcOption) \};}
+\DoxyCodeLine{                                  \{ t.matrix() \};}
+\DoxyCodeLine{                                \}}
 
 \end{DoxyCode}

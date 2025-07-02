@@ -1,6 +1,7 @@
 var a02259 =
 [
-    [ "draw", "a02259.html#a08fa473dcdfbdb5dcf759546ea2da3b8", null ],
-    [ "tolerance", "a02259.html#a6c1e702608ca901f9f7efca524560b25", null ],
-    [ "writeSlopeStatementIfFailed", "a02259.html#ac9946207ee221c94e843ea7c048a16a3", null ]
+    [ "FIMS", "a02259.html#a2387375090283dac7ebbfb8bc58e1994", null ],
+    [ "type", "a02259.html#a5b93764f4d9fd3897ad37658526e37fd", null ],
+    [ "create", "a02259.html#aaaf91aed22e7c32c6f2c26ff961ae3e1", null ],
+    [ "create", "a02259.html#aab16d08ac65576f292078b2c4f135645", null ]
 ];

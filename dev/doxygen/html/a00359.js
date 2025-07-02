@@ -1,4 +1,4 @@
 var a00359 =
 [
-    [ "Ikarus::Experimental::AutoDiffMAT< RealMAT, forceAutoDiffV, forceAutoDiffS >", "a01483.html", "a01483" ]
+    [ "Ikarus::EAS::EASVariant< EASFunction, GEO >", "a01831.html", "a01831" ]
 ];

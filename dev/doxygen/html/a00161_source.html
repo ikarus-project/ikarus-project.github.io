@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: broadcaster.hh Source File</title>
+    <title>ikarus: controlinfos.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,71 +155,41 @@ $(document).ready(function(){initNavTree('a00161_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">broadcaster.hh</div></div>
+  <div class="headertitle"><div class="title">controlinfos.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00161.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00203.html">ikarus/solver/nonlinearsolver/solverinfos.hh</a>&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00495.html">Ikarus</a> {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> MT, <span class="keyword">typename</span> S&gt;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a02143.html">   25</a></span><span class="keyword">class </span><a class="code hl_class" href="a02143.html">Broadcaster</a></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a02143.html#abc47e2a26f85e3bdd3886d82d458d5da">   28</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02143.html#abc47e2a26f85e3bdd3886d82d458d5da">MessageType</a> = MT;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a02143.html#ac1cbfd25b275106de2e554ebf3154684">   29</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02143.html#ac1cbfd25b275106de2e554ebf3154684">State</a>       = S;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a02143.html#a34a8a1247a245acc29e1b4b34985771e">   31</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02143.html#a34a8a1247a245acc29e1b4b34985771e">Callback</a> = std::function&lt;void(MT, <span class="keyword">const</span> <a class="code hl_typedef" href="a02143.html#ac1cbfd25b275106de2e554ebf3154684">State</a>&amp;)&gt;;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a02143.html#a5abf58d509c6594898811fe1519e498c">   32</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02143.html#a5abf58d509c6594898811fe1519e498c">Token</a>    = std::shared_ptr&lt;Callback&gt;;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a01423.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01423.html">ControlInformation</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a01423.html#a00a16a688e5e3d9971f321d7b5461fd3">   24</a></span>  <a class="code hl_function" href="a01423.html#a00a16a688e5e3d9971f321d7b5461fd3">ControlInformation</a>(<span class="keyword">const</span> std::string&amp; n = <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>      : <a class="code hl_variable" href="a01423.html#a75aa6bc77cf77715f5dc037becb3a00d">name</a>(n) {}</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a01423.html#aaeccd3cd24ed5d809397ab055da1b695">   27</a></span>  <span class="keywordtype">bool</span> <a class="code hl_variable" href="a01423.html#aaeccd3cd24ed5d809397ab055da1b695">success</a>{<span class="keyword">false</span>}; </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  std::vector&lt;Ikarus::NonLinearSolverInformation&gt;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a01423.html#aedbd5de28f127726884cb99b067313bf">   29</a></span>      <a class="code hl_variable" href="a01423.html#aedbd5de28f127726884cb99b067313bf">solverInfos</a>{};      </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a01423.html#a4712b189651e59cd46fd43b2e6a326bf">   30</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="a01423.html#a4712b189651e59cd46fd43b2e6a326bf">totalIterations</a>{0}; </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a01423.html#a75aa6bc77cf77715f5dc037becb3a00d">   31</a></span>  std::string <a class="code hl_variable" href="a01423.html#a75aa6bc77cf77715f5dc037becb3a00d">name</a>{};     </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a02143.html#a50f7d8360254792256006fe4ead0350c">   43</a></span>  <a class="code hl_typedef" href="a02143.html#a5abf58d509c6594898811fe1519e498c">Token</a> <a class="code hl_function" href="a02143.html#a50f7d8360254792256006fe4ead0350c">registerListener</a>(<a class="code hl_typedef" href="a02143.html#a34a8a1247a245acc29e1b4b34985771e">Callback</a> callback) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">auto</span> sp = std::make_shared&lt;Callback&gt;(std::move(callback));</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    listeners.push_back(sp);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> sp;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  }</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a02143.html#af78c5019f3563fe5ee567f98a3d63e6e">   52</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02143.html#af78c5019f3563fe5ee567f98a3d63e6e">unregisterListener</a>(<a class="code hl_typedef" href="a02143.html#a5abf58d509c6594898811fe1519e498c">Token</a> token) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span> (token) {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      token.reset();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="a02143.html#a0cc3593f3af31f30ea97adc1d040c8f2">   61</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02143.html#a0cc3593f3af31f30ea97adc1d040c8f2">notify</a>(MT message, <span class="keyword">const</span> <a class="code hl_typedef" href="a02143.html#ac1cbfd25b275106de2e554ebf3154684">State</a>&amp; data) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    trim();</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; weakCb : listeners) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>      <span class="keywordflow">if</span> (<span class="keyword">auto</span> callback = weakCb.lock()) {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        (*callback)(message, data);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      }</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  }</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  std::vector&lt;std::weak_ptr&lt;Callback&gt;&gt; listeners;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordtype">void</span> trim() {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    listeners.erase(</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        std::remove_if(listeners.begin(), listeners.end(), [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; weakCb) { return weakCb.expired(); }),</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        listeners.end());</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  }</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>};</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="ttc" id="aa00203_html"><div class="ttname"><a href="a00203.html">solverinfos.hh</a></div><div class="ttdoc">Implementation of the solver information returned by the nonlinear solvers.</div></div>
 <div class="ttc" id="aa00495_html"><div class="ttname"><a href="a00495.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa02143_html"><div class="ttname"><a href="a02143.html">Ikarus::Broadcaster</a></div><div class="ttdoc">Implements a Broadcaster for a given MessageType and BroadcasterState.</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:26</div></div>
-<div class="ttc" id="aa02143_html_a0cc3593f3af31f30ea97adc1d040c8f2"><div class="ttname"><a href="a02143.html#a0cc3593f3af31f30ea97adc1d040c8f2">Ikarus::Broadcaster::notify</a></div><div class="ttdeci">void notify(MT message, const State &amp;data)</div><div class="ttdoc">This calls all the registered functions.</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:61</div></div>
-<div class="ttc" id="aa02143_html_a34a8a1247a245acc29e1b4b34985771e"><div class="ttname"><a href="a02143.html#a34a8a1247a245acc29e1b4b34985771e">Ikarus::Broadcaster::Callback</a></div><div class="ttdeci">std::function&lt; void(MT, const State &amp;)&gt; Callback</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:31</div></div>
-<div class="ttc" id="aa02143_html_a50f7d8360254792256006fe4ead0350c"><div class="ttname"><a href="a02143.html#a50f7d8360254792256006fe4ead0350c">Ikarus::Broadcaster::registerListener</a></div><div class="ttdeci">Token registerListener(Callback callback)</div><div class="ttdoc">This method is used to register a Listener function.</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:43</div></div>
-<div class="ttc" id="aa02143_html_a5abf58d509c6594898811fe1519e498c"><div class="ttname"><a href="a02143.html#a5abf58d509c6594898811fe1519e498c">Ikarus::Broadcaster::Token</a></div><div class="ttdeci">std::shared_ptr&lt; Callback &gt; Token</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:32</div></div>
-<div class="ttc" id="aa02143_html_abc47e2a26f85e3bdd3886d82d458d5da"><div class="ttname"><a href="a02143.html#abc47e2a26f85e3bdd3886d82d458d5da">Ikarus::Broadcaster::MessageType</a></div><div class="ttdeci">MT MessageType</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:28</div></div>
-<div class="ttc" id="aa02143_html_ac1cbfd25b275106de2e554ebf3154684"><div class="ttname"><a href="a02143.html#ac1cbfd25b275106de2e554ebf3154684">Ikarus::Broadcaster::State</a></div><div class="ttdeci">S State</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:29</div></div>
-<div class="ttc" id="aa02143_html_af78c5019f3563fe5ee567f98a3d63e6e"><div class="ttname"><a href="a02143.html#af78c5019f3563fe5ee567f98a3d63e6e">Ikarus::Broadcaster::unregisterListener</a></div><div class="ttdeci">void unregisterListener(Token token)</div><div class="ttdoc">deregisters a specific function</div><div class="ttdef"><b>Definition:</b> broadcaster.hh:52</div></div>
+<div class="ttc" id="aa01423_html"><div class="ttname"><a href="a01423.html">Ikarus::ControlInformation</a></div><div class="ttdoc">Structure containing information about the control results.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:23</div></div>
+<div class="ttc" id="aa01423_html_a00a16a688e5e3d9971f321d7b5461fd3"><div class="ttname"><a href="a01423.html#a00a16a688e5e3d9971f321d7b5461fd3">Ikarus::ControlInformation::ControlInformation</a></div><div class="ttdeci">ControlInformation(const std::string &amp;n=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:24</div></div>
+<div class="ttc" id="aa01423_html_a4712b189651e59cd46fd43b2e6a326bf"><div class="ttname"><a href="a01423.html#a4712b189651e59cd46fd43b2e6a326bf">Ikarus::ControlInformation::totalIterations</a></div><div class="ttdeci">int totalIterations</div><div class="ttdoc">Total number of iterations performed.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:30</div></div>
+<div class="ttc" id="aa01423_html_a75aa6bc77cf77715f5dc037becb3a00d"><div class="ttname"><a href="a01423.html#a75aa6bc77cf77715f5dc037becb3a00d">Ikarus::ControlInformation::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Information about the name of the control method.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:31</div></div>
+<div class="ttc" id="aa01423_html_aaeccd3cd24ed5d809397ab055da1b695"><div class="ttname"><a href="a01423.html#aaeccd3cd24ed5d809397ab055da1b695">Ikarus::ControlInformation::success</a></div><div class="ttdeci">bool success</div><div class="ttdoc">Flag indicating the success of the control.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:27</div></div>
+<div class="ttc" id="aa01423_html_aedbd5de28f127726884cb99b067313bf"><div class="ttname"><a href="a01423.html#aedbd5de28f127726884cb99b067313bf">Ikarus::ControlInformation::solverInfos</a></div><div class="ttdeci">std::vector&lt; Ikarus::NonLinearSolverInformation &gt; solverInfos</div><div class="ttdoc">Vector containing information from nonlinear solvers.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:29</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -230,7 +200,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="dir_815382eaeaec466b12af3b09930503e4.html">broadcaster</a></li><li class="navelem"><a class="el" href="a00161.html">broadcaster.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_a97b071c9c6f7bcc51f4d0bc7519f177.html">controlroutines</a></li><li class="navelem"><a class="el" href="a00161.html">controlinfos.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

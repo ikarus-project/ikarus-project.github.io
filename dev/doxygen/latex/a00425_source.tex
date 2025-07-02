@@ -1,31 +1,58 @@
-\hypertarget{a00425_source}{}\doxysection{controlroutinefactory.\+hh}
-\label{a00425_source}\index{controlroutinefactory.hh@{controlroutinefactory.hh}}
+\hypertarget{a00425_source}{}\doxysection{controllogger.\+hh}
+\label{a00425_source}\index{controllogger.hh@{controllogger.hh}}
 \mbox{\hyperlink{a00425}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00164}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03484}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <chrono>}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00495}{Ikarus}} \{}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{24 \textcolor{keyword}{struct }\mbox{\hyperlink{a01431}{ControlRoutineFactory}}}
-\DoxyCodeLine{25 \{}
-\DoxyCodeLine{38   \textcolor{keyword}{template} <\textcolor{keyword}{typename} CRConfig, \textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} Assembler>}
-\DoxyCodeLine{39   \textcolor{keyword}{requires} \mbox{\hyperlink{a02394}{Concepts::FlatAssembler<typename std::remove\_cvref\_t<Assembler>::element\_type}}>}
-\DoxyCodeLine{40   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01431_a9dd7f8c2fccba831b34f4139837fb16c}{create}}(\textcolor{keyword}{const} CRConfig\& config, NLS\&\& nonlinearSolver, Assembler\&\& assembler) \{}
-\DoxyCodeLine{41     \textcolor{keyword}{auto} cr = \mbox{\hyperlink{a00495_a5aec737453e85d8a0cd6061b39300694}{createControlRoutine}}(std::move(config), std::forward<NLS>(nonlinearSolver));}
-\DoxyCodeLine{42 }
-\DoxyCodeLine{43     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& fe : assembler-\/>finiteElements()) \{}
-\DoxyCodeLine{44       fe.template subscribeTo<NonLinearSolverMessages>(nonlinearSolver);}
-\DoxyCodeLine{45       fe.template subscribeTo<ControlMessages>(cr);}
-\DoxyCodeLine{46     \}}
-\DoxyCodeLine{47     \textcolor{keywordflow}{return} cr;}
-\DoxyCodeLine{48   \}}
-\DoxyCodeLine{49 \};}
-\DoxyCodeLine{50 }
-\DoxyCodeLine{51 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00410}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03453}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00419}{ikarus/utils/listener/listener.hh}}>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00495}{Ikarus}} \{}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{22 \textcolor{keyword}{class }\mbox{\hyperlink{a02275}{ControlLogger}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02287}{Listener}}}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24 \textcolor{keyword}{public}:}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} BC>}
+\DoxyCodeLine{26   \mbox{\hyperlink{a02275}{ControlLogger}}\& \mbox{\hyperlink{a02275_a0138d15920218568fc349acd1b40950f}{subscribeTo}}(BC\& bc) \{}
+\DoxyCodeLine{27     this-\/>\mbox{\hyperlink{a02287_a199840d6ead51d771d5522acff779a4f}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00495_a35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message, \textcolor{keyword}{const} BC::State\& state) \{ this-\/>\mbox{\hyperlink{a02275_a7b709d4594a7918cbff23f1f9e5aa73e}{update}}(message, state); \});}
+\DoxyCodeLine{28     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{29   \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{37   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02275_a7b709d4594a7918cbff23f1f9e5aa73e}{update}}(\mbox{\hyperlink{a00495_a35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message, \textcolor{keyword}{const} \mbox{\hyperlink{a02411}{Concepts::ControlRoutineState}} \textcolor{keyword}{auto}\& state) \{}
+\DoxyCodeLine{38     \textcolor{keywordflow}{switch} (message) \{}
+\DoxyCodeLine{39       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00495_a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2}{ControlMessages::STEP\_ENDED}}:}
+\DoxyCodeLine{40         stepEnded();}
+\DoxyCodeLine{41         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{42       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00495_a35fa62fd2d4186a9750af3d0692f2893a3fbccdb8d4ddfe10b3c9ee45ed07aad0}{ControlMessages::CONTROL\_STARTED}}:}
+\DoxyCodeLine{43         controlStarted(state.information.name);}
+\DoxyCodeLine{44         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{45       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00495_a35fa62fd2d4186a9750af3d0692f2893a18e0c9ecde68d13f1d2608dd1a180945}{ControlMessages::STEP\_STARTED}}:}
+\DoxyCodeLine{46         stepStarted(state.loadStep, state.stepSize);}
+\DoxyCodeLine{47         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{48       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00495_a35fa62fd2d4186a9750af3d0692f2893a1c32d268de88f801deb25166d98a3938}{ControlMessages::CONTROL\_ENDED}}:}
+\DoxyCodeLine{49         controlEnded(state.information.totalIterations, state.information.name);}
+\DoxyCodeLine{50         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{51       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{52         \textcolor{keywordflow}{break}; \textcolor{comment}{// default: do nothing when notified}}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{keyword}{private}:}
+\DoxyCodeLine{57   \textcolor{keyword}{using }TimePoint = std::chrono::time\_point<std::chrono::high\_resolution\_clock>;}
+\DoxyCodeLine{58   TimePoint start\_\{\};}
+\DoxyCodeLine{59   TimePoint stop\_\{\};}
+\DoxyCodeLine{60   std::chrono::milliseconds duration\_\{\};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   \textcolor{keywordtype}{void} stepEnded();}
+\DoxyCodeLine{63   \textcolor{keywordtype}{void} controlStarted(\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{64   \textcolor{keywordtype}{void} controlEnded(\textcolor{keywordtype}{int} totalIterations, \textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{65   \textcolor{keywordtype}{void} stepStarted(\textcolor{keywordtype}{int} stepNumber, \textcolor{keywordtype}{double} stepSize);}
+\DoxyCodeLine{66 \};}
+\DoxyCodeLine{67 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

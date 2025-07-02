@@ -1,9 +1,8 @@
 var a00197 =
 [
-    [ "Ikarus::FEMixin< PreFE, Skills >", "a01895.html", "a01895" ],
-    [ "Ikarus::FEMixin< PreFE, Skills >::RequirementType< false, T >", "a01903.html", "a01903" ],
-    [ "Ikarus::FEMixin< PreFE, Skills >::RequirementType< true, T >", "a01907.html", "a01907" ],
-    [ "Ikarus::Skills< ARGS >", "a01911.html", "a01911" ],
-    [ "merge", "a00197.html#a4f5729471c2a5801482188e6d42009ea", null ],
-    [ "skills", "a00197.html#aefa492686bced0d5d9235bdb112f482e", null ]
+    [ "Ikarus::NRSettings", "a02055.html", "a02055" ],
+    [ "Ikarus::NewtonRaphsonConfig< LS, UF, IDBCF >", "a02059.html", "a02059" ],
+    [ "createNonlinearSolver", "a00197.html#a504e2e9645fa26419d815df9bd245add", null ],
+    [ "makeNewtonRaphson", "a00197.html#a4e47d2f973eca42ebf978ff03a5d885e", null ],
+    [ "NewtonRaphson", "a00197.html#aed1fac3912aaa9c17e87ec329c5f8301", null ]
 ];

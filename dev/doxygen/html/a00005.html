@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: polyfit.hh File Reference</title>
+    <title>ikarus: functionsanitychecks.hh File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -156,19 +156,29 @@ $(document).ready(function(){initNavTree('a00005.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">polyfit.hh File Reference</div></div>
+  <div class="headertitle"><div class="title">functionsanitychecks.hh File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Polynomial fitting of data.  
+<p>Implementation of function sanity checks.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;dune/functions/analyticfunctions/polynomial.hh&gt;</code><br />
-<code>#include &lt;Eigen/Dense&gt;</code><br />
+<div class="textblock"><code>#include &lt;type_traits&gt;</code><br />
+<code>#include &lt;dune/common/float_cmp.hh&gt;</code><br />
+<code>#include &lt;dune/functions/common/signature.hh&gt;</code><br />
+<code>#include &lt;spdlog/spdlog.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00068_source.html">ikarus/utils/defaultfunctions.hh</a>&gt;</code><br />
 </div>
 <p><a href="a00005_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02267.html">Ikarus::utils::CheckFlags</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct to hold flags for function checks.  <a href="a02267.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:a00495"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00495.html">Ikarus</a></td></tr>
@@ -178,9 +188,18 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga0d3a38551806e4de3ff44f311847ba51"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; Dune::Functions::Polynomial&lt; double &gt;, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00490.html#ga0d3a38551806e4de3ff44f311847ba51">Ikarus::utils::polyfit</a> (const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;x, const Eigen::Ref&lt; const Eigen::VectorXd &gt; &amp;y, int deg)</td></tr>
-<tr class="memdesc:ga0d3a38551806e4de3ff44f311847ba51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fits a polynomial of a given degree to the given data points.  <a href="a00490.html#ga0d3a38551806e4de3ff44f311847ba51">More...</a><br /></td></tr>
-<tr class="separator:ga0d3a38551806e4de3ff44f311847ba51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9552c352e9fa0eeca4b3ae3d1dd1f585"><td class="memTemplParams" colspan="2">template&lt;typename F , typename UF  = UpdateDefault&gt; </td></tr>
+<tr class="memitem:ga9552c352e9fa0eeca4b3ae3d1dd1f585"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00490.html#ga9552c352e9fa0eeca4b3ae3d1dd1f585">Ikarus::utils::checkGradient</a> (F &amp;f, const typename F::Domain &amp;p, CheckFlags checkFlags=CheckFlags(), UF &amp;&amp;p_updateFunction={})</td></tr>
+<tr class="memdesc:ga9552c352e9fa0eeca4b3ae3d1dd1f585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the gradient of a differentiable Functions.  <a href="a00490.html#ga9552c352e9fa0eeca4b3ae3d1dd1f585">More...</a><br /></td></tr>
+<tr class="separator:ga9552c352e9fa0eeca4b3ae3d1dd1f585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9ebceb909ac3c21db81ccd0dbbf03a33"><td class="memTemplParams" colspan="2">template&lt;typename F , typename UF  = UpdateDefault&gt; </td></tr>
+<tr class="memitem:ga9ebceb909ac3c21db81ccd0dbbf03a33"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00490.html#ga9ebceb909ac3c21db81ccd0dbbf03a33">Ikarus::utils::checkJacobian</a> (F &amp;f, const typename F::Domain &amp;p, CheckFlags checkFlags=CheckFlags(), UF &amp;&amp;p_updateFunction={})</td></tr>
+<tr class="memdesc:ga9ebceb909ac3c21db81ccd0dbbf03a33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the Jacobian of a differentiable Functions.  <a href="a00490.html#ga9ebceb909ac3c21db81ccd0dbbf03a33">More...</a><br /></td></tr>
+<tr class="separator:ga9ebceb909ac3c21db81ccd0dbbf03a33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaf21900c80f097360a624da5505eddf9"><td class="memTemplParams" colspan="2">template&lt;typename F , typename UF  = UpdateDefault&gt; </td></tr>
+<tr class="memitem:gaaf21900c80f097360a624da5505eddf9"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00490.html#gaaf21900c80f097360a624da5505eddf9">Ikarus::utils::checkHessian</a> (F &amp;f, const typename F::Domain &amp;p, CheckFlags checkFlags=CheckFlags(), UF &amp;&amp;p_updateFunction={})</td></tr>
+<tr class="memdesc:gaaf21900c80f097360a624da5505eddf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the Hessian of a differentiable Functions.  <a href="a00490.html#gaaf21900c80f097360a624da5505eddf9">More...</a><br /></td></tr>
+<tr class="separator:gaaf21900c80f097360a624da5505eddf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -192,7 +211,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a00005.html">polyfit.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a00005.html">functionsanitychecks.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

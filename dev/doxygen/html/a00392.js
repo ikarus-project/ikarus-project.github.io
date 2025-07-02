@@ -1,15 +1,11 @@
 var a00392 =
 [
-    [ "Eigen::TCGInfo< Scalar >", "a02003.html", "a02003" ],
-    [ "Eigen::internal::traits< TruncatedConjugateGradient< MatrixType_, UpLo, Preconditioner_ > >", "a02011.html", "a02011" ],
-    [ "Eigen::TruncatedConjugateGradient< M, upLo, PC >", "a02007.html", "a02007" ],
-    [ "TCGStopReason", "a00392.html#a99c0436bed03f4dd4168a21f6b69ad5a", [
-      [ "negativeCurvature", "a00392.html#a99c0436bed03f4dd4168a21f6b69ad5aa09116173dd03279374ae42ad40f940ba", null ],
-      [ "exceededTrustRegion", "a00392.html#a99c0436bed03f4dd4168a21f6b69ad5aa9e095c14131d90a6c10c08cd802c8aed", null ],
-      [ "reachedTargetResidualKappaLinear", "a00392.html#a99c0436bed03f4dd4168a21f6b69ad5aa99766ccb237cb85dab3d8b55752fca4c", null ],
-      [ "reachedTargetResidualThetaSuperLinear", "a00392.html#a99c0436bed03f4dd4168a21f6b69ad5aa8ebf8c1ac80d383a21087b596c1efb27", null ],
-      [ "maximumInnerIterations", "a00392.html#a99c0436bed03f4dd4168a21f6b69ad5aa5b3d41a901032695340cf4c031e95f30", null ],
-      [ "modelIncreased", "a00392.html#a99c0436bed03f4dd4168a21f6b69ad5aab00445941a90cf4c363702645ca67bab", null ]
+    [ "DBCOption", "a00392.html#a9f83fad9f4c149f249165a13f2370eec", [
+      [ "BEGIN", "a00392.html#a9f83fad9f4c149f249165a13f2370eeca19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Raw", "a00392.html#a9f83fad9f4c149f249165a13f2370eeca65e65c8ab0d8609ce12fc68a03cb8e00", null ],
+      [ "Reduced", "a00392.html#a9f83fad9f4c149f249165a13f2370eeca4335949a935758ca1b570689c3c6750b", null ],
+      [ "Full", "a00392.html#a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75", null ],
+      [ "END", "a00392.html#a9f83fad9f4c149f249165a13f2370eecab1a326c06d88bf042f73d70f50197905", null ]
     ] ],
-    [ "truncated_conjugate_gradient", "a00392.html#a38414bb29b6ce1a1d8cc03749acb95f7", null ]
+    [ "toString", "a00392.html#aef80b6b5b45dcfbea4f722f51a84f53f", null ]
 ];
