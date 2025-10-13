@@ -1,0 +1,298 @@
+\hypertarget{a00167_source}{}\doxysection{newtonraphsonwithscalarsubsidiaryfunction.\+hh}
+\label{a00167_source}\index{newtonraphsonwithscalarsubsidiaryfunction.hh@{newtonraphsonwithscalarsubsidiaryfunction.hh}}
+\mbox{\hyperlink{a00167}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00449}{ikarus/controlroutines/pathfollowingfunctions.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00170}{ikarus/solver/nonlinearsolver/nonlinearsolverbase.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00161}{ikarus/solver/nonlinearsolver/nonlinearsolverstate.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00158}{ikarus/solver/nonlinearsolver/solverinfos.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00200}{ikarus/utils/broadcaster/broadcaster.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00203}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03556}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00507}{Ikarus}} \{}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} LS = utils::SolverDefault, \textcolor{keyword}{typename} UF = utils::UpdateDefault,}
+\DoxyCodeLine{25           \textcolor{keyword}{typename} IDBCF = utils::IDBCForceDefault>}
+\DoxyCodeLine{26 \textcolor{keyword}{class }\mbox{\hyperlink{a00507_af2b050096cfcafc8ad9f5fc7d2fc2b83}{NewtonRaphsonWithSubsidiaryFunction}};}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{a02127}{NewtonRaphsonWithSubsidiaryFunctionSettings}}}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02127_a7e8e3668e5eca2b115ec77fcaabc8899}{tol}}\{1e-\/8\};}
+\DoxyCodeLine{31   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02127_a7ef35a86ec4e9a39bcc54182c5dc17b7}{maxIter}}\{20\};}
+\DoxyCodeLine{32 \};}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{38 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LS = utils::SolverDefault, \textcolor{keyword}{typename} UF = utils::UpdateDefault,}
+\DoxyCodeLine{39           \textcolor{keyword}{typename} IDBCF = utils::IDBCForceDefault>}
+\DoxyCodeLine{40 \textcolor{keyword}{struct }\mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{a02131_a0d7d3370818abd61c4f8fe8a140a8c89}{LinearSolver}}      = LS;}
+\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{a02131_a01355f45dab882f968c114e426b0f433}{UpdateFunction}}    = UF;}
+\DoxyCodeLine{44   \textcolor{keyword}{using }\mbox{\hyperlink{a02131_a13f7ef5b0a0503a8425a4d18a49cc8d5}{IDBCForceFunction}} = IDBCF;}
+\DoxyCodeLine{45   \mbox{\hyperlink{a02127}{NewtonRaphsonWithSubsidiaryFunctionSettings}} \mbox{\hyperlink{a02131_ae23c08d9dec054bf347c1aa0029385de}{parameters}}\{\};}
+\DoxyCodeLine{46   LS \mbox{\hyperlink{a02131_aef6c0c9c073ccfeee3cd49ccd6b20a2a}{linearSolver}}\{\};}
+\DoxyCodeLine{47   UF \mbox{\hyperlink{a02131_ab7cbb3651106c30e59280534bfb6e2ad}{updateFunction}}\{\};}
+\DoxyCodeLine{48   IDBCF \mbox{\hyperlink{a02131_a05e3dc01fc5733d048d7d907305a0a12}{idbcForceFunction}}\{\};}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \textcolor{keyword}{template} <\textcolor{keyword}{typename} UF2>}
+\DoxyCodeLine{51   \textcolor{keyword}{auto} \mbox{\hyperlink{a02131_a44de7bd5a51e24ebeace59fe900900cd}{rebindUpdateFunction}}(UF2\&\& \mbox{\hyperlink{a02131_ab7cbb3651106c30e59280534bfb6e2ad}{updateFunction}})\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{52     \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig<LS, UF2, IDBCF>}} settings\{}
+\DoxyCodeLine{53         .\mbox{\hyperlink{a02131_ae23c08d9dec054bf347c1aa0029385de}{parameters}}        = \mbox{\hyperlink{a02131_ae23c08d9dec054bf347c1aa0029385de}{parameters}},}
+\DoxyCodeLine{54         .linearSolver      = \mbox{\hyperlink{a02131_aef6c0c9c073ccfeee3cd49ccd6b20a2a}{linearSolver}},}
+\DoxyCodeLine{55         .updateFunction    = std::forward<UF2>(\mbox{\hyperlink{a02131_ab7cbb3651106c30e59280534bfb6e2ad}{updateFunction}}),}
+\DoxyCodeLine{56         .idbcForceFunction = \mbox{\hyperlink{a02131_a05e3dc01fc5733d048d7d907305a0a12}{idbcForceFunction}}\};}
+\DoxyCodeLine{57     \textcolor{keywordflow}{return} settings;}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{keyword}{template} <\textcolor{keyword}{typename} IDBCF2>}
+\DoxyCodeLine{61   \textcolor{keyword}{auto} \mbox{\hyperlink{a02131_a01cdbc547e6f448fd104e1de24d961a3}{rebindIDBCForceFunction}}(IDBCF2\&\& \mbox{\hyperlink{a02131_a05e3dc01fc5733d048d7d907305a0a12}{idbcForceFunction}})\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{62     \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig<LS, UF, IDBCF2>}} settings\{}
+\DoxyCodeLine{63         .\mbox{\hyperlink{a02131_ae23c08d9dec054bf347c1aa0029385de}{parameters}}        = \mbox{\hyperlink{a02131_ae23c08d9dec054bf347c1aa0029385de}{parameters}},}
+\DoxyCodeLine{64         .linearSolver      = \mbox{\hyperlink{a02131_aef6c0c9c073ccfeee3cd49ccd6b20a2a}{linearSolver}},}
+\DoxyCodeLine{65         .updateFunction    = \mbox{\hyperlink{a02131_ab7cbb3651106c30e59280534bfb6e2ad}{updateFunction}},}
+\DoxyCodeLine{66         .idbcForceFunction = std::forward<IDBCF2>(\mbox{\hyperlink{a02131_a05e3dc01fc5733d048d7d907305a0a12}{idbcForceFunction}})\};}
+\DoxyCodeLine{67     \textcolor{keywordflow}{return} settings;}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
+\DoxyCodeLine{71   \textcolor{keyword}{using }\mbox{\hyperlink{a02123}{Solver}} = \mbox{\hyperlink{a02123}{NewtonRaphsonWithSubsidiaryFunction<F, LS, UF>}};}
+\DoxyCodeLine{72 \};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \textcolor{comment}{// THE CTAD is broken for designated initializers in clang 16, when we drop support this can be simplified}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
+\DoxyCodeLine{76 \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig}}()}
+\DoxyCodeLine{77     -\/> \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig<utils::SolverDefault, utils::UpdateDefault, utils::IDBCForceDefault>}};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a02127}{NewtonRaphsonWithSubsidiaryFunctionSettings}})}
+\DoxyCodeLine{80     -\/> \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig<utils::SolverDefault, utils::UpdateDefault, utils::IDBCForceDefault>}};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LS>}
+\DoxyCodeLine{83 \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a02127}{NewtonRaphsonWithSubsidiaryFunctionSettings}}, LS)}
+\DoxyCodeLine{84     -\/> \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig<LS, utils::UpdateDefault, utils::IDBCForceDefault>}};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{keyword}{template} <\textcolor{keyword}{typename} UF>}
+\DoxyCodeLine{87 \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a02127}{NewtonRaphsonWithSubsidiaryFunctionSettings}}, \mbox{\hyperlink{a02235}{utils::SolverDefault}}, UF)}
+\DoxyCodeLine{88     -\/> \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig<utils::SolverDefault, UF, utils::IDBCForceDefault>}};}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{keyword}{template} <\textcolor{keyword}{typename} IDBCF>}
+\DoxyCodeLine{91 \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a02127}{NewtonRaphsonWithSubsidiaryFunctionSettings}}, \mbox{\hyperlink{a02235}{utils::SolverDefault}},}
+\DoxyCodeLine{92                                           \mbox{\hyperlink{a02247}{utils::UpdateDefault}}, IDBCF)}
+\DoxyCodeLine{93     -\/> \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig<utils::SolverDefault, utils::UpdateDefault, IDBCF>}};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LS, \textcolor{keyword}{typename} UF>}
+\DoxyCodeLine{96 \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a02127}{NewtonRaphsonWithSubsidiaryFunctionSettings}}, LS, UF)}
+\DoxyCodeLine{97     -\/> \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig<LS, UF, utils::IDBCForceDefault>}};}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LS, \textcolor{keyword}{typename} UF, \textcolor{keyword}{typename} IDBCF>}
+\DoxyCodeLine{100 \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig}}(\mbox{\hyperlink{a02127}{NewtonRaphsonWithSubsidiaryFunctionSettings}}, LS, UF,}
+\DoxyCodeLine{101                                           IDBCF) -\/> \mbox{\hyperlink{a02131}{NewtonRaphsonWithSubsidiaryFunctionConfig<LS, UF, IDBCF>}};}
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{111 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} NRConfig>}
+\DoxyCodeLine{112 \textcolor{keyword}{requires} traits::isSpecialization<NewtonRaphsonWithSubsidiaryFunctionConfig, std::remove\_cvref\_t<NRConfig>>::value}
+\DoxyCodeLine{113 \textcolor{keyword}{auto} \mbox{\hyperlink{a00507_a504e2e9645fa26419d815df9bd245add}{createNonlinearSolver}}(NRConfig\&\& config, F\&\& f) \{}
+\DoxyCodeLine{114   \textcolor{keyword}{using }LS           = \mbox{\hyperlink{a00507_a2afda25e777ed3a794da319ba535b87b}{std::remove\_cvref\_t<NRConfig>::LinearSolver}};}
+\DoxyCodeLine{115   \textcolor{keyword}{using }UF           = std::remove\_cvref\_t<NRConfig>::UpdateFunction;}
+\DoxyCodeLine{116   \textcolor{keyword}{using }IDBCF        = std::remove\_cvref\_t<NRConfig>::IDBCForceFunction;}
+\DoxyCodeLine{117   \textcolor{keyword}{auto} solverFactory = []<\textcolor{keyword}{class }F2, class LS2, class UF2, class IDBCF2>(F2\&\& f2, LS2\&\& ls, UF2\&\& uf, IDBCF2\&\& if\_) \{}
+\DoxyCodeLine{118     \textcolor{keywordflow}{return} std::make\_shared<NewtonRaphsonWithSubsidiaryFunction<std::remove\_cvref\_t<F2>, std::remove\_cvref\_t<LS2>,}
+\DoxyCodeLine{119                                                                 std::remove\_cvref\_t<UF2>, std::remove\_cvref\_t<IDBCF2>>>(}
+\DoxyCodeLine{120         f2, std::forward<LS2>(ls), std::forward<UF2>(uf), std::forward<IDBCF2>(if\_));}
+\DoxyCodeLine{121   \};}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::remove\_cvref\_t<F>::nDerivatives == 2) \{}
+\DoxyCodeLine{124     \textcolor{keyword}{auto} solver =}
+\DoxyCodeLine{125         solverFactory(derivative(f), std::forward<NRConfig>(config).linearSolver,}
+\DoxyCodeLine{126                       std::forward<NRConfig>(config).updateFunction, std::forward<NRConfig>(config).idbcForceFunction);}
+\DoxyCodeLine{127     solver-\/>setup(config.parameters);}
+\DoxyCodeLine{128     \textcolor{keywordflow}{return} solver;}
+\DoxyCodeLine{129   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{130     \textcolor{keyword}{static\_assert}(std::remove\_cvref\_t<F>::nDerivatives >= 1,}
+\DoxyCodeLine{131                   \textcolor{stringliteral}{"{}The number of derivatives in the differentiable function have to be more than 0"{}});}
+\DoxyCodeLine{132     \textcolor{keyword}{auto} solver =}
+\DoxyCodeLine{133         solverFactory(f, std::forward<NRConfig>(config).linearSolver, std::forward<NRConfig>(config).updateFunction,}
+\DoxyCodeLine{134                       std::forward<NRConfig>(config).idbcForceFunction);}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136     solver-\/>setup(std::forward<NRConfig>(config).parameters);}
+\DoxyCodeLine{137     \textcolor{keywordflow}{return} solver;}
+\DoxyCodeLine{138   \}}
+\DoxyCodeLine{139 \}}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{152 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} LS, \textcolor{keyword}{typename} UF, \textcolor{keyword}{typename} IDBCF>}
+\DoxyCodeLine{153 \textcolor{keyword}{class }\mbox{\hyperlink{a02123}{NewtonRaphsonWithSubsidiaryFunction}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02135}{NonlinearSolverBase}}<F>}
+\DoxyCodeLine{154 \{}
+\DoxyCodeLine{155 \textcolor{keyword}{public}:}
+\DoxyCodeLine{156   \textcolor{keyword}{using }\mbox{\hyperlink{a02127}{Settings}}        = \mbox{\hyperlink{a02127}{NewtonRaphsonWithSubsidiaryFunctionSettings}};}
+\DoxyCodeLine{157   \textcolor{keyword}{using }\mbox{\hyperlink{a02123_abe955e7a23dca46b00d490d7034cc0c1}{SignatureTraits}} = \textcolor{keyword}{typename} F::Traits;}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159   \textcolor{keyword}{using }\mbox{\hyperlink{a02123_a38edd40d46183fb22f49b015ffe39aa5}{Domain}}         = \textcolor{keyword}{typename} SignatureTraits::Domain; }
+\DoxyCodeLine{160   \textcolor{keyword}{using }\mbox{\hyperlink{a02123_ab6bbbfdb83886f601fe66d45b4f9b2ff}{CorrectionType}} = \textcolor{keyword}{typename} SignatureTraits::template Range<0>; }
+\DoxyCodeLine{161   \textcolor{keyword}{using }\mbox{\hyperlink{a02123_aeeb801c7e7459f6aca674ddc31b70b53}{JacobianType}}   = \textcolor{keyword}{typename} SignatureTraits::template Range<1>;}
+\DoxyCodeLine{163   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02123_a9145b19e52887078c150af31c0bd58e5}{isLinearSolver}} = \mbox{\hyperlink{a02442}{Ikarus::Concepts::LinearSolverCheck<LS, JacobianType, CorrectionType>}};}
+\DoxyCodeLine{164 }
+\DoxyCodeLine{166   \textcolor{keyword}{using }\mbox{\hyperlink{a02123_a8761226294b332602f251154d88b7d67}{UpdateFunction}}         = UF;}
+\DoxyCodeLine{167   \textcolor{keyword}{using }\mbox{\hyperlink{a02123_a95ba1ea34426f2d927dac7e0685bdf0f}{DifferentiableFunction}} = F;     }
+\DoxyCodeLine{168   \textcolor{keyword}{using }\mbox{\hyperlink{a02123_a8efa92da8fec96cdde0cc56f148fa17b}{IDBCForceFunction}}      = IDBCF; }
+\DoxyCodeLine{169 }
+\DoxyCodeLine{177   \textcolor{keyword}{template} <\textcolor{keyword}{typename} LS2 = LS, \textcolor{keyword}{typename} UF2 = UF, \textcolor{keyword}{typename} IDBCF2 = IDBCF>}
+\DoxyCodeLine{178   \textcolor{keyword}{explicit} \mbox{\hyperlink{a02123_aaa0cff4b9dd640925bd1f00d848d43ab}{NewtonRaphsonWithSubsidiaryFunction}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02123_a95ba1ea34426f2d927dac7e0685bdf0f}{DifferentiableFunction}}\& \mbox{\hyperlink{a02123_a11824336e5db078f8991b0cda4dad16a}{residual}}, LS2\&\& linearSolver = \{\},}
+\DoxyCodeLine{179                                                UF2\&\& \mbox{\hyperlink{a02123_a888d0f9e3d654a0be89e31de68d34568}{updateFunction}} = \{\}, IDBCF2\&\& \mbox{\hyperlink{a02123_a95f76f0695f6a5d806d1b0b9b72243d6}{idbcForceFunction}} = \{\})}
+\DoxyCodeLine{180       : residualFunction\_\{\mbox{\hyperlink{a02123_a11824336e5db078f8991b0cda4dad16a}{residual}}\},}
+\DoxyCodeLine{181         jacobianFunction\_\{derivative(residualFunction\_)\},}
+\DoxyCodeLine{182         linearSolver\_\{std::forward<LS2>(linearSolver)\},}
+\DoxyCodeLine{183         updateFunction\_\{std::forward<UF2>(\mbox{\hyperlink{a02123_a888d0f9e3d654a0be89e31de68d34568}{updateFunction}})\},}
+\DoxyCodeLine{184         idbcForceFunction\_\{std::forward<IDBCF2>(\mbox{\hyperlink{a02123_a95f76f0695f6a5d806d1b0b9b72243d6}{idbcForceFunction}})\} \{\}}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{191   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02123_aa571a82517f147fcf6c34ce5b3801e58}{setup}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02127}{Settings}}\& settings) \{ settings\_ = settings; \}}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{203   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Subs\textcolor{keywordtype}{id}iaryType>}
+\DoxyCodeLine{204   [[nodiscard(}
+\DoxyCodeLine{205       \textcolor{stringliteral}{"{}The solve method returns information of the solution process. You should store this information and check if "{}}}
+\DoxyCodeLine{206       \textcolor{stringliteral}{"{}it was successful"{}})]] \mbox{\hyperlink{a02167}{NonLinearSolverInformation}}}
+\DoxyCodeLine{207   \mbox{\hyperlink{a02123_a5511c7a45eadec01744cb15c6ef07117}{solve}}(\mbox{\hyperlink{a02123_a38edd40d46183fb22f49b015ffe39aa5}{Domain}}\& req, SubsidiaryType\&\& subsidiaryFunction, \mbox{\hyperlink{a01479}{SubsidiaryArgs}}\& subsidiaryArgs) \{}
+\DoxyCodeLine{208     \textcolor{keyword}{using }enum \mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}};}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{210     \mbox{\hyperlink{a02167}{Ikarus::NonLinearSolverInformation}} solverInformation\{\};}
+\DoxyCodeLine{211     \textcolor{keyword}{auto} state = \textcolor{keyword}{typename} \mbox{\hyperlink{a02147}{NewtonRaphsonWithSubsidiaryFunction::State}}\{}
+\DoxyCodeLine{212         .\mbox{\hyperlink{a02147_a4ea3cec63a27f4699e529393f4304850}{domain}} = req, .correction = correction\_, .information = solverInformation\};}
+\DoxyCodeLine{213     this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498}{INIT}}, state);}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215     solverInformation.success = \textcolor{keyword}{true};}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{217     \textcolor{keyword}{auto}\& lambda = req.parameter();}
+\DoxyCodeLine{218     \textcolor{keyword}{auto}\& x      = req.globalSolution();}
+\DoxyCodeLine{219 }
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225     \textcolor{keyword}{auto} lambdaDummy = lambda;}
+\DoxyCodeLine{226     \textcolor{keyword}{auto} DDummy      = x;}
+\DoxyCodeLine{227     x.setZero();}
+\DoxyCodeLine{228     lambda            = 1.0;}
+\DoxyCodeLine{229     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) rx = residualFunction\_(req);}
+\DoxyCodeLine{230     \textcolor{keyword}{const} \textcolor{keyword}{auto} Fext0  = (-\/rx).eval(); \textcolor{comment}{// dRdlambda(lambda)}}
+\DoxyCodeLine{231     lambda            = lambdaDummy;}
+\DoxyCodeLine{232     x                 = DDummy;}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234     rx                = residualFunction\_(req);}
+\DoxyCodeLine{235     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) Ax = jacobianFunction\_(req);}
+\DoxyCodeLine{236 }
+\DoxyCodeLine{237     Eigen::VectorXd deltaD;}
+\DoxyCodeLine{238     deltaD.resizeLike(rx);}
+\DoxyCodeLine{239     deltaD.setZero();}
+\DoxyCodeLine{240 }
+\DoxyCodeLine{241     subsidiaryArgs.\mbox{\hyperlink{a01479_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.resizeLike(Fext0);}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{243     subsidiaryFunction(req, *\textcolor{keyword}{this}, subsidiaryArgs);}
+\DoxyCodeLine{244     \textcolor{keyword}{auto} rNorm                     = sqrt(rx.dot(rx));}
+\DoxyCodeLine{245     solverInformation.residualNorm = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(rNorm);}
+\DoxyCodeLine{246     \textcolor{keyword}{decltype}(rNorm) dNorm;}
+\DoxyCodeLine{247     \textcolor{keywordtype}{int} iter\{0\};}
+\DoxyCodeLine{248     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02123_a9145b19e52887078c150af31c0bd58e5}{isLinearSolver}})}
+\DoxyCodeLine{249       linearSolver\_.analyzePattern(Ax);}
+\DoxyCodeLine{250 }
+\DoxyCodeLine{251     Eigen::MatrixX2<double> residual2d, sol2d;}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{254     \textcolor{keywordflow}{while} (rNorm > settings\_.\mbox{\hyperlink{a02127_a7e8e3668e5eca2b115ec77fcaabc8899}{tol}} \&\& iter < settings\_.\mbox{\hyperlink{a02127_a7ef35a86ec4e9a39bcc54182c5dc17b7}{maxIter}}) \{}
+\DoxyCodeLine{255       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4}{ITERATION\_STARTED}}, state);}
+\DoxyCodeLine{256 }
+\DoxyCodeLine{258       residual2d.resize(rx.rows(), 2);}
+\DoxyCodeLine{259       sol2d.resize(rx.rows(), 2);}
+\DoxyCodeLine{260       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not std::same\_as<IDBCForceFunction, utils::IDBCForceDefault>)}
+\DoxyCodeLine{261         residual2d << -\/rx, Fext0 -\/ (idbcForceFunction\_(req));}
+\DoxyCodeLine{262       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{263         residual2d << -\/rx, Fext0;}
+\DoxyCodeLine{264 }
+\DoxyCodeLine{265       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02123_a9145b19e52887078c150af31c0bd58e5}{isLinearSolver}}) \{}
+\DoxyCodeLine{266         linearSolver\_.factorize(Ax);}
+\DoxyCodeLine{267         linearSolver\_.solve(sol2d, residual2d);}
+\DoxyCodeLine{268       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{269         sol2d = linearSolver\_(residual2d, Ax);}
+\DoxyCodeLine{270       \}}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{272       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& deltaDR = sol2d.col(0).eval();}
+\DoxyCodeLine{273       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& deltaDL = sol2d.col(1).eval();}
+\DoxyCodeLine{274 }
+\DoxyCodeLine{275       \textcolor{keyword}{const} \textcolor{keywordtype}{double} deltalambda = (-\/subsidiaryArgs.\mbox{\hyperlink{a01479_a628b23aa9e90c0e0ba1461ad2241645a}{f}} -\/ subsidiaryArgs.\mbox{\hyperlink{a01479_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.dot(deltaDR)) /}
+\DoxyCodeLine{276                                  (subsidiaryArgs.\mbox{\hyperlink{a01479_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.dot(deltaDL) + subsidiaryArgs.\mbox{\hyperlink{a01479_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}});}
+\DoxyCodeLine{277       deltaD      = deltaDR + deltalambda * deltaDL;}
+\DoxyCodeLine{278       correction\_ = deltaD;}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4}{CORRECTION\_UPDATED}}, state);}
+\DoxyCodeLine{281 }
+\DoxyCodeLine{282       updateFunction\_(x, deltaD);}
+\DoxyCodeLine{283       subsidiaryArgs.\mbox{\hyperlink{a01479_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}} += deltaD;}
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285       lambda += deltalambda;}
+\DoxyCodeLine{286       subsidiaryArgs.\mbox{\hyperlink{a01479_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} += deltalambda;}
+\DoxyCodeLine{287 }
+\DoxyCodeLine{288       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not std::same\_as<IDBCForceFunction, utils::IDBCForceDefault>)}
+\DoxyCodeLine{289         req.syncParameterAndGlobalSolution(updateFunction\_);}
+\DoxyCodeLine{290 }
+\DoxyCodeLine{291       dNorm                            = sqrt(deltaD.dot(deltaD) + deltalambda * deltalambda);}
+\DoxyCodeLine{292       solverInformation.correctionNorm = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(dNorm);}
+\DoxyCodeLine{293 }
+\DoxyCodeLine{294       rx = residualFunction\_(req);}
+\DoxyCodeLine{295       Ax = jacobianFunction\_(req);}
+\DoxyCodeLine{296       subsidiaryFunction(req, *\textcolor{keyword}{this}, subsidiaryArgs);}
+\DoxyCodeLine{297 }
+\DoxyCodeLine{298       rNorm                          = sqrt(rx.dot(rx) + subsidiaryArgs.\mbox{\hyperlink{a01479_a628b23aa9e90c0e0ba1461ad2241645a}{f}} * subsidiaryArgs.\mbox{\hyperlink{a01479_a628b23aa9e90c0e0ba1461ad2241645a}{f}});}
+\DoxyCodeLine{299       solverInformation.residualNorm = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(rNorm);}
+\DoxyCodeLine{300 }
+\DoxyCodeLine{301       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{SOLUTION\_CHANGED}}, state);}
+\DoxyCodeLine{302       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78}{CORRECTIONNORM\_UPDATED}}, state);}
+\DoxyCodeLine{303       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14}{RESIDUALNORM\_UPDATED}}, state);}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{305       ++iter;}
+\DoxyCodeLine{306       solverInformation.iterations = iter;}
+\DoxyCodeLine{307       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815}{ITERATION\_ENDED}}, state);}
+\DoxyCodeLine{308     \}}
+\DoxyCodeLine{309 }
+\DoxyCodeLine{310     \textcolor{keywordflow}{if} (iter == settings\_.\mbox{\hyperlink{a02127_a7ef35a86ec4e9a39bcc54182c5dc17b7}{maxIter}})}
+\DoxyCodeLine{311       solverInformation.success = \textcolor{keyword}{false};}
+\DoxyCodeLine{312     solverInformation.iterations = iter;}
+\DoxyCodeLine{313     \textcolor{keywordflow}{if} (solverInformation.success)}
+\DoxyCodeLine{314       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931}{FINISHED\_SUCESSFULLY}}, state);}
+\DoxyCodeLine{315     \textcolor{keywordflow}{return} solverInformation;}
+\DoxyCodeLine{316   \}}
+\DoxyCodeLine{317 }
+\DoxyCodeLine{322   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02123_a11824336e5db078f8991b0cda4dad16a}{residual}}() \{ \textcolor{keywordflow}{return} residualFunction\_; \}}
+\DoxyCodeLine{323 }
+\DoxyCodeLine{328   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02123_ab52cbd8a0788907ae405eb2709b887f1}{residual}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} residualFunction\_; \}}
+\DoxyCodeLine{329 }
+\DoxyCodeLine{334   \textcolor{keyword}{const} \mbox{\hyperlink{a02123_a8761226294b332602f251154d88b7d67}{UpdateFunction}}\& \mbox{\hyperlink{a02123_a888d0f9e3d654a0be89e31de68d34568}{updateFunction}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} updateFunction\_; \}}
+\DoxyCodeLine{335 }
+\DoxyCodeLine{340   \textcolor{keyword}{const} \mbox{\hyperlink{a02123_a8efa92da8fec96cdde0cc56f148fa17b}{IDBCForceFunction}}\& \mbox{\hyperlink{a02123_a95f76f0695f6a5d806d1b0b9b72243d6}{idbcForceFunction}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} idbcForceFunction\_; \}}
+\DoxyCodeLine{341 }
+\DoxyCodeLine{342 \textcolor{keyword}{private}:}
+\DoxyCodeLine{343   \mbox{\hyperlink{a02123_a95ba1ea34426f2d927dac7e0685bdf0f}{DifferentiableFunction}} residualFunction\_;}
+\DoxyCodeLine{344   \textcolor{keyword}{typename} DifferentiableFunction::Derivative jacobianFunction\_;}
+\DoxyCodeLine{345   std::remove\_cvref\_t<CorrectionType> correction\_;}
+\DoxyCodeLine{346   LS linearSolver\_;}
+\DoxyCodeLine{347   \mbox{\hyperlink{a02123_a8761226294b332602f251154d88b7d67}{UpdateFunction}} updateFunction\_;}
+\DoxyCodeLine{348   \mbox{\hyperlink{a02123_a8efa92da8fec96cdde0cc56f148fa17b}{IDBCForceFunction}} idbcForceFunction\_;}
+\DoxyCodeLine{349   \mbox{\hyperlink{a02123_a8f04cb71f5ae0b84c32e395fd7da01e5}{Settings}} settings\_;}
+\DoxyCodeLine{350 \};}
+\DoxyCodeLine{361 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} LS = utils::SolverDefault, \textcolor{keyword}{typename} UF = utils::UpdateDefault,}
+\DoxyCodeLine{362           \textcolor{keyword}{typename} IDBCF = utils::IDBCForceDefault>}
+\DoxyCodeLine{363 \textcolor{keyword}{auto} \mbox{\hyperlink{a00507_af3c1ebc1046beb63f685666512e31950}{makeNewtonRaphsonWithSubsidiaryFunction}}(\textcolor{keyword}{const} F\& f, LS\&\& linearSolver = \{\}, UF\&\& updateFunction = \{\},}
+\DoxyCodeLine{364                                              IDBCF\&\& idbcForceFunction = \{\}) \{}
+\DoxyCodeLine{365   \textcolor{keywordflow}{return} std::make\_shared<NewtonRaphsonWithSubsidiaryFunction<F, LS, UF, IDBCF>>(}
+\DoxyCodeLine{366       f, std::forward<LS>(linearSolver), std::move(updateFunction), std::move(idbcForceFunction));}
+\DoxyCodeLine{367 \}}
+\DoxyCodeLine{368 }
+\DoxyCodeLine{369 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} LS = utils::SolverDefault, \textcolor{keyword}{typename} UF = utils::UpdateDefault,}
+\DoxyCodeLine{370           \textcolor{keyword}{typename} IDBCF = utils::IDBCForceDefault>}
+\DoxyCodeLine{371 \mbox{\hyperlink{a00507_af2b050096cfcafc8ad9f5fc7d2fc2b83}{NewtonRaphsonWithSubsidiaryFunction}}(\textcolor{keyword}{const} F\& f, LS\&\& linearSolver = \{\}, UF\&\& updateFunction = \{\},}
+\DoxyCodeLine{372                                     IDBCF\&\& idbcForceFunction = \{\})}
+\DoxyCodeLine{373     -\/> \mbox{\hyperlink{a00507_af2b050096cfcafc8ad9f5fc7d2fc2b83}{NewtonRaphsonWithSubsidiaryFunction}}<F, std::remove\_cvref\_t<LS>, std::remove\_cvref\_t<UF>,}
+\DoxyCodeLine{374                                            std::remove\_cvref\_t<IDBCF>>;}
+\DoxyCodeLine{375 }
+\DoxyCodeLine{376 \} \textcolor{comment}{// namespace Ikarus}}
+
+\end{DoxyCode}
