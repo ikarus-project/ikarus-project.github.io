@@ -1,8 +1,8 @@
 var a01435 =
 [
-    [ "Domain", "a01435.html#a8779a7a2ea81311413f989a031ebc468", null ],
-    [ "domain", "a01435.html#a2f79c48a872f27a8c346eae61dadeb23", null ],
-    [ "information", "a01435.html#ae77969212613b62a7c5e40e5e15f891b", null ],
-    [ "loadStep", "a01435.html#a7fb4e8a744050e99b7ebe3e45e0bf390", null ],
-    [ "stepSize", "a01435.html#a4be609daaf0d1c4b0bebb05df42022b5", null ]
+    [ "ControlInformation", "a01435.html#a00a16a688e5e3d9971f321d7b5461fd3", null ],
+    [ "name", "a01435.html#a75aa6bc77cf77715f5dc037becb3a00d", null ],
+    [ "solverInfos", "a01435.html#aedbd5de28f127726884cb99b067313bf", null ],
+    [ "success", "a01435.html#aaeccd3cd24ed5d809397ab055da1b695", null ],
+    [ "totalIterations", "a01435.html#a4712b189651e59cd46fd43b2e6a326bf", null ]
 ];

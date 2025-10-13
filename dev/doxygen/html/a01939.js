@@ -1,15 +1,9 @@
 var a01939 =
 [
-    [ "toBulkModulus", "a01939.html#a525c994a4f0c6b4f7bae32011c5097b4", null ],
-    [ "toLamesFirstParameter", "a01939.html#a849d5e587016005b779a8fc5c8bbb22f", null ],
-    [ "toPoissonsRatio", "a01939.html#ab163654914c23c29fb8fe740ae6c3d9d", null ],
-    [ "toPWaveModulus", "a01939.html#abf0e01900bfaeacf08cc9af500f42c05", null ],
-    [ "toShearModulus", "a01939.html#af124c7db22dfb78747d1d912c5acf71f", null ],
-    [ "toYoungsModulus", "a01939.html#ae4def57949303ee0a689dfec1cc060b5", null ],
-    [ "convertLameConstants", "a01939.html#ac2255a654c3a7d80c01113b68dc712a6", null ],
-    [ "convertLameConstants", "a01939.html#ab07833cf0c324d05f0b984cba3ccd946", null ],
-    [ "convertLameConstants", "a01939.html#a97a57e9e0e18185b0f0c4237649e00a7", null ],
-    [ "convertLameConstants", "a01939.html#a9b8e52ebabd81a7dab41ac4ac7b63005", null ],
-    [ "convertLameConstants", "a01939.html#a9bba84cf58912269ed839cb4d6dd7996", null ],
-    [ "convertLameConstants", "a01939.html#a910b0eb5805503f2629a58ac565d5493", null ]
+    [ "ddEddu", "a01939.html#a0647f4c61cc8ee370d1b3b795a48c8e6", null ],
+    [ "dEdu", "a01939.html#adad74786f3a49a82a7cd239aa3065bb0", null ],
+    [ "Egl", "a01939.html#a7d0090ec5c0de738cb936cf8b69d0985", null ],
+    [ "Elin", "a01939.html#a947ad2c350846f2abb6f94aff9106db7", null ],
+    [ "L", "a01939.html#a05681746b98b7ea4259896cbd87727b5", null ],
+    [ "l", "a01939.html#a507fe4fbad5adfb4df5f70e690987f27", null ]
 ];

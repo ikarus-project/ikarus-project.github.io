@@ -1,5 +1,7 @@
 var a01759 =
 [
-    [ "col", "a01759.html#a05834d6b2ab9428e4ecc645234ef9d34", null ],
-    [ "row", "a01759.html#aea06e613d6a158b8e197a5f79ef7f197", null ]
+    [ "firstDerivativeImpl", "a01759.html#afc42c803d95faabfb6638bcefb54a1be", null ],
+    [ "name", "a01759.html#a1ca250e16c82f619292ac0dcc0b2bec1", null ],
+    [ "secondDerivativeImpl", "a01759.html#ad0d2f475946d1de3ebdf5c196c788125", null ],
+    [ "storedEnergyImpl", "a01759.html#ac4317a6d3fddc93e111121c92fafa036", null ]
 ];

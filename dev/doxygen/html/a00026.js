@@ -1,6 +1,10 @@
 var a00026 =
 [
-    [ "Ikarus::DifferentiableFunction< Range(D), DerivativeTraits, F, FF... >", "a02203.html", "a02203" ],
-    [ "functions", "a00026.html#ab787b670f0d338c870988f417cf85f76", null ],
-    [ "makeDifferentiableFunction", "a00026.html#a7c304a58fc833d46ac3d8a7dc74f8ed0", null ]
+    [ "Ikarus::FlatIndexMergingStrategy< IMS >", "a02307.html", "a02307" ],
+    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedInterleaved >", "a02311.html", "a02311" ],
+    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedLexicographic >", "a02315.html", "a02315" ],
+    [ "Ikarus::FlatPreBasis< Dune::Functions::CompositePreBasis< IMS, SPB... > >", "a02319.html", "a02319" ],
+    [ "Ikarus::FlatPreBasis< Dune::Functions::PowerPreBasis< IMS, SPB, C > >", "a02323.html", "a02323" ],
+    [ "FlatPreBasis_t", "a00026.html#a98cbe3aef4b3238ea7de77ee9c4c19ac", null ],
+    [ "flatPreBasis", "a00026.html#ga0728039472747184e9eb2ec0992a4a2b", null ]
 ];

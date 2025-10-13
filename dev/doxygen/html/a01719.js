@@ -1,9 +1,21 @@
 var a01719 =
 [
-    [ "VF4", "a01719.html#a7799f521147479e08eb8a6cff05044ac", null ],
-    [ "beta", "a01719.html#a7f795f3f3751c0e13bff4d6dfd36a062", null ],
-    [ "firstDerivativeImpl", "a01719.html#ac8d63d352fad9c356f180cde2d314ad8", null ],
-    [ "name", "a01719.html#a02fcb186d1ec945936be176443d5758b", null ],
-    [ "secondDerivativeImpl", "a01719.html#afc6475c7d6ae590ecaa4ca5d405f4114", null ],
-    [ "storedEnergyImpl", "a01719.html#ac81f14cb8a5089c1667be79b1ac7990a", null ]
+    [ "FirstDerivative", "a01719.html#ac33ad2eb2b73263e513dd3461c57f5df", null ],
+    [ "MaterialExponents", "a01719.html#a9b01e9124f3fa51d8a1a5881bd842bd9", null ],
+    [ "MaterialParameters", "a01719.html#a0164eb06fa929e1608493879f3832c80", null ],
+    [ "PrincipalStretches", "a01719.html#a2ad1ff72f65e6d792878a06d4dc2bf30", null ],
+    [ "ScalarType", "a01719.html#ac3e4137441a45fd58b4dc9f9f6d5fb9e", null ],
+    [ "SecondDerivative", "a01719.html#a971bfbea9f8f2e1dd6f98f1acfaa8217", null ],
+    [ "OgdenT", "a01719.html#a793fd3b05467714b5b630b904855f3ce", null ],
+    [ "firstDerivativeImpl", "a01719.html#a47d6472e966e0dfa7918237ea7e4fba8", null ],
+    [ "materialExponents", "a01719.html#a5123ba0830430d313b96a7bc53ba08ce", null ],
+    [ "materialParametersImpl", "a01719.html#a83461b830e07a4078ce77cda6b2af5a5", null ],
+    [ "name", "a01719.html#af415cd72d105db7efb92a77286c3ed61", null ],
+    [ "rebind", "a01719.html#a6e193a52046c0fd18c9386f526c40ed2", null ],
+    [ "secondDerivativeImpl", "a01719.html#a0c57c366c288614b425baabf11930fa2", null ],
+    [ "storedEnergyImpl", "a01719.html#aedb6f5d097a629d1992873adfcfddaca", null ],
+    [ "dim", "a01719.html#a5b88a4ff271dcdde64f5a08fcadd9b85", null ],
+    [ "numMatParameters", "a01719.html#a4812a748c0df58031f26bf4d8bbff37e", null ],
+    [ "stretchTag", "a01719.html#aa855e364c62dfcff5ee47ae04973e9a5", null ],
+    [ "usesDeviatoricStretches", "a01719.html#a5828b2c22e985dc66871605fb834a873", null ]
 ];

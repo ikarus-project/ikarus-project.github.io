@@ -1,6 +1,6 @@
 var a00434 =
 [
-    [ "makeResultFunction", "a00434.html#aba0432efad1cef6c956ccf108829682c", null ],
-    [ "makeResultFunction", "a00434.html#aa4430d7f94a172d765fba38d393450a0", null ],
-    [ "makeResultVtkFunction", "a00434.html#ad8472943b9877db27039331c847154f1", null ]
+    [ "Ikarus::LoadControlConfig", "a01459.html", "a01459" ],
+    [ "Ikarus::LoadControl< NLS >", "a01455.html", "a01455" ],
+    [ "createControlRoutine", "a00434.html#a5aec737453e85d8a0cd6061b39300694", null ]
 ];

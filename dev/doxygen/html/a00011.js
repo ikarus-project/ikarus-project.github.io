@@ -1,5 +1,4 @@
 var a00011 =
 [
-    [ "Ikarus::IkarusInstance", "a02271.html", "a02271" ],
-    [ "init", "a00011.html#ac8243891c1b961e50a066140ab79a142", null ]
+    [ "hessianN", "a00011.html#ga2a6c26beeb8d52283e82939ca585dc20", null ]
 ];

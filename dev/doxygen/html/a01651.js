@@ -1,6 +1,6 @@
 var a01651 =
 [
-    [ "Skill", "a01651.html#a6c900d07d0cb27b738441b06452be5d1", null ],
-    [ "volumeLoad", "a01651.html#a4662268c782856e02171078b6fcbfa48", null ],
-    [ "worldDim", "a01651.html#a4d01ee496f98eab05902fe055e217bae", null ]
+    [ "nu", "a01651.html#a6c6f839affa58485ab1ccd37ab483982", null ],
+    [ "thickness", "a01651.html#a9e17b3dc5ce89a7c6cb85ebed38ba31b", null ],
+    [ "youngs_modulus", "a01651.html#a3e897b238caac293258b7f9e292a51f1", null ]
 ];

@@ -1,6 +1,10 @@
 var a02263 =
 [
-    [ "FIMS", "a02263.html#aef8f8b43a63a4bf4c7c3bc193c4ee1f0", null ],
-    [ "type", "a02263.html#ae56d4cd604948715e51d517f27d7f0c9", null ],
-    [ "create", "a02263.html#ad2ce954f09e165f4440f6e4139ed0b85", null ]
+    [ "Derivative", "a02263.html#a12d99506e19b1dc61336d4f5a1e741ea", null ],
+    [ "Domain", "a02263.html#a09179a83de8c99be9dd8f99f3641d53d", null ],
+    [ "Traits", "a02263.html#acb47479c6db16067792b5185cdb84206", null ],
+    [ "DifferentiableFunction", "a02263.html#a09d7f95dc6a3721ed6ae7d9b35476e0e", null ],
+    [ "operator()", "a02263.html#acd243bc8a0fa61139b8980f63b1d1f15", null ],
+    [ "derivative", "a02263.html#af9e5d98d20808a3651b0d7ecb05d6c46", null ],
+    [ "nDerivatives", "a02263.html#a750354e710bf4d55502d50772d379005", null ]
 ];

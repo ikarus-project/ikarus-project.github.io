@@ -1,19 +1,8 @@
 var a01679 =
 [
-    [ "DeviatoricFunction", "a01679.html#a73db4e53efccd36416b6d4a1b37c7c43", null ],
-    [ "FirstDerivative", "a01679.html#ae39ea60042e5b2e18024bdebcbfb36e0", null ],
-    [ "MaterialParameters", "a01679.html#ab817946694e0dc1974210eea91cbf96b", null ],
-    [ "MaterialTensor", "a01679.html#af28dc8e5bb910a18c71849f668fce83c", null ],
-    [ "PrincipalStretches", "a01679.html#ab8aa2db12ce7d3afc4747f79c79e9faa", null ],
-    [ "ScalarType", "a01679.html#a38cab1f899530467307c99a72f237d17", null ],
-    [ "SecondDerivative", "a01679.html#ae522d172ff6190f587473adc1fa217a2", null ],
-    [ "StressMatrix", "a01679.html#aa7ab0165103960b1a03b00af38f220d4", null ],
-    [ "Deviatoric", "a01679.html#aff8750bf60731c60d8c7e8af0f4a964e", null ],
-    [ "materialParameters", "a01679.html#a4b4214905f9caf9d6ddc93590f9d2711", null ],
-    [ "name", "a01679.html#a9501b06a18d4fcb2c5fbfb313288ff83", null ],
-    [ "rebind", "a01679.html#a8a1cd371dc2896c817586aa715e66969", null ],
-    [ "storedEnergy", "a01679.html#adbd84a167004698fa848ab487f25aa74", null ],
-    [ "stresses", "a01679.html#a59cf01a7f01b2b13a689da4104925e0b", null ],
-    [ "tangentModuli", "a01679.html#a7447e1f608c66e9d68ccc7038539ccba", null ],
-    [ "dim", "a01679.html#aaa5d108356815504eee15c738a129d5c", null ]
+    [ "DevParams", "a01679.html#acd51c429aa82393c30fd7764aefa8e59", null ],
+    [ "DevType", "a01679.html#abf47168ecc2a8ec241f1fcbe63a4d305", null ],
+    [ "TupleType", "a01679.html#a617ed50b0cf6df143c0ee02f01bf4775", null ],
+    [ "VolParams", "a01679.html#ad6b6845f9ead7c48b67a5169d128742b", null ],
+    [ "VolType", "a01679.html#aa95e4b256339f52682d468802d4a9de9", null ]
 ];

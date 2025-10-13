@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: Ikarus::NonlinearSolverState&lt; D, CT &gt; Struct Template Reference</title>
+    <title>ikarus: Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt; Struct Template Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -157,126 +157,419 @@ $(document).ready(function(){initNavTree('a02087.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a02084.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">Ikarus::NonlinearSolverState&lt; D, CT &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>State for nonlinear solvers.  
+<p>This class implements a wrapper to the Spectra generalized eigen solver for square real symmetric matrices, i.e. to solve \( Ax = \lambda Bx\), where A is symmetric and B is positive definite. It calculates the full spectrum of eigenvalues.  
  <a href="a02087.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00212_source.html">ikarus/solver/nonlinearsolver/nonlinearsolverstate.hh</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00179_source.html">ikarus/solver/eigenvaluesolver/generalizedeigensolver.hh</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a25a890e73f674d88c4ea5d710b9a5002"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a25a890e73f674d88c4ea5d710b9a5002">Domain</a> = D</td></tr>
-<tr class="separator:a25a890e73f674d88c4ea5d710b9a5002"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34c62aa698c6921f74c7c0d8adf9e2f1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a34c62aa698c6921f74c7c0d8adf9e2f1">CorrectionType</a> = CT</td></tr>
-<tr class="separator:a34c62aa698c6921f74c7c0d8adf9e2f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8485726e6883eb6d7252bd9baf0e4627"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a> = typename MT::Scalar</td></tr>
+<tr class="separator:a8485726e6883eb6d7252bd9baf0e4627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34c854289f61047252fa93db012d5f13"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a34c854289f61047252fa93db012d5f13">MatrixType</a> = MT</td></tr>
+<tr class="separator:a34c854289f61047252fa93db012d5f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ad6c5efe033c6628c0fd843cf2effba"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a2ad6c5efe033c6628c0fd843cf2effba">ProductType</a> = std::conditional_t&lt; <a class="el" href="a02087.html#a06b59538903b72e9807a691a97dd607f">isDense</a>, Spectra::DenseSymMatProd&lt; <a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a> &gt;, Spectra::SparseSymMatProd&lt; <a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a> &gt; &gt;</td></tr>
+<tr class="separator:a2ad6c5efe033c6628c0fd843cf2effba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f2e96d61612b8932eeef6d7491c27df"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a3f2e96d61612b8932eeef6d7491c27df">CholeskyType</a> = std::conditional_t&lt; <a class="el" href="a02087.html#a06b59538903b72e9807a691a97dd607f">isDense</a>, Spectra::DenseCholesky&lt; <a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a> &gt;, Spectra::SparseCholesky&lt; <a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a> &gt; &gt;</td></tr>
+<tr class="separator:a3f2e96d61612b8932eeef6d7491c27df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad2054eef570f156a7e829177771d366"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#aad2054eef570f156a7e829177771d366">SolverType</a> = Spectra::SymGEigsSolver&lt; <a class="el" href="a02087.html#a2ad6c5efe033c6628c0fd843cf2effba">ProductType</a>, <a class="el" href="a02087.html#a3f2e96d61612b8932eeef6d7491c27df">CholeskyType</a>, Spectra::GEigsMode::Cholesky &gt;</td></tr>
+<tr class="separator:aad2054eef570f156a7e829177771d366"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a4ea3cec63a27f4699e529393f4304850"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02087.html#a25a890e73f674d88c4ea5d710b9a5002">Domain</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a4ea3cec63a27f4699e529393f4304850">domain</a></td></tr>
-<tr class="separator:a4ea3cec63a27f4699e529393f4304850"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dc40215c88741a47a42cd8f2f129739"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02087.html#a34c62aa698c6921f74c7c0d8adf9e2f1">CorrectionType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a0dc40215c88741a47a42cd8f2f129739">correction</a></td></tr>
-<tr class="separator:a0dc40215c88741a47a42cd8f2f129739"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab210c63c062c5c05126aa35b6d97f79a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02107.html">NonLinearSolverInformation</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#ab210c63c062c5c05126aa35b6d97f79a">information</a></td></tr>
-<tr class="separator:ab210c63c062c5c05126aa35b6d97f79a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa522db16d040aff20999cbdb4a4ad9e7"><td class="memTemplParams" colspan="2">template&lt;typename MATA , typename MATB &gt; <br />
+requires (Concepts::DenseOrSparseEigenMatrix&lt;std::remove_cvref_t&lt;MATA&gt;&gt;)</td></tr>
+<tr class="memitem:aa522db16d040aff20999cbdb4a4ad9e7"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02087.html#aa522db16d040aff20999cbdb4a4ad9e7">GeneralizedSymEigenSolver</a> (MATA &amp;&amp;A, MATB &amp;&amp;B)</td></tr>
+<tr class="memdesc:aa522db16d040aff20999cbdb4a4ad9e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a02083.html">GeneralizedSymEigenSolver</a> object.  <a href="a02087.html#aa522db16d040aff20999cbdb4a4ad9e7">More...</a><br /></td></tr>
+<tr class="separator:aa522db16d040aff20999cbdb4a4ad9e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab12080272383db20d35bcd196a2ac5bf"><td class="memTemplParams" colspan="2">template&lt;Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB&gt; </td></tr>
+<tr class="memitem:ab12080272383db20d35bcd196a2ac5bf"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02087.html#ab12080272383db20d35bcd196a2ac5bf">GeneralizedSymEigenSolver</a> (std::shared_ptr&lt; AssemblerA &gt; assemblerA, const std::shared_ptr&lt; AssemblerB &gt; &amp;assemblerB)</td></tr>
+<tr class="memdesc:ab12080272383db20d35bcd196a2ac5bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new GeneralSymEigenSolver object.  <a href="a02087.html#ab12080272383db20d35bcd196a2ac5bf">More...</a><br /></td></tr>
+<tr class="separator:ab12080272383db20d35bcd196a2ac5bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a881ce0379cd715e2ed3c2cf5235b2a80"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a881ce0379cd715e2ed3c2cf5235b2a80">compute</a> (Eigen::Index maxit=1000, <a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a> tolerance=1e-10)</td></tr>
+<tr class="memdesc:a881ce0379cd715e2ed3c2cf5235b2a80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the computation of the eigenvalue solver.  <a href="a02087.html#a881ce0379cd715e2ed3c2cf5235b2a80">More...</a><br /></td></tr>
+<tr class="separator:a881ce0379cd715e2ed3c2cf5235b2a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4d3a189e6868e3a7a627faa87410cda"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#ac4d3a189e6868e3a7a627faa87410cda">eigenvalues</a> () const</td></tr>
+<tr class="memdesc:ac4d3a189e6868e3a7a627faa87410cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the eigenvalues of the generalized eigenvalue problem.  <a href="a02087.html#ac4d3a189e6868e3a7a627faa87410cda">More...</a><br /></td></tr>
+<tr class="separator:ac4d3a189e6868e3a7a627faa87410cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0da3b9692e200b0366d22b1873046265"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a0da3b9692e200b0366d22b1873046265">eigenvectors</a> () const</td></tr>
+<tr class="memdesc:a0da3b9692e200b0366d22b1873046265"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the eigenvectors of the generalized eigenvalue problem.  <a href="a02087.html#a0da3b9692e200b0366d22b1873046265">More...</a><br /></td></tr>
+<tr class="separator:a0da3b9692e200b0366d22b1873046265"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a2cce50d798d9606488ce04e1ed3b1b"><td class="memItemLeft" align="right" valign="top">Eigen::Index&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a3a2cce50d798d9606488ce04e1ed3b1b">nev</a> () const</td></tr>
+<tr class="memdesc:a3a2cce50d798d9606488ce04e1ed3b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of eigenvalues of the problem.  <a href="a02087.html#a3a2cce50d798d9606488ce04e1ed3b1b">More...</a><br /></td></tr>
+<tr class="separator:a3a2cce50d798d9606488ce04e1ed3b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a06b59538903b72e9807a691a97dd607f"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02087.html#a06b59538903b72e9807a691a97dd607f">isDense</a> = Concepts::EigenMatrix&lt;MT&gt;</td></tr>
+<tr class="separator:a06b59538903b72e9807a691a97dd607f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename D, typename CT&gt;<br />
-struct Ikarus::NonlinearSolverState&lt; D, CT &gt;</div><dl class="tparams"><dt>Template Parameters</dt><dd>
+<div class="textblock"><div class="compoundTemplParams">template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt;<br />
+struct Ikarus::GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;</div><p >Under the hood it uses the Spectra::SymGEigsSolver with Cholesky decomposition for B. As this class can only compute up to \( n-1 \) smallest or greatest eigenvalues, we use two different solvers for the n/2 smallest and n/2 greatest eigenvalues. The matrices are shared throughout the solvers so no extra copy is being made.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">D</td><td>the type of the domain (in most cases FERequirement) </td></tr>
-    <tr><td class="paramname">CT</td><td>the type of the correction vector </td></tr>
+    <tr><td class="paramname">MT</td><td>the used Matrix Type, can be a sparse or dense Eigen::Matrix </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a34c62aa698c6921f74c7c0d8adf9e2f1" name="a34c62aa698c6921f74c7c0d8adf9e2f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34c62aa698c6921f74c7c0d8adf9e2f1">&#9670;&nbsp;</a></span>CorrectionType</h2>
+<a id="a3f2e96d61612b8932eeef6d7491c27df" name="a3f2e96d61612b8932eeef6d7491c27df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f2e96d61612b8932eeef6d7491c27df">&#9670;&nbsp;</a></span>CholeskyType</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename D , typename CT &gt; </div>
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a02087.html">Ikarus::NonlinearSolverState</a>&lt; D, CT &gt;::CorrectionType =  CT</td>
+          <td class="memname">using <a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::CholeskyType =  std::conditional_t&lt;<a class="el" href="a02087.html#a06b59538903b72e9807a691a97dd607f">isDense</a>, Spectra::DenseCholesky&lt;<a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a>&gt;, Spectra::SparseCholesky&lt;<a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a>&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a25a890e73f674d88c4ea5d710b9a5002" name="a25a890e73f674d88c4ea5d710b9a5002"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25a890e73f674d88c4ea5d710b9a5002">&#9670;&nbsp;</a></span>Domain</h2>
+<a id="a34c854289f61047252fa93db012d5f13" name="a34c854289f61047252fa93db012d5f13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c854289f61047252fa93db012d5f13">&#9670;&nbsp;</a></span>MatrixType</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename D , typename CT &gt; </div>
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a02087.html">Ikarus::NonlinearSolverState</a>&lt; D, CT &gt;::Domain =  D</td>
+          <td class="memname">using <a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::MatrixType =  MT</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ad6c5efe033c6628c0fd843cf2effba" name="a2ad6c5efe033c6628c0fd843cf2effba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ad6c5efe033c6628c0fd843cf2effba">&#9670;&nbsp;</a></span>ProductType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::ProductType =  std::conditional_t&lt;<a class="el" href="a02087.html#a06b59538903b72e9807a691a97dd607f">isDense</a>, Spectra::DenseSymMatProd&lt;<a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a>&gt;, Spectra::SparseSymMatProd&lt;<a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a>&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8485726e6883eb6d7252bd9baf0e4627" name="a8485726e6883eb6d7252bd9baf0e4627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8485726e6883eb6d7252bd9baf0e4627">&#9670;&nbsp;</a></span>ScalarType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::ScalarType =  typename MT::Scalar</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aad2054eef570f156a7e829177771d366" name="aad2054eef570f156a7e829177771d366"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad2054eef570f156a7e829177771d366">&#9670;&nbsp;</a></span>SolverType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::SolverType =  Spectra::SymGEigsSolver&lt;<a class="el" href="a02087.html#a2ad6c5efe033c6628c0fd843cf2effba">ProductType</a>, <a class="el" href="a02087.html#a3f2e96d61612b8932eeef6d7491c27df">CholeskyType</a>, Spectra::GEigsMode::Cholesky&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa522db16d040aff20999cbdb4a4ad9e7" name="aa522db16d040aff20999cbdb4a4ad9e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa522db16d040aff20999cbdb4a4ad9e7">&#9670;&nbsp;</a></span>GeneralizedSymEigenSolver() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
+<div class="memtemplate">
+template&lt;typename MATA , typename MATB &gt; <br />
+requires (Concepts::DenseOrSparseEigenMatrix&lt;std::remove_cvref_t&lt;MATA&gt;&gt;)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::GeneralizedSymEigenSolver </td>
+          <td>(</td>
+          <td class="paramtype">MATA &amp;&amp;&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MATB &amp;&amp;&#160;</td>
+          <td class="paramname"><em>B</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">MATA</td><td>the deduced type of the matrix A </td></tr>
+    <tr><td class="paramname">MATB</td><td>the deduced type of the matrix B </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">A</td><td>the matrix A </td></tr>
+    <tr><td class="paramname">B</td><td>the matrix B </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab12080272383db20d35bcd196a2ac5bf" name="ab12080272383db20d35bcd196a2ac5bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab12080272383db20d35bcd196a2ac5bf">&#9670;&nbsp;</a></span>GeneralizedSymEigenSolver() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
+<div class="memtemplate">
+template&lt;Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::GeneralizedSymEigenSolver </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; AssemblerA &gt;&#160;</td>
+          <td class="paramname"><em>assemblerA</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::shared_ptr&lt; AssemblerB &gt; &amp;&#160;</td>
+          <td class="paramname"><em>assemblerB</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">AssemblerA</td><td>the type of the assembler for matrix A. </td></tr>
+    <tr><td class="paramname">AssemblerB</td><td>the type of the assembler for matrix B. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assemblerA</td><td>assembler for matrix A. </td></tr>
+    <tr><td class="paramname">assemblerB</td><td>assembler for matrix B. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a881ce0379cd715e2ed3c2cf5235b2a80" name="a881ce0379cd715e2ed3c2cf5235b2a80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a881ce0379cd715e2ed3c2cf5235b2a80">&#9670;&nbsp;</a></span>compute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::compute </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::Index&#160;</td>
+          <td class="paramname"><em>maxit</em> = <code>1000</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02087.html#a8485726e6883eb6d7252bd9baf0e4627">ScalarType</a>&#160;</td>
+          <td class="paramname"><em>tolerance</em> = <code>1e-10</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tolerance</td><td>given tolerance for iterative eigenvalue solving (default: 1e-10) </td></tr>
+    <tr><td class="paramname">maxit</td><td>given maximum iterations for eigenvalue solving (default: 1000) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true solving was successful </dd>
+<dd>
+false solving was not successful </dd></dl>
+
+</div>
+</div>
+<a id="ac4d3a189e6868e3a7a627faa87410cda" name="ac4d3a189e6868e3a7a627faa87410cda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4d3a189e6868e3a7a627faa87410cda">&#9670;&nbsp;</a></span>eigenvalues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto &amp; <a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::eigenvalues </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXd vector of eigenvalues </dd></dl>
+
+</div>
+</div>
+<a id="a0da3b9692e200b0366d22b1873046265" name="a0da3b9692e200b0366d22b1873046265"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0da3b9692e200b0366d22b1873046265">&#9670;&nbsp;</a></span>eigenvectors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto &amp; <a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::eigenvectors </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>auto matrix with the eigevectors as columns </dd></dl>
+
+</div>
+</div>
+<a id="a3a2cce50d798d9606488ce04e1ed3b1b" name="a3a2cce50d798d9606488ce04e1ed3b1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a2cce50d798d9606488ce04e1ed3b1b">&#9670;&nbsp;</a></span>nev()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Index <a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::nev </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a0dc40215c88741a47a42cd8f2f129739" name="a0dc40215c88741a47a42cd8f2f129739"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0dc40215c88741a47a42cd8f2f129739">&#9670;&nbsp;</a></span>correction</h2>
+<a id="a06b59538903b72e9807a691a97dd607f" name="a06b59538903b72e9807a691a97dd607f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06b59538903b72e9807a691a97dd607f">&#9670;&nbsp;</a></span>isDense</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename D , typename CT &gt; </div>
+template&lt;Concepts::DenseOrSparseEigenMatrix MT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a02087.html#a34c62aa698c6921f74c7c0d8adf9e2f1">CorrectionType</a>&amp; <a class="el" href="a02087.html">Ikarus::NonlinearSolverState</a>&lt; D, CT &gt;::correction</td>
+          <td class="memname">constexpr bool <a class="el" href="a02083.html">Ikarus::GeneralizedSymEigenSolver</a>&lt; <a class="el" href="a00507.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69">EigenValueSolverType::Spectra</a>, MT &gt;::isDense = Concepts::EigenMatrix&lt;MT&gt;</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4ea3cec63a27f4699e529393f4304850" name="a4ea3cec63a27f4699e529393f4304850"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ea3cec63a27f4699e529393f4304850">&#9670;&nbsp;</a></span>domain</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename D , typename CT &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02087.html#a25a890e73f674d88c4ea5d710b9a5002">Domain</a>&amp; <a class="el" href="a02087.html">Ikarus::NonlinearSolverState</a>&lt; D, CT &gt;::domain</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab210c63c062c5c05126aa35b6d97f79a" name="ab210c63c062c5c05126aa35b6d97f79a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab210c63c062c5c05126aa35b6d97f79a">&#9670;&nbsp;</a></span>information</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename D , typename CT &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02107.html">NonLinearSolverInformation</a>&amp; <a class="el" href="a02087.html">Ikarus::NonlinearSolverState</a>&lt; D, CT &gt;::information</td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="a00212_source.html">nonlinearsolverstate.hh</a></li>
+<li><a class="el" href="a00179_source.html">generalizedeigensolver.hh</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -288,7 +581,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="a00495.html">Ikarus</a></li><li class="navelem"><a class="el" href="a02087.html">NonlinearSolverState</a></li>
+        <li class="navelem"><a class="el" href="a00507.html">Ikarus</a></li><li class="navelem"><a class="el" href="a02087.html">GeneralizedSymEigenSolver&lt; EigenValueSolverType::Spectra, MT &gt;</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

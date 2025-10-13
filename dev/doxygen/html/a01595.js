@@ -1,14 +1,9 @@
 var a01595 =
 [
-    [ "AnsatzType", "a01595.html#aedee804d539c866a6fcc6c7d9b131b85", null ],
-    [ "Base", "a01595.html#aca191dfde8bc4c43cebd18b1dd317f04", null ],
-    [ "HType", "a01595.html#ac086317b717d79dd7db09b4426b13f22", null ],
-    [ "S18", "a01595.html#a4d2454051c58d3e68b74a346cb27de12", null ],
-    [ "S18", "a01595.html#ab14ca208cab4c0afd18d322cbc7ca19e", null ],
-    [ "operator()", "a01595.html#a792b8bc745b8f8a2e114c36d43f272e1", null ],
-    [ "assumedStressSize", "a01595.html#ac20bf1a69480a3938fd59b111251cb2e", null ],
-    [ "geometry_", "a01595.html#a6797fc84079b7d5dee1479e91b3cdf26", null ],
-    [ "myDim", "a01595.html#a0917dae90de92dec900b8e2d796d87b1", null ],
-    [ "stressSize", "a01595.html#a27b4bb34038743d1cba3865cbe1695d5", null ],
-    [ "T0_", "a01595.html#a07a00abfed52c610b8995936edd44576", null ]
+    [ "Variant", "a01595.html#aab82fe8fd3fab5566d326e2f16ffd3a6", null ],
+    [ "bind", "a01595.html#a730cdca69871f6860b1ff6f869a6a067", null ],
+    [ "numberOfInternalVariables", "a01595.html#a331c210fd48d89e568c0f6f30ac0516d", null ],
+    [ "operator()", "a01595.html#affc51b112501fd9ae58cc14c770af1b9", null ],
+    [ "setAssumedStressType", "a01595.html#ac3a7e7d2503d74ddfaa59d1b18b67c64", null ],
+    [ "myDim", "a01595.html#adfa5d168fff5a08370952f990d8d6b2d", null ]
 ];

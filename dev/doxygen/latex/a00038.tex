@@ -1,128 +1,59 @@
-\hypertarget{a00038}{}\doxysection{makeenum.\+hh File Reference}
-\label{a00038}\index{makeenum.hh@{makeenum.hh}}
+\hypertarget{a00038}{}\doxysection{tensorutils.\+hh File Reference}
+\label{a00038}\index{tensorutils.hh@{tensorutils.hh}}
 
 
-Implementation of the make enum macro.  
+Helper for the Eigen\+::\+Tensor types.  
 
 
-{\ttfamily \#include $<$dune/common/exceptions.\+hh$>$}\newline
+{\ttfamily \#include $<$numeric$>$}\newline
+{\ttfamily \#include $<$ranges$>$}\newline
+{\ttfamily \#include $<$unsupported/\+Eigen/\+CXX11/\+Tensor$>$}\newline
+{\ttfamily \#include $<$dune/common/promotiontraits.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/math.\+hh$>$}\newline
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
-namespace \mbox{\hyperlink{a00495}{Ikarus}}
+namespace \mbox{\hyperlink{a00507}{Ikarus}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Macros}
-\begin{DoxyCompactItemize}
-\item 
-\#define \mbox{\hyperlink{a00038_a9357f62275c685754a405c064db6ec41}{PARENS}}~()
-\item 
-\#define \mbox{\hyperlink{a00038_a65e77c633f605712a9237282c4e12a75}{ENUM\+\_\+\+CASE}}(name)
-\item 
-\#define \mbox{\hyperlink{a00038_a5b8637b5731207983d4e1d3559abaf64}{EXPAND}}(arg)~\mbox{\hyperlink{a00038_a71de15a9598542c211fe77d5ed898cbf}{EXPAND1}}(\mbox{\hyperlink{a00038_a71de15a9598542c211fe77d5ed898cbf}{EXPAND1}}(\mbox{\hyperlink{a00038_a71de15a9598542c211fe77d5ed898cbf}{EXPAND1}}(\mbox{\hyperlink{a00038_a71de15a9598542c211fe77d5ed898cbf}{EXPAND1}}(arg))))
-\item 
-\#define \mbox{\hyperlink{a00038_a71de15a9598542c211fe77d5ed898cbf}{EXPAND1}}(arg)~\mbox{\hyperlink{a00038_add8e876b47b4041fb362a44a69bacaa3}{EXPAND2}}(\mbox{\hyperlink{a00038_add8e876b47b4041fb362a44a69bacaa3}{EXPAND2}}(\mbox{\hyperlink{a00038_add8e876b47b4041fb362a44a69bacaa3}{EXPAND2}}(\mbox{\hyperlink{a00038_add8e876b47b4041fb362a44a69bacaa3}{EXPAND2}}(arg))))
-\item 
-\#define \mbox{\hyperlink{a00038_add8e876b47b4041fb362a44a69bacaa3}{EXPAND2}}(arg)~\mbox{\hyperlink{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}{EXPAND3}}(\mbox{\hyperlink{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}{EXPAND3}}(\mbox{\hyperlink{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}{EXPAND3}}(\mbox{\hyperlink{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}{EXPAND3}}(arg))))
-\item 
-\#define \mbox{\hyperlink{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}{EXPAND3}}(arg)~\mbox{\hyperlink{a00038_ae458b53f78bc249c6bc1da95a456c774}{EXPAND4}}(\mbox{\hyperlink{a00038_ae458b53f78bc249c6bc1da95a456c774}{EXPAND4}}(\mbox{\hyperlink{a00038_ae458b53f78bc249c6bc1da95a456c774}{EXPAND4}}(\mbox{\hyperlink{a00038_ae458b53f78bc249c6bc1da95a456c774}{EXPAND4}}(arg))))
-\item 
-\#define \mbox{\hyperlink{a00038_ae458b53f78bc249c6bc1da95a456c774}{EXPAND4}}(arg)~arg
-\item 
-\#define \mbox{\hyperlink{a00038_a816aef23498fb528e440575e504589ab}{FOR\+\_\+\+EACH}}(macro, ...)~\+\_\+\+\_\+\+VA\+\_\+\+OPT\+\_\+\+\_\+(\mbox{\hyperlink{a00038_a5b8637b5731207983d4e1d3559abaf64}{EXPAND}}(\mbox{\hyperlink{a00038_a9632c2c84e33729af95fb75b0c2a7e32}{FOR\+\_\+\+EACH\+\_\+\+HELPER}}(macro, \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)))
-\item 
-\#define \mbox{\hyperlink{a00038_a9632c2c84e33729af95fb75b0c2a7e32}{FOR\+\_\+\+EACH\+\_\+\+HELPER}}(macro,  a1, ...)~macro(a1) \+\_\+\+\_\+\+VA\+\_\+\+OPT\+\_\+\+\_\+(\mbox{\hyperlink{a00038_a149ad7b97cba9d51c9cb0cb6d8c77a72}{FOR\+\_\+\+EACH\+\_\+\+AGAIN}} \mbox{\hyperlink{a00038_a9357f62275c685754a405c064db6ec41}{PARENS}}(macro, \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))
-\item 
-\#define \mbox{\hyperlink{a00038_a149ad7b97cba9d51c9cb0cb6d8c77a72}{FOR\+\_\+\+EACH\+\_\+\+AGAIN}}()~\mbox{\hyperlink{a00038_a9632c2c84e33729af95fb75b0c2a7e32}{FOR\+\_\+\+EACH\+\_\+\+HELPER}}
-\item 
-\#define \mbox{\hyperlink{a00038_a65e77c633f605712a9237282c4e12a75}{ENUM\+\_\+\+CASE}}(name)
-\item 
-\#define \mbox{\hyperlink{a00490_ga14ad7d33267cea1c93f97f3998081657}{MAKE\+\_\+\+ENUM}}(type, ...)
-\begin{DoxyCompactList}\small\item\em Macro to create an enumeration with a string conversion function.
-
-The macro creates an enum class with a BEGIN and END enumerator, and provides a constexpr to\+String function for string conversion. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Message\+Type $>$ }\\Message\+Type \& \mbox{\hyperlink{a00490_ga5db6e8f04892e85e6b17e276cdbd0e54}{Ikarus\+::increment}} (Message\+Type \&e)
-\begin{DoxyCompactList}\small\item\em Increments the given enum value. \end{DoxyCompactList}\end{DoxyCompactItemize}
-
-
-\doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{a00038_a65e77c633f605712a9237282c4e12a75}\label{a00038_a65e77c633f605712a9237282c4e12a75}} 
-\index{makeenum.hh@{makeenum.hh}!ENUM\_CASE@{ENUM\_CASE}}
-\index{ENUM\_CASE@{ENUM\_CASE}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{ENUM\_CASE}{ENUM\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \#define ENUM\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keywordflow}{case} name:            \(\backslash\)}
-\DoxyCodeLine{    return \#name;}
-
-\end{DoxyCode}
-\mbox{\Hypertarget{a00038_a65e77c633f605712a9237282c4e12a75}\label{a00038_a65e77c633f605712a9237282c4e12a75}} 
-\index{makeenum.hh@{makeenum.hh}!ENUM\_CASE@{ENUM\_CASE}}
-\index{ENUM\_CASE@{ENUM\_CASE}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{ENUM\_CASE}{ENUM\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \#define ENUM\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keywordflow}{case} name:            \(\backslash\)}
-\DoxyCodeLine{    return \#name;}
-
-\end{DoxyCode}
-\mbox{\Hypertarget{a00038_a5b8637b5731207983d4e1d3559abaf64}\label{a00038_a5b8637b5731207983d4e1d3559abaf64}} 
-\index{makeenum.hh@{makeenum.hh}!EXPAND@{EXPAND}}
-\index{EXPAND@{EXPAND}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{EXPAND}{EXPAND}}
-{\footnotesize\ttfamily \#define EXPAND(\begin{DoxyParamCaption}\item[{}]{arg }\end{DoxyParamCaption})~\mbox{\hyperlink{a00038_a71de15a9598542c211fe77d5ed898cbf}{EXPAND1}}(\mbox{\hyperlink{a00038_a71de15a9598542c211fe77d5ed898cbf}{EXPAND1}}(\mbox{\hyperlink{a00038_a71de15a9598542c211fe77d5ed898cbf}{EXPAND1}}(\mbox{\hyperlink{a00038_a71de15a9598542c211fe77d5ed898cbf}{EXPAND1}}(arg))))}
-
-\mbox{\Hypertarget{a00038_a71de15a9598542c211fe77d5ed898cbf}\label{a00038_a71de15a9598542c211fe77d5ed898cbf}} 
-\index{makeenum.hh@{makeenum.hh}!EXPAND1@{EXPAND1}}
-\index{EXPAND1@{EXPAND1}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{EXPAND1}{EXPAND1}}
-{\footnotesize\ttfamily \#define EXPAND1(\begin{DoxyParamCaption}\item[{}]{arg }\end{DoxyParamCaption})~\mbox{\hyperlink{a00038_add8e876b47b4041fb362a44a69bacaa3}{EXPAND2}}(\mbox{\hyperlink{a00038_add8e876b47b4041fb362a44a69bacaa3}{EXPAND2}}(\mbox{\hyperlink{a00038_add8e876b47b4041fb362a44a69bacaa3}{EXPAND2}}(\mbox{\hyperlink{a00038_add8e876b47b4041fb362a44a69bacaa3}{EXPAND2}}(arg))))}
-
-\mbox{\Hypertarget{a00038_add8e876b47b4041fb362a44a69bacaa3}\label{a00038_add8e876b47b4041fb362a44a69bacaa3}} 
-\index{makeenum.hh@{makeenum.hh}!EXPAND2@{EXPAND2}}
-\index{EXPAND2@{EXPAND2}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{EXPAND2}{EXPAND2}}
-{\footnotesize\ttfamily \#define EXPAND2(\begin{DoxyParamCaption}\item[{}]{arg }\end{DoxyParamCaption})~\mbox{\hyperlink{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}{EXPAND3}}(\mbox{\hyperlink{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}{EXPAND3}}(\mbox{\hyperlink{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}{EXPAND3}}(\mbox{\hyperlink{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}{EXPAND3}}(arg))))}
-
-\mbox{\Hypertarget{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}\label{a00038_ac0b2cb8cf5978dc7d9a519133d80e77e}} 
-\index{makeenum.hh@{makeenum.hh}!EXPAND3@{EXPAND3}}
-\index{EXPAND3@{EXPAND3}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{EXPAND3}{EXPAND3}}
-{\footnotesize\ttfamily \#define EXPAND3(\begin{DoxyParamCaption}\item[{}]{arg }\end{DoxyParamCaption})~\mbox{\hyperlink{a00038_ae458b53f78bc249c6bc1da95a456c774}{EXPAND4}}(\mbox{\hyperlink{a00038_ae458b53f78bc249c6bc1da95a456c774}{EXPAND4}}(\mbox{\hyperlink{a00038_ae458b53f78bc249c6bc1da95a456c774}{EXPAND4}}(\mbox{\hyperlink{a00038_ae458b53f78bc249c6bc1da95a456c774}{EXPAND4}}(arg))))}
-
-\mbox{\Hypertarget{a00038_ae458b53f78bc249c6bc1da95a456c774}\label{a00038_ae458b53f78bc249c6bc1da95a456c774}} 
-\index{makeenum.hh@{makeenum.hh}!EXPAND4@{EXPAND4}}
-\index{EXPAND4@{EXPAND4}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{EXPAND4}{EXPAND4}}
-{\footnotesize\ttfamily \#define EXPAND4(\begin{DoxyParamCaption}\item[{}]{arg }\end{DoxyParamCaption})~arg}
-
-\mbox{\Hypertarget{a00038_a816aef23498fb528e440575e504589ab}\label{a00038_a816aef23498fb528e440575e504589ab}} 
-\index{makeenum.hh@{makeenum.hh}!FOR\_EACH@{FOR\_EACH}}
-\index{FOR\_EACH@{FOR\_EACH}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{FOR\_EACH}{FOR\_EACH}}
-{\footnotesize\ttfamily \#define FOR\+\_\+\+EACH(\begin{DoxyParamCaption}\item[{}]{macro,  }\item[{}]{... }\end{DoxyParamCaption})~\+\_\+\+\_\+\+VA\+\_\+\+OPT\+\_\+\+\_\+(\mbox{\hyperlink{a00038_a5b8637b5731207983d4e1d3559abaf64}{EXPAND}}(\mbox{\hyperlink{a00038_a9632c2c84e33729af95fb75b0c2a7e32}{FOR\+\_\+\+EACH\+\_\+\+HELPER}}(macro, \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)))}
-
-\mbox{\Hypertarget{a00038_a149ad7b97cba9d51c9cb0cb6d8c77a72}\label{a00038_a149ad7b97cba9d51c9cb0cb6d8c77a72}} 
-\index{makeenum.hh@{makeenum.hh}!FOR\_EACH\_AGAIN@{FOR\_EACH\_AGAIN}}
-\index{FOR\_EACH\_AGAIN@{FOR\_EACH\_AGAIN}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{FOR\_EACH\_AGAIN}{FOR\_EACH\_AGAIN}}
-{\footnotesize\ttfamily \#define FOR\+\_\+\+EACH\+\_\+\+AGAIN(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\mbox{\hyperlink{a00038_a9632c2c84e33729af95fb75b0c2a7e32}{FOR\+\_\+\+EACH\+\_\+\+HELPER}}}
-
-\mbox{\Hypertarget{a00038_a9632c2c84e33729af95fb75b0c2a7e32}\label{a00038_a9632c2c84e33729af95fb75b0c2a7e32}} 
-\index{makeenum.hh@{makeenum.hh}!FOR\_EACH\_HELPER@{FOR\_EACH\_HELPER}}
-\index{FOR\_EACH\_HELPER@{FOR\_EACH\_HELPER}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{FOR\_EACH\_HELPER}{FOR\_EACH\_HELPER}}
-{\footnotesize\ttfamily \#define FOR\+\_\+\+EACH\+\_\+\+HELPER(\begin{DoxyParamCaption}\item[{}]{macro,  }\item[{}]{a1,  }\item[{}]{... }\end{DoxyParamCaption})~macro(a1) \+\_\+\+\_\+\+VA\+\_\+\+OPT\+\_\+\+\_\+(\mbox{\hyperlink{a00038_a149ad7b97cba9d51c9cb0cb6d8c77a72}{FOR\+\_\+\+EACH\+\_\+\+AGAIN}} \mbox{\hyperlink{a00038_a9357f62275c685754a405c064db6ec41}{PARENS}}(macro, \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))}
-
-\mbox{\Hypertarget{a00038_a9357f62275c685754a405c064db6ec41}\label{a00038_a9357f62275c685754a405c064db6ec41}} 
-\index{makeenum.hh@{makeenum.hh}!PARENS@{PARENS}}
-\index{PARENS@{PARENS}!makeenum.hh@{makeenum.hh}}
-\doxysubsubsection{\texorpdfstring{PARENS}{PARENS}}
-{\footnotesize\ttfamily \#define PARENS~()}
-
+{\footnotesize template$<$typename Derived , typename T , auto rank$>$ }\\Eigen\+::\+Tensor$<$ typename Derived\+::\+Scalar, rank $>$ \mbox{\hyperlink{a00503_ga5cfd9d098384fb067d897b3c0499b447}{Ikarus\+::tensor\+View}} (const \mbox{\hyperlink{a02207}{Eigen\+::\+Eigen\+Base}}$<$ Derived $>$ \&matrix, const std\+::array$<$ T, rank $>$ \&dims)
+\begin{DoxyCompactList}\small\item\em View an \mbox{\hyperlink{a00524}{Eigen}} matrix as an \mbox{\hyperlink{a00524}{Eigen}} Tensor with specified dimensions. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{a00503_gab2cea9ac847cc3635812467c9d96ceb4}{Ikarus\+::dyadic}} (const auto \&A\+\_\+ij, const auto \&B\+\_\+kl)
+\begin{DoxyCompactList}\small\item\em Computes the dyadic product of two \mbox{\hyperlink{a00524}{Eigen}} tensors. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ST , int size$>$ }\\auto \mbox{\hyperlink{a00503_ga9c5657c8eff4526802c2a67f15135bb8}{Ikarus\+::dyadic}} (const Eigen\+::\+Vector$<$ ST, size $>$ \&a, const Eigen\+::\+Vector$<$ ST, size $>$ \&b)
+\begin{DoxyCompactList}\small\item\em Computes the dyadic product of two first order Tensors (here\+: Eigen\+::\+Vector). \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type  = double, int dim = 3$>$ }\\auto \mbox{\hyperlink{a00503_ga1c9618ef351cd986d4f64fde7f52e860}{Ikarus\+::symmetric\+Identity\+Fourth\+Order}} ()
+\begin{DoxyCompactList}\small\item\em Generates a symmetric identity fourth-\/order tensor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type  = double, int dim = 3$>$ }\\auto \mbox{\hyperlink{a00503_ga2368a572348c410fd7e7deb6c6e3964a}{Ikarus\+::symmetric\+Fourth\+Order}} (const auto \&A, const auto \&B)
+\begin{DoxyCompactList}\small\item\em Generates a symmetric fourth-\/order tensor based on two second-\/order input tensors. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type  = double, int dim = 3$>$ }\\auto \mbox{\hyperlink{a00503_gadb08b6f9cc40847b70286dc314a23000}{Ikarus\+::identity\+Fourth\+Order}} ()
+\begin{DoxyCompactList}\small\item\em Generates an identity fourth-\/order tensor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename AType , typename BType $>$ }\\auto \mbox{\hyperlink{a00503_ga8fa2b440586483c1ee0f9b90b9081da2}{Ikarus\+::fourth\+Order\+IKJL}} (const Eigen\+::\+Matrix\+Base$<$ AType $>$ \&A, const Eigen\+::\+Matrix\+Base$<$ BType $>$ \&B)
+\begin{DoxyCompactList}\small\item\em Computes the IKJL product of two matrices. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type , long int dim$>$ }\\auto \mbox{\hyperlink{a00503_gaea03dbfcd8f85ef7af004c7e09244aa9}{Ikarus\+::sym\+Two\+Slots}} (const Eigen\+::\+Tensor\+Fixed\+Size$<$ Scalar\+Type, Eigen\+::\+Sizes$<$ dim, dim, dim, dim $>$ $>$ \&t, const std\+::array$<$ size\+\_\+t, 2 $>$ \&slots)
+\begin{DoxyCompactList}\small\item\em Creates a symmetric fourth-\/order tensor in the two specified slots of the input tensor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int dim = 3$>$ \newline
+requires (dim == 2 or dim == 3)}\\constexpr Eigen\+::\+Index \mbox{\hyperlink{a00503_gaea992dee85d054f8dc1c99d3a7f4fe06}{Ikarus\+::to\+Voigt}} (Eigen\+::\+Index i, Eigen\+::\+Index j) noexcept
+\begin{DoxyCompactList}\small\item\em Converts 2D indices to Voigt notation index. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type  = double$>$ }\\Eigen\+::\+Matrix$<$ Scalar\+Type, 6, 6 $>$ \mbox{\hyperlink{a00503_ga8777400d7d11c49d46f3c6be2698722e}{Ikarus\+::to\+Voigt}} (const Eigen\+::\+Tensor\+Fixed\+Size$<$ Scalar\+Type, Eigen\+::\+Sizes$<$ 3, 3, 3, 3 $>$ $>$ \&ft)
+\begin{DoxyCompactList}\small\item\em Converts a fourth-\/order tensor of fixed size 3x3x3x3 to a Voigt notation matrix of size 6x6. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ST , int size, int Options, int max\+Size$>$ \newline
+requires ((size $>$ 0 and size $<$= 3) or (max\+Size $>$ 0 and max\+Size $<$= 3 and size == Eigen\+::\+Dynamic))}\\auto \mbox{\hyperlink{a00503_ga130c456477155bd833fc6fd5b0223fd3}{Ikarus\+::to\+Voigt}} (const Eigen\+::\+Matrix$<$ ST, size, size, Options, max\+Size, max\+Size $>$ \&E, bool is\+Strain=true)
+\begin{DoxyCompactList}\small\item\em Converts a square 2x2 or 3x3 matrix to a Voigt notation vector. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ST , int size, int Options, int max\+Size$>$ \newline
+requires ((size == 1 or size == 3 or size == 6) or ((max\+Size == 1 or max\+Size == 3 or max\+Size == 6) and size == Eigen\+::\+Dynamic))}\\auto \mbox{\hyperlink{a00503_gadc8e9e9f3838d0392a5fcf1e11374ee9}{Ikarus\+::from\+Voigt}} (const Eigen\+::\+Matrix$<$ ST, size, 1, Options, max\+Size, 1 $>$ \&EVoigt, bool is\+Strain=true)
+\begin{DoxyCompactList}\small\item\em Converts a vector given in Voigt notation to a matrix. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int dim = 3$>$ \newline
+requires (dim == 2 or dim == 3)}\\constexpr std\+::array$<$ size\+\_\+t, 2 $>$ \mbox{\hyperlink{a00503_gacf696920b868e0ea4e3eba064a5e6787}{Ikarus\+::from\+Voigt}} (size\+\_\+t i)
+\begin{DoxyCompactList}\small\item\em Converts a Voigt notation index to matrix indices. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type , int size$>$ }\\auto \mbox{\hyperlink{a00503_ga41c40e237e84c76f5714176be54f0a52}{Ikarus\+::from\+Voigt}} (const Eigen\+::\+Matrix$<$ Scalar\+Type, size, size $>$ \&CVoigt)
+\begin{DoxyCompactList}\small\item\em Converts a matrix in Voigt notation to a Fourth-\/order tensor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename GEO $>$ \newline
+requires (GEO\+::mydimension == 2)}\\Eigen\+::\+Matrix3d \mbox{\hyperlink{a00507_ae05c7db6d3b9b31f0f23f2d62ea52800}{Ikarus\+::transformation\+Matrix}} (const GEO \&geometry, const \mbox{\hyperlink{a02271}{Dune\+::\+Field\+Vector}}$<$ double, 2 $>$ \&pos)
+\begin{DoxyCompactList}\small\item\em Calculates the 2D transformation matrix. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename GEO $>$ \newline
+requires (GEO\+::mydimension == 3)}\\Eigen\+::\+Matrix$<$ double, 6, 6 $>$ \mbox{\hyperlink{a00507_afa023fb4493357026f8406d1f0f0bf2d}{Ikarus\+::transformation\+Matrix}} (const GEO \&geometry, const \mbox{\hyperlink{a02271}{Dune\+::\+Field\+Vector}}$<$ double, 3 $>$ \&pos)
+\begin{DoxyCompactList}\small\item\em Calculates the 3D transformation matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}

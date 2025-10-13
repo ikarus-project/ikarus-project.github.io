@@ -1,17 +1,12 @@
-\hypertarget{a01387}{}\doxysection{Ikarus\+::Scalar\+Assembler\texorpdfstring{$<$}{<} SA, FEC, DV, ST \texorpdfstring{$>$}{>} Class Template Reference}
-\label{a01387}\index{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}}
+\hypertarget{a01387}{}\doxysection{Ikarus\+::Assembler\+Manipulator\texorpdfstring{$<$}{<} A, Scalar\+Ass, Vector\+Ass \texorpdfstring{$>$}{>} Class Template Reference}
+\label{a01387}\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
 
 
-The \mbox{\hyperlink{a01387}{Scalar\+Assembler}} provides an interface for an assembler that assembles scalar quantities.  
-
-
-
-
-{\ttfamily \#include $<$ikarus/assembler/interface.\+hh$>$}
+{\ttfamily \#include $<$ikarus/assembler/assemblermanipulatorfuser.\+hh$>$}
 
 
 
-Inheritance diagram for Ikarus\+::Scalar\+Assembler\texorpdfstring{$<$}{<} SA, FEC, DV, ST \texorpdfstring{$>$}{>}\+:
+Inheritance diagram for Ikarus\+::Assembler\+Manipulator\texorpdfstring{$<$}{<} A, Scalar\+Ass, Vector\+Ass \texorpdfstring{$>$}{>}\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -22,118 +17,138 @@ Inheritance diagram for Ikarus\+::Scalar\+Assembler\texorpdfstring{$<$}{<} SA, F
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-using \mbox{\hyperlink{a01387_a495146eca3941b7f3fce4e4cfad0db5b}{Scalar\+Assembler\+Type}} = SA
+using \mbox{\hyperlink{a01387_a23910dd23aec1d66ae2163ae5c3feff2}{Wrapped\+Assembler}} = A
 \item 
-using \mbox{\hyperlink{a01387_a16ca73d65a203ae40cc5fde52a842d55}{Scalar\+Type}} = ST
-\item 
-using \mbox{\hyperlink{a01387_a67cc8482921daea5596b429c4e4eafc0}{Dirichlet\+Values\+Type}} = DV
-\item 
-using \mbox{\hyperlink{a01387_ad3ee06841d700fcd7cfe172863c5e0a5}{FEContainer}} = FEC
-\item 
-using \mbox{\hyperlink{a01387_a19e5808c52606d12f9bd37d3c719d1a4}{FEContainer\+Raw}} = std\+::remove\+\_\+cvref\+\_\+t$<$ FEC $>$
-\begin{DoxyCompactList}\small\item\em Type of the raw finite element container. \end{DoxyCompactList}\item 
-using \mbox{\hyperlink{a01387_a168924ea15d45b7ba44a68b3aac9dc01}{FERequirement}} = typename FEContainer\+Raw\+::value\+\_\+type\+::\+Requirement
+using \mbox{\hyperlink{a01387_a548596506a305bb51457e888633857ef}{Call\+Back\+Types}} = std\+::tuple$<$ typename Scalar\+Assembler\+Impl\+::\+Function\+Type, typename Vector\+Assembler\+Impl\+::\+Function\+Type $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a01387_a16ca73d65a203ae40cc5fde52a842d55}{Scalar\+Type}} \& \mbox{\hyperlink{a01387_a8a2c2b61a0d309944bb7adb0df9b5e05}{scalar}} (const \mbox{\hyperlink{a01387_a168924ea15d45b7ba44a68b3aac9dc01}{FERequirement}} \&fe\+Requirements, \mbox{\hyperlink{a00495_af6f894084edd9109762b86222995ef2a}{Scalar\+Affordance}} affordance)
-\begin{DoxyCompactList}\small\item\em Calculates the scalar quantity requested by fe\+Requirements and affordance. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{a01387_a16ca73d65a203ae40cc5fde52a842d55}{Scalar\+Type}} \& \mbox{\hyperlink{a01387_a576e3d47d49dedd55a2c76f2fe80788e}{scalar}} ()
-\begin{DoxyCompactList}\small\item\em Calculates the scalar quantity requested by the bound fe\+Requirements and returns a reference. \end{DoxyCompactList}\end{DoxyCompactItemize}
-
-
-\doxysubsection{Detailed Description}
-\subsubsection*{template$<$typename SA, typename FEC, typename DV, typename ST$>$\newline
-class Ikarus\+::\+Scalar\+Assembler$<$ SA, FEC, DV, ST $>$}
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em SA} & Type of the scalar assembler \\
-\hline
-{\em FEC} & Type of the finite element container. \\
-\hline
-{\em DV} & Type of the Dirichlet values. \\
-\hline
-{\em ST} & Type of the scalar quantity \\
-\hline
-\end{DoxyTemplParams}
+{\footnotesize template$<$typename... Args$>$ \newline
+requires (not std\+::is\+\_\+same\+\_\+v$<$std\+::remove\+\_\+cvref\+\_\+t$<$std\+::tuple\+\_\+element\+\_\+t$<$0, std\+::tuple$<$Args...$>$$>$$>$, \mbox{\hyperlink{a01379}{Assembler\+Manipulator}}$>$)}\\\mbox{\hyperlink{a01387_aa7a37ed96edb529292f6d5c76f771d92}{Assembler\+Manipulator}} (Args \&\&... args)
+\begin{DoxyCompactList}\small\item\em Constructor that forwards arguments to the base assembler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{a01387_ad548d9c186819f0b92a304cc2f055ea5}{Scalar\+Assembler\+Impl}} = Scalar\+Ass\+::template Implementation$<$ \mbox{\hyperlink{a01379}{Assembler\+Manipulator}}, \mbox{\hyperlink{a01387_a23910dd23aec1d66ae2163ae5c3feff2}{Wrapped\+Assembler}} $>$
+\item 
+using \mbox{\hyperlink{a01387_a34f8528f5c053818af2178851cc31b81}{Vector\+Assembler\+Impl}} = Vector\+Ass\+::template Implementation$<$ \mbox{\hyperlink{a01379}{Assembler\+Manipulator}}, \mbox{\hyperlink{a01387_a23910dd23aec1d66ae2163ae5c3feff2}{Wrapped\+Assembler}} $>$
+\item 
+using \mbox{\hyperlink{a01387_ad011335ef113c9289854486361e6590c}{Scalar\+Assembler\+Interface}} = Scalar\+Ass\+::template Interface$<$ \mbox{\hyperlink{a01379}{Assembler\+Manipulator}}, A, typename A\+::\+Scalar\+Type $>$
+\item 
+using \mbox{\hyperlink{a01387_a1009f6d702cf0d1dcf20816174a6b52a}{Vector\+Assembler\+Interface}} = Vector\+Ass\+::template Interface$<$ \mbox{\hyperlink{a01379}{Assembler\+Manipulator}}, A, typename A\+::\+Vector\+Type $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+friend \mbox{\hyperlink{a01387_a073d6709deb7c8af88e80d78a9d9d52e}{Scalar\+Assembler\+Impl}}
+\item 
+friend \mbox{\hyperlink{a01387_a9a0d3c2f6a5fbb66d3ec88793685bcd4}{Vector\+Assembler\+Impl}}
+\item 
+friend \mbox{\hyperlink{a01387_a0110ff846e287a2e9bec794c35d94bc2}{Scalar\+Assembler\+Interface}}
+\item 
+friend \mbox{\hyperlink{a01387_add1c52fad1611dd03df81b50797a3540}{Vector\+Assembler\+Interface}}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Typedef Documentation}
-\mbox{\Hypertarget{a01387_a67cc8482921daea5596b429c4e4eafc0}\label{a01387_a67cc8482921daea5596b429c4e4eafc0}} 
-\index{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}!DirichletValuesType@{DirichletValuesType}}
-\index{DirichletValuesType@{DirichletValuesType}!Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}}
-\doxysubsubsection{\texorpdfstring{DirichletValuesType}{DirichletValuesType}}
-{\footnotesize\ttfamily template$<$typename SA , typename FEC , typename DV , typename ST $>$ \\
-using \mbox{\hyperlink{a01387}{Ikarus\+::\+Scalar\+Assembler}}$<$ SA, FEC, DV, ST $>$\+::\+Dirichlet\+Values\+Type =  DV}
+\mbox{\Hypertarget{a01387_a548596506a305bb51457e888633857ef}\label{a01387_a548596506a305bb51457e888633857ef}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!CallBackTypes@{CallBackTypes}}
+\index{CallBackTypes@{CallBackTypes}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{CallBackTypes}{CallBackTypes}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+using \mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Call\+Back\+Types =  std\+::tuple$<$typename Scalar\+Assembler\+Impl\+::\+Function\+Type, typename Vector\+Assembler\+Impl\+::\+Function\+Type$>$}
 
-\mbox{\Hypertarget{a01387_ad3ee06841d700fcd7cfe172863c5e0a5}\label{a01387_ad3ee06841d700fcd7cfe172863c5e0a5}} 
-\index{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}!FEContainer@{FEContainer}}
-\index{FEContainer@{FEContainer}!Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}}
-\doxysubsubsection{\texorpdfstring{FEContainer}{FEContainer}}
-{\footnotesize\ttfamily template$<$typename SA , typename FEC , typename DV , typename ST $>$ \\
-using \mbox{\hyperlink{a01387}{Ikarus\+::\+Scalar\+Assembler}}$<$ SA, FEC, DV, ST $>$\+::\+FEContainer =  FEC}
+\mbox{\Hypertarget{a01387_ad548d9c186819f0b92a304cc2f055ea5}\label{a01387_ad548d9c186819f0b92a304cc2f055ea5}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!ScalarAssemblerImpl@{ScalarAssemblerImpl}}
+\index{ScalarAssemblerImpl@{ScalarAssemblerImpl}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{ScalarAssemblerImpl}{ScalarAssemblerImpl}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+using \mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Scalar\+Assembler\+Impl =  Scalar\+Ass\+::template Implementation$<$\mbox{\hyperlink{a01379}{Assembler\+Manipulator}}, \mbox{\hyperlink{a01387_a23910dd23aec1d66ae2163ae5c3feff2}{Wrapped\+Assembler}}$>$\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{a01387_a19e5808c52606d12f9bd37d3c719d1a4}\label{a01387_a19e5808c52606d12f9bd37d3c719d1a4}} 
-\index{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}!FEContainerRaw@{FEContainerRaw}}
-\index{FEContainerRaw@{FEContainerRaw}!Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}}
-\doxysubsubsection{\texorpdfstring{FEContainerRaw}{FEContainerRaw}}
-{\footnotesize\ttfamily template$<$typename SA , typename FEC , typename DV , typename ST $>$ \\
-using \mbox{\hyperlink{a01387}{Ikarus\+::\+Scalar\+Assembler}}$<$ SA, FEC, DV, ST $>$\+::\+FEContainer\+Raw =  std\+::remove\+\_\+cvref\+\_\+t$<$FEC$>$}
+\mbox{\Hypertarget{a01387_ad011335ef113c9289854486361e6590c}\label{a01387_ad011335ef113c9289854486361e6590c}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!ScalarAssemblerInterface@{ScalarAssemblerInterface}}
+\index{ScalarAssemblerInterface@{ScalarAssemblerInterface}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{ScalarAssemblerInterface}{ScalarAssemblerInterface}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+using \mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Scalar\+Assembler\+Interface =  Scalar\+Ass\+::template Interface$<$\mbox{\hyperlink{a01379}{Assembler\+Manipulator}}, A, typename A\+::\+Scalar\+Type$>$\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{a01387_a168924ea15d45b7ba44a68b3aac9dc01}\label{a01387_a168924ea15d45b7ba44a68b3aac9dc01}} 
-\index{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}!FERequirement@{FERequirement}}
-\index{FERequirement@{FERequirement}!Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}}
-\doxysubsubsection{\texorpdfstring{FERequirement}{FERequirement}}
-{\footnotesize\ttfamily template$<$typename SA , typename FEC , typename DV , typename ST $>$ \\
-using \mbox{\hyperlink{a01387}{Ikarus\+::\+Scalar\+Assembler}}$<$ SA, FEC, DV, ST $>$\+::\+FERequirement =  typename FEContainer\+Raw\+::value\+\_\+type\+::\+Requirement}
+\mbox{\Hypertarget{a01387_a34f8528f5c053818af2178851cc31b81}\label{a01387_a34f8528f5c053818af2178851cc31b81}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!VectorAssemblerImpl@{VectorAssemblerImpl}}
+\index{VectorAssemblerImpl@{VectorAssemblerImpl}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{VectorAssemblerImpl}{VectorAssemblerImpl}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+using \mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Vector\+Assembler\+Impl =  Vector\+Ass\+::template Implementation$<$\mbox{\hyperlink{a01379}{Assembler\+Manipulator}}, \mbox{\hyperlink{a01387_a23910dd23aec1d66ae2163ae5c3feff2}{Wrapped\+Assembler}}$>$\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{a01387_a495146eca3941b7f3fce4e4cfad0db5b}\label{a01387_a495146eca3941b7f3fce4e4cfad0db5b}} 
-\index{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}!ScalarAssemblerType@{ScalarAssemblerType}}
-\index{ScalarAssemblerType@{ScalarAssemblerType}!Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}}
-\doxysubsubsection{\texorpdfstring{ScalarAssemblerType}{ScalarAssemblerType}}
-{\footnotesize\ttfamily template$<$typename SA , typename FEC , typename DV , typename ST $>$ \\
-using \mbox{\hyperlink{a01387}{Ikarus\+::\+Scalar\+Assembler}}$<$ SA, FEC, DV, ST $>$\+::\+Scalar\+Assembler\+Type =  SA}
+\mbox{\Hypertarget{a01387_a1009f6d702cf0d1dcf20816174a6b52a}\label{a01387_a1009f6d702cf0d1dcf20816174a6b52a}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!VectorAssemblerInterface@{VectorAssemblerInterface}}
+\index{VectorAssemblerInterface@{VectorAssemblerInterface}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{VectorAssemblerInterface}{VectorAssemblerInterface}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+using \mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Vector\+Assembler\+Interface =  Vector\+Ass\+::template Interface$<$\mbox{\hyperlink{a01379}{Assembler\+Manipulator}}, A, typename A\+::\+Vector\+Type$>$\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{a01387_a16ca73d65a203ae40cc5fde52a842d55}\label{a01387_a16ca73d65a203ae40cc5fde52a842d55}} 
-\index{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}!ScalarType@{ScalarType}}
-\index{ScalarType@{ScalarType}!Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}}
-\doxysubsubsection{\texorpdfstring{ScalarType}{ScalarType}}
-{\footnotesize\ttfamily template$<$typename SA , typename FEC , typename DV , typename ST $>$ \\
-using \mbox{\hyperlink{a01387}{Ikarus\+::\+Scalar\+Assembler}}$<$ SA, FEC, DV, ST $>$\+::\+Scalar\+Type =  ST}
+\mbox{\Hypertarget{a01387_a23910dd23aec1d66ae2163ae5c3feff2}\label{a01387_a23910dd23aec1d66ae2163ae5c3feff2}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!WrappedAssembler@{WrappedAssembler}}
+\index{WrappedAssembler@{WrappedAssembler}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{WrappedAssembler}{WrappedAssembler}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+using \mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Wrapped\+Assembler =  A}
 
 
 
-\doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{a01387_a576e3d47d49dedd55a2c76f2fe80788e}\label{a01387_a576e3d47d49dedd55a2c76f2fe80788e}} 
-\index{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}!scalar@{scalar}}
-\index{scalar@{scalar}!Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}}
-\doxysubsubsection{\texorpdfstring{scalar()}{scalar()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily template$<$typename SA , typename FEC , typename DV , typename ST $>$ \\
-\mbox{\hyperlink{a01387_a16ca73d65a203ae40cc5fde52a842d55}{Scalar\+Type}} \& \mbox{\hyperlink{a01387}{Ikarus\+::\+Scalar\+Assembler}}$<$ SA, FEC, DV, ST $>$\+::scalar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{a01387_aa7a37ed96edb529292f6d5c76f771d92}\label{a01387_aa7a37ed96edb529292f6d5c76f771d92}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!AssemblerManipulator@{AssemblerManipulator}}
+\index{AssemblerManipulator@{AssemblerManipulator}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{AssemblerManipulator()}{AssemblerManipulator()}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+template$<$typename... Args$>$ \newline
+requires (not std\+::is\+\_\+same\+\_\+v$<$std\+::remove\+\_\+cvref\+\_\+t$<$std\+::tuple\+\_\+element\+\_\+t$<$0, std\+::tuple$<$Args...$>$$>$$>$, \mbox{\hyperlink{a01379}{Assembler\+Manipulator}}$>$)\\
+\mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Assembler\+Manipulator (\begin{DoxyParamCaption}\item[{Args \&\&...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
-\begin{DoxyReturn}{Returns}
-Const reference to the calculated scalar quantity. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{a01387_a8a2c2b61a0d309944bb7adb0df9b5e05}\label{a01387_a8a2c2b61a0d309944bb7adb0df9b5e05}} 
-\index{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}!scalar@{scalar}}
-\index{scalar@{scalar}!Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$@{Ikarus::ScalarAssembler$<$ SA, FEC, DV, ST $>$}}
-\doxysubsubsection{\texorpdfstring{scalar()}{scalar()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename SA , typename FEC , typename DV , typename ST $>$ \\
-\mbox{\hyperlink{a01387_a16ca73d65a203ae40cc5fde52a842d55}{Scalar\+Type}} \& \mbox{\hyperlink{a01387}{Ikarus\+::\+Scalar\+Assembler}}$<$ SA, FEC, DV, ST $>$\+::scalar (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01387_a168924ea15d45b7ba44a68b3aac9dc01}{FERequirement}} \&}]{fe\+Requirements,  }\item[{\mbox{\hyperlink{a00495_af6f894084edd9109762b86222995ef2a}{Scalar\+Affordance}}}]{affordance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Args} & Variadic template parameter for constructor arguments \\
+\hline
+\end{DoxyTemplParams}
 
 \begin{DoxyParams}{Parameters}
-{\em fe\+Requirements} & Reference to the finite element requirements. \\
-\hline
-{\em affordance} & The scalar affordance \\
+{\em args} & Arguments to be forwarded to the base assembler \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Const reference to the calculated scalar quantity. 
-\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{a01387_a073d6709deb7c8af88e80d78a9d9d52e}\label{a01387_a073d6709deb7c8af88e80d78a9d9d52e}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!ScalarAssemblerImpl@{ScalarAssemblerImpl}}
+\index{ScalarAssemblerImpl@{ScalarAssemblerImpl}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{ScalarAssemblerImpl}{ScalarAssemblerImpl}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+friend \mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Scalar\+Assembler\+Impl\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01387_a0110ff846e287a2e9bec794c35d94bc2}\label{a01387_a0110ff846e287a2e9bec794c35d94bc2}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!ScalarAssemblerInterface@{ScalarAssemblerInterface}}
+\index{ScalarAssemblerInterface@{ScalarAssemblerInterface}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{ScalarAssemblerInterface}{ScalarAssemblerInterface}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+friend \mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Scalar\+Assembler\+Interface\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01387_a9a0d3c2f6a5fbb66d3ec88793685bcd4}\label{a01387_a9a0d3c2f6a5fbb66d3ec88793685bcd4}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!VectorAssemblerImpl@{VectorAssemblerImpl}}
+\index{VectorAssemblerImpl@{VectorAssemblerImpl}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{VectorAssemblerImpl}{VectorAssemblerImpl}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+friend \mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Vector\+Assembler\+Impl\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01387_add1c52fad1611dd03df81b50797a3540}\label{a01387_add1c52fad1611dd03df81b50797a3540}} 
+\index{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}!VectorAssemblerInterface@{VectorAssemblerInterface}}
+\index{VectorAssemblerInterface@{VectorAssemblerInterface}!Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$@{Ikarus::AssemblerManipulator$<$ A, ScalarAss, VectorAss $>$}}
+\doxysubsubsection{\texorpdfstring{VectorAssemblerInterface}{VectorAssemblerInterface}}
+{\footnotesize\ttfamily template$<$Concepts\+::\+Flat\+Assembler A, typename Scalar\+Ass , typename Vector\+Ass $>$ \\
+friend \mbox{\hyperlink{a01379}{Ikarus\+::\+Assembler\+Manipulator}}$<$ A, Scalar\+Ass, Vector\+Ass $>$\+::\+Vector\+Assembler\+Interface\hspace{0.3cm}{\ttfamily [protected]}}
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a03456}{assembler/interface.\+hh}}\end{DoxyCompactItemize}
+\mbox{\hyperlink{a00416}{assemblermanipulatorfuser.\+hh}}\end{DoxyCompactItemize}

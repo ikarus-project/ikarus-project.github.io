@@ -1,6 +1,6 @@
 var a01627 =
 [
-    [ "nu", "a01627.html#a6c6f839affa58485ab1ccd37ab483982", null ],
-    [ "thickness", "a01627.html#a9e17b3dc5ce89a7c6cb85ebed38ba31b", null ],
-    [ "youngs_modulus", "a01627.html#a3e897b238caac293258b7f9e292a51f1", null ]
+    [ "Material", "a01627.html#afd516f5c600b11b2e5a056c647f3b042", null ],
+    [ "Skill", "a01627.html#aab8f5b1a6ab8ad2f350a41b1056afb20", null ],
+    [ "material", "a01627.html#ad06c60a2e13c19b65ce564a794e457f0", null ]
 ];

@@ -1,4 +1,4 @@
 var a00227 =
 [
-    [ "Ikarus::FETraits< BH, useRef, useFlat >", "a01547.html", "a01547" ]
+    [ "Ikarus::Experimental::AutoDiffMAT< RealMAT, forceAutoDiffV, forceAutoDiffS >", "a01495.html", "a01495" ]
 ];

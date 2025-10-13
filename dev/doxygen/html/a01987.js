@@ -1,16 +1,15 @@
 var a01987 =
 [
-    [ "Assembler", "a01987.html#a48666f99819393e871c84b4f4bd4b816", null ],
-    [ "DataCollector", "a01987.html#a700ee4a5f71f8985ee7e4364372c6895", null ],
-    [ "FEContainer", "a01987.html#aaac8aafaef3b80c862dd57fbf7b97279", null ],
-    [ "FERequirement", "a01987.html#af943a6fe7f917d909b06aaace360c129", null ],
-    [ "FEType", "a01987.html#a3a3fcd008921213a40a189cf5c947a08", null ],
-    [ "GridView", "a01987.html#aadd66859407a6b1a5d7604e693348c00", null ],
-    [ "VTKWriter", "a01987.html#a7e43687c38b914c1c3805c0ebefff9bd", null ],
-    [ "Writer", "a01987.html#a7f632eb9736d0518bfccc57782911611", null ],
-    [ "Writer", "a01987.html#a2bd5df12f7819102911d2ec09ce8a977", null ],
-    [ "addAllResults", "a01987.html#a1e3b740ff000dacda0ade44cc0646d9d", null ],
-    [ "addInterpolation", "a01987.html#a8c9074230eff3e4b2518c4ab657b6c26", null ],
-    [ "addResult", "a01987.html#a80776ad077f50b77de658392cb8736fe", null ],
-    [ "addResultFunction", "a01987.html#a658290b81fbe3d75d228ea393f5a6d47", null ]
+    [ "toBulkModulus", "a01987.html#a525c994a4f0c6b4f7bae32011c5097b4", null ],
+    [ "toLamesFirstParameter", "a01987.html#a849d5e587016005b779a8fc5c8bbb22f", null ],
+    [ "toPoissonsRatio", "a01987.html#ab163654914c23c29fb8fe740ae6c3d9d", null ],
+    [ "toPWaveModulus", "a01987.html#abf0e01900bfaeacf08cc9af500f42c05", null ],
+    [ "toShearModulus", "a01987.html#af124c7db22dfb78747d1d912c5acf71f", null ],
+    [ "toYoungsModulus", "a01987.html#ae4def57949303ee0a689dfec1cc060b5", null ],
+    [ "convertLameConstants", "a01987.html#ac2255a654c3a7d80c01113b68dc712a6", null ],
+    [ "convertLameConstants", "a01987.html#ab07833cf0c324d05f0b984cba3ccd946", null ],
+    [ "convertLameConstants", "a01987.html#a97a57e9e0e18185b0f0c4237649e00a7", null ],
+    [ "convertLameConstants", "a01987.html#a9b8e52ebabd81a7dab41ac4ac7b63005", null ],
+    [ "convertLameConstants", "a01987.html#a9bba84cf58912269ed839cb4d6dd7996", null ],
+    [ "convertLameConstants", "a01987.html#a910b0eb5805503f2629a58ac565d5493", null ]
 ];

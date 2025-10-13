@@ -1,8 +1,5 @@
 var a00197 =
 [
-    [ "Ikarus::NRSettings", "a02055.html", "a02055" ],
-    [ "Ikarus::NewtonRaphsonConfig< LS, UF, IDBCF >", "a02059.html", "a02059" ],
-    [ "createNonlinearSolver", "a00197.html#a504e2e9645fa26419d815df9bd245add", null ],
-    [ "makeNewtonRaphson", "a00197.html#a4e47d2f973eca42ebf978ff03a5d885e", null ],
-    [ "NewtonRaphson", "a00197.html#aed1fac3912aaa9c17e87ec329c5f8301", null ]
+    [ "Ikarus::GenericListener< BC >", "a02343.html", "a02343" ],
+    [ "GenericListener", "a00197.html#abf2bcdf0a180600b42282f124ef381de", null ]
 ];

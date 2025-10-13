@@ -1,7 +1,5 @@
 var a00356 =
 [
-    [ "Ikarus::KirchhoffLoveShellPre", "a01619.html", "a01619" ],
-    [ "Ikarus::KirchhoffLoveShell< PreFE, FE >::KinematicVariables< ST >", "a01623.html", "a01623" ],
-    [ "Ikarus::KlArgs", "a01627.html", "a01627" ],
-    [ "kirchhoffLoveShell", "a00356.html#aecb794f40bd585f77e094976751ba41e", null ]
+    [ "Ikarus::Materials::DecomposedMaterialTypes< MAT >", "a01679.html", "a01679" ],
+    [ "decomposeHyperelasticAndGetMaterialParameters", "a00356.html#a6d0f6ef6d764120e2a1724ba4e864b85", null ]
 ];

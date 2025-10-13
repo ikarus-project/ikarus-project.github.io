@@ -1,14 +1,10 @@
 var a01879 =
 [
-    [ "AnsatzType", "a01879.html#a9ad50cb902dea7b4d908357c1dc1cce0", null ],
-    [ "Base", "a01879.html#a172d833f518fa2ae3e9f18b40bdb49f1", null ],
-    [ "DType", "a01879.html#a4c60ef054fb10f692e8d09f56d068780", null ],
-    [ "E21", "a01879.html#af34854fa3abca9df65b1dfc04f06c3a2", null ],
-    [ "E21", "a01879.html#a452ad828addeea4f33be86ee0dfad2ea", null ],
-    [ "operator()", "a01879.html#a8f2f99a985239beb0fa9f63a8d43995f", null ],
-    [ "enhancedStrainSize", "a01879.html#a10b431218dfd309989a871d936acf4e7", null ],
-    [ "geometry_", "a01879.html#a4ae0daad7e73632e2375141f0d79bfa7", null ],
-    [ "myDim", "a01879.html#a39c0b1a4ae9b8a563b6949665cb57272", null ],
-    [ "strainSize", "a01879.html#a641b25ed9808af7492b24c457b844d56", null ],
-    [ "T0InverseTransformed_", "a01879.html#a3a059a4e1309de264cd41d6f5a60744b", null ]
+    [ "Variant", "a01879.html#a8c1fa0ebb484cb9acd1ada539c13e545", null ],
+    [ "bind", "a01879.html#a0f20349ee52ac98f8768463f5489e7eb", null ],
+    [ "isDisplacmentBased", "a01879.html#a9c2b9332eb9cd4f9e72932553245d46b", null ],
+    [ "numberOfInternalVariables", "a01879.html#a459b3a4dd4d25d37d6cc3239dbb3e9db", null ],
+    [ "operator()", "a01879.html#ab58eeeea1f61ad59fccf49983f8249f7", null ],
+    [ "setEASType", "a01879.html#ad973e74eaff77bc3246e9af225afed52", null ],
+    [ "myDim", "a01879.html#ae8c4b486b6bbe10b62dba045808ccd8e", null ]
 ];

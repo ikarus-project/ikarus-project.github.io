@@ -1,4 +1,5 @@
 var a00302 =
 [
-    [ "NeoHooke", "a00302.html#a4bf1415fc81c6cacecd347ec4b928def", null ]
+    [ "makeVanishingStrain", "a00302.html#a03d13518406d1cd5bb2a34aca2f95f01", null ],
+    [ "planeStrain", "a00302.html#a5b428881c8ea5104acd909e769b7910b", null ]
 ];

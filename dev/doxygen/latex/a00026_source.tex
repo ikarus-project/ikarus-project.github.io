@@ -1,78 +1,97 @@
-\hypertarget{a00026_source}{}\doxysection{differentiablefunction.\+hh}
-\label{a00026_source}\index{differentiablefunction.hh@{differentiablefunction.hh}}
+\hypertarget{a00026_source}{}\doxysection{flatprebasis.\+hh}
+\label{a00026_source}\index{flatprebasis.hh@{flatprebasis.hh}}
 \mbox{\hyperlink{a00026}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
-\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
-\DoxyCodeLine{3 }
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <tuple>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <type\_traits>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/common/hybridutilities.hh>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/functions/common/differentiablefunctionfromcallables.hh>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00023}{ikarus/utils/derivativetraits.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00071}{ikarus/utils/traits.hh}}>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00495}{Ikarus}} \{}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{23 }
-\DoxyCodeLine{29   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{30   \textcolor{keyword}{struct }Functions}
-\DoxyCodeLine{31   \{}
-\DoxyCodeLine{32     std::tuple<Args...> args;}
-\DoxyCodeLine{33   \};}
-\DoxyCodeLine{34 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{43 \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{44 \textcolor{keyword}{auto} \mbox{\hyperlink{a00495_ab787b670f0d338c870988f417cf85f76}{functions}}(Args\&\&... args) \{}
-\DoxyCodeLine{45   \textcolor{keywordflow}{return} Impl::Functions<std::remove\_cvref\_t<Args>...>\{std::forward\_as\_tuple(std::forward<Args>(args)...)\};}
-\DoxyCodeLine{46 \}}
-\DoxyCodeLine{47 }
-\DoxyCodeLine{48 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
-\DoxyCodeLine{49 \textcolor{keyword}{template} <\textcolor{keyword}{class} Signature, \textcolor{keyword}{template} <\textcolor{keyword}{class}> \textcolor{keyword}{class }DerivativeTraits, \textcolor{keyword}{class}... F>}
-\DoxyCodeLine{50 \textcolor{keyword}{class }DifferentiableFunction;}
-\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{60 \textcolor{keyword}{template} <\textcolor{keyword}{class} Range, \textcolor{keyword}{class} D, \textcolor{keyword}{template} <\textcolor{keyword}{class}> \textcolor{keyword}{class }DerivativeTraits, \textcolor{keyword}{class }F, \textcolor{keyword}{class}... FF>}
-\DoxyCodeLine{61 \textcolor{keyword}{class }DifferentiableFunction<Range(D), DerivativeTraits, F, FF...>}
-\DoxyCodeLine{62     : \textcolor{keyword}{private} Dune::Functions::DifferentiableFunctionFromCallables<Range(D), DerivativeTraits, F, FF...>}
-\DoxyCodeLine{63 \{}
-\DoxyCodeLine{64   \textcolor{keyword}{using }Base = Dune::Functions::DifferentiableFunctionFromCallables<Range(D), DerivativeTraits, F, FF...>;}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66 \textcolor{keyword}{public}:}
-\DoxyCodeLine{67   \textcolor{keyword}{using }\mbox{\hyperlink{a02203_a09179a83de8c99be9dd8f99f3641d53d}{Domain}}                       = std::remove\_cvref\_t<D>;}
-\DoxyCodeLine{68   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} nDerivatives = \textcolor{keyword}{sizeof}...(FF);}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70   \textcolor{keyword}{template} <\textcolor{keyword}{class}... FFF>}
-\DoxyCodeLine{71   \mbox{\hyperlink{a02203_a09d7f95dc6a3721ed6ae7d9b35476e0e}{DifferentiableFunction}}(FFF\&\&... f)}
-\DoxyCodeLine{72       : Base(std::forward<FFF>(f)...) \{\}}
-\DoxyCodeLine{73   \textcolor{keyword}{using }\mbox{\hyperlink{a02203_acb47479c6db16067792b5185cdb84206}{Traits}} = \mbox{\hyperlink{a00495_aff7184c8b9bf7333cce42c28dc459851}{DerivativeTraitsFromCallables}}<Impl::Functions<F, FF...>, D>;}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75   \textcolor{keyword}{using }\mbox{\hyperlink{a02203_a12d99506e19b1dc61336d4f5a1e741ea}{Derivative}} = DifferentiableFunction<typename Traits::template Range<1>(D), DerivativeTraits, FF...>;}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{77   Range \mbox{\hyperlink{a02203_acd243bc8a0fa61139b8980f63b1d1f15}{operator()}}(\textcolor{keyword}{const} D\& x)\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} Base::operator()(x); \}}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{83   \textcolor{keyword}{friend} \mbox{\hyperlink{a02203_a12d99506e19b1dc61336d4f5a1e741ea}{Derivative}} \mbox{\hyperlink{a02203_af9e5d98d20808a3651b0d7ecb05d6c46}{derivative}}(\textcolor{keyword}{const} DifferentiableFunction\& t) \{}
-\DoxyCodeLine{84     \textcolor{keyword}{auto} df = derivative(\textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }Base\&\textcolor{keyword}{>}(t));}
-\DoxyCodeLine{85     \textcolor{keywordflow}{return} \mbox{\hyperlink{a02203_a12d99506e19b1dc61336d4f5a1e741ea}{Derivative}}(df);}
+\DoxyCodeLine{1 \textcolor{comment}{// Original File: https://gitlab.mn.tu-\/dresden.de/amdis/amdis-\/core/-\//blob/master/amdis/functions/FlatPreBasis.hpp}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2023 Copyright (c)  AMDiS}}
+\DoxyCodeLine{3 \textcolor{comment}{// SPDX-\/License-\/Identifier: MIT}}
+\DoxyCodeLine{4 \textcolor{comment}{// Modifications:}}
+\DoxyCodeLine{5 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{6 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <cstddef>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <dune/common/indices.hh>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/basistags.hh>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/compositebasis.hh>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/powerbasis.hh>}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00507}{Ikarus}} \{}
+\DoxyCodeLine{36 \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{37 \textcolor{keyword}{struct }\mbox{\hyperlink{a02303}{FlatPreBasis}}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39   \textcolor{keyword}{using }\mbox{\hyperlink{a02303_a448426468de3637416804f6ef6f8ce90}{type}} = PreBasis;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{42   \textcolor{keyword}{template} <\textcolor{keyword}{class} PB>}
+\DoxyCodeLine{43   \textcolor{keyword}{static} \mbox{\hyperlink{a02303_a448426468de3637416804f6ef6f8ce90}{type}} \mbox{\hyperlink{a02303_a9c133ba014522aa8c8d90f2a3835c7e1}{create}}(PB \textcolor{keyword}{const}\& preBasis) \{}
+\DoxyCodeLine{44     \textcolor{keywordflow}{return} \mbox{\hyperlink{a02303_a448426468de3637416804f6ef6f8ce90}{type}}(preBasis.gridView());}
+\DoxyCodeLine{45   \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{const} PreBasis\& \mbox{\hyperlink{a02303_af5414357864c26a827136edac1a085f4}{create}}(\textcolor{keyword}{const} PreBasis\& preBasis) \{ \textcolor{keywordflow}{return} preBasis; \}}
+\DoxyCodeLine{49 \};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{52 \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{53 \textcolor{keyword}{using }\mbox{\hyperlink{a00507_a98cbe3aef4b3238ea7de77ee9c4c19ac}{FlatPreBasis\_t}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a02303_a448426468de3637416804f6ef6f8ce90}{FlatPreBasis<PreBasis>::type}};}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{56 \textcolor{keyword}{template} <\textcolor{keyword}{class} IMS>}
+\DoxyCodeLine{57 \textcolor{keyword}{struct }\mbox{\hyperlink{a02307}{FlatIndexMergingStrategy}}}
+\DoxyCodeLine{58 \{}
+\DoxyCodeLine{59   \textcolor{keyword}{using }\mbox{\hyperlink{a02307_aa18699c386a7d8e60d0f53cbc4a83261}{type}} = IMS;}
+\DoxyCodeLine{60 \};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{comment}{// specialization for BlockedInterleaved}}
+\DoxyCodeLine{63 \textcolor{keyword}{template} <>}
+\DoxyCodeLine{64 \textcolor{keyword}{struct }\mbox{\hyperlink{a02307}{FlatIndexMergingStrategy}}<\mbox{\hyperlink{a00533}{Dune}}::Functions::BasisFactory::BlockedInterleaved>}
+\DoxyCodeLine{65 \{}
+\DoxyCodeLine{66   \textcolor{keyword}{using }\mbox{\hyperlink{a02311_a0a464466ec348e17886e7c49c03964d6}{type}} = Dune::Functions::BasisFactory::FlatInterleaved;}
+\DoxyCodeLine{67 \};}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 \textcolor{comment}{// specialization for BlockedLexicographic}}
+\DoxyCodeLine{70 \textcolor{keyword}{template} <>}
+\DoxyCodeLine{71 \textcolor{keyword}{struct }\mbox{\hyperlink{a02307}{FlatIndexMergingStrategy}}<\mbox{\hyperlink{a00533}{Dune}}::Functions::BasisFactory::BlockedLexicographic>}
+\DoxyCodeLine{72 \{}
+\DoxyCodeLine{73   \textcolor{keyword}{using }\mbox{\hyperlink{a02315_add1dc46010d8b320cd215e331a3f1fa4}{type}} = Dune::Functions::BasisFactory::FlatLexicographic;}
+\DoxyCodeLine{74 \};}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{comment}{// specialization for composite bases}}
+\DoxyCodeLine{77 \textcolor{keyword}{template} <\textcolor{keyword}{class }IMS, \textcolor{keyword}{class}... SPB>}
+\DoxyCodeLine{78 \textcolor{keyword}{struct }\mbox{\hyperlink{a02303}{FlatPreBasis}}<\mbox{\hyperlink{a00533}{Dune}}::Functions::CompositePreBasis<IMS, SPB...>>}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80   \textcolor{keyword}{using }\mbox{\hyperlink{a02319_a2387375090283dac7ebbfb8bc58e1994}{FIMS}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a02307_aa18699c386a7d8e60d0f53cbc4a83261}{FlatIndexMergingStrategy<IMS>::type}};}
+\DoxyCodeLine{81   \textcolor{keyword}{using }\mbox{\hyperlink{a02319_a5b93764f4d9fd3897ad37658526e37fd}{type}} = Dune::Functions::CompositePreBasis<FIMS, FlatPreBasis\_t<SPB>...>;}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{84   \textcolor{keyword}{static} \mbox{\hyperlink{a02319_a5b93764f4d9fd3897ad37658526e37fd}{type}} \mbox{\hyperlink{a02319_aaaf91aed22e7c32c6f2c26ff961ae3e1}{create}}(\textcolor{keyword}{const} PreBasis\& preBasis) \{}
+\DoxyCodeLine{85     \textcolor{keywordflow}{return} \mbox{\hyperlink{a02303_a9c133ba014522aa8c8d90f2a3835c7e1}{create}}(preBasis, std::index\_sequence\_for<SPB...>\{\});}
 \DoxyCodeLine{86   \}}
-\DoxyCodeLine{87 \};}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{98 \textcolor{keyword}{template} <\textcolor{keyword}{typename}... F, \textcolor{keyword}{typename} Arg>}
-\DoxyCodeLine{99 \textcolor{keyword}{auto} \mbox{\hyperlink{a00495_a7c304a58fc833d46ac3d8a7dc74f8ed0}{makeDifferentiableFunction}}(\textcolor{keyword}{const} Impl::Functions<F...>\& derivativesFunctions, \textcolor{keyword}{const} Arg\& parameter) \{}
-\DoxyCodeLine{100   \mbox{\hyperlink{a00495_aff7184c8b9bf7333cce42c28dc459851}{DerivativeTraitsFromCallables}} t(derivativesFunctions, parameter);}
-\DoxyCodeLine{101   \textcolor{keyword}{using }DerivTraits = \textcolor{keyword}{decltype}(t);}
-\DoxyCodeLine{102   \textcolor{keyword}{auto} la           = []<\textcolor{keyword}{typename}... FF>(FF\&\&... f) \{}
-\DoxyCodeLine{103     \textcolor{keywordflow}{return} Ikarus::DifferentiableFunction<typename DerivTraits::template Range<0>(\textcolor{keyword}{typename} DerivTraits::Domain),}
-\DoxyCodeLine{104                                                     DerivTraits::template DerivativeTraits, std::remove\_cvref\_t<FF>...>(}
-\DoxyCodeLine{105         std::forward<FF>(f)...);}
-\DoxyCodeLine{106   \};}
-\DoxyCodeLine{107   \textcolor{keywordflow}{return} std::apply(la, derivativesFunctions.args);}
-\DoxyCodeLine{108 \}}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{110 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88   \textcolor{keyword}{template} <\textcolor{keyword}{class }PreBasis, std::size\_t... I>}
+\DoxyCodeLine{89   \textcolor{keyword}{static} \mbox{\hyperlink{a02319_a5b93764f4d9fd3897ad37658526e37fd}{type}} \mbox{\hyperlink{a02319_aab16d08ac65576f292078b2c4f135645}{create}}(\textcolor{keyword}{const} PreBasis\& preBasis, std::index\_sequence<I...>) \{}
+\DoxyCodeLine{90     \textcolor{keywordflow}{return} \mbox{\hyperlink{a02303_a448426468de3637416804f6ef6f8ce90}{type}}(\mbox{\hyperlink{a02303}{FlatPreBasis<SPB>::create}}(preBasis.subPreBasis(Dune::index\_constant<I>\{\}))...);}
+\DoxyCodeLine{91   \}}
+\DoxyCodeLine{92 \};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{comment}{// specialization for power bases}}
+\DoxyCodeLine{95 \textcolor{keyword}{template} <\textcolor{keyword}{class} IMS, \textcolor{keyword}{class} SPB, std::\textcolor{keywordtype}{size\_t} C>}
+\DoxyCodeLine{96 \textcolor{keyword}{struct }\mbox{\hyperlink{a02303}{FlatPreBasis}}<\mbox{\hyperlink{a00533}{Dune}}::Functions::PowerPreBasis<IMS, SPB, C>>}
+\DoxyCodeLine{97 \{}
+\DoxyCodeLine{98   \textcolor{keyword}{using }\mbox{\hyperlink{a02323_aef8f8b43a63a4bf4c7c3bc193c4ee1f0}{FIMS}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a02307_aa18699c386a7d8e60d0f53cbc4a83261}{FlatIndexMergingStrategy<IMS>::type}};}
+\DoxyCodeLine{99   \textcolor{keyword}{using }\mbox{\hyperlink{a02323_ae56d4cd604948715e51d517f27d7f0c9}{type}} = Dune::Functions::PowerPreBasis<FIMS, FlatPreBasis\_t<SPB>, C>;}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101   \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{102   \textcolor{keyword}{static} \mbox{\hyperlink{a02323_ae56d4cd604948715e51d517f27d7f0c9}{type}} \mbox{\hyperlink{a02323_ad2ce954f09e165f4440f6e4139ed0b85}{create}}(\textcolor{keyword}{const} PreBasis\& preBasis) \{}
+\DoxyCodeLine{103     \textcolor{keywordflow}{return} \mbox{\hyperlink{a02303_a448426468de3637416804f6ef6f8ce90}{type}}(\mbox{\hyperlink{a02303}{FlatPreBasis<SPB>::create}}(preBasis.subPreBasis()));}
+\DoxyCodeLine{104   \}}
+\DoxyCodeLine{105 \};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{109 \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{110 \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) \mbox{\hyperlink{a00502_ga0728039472747184e9eb2ec0992a4a2b}{flatPreBasis}}(\textcolor{keyword}{const} PreBasis\& preBasis) \{}
+\DoxyCodeLine{111   \textcolor{keywordflow}{return} \mbox{\hyperlink{a02303_a9c133ba014522aa8c8d90f2a3835c7e1}{FlatPreBasis<PreBasis>::create}}(preBasis);}
+\DoxyCodeLine{112 \}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114 \} \textcolor{comment}{// end namespace Ikarus}}
 
 \end{DoxyCode}

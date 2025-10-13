@@ -1,13 +1,9 @@
 var a01507 =
 [
-    [ "Base", "a01507.html#a2b9d60bd2360e957781527f81646ecc9", null ],
-    [ "AffordanceCollection", "a01507.html#ac9d8a54a3f26be877cb43cf05fae20a8", null ],
-    [ "AffordanceCollection", "a01507.html#aa0f58694e1148fe110562d59d73c74b9", null ],
-    [ "hasAffordance", "a01507.html#adee1d19ea072ea23bc30baec706bb773", null ],
-    [ "matrixAffordance", "a01507.html#af7b6303f0ef9cc6677744559786d8966", null ],
-    [ "scalarAffordance", "a01507.html#ac56ebfd26cad078d15800d620a9b1e93", null ],
-    [ "vectorAffordance", "a01507.html#a9e6b82aa35f9d301b9ccdd661dbb8dde", null ],
-    [ "hasMatrixAffordance", "a01507.html#a34091db9c2c461a74f8fd9d99253b0a3", null ],
-    [ "hasScalarAffordance", "a01507.html#abff0c7489d3ce4d83bf7f078e3e6bdfe", null ],
-    [ "hasVectorAffordance", "a01507.html#ae6aad73f09ae60f45f049a71307cb98a", null ]
+    [ "BasisHandler", "a01507.html#a96f8fe069706faeb6233e8ad31588b66", null ],
+    [ "FE", "a01507.html#ac7266f723a312adbd690b47d5cd06a60", null ],
+    [ "Traits", "a01507.html#a826c356a5afb013faffb5f7ac893cff4", null ],
+    [ "useEigenReference", "a01507.html#a4227356aa324e40ecd1c09da5e56cb00", null ],
+    [ "useFlatBasis", "a01507.html#a67f4db661ba63b8be2f15903c52f3ffd", null ],
+    [ "worldDim", "a01507.html#ac62b5b022663d48416e0560803590259", null ]
 ];

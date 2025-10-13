@@ -1,8 +1,8 @@
-\hypertarget{a01479}{}\doxysection{Ikarus\+::Displacement\+Control Struct Reference}
-\label{a01479}\index{Ikarus::DisplacementControl@{Ikarus::DisplacementControl}}
+\hypertarget{a01479}{}\doxysection{Ikarus\+::Subsidiary\+Args Struct Reference}
+\label{a01479}\index{Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}}
 
 
-Structure representing the subsidiary function for the displacement control method.  
+Structure containing arguments for subsidiary functions.  
 
 
 
@@ -12,115 +12,84 @@ Structure representing the subsidiary function for the displacement control meth
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a01479_aa15060bf256c9786fe44096fad899733}{Displacement\+Control}} (std\+::vector$<$ int $>$ p\+\_\+controlled\+Indices)
-\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{a01479}{Displacement\+Control}}. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename NLS $>$ }\\void \mbox{\hyperlink{a01479_a884618fab228b21b1b6ce5c00843aa10}{operator()}} (typename NLS\+::\+Domain \&req, NLS \&nonlinear\+Solver, \mbox{\hyperlink{a01467}{Subsidiary\+Args}} \&args) const
-\begin{DoxyCompactList}\small\item\em Evaluates the subsidiary function for the displacement control method. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename NLS $>$ }\\void \mbox{\hyperlink{a01479_ab42143626eb3596bddd52c69c5896ceb}{initial\+Prediction}} (typename NLS\+::\+Domain \&req, NLS \&nonlinear\+Solver, \mbox{\hyperlink{a01467}{Subsidiary\+Args}} \&args)
-\begin{DoxyCompactList}\small\item\em Performs initial prediction for the displacement control method. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename NLS $>$ }\\void \mbox{\hyperlink{a01479_a96a2010edec393d763c7ea30a1c31c1d}{intermediate\+Prediction}} (typename NLS\+::\+Domain \&req, NLS \&nonlinear\+Solver, \mbox{\hyperlink{a01467}{Subsidiary\+Args}} \&args)
-\begin{DoxyCompactList}\small\item\em Performs intermediate prediction for the displacement control method. \end{DoxyCompactList}\item 
-constexpr std\+::string \mbox{\hyperlink{a01479_a9083793b2c3f52cae4b7e766452e1bcd}{name}} () const
-\begin{DoxyCompactList}\small\item\em The name of the \mbox{\hyperlink{a01459}{Path\+Following}} method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+void \mbox{\hyperlink{a01479_a3e70d809781af8c529d89da7c80933b3}{set\+Zero}} (const Concepts\+::\+Eigen\+Type auto \&first\+Parameter)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{a01479_a9c0bca7ed999dcf751648d41b5d9aa78}{step\+Size}}
+\begin{DoxyCompactList}\small\item\em The step size in the control routine. \end{DoxyCompactList}\item 
+Eigen\+::\+VectorX$<$ double $>$ \mbox{\hyperlink{a01479_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}
+\begin{DoxyCompactList}\small\item\em The vector representing the solution increment. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{a01479_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}
+\begin{DoxyCompactList}\small\item\em The increment in the load factor. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{a01479_a628b23aa9e90c0e0ba1461ad2241645a}{f}}
+\begin{DoxyCompactList}\small\item\em The value of the subsidiary function. \end{DoxyCompactList}\item 
+Eigen\+::\+VectorX$<$ double $>$ \mbox{\hyperlink{a01479_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfd\+DD}}
+\begin{DoxyCompactList}\small\item\em The derivative of the subsidiary function with respect to DD. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{a01479_a198c4e48b353f1ebe5c5922bf51e34e5}{dfd\+Dlambda}}
+\begin{DoxyCompactList}\small\item\em The derivative of the subsidiary function with respect to Dlambda. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{a01479_a217c729e1ae8b05a98c852f19b0d6ae5}{current\+Step}}
+\begin{DoxyCompactList}\small\item\em The current step index in the control routine. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-The equation for the load control method reads \[
-f(\mathrm{D}\mathbf{D}, \mathrm{D} \lambda)=
-||\mathrm{D}\mathbf{D}|| -  \hat{s}, \] where $\mathrm{D}\mathbf{D}$ is the increment of the solution vector and $\mathrm{D} \lambda$ is the load factor increment. The scalar $\hat{s} $ defines the requested size of the step. 
-
-\doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{a01479_aa15060bf256c9786fe44096fad899733}\label{a01479_aa15060bf256c9786fe44096fad899733}} 
-\index{Ikarus::DisplacementControl@{Ikarus::DisplacementControl}!DisplacementControl@{DisplacementControl}}
-\index{DisplacementControl@{DisplacementControl}!Ikarus::DisplacementControl@{Ikarus::DisplacementControl}}
-\doxysubsubsection{\texorpdfstring{DisplacementControl()}{DisplacementControl()}}
-{\footnotesize\ttfamily Ikarus\+::\+Displacement\+Control\+::\+Displacement\+Control (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int $>$}]{p\+\_\+controlled\+Indices }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
-
-
-\begin{DoxyParams}{Parameters}
-{\em p\+\_\+controlled\+Indices} & Vector containing the indices of the controlled degrees of freedom. \\
-\hline
-\end{DoxyParams}
-
+This structure holds various arguments used by subsidiary functions in control routines. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{a01479_ab42143626eb3596bddd52c69c5896ceb}\label{a01479_ab42143626eb3596bddd52c69c5896ceb}} 
-\index{Ikarus::DisplacementControl@{Ikarus::DisplacementControl}!initialPrediction@{initialPrediction}}
-\index{initialPrediction@{initialPrediction}!Ikarus::DisplacementControl@{Ikarus::DisplacementControl}}
-\doxysubsubsection{\texorpdfstring{initialPrediction()}{initialPrediction()}}
-{\footnotesize\ttfamily template$<$typename NLS $>$ \\
-void Ikarus\+::\+Displacement\+Control\+::initial\+Prediction (\begin{DoxyParamCaption}\item[{typename NLS\+::\+Domain \&}]{req,  }\item[{NLS \&}]{nonlinear\+Solver,  }\item[{\mbox{\hyperlink{a01467}{Subsidiary\+Args}} \&}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-This method initializes the prediction step for the displacement control method.
+\mbox{\Hypertarget{a01479_a3e70d809781af8c529d89da7c80933b3}\label{a01479_a3e70d809781af8c529d89da7c80933b3}} 
+\index{Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}!setZero@{setZero}}
+\index{setZero@{setZero}!Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}}
+\doxysubsubsection{\texorpdfstring{setZero()}{setZero()}}
+{\footnotesize\ttfamily void Ikarus\+::\+Subsidiary\+Args\+::set\+Zero (\begin{DoxyParamCaption}\item[{const Concepts\+::\+Eigen\+Type auto \&}]{first\+Parameter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
-\begin{DoxyTemplParams}{Template Parameters}
-{\em NLS} & Type of the nonlinear solver.\\
-\hline
-\end{DoxyTemplParams}
 
-\begin{DoxyParams}{Parameters}
-{\em req} & The solution. \\
-\hline
-{\em nonlinear\+Solver} & The nonlinear solver. \\
-\hline
-{\em args} & The subsidiary function arguments. \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{a01479_a96a2010edec393d763c7ea30a1c31c1d}\label{a01479_a96a2010edec393d763c7ea30a1c31c1d}} 
-\index{Ikarus::DisplacementControl@{Ikarus::DisplacementControl}!intermediatePrediction@{intermediatePrediction}}
-\index{intermediatePrediction@{intermediatePrediction}!Ikarus::DisplacementControl@{Ikarus::DisplacementControl}}
-\doxysubsubsection{\texorpdfstring{intermediatePrediction()}{intermediatePrediction()}}
-{\footnotesize\ttfamily template$<$typename NLS $>$ \\
-void Ikarus\+::\+Displacement\+Control\+::intermediate\+Prediction (\begin{DoxyParamCaption}\item[{typename NLS\+::\+Domain \&}]{req,  }\item[{NLS \&}]{nonlinear\+Solver,  }\item[{\mbox{\hyperlink{a01467}{Subsidiary\+Args}} \&}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{a01479_a217c729e1ae8b05a98c852f19b0d6ae5}\label{a01479_a217c729e1ae8b05a98c852f19b0d6ae5}} 
+\index{Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}!currentStep@{currentStep}}
+\index{currentStep@{currentStep}!Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}}
+\doxysubsubsection{\texorpdfstring{currentStep}{currentStep}}
+{\footnotesize\ttfamily int Ikarus\+::\+Subsidiary\+Args\+::current\+Step}
 
-This method updates the prediction step for the displacement control method.
+\mbox{\Hypertarget{a01479_afc97f3ae46ddd6a208b90d253aa8a7e6}\label{a01479_afc97f3ae46ddd6a208b90d253aa8a7e6}} 
+\index{Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}!DD@{DD}}
+\index{DD@{DD}!Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}}
+\doxysubsubsection{\texorpdfstring{DD}{DD}}
+{\footnotesize\ttfamily Eigen\+::\+VectorX$<$double$>$ Ikarus\+::\+Subsidiary\+Args\+::\+DD}
 
+\mbox{\Hypertarget{a01479_aa1bc7c1fc866571e3b6b22e14ed9afcf}\label{a01479_aa1bc7c1fc866571e3b6b22e14ed9afcf}} 
+\index{Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}!dfdDD@{dfdDD}}
+\index{dfdDD@{dfdDD}!Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}}
+\doxysubsubsection{\texorpdfstring{dfdDD}{dfdDD}}
+{\footnotesize\ttfamily Eigen\+::\+VectorX$<$double$>$ Ikarus\+::\+Subsidiary\+Args\+::dfd\+DD}
 
-\begin{DoxyTemplParams}{Template Parameters}
-{\em NLS} & Type of the nonlinear solver.\\
-\hline
-\end{DoxyTemplParams}
+\mbox{\Hypertarget{a01479_a198c4e48b353f1ebe5c5922bf51e34e5}\label{a01479_a198c4e48b353f1ebe5c5922bf51e34e5}} 
+\index{Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}!dfdDlambda@{dfdDlambda}}
+\index{dfdDlambda@{dfdDlambda}!Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}}
+\doxysubsubsection{\texorpdfstring{dfdDlambda}{dfdDlambda}}
+{\footnotesize\ttfamily double Ikarus\+::\+Subsidiary\+Args\+::dfd\+Dlambda}
 
-\begin{DoxyParams}{Parameters}
-{\em req} & The solution. \\
-\hline
-{\em nonlinear\+Solver} & The nonlinear solver. \\
-\hline
-{\em args} & The subsidiary function arguments. \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{a01479_a9083793b2c3f52cae4b7e766452e1bcd}\label{a01479_a9083793b2c3f52cae4b7e766452e1bcd}} 
-\index{Ikarus::DisplacementControl@{Ikarus::DisplacementControl}!name@{name}}
-\index{name@{name}!Ikarus::DisplacementControl@{Ikarus::DisplacementControl}}
-\doxysubsubsection{\texorpdfstring{name()}{name()}}
-{\footnotesize\ttfamily constexpr std\+::string Ikarus\+::\+Displacement\+Control\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+\mbox{\Hypertarget{a01479_a0cd5cc302f164ea614b9edfadd7c82c9}\label{a01479_a0cd5cc302f164ea614b9edfadd7c82c9}} 
+\index{Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}!Dlambda@{Dlambda}}
+\index{Dlambda@{Dlambda}!Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}}
+\doxysubsubsection{\texorpdfstring{Dlambda}{Dlambda}}
+{\footnotesize\ttfamily double Ikarus\+::\+Subsidiary\+Args\+::\+Dlambda}
 
-\mbox{\Hypertarget{a01479_a884618fab228b21b1b6ce5c00843aa10}\label{a01479_a884618fab228b21b1b6ce5c00843aa10}} 
-\index{Ikarus::DisplacementControl@{Ikarus::DisplacementControl}!operator()@{operator()}}
-\index{operator()@{operator()}!Ikarus::DisplacementControl@{Ikarus::DisplacementControl}}
-\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
-{\footnotesize\ttfamily template$<$typename NLS $>$ \\
-void Ikarus\+::\+Displacement\+Control\+::operator() (\begin{DoxyParamCaption}\item[{typename NLS\+::\+Domain \&}]{req,  }\item[{NLS \&}]{nonlinear\+Solver,  }\item[{\mbox{\hyperlink{a01467}{Subsidiary\+Args}} \&}]{args }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{a01479_a628b23aa9e90c0e0ba1461ad2241645a}\label{a01479_a628b23aa9e90c0e0ba1461ad2241645a}} 
+\index{Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}!f@{f}}
+\index{f@{f}!Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}}
+\doxysubsubsection{\texorpdfstring{f}{f}}
+{\footnotesize\ttfamily double Ikarus\+::\+Subsidiary\+Args\+::f}
 
-This method calculates the subsidiary function value and its derivatives for the given arguments.
+\mbox{\Hypertarget{a01479_a9c0bca7ed999dcf751648d41b5d9aa78}\label{a01479_a9c0bca7ed999dcf751648d41b5d9aa78}} 
+\index{Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}!stepSize@{stepSize}}
+\index{stepSize@{stepSize}!Ikarus::SubsidiaryArgs@{Ikarus::SubsidiaryArgs}}
+\doxysubsubsection{\texorpdfstring{stepSize}{stepSize}}
+{\footnotesize\ttfamily double Ikarus\+::\+Subsidiary\+Args\+::step\+Size}
 
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em NLS} & Type of the nonlinear solver.\\
-\hline
-\end{DoxyTemplParams}
-
-\begin{DoxyParams}{Parameters}
-{\em req} & The solution. \\
-\hline
-{\em nonlinear\+Solver} & The nonlinear solver. \\
-\hline
-{\em args} & The subsidiary function arguments. \\
-\hline
-\end{DoxyParams}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a00173}{pathfollowingfunctions.\+hh}}\end{DoxyCompactItemize}
+\mbox{\hyperlink{a00449}{pathfollowingfunctions.\+hh}}\end{DoxyCompactItemize}

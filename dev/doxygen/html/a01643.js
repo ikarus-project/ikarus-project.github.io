@@ -1,9 +1,6 @@
 var a01643 =
 [
-    [ "BoundaryPatchType", "a01643.html#ab141e7f54614dccc0924c0bf678760d4", null ],
-    [ "GridView", "a01643.html#a57f15a0941a7f2f5cd9be9365b07cc62", null ],
-    [ "Skill", "a01643.html#a796ae3713725ef99225e7c0163cd2e24", null ],
-    [ "load", "a01643.html#abcca43aca1a4a4bcad580991d79b80e9", null ],
-    [ "neumannBoundary", "a01643.html#a7041712ee512583c44a163cafc33787f", null ],
-    [ "worldDim", "a01643.html#a30ab2377a70a599a759395ddbe87c162", null ]
+    [ "Skill", "a01643.html#a70eedd41455aeffb21dbc1ad9eef1752", null ],
+    [ "material", "a01643.html#ab9e6c9d9f7fc9143b4e757a1bc3434e6", null ],
+    [ "thickness", "a01643.html#a011229be59e800e251f4ea13d35197bc", null ]
 ];

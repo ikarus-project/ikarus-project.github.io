@@ -1,148 +1,364 @@
-\hypertarget{a01799}{}\doxysection{Ikarus\+::EAS\+::Linear\+Strain Struct Reference}
-\label{a01799}\index{Ikarus::EAS::LinearStrain@{Ikarus::EAS::LinearStrain}}
+\hypertarget{a01799}{}\doxysection{Ikarus\+::Materials\+::Material\texorpdfstring{$<$}{<} MI \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{a01799}\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
 
 
-A struct computing the value, first and second derivatives of the linear strain tensor (in Voigt notation), where the linear strain itself is enhanced.  
+Interface classf or materials.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/strainenhancements/easfunctions/linearstrain.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/interface.\+hh$>$}
 
+
+
+Inheritance diagram for Ikarus\+::Materials\+::Material\texorpdfstring{$<$}{<} MI \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01798}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}} = MI
+\begin{DoxyCompactList}\small\item\em Type of material implementation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr const \mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}} \& \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}} () const
+\begin{DoxyCompactList}\small\item\em Const accessor to the underlying material (CRTP). \end{DoxyCompactList}\item 
+constexpr \mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}} \& \mbox{\hyperlink{a01799_ae6ac28e09154cef841393f09f76d680b}{impl}} ()
+\begin{DoxyCompactList}\small\item\em Accessor to the underlying material (CRTP). \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{a01799_a0b4a203f259da74328dacbcc405c0c22}{material\+Parameters}} () const
+\begin{DoxyCompactList}\small\item\em Returns the material parameters stored in the implemented material. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{a00496_gacef1e451de1a99845c59d7391064fb8f}{Strain\+Tags}} tag, typename Derived $>$ \newline
+requires Correct\+Strain\+Size$<$\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}}, Derived$>$}\\auto \mbox{\hyperlink{a01799_a8d6370e3d198662f4222a0b94e2d6703}{stored\+Energy}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&Eraw) const
+\begin{DoxyCompactList}\small\item\em Return the stored potential energy of the material. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{a00496_gacef1e451de1a99845c59d7391064fb8f}{Strain\+Tags}} tag, bool voigt = true, typename Derived $>$ \newline
+requires Correct\+Strain\+Size$<$\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}}, Derived$>$}\\auto \mbox{\hyperlink{a01799_a8a68e052cade23285d1a28d1e08845f5}{stresses}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&Eraw) const
+\begin{DoxyCompactList}\small\item\em Get the stresses of the material. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{a00496_gacef1e451de1a99845c59d7391064fb8f}{Strain\+Tags}} tag, bool voigt = true, typename Derived $>$ \newline
+requires Correct\+Strain\+Size$<$\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}}, Derived$>$}\\auto \mbox{\hyperlink{a01799_a7a97d64507fd1ce0c14e919edb8a639b}{tangent\+Moduli}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&Eraw) const
+\begin{DoxyCompactList}\small\item\em Get the tangent\+Moduli of the material. \end{DoxyCompactList}\item 
+{\footnotesize template$<$\mbox{\hyperlink{a00496_gacef1e451de1a99845c59d7391064fb8f}{Strain\+Tags}} tag, bool voigt = true, bool use\+Numeric = false, typename Derived $>$ \newline
+requires Correct\+Strain\+Size$<$\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}}, Derived$>$}\\auto \mbox{\hyperlink{a01799_a6c826469f37873817513d37d646881d3}{material\+Inversion}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&Sraw, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&Estart\+Raw=Derived\+::\+Zero().eval(), const double tol=1e-\/12, const int max\+Iter=20) const
+\begin{DoxyCompactList}\small\item\em Computes the corresponding strain measure and inverse material tangent for a given stress state. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename STO $>$ }\\auto \mbox{\hyperlink{a01799_a42dd4120574bc25d9bccd1891fc14024}{rebind}} () const
+\begin{DoxyCompactList}\small\item\em Rebind material to a different scalar type. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename GEO , typename EAST $>$ }\\static auto \mbox{\hyperlink{a01799_a277efa7b6486d4dfbb2a09a5475a9733}{value}} (const GEO \&geo, const auto \&u\+Function, const \mbox{\hyperlink{a02211}{Dune\+::\+Field\+Vector}}$<$ double, GEO\+::mydimension $>$ \&gp\+Pos, const EAST \&eas\+Function, const auto \&alpha)
-\begin{DoxyCompactList}\small\item\em Compute the strain vector at a given integration point or its index. \end{DoxyCompactList}\item 
-{\footnotesize template$<$int wrt\+Coeff, typename GEO , typename EAST $>$ }\\static auto \mbox{\hyperlink{a01799_a30ae373a402783bae1c5ea5869803b47}{first\+Derivative}} (const GEO \&geo, const auto \&u\+Function, const auto \&local\+Basis, const auto \&gp\+Index, const \mbox{\hyperlink{a02211}{Dune\+::\+Field\+Vector}}$<$ double, GEO\+::mydimension $>$ \&gp\+Pos, const EAST \&eas\+Function, const auto \&alpha, const int node=s\+NaN)
-\begin{DoxyCompactList}\small\item\em Compute the first derivative of the linear strain w.\+r.\+t d or alpha for a given node and integration point. \end{DoxyCompactList}\item 
-{\footnotesize template$<$int wrt\+Coeff, typename GEO , typename ST , typename EAST $>$ }\\static auto \mbox{\hyperlink{a01799_a6fcb11770bce6e92de6e75003ddc3a0a}{second\+Derivative}} (const GEO \&geo, const auto \&u\+Function, const auto \&local\+Basis, const auto \&gp\+Index, const \mbox{\hyperlink{a02211}{Dune\+::\+Field\+Vector}}$<$ double, GEO\+::mydimension $>$ \&gp\+Pos, const Eigen\+::\+Vector$<$ ST, GEO\+::mydimension $\ast$(GEO\+::mydimension+1)/2 $>$ \&S, const EAST \&eas\+Function, const auto \&alpha, const int I=s\+NaN, const int J=s\+NaN)
-\begin{DoxyCompactList}\small\item\em Compute the second derivative of the linear strain w.\+r.\+t d or alpha for a given node and integration point. \end{DoxyCompactList}\item 
-static constexpr auto \mbox{\hyperlink{a01799_a55efc77ced1fadb428336239dbcaa22b}{name}} ()
-\begin{DoxyCompactList}\small\item\em The name of the strain measure enhanced w.\+r.\+t \mbox{\hyperlink{a00507}{EAS}} method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+static constexpr std\+::string \mbox{\hyperlink{a01799_a03ae10e8656beed2aa69c8a9d27907e5}{name}} ()
+\begin{DoxyCompactList}\small\item\em Get the name of the implemented material. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \mbox{\hyperlink{a01799_ab3bdf2b26371cbadad9b830fb418d8ce}{is\+Strain\+Vanished}}
+\item 
+static constexpr bool \mbox{\hyperlink{a01799_ad3b7f253fed4f4d02758a7814f55c569}{is\+Stress\+Vanished}}
+\item 
+static constexpr bool \mbox{\hyperlink{a01799_af50dfddadfe829082a56eb804bfb7980}{is\+Reduced}} = \mbox{\hyperlink{a01799_ab3bdf2b26371cbadad9b830fb418d8ce}{is\+Strain\+Vanished}} or \mbox{\hyperlink{a01799_ad3b7f253fed4f4d02758a7814f55c569}{is\+Stress\+Vanished}}
+\begin{DoxyCompactList}\small\item\em Static constant for determining if the material has vanishing stress or strain components (is reduced). \end{DoxyCompactList}\item 
+static constexpr bool \mbox{\hyperlink{a01799_adaf662f055c31a4387b0bbcea1b6c34f}{is\+Linear}} = MI\+::strain\+Tag == \mbox{\hyperlink{a00496_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{Strain\+Tags\+::linear}}
+\item 
+static constexpr bool \mbox{\hyperlink{a01799_a7ce8bc4494974503417d5f8404ae48aa}{is\+Hyperelastic}}
+\item 
+static constexpr double \mbox{\hyperlink{a01799_ae9e08c2d0dc02321b8a4d81d4052f63f}{derivative\+Factor}} = MI\+::derivative\+Factor\+Impl
+\begin{DoxyCompactList}\small\item\em This factor denotes the differences between the returned stresses and moduli and the passed strain. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class MI$>$\newline
+struct Ikarus\+::\+Materials\+::\+Material$<$ MI $>$}
+Consider a hyper elastic material with the free Helmholtz energy \[\require{cases}\psi: \begin{cases}\mathbb{R}^{3\times 3} &\rightarrow \mathbb{R} \\ \BC
+&\mapsto \psi(\BC) \end{cases}.\]
+
+Then, the value of this potential energy is return by \mbox{\hyperlink{a01799_a8d6370e3d198662f4222a0b94e2d6703}{stored\+Energy }} and its first derivative (the stresses) by \mbox{\hyperlink{a01799_a8a68e052cade23285d1a28d1e08845f5}{stresses }} and the second derivatives (the tangent moduli) by \mbox{\hyperlink{a01799_a7a97d64507fd1ce0c14e919edb8a639b}{tangent\+Moduli }}.
+
+The passed strains can be in several formats, i.\+e., $\BC$ can be the \href{https://en.wikipedia.org/wiki/Finite_strain_theory\#Cauchy_strain_tensor_(right_Cauchy\%E2\%80\%93Green_deformation_tensor)}{\texttt{ right Cauchy-\/\+Green tensor}}, the \href{https://en.wikipedia.org/wiki/Finite_strain_theory\#Deformation_gradient_tensor}{\texttt{ deformation gradient}} $\mathbf{F}$ or linear strains. The current supported tags are given by \mbox{\hyperlink{a00496_gacef1e451de1a99845c59d7391064fb8f}{Ikarus\+::\+Strain\+Tags}}. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em MI} & Type of the underlying material implementation. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{a01799_a5303817231472050f36f079bc730988b}\label{a01799_a5303817231472050f36f079bc730988b}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!MaterialImpl@{MaterialImpl}}
+\index{MaterialImpl@{MaterialImpl}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{MaterialImpl}{MaterialImpl}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+using \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::\+Material\+Impl =  MI}
+
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{a01799_a30ae373a402783bae1c5ea5869803b47}\label{a01799_a30ae373a402783bae1c5ea5869803b47}} 
-\index{Ikarus::EAS::LinearStrain@{Ikarus::EAS::LinearStrain}!firstDerivative@{firstDerivative}}
-\index{firstDerivative@{firstDerivative}!Ikarus::EAS::LinearStrain@{Ikarus::EAS::LinearStrain}}
-\doxysubsubsection{\texorpdfstring{firstDerivative()}{firstDerivative()}}
-{\footnotesize\ttfamily template$<$int wrt\+Coeff, typename GEO , typename EAST $>$ \\
-static auto Ikarus\+::\+EAS\+::\+Linear\+Strain\+::first\+Derivative (\begin{DoxyParamCaption}\item[{const GEO \&}]{geo,  }\item[{const auto \&}]{u\+Function,  }\item[{const auto \&}]{local\+Basis,  }\item[{const auto \&}]{gp\+Index,  }\item[{const \mbox{\hyperlink{a02211}{Dune\+::\+Field\+Vector}}$<$ double, GEO\+::mydimension $>$ \&}]{gp\+Pos,  }\item[{const EAST \&}]{eas\+Function,  }\item[{const auto \&}]{alpha,  }\item[{const int}]{node = {\ttfamily sNaN} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+\mbox{\Hypertarget{a01799_ae6ac28e09154cef841393f09f76d680b}\label{a01799_ae6ac28e09154cef841393f09f76d680b}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!impl@{impl}}
+\index{impl@{impl}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{impl()}{impl()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+constexpr \mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}} \& \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
 
+\begin{DoxyReturn}{Returns}
+Reference to the underlying material. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{a01799_a2e6191f96be90789c574f58f268f5aea}\label{a01799_a2e6191f96be90789c574f58f268f5aea}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!impl@{impl}}
+\index{impl@{impl}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{impl()}{impl()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+constexpr const \mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}} \& \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
 
-\begin{DoxyParams}{Parameters}
-{\em geo} & The geometry object of the finite element. \\
-\hline
-{\em u\+Function} & The function representing the displacement field. \\
-\hline
-{\em local\+Basis} & The local basis object. \\
-\hline
-{\em gp\+Pos} & The position of the integration point. \\
-\hline
-{\em gp\+Index} & The index of the integration point. \\
-\hline
-{\em node} & The \mbox{\hyperlink{a01491}{FE}} node index (defaults to s\+NaN). \\
-\hline
-{\em eas\+Function} & The \mbox{\hyperlink{a00507}{EAS}} function. \\
-\hline
-{\em alpha} & The coefficients of the \mbox{\hyperlink{a00507}{EAS}} function.\\
-\hline
-\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Const reference to the underlying material. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01799_a2e6191f96be90789c574f58f268f5aea_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01799_a6c826469f37873817513d37d646881d3}\label{a01799_a6c826469f37873817513d37d646881d3}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!materialInversion@{materialInversion}}
+\index{materialInversion@{materialInversion}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{materialInversion()}{materialInversion()}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+template$<$\mbox{\hyperlink{a00496_gacef1e451de1a99845c59d7391064fb8f}{Strain\+Tags}} tag, bool voigt = true, bool use\+Numeric = false, typename Derived $>$ \newline
+requires Correct\+Strain\+Size$<$\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}}, Derived$>$\\
+auto \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::material\+Inversion (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&}]{Sraw,  }\item[{const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&}]{Estart\+Raw = {\ttfamily Derived\+:\+:Zero().eval()},  }\item[{const double}]{tol = {\ttfamily 1e-\/12},  }\item[{const int}]{max\+Iter = {\ttfamily 20} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This assumes the existence of a complementary stored energy function \$\textbackslash{}chi(\textbackslash{}\+BS)\$, such that \$\$ \textbackslash{}partial\+\_\+\{\textbackslash{}\+BS\} \textbackslash{}chi(\textbackslash{}\+BS) \+:= \textbackslash{}\+BE\$\$. Except for linear materials, this is not just the inverse of the material tangent, but needs the inversion of the materials stored energy function. For SVK and Linear Elasticity, the inverse of \$\textbackslash{}\+BC\$ is taken. For Neo\+Hooke an analytical solution exists, and for the general hyperelastic framework (and for all materials that don\textquotesingle{}t implement the material inversion, for that a strain energy function exists) a numerical approach is used.
+
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em wrt\+Coeff} & An integer indicating the coefficient w.\+r.\+t which the first derivative of linear strain is to be returned (0 = E,d; 1 = E,a). \\
+{\em tag} & Strain tag indicating which strain tensor components are expected as result. \\
 \hline
-{\em GEO} & The type of the geometry object. \\
+{\em voigt} & Boolean indicating whether to return Voigt-\/shaped result. \\
 \hline
-{\em EAST} & The type of the \mbox{\hyperlink{a00507}{EAS}} function.\\
+{\em use\+Numeric} & forces the function to use the generic numerical approach \\
+\hline
+{\em Derived} & the type of the stress matrix \\
 \hline
 \end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em Sraw} & input stress matrix \\
+\hline
+{\em Estart\+Raw} & optionally define a starting value for the numerical algorithm (applies only to numerical inversion) \\
+\hline
+{\em tol} & tolerance for the Newton-\/\+Raphson solver (applies only to numerical inversion). \\
+\hline
+{\em max\+Iter} & maximum number of iterations for the Newton-\/\+Raphson solver (applies only to numerical inversion). \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-The first derivative of the linear strain w.\+r.\+t d or alpha. 
+pair of inverse material tangent and strain tensor 
 \end{DoxyReturn}
-\mbox{\Hypertarget{a01799_a55efc77ced1fadb428336239dbcaa22b}\label{a01799_a55efc77ced1fadb428336239dbcaa22b}} 
-\index{Ikarus::EAS::LinearStrain@{Ikarus::EAS::LinearStrain}!name@{name}}
-\index{name@{name}!Ikarus::EAS::LinearStrain@{Ikarus::EAS::LinearStrain}}
+\mbox{\Hypertarget{a01799_a0b4a203f259da74328dacbcc405c0c22}\label{a01799_a0b4a203f259da74328dacbcc405c0c22}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!materialParameters@{materialParameters}}
+\index{materialParameters@{materialParameters}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{materialParameters()}{materialParameters()}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+auto \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::material\+Parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{a01799}{Material}} parameter. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{a01799_a03ae10e8656beed2aa69c8a9d27907e5}\label{a01799_a03ae10e8656beed2aa69c8a9d27907e5}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!name@{name}}
+\index{name@{name}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
 \doxysubsubsection{\texorpdfstring{name()}{name()}}
-{\footnotesize\ttfamily static constexpr auto Ikarus\+::\+EAS\+::\+Linear\+Strain\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+static constexpr std\+::string \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
 
-\mbox{\Hypertarget{a01799_a6fcb11770bce6e92de6e75003ddc3a0a}\label{a01799_a6fcb11770bce6e92de6e75003ddc3a0a}} 
-\index{Ikarus::EAS::LinearStrain@{Ikarus::EAS::LinearStrain}!secondDerivative@{secondDerivative}}
-\index{secondDerivative@{secondDerivative}!Ikarus::EAS::LinearStrain@{Ikarus::EAS::LinearStrain}}
-\doxysubsubsection{\texorpdfstring{secondDerivative()}{secondDerivative()}}
-{\footnotesize\ttfamily template$<$int wrt\+Coeff, typename GEO , typename ST , typename EAST $>$ \\
-static auto Ikarus\+::\+EAS\+::\+Linear\+Strain\+::second\+Derivative (\begin{DoxyParamCaption}\item[{const GEO \&}]{geo,  }\item[{const auto \&}]{u\+Function,  }\item[{const auto \&}]{local\+Basis,  }\item[{const auto \&}]{gp\+Index,  }\item[{const \mbox{\hyperlink{a02211}{Dune\+::\+Field\+Vector}}$<$ double, GEO\+::mydimension $>$ \&}]{gp\+Pos,  }\item[{const Eigen\+::\+Vector$<$ ST, GEO\+::mydimension $\ast$(GEO\+::mydimension+1)/2 $>$ \&}]{S,  }\item[{const EAST \&}]{eas\+Function,  }\item[{const auto \&}]{alpha,  }\item[{const int}]{I = {\ttfamily sNaN},  }\item[{const int}]{J = {\ttfamily sNaN} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+\begin{DoxyReturn}{Returns}
+Name of the material. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01799_a03ae10e8656beed2aa69c8a9d27907e5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01799_a42dd4120574bc25d9bccd1891fc14024}\label{a01799_a42dd4120574bc25d9bccd1891fc14024}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!rebind@{rebind}}
+\index{rebind@{rebind}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{rebind()}{rebind()}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+template$<$typename STO $>$ \\
+auto \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::rebind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+Useful for using automatic differentiation.
 
-\begin{DoxyParams}{Parameters}
-{\em geo} & The geometry object of the finite element. \\
-\hline
-{\em u\+Function} & The function representing the displacement field. \\
-\hline
-{\em local\+Basis} & The local basis object. \\
-\hline
-{\em gp\+Pos} & The position of the integration point. \\
-\hline
-{\em gp\+Index} & The index of the integration point. \\
-\hline
-{\em I} & The \mbox{\hyperlink{a01491}{FE}} node index I (defaults to s\+NaN). \\
-\hline
-{\em J} & The \mbox{\hyperlink{a01491}{FE}} node index J (defaults to s\+NaN). \\
-\hline
-{\em S} & The linear stress (in Voigt notation). \\
-\hline
-{\em eas\+Function} & The \mbox{\hyperlink{a00507}{EAS}} function. \\
-\hline
-{\em alpha} & The coefficients of the \mbox{\hyperlink{a00507}{EAS}} function.\\
-\hline
-\end{DoxyParams}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em wrt\+Coeff} & An integer indicating the coefficient w.\+r.\+t which the second derivative of linear strain is to be returned (0 = E,dd; 1 = E,aa; 2 = E,ad = E,da). \\
-\hline
-{\em GEO} & The type of the geometry object. \\
-\hline
-{\em ST} & The underlying scalar type. \\
-\hline
-{\em EAST} & The type of the \mbox{\hyperlink{a00507}{EAS}} function.\\
+{\em STO} & The scalar type to rebind to. \\
 \hline
 \end{DoxyTemplParams}
 \begin{DoxyReturn}{Returns}
-A tuple containing second derivative of the linear strain w.\+r.\+t d, alpha and the mixed derivative (0 = E,dd; 1 = E,aa; 2 = E,ad = E,da). 
+Rebound material. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{a01799_a277efa7b6486d4dfbb2a09a5475a9733}\label{a01799_a277efa7b6486d4dfbb2a09a5475a9733}} 
-\index{Ikarus::EAS::LinearStrain@{Ikarus::EAS::LinearStrain}!value@{value}}
-\index{value@{value}!Ikarus::EAS::LinearStrain@{Ikarus::EAS::LinearStrain}}
-\doxysubsubsection{\texorpdfstring{value()}{value()}}
-{\footnotesize\ttfamily template$<$typename GEO , typename EAST $>$ \\
-static auto Ikarus\+::\+EAS\+::\+Linear\+Strain\+::value (\begin{DoxyParamCaption}\item[{const GEO \&}]{geo,  }\item[{const auto \&}]{u\+Function,  }\item[{const \mbox{\hyperlink{a02211}{Dune\+::\+Field\+Vector}}$<$ double, GEO\+::mydimension $>$ \&}]{gp\+Pos,  }\item[{const EAST \&}]{eas\+Function,  }\item[{const auto \&}]{alpha }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+\mbox{\Hypertarget{a01799_a8d6370e3d198662f4222a0b94e2d6703}\label{a01799_a8d6370e3d198662f4222a0b94e2d6703}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!storedEnergy@{storedEnergy}}
+\index{storedEnergy@{storedEnergy}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{storedEnergy()}{storedEnergy()}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+template$<$\mbox{\hyperlink{a00496_gacef1e451de1a99845c59d7391064fb8f}{Strain\+Tags}} tag, typename Derived $>$ \newline
+requires Correct\+Strain\+Size$<$\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}}, Derived$>$\\
+auto \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::stored\+Energy (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&}]{Eraw }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+This function return the free Helmholtz energy of the material
 
-\begin{DoxyParams}{Parameters}
-{\em geo} & The geometry object providing the transposed Jacobian. \\
-\hline
-{\em u\+Function} & The function representing the displacement field. \\
-\hline
-{\em gp\+Pos} & The position of the integration point. \\
-\hline
-{\em eas\+Function} & The \mbox{\hyperlink{a00507}{EAS}} function. \\
-\hline
-{\em alpha} & The coefficients of the \mbox{\hyperlink{a00507}{EAS}} function.\\
-\hline
-\end{DoxyParams}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em GEO} & The type of the geometry object. \\
+{\em tag} & Strain tag indicating which strain tensor components are passed. \\
 \hline
-{\em EAST} & The type of the \mbox{\hyperlink{a00507}{EAS}} function.\\
+{\em Derived} & The underlying \mbox{\hyperlink{a00524}{Eigen}} type. \\
 \hline
 \end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em Eraw} & The strain tensor components passed in Voigt notation or matrix notation. \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-The linear strain vector at the given integration point. 
+Scalar return of stored energy. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{a01799_a8a68e052cade23285d1a28d1e08845f5}\label{a01799_a8a68e052cade23285d1a28d1e08845f5}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!stresses@{stresses}}
+\index{stresses@{stresses}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{stresses()}{stresses()}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+template$<$\mbox{\hyperlink{a00496_gacef1e451de1a99845c59d7391064fb8f}{Strain\+Tags}} tag, bool voigt = true, typename Derived $>$ \newline
+requires Correct\+Strain\+Size$<$\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}}, Derived$>$\\
+auto \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::stresses (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&}]{Eraw }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em tag} & Strain tag indicating which strain tensor components are passed. \\
+\hline
+{\em voigt} & Boolean indicating whether to return Voigt-\/shaped result. \\
+\hline
+{\em Derived} & The underlying \mbox{\hyperlink{a00524}{Eigen}} type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em Eraw} & The strain tensor components passed in Voigt notation or matrix notation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vectorial or Matrix return of stresses. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{a01799_a7a97d64507fd1ce0c14e919edb8a639b}\label{a01799_a7a97d64507fd1ce0c14e919edb8a639b}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!tangentModuli@{tangentModuli}}
+\index{tangentModuli@{tangentModuli}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{tangentModuli()}{tangentModuli()}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+template$<$\mbox{\hyperlink{a00496_gacef1e451de1a99845c59d7391064fb8f}{Strain\+Tags}} tag, bool voigt = true, typename Derived $>$ \newline
+requires Correct\+Strain\+Size$<$\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{Material\+Impl}}, Derived$>$\\
+auto \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::tangent\+Moduli (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&}]{Eraw }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em tag} & Strain tag indicating which strain tensor components are passed. \\
+\hline
+{\em voigt} & Boolean indicating whether to return Voigt-\/shaped result. \\
+\hline
+{\em Derived} & The underlying \mbox{\hyperlink{a00524}{Eigen}} type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em Eraw} & The strain tensor components passed in Voigt notation or matrix notation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tangent moduli in Voigt notation or as fourth-\/order tensor. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{a01799_ae9e08c2d0dc02321b8a4d81d4052f63f}\label{a01799_ae9e08c2d0dc02321b8a4d81d4052f63f}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!derivativeFactor@{derivativeFactor}}
+\index{derivativeFactor@{derivativeFactor}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{derivativeFactor}{derivativeFactor}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+constexpr double \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::derivative\+Factor = MI\+::derivative\+Factor\+Impl\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+For neo\+Hooke the inserted quantity is \$\+C\$ the Green-\/\+Lagrangian strain tensor, the function relation between the energy and the stresses is \$S = 1 \textbackslash{}dfrac\{\textbackslash{}partial\textbackslash{}psi(E)\}\{\textbackslash{}partial E\}\$. This factor is the pre factor, which is the difference to the actual derivative, which is written here \mbox{\Hypertarget{a01799_a7ce8bc4494974503417d5f8404ae48aa}\label{a01799_a7ce8bc4494974503417d5f8404ae48aa}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!isHyperelastic@{isHyperelastic}}
+\index{isHyperelastic@{isHyperelastic}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{isHyperelastic}{isHyperelastic}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+constexpr bool \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::is\+Hyperelastic\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= [] \{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01799_af50dfddadfe829082a56eb804bfb7980}{isReduced}}) \{}
+\DoxyCodeLine{      \textcolor{keywordflow}{return} \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{        \textcolor{keyword}{typename} MI::Underlying::DeviatoricType;}
+\DoxyCodeLine{        \textcolor{keyword}{typename} MI::Underlying::VolumetricType;}
+\DoxyCodeLine{      \};}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{      \textcolor{keywordflow}{return} \textcolor{keyword}{requires} \{}
+\DoxyCodeLine{        \textcolor{keyword}{typename} MI::DeviatoricType;}
+\DoxyCodeLine{        \textcolor{keyword}{typename} MI::VolumetricType;}
+\DoxyCodeLine{      \};}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{  \}()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a01799_adaf662f055c31a4387b0bbcea1b6c34f}\label{a01799_adaf662f055c31a4387b0bbcea1b6c34f}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!isLinear@{isLinear}}
+\index{isLinear@{isLinear}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{isLinear}{isLinear}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+constexpr bool \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::is\+Linear = MI\+::strain\+Tag == \mbox{\hyperlink{a00496_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{Strain\+Tags\+::linear}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{a01799_af50dfddadfe829082a56eb804bfb7980}\label{a01799_af50dfddadfe829082a56eb804bfb7980}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!isReduced@{isReduced}}
+\index{isReduced@{isReduced}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{isReduced}{isReduced}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+constexpr bool \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::is\+Reduced = \mbox{\hyperlink{a01799_ab3bdf2b26371cbadad9b830fb418d8ce}{is\+Strain\+Vanished}} or \mbox{\hyperlink{a01799_ad3b7f253fed4f4d02758a7814f55c569}{is\+Stress\+Vanished}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{a01799_ab3bdf2b26371cbadad9b830fb418d8ce}\label{a01799_ab3bdf2b26371cbadad9b830fb418d8ce}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!isStrainVanished@{isStrainVanished}}
+\index{isStrainVanished@{isStrainVanished}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{isStrainVanished}{isStrainVanished}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+constexpr bool \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::is\+Strain\+Vanished\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      traits::isSpecializationNonTypeAndTypes<VanishingStrain, MaterialImpl>::value}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a01799_ad3b7f253fed4f4d02758a7814f55c569}\label{a01799_ad3b7f253fed4f4d02758a7814f55c569}} 
+\index{Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}!isStressVanished@{isStressVanished}}
+\index{isStressVanished@{isStressVanished}!Ikarus::Materials::Material$<$ MI $>$@{Ikarus::Materials::Material$<$ MI $>$}}
+\doxysubsubsection{\texorpdfstring{isStressVanished}{isStressVanished}}
+{\footnotesize\ttfamily template$<$class MI $>$ \\
+constexpr bool \mbox{\hyperlink{a01799}{Ikarus\+::\+Materials\+::\+Material}}$<$ MI $>$\+::is\+Stress\+Vanished\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      traits::isSpecializationNonTypeAndTypes<VanishingStress, MaterialImpl>::value}
+
+\end{DoxyCode}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{a00371}{linearstrain.\+hh}}\end{DoxyCompactItemize}
+\mbox{\hyperlink{a03517}{finiteelements/mechanics/materials/interface.\+hh}}\end{DoxyCompactItemize}

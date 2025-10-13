@@ -1,6 +1,6 @@
 var a00398 =
 [
-    [ "Ikarus::ScalarManipulator< Wrapper, Assembler >", "a01351.html", "a01351" ],
-    [ "Ikarus::VectorManipulator< Wrapper, Assembler >", "a01355.html", "a01355" ],
-    [ "Ikarus::MatrixManipulator< Wrapper, Assembler >", "a01359.html", "a01359" ]
+    [ "Ikarus::FEFactory< BH, SK, useFlat, useEigenRef >", "a01515.html", "a01515" ],
+    [ "makeFE", "a00398.html#a59639a9a20f036a4f1c0794f65595662", null ],
+    [ "makeFEWithUnTouchedBasis", "a00398.html#aa80712fed165a22f02670f195488fe5f", null ]
 ];

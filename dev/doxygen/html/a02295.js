@@ -1,5 +1,28 @@
 var a02295 =
 [
-    [ "toC", "a02295.html#aab78500f06d24b5eb1cd894b68eec03c", null ],
-    [ "toPy", "a02295.html#ae7c12c134c747ccf36ff0bf9c453f69e", null ]
+    [ "BackendType", "a02295.html#a3db820fbcd2b7edf58ce3b21b261f621", null ],
+    [ "Basis", "a02295.html#a2e6f1ef4a810a7269303f54a6f74539f", null ],
+    [ "FlagsType", "a02295.html#aa71c2b94b37f2b4e83f9f1e059e6fe4c", null ],
+    [ "LocalView", "a02295.html#aaf2345604ce343294767f88de67d3cda", null ],
+    [ "NodalSolutionType", "a02295.html#afe6a1b8a097846d76168ce1e29d8bf7d", null ],
+    [ "SizeType", "a02295.html#ace0ece5adceb26d9db00c7c096568ea0", null ],
+    [ "Tree", "a02295.html#a6c2ac9fe4bc48cbe533b5c641e80649f", null ],
+    [ "DirichletValues", "a02295.html#aeb81ceb2617369a584dd12f4574ab1dc", null ],
+    [ "basis", "a02295.html#ae783c95d2e4b55d9d37f4c141b1d719b", null ],
+    [ "container", "a02295.html#af8495b65eac223b7b6c64f07b31cc814", null ],
+    [ "evaluateInhomogeneousBoundaryCondition", "a02295.html#aad6e51cef8441f855748d5397440ae3d", null ],
+    [ "evaluateInhomogeneousBoundaryConditionDerivative", "a02295.html#a500e53c07ab01f9bd9eab0752254ed5e", null ],
+    [ "fixBoundaryDOFs", "a02295.html#a3b40113e1bf44f2e269242d677afcc55", null ],
+    [ "fixDOFs", "a02295.html#a956ce2cdc09731f001821c7b59d49e85", null ],
+    [ "fixedDOFsize", "a02295.html#aeb299b04b2777be56012b32a3b2e6a9c", null ],
+    [ "isConstrained", "a02295.html#a1b1fccdb71619c0a49aa24977682d43a", null ],
+    [ "isConstrained", "a02295.html#a1cdd766b0feb7e85ac3d3df10704e659", null ],
+    [ "reset", "a02295.html#ab8ae184ec5c0c79a893a8111d7315442", null ],
+    [ "setSingleDOF", "a02295.html#a179a4b05a361fc9ea0a3e935dcf0e45a", null ],
+    [ "setSingleDOF", "a02295.html#a2c8ce98339eddd3f3bf1cdbf4e07a45f", null ],
+    [ "setZeroAtConstrainedDofs", "a02295.html#a0cc0d889e5ae8a2684116dafa29b4612", null ],
+    [ "size", "a02295.html#a010fa7b0721c137eb61221493e52dc92", null ],
+    [ "storeInhomogeneousBoundaryCondition", "a02295.html#a61b544301204663466eb1644ccf65e1a", null ],
+    [ "numberOfChildrenAtNode", "a02295.html#aee0fc940b24de8b667f28254b939a0f8", null ],
+    [ "worldDimension", "a02295.html#a79e90730d4ac67efb5e38590c0429df5", null ]
 ];

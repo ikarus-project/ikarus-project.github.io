@@ -1,5 +1,6 @@
 var a01935 =
 [
-    [ "lambda", "a01935.html#a0157695e9fc8b735e86f828cc35b64fc", null ],
-    [ "mu", "a01935.html#a3558ad06d2a831f0d412d76956d516f8", null ]
+    [ "Skill", "a01935.html#a3f0639915d0f7f93d3d939f301676545", null ],
+    [ "A", "a01935.html#adebed226744a01c44269cadd0bf9998f", null ],
+    [ "E", "a01935.html#ac9e7517a9be64fd9c743c1c11dfd30f9", null ]
 ];

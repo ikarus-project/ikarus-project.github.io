@@ -1,6 +1,4 @@
 var a00068 =
 [
-    [ "Ikarus::utils::SyncFERequirements", "a02179.html", null ],
-    [ "Ikarus::utils::IDBCForceDefault", "a02183.html", null ],
-    [ "syncFERequirements", "a00068.html#aa0203c56a78244ee2ecf40adec7baff4", null ]
+    [ "tensorProductQuadrature", "a00068.html#a839e2d8a648318c584c66024e62ddd91", null ]
 ];

@@ -1,43 +1,36 @@
-\hypertarget{a00068_source}{}\doxysection{defaultfunctions.\+hh}
-\label{a00068_source}\index{defaultfunctions.hh@{defaultfunctions.hh}}
+\hypertarget{a00068_source}{}\doxysection{tensorproductquadrule.\+hh}
+\label{a00068_source}\index{tensorproductquadrule.hh@{tensorproductquadrule.hh}}
 \mbox{\hyperlink{a00068}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00080}{linearalgebrahelper.hh}}"{}}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <type\_traits>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00516}{Ikarus::utils}} \{}
-\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{a02175}{SolverDefault}}}
-\DoxyCodeLine{28 \{}
-\DoxyCodeLine{29   \textcolor{keyword}{template} <\textcolor{keyword}{typename} A, \textcolor{keyword}{typename} B>}
-\DoxyCodeLine{30   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a02175_a4797d17bf96aa9e387567878a9591d7a}{operator()}}(A\&\& a, B\&\& b)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{31     \textcolor{keywordflow}{return} a / b;}
-\DoxyCodeLine{32   \}}
-\DoxyCodeLine{33 \};}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{40 \textcolor{keyword}{struct }\mbox{\hyperlink{a02179}{SyncFERequirements}}}
-\DoxyCodeLine{41 \{}
-\DoxyCodeLine{42 \} \textcolor{keyword}{inline} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00516_aa0203c56a78244ee2ecf40adec7baff4}{syncFERequirements}};}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{48 \textcolor{keyword}{struct }\mbox{\hyperlink{a02183}{IDBCForceDefault}}}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50 \};}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{64 \textcolor{keyword}{struct }\mbox{\hyperlink{a02187}{UpdateDefault}}}
-\DoxyCodeLine{65 \{}
-\DoxyCodeLine{66   \textcolor{keyword}{template} <\textcolor{keyword}{typename} A, \textcolor{keyword}{typename} B = SyncFERequirements>}
-\DoxyCodeLine{67   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{void} \mbox{\hyperlink{a02187_af7ec0d9b021956d2b0f9c63952d0b5e3}{operator()}}(A\&\& a, B\&\& b = \{\}) \textcolor{keyword}{const} \{}
-\DoxyCodeLine{68     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not std::is\_same\_v<B, SyncFERequirements>) \{}
-\DoxyCodeLine{69       \textcolor{keyword}{using }Ikarus::operator+=;}
-\DoxyCodeLine{70       a += b;}
-\DoxyCodeLine{71     \}}
-\DoxyCodeLine{72   \}}
-\DoxyCodeLine{73 \};}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75 \} \textcolor{comment}{// namespace Ikarus::utils}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <dune/geometry/quadraturerules.hh>}}
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00507}{Ikarus}} \{}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{28 \textcolor{keyword}{template} <\textcolor{keyword}{class} BaseQuadrature, \textcolor{keyword}{class} Quadrature>}
+\DoxyCodeLine{29 \textcolor{keyword}{auto} \mbox{\hyperlink{a00507_a839e2d8a648318c584c66024e62ddd91}{tensorProductQuadrature}}(\textcolor{keyword}{const} BaseQuadrature\& baseQuad, \textcolor{keyword}{const} Quadrature\& onedQuad) \{}
+\DoxyCodeLine{30   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} baseQuadDim       = BaseQuadrature::d;}
+\DoxyCodeLine{31   \textcolor{keyword}{auto} rule                       = Dune::QuadratureRule<double, baseQuadDim + 1>();}
+\DoxyCodeLine{32   \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} baseQuadSize = baseQuad.size();}
+\DoxyCodeLine{33   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} bqi = 0; bqi < baseQuadSize; ++bqi) \{}
+\DoxyCodeLine{34     \textcolor{keyword}{const} \textcolor{keyword}{typename} Dune::QuadraturePoint<double, baseQuadDim>::Vector\& basePoint = baseQuad[bqi].position();}
+\DoxyCodeLine{35     \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& baseWeight                                                     = baseQuad[bqi].weight();}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keyword}{typename} Dune::QuadraturePoint<double, baseQuadDim + 1>::Vector point;}
+\DoxyCodeLine{38     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < baseQuadDim; ++i)}
+\DoxyCodeLine{39       point[i] = basePoint[i];}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} onedQuadSize = onedQuad.size();}
+\DoxyCodeLine{42     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} oqi = 0; oqi < onedQuadSize; ++oqi) \{}
+\DoxyCodeLine{43       point[baseQuadDim] = onedQuad[oqi].position()[0];}
+\DoxyCodeLine{44       rule.emplace\_back(Dune::QuadraturePoint(point, baseWeight * onedQuad[oqi].weight()));}
+\DoxyCodeLine{45     \}}
+\DoxyCodeLine{46   \}}
+\DoxyCodeLine{47   \textcolor{keywordflow}{return} rule;}
+\DoxyCodeLine{48 \}}
+\DoxyCodeLine{49 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

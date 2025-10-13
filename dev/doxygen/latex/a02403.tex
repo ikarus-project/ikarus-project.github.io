@@ -1,25 +1,35 @@
-\hypertarget{a02403}{}\doxysection{Ikarus\+::Concepts\+::Scalar\+Flat\+Assembler Concept Reference}
-\label{a02403}\index{Ikarus::Concepts::ScalarFlatAssembler@{Ikarus::Concepts::ScalarFlatAssembler}}
+\hypertarget{a02403}{}\doxysection{Ikarus\+::traits\+::Index\texorpdfstring{$<$}{<} T, Tuple \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{a02403}\index{Ikarus::traits::Index$<$ T, Tuple $>$@{Ikarus::traits::Index$<$ T, Tuple $>$}}
 
 
-Concept representing the requirements for a Scalar\+Flat\+Assembler.
-
-A type T satisfies Scalar\+Flat\+Assembler if it is a Flat\+Assembler and if it provides the necessary scalar() member functions.  
+Type trait to get the index of a type in a tuple.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
-
-\doxysubsection{Concept definition}
-
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class T, class Tuple$>$\newline
+struct Ikarus\+::traits\+::\+Index$<$ T, Tuple $>$}
+Usage\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02403}{Ikarus::Concepts::ScalarFlatAssembler}} = }
-\DoxyCodeLine{      \mbox{\hyperlink{a02402}{Concepts::FlatAssembler<T>}} and \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
-\DoxyCodeLine{                                              \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00495_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
-\DoxyCodeLine{        \{ t.scalar(req, affordance.scalarAffordance()) \} -\/> std::convertible\_to<const double\&>;}
-\DoxyCodeLine{        \{ t.scalar() \} -\/> std::convertible\_to<const double\&>;}
-\DoxyCodeLine{      \}}
+\DoxyCodeLine{\textcolor{keyword}{using }foo\_t = std::tuple<int, double, float>;}
+\DoxyCodeLine{\textcolor{keyword}{static\_assert}(Index<int, foo\_t>::value == 0);}
+\DoxyCodeLine{\textcolor{keyword}{static\_assert}(Index<double, foo\_t>::value == 1);}
+\DoxyCodeLine{\textcolor{keyword}{static\_assert}(Index<float, foo\_t>::value == 2);}
+\DoxyCodeLine{\textcolor{keyword}{static\_assert}(Index<long double, foo\_t>::value == 3);}
 
 \end{DoxyCode}
+ If the type is not found, the returned index is the size of the tuple.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type to find in the tuple. \\
+\hline
+{\em Tuple} & Tuple type. \\
+\hline
+\end{DoxyTemplParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{a00005}{traits.\+hh}}\end{DoxyCompactItemize}

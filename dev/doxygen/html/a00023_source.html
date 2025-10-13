@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: derivativetraits.hh Source File</title>
+    <title>ikarus: differentiablefunction.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,93 +155,93 @@ $(document).ready(function(){initNavTree('a00023_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">derivativetraits.hh</div></div>
+  <div class="headertitle"><div class="title">differentiablefunction.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00023.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;dune/functions/common/differentiablefunctionfromcallables.hh&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;tuple&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;Eigen/Sparse&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;dune/common/hybridutilities.hh&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;dune/functions/common/differentiablefunctionfromcallables.hh&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a00071.html">ikarus/utils/traits.hh</a>&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00495.html">Ikarus</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>Impl {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keyword">struct </span>Functions;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace Impl</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#ifndef DOXYGEN</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="a00482.html#ga0c1577fd05efee8475b0f7fef795bbbe">FEParameter</a>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="a00482.html#gaea763c94a1cecbeefc4f8661debcc5a3">FESolutions</a>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">template</span> &lt;FESolutions sol, FEParameter para, <span class="keyword">typename</span> SV, <span class="keyword">typename</span> PM&gt;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">class </span>FERequirements;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> TypeListOne, <span class="keyword">typename</span> TypeListTwo&gt;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">class </span><a class="code hl_function" href="a00495.html#aff7184c8b9bf7333cce42c28dc459851">DerivativeTraitsFromCallables</a></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <a class="code hl_function" href="a00495.html#aff7184c8b9bf7333cce42c28dc459851">DerivativeTraitsFromCallables</a>(<span class="keyword">const</span> TypeListOne&amp;, <span class="keyword">const</span> TypeListTwo&amp;) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">static_assert</span>(!<span class="keyword">sizeof</span>(TypeListOne),</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                  <span class="stringliteral">&quot;This type should not be instantiated. check that your arguments satisfies the template below&quot;</span>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>};</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... DerivativeArgs, <span class="keyword">typename</span> Arg&gt;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">struct </span><a class="code hl_function" href="a00495.html#aff7184c8b9bf7333cce42c28dc459851">DerivativeTraitsFromCallables</a>&lt;Impl::Functions&lt;DerivativeArgs...&gt;, Arg&gt;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <a class="code hl_function" href="a00495.html#aff7184c8b9bf7333cce42c28dc459851">DerivativeTraitsFromCallables</a>(<span class="keyword">const</span> Impl::Functions&lt;DerivativeArgs...&gt;&amp; derivativesFunctions, <span class="keyword">const</span> Arg&amp; parameterI) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keyword">using </span>Ranges    = std::tuple&lt;std::invoke_result_t&lt;DerivativeArgs, const Arg&amp;&gt;..., Dune::Functions::InvalidRange&gt;;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keyword">using </span>RawRanges = std::tuple&lt;std::remove_cvref_t&lt;std::invoke_result_t&lt;DerivativeArgs, const Arg&amp;&gt;&gt;...,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                               Dune::Functions::InvalidRange&gt;;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keyword">using </span>Domain     = std::remove_cvref_t&lt;Arg&gt;;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keyword">using </span>Signatures = std::tuple&lt;std::invoke_result_t&lt;DerivativeArgs, const Arg&amp;&gt;(<span class="keyword">const</span> Arg&amp;)...,</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                Dune::Functions::InvalidRange(<span class="keyword">const</span> Arg&amp;)&gt;;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keyword">using </span>RawSignatures =</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>      std::tuple&lt;std::remove_cvref_t&lt;std::invoke_result_t&lt;DerivativeArgs, const Arg&amp;&gt;&gt;(std::remove_cvref_t&lt;Arg&gt;)...,</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                 Dune::Functions::InvalidRange(std::remove_cvref_t&lt;Arg&gt;)&gt;;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> I&gt;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <span class="keyword">using </span>Signature = std::tuple_element_t&lt;I, Signatures&gt;;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a00062.html">ikarus/utils/derivativetraits.hh</a>&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a00005.html">ikarus/utils/traits.hh</a>&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00507.html">Ikarus</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span>Impl {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keyword">struct </span>Functions</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    std::tuple&lt;Args...&gt; args;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  };</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace Impl</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a00507.html#ab787b670f0d338c870988f417cf85f76">   44</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00507.html#ab787b670f0d338c870988f417cf85f76">functions</a>(Args&amp;&amp;... args) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keywordflow">return</span> Impl::Functions&lt;std::remove_cvref_t&lt;Args&gt;...&gt;{std::forward_as_tuple(std::forward&lt;Args&gt;(args)...)};</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#ifndef DOXYGEN</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> Signature, <span class="keyword">template</span> &lt;<span class="keyword">class</span>&gt; <span class="keyword">class </span>DerivativeTraits, <span class="keyword">class</span>... F&gt;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">class </span>DifferentiableFunction;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> Range, <span class="keyword">class</span> D, <span class="keyword">template</span> &lt;<span class="keyword">class</span>&gt; <span class="keyword">class </span>DerivativeTraits, <span class="keyword">class </span>F, <span class="keyword">class</span>... FF&gt;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="a02263.html">   61</a></span><span class="keyword">class </span>DifferentiableFunction&lt;Range(D), DerivativeTraits, F, FF...&gt;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    : <span class="keyword">private</span> Dune::Functions::DifferentiableFunctionFromCallables&lt;Range(D), DerivativeTraits, F, FF...&gt;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keyword">using </span>Base = Dune::Functions::DifferentiableFunctionFromCallables&lt;Range(D), DerivativeTraits, F, FF...&gt;;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a02263.html#a09179a83de8c99be9dd8f99f3641d53d">   67</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02263.html#a09179a83de8c99be9dd8f99f3641d53d">Domain</a>                       = std::remove_cvref_t&lt;D&gt;;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a02263.html#a750354e710bf4d55502d50772d379005">   68</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> nDerivatives = <span class="keyword">sizeof</span>...(FF);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keyword">template</span> &lt;<span class="keyword">class</span>... FFF&gt;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a02263.html#a09d7f95dc6a3721ed6ae7d9b35476e0e">   71</a></span>  <a class="code hl_function" href="a02263.html#a09d7f95dc6a3721ed6ae7d9b35476e0e">DifferentiableFunction</a>(FFF&amp;&amp;... f)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>      : Base(std::forward&lt;FFF&gt;(f)...) {}</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a02263.html#acb47479c6db16067792b5185cdb84206">   73</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02263.html#acb47479c6db16067792b5185cdb84206">Traits</a> = <a class="code hl_function" href="a00507.html#aff7184c8b9bf7333cce42c28dc459851">DerivativeTraitsFromCallables</a>&lt;Impl::Functions&lt;F, FF...&gt;, D&gt;;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="a02263.html#a12d99506e19b1dc61336d4f5a1e741ea">   75</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02263.html#a12d99506e19b1dc61336d4f5a1e741ea">Derivative</a> = DifferentiableFunction&lt;typename Traits::template Range&lt;1&gt;(D), DerivativeTraits, FF...&gt;;</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> I&gt;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  <span class="keyword">using </span>Range = std::tuple_element_t&lt;I, Ranges&gt;;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> I&gt;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  <span class="keyword">using </span>RawRange = std::tuple_element_t&lt;I, RawRanges&gt;;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Signature&gt;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  <span class="keyword">struct </span>DerivativeTraits</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> indexOfSignature = traits::Index&lt;Signature, RawSignatures&gt;::value + 1;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a02263.html#acd243bc8a0fa61139b8980f63b1d1f15">   77</a></span>  Range <a class="code hl_function" href="a02263.html#acd243bc8a0fa61139b8980f63b1d1f15">operator()</a>(<span class="keyword">const</span> D&amp; x)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> Base::operator()(x); }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a02263.html#af9e5d98d20808a3651b0d7ecb05d6c46">   83</a></span>  <span class="keyword">friend</span> <a class="code hl_typedef" href="a02263.html#a12d99506e19b1dc61336d4f5a1e741ea">Derivative</a> <a class="code hl_friend" href="a02263.html#af9e5d98d20808a3651b0d7ecb05d6c46">derivative</a>(<span class="keyword">const</span> DifferentiableFunction&amp; t) {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">auto</span> df = derivative(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span>Base&amp;<span class="keyword">&gt;</span>(t));</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="a02263.html#a12d99506e19b1dc61336d4f5a1e741ea">Derivative</a>(df);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>};</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">using </span>Range = std::tuple_element_t&lt;indexOfSignature, Ranges&gt;;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  };</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>};</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... DerivativeArgs, <span class="keyword">typename</span> Arg&gt;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a00495.html#aff7184c8b9bf7333cce42c28dc459851">   95</a></span><a class="code hl_function" href="a00495.html#aff7184c8b9bf7333cce42c28dc459851">DerivativeTraitsFromCallables</a>(<span class="keyword">const</span> Impl::Functions&lt;DerivativeArgs...&gt;&amp; derivativesFunctions, Arg&amp;&amp; parameterI)</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    -&gt; <a class="code hl_function" href="a00495.html#aff7184c8b9bf7333cce42c28dc459851">DerivativeTraitsFromCallables</a>&lt;Impl::Functions&lt;DerivativeArgs...&gt;, Arg&gt;;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>} <span class="comment">// namespace Ikarus</span></div>
-<div class="ttc" id="aa00071_html"><div class="ttname"><a href="a00071.html">traits.hh</a></div><div class="ttdoc">Contains stl-like type traits.</div></div>
-<div class="ttc" id="aa00482_html_ga0c1577fd05efee8475b0f7fef795bbbe"><div class="ttname"><a href="a00482.html#ga0c1577fd05efee8475b0f7fef795bbbe">Ikarus::FEParameter</a></div><div class="ttdeci">FEParameter</div><div class="ttdoc">A strongly typed enum class representing the FE parameter.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:76</div></div>
-<div class="ttc" id="aa00482_html_gaea763c94a1cecbeefc4f8661debcc5a3"><div class="ttname"><a href="a00482.html#gaea763c94a1cecbeefc4f8661debcc5a3">Ikarus::FESolutions</a></div><div class="ttdeci">FESolutions</div><div class="ttdoc">A strongly typed enum class representing the type of the solutions vectors.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:89</div></div>
-<div class="ttc" id="aa00495_html"><div class="ttname"><a href="a00495.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa00495_html_aff7184c8b9bf7333cce42c28dc459851"><div class="ttname"><a href="a00495.html#aff7184c8b9bf7333cce42c28dc459851">Ikarus::DerivativeTraitsFromCallables</a></div><div class="ttdeci">DerivativeTraitsFromCallables(const Impl::Functions&lt; DerivativeArgs... &gt; &amp;derivativesFunctions, Arg &amp;&amp;parameterI) -&gt; DerivativeTraitsFromCallables&lt; Impl::Functions&lt; DerivativeArgs... &gt;, Arg &gt;</div></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... F, <span class="keyword">typename</span> Arg&gt;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a00507.html#a7c304a58fc833d46ac3d8a7dc74f8ed0">   99</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00507.html#a7c304a58fc833d46ac3d8a7dc74f8ed0">makeDifferentiableFunction</a>(<span class="keyword">const</span> Impl::Functions&lt;F...&gt;&amp; derivativesFunctions, <span class="keyword">const</span> Arg&amp; parameter) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  <a class="code hl_function" href="a00507.html#aff7184c8b9bf7333cce42c28dc459851">DerivativeTraitsFromCallables</a> t(derivativesFunctions, parameter);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>  <span class="keyword">using </span>DerivTraits = <span class="keyword">decltype</span>(t);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <span class="keyword">auto</span> la           = []&lt;<span class="keyword">typename</span>... FF&gt;(FF&amp;&amp;... f) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">return</span> Ikarus::DifferentiableFunction&lt;typename DerivTraits::template Range&lt;0&gt;(<span class="keyword">typename</span> DerivTraits::Domain),</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                                                    DerivTraits::template DerivativeTraits, std::remove_cvref_t&lt;FF&gt;...&gt;(</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        std::forward&lt;FF&gt;(f)...);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  };</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <span class="keywordflow">return</span> std::apply(la, derivativesFunctions.args);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="ttc" id="aa00005_html"><div class="ttname"><a href="a00005.html">traits.hh</a></div><div class="ttdoc">Contains stl-like type traits.</div></div>
+<div class="ttc" id="aa00062_html"><div class="ttname"><a href="a00062.html">derivativetraits.hh</a></div><div class="ttdoc">Contains derivative traits for common vbalue and derivative relations used for makeDifferentiableFunc...</div></div>
+<div class="ttc" id="aa00507_html"><div class="ttname"><a href="a00507.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
+<div class="ttc" id="aa00507_html_a7c304a58fc833d46ac3d8a7dc74f8ed0"><div class="ttname"><a href="a00507.html#a7c304a58fc833d46ac3d8a7dc74f8ed0">Ikarus::makeDifferentiableFunction</a></div><div class="ttdeci">auto makeDifferentiableFunction(const Impl::Functions&lt; F... &gt; &amp;derivativesFunctions, const Arg &amp;parameter)</div><div class="ttdoc">Factory method for DifferentiableFunction It is a function taking several callables and the argument ...</div><div class="ttdef"><b>Definition:</b> differentiablefunction.hh:99</div></div>
+<div class="ttc" id="aa00507_html_ab787b670f0d338c870988f417cf85f76"><div class="ttname"><a href="a00507.html#ab787b670f0d338c870988f417cf85f76">Ikarus::functions</a></div><div class="ttdeci">auto functions(Args &amp;&amp;... args)</div><div class="ttdoc">Creates a Functions object.</div><div class="ttdef"><b>Definition:</b> differentiablefunction.hh:44</div></div>
+<div class="ttc" id="aa00507_html_aff7184c8b9bf7333cce42c28dc459851"><div class="ttname"><a href="a00507.html#aff7184c8b9bf7333cce42c28dc459851">Ikarus::DerivativeTraitsFromCallables</a></div><div class="ttdeci">DerivativeTraitsFromCallables(const Impl::Functions&lt; DerivativeArgs... &gt; &amp;derivativesFunctions, Arg &amp;&amp;parameterI) -&gt; DerivativeTraitsFromCallables&lt; Impl::Functions&lt; DerivativeArgs... &gt;, Arg &gt;</div></div>
+<div class="ttc" id="aa02263_html_a09179a83de8c99be9dd8f99f3641d53d"><div class="ttname"><a href="a02263.html#a09179a83de8c99be9dd8f99f3641d53d">Ikarus::DifferentiableFunction&lt; Range(D), DerivativeTraits, F, FF... &gt;::Domain</a></div><div class="ttdeci">std::remove_cvref_t&lt; D &gt; Domain</div><div class="ttdef"><b>Definition:</b> differentiablefunction.hh:67</div></div>
+<div class="ttc" id="aa02263_html_a09d7f95dc6a3721ed6ae7d9b35476e0e"><div class="ttname"><a href="a02263.html#a09d7f95dc6a3721ed6ae7d9b35476e0e">Ikarus::DifferentiableFunction&lt; Range(D), DerivativeTraits, F, FF... &gt;::DifferentiableFunction</a></div><div class="ttdeci">DifferentiableFunction(FFF &amp;&amp;... f)</div><div class="ttdef"><b>Definition:</b> differentiablefunction.hh:71</div></div>
+<div class="ttc" id="aa02263_html_a12d99506e19b1dc61336d4f5a1e741ea"><div class="ttname"><a href="a02263.html#a12d99506e19b1dc61336d4f5a1e741ea">Ikarus::DifferentiableFunction&lt; Range(D), DerivativeTraits, F, FF... &gt;::Derivative</a></div><div class="ttdeci">DifferentiableFunction&lt; typename Traits::template Range&lt; 1 &gt;(D), DerivativeTraits, FF... &gt; Derivative</div><div class="ttdef"><b>Definition:</b> differentiablefunction.hh:75</div></div>
+<div class="ttc" id="aa02263_html_acb47479c6db16067792b5185cdb84206"><div class="ttname"><a href="a02263.html#acb47479c6db16067792b5185cdb84206">Ikarus::DifferentiableFunction&lt; Range(D), DerivativeTraits, F, FF... &gt;::Traits</a></div><div class="ttdeci">DerivativeTraitsFromCallables&lt; Impl::Functions&lt; F, FF... &gt;, D &gt; Traits</div><div class="ttdef"><b>Definition:</b> differentiablefunction.hh:73</div></div>
+<div class="ttc" id="aa02263_html_acd243bc8a0fa61139b8980f63b1d1f15"><div class="ttname"><a href="a02263.html#acd243bc8a0fa61139b8980f63b1d1f15">Ikarus::DifferentiableFunction&lt; Range(D), DerivativeTraits, F, FF... &gt;::operator()</a></div><div class="ttdeci">Range operator()(const D &amp;x) const</div><div class="ttdef"><b>Definition:</b> differentiablefunction.hh:77</div></div>
+<div class="ttc" id="aa02263_html_af9e5d98d20808a3651b0d7ecb05d6c46"><div class="ttname"><a href="a02263.html#af9e5d98d20808a3651b0d7ecb05d6c46">Ikarus::DifferentiableFunction&lt; Range(D), DerivativeTraits, F, FF... &gt;::derivative</a></div><div class="ttdeci">friend Derivative derivative(const DifferentiableFunction &amp;t)</div><div class="ttdoc">Get derivative of DifferentiableFunction.</div><div class="ttdef"><b>Definition:</b> differentiablefunction.hh:83</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -252,7 +252,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a00023.html">derivativetraits.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a00023.html">differentiablefunction.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

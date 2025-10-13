@@ -1,55 +1,30 @@
 var a00498 =
 [
-    [ "Formulations", "a00519.html", "a00519" ],
-    [ "HasValidIDBCForceFunction", "a02364.html", null ],
-    [ "DeviatoricFunction", "a02366.html", null ],
-    [ "VolumetricFunction", "a02367.html", null ],
-    [ "MPTuple", "a02369.html", null ],
-    [ "EigenType", "a02370.html", null ],
-    [ "FlatInterLeavedBasis", "a02371.html", null ],
-    [ "LagrangeNode", "a02372.html", null ],
-    [ "LagrangeNodeOfOrder", "a02373.html", null ],
-    [ "FlatLexicographicBasis", "a02374.html", null ],
-    [ "FlatIndexBasis", "a02375.html", null ],
-    [ "BlockedInterLeavedBasis", "a02376.html", null ],
-    [ "BlockedLexicographicBasis", "a02377.html", null ],
-    [ "DuneLocalBasis", "a02378.html", null ],
-    [ "BlockedIndexBasis", "a02379.html", null ],
-    [ "PathFollowingStrategy", "a02380.html", null ],
-    [ "AdaptiveStepSizingStrategy", "a02381.html", null ],
-    [ "LinearSolverCheck", "a02382.html", null ],
-    [ "NonLinearSolverCheckForPathFollowing", "a02383.html", null ],
-    [ "MultiplyAble", "a02384.html", null ],
-    [ "AddAble", "a02385.html", null ],
-    [ "SubstractAble", "a02386.html", null ],
-    [ "MultiplyAssignAble", "a02387.html", null ],
-    [ "DivideAssignAble", "a02388.html", null ],
-    [ "AddAssignAble", "a02389.html", null ],
-    [ "SubstractAssignAble", "a02390.html", null ],
-    [ "DivideAble", "a02391.html", null ],
-    [ "NegateAble", "a02392.html", null ],
-    [ "TransposeAble", "a02393.html", null ],
-    [ "IsFunctorWithArgs", "a02394.html", null ],
-    [ "EigenVector", "a02395.html", null ],
-    [ "EigenMatrix", "a02396.html", null ],
-    [ "SparseEigenMatrix", "a02397.html", null ],
-    [ "DenseOrSparseEigenMatrix", "a02398.html", null ],
-    [ "IsMaterial", "a02399.html", null ],
-    [ "ResultType", "a02401.html", null ],
-    [ "FlatAssembler", "a02402.html", null ],
-    [ "ScalarFlatAssembler", "a02403.html", null ],
-    [ "VectorFlatAssembler", "a02404.html", null ],
-    [ "MatrixFlatAssembler", "a02405.html", null ],
-    [ "DataCollector", "a02406.html", null ],
-    [ "GridView", "a02407.html", null ],
-    [ "AutodiffScalar", "a02408.html", null ],
-    [ "SmartPointer", "a02409.html", null ],
-    [ "PointerOrSmartPointer", "a02410.html", null ],
-    [ "ControlRoutineState", "a02411.html", null ],
-    [ "NonLinearSolverState", "a02412.html", null ],
-    [ "ReferenceConfiguraionStrain", "a02413.html", null ],
-    [ "ReferenceConfiguraionStress", "a02414.html", null ],
-    [ "Material", "a02417.html", null ],
-    [ "GeometricallyLinearMaterial", "a02418.html", null ],
-    [ "EigenValueSolver", "a02419.html", null ]
+    [ "resultevaluators.hh", "a00215.html", null ],
+    [ "Ikarus::ResultEvaluators::VonMises", "a01991.html", [
+      [ "name", "a01991.html#adc5bbea30401fd0a203237199f400872", null ],
+      [ "ncomps", "a01991.html#a4fec0e03332fac9610d1f42a9e412f7f", null ],
+      [ "operator()", "a01991.html#a4a16334a6d486018a77727fb2acca63c", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::HydrostaticStress", "a01995.html", [
+      [ "name", "a01995.html#a1cc516c9e54a36656b693f6ab7e8036f", null ],
+      [ "ncomps", "a01995.html#a7ad4bc9dedac16e50242b7d51d9ea2a0", null ],
+      [ "operator()", "a01995.html#a35c0916886cd68004bedbebe4165fa97", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::PrincipalStress< dim >", "a01999.html", [
+      [ "name", "a01999.html#a0a21ea2d96efed17295f27a0001dcd7c", null ],
+      [ "ncomps", "a01999.html#a34a91abd5ffcb880813bd1fb90b221b6", null ],
+      [ "operator()", "a01999.html#aafc25c13807fda614d68992dcd4923ae", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::Triaxiality", "a02003.html", [
+      [ "name", "a02003.html#a04443562de6bf1cf72a27db2f33b5e16", null ],
+      [ "ncomps", "a02003.html#a2208295b62e03319c06b599b0079bf83", null ],
+      [ "operator()", "a02003.html#a14fd89ab2a84416e5f1024c9930f7371", null ]
+    ] ],
+    [ "Ikarus::ResultEvaluators::PolarStress", "a02007.html", [
+      [ "PolarStress", "a02007.html#ab7bd86fc0638f4c9b779153c69d917d4", null ],
+      [ "name", "a02007.html#affc08b406cc3750e46dff706eefd7ee6", null ],
+      [ "ncomps", "a02007.html#a2b4c9a468e74dbbb93f6f6613cf07f7d", null ],
+      [ "operator()", "a02007.html#a22590930fe4d5d2d5e5a323cd3085cdb", null ]
+    ] ]
 ];

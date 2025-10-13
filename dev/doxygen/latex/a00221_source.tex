@@ -1,57 +1,86 @@
-\hypertarget{a00221_source}{}\doxysection{fefactory.\+hh}
-\label{a00221_source}\index{fefactory.hh@{fefactory.hh}}
+\hypertarget{a00221_source}{}\doxysection{vtkcontainertypes.\+hh}
+\label{a00221_source}\index{vtkcontainertypes.hh@{vtkcontainertypes.hh}}
 \mbox{\hyperlink{a00221}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00233}{ikarus/finiteelements/febase.hh}}>}}
-\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00495}{Ikarus}} \{}
-\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK, \textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false>}
-\DoxyCodeLine{22 \textcolor{keyword}{struct }\mbox{\hyperlink{a01503}{FEFactory}}}
-\DoxyCodeLine{23 \{}
-\DoxyCodeLine{24   \textcolor{keyword}{using }\mbox{\hyperlink{a01503_ae4167551b40097429f804066c4973256}{Skills}} = SK;}
-\DoxyCodeLine{25 }
-\DoxyCodeLine{26 \textcolor{keyword}{private}:}
-\DoxyCodeLine{27   \textcolor{keyword}{const} BH* basisHandler\_;}
-\DoxyCodeLine{28   SK skills\_;}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30 \textcolor{keyword}{public}:}
-\DoxyCodeLine{36   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SK2 = SK>}
-\DoxyCodeLine{37   \mbox{\hyperlink{a01503_aacbb6c8ee45484144edb78306da79456}{FEFactory}}(\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{const} SK2\& sk)}
-\DoxyCodeLine{38       : basisHandler\_\{\&basisHandler\},}
-\DoxyCodeLine{39         skills\_\{sk\} \{\}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <tuple>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/compositebasis.hh>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/powerbasis.hh>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/subspacebasis.hh>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }Ikarus::Vtk::Impl \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Container>}
+\DoxyCodeLine{22 \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} sizeOfContainer = []() \{}
+\DoxyCodeLine{23   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ std::tuple\_size<Container>::value; \})}
+\DoxyCodeLine{24     \textcolor{keywordflow}{return} std::tuple\_size<Container>::value;}
+\DoxyCodeLine{25   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{26     \textcolor{keywordflow}{return} 1ul;}
+\DoxyCodeLine{27 \}();}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{30 \textcolor{keyword}{struct }ResultContainerPre}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32   \textcolor{keyword}{using }type = double;}
+\DoxyCodeLine{33 \};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{template} <\textcolor{keyword}{class} Basis>}
+\DoxyCodeLine{36 \textcolor{keyword}{struct }ResultContainer}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38   \textcolor{keyword}{using }type = ResultContainerPre<typename Basis::PreBasis>::type;}
+\DoxyCodeLine{39 \};}
 \DoxyCodeLine{40 }
-\DoxyCodeLine{41   \textcolor{keyword}{auto} \mbox{\hyperlink{a01503_aa324bf69fc6e9d878cdaf1b2a8667196}{operator()}}() \{}
-\DoxyCodeLine{42     \textcolor{keywordflow}{return} std::apply(}
-\DoxyCodeLine{43         [\&]<\textcolor{keyword}{typename}... Args>(Args\&\&... args) \{}
-\DoxyCodeLine{44           \textcolor{comment}{// the template would not be needed,}}
-\DoxyCodeLine{45           \textcolor{comment}{// when https://www.open-\/std.org/jtc1/sc22/wg21/docs/papers/2019/p1814r0.html}}
-\DoxyCodeLine{46           \textcolor{comment}{// will be implemented in clang. It is already implemented in gcc 12.2}}
-\DoxyCodeLine{47           \textcolor{keyword}{typename} \mbox{\hyperlink{a01495}{PreFE<BH, useFlat, useEigenRef>::template}} \mbox{\hyperlink{a01491}{FE<std::decay\_t<Args>::template}} Skill...> fe(}
-\DoxyCodeLine{48               *basisHandler\_, std::forward<Args>(args)...);}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50           \textcolor{keywordflow}{return} fe;}
-\DoxyCodeLine{51         \},}
-\DoxyCodeLine{52         skills\_.args);}
-\DoxyCodeLine{53   \}}
-\DoxyCodeLine{54 \};}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{67 \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false, \textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK>}
-\DoxyCodeLine{68 \textcolor{keyword}{auto} \mbox{\hyperlink{a00495_a59639a9a20f036a4f1c0794f65595662}{makeFE}}(\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{const} SK\& sk) \{}
-\DoxyCodeLine{69   \mbox{\hyperlink{a01503}{FEFactory<BH, SK, useFlat, useEigenRef>}} factory(basisHandler, sk);}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71   \textcolor{keywordflow}{return} factory();}
-\DoxyCodeLine{72 \}}
+\DoxyCodeLine{41 \textcolor{comment}{// specialization for composite basis with where the subspace basis are all either power basis or scalar basis}}
+\DoxyCodeLine{42 \textcolor{keyword}{template} <\textcolor{keyword}{class }IMS, \textcolor{keyword}{class}... SPB>}
+\DoxyCodeLine{43 \textcolor{keyword}{struct }ResultContainerPre<\mbox{\hyperlink{a00533}{Dune}}::Functions::CompositePreBasis<IMS, SPB...>>}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \textcolor{keyword}{using }SubPreBases = std::tuple<SPB...>;}
+\DoxyCodeLine{46   \textcolor{keyword}{using }FirstBasis  = std::tuple\_element\_t<0, SubPreBases>;}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{size\_t} size = \textcolor{keyword}{sizeof}...(SPB);}
+\DoxyCodeLine{49   \textcolor{keyword}{using }type                   = std::array<typename ResultContainerPre<FirstBasis>::type, size>;}
+\DoxyCodeLine{50 \};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{comment}{// Subspace basis can either be from a composite or a power basis}}
+\DoxyCodeLine{53 \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis, \textcolor{keyword}{class} PP>}
+\DoxyCodeLine{54 \textcolor{keyword}{struct }ResultContainerSSB}
+\DoxyCodeLine{55 \{}
+\DoxyCodeLine{56   \textcolor{keyword}{using }type = double;}
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{template} <\textcolor{keyword}{class }PP, \textcolor{keyword}{class }IMS, \textcolor{keyword}{class}... SPB>}
+\DoxyCodeLine{60 \textcolor{keyword}{struct }ResultContainerSSB<\mbox{\hyperlink{a00533}{Dune}}::Functions::CompositePreBasis<IMS, SPB...>, PP>}
+\DoxyCodeLine{61 \{}
+\DoxyCodeLine{62   \textcolor{keyword}{using }SubPreBases = std::tuple<SPB...>;}
+\DoxyCodeLine{63   \textcolor{keyword}{using }Basis       = std::tuple\_element\_t<PP\{\}.template get<0>(), SubPreBases>;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{keyword}{using }type = ResultContainerPre<Basis>::type;}
+\DoxyCodeLine{66 \};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{comment}{// Specialization for subspace basis}}
+\DoxyCodeLine{69 \textcolor{keyword}{template} <\textcolor{keyword}{class} RB, \textcolor{keyword}{class} PP>}
+\DoxyCodeLine{70 \textcolor{keyword}{struct }ResultContainer<\mbox{\hyperlink{a00533}{Dune}}::Functions::SubspaceBasis<RB, PP>>}
+\DoxyCodeLine{71 \{}
+\DoxyCodeLine{72   \textcolor{keyword}{using }RBPre = RB::PreBasis;}
 \DoxyCodeLine{73 }
-\DoxyCodeLine{84 \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} useEigenRef = false, \textcolor{keyword}{typename} BH, \textcolor{keyword}{typename} SK>}
-\DoxyCodeLine{85 \textcolor{keyword}{auto} \mbox{\hyperlink{a00495_aa80712fed165a22f02670f195488fe5f}{makeFEWithUnTouchedBasis}}(\textcolor{keyword}{const} BH\& basisHandler, SK\&\& sk) \{}
-\DoxyCodeLine{86   \mbox{\hyperlink{a01503}{FEFactory<BH, SK, false, useEigenRef>}} factory(basisHandler, std::forward<SK>(sk));}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{88   \textcolor{keywordflow}{return} factory();}
-\DoxyCodeLine{89 \}}
-\DoxyCodeLine{90 }
-\DoxyCodeLine{91 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{74   \textcolor{keyword}{using }type = ResultContainerSSB<RBPre, PP>::type;}
+\DoxyCodeLine{75 \};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{keyword}{template} <\textcolor{keyword}{class} Basis>}
+\DoxyCodeLine{78 \textcolor{keyword}{using }ResultContainer\_t = \textcolor{keyword}{typename} ResultContainer<Basis>::type;}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{comment}{// specialization for power basis}}
+\DoxyCodeLine{81 \textcolor{keyword}{template} <\textcolor{keyword}{class} IMS, \textcolor{keyword}{class} SPB, std::\textcolor{keywordtype}{size\_t} size>}
+\DoxyCodeLine{82 \textcolor{keyword}{struct }ResultContainerPre<\mbox{\hyperlink{a00533}{Dune}}::Functions::PowerPreBasis<IMS, SPB, size>>}
+\DoxyCodeLine{83 \{}
+\DoxyCodeLine{84   \textcolor{keyword}{using }type = std::array<typename ResultContainerPre<SPB>::type, size>;}
+\DoxyCodeLine{85 \};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87 \} \textcolor{comment}{// namespace Ikarus::Vtk::Impl}}
 
 \end{DoxyCode}

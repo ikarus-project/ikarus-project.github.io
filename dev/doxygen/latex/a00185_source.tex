@@ -1,79 +1,77 @@
-\hypertarget{a00185_source}{}\doxysection{loadcontrol.\+hh}
-\label{a00185_source}\index{loadcontrol.hh@{loadcontrol.hh}}
+\hypertarget{a00185_source}{}\doxysection{controlvtkwriter.\+hh}
+\label{a00185_source}\index{controlvtkwriter.hh@{controlvtkwriter.hh}}
 \mbox{\hyperlink{a00185}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <string>}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/hybridutilities.hh>}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00161}{ikarus/controlroutines/controlinfos.hh}}>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00176}{ikarus/controlroutines/controlroutinebase.hh}}>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00167}{ikarus/controlroutines/controlroutinefactory.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00413}{ikarus/utils/broadcaster/broadcaster.hh}}>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00495}{Ikarus}} \{}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/functions/gridfunctions/discreteglobalbasisfunction.hh>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/grid/io/file/vtk/subsamplingvtkwriter.hh>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00203}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03556}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00191}{ikarus/utils/listener/listener.hh}}>}}
 \DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{23 \textcolor{keyword}{class }LoadControl;}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{29 \textcolor{keyword}{struct }\mbox{\hyperlink{a01447}{LoadControlConfig}}}
-\DoxyCodeLine{30 \{}
-\DoxyCodeLine{31   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01447_a2ae5fe40bc992c66ecf6f77cf47df36f}{loadSteps}}\{\};}
-\DoxyCodeLine{32   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01447_aff235e0efbb1f26c7fa6d7db8c1852f3}{tbegin}}\{\};}
-\DoxyCodeLine{33   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01447_a18f4648fe682b18a39d4c3fb43518fb4}{tEnd}}\{\};}
-\DoxyCodeLine{34 \};}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{44 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{45 \textcolor{keyword}{auto} \mbox{\hyperlink{a00495_a5aec737453e85d8a0cd6061b39300694}{createControlRoutine}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01447}{LoadControlConfig}}\& config, NLS\&\& nonlinearSolver) \{}
-\DoxyCodeLine{46   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01443}{LoadControl}}(std::forward<NLS>(nonlinearSolver), config.\mbox{\hyperlink{a01447_a2ae5fe40bc992c66ecf6f77cf47df36f}{loadSteps}}, std::array\{config.tbegin, config.tEnd\});}
-\DoxyCodeLine{47 \}}
-\DoxyCodeLine{48 }
-\DoxyCodeLine{58 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{59 \textcolor{keyword}{class }\mbox{\hyperlink{a01443}{LoadControl}} : \textcolor{keyword}{public} \mbox{\hyperlink{a01427}{ControlRoutineBase}}<typename NLS::DifferentiableFunction>}
-\DoxyCodeLine{60 \{}
-\DoxyCodeLine{61 \textcolor{keyword}{public}:}
-\DoxyCodeLine{63   \textcolor{keyword}{constexpr} std::string \mbox{\hyperlink{a01443_a0819073e26d34868b5580d052ea5804c}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Load Control Method"{}}; \}}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{72   \mbox{\hyperlink{a01443_a073af96d9cd179a918cf18656be19947}{LoadControl}}(\textcolor{keyword}{const} std::shared\_ptr<NLS>\& \mbox{\hyperlink{a01443_a1df0028dc2a38a90bb01ba85aa901a0d}{nonLinearSolver}}, \textcolor{keywordtype}{int} loadSteps, \textcolor{keyword}{const} std::array<double, 2>\& tbeginEnd)}
-\DoxyCodeLine{73       : nonLinearSolver\_\{\mbox{\hyperlink{a01443_a1df0028dc2a38a90bb01ba85aa901a0d}{nonLinearSolver}}\},}
-\DoxyCodeLine{74         loadSteps\_\{loadSteps\},}
-\DoxyCodeLine{75         parameterBegin\_\{tbeginEnd[0]\},}
-\DoxyCodeLine{76         parameterEnd\_\{tbeginEnd[1]\},}
-\DoxyCodeLine{77         stepSize\_\{(parameterEnd\_ -\/ parameterBegin\_) / loadSteps\_\} \{}
-\DoxyCodeLine{78     \textcolor{keywordflow}{if} (loadSteps\_ <= 0)}
-\DoxyCodeLine{79       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Number of load steps should be greater than zero."{}});}
-\DoxyCodeLine{80   \}}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{87   \mbox{\hyperlink{a01423}{ControlInformation}} \mbox{\hyperlink{a01443_aca267aa96227250abd37487214918f1a}{run}}(\textcolor{keyword}{typename} NLS::Domain\& x);}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{94   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01443_a5b3da9c9c0d2978cfd35e569f1c75e55}{predictor}}(\textcolor{keyword}{typename} NLS::Domain\& x) \textcolor{keyword}{const};}
-\DoxyCodeLine{95 }
-\DoxyCodeLine{96   \textcolor{comment}{/* \(\backslash\)brief returns the nonlinear solver */}}
-\DoxyCodeLine{97   NLS\& \mbox{\hyperlink{a01443_a1df0028dc2a38a90bb01ba85aa901a0d}{nonLinearSolver}}() \{ \textcolor{keywordflow}{return} *nonLinearSolver\_; \}}
-\DoxyCodeLine{98 }
-\DoxyCodeLine{99 \textcolor{keyword}{private}:}
-\DoxyCodeLine{100   std::shared\_ptr<NLS> nonLinearSolver\_;}
-\DoxyCodeLine{101   \textcolor{keywordtype}{int} loadSteps\_;}
-\DoxyCodeLine{102   \textcolor{keywordtype}{double} parameterBegin\_;}
-\DoxyCodeLine{103   \textcolor{keywordtype}{double} parameterEnd\_;}
-\DoxyCodeLine{104   \textcolor{keywordtype}{double} stepSize\_;}
-\DoxyCodeLine{105 }
-\DoxyCodeLine{106   \textcolor{keywordtype}{void} updateAndNotifyControlInfo(\mbox{\hyperlink{a01423}{ControlInformation}}\& info, \textcolor{keyword}{const} \mbox{\hyperlink{a02107}{NonLinearSolverInformation}}\& solverInfo,}
-\DoxyCodeLine{107                                   \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01435}{LoadControl::State}}\& state) \{}
-\DoxyCodeLine{108     info.\mbox{\hyperlink{a01423_aedbd5de28f127726884cb99b067313bf}{solverInfos}}.push\_back(solverInfo);}
-\DoxyCodeLine{109     info.\mbox{\hyperlink{a01423_a4712b189651e59cd46fd43b2e6a326bf}{totalIterations}} += solverInfo.\mbox{\hyperlink{a02107_a81570cd3d9f6589a4d1ba81211f41b99}{iterations}};}
-\DoxyCodeLine{110     this-\/>\mbox{\hyperlink{a02143_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00495_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{ControlMessages::SOLUTION\_CHANGED}}, state);}
-\DoxyCodeLine{111     this-\/>\mbox{\hyperlink{a02143_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00495_a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2}{ControlMessages::STEP\_ENDED}}, state);}
-\DoxyCodeLine{112   \}}
-\DoxyCodeLine{113 \};}
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00507}{Ikarus}} \{}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{31 \textcolor{keyword}{template} <\textcolor{keyword}{typename} B>}
+\DoxyCodeLine{32 \textcolor{keyword}{class }\mbox{\hyperlink{a02339}{ControlSubsamplingVertexVTKWriter}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02347}{Listener}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34   \textcolor{keyword}{using }Basis                     = B;}
+\DoxyCodeLine{35   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} components = Basis::LocalView::Tree::degree() == 0 ? 1 : Basis::LocalView::Tree::degree();}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{public}:}
+\DoxyCodeLine{46   \mbox{\hyperlink{a02339_aa9bc2f8915db560b403dc97a151d3e35}{ControlSubsamplingVertexVTKWriter}}(\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00540_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keywordtype}{int} refinementLevels = 0)}
+\DoxyCodeLine{47       : basis\_\{\mbox{\hyperlink{a00540_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}\},}
+\DoxyCodeLine{48         vtkWriter\_(\mbox{\hyperlink{a00540_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.gridView(), \mbox{\hyperlink{a00533}{Dune}}::refinementLevels(refinementLevels)) \{\}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \textcolor{keyword}{template} <\textcolor{keyword}{typename} BC>}
+\DoxyCodeLine{51   \mbox{\hyperlink{a02339}{ControlSubsamplingVertexVTKWriter}}\& \mbox{\hyperlink{a02339_a3dae604f656fc27f82a60b713d1fb0cf}{subscribeTo}}(BC\& bc) \{}
+\DoxyCodeLine{52     this-\/>\mbox{\hyperlink{a02347_a199840d6ead51d771d5522acff779a4f}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00507_a35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message, \textcolor{keyword}{const} BC::State\& state) \{ this-\/>\mbox{\hyperlink{a02339_a03d2c1668d6894f3e4f3c5d3ef1c54f6}{update}}(message, state); \});}
+\DoxyCodeLine{53     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{65   \textcolor{keyword}{auto} \mbox{\hyperlink{a02339_afec0c3fe2aa8cac3e9970d8c9720c219}{setFieldInfo}}(std::string\&\& name, Dune::VTK::FieldInfo::Type type, std::size\_t size,}
+\DoxyCodeLine{66                     Dune::VTK::Precision prec = Dune::VTK::Precision::float32) \{}
+\DoxyCodeLine{67     fieldInfo\_      = Dune::VTK::FieldInfo(std::move(name), type, size, prec);}
+\DoxyCodeLine{68     isFieldInfoSet\_ = \textcolor{keyword}{true};}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{76   \textcolor{keyword}{auto} \mbox{\hyperlink{a02339_a8061e516e4c6626a2f6ea160e692e4e1}{setFileNamePrefix}}(std::string\&\& name) \{ prefixString\_ = std::move(name); \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{87   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02339_a03d2c1668d6894f3e4f3c5d3ef1c54f6}{update}}(\mbox{\hyperlink{a00507_a35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message, \textcolor{keyword}{const} \mbox{\hyperlink{a02471}{Concepts::ControlRoutineState}} \textcolor{keyword}{auto}\& state) \{}
+\DoxyCodeLine{88     assert(isFieldInfoSet\_ \&\& \textcolor{stringliteral}{"{}You need to call setFieldInfo first!"{}});}
+\DoxyCodeLine{89     \textcolor{keywordflow}{switch} (message) \{}
+\DoxyCodeLine{90       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00507_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{ControlMessages::SOLUTION\_CHANGED}}: \{}
+\DoxyCodeLine{91         \textcolor{keyword}{auto} disp = Dune::Functions::makeDiscreteGlobalBasisFunction<Dune::FieldVector<double, components>>(}
+\DoxyCodeLine{92             basis\_, state.domain.globalSolution());}
+\DoxyCodeLine{93         vtkWriter\_.addVertexData(disp, fieldInfo\_);}
+\DoxyCodeLine{94         vtkWriter\_.write(prefixString\_ + std::to\_string(step\_++));}
+\DoxyCodeLine{95       \} \textcolor{keywordflow}{break};}
+\DoxyCodeLine{96       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{97         \textcolor{keywordflow}{break}; \textcolor{comment}{// default: do nothing when notified}}
+\DoxyCodeLine{98     \}}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{keyword}{private}:}
+\DoxyCodeLine{102   \textcolor{keyword}{const} Basis\& basis\_;}
+\DoxyCodeLine{103   Dune::SubsamplingVTKWriter<typename Basis::GridView> vtkWriter\_;}
+\DoxyCodeLine{104   \textcolor{keywordtype}{int} step\_\{0\};}
+\DoxyCodeLine{105   Dune::VTK::FieldInfo fieldInfo\_\{\textcolor{stringliteral}{"{}Default"{}}, Dune::VTK::FieldInfo::Type::scalar, 1\};}
+\DoxyCodeLine{106   std::string prefixString\_\{\};}
+\DoxyCodeLine{107   \textcolor{keywordtype}{bool} isFieldInfoSet\_\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{108 \};}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
+\DoxyCodeLine{111 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Basis>}
+\DoxyCodeLine{112 ControlSubsamplingVertexVTKWriter(\textcolor{keyword}{const} Basis\&, \textcolor{keywordtype}{int}) -\/> ControlSubsamplingVertexVTKWriter<Basis>;}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{114 }
 \DoxyCodeLine{115 \} \textcolor{comment}{// namespace Ikarus}}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{117 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00179}{ikarus/controlroutines/loadcontrol.inl}}>}}
 
 \end{DoxyCode}

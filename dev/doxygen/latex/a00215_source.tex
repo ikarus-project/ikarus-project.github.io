@@ -1,90 +1,121 @@
-\hypertarget{a00215_source}{}\doxysection{nonlinearsolverfactory.\+hh}
-\label{a00215_source}\index{nonlinearsolverfactory.hh@{nonlinearsolverfactory.hh}}
+\hypertarget{a00215_source}{}\doxysection{resultevaluators.\+hh}
+\label{a00215_source}\index{resultevaluators.hh@{resultevaluators.hh}}
 \mbox{\hyperlink{a00215}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <type\_traits>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <utility>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00392}{ikarus/assembler/dirichletbcenforcement.hh}}>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00068}{ikarus/utils/defaultfunctions.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00053}{ikarus/utils/differentiablefunctionfactory.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00017}{ikarus/utils/functionhelper.hh}}>}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00495}{Ikarus}} \{}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{24   \textcolor{keyword}{struct }IDBCForceFunction}
-\DoxyCodeLine{25   \{}
-\DoxyCodeLine{26     \textcolor{keyword}{template} <\textcolor{keyword}{typename} A>}
-\DoxyCodeLine{27     \textcolor{keyword}{auto} operator()(\textcolor{keyword}{const} A\& assembler) \{}
-\DoxyCodeLine{28       \textcolor{keywordflow}{return} [\&]<\textcolor{keyword}{typename} D>(\textcolor{keyword}{const} D\&) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a00516_a8a9dd9a34514881c4b30b3fdc62a62f9}{utils::obtainForcesDueToIDBC}}(assembler); \};}
-\DoxyCodeLine{29     \}}
-\DoxyCodeLine{30   \};}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32   \textcolor{keyword}{template} <\textcolor{keyword}{typename} CT, \textcolor{keyword}{typename} A, \textcolor{keyword}{typename} S>}
-\DoxyCodeLine{33   \textcolor{keyword}{auto} updateFunctor(\textcolor{keyword}{const} A\& assembler, \textcolor{keyword}{const} S\& setting) \{}
-\DoxyCodeLine{34     \textcolor{keywordflow}{return} [\&]<\textcolor{keyword}{typename} D, \textcolor{keyword}{typename} C>(D\& x, \textcolor{keyword}{const} C\& b) \{}
-\DoxyCodeLine{35       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not std::is\_same\_v<C, utils::SyncFERequirements>) \{}
-\DoxyCodeLine{36         \textcolor{comment}{// the right-\/hand side is reduced}}
-\DoxyCodeLine{37         \textcolor{keywordflow}{if} (assembler-\/>dBCOption() == \mbox{\hyperlink{a00495_a9f83fad9f4c149f249165a13f2370eeca4335949a935758ca1b570689c3c6750b}{DBCOption::Reduced}} and assembler-\/>reducedSize() == b.size()) \{}
-\DoxyCodeLine{38           setting.updateFunction(x, assembler-\/>createFullVector(b));}
-\DoxyCodeLine{39         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (assembler-\/>reducedSize() == x.size() and}
-\DoxyCodeLine{40                    assembler-\/>size() == b.size()) \textcolor{comment}{// the right-\/hand side is full but x is reduced}}
-\DoxyCodeLine{41         \{}
-\DoxyCodeLine{42           setting.updateFunction(x, assembler-\/>createReducedVector(b));}
-\DoxyCodeLine{43         \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{44           setting.updateFunction(x, b);}
-\DoxyCodeLine{45       \} \textcolor{keywordflow}{else} \{ \textcolor{comment}{// updates due to inhomogeneous bcs}}
-\DoxyCodeLine{46         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ x.parameter(); \}) \{}
-\DoxyCodeLine{47           \textcolor{keyword}{auto}\& dv  = assembler-\/>dirichletValues();}
-\DoxyCodeLine{48           CT newInc = CT::Zero(dv.size());}
-\DoxyCodeLine{49           dv.evaluateInhomogeneousBoundaryCondition(newInc, x.parameter());}
-\DoxyCodeLine{50           \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} i : Dune::range(newInc.size()))}
-\DoxyCodeLine{51             \textcolor{keywordflow}{if} (Dune::FloatCmp::ne(newInc[i], 0.0))}
-\DoxyCodeLine{52               x.globalSolution()[i] = newInc[i];}
-\DoxyCodeLine{53         \}}
-\DoxyCodeLine{54       \}}
-\DoxyCodeLine{55     \};}
-\DoxyCodeLine{56   \}}
-\DoxyCodeLine{57 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/math.hh>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03508}{ikarus/finiteelements/mechanics/materials.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00038}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00521}{Ikarus::ResultEvaluators}} \{}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{a01991}{VonMises}}}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{37   \textcolor{keyword}{template} <\textcolor{keyword}{typename} R>}
+\DoxyCodeLine{38   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01991_a4a16334a6d486018a77727fb2acca63c}{operator()}}(\textcolor{keyword}{const} R\& resultArray, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& pos, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe,}
+\DoxyCodeLine{39                     [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{40     \textcolor{keyword}{auto} sigma = \mbox{\hyperlink{a00503_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(resultArray, \textcolor{keyword}{false});}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42     \textcolor{keyword}{auto} I2 = 1.0 / 2.0 * (sigma.squaredNorm() -\/ 1.0 / 3.0 * Dune::power(sigma.trace(), 2));}
+\DoxyCodeLine{43     \textcolor{keywordflow}{return} std::sqrt(3.0 * I2);}
+\DoxyCodeLine{44   \}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{50   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01991_adc5bbea30401fd0a203237199f400872}{name}}() \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}VonMises"{}}; \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{56   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01991_a4fec0e03332fac9610d1f42a9e412f7f}{ncomps}}() \{ \textcolor{keywordflow}{return} 1; \}}
+\DoxyCodeLine{57 \};}
 \DoxyCodeLine{58 }
-\DoxyCodeLine{67 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLSSetting>}
-\DoxyCodeLine{68 \textcolor{keyword}{struct }\mbox{\hyperlink{a02083}{NonlinearSolverFactory}}}
-\DoxyCodeLine{69 \{}
-\DoxyCodeLine{75   \mbox{\hyperlink{a02083_a9f57d2a876e1b1b8fa55e7a0ee775fd0}{NonlinearSolverFactory}}(NLSSetting s)}
-\DoxyCodeLine{76       : settings(s) \{\}}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{90   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Assembler>}
-\DoxyCodeLine{91   \textcolor{keyword}{auto} \mbox{\hyperlink{a02083_afd69a4f3ad8ed8a1474cb5eed73a7ab0}{withIDBCForceFunction}}(Assembler\&\& assembler)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{92     \textcolor{keyword}{auto} idbcForceF  = Impl::IDBCForceFunction\{\}.template operator()(assembler);}
-\DoxyCodeLine{93     \textcolor{keyword}{auto} newSettings = settings.rebindIDBCForceFunction(std::move(idbcForceF));}
-\DoxyCodeLine{94     \textcolor{keywordflow}{return} \mbox{\hyperlink{a02083}{NonlinearSolverFactory}}<std::decay\_t<\textcolor{keyword}{decltype}(newSettings)>>\{std::move(newSettings)\};}
-\DoxyCodeLine{95   \}}
-\DoxyCodeLine{96 }
-\DoxyCodeLine{110   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Assembler>}
-\DoxyCodeLine{111   \textcolor{keyword}{requires} \mbox{\hyperlink{a02402}{Concepts::FlatAssembler<typename std::remove\_cvref\_t<Assembler>::element\_type}}>}
-\DoxyCodeLine{112   \textcolor{keyword}{auto} \mbox{\hyperlink{a02083_ae5da57e3dced6046dda504510e19bdbd}{create}}(Assembler\&\& assembler)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{113     \textcolor{keyword}{auto} f        = \mbox{\hyperlink{a02207_aa362a29341818929bae2f15c4271e351}{DifferentiableFunctionFactory::op}}(assembler);}
-\DoxyCodeLine{114     \textcolor{keyword}{using }fTraits = \textcolor{keyword}{typename} \textcolor{keyword}{decltype}(f)::Traits;}
-\DoxyCodeLine{115 }
-\DoxyCodeLine{116     \textcolor{keyword}{using }CorrectionType = std::remove\_cvref\_t<typename fTraits::template Range<1>>;}
-\DoxyCodeLine{117     \textcolor{keyword}{using }Domain         = \textcolor{keyword}{typename} fTraits::Domain;}
-\DoxyCodeLine{118 }
-\DoxyCodeLine{119     \textcolor{keyword}{auto} updateF     = Impl::updateFunctor<CorrectionType>(assembler, settings);}
-\DoxyCodeLine{120     \textcolor{keyword}{auto} settingsNew = settings.rebindUpdateFunction(std::move(updateF));}
-\DoxyCodeLine{121     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00495_a504e2e9645fa26419d815df9bd245add}{createNonlinearSolver}}(std::move(settingsNew), std::move(f));}
-\DoxyCodeLine{122   \}}
+\DoxyCodeLine{65 \textcolor{keyword}{struct }\mbox{\hyperlink{a01995}{HydrostaticStress}}}
+\DoxyCodeLine{66 \{}
+\DoxyCodeLine{74   \textcolor{keyword}{template} <\textcolor{keyword}{typename} R>}
+\DoxyCodeLine{75   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01995_a35c0916886cd68004bedbebe4165fa97}{operator()}}(\textcolor{keyword}{const} R\& resultArray, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& pos, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe,}
+\DoxyCodeLine{76                     [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{77     \textcolor{keyword}{const} \textcolor{keyword}{auto} sigma = \mbox{\hyperlink{a00503_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(resultArray, \textcolor{keyword}{false});}
+\DoxyCodeLine{78     \textcolor{keywordflow}{return} 1.0 / sigma.rows() * sigma.trace();}
+\DoxyCodeLine{79   \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{85   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01995_a1cc516c9e54a36656b693f6ab7e8036f}{name}}() \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}HydrostaticStress"{}}; \}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{91   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01995_a7ad4bc9dedac16e50242b7d51d9ea2a0}{ncomps}}() \{ \textcolor{keywordflow}{return} 1; \}}
+\DoxyCodeLine{92 \};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{101 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} dim>}
+\DoxyCodeLine{102 \textcolor{keyword}{requires}(dim == 2 or dim == 3)}
+\DoxyCodeLine{103 \textcolor{keyword}{struct} \mbox{\hyperlink{a01999}{PrincipalStress}}}
+\DoxyCodeLine{104 \{}
+\DoxyCodeLine{111   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01999_aafc25c13807fda614d68992dcd4923ae}{operator()}}(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& resultArray, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& pos, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe,}
+\DoxyCodeLine{112                     \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{113     \textcolor{keyword}{auto} mat = \mbox{\hyperlink{a00503_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(resultArray, \textcolor{keyword}{false});}
+\DoxyCodeLine{114     Eigen::SelfAdjointEigenSolver<\textcolor{keyword}{decltype}(mat)> eigensolver(mat, Eigen::EigenvaluesOnly);}
+\DoxyCodeLine{115     \textcolor{keywordflow}{return} eigensolver.eigenvalues().reverse()[comp];}
+\DoxyCodeLine{116   \}}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{122   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01999_a0a21ea2d96efed17295f27a0001dcd7c}{name}}() \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}PrincipalStress"{}}; \}}
 \DoxyCodeLine{123 }
-\DoxyCodeLine{124 \textcolor{keyword}{private}:}
-\DoxyCodeLine{125   NLSSetting settings;}
-\DoxyCodeLine{126 \};}
-\DoxyCodeLine{127 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{128   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01999_a34a91abd5ffcb880813bd1fb90b221b6}{ncomps}}() \{ \textcolor{keywordflow}{return} dim; \}}
+\DoxyCodeLine{129 \};}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{137 \textcolor{keyword}{struct }\mbox{\hyperlink{a02003}{Triaxiality}}}
+\DoxyCodeLine{138 \{}
+\DoxyCodeLine{146   \textcolor{keyword}{template} <\textcolor{keyword}{typename} R>}
+\DoxyCodeLine{147   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02003_a14fd89ab2a84416e5f1024c9930f7371}{operator()}}(\textcolor{keyword}{const} R\& resultArray, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& pos, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe,}
+\DoxyCodeLine{148                     [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{149     \textcolor{keyword}{auto} sigeq = \mbox{\hyperlink{a01991}{VonMises}}\{\}(resultArray, pos, fe, 0);}
+\DoxyCodeLine{150     \textcolor{keyword}{auto} sigm  = \mbox{\hyperlink{a01995}{HydrostaticStress}}\{\}(resultArray, pos, fe, 0);}
+\DoxyCodeLine{151     \textcolor{keywordflow}{return} sigm / sigeq;}
+\DoxyCodeLine{152   \}}
+\DoxyCodeLine{157   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a02003_a04443562de6bf1cf72a27db2f33b5e16}{name}}() \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Triaxiality"{}}; \}}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{163   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{a02003_a2208295b62e03319c06b599b0079bf83}{ncomps}}() \{ \textcolor{keywordflow}{return} 1; \}}
+\DoxyCodeLine{164 \};}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{171 \textcolor{keyword}{struct }\mbox{\hyperlink{a02007}{PolarStress}}}
+\DoxyCodeLine{172 \{}
+\DoxyCodeLine{173   \mbox{\hyperlink{a02007_ab7bd86fc0638f4c9b779153c69d917d4}{PolarStress}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02271}{Dune::FieldVector<double, 2>}}\& origin)}
+\DoxyCodeLine{174       : origin\_(origin) \{\}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{183   \textcolor{keyword}{template} <\textcolor{keyword}{typename} R>}
+\DoxyCodeLine{184   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02007_a22590930fe4d5d2d5e5a323cd3085cdb}{operator()}}(\textcolor{keyword}{const} R\& resultArray, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& pos, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe, \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{185     \textcolor{keyword}{static\_assert}(R::CompileTimeTraits::RowsAtCompileTime == 3, \textcolor{stringliteral}{"{}PolarStress is only valid for 2D."{}});}
+\DoxyCodeLine{186     \textcolor{keywordflow}{if} (comp > 2)}
+\DoxyCodeLine{187       DUNE\_THROW(Dune::RangeError, \textcolor{stringliteral}{"{}PolarStress: Comp out of range."{}});}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189     \textcolor{comment}{// Offset to center the coordinate system in the reference geometry}}
+\DoxyCodeLine{190     \mbox{\hyperlink{a02271}{Dune::FieldVector<double, 2>}} posGlobal = fe.geometry().global(pos) -\/ origin\_;}
+\DoxyCodeLine{191     \textcolor{keyword}{auto} theta                             = std::atan2(posGlobal[1], posGlobal[0]);}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193     \textcolor{keyword}{const} \textcolor{keyword}{auto} sigma = \mbox{\hyperlink{a00503_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(resultArray, \textcolor{keyword}{false});}
+\DoxyCodeLine{194     Eigen::Rotation2D<double> r(theta);}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196     \textcolor{comment}{// deliberately not evaluating this that it stays an expression for below}}
+\DoxyCodeLine{197     \textcolor{keyword}{auto} polarStress = r.inverse() * sigma * r;}
+\DoxyCodeLine{198     \textcolor{keywordflow}{switch} (comp) \{}
+\DoxyCodeLine{199       \textcolor{keywordflow}{case} 0:}
+\DoxyCodeLine{200         \textcolor{keywordflow}{return} polarStress(0, 0);}
+\DoxyCodeLine{201       \textcolor{keywordflow}{case} 1:}
+\DoxyCodeLine{202         \textcolor{keywordflow}{return} polarStress(1, 1);}
+\DoxyCodeLine{203       \textcolor{keywordflow}{case} 2:}
+\DoxyCodeLine{204         \textcolor{keywordflow}{return} polarStress(1, 0);}
+\DoxyCodeLine{205       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{206         \_\_builtin\_unreachable();}
+\DoxyCodeLine{207     \}}
+\DoxyCodeLine{208   \}}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{214   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a02007_affc08b406cc3750e46dff706eefd7ee6}{name}}() \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}PolarStress"{}}; \}}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{220   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{a02007_a2b4c9a468e74dbbb93f6f6613cf07f7d}{ncomps}}() \{ \textcolor{keywordflow}{return} 3; \}}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222 \textcolor{keyword}{private}:}
+\DoxyCodeLine{223   \mbox{\hyperlink{a02271}{Dune::FieldVector<double, 2>}} origin\_;}
+\DoxyCodeLine{224 \};}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{226 \} \textcolor{comment}{// namespace Ikarus::ResultEvaluators}}
 
 \end{DoxyCode}

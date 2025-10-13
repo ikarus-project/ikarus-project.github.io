@@ -1,208 +1,509 @@
-\hypertarget{a00173_source}{}\doxysection{pathfollowingfunctions.\+hh}
-\label{a00173_source}\index{pathfollowingfunctions.hh@{pathfollowingfunctions.hh}}
+\hypertarget{a00173_source}{}\doxysection{trustregion.\+hh}
+\label{a00173_source}\index{trustregion.hh@{trustregion.hh}}
 \mbox{\hyperlink{a00173}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <cmath>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <string>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <utility>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <vector>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <dune/common/exceptions.hh>}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <Eigen/Core>}}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00182}{ikarus/controlroutines/common.hh}}>}}
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03453}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00068}{ikarus/utils/defaultfunctions.hh}}>}}
-\DoxyCodeLine{28 }
-\DoxyCodeLine{29 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00495}{Ikarus}} \{}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{34   \textcolor{keywordtype}{void} checkHasNoValidIDBCForceFunction() \{}
-\DoxyCodeLine{35     \textcolor{keyword}{static\_assert}(not Concepts::HasValidIDBCForceFunction<NLS>,}
-\DoxyCodeLine{36                   \textcolor{stringliteral}{"{}The given path following function is not implemented to handle inhomogeneous Dirichlet BCs."{}});}
-\DoxyCodeLine{37   \}}
-\DoxyCodeLine{38 }
-\DoxyCodeLine{39 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{48 \textcolor{keyword}{struct }\mbox{\hyperlink{a01467}{SubsidiaryArgs}}}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01467_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};              }
-\DoxyCodeLine{51   Eigen::VectorX<double> \mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};    }
-\DoxyCodeLine{52   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};               }
-\DoxyCodeLine{53   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01467_a628b23aa9e90c0e0ba1461ad2241645a}{f}};                     }
-\DoxyCodeLine{54   Eigen::VectorX<double> \mbox{\hyperlink{a01467_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}; }
-\DoxyCodeLine{55   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01467_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}};            }
-\DoxyCodeLine{56   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01467_a217c729e1ae8b05a98c852f19b0d6ae5}{currentStep}};              }
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01467_a3e70d809781af8c529d89da7c80933b3}{setZero}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02370}{Concepts::EigenType}} \textcolor{keyword}{auto}\& firstParameter) \{}
-\DoxyCodeLine{59     \mbox{\hyperlink{a01467_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}} = 0.0;}
-\DoxyCodeLine{60     \mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.resizeLike(firstParameter);}
-\DoxyCodeLine{61     \mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.setZero();}
-\DoxyCodeLine{62     \mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} = 0.0;}
-\DoxyCodeLine{63     \mbox{\hyperlink{a01467_a628b23aa9e90c0e0ba1461ad2241645a}{f}}       = 0.0;}
-\DoxyCodeLine{64     \mbox{\hyperlink{a01467_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.resizeLike(firstParameter);}
-\DoxyCodeLine{65     \mbox{\hyperlink{a01467_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
-\DoxyCodeLine{66     \mbox{\hyperlink{a01467_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}}  = 0.0;}
-\DoxyCodeLine{67     \mbox{\hyperlink{a01467_a217c729e1ae8b05a98c852f19b0d6ae5}{currentStep}} = 0;}
-\DoxyCodeLine{68   \}}
-\DoxyCodeLine{69 \};}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <iosfwd>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/functions/common/signature.hh>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <spdlog/spdlog.h>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00212}{ikarus/linearalgebra/truncatedconjugategradient.hh}}>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00170}{ikarus/solver/nonlinearsolver/nonlinearsolverbase.hh}}>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00158}{ikarus/solver/nonlinearsolver/solverinfos.hh}}>}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00200}{ikarus/utils/broadcaster/broadcaster.hh}}>}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00203}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00029}{ikarus/utils/defaultfunctions.hh}}>}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00077}{ikarus/utils/linearalgebrahelper.hh}}>}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00005}{ikarus/utils/traits.hh}}>}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00507}{Ikarus}} \{}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{36 \textcolor{keyword}{enum class} \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66}{PreConditioner}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38   \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff}{IncompleteCholesky}},}
+\DoxyCodeLine{39   \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66a7a93111b975ec3c3824eab230f3ec608}{IdentityPreconditioner}},}
+\DoxyCodeLine{40   \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66a3c6b5404db3b7bf45a0302f376a53afc}{DiagonalPreconditioner}}}
+\DoxyCodeLine{41 \};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{struct }\mbox{\hyperlink{a02171}{TRSettings}}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02171_a3b6b5fd328830b37cf47a8c3b485eb3e}{verbosity}}    = 5;                                       }
+\DoxyCodeLine{46   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02171_a65731eb979e7677f54722743edebc4c7}{maxtime}}   = std::numeric\_limits<double>::infinity(); }
+\DoxyCodeLine{47   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02171_a58ec4234ba537f77ccf56ef6ec5db526}{minIter}}      = 3;                                       }
+\DoxyCodeLine{48   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02171_ac496e08f6fc420b641d2e838d4adbb53}{maxIter}}      = 1000;                                    }
+\DoxyCodeLine{49   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02171_a509efb6f34d183fdff88f95fe21a97ea}{debug}}        = 0;                                       }
+\DoxyCodeLine{50   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02171_a1cc69f38c3569c63cb4bf86a39a16050}{grad\_tol}}  = 1e-\/6;                                    }
+\DoxyCodeLine{51   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02171_ab598fd07116bda4ec7ff4ec10ad771bb}{corr\_tol}}  = 1e-\/6;                                    }
+\DoxyCodeLine{52   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02171_acf36d2743732832643df20a287a9ca91}{rho\_prime}} = 0.01;                                    }
+\DoxyCodeLine{53   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02171_a3943cb103ad51f2c407c867672dd3b1f}{useRand}}     = \textcolor{keyword}{false};                                   }
+\DoxyCodeLine{54   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02171_a29358b818a3eabe94a0d75218225de0d}{rho\_reg}}   = 1e6;                                     }
+\DoxyCodeLine{55   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02171_a275deb9273559ec6b6bae0e1a0650bd8}{Delta\_bar}} = std::numeric\_limits<double>::infinity(); }
+\DoxyCodeLine{56   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02171_a2c36a30b640ce11ec533bd259d439bd5}{Delta0}}    = 10;                                      }
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{64 \textcolor{keyword}{template} <\mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66}{PreConditioner}} preConditioner = \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff}{PreConditioner::IncompleteCholesky}}, \textcolor{keyword}{typename} UF = \mbox{\hyperlink{a02247}{utils::UpdateDefault}},}
+\DoxyCodeLine{65           \textcolor{keyword}{typename} IDBCF = \mbox{\hyperlink{a02243}{utils::IDBCForceDefault}}>}
+\DoxyCodeLine{66 \textcolor{keyword}{struct }\mbox{\hyperlink{a02175}{TrustRegionConfig}}}
+\DoxyCodeLine{67 \{}
+\DoxyCodeLine{68   \textcolor{keyword}{static\_assert}(std::copy\_constructible<UF>,}
+\DoxyCodeLine{69                 \textcolor{stringliteral}{"{} The update function should be copy constructable. If it is a lambda wrap it in a std::function"{}});}
 \DoxyCodeLine{70 }
-\DoxyCodeLine{88 \textcolor{keyword}{struct }\mbox{\hyperlink{a01471}{ArcLength}}}
-\DoxyCodeLine{89 \{}
-\DoxyCodeLine{102   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{103   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01471_a8f9f59519362a2beeb0bc085467c1caa}{operator()}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01467}{SubsidiaryArgs}}\& args)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{104     \textcolor{keyword}{const} \textcolor{keyword}{auto} idbcDelta = \mbox{\hyperlink{a00495_a9b0b6a51cf987a1cbade10295c9085cb}{idbcIncrement}}(req, nonlinearSolver, args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}});}
-\DoxyCodeLine{105     \textcolor{keyword}{const} \textcolor{keyword}{auto} root = sqrt(args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.squaredNorm() + idbcDelta.squaredNorm() + psi * psi * args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} * args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}});}
-\DoxyCodeLine{106     args.\mbox{\hyperlink{a01467_a628b23aa9e90c0e0ba1461ad2241645a}{f}}          = root -\/ args.\mbox{\hyperlink{a01467_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{107     \textcolor{keywordflow}{if} (not computedInitialPredictor) \{}
-\DoxyCodeLine{108       args.\mbox{\hyperlink{a01467_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
-\DoxyCodeLine{109       args.\mbox{\hyperlink{a01467_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}} = 0.0;}
-\DoxyCodeLine{110     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{111       args.\mbox{\hyperlink{a01467_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}       = args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}} / root;}
-\DoxyCodeLine{112       \textcolor{keyword}{const} \textcolor{keyword}{auto} Dhat0 = idbcDelta / args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}; \textcolor{comment}{// extracting Dhat0, assuming IDBC: Dhat = lambda * Dhat0}}
-\DoxyCodeLine{113       args.\mbox{\hyperlink{a01467_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}}  = ((Dhat0.dot(Dhat0) + psi * psi) * args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}) / root;}
-\DoxyCodeLine{114     \}}
-\DoxyCodeLine{115   \}}
+\DoxyCodeLine{71   \textcolor{keyword}{using }\mbox{\hyperlink{a02175_a18d3512eb39886cc77438487e6b7d929}{UpdateFunction}}    = UF;}
+\DoxyCodeLine{72   \textcolor{keyword}{using }\mbox{\hyperlink{a02175_aff8557864763113c0ea25786b958340c}{IDBCForceFunction}} = IDBCF;}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \mbox{\hyperlink{a02171}{TRSettings}} \mbox{\hyperlink{a02175_a87325ab25c1f8012887ed2e04ad915db}{parameters}};}
+\DoxyCodeLine{75   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66}{PreConditioner}} \mbox{\hyperlink{a02175_ae2a186cb3bb794aa5ead709805c9545d}{preConditionerType}} = preConditioner;}
+\DoxyCodeLine{76   UF \mbox{\hyperlink{a02175_a4eecdeb754ed925c3be0db989cd699d7}{updateFunction}};}
+\DoxyCodeLine{77   IDBCF \mbox{\hyperlink{a02175_ad563753b5299d7cc0f2cb9bd7eec902c}{idbcForceFunction}}\{\};}
+\DoxyCodeLine{78   \textcolor{keyword}{template} <\textcolor{keyword}{typename} UF2>}
+\DoxyCodeLine{79   \textcolor{keyword}{auto} \mbox{\hyperlink{a02175_a7099b12f0f9bdf4dbbb338b53c5e29de}{rebindUpdateFunction}}(UF2\&\& \mbox{\hyperlink{a02175_a4eecdeb754ed925c3be0db989cd699d7}{updateFunction}})\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{80     \mbox{\hyperlink{a02175}{TrustRegionConfig<preConditioner, UF2, IDBCF>}} settings\{.\mbox{\hyperlink{a02175_a87325ab25c1f8012887ed2e04ad915db}{parameters}}        = \mbox{\hyperlink{a02175_a87325ab25c1f8012887ed2e04ad915db}{parameters}},}
+\DoxyCodeLine{81                                                            .updateFunction    = std::forward<UF2>(\mbox{\hyperlink{a02175_a4eecdeb754ed925c3be0db989cd699d7}{updateFunction}}),}
+\DoxyCodeLine{82                                                            .idbcForceFunction = \mbox{\hyperlink{a02175_ad563753b5299d7cc0f2cb9bd7eec902c}{idbcForceFunction}}\};}
+\DoxyCodeLine{83     \textcolor{keywordflow}{return} settings;}
+\DoxyCodeLine{84   \}}
+\DoxyCodeLine{85   \textcolor{keyword}{template} <\textcolor{keyword}{typename} IDBC2>}
+\DoxyCodeLine{86   \textcolor{keyword}{auto} \mbox{\hyperlink{a02175_ab81ca704d1e359c3bfb49198d40a20a9}{rebindIDBCForceFunction}}(IDBC2\&\& \mbox{\hyperlink{a02175_ad563753b5299d7cc0f2cb9bd7eec902c}{idbcForceFunction}})\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{87     \mbox{\hyperlink{a02175}{TrustRegionConfig<preConditioner, UF, IDBC2>}} settings\{.\mbox{\hyperlink{a02175_a87325ab25c1f8012887ed2e04ad915db}{parameters}}        = \mbox{\hyperlink{a02175_a87325ab25c1f8012887ed2e04ad915db}{parameters}},}
+\DoxyCodeLine{88                                                           .updateFunction    = \mbox{\hyperlink{a02175_a4eecdeb754ed925c3be0db989cd699d7}{updateFunction}},}
+\DoxyCodeLine{89                                                           .idbcForceFunction = std::forward<IDBC2>(\mbox{\hyperlink{a02175_ad563753b5299d7cc0f2cb9bd7eec902c}{idbcForceFunction}})\};}
+\DoxyCodeLine{90     \textcolor{keywordflow}{return} settings;}
+\DoxyCodeLine{91   \}}
+\DoxyCodeLine{92 \};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66}{PreConditioner}} preConditioner = \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff}{PreConditioner::IncompleteCholesky}},}
+\DoxyCodeLine{95           \textcolor{keyword}{typename} UF = utils::UpdateDefault, \textcolor{keyword}{typename} IDBCF = utils::IDBCForceDefault>}
+\DoxyCodeLine{96 \textcolor{keyword}{class }\mbox{\hyperlink{a00507_a770b17ee7c15dbad9ad94509dcacd711}{TrustRegion}};}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{106 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} TRConfig>}
+\DoxyCodeLine{107 \textcolor{keyword}{requires} traits::isSpecializationNonTypeAndTypes<TrustRegionConfig, std::remove\_cvref\_t<TRConfig>>::value}
+\DoxyCodeLine{108 \textcolor{keyword}{auto} \mbox{\hyperlink{a00507_a504e2e9645fa26419d815df9bd245add}{createNonlinearSolver}}(TRConfig\&\& config, F\&\& f) \{}
+\DoxyCodeLine{109   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66}{PreConditioner}} preConditioner = std::remove\_cvref\_t<TRConfig>::preConditionerType;}
+\DoxyCodeLine{110   \textcolor{keyword}{using }UF                                       = std::remove\_cvref\_t<TRConfig>::UpdateFunction;}
+\DoxyCodeLine{111   \textcolor{keyword}{using }IDBCF                                    = std::remove\_cvref\_t<TRConfig>::IDBCForceFunction;}
+\DoxyCodeLine{112   \textcolor{keyword}{static\_assert}(std::remove\_cvref\_t<F>::nDerivatives == 2,}
+\DoxyCodeLine{113                 \textcolor{stringliteral}{"{}The number of derivatives in the DifferentiableFunction have to be exactly 2."{}});}
+\DoxyCodeLine{114   \textcolor{keyword}{auto} solver = std::make\_shared<TrustRegion<F, preConditioner, UF, IDBCF>>(}
+\DoxyCodeLine{115       f, std::forward<TRConfig>(config).updateFunction, std::forward<TRConfig>(config).idbcForceFunction);}
 \DoxyCodeLine{116 }
-\DoxyCodeLine{132   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{133   \textcolor{keywordtype}{void} \mbox{\hyperlink{a00478_gaba061801dde37d2f52d76916d5e2f749}{initialPrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01467}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{134     \textcolor{keyword}{auto}\& residual               = nonlinearSolver.residual();}
-\DoxyCodeLine{135     \textcolor{keywordtype}{double} dlambda               = 1.0;}
-\DoxyCodeLine{136     \textcolor{keyword}{auto} idbcDelta               = \mbox{\hyperlink{a00495_a9b0b6a51cf987a1cbade10295c9085cb}{idbcIncrement}}(req, nonlinearSolver, dlambda);}
-\DoxyCodeLine{137     \textcolor{keyword}{const} \textcolor{keyword}{auto} Dhat0             = idbcDelta / dlambda;}
-\DoxyCodeLine{138     \textcolor{keyword}{const} \textcolor{keyword}{auto} idbcForceFunction = nonlinearSolver.idbcForceFunction();}
-\DoxyCodeLine{139     \textcolor{keyword}{const} \textcolor{keyword}{auto} updateFunction    = nonlinearSolver.updateFunction();}
-\DoxyCodeLine{140     req.parameter()              = dlambda;}
-\DoxyCodeLine{141     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) R             = residual(req);}
-\DoxyCodeLine{142     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) K             = derivative(residual)(req);}
-\DoxyCodeLine{143     \textcolor{keyword}{auto} linearSolver            = \mbox{\hyperlink{a00495_a2c5057b73232617e81f5e44318e3ffa7}{createSPDLinearSolverFromNonLinearSolver}}(nonlinearSolver);}
-\DoxyCodeLine{144 }
-\DoxyCodeLine{145     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02364}{Concepts::HasValidIDBCForceFunction<NLS>}})}
-\DoxyCodeLine{146       R += idbcForceFunction(req);}
-\DoxyCodeLine{147 }
-\DoxyCodeLine{148     linearSolver.analyzePattern(K);}
-\DoxyCodeLine{149     linearSolver.factorize(K);}
-\DoxyCodeLine{150     linearSolver.solve(args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}, -\/R);}
-\DoxyCodeLine{151 }
-\DoxyCodeLine{152     \textcolor{keyword}{const} \textcolor{keyword}{auto} DD2    = args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.squaredNorm();}
-\DoxyCodeLine{153     \textcolor{keyword}{const} \textcolor{keyword}{auto} Dhat02 = Dhat0.squaredNorm();}
-\DoxyCodeLine{154 }
-\DoxyCodeLine{155     psi    = sqrt(DD2 + Dhat02);}
-\DoxyCodeLine{156     \textcolor{keyword}{auto} s = sqrt(DD2 + Dhat02 + psi * psi * dlambda * dlambda);}
-\DoxyCodeLine{157 }
-\DoxyCodeLine{158     args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}      = args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}} * args.\mbox{\hyperlink{a01467_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}} / s;}
-\DoxyCodeLine{159     args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} = args.\mbox{\hyperlink{a01467_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}} / s;}
-\DoxyCodeLine{160 }
-\DoxyCodeLine{161     idbcDelta *= args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} / dlambda;}
-\DoxyCodeLine{162 }
-\DoxyCodeLine{163     updateFunction(req.globalSolution(), args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}});}
-\DoxyCodeLine{164     req.parameter() = args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
-\DoxyCodeLine{165 }
-\DoxyCodeLine{166     \textcolor{comment}{// modify the globalSolution() considering inhomogeneous Dirichlet BCs}}
-\DoxyCodeLine{167     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02364}{Concepts::HasValidIDBCForceFunction<NLS>}})}
-\DoxyCodeLine{168       req.syncParameterAndGlobalSolution(updateFunction);}
+\DoxyCodeLine{117   solver-\/>setup(config.parameters);}
+\DoxyCodeLine{118   \textcolor{keywordflow}{return} solver;}
+\DoxyCodeLine{119 \}}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{125 \textcolor{keyword}{enum class} \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674}{StopReason}}}
+\DoxyCodeLine{126 \{}
+\DoxyCodeLine{127   \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674a0c4f44592a7ae85baf42cb3fb4a5a3d1}{gradientNormTolReached}},}
+\DoxyCodeLine{128   \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674ad1c6a6016de417acc66b5ac44a1fdca3}{correctionNormTolReached}},}
+\DoxyCodeLine{129   \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674ad205528fe2a4412b89626ff7eee936f9}{maximumTimeReached}},}
+\DoxyCodeLine{130   \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674a5ed07f9461b91dd3a6ba961a0ed5c8fe}{maximumIterationsReached}},}
+\DoxyCodeLine{131   \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674a8d2fa9685be8b8f8994bd8a73bfa8c9f}{dontStop}}}
+\DoxyCodeLine{132 \};}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{138 \textcolor{keyword}{struct }\mbox{\hyperlink{a02183}{AlgoInfo}}}
+\DoxyCodeLine{139 \{}
+\DoxyCodeLine{140   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02183_afc288b38be6c8627cf079d9bffc3cda9}{consecutive\_TRplus}}   = 0;                 }
+\DoxyCodeLine{141   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02183_aab1636ca718e535e09e61cdefc348084}{consecutive\_TRminus}}  = 0;                 }
+\DoxyCodeLine{142   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02183_ae1f58001cb449db18bdbd98740dd143d}{consecutive\_Rejected}} = 0;                 }
+\DoxyCodeLine{143   std::string \mbox{\hyperlink{a02183_af34cb5bb79e983db99b959d871afd353}{stopReasonString}};                 }
+\DoxyCodeLine{144   std::string \mbox{\hyperlink{a02183_ae987404091035ade31e839e9f00b7cbd}{trstr}};                            }
+\DoxyCodeLine{145   std::string \mbox{\hyperlink{a02183_af3d423f3f05e0bdd445e2b9de7dc9daf}{accstr}};                           }
+\DoxyCodeLine{146   std::string \mbox{\hyperlink{a02183_a84be03aa6ebbd80ab2e6fac5a78aacd3}{randomPredictionString}};           }
+\DoxyCodeLine{147   std::string \mbox{\hyperlink{a02183_a3947b27f29bf44beb7f3f19e91c344f9}{cauchystr}} = \textcolor{stringliteral}{"{}                  "{}}; }
+\DoxyCodeLine{148   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02183_a8c3abc0958c354cc92394dfd12a0317b}{acceptProposal}};                          }
+\DoxyCodeLine{149   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02183_ac6037dd6d1303ded090d9da71dea06b9}{used\_cauchy}} = \textcolor{keyword}{false};                     }
+\DoxyCodeLine{150   \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674}{StopReason}} \mbox{\hyperlink{a02183_a68f203529fcd8a947fd49330a83d42b2}{stop}}\{\mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674a8d2fa9685be8b8f8994bd8a73bfa8c9f}{StopReason::dontStop}}\};        }
+\DoxyCodeLine{151   std::string \mbox{\hyperlink{a02183_a8df37485a1fdbbce8d153a8fadd537bf}{reasonString}};                     }
+\DoxyCodeLine{152 \};}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{158 \textcolor{keyword}{struct }\mbox{\hyperlink{a02187}{Stats}}}
+\DoxyCodeLine{159 \{}
+\DoxyCodeLine{160   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}}\{1\};}
+\DoxyCodeLine{161   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02187_a178607b87a8d27eb7b02bb22dc0d2c63}{etaNorm}}\{1\};}
+\DoxyCodeLine{162   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02187_ab3cab6865c16d06ec81b5db14b0dc5e2}{time}}\{0\};}
+\DoxyCodeLine{163   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}}\{0\};}
+\DoxyCodeLine{164   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02187_a3a03ce164638213312bece9e8b54fdcd}{energyProposal}}\{0\};}
+\DoxyCodeLine{165   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02187_a1111f89e925a512bd145b50a8f25c2be}{rho}}\{0\};}
+\DoxyCodeLine{166   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}}\{0\};}
+\DoxyCodeLine{167   \textcolor{keywordtype}{int} \mbox{\hyperlink{a02187_ac5053b65db9ceae8340aaebe952c7792}{innerIterSum}}\{0\};}
+\DoxyCodeLine{168 \};}
 \DoxyCodeLine{169 }
-\DoxyCodeLine{170     \textcolor{comment}{// rescaling of psi}}
-\DoxyCodeLine{171     psi = sqrt((idbcDelta.squaredNorm() + args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.squaredNorm()) / (args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} * args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}));}
-\DoxyCodeLine{172 }
-\DoxyCodeLine{173     computedInitialPredictor = \textcolor{keyword}{true};}
-\DoxyCodeLine{174   \}}
-\DoxyCodeLine{175 }
-\DoxyCodeLine{187   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{188   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01471_a955941b6a4e07ac2c05e3898879a37b6}{intermediatePrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01467}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{189     \textcolor{keywordflow}{if} (not computedInitialPredictor)}
-\DoxyCodeLine{190       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}initialPrediction has to be called before intermediatePrediction."{}});}
-\DoxyCodeLine{191     nonlinearSolver.updateFunction()(req.globalSolution(), args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}});}
-\DoxyCodeLine{192     req.parameter() += args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
-\DoxyCodeLine{193     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02364}{Concepts::HasValidIDBCForceFunction<NLS>}})}
-\DoxyCodeLine{194       req.syncParameterAndGlobalSolution(nonlinearSolver.updateFunction());}
-\DoxyCodeLine{195   \}}
-\DoxyCodeLine{196 }
-\DoxyCodeLine{198   \textcolor{keyword}{constexpr} std::string \mbox{\hyperlink{a01471_a93e75059eef2f2cb682cf0cc33503aa5}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Arc length"{}}; \}}
-\DoxyCodeLine{199 }
-\DoxyCodeLine{200 \textcolor{keyword}{private}:}
-\DoxyCodeLine{201   \textcolor{keywordtype}{double} psi\{0.0\};}
-\DoxyCodeLine{202   \textcolor{keywordtype}{bool} computedInitialPredictor\{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{203 \};}
-\DoxyCodeLine{204 }
-\DoxyCodeLine{217 \textcolor{keyword}{struct }\mbox{\hyperlink{a01475}{LoadControlSubsidiaryFunction}}}
-\DoxyCodeLine{218 \{}
-\DoxyCodeLine{230   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{231   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01475_a5399ff4844ac8f56b7f9b7129141f17f}{operator()}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01467}{SubsidiaryArgs}}\& args)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{232     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
-\DoxyCodeLine{233     args.\mbox{\hyperlink{a01467_a628b23aa9e90c0e0ba1461ad2241645a}{f}} = args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} -\/ args.\mbox{\hyperlink{a01467_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{234     args.\mbox{\hyperlink{a01467_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
-\DoxyCodeLine{235     args.\mbox{\hyperlink{a01467_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}} = 1.0;}
-\DoxyCodeLine{236   \}}
-\DoxyCodeLine{237 }
-\DoxyCodeLine{249   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{250   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01475_a58dd6187446a4397efc636ed733102fd}{initialPrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01467}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{251     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
-\DoxyCodeLine{252     args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}             = args.\mbox{\hyperlink{a01467_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{253     req.parameter()          = args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
-\DoxyCodeLine{254     computedInitialPredictor = \textcolor{keyword}{true};}
-\DoxyCodeLine{255   \}}
+\DoxyCodeLine{183 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, PreConditioner preConditioner, \textcolor{keyword}{typename} UF, \textcolor{keyword}{typename} IDBCF>}
+\DoxyCodeLine{184 \textcolor{keyword}{class }\mbox{\hyperlink{a02179}{TrustRegion}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02135}{NonlinearSolverBase}}<F>}
+\DoxyCodeLine{185 \{}
+\DoxyCodeLine{186 \textcolor{keyword}{public}:}
+\DoxyCodeLine{187   \textcolor{keyword}{using }\mbox{\hyperlink{a02171}{Settings}} = \mbox{\hyperlink{a02171}{TRSettings}}; }
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189   \textcolor{keyword}{using }\mbox{\hyperlink{a02179_aa11151eff22f3491ae0aeb6dcbcd608e}{FTraits}}                = \textcolor{keyword}{typename} F::Traits;}
+\DoxyCodeLine{190   \textcolor{keyword}{using }\mbox{\hyperlink{a02179_a44ed2ca8c869a07b85e8b15ec5079e27}{Domain}}                 = \textcolor{keyword}{typename} FTraits::Domain;            }
+\DoxyCodeLine{191   \textcolor{keyword}{using }\mbox{\hyperlink{a02179_a7e3caad3384c39f9e97a56f6bf461ac9}{CorrectionType}}         = \textcolor{keyword}{typename} FTraits::template Range<1>; }
+\DoxyCodeLine{192   \textcolor{keyword}{using }\mbox{\hyperlink{a02179_adc7a64d13ac5c218eb2b872234ce254d}{UpdateFunction}}         = UF;                                  }
+\DoxyCodeLine{193   \textcolor{keyword}{using }\mbox{\hyperlink{a02179_a779aa3edef2fdf747c7e1ff8e5f49436}{DifferentiableFunction}} = F;                                   }
+\DoxyCodeLine{194   \textcolor{keyword}{using }\mbox{\hyperlink{a02179_a4864089ed870153c8e2090f63991f06d}{IDBCForceFunction}}      = IDBCF; }
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196   \textcolor{keyword}{using }\mbox{\hyperlink{a02179_a2aa82b6f208ff8b6b3fb5235fdd065b7}{EnergyType}}   = \textcolor{keyword}{typename} FTraits::template Range<0>; }
+\DoxyCodeLine{197   \textcolor{keyword}{using }\mbox{\hyperlink{a02179_a697bc262f47ee08cc000fd446dbb6f30}{GradientType}} = \textcolor{keyword}{typename} FTraits::template Range<1>; }
+\DoxyCodeLine{198   \textcolor{keyword}{using }\mbox{\hyperlink{a02179_afb949ee1eb74f4776b91935a5b4d66ad}{HessianType}}  = \textcolor{keyword}{typename} FTraits::template Range<2>; }
+\DoxyCodeLine{199   \textcolor{keyword}{using }\mbox{\hyperlink{a02179_a63db8845911b3fc435aab51599ce32c8}{JacobianType}} = \mbox{\hyperlink{a02179_afb949ee1eb74f4776b91935a5b4d66ad}{HessianType}};}
+\DoxyCodeLine{206   \textcolor{keyword}{template} <\textcolor{keyword}{typename} UF2 = UF, \textcolor{keyword}{typename} IDBCF2 = IDBCF>}
+\DoxyCodeLine{207   \textcolor{keyword}{explicit} \mbox{\hyperlink{a02179_a22d22a1fbd626503c454d238876a79b7}{TrustRegion}}(\textcolor{keyword}{const} F\& f, UF2\&\& \mbox{\hyperlink{a02179_a9de9ce29a77692a16a78c0a026e0e4d5}{updateFunction}} = \{\}, IDBCF2\&\& \mbox{\hyperlink{a02179_a3ab35e733f37520c75afe1c02e0664e2}{idbcForceFunction}} = \{\})}
+\DoxyCodeLine{208       : energyFunction\_\{f\},}
+\DoxyCodeLine{209         updateFunction\_\{std::forward<UF2>(\mbox{\hyperlink{a02179_a9de9ce29a77692a16a78c0a026e0e4d5}{updateFunction}})\},}
+\DoxyCodeLine{210         idbcForceFunction\_\{std::forward<IDBCF2>(\mbox{\hyperlink{a02179_a3ab35e733f37520c75afe1c02e0664e2}{idbcForceFunction}})\} \{}
+\DoxyCodeLine{211     \textcolor{keyword}{static\_assert}(std::same\_as<IDBCForceFunction, utils::IDBCForceDefault>,}
+\DoxyCodeLine{212                   \textcolor{stringliteral}{"{}Trust Region Method is not implemented to handle inhomogeneous Dirichlet BCs."{}});}
+\DoxyCodeLine{213   \}}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{219   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02179_a8364650b62feeb25905013f06d815a1a}{setup}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02171}{Settings}}\& settings) \{}
+\DoxyCodeLine{220     settings\_ = settings;}
+\DoxyCodeLine{221     assert(settings\_.\mbox{\hyperlink{a02171_acf36d2743732832643df20a287a9ca91}{rho\_prime}} < 0.25 \&\& \textcolor{stringliteral}{"{}options.rho\_prime must be strictly smaller than 1/4."{}});}
+\DoxyCodeLine{222     assert(settings\_.\mbox{\hyperlink{a02171_a275deb9273559ec6b6bae0e1a0650bd8}{Delta\_bar}} > 0 \&\& \textcolor{stringliteral}{"{}options.Delta\_bar must be positive."{}});}
+\DoxyCodeLine{223     assert(settings\_.\mbox{\hyperlink{a02171_a2c36a30b640ce11ec533bd259d439bd5}{Delta0}} > 0 \&\& settings\_.\mbox{\hyperlink{a02171_a2c36a30b640ce11ec533bd259d439bd5}{Delta0}} < settings\_.\mbox{\hyperlink{a02171_a275deb9273559ec6b6bae0e1a0650bd8}{Delta\_bar}} \&\&}
+\DoxyCodeLine{224            \textcolor{stringliteral}{"{}options.Delta0 must be positive and smaller than Delta\_bar."{}});}
+\DoxyCodeLine{225   \}}
+\DoxyCodeLine{226 }
+\DoxyCodeLine{233   [[nodiscard]] \mbox{\hyperlink{a02167}{NonLinearSolverInformation}} \mbox{\hyperlink{a02179_aad682adb4f44614b98208680939b29f2}{solve}}(\mbox{\hyperlink{a02179_a44ed2ca8c869a07b85e8b15ec5079e27}{Domain}}\& x, \textcolor{keywordtype}{double} stepSize = 0.0) \{}
+\DoxyCodeLine{234     \textcolor{keyword}{using }enum \mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}};}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236     \mbox{\hyperlink{a02167}{NonLinearSolverInformation}} solverInformation;}
+\DoxyCodeLine{237     \textcolor{keyword}{auto} state = \textcolor{keyword}{typename} \mbox{\hyperlink{a02147}{TrustRegion::State}}\{.\mbox{\hyperlink{a02147_a4ea3cec63a27f4699e529393f4304850}{domain}} = x, .correction = eta\_, .information = solverInformation\};}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239     this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498}{INIT}}, state);}
+\DoxyCodeLine{240     stats\_ = \mbox{\hyperlink{a02187}{Stats}}\{\};}
+\DoxyCodeLine{241     info\_  = \mbox{\hyperlink{a02183}{AlgoInfo}}\{\};}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{243     \textcolor{keyword}{auto}\& energyF    = energyFunction\_;}
+\DoxyCodeLine{244     \textcolor{keyword}{auto} gradientF   = derivative(energyF);}
+\DoxyCodeLine{245     \textcolor{keyword}{auto} hessianF    = derivative(gradientF);}
+\DoxyCodeLine{246     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) e = energyF(x);}
+\DoxyCodeLine{247     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) g = gradientF(x);}
+\DoxyCodeLine{248     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) h = hessianF(x);}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{250     eta\_.resizeLike(g);}
+\DoxyCodeLine{251     Heta\_.resizeLike(g);}
+\DoxyCodeLine{252     truncatedConjugateGradient\_.analyzePattern(h);}
+\DoxyCodeLine{253     stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}}   = e;}
+\DoxyCodeLine{254     stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}} = \mbox{\hyperlink{a00502_ga0ffc0c74dbd9aeee3e53b199a21b828c}{norm}}(g);}
+\DoxyCodeLine{255     truncatedConjugateGradient\_.analyzePattern(h);}
 \DoxyCodeLine{256 }
-\DoxyCodeLine{268   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{269   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01475_a609db6b87e683e5d650347294c044c79}{intermediatePrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01467}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{270     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
-\DoxyCodeLine{271     \textcolor{keywordflow}{if} (not computedInitialPredictor)}
-\DoxyCodeLine{272       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}initialPrediction has to be called before intermediatePrediction."{}});}
-\DoxyCodeLine{273     req.parameter() += args.\mbox{\hyperlink{a01467_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
-\DoxyCodeLine{274   \}}
-\DoxyCodeLine{275 }
-\DoxyCodeLine{277   \textcolor{keyword}{constexpr} std::string \mbox{\hyperlink{a01475_aacf91307a0836a96c75320a3cd6a549e}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Load Control"{}}; \}}
-\DoxyCodeLine{278 }
-\DoxyCodeLine{279 \textcolor{keyword}{private}:}
-\DoxyCodeLine{280   \textcolor{keywordtype}{bool} computedInitialPredictor\{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{281 \};}
-\DoxyCodeLine{282 }
-\DoxyCodeLine{295 \textcolor{keyword}{struct }\mbox{\hyperlink{a01479}{DisplacementControl}}}
-\DoxyCodeLine{296 \{}
-\DoxyCodeLine{302   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01479_aa15060bf256c9786fe44096fad899733}{DisplacementControl}}(std::vector<int> p\_controlledIndices)}
-\DoxyCodeLine{303       : controlledIndices\{std::move(p\_controlledIndices)\} \{\}}
-\DoxyCodeLine{304 }
-\DoxyCodeLine{316   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{317   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01479_a884618fab228b21b1b6ce5c00843aa10}{operator()}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01467}{SubsidiaryArgs}}\& args)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{318     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
-\DoxyCodeLine{319     \textcolor{keyword}{const} \textcolor{keyword}{auto} controlledDOFsNorm = args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}(controlledIndices).norm();}
-\DoxyCodeLine{320     args.\mbox{\hyperlink{a01467_a628b23aa9e90c0e0ba1461ad2241645a}{f}}                        = controlledDOFsNorm -\/ args.\mbox{\hyperlink{a01467_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{321     args.\mbox{\hyperlink{a01467_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}}               = 0.0;}
-\DoxyCodeLine{322     args.\mbox{\hyperlink{a01467_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
-\DoxyCodeLine{323     args.\mbox{\hyperlink{a01467_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}(controlledIndices) = args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}(controlledIndices) / controlledDOFsNorm;}
-\DoxyCodeLine{324   \}}
-\DoxyCodeLine{325 }
-\DoxyCodeLine{337   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{338   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01479_ab42143626eb3596bddd52c69c5896ceb}{initialPrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01467}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{339     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
-\DoxyCodeLine{340     args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}(controlledIndices).array() = args.\mbox{\hyperlink{a01467_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{341     req.globalSolution()               = args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};}
-\DoxyCodeLine{342     computedInitialPredictor           = \textcolor{keyword}{true};}
-\DoxyCodeLine{343   \}}
-\DoxyCodeLine{344 }
-\DoxyCodeLine{356   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
-\DoxyCodeLine{357   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01479_a96a2010edec393d763c7ea30a1c31c1d}{intermediatePrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01467}{SubsidiaryArgs}}\& args) \{}
-\DoxyCodeLine{358     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
-\DoxyCodeLine{359     \textcolor{keywordflow}{if} (not computedInitialPredictor)}
-\DoxyCodeLine{360       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}initialPrediction has to be called before intermediatePrediction."{}});}
-\DoxyCodeLine{361     req.globalSolution() += args.\mbox{\hyperlink{a01467_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};}
-\DoxyCodeLine{362   \}}
+\DoxyCodeLine{257     innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}} = settings\_.\mbox{\hyperlink{a02171_a2c36a30b640ce11ec533bd259d439bd5}{Delta0}};}
+\DoxyCodeLine{258     spdlog::info(}
+\DoxyCodeLine{259         \textcolor{stringliteral}{"{}        | iter | inner\_i |   rho |   energy | energy\_p | energy\_inc |  norm(g) |    Delta | norm(corr) | "{}}}
+\DoxyCodeLine{260         \textcolor{stringliteral}{"{}InnerBreakReason"{}});}
+\DoxyCodeLine{261     spdlog::info(\textcolor{stringliteral}{"{}\{:-\/\string^143\}"{}}, \textcolor{stringliteral}{"{}-\/"{}});}
+\DoxyCodeLine{262     \textcolor{keywordflow}{while} (not stoppingCriterion(e)) \{}
+\DoxyCodeLine{263       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5afdb2cb9832d112cd92fb2cda8879c3b4}{ITERATION\_STARTED}}, state);}
+\DoxyCodeLine{264       \textcolor{keywordflow}{if} (settings\_.\mbox{\hyperlink{a02171_a3943cb103ad51f2c407c867672dd3b1f}{useRand}}) \{}
+\DoxyCodeLine{265         \textcolor{keywordflow}{if} (stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}} == 0) \{}
+\DoxyCodeLine{266           eta\_.setRandom();}
+\DoxyCodeLine{267           \textcolor{keywordflow}{while} (eta\_.dot(h * eta\_) > innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}} * innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}})}
+\DoxyCodeLine{268             eta\_ *= eps\_; \textcolor{comment}{// eps is sqrt(sqrt(maschine-\/precision))}}
+\DoxyCodeLine{269         \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{270           eta\_.setZero();}
+\DoxyCodeLine{271       \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{272         eta\_.setZero();}
+\DoxyCodeLine{273 }
+\DoxyCodeLine{274       solveInnerProblem(g, h);}
+\DoxyCodeLine{275       stats\_.\mbox{\hyperlink{a02187_ac5053b65db9ceae8340aaebe952c7792}{innerIterSum}} += innerInfo\_.\mbox{\hyperlink{a02063_aea7d60a8e86f8c8a17251b1da948ea68}{numInnerIter}};}
+\DoxyCodeLine{276 }
+\DoxyCodeLine{277       info\_.\mbox{\hyperlink{a02183_af34cb5bb79e983db99b959d871afd353}{stopReasonString}} = tcg\_stop\_reason\_[\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(innerInfo\_.\mbox{\hyperlink{a02063_a9c7c8b39cd33322b4ce22154628f4b7e}{stop\_tCG}})];}
+\DoxyCodeLine{278       Heta\_                  = h * eta\_;}
+\DoxyCodeLine{279       \textcolor{keywordflow}{if} (settings\_.\mbox{\hyperlink{a02171_a3943cb103ad51f2c407c867672dd3b1f}{useRand}} and stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}} == 0) \{}
+\DoxyCodeLine{280         info\_.\mbox{\hyperlink{a02183_ac6037dd6d1303ded090d9da71dea06b9}{used\_cauchy}}            = \textcolor{keyword}{false};}
+\DoxyCodeLine{281         info\_.\mbox{\hyperlink{a02183_a84be03aa6ebbd80ab2e6fac5a78aacd3}{randomPredictionString}} = \textcolor{stringliteral}{"{} Used Random correction predictor"{}};}
+\DoxyCodeLine{282         info\_.\mbox{\hyperlink{a02183_a3947b27f29bf44beb7f3f19e91c344f9}{cauchystr}}              = \textcolor{stringliteral}{"{}                  "{}};}
+\DoxyCodeLine{283         \textcolor{keywordtype}{double} tauC;}
+\DoxyCodeLine{284         \textcolor{comment}{// Check the curvature}}
+\DoxyCodeLine{285         \textcolor{keyword}{const} Eigen::VectorXd Hg = h * g;}
+\DoxyCodeLine{286         \textcolor{keyword}{const} \textcolor{keyword}{auto} g\_Hg          = g.dot(Hg);}
+\DoxyCodeLine{287         \textcolor{keywordflow}{if} (g\_Hg <= 0)}
+\DoxyCodeLine{288           tauC = 1;}
+\DoxyCodeLine{289         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{290           tauC = std::min(Dune::power(stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}}, 3) / (innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}} * g\_Hg), 1.0);}
+\DoxyCodeLine{291 }
+\DoxyCodeLine{292         \textcolor{comment}{// generate the Cauchy point.}}
+\DoxyCodeLine{293         \textcolor{keyword}{const} Eigen::VectorXd etaC  = -\/tauC * innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}} / stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}} * g;}
+\DoxyCodeLine{294         \textcolor{keyword}{const} Eigen::VectorXd HetaC = -\/tauC * innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}} / stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}} * Hg;}
+\DoxyCodeLine{295 }
+\DoxyCodeLine{296         \textcolor{keyword}{const} \textcolor{keywordtype}{double} mdle  = stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}} + g.dot(eta\_) + .5 * Heta\_.dot(eta\_);}
+\DoxyCodeLine{297         \textcolor{keyword}{const} \textcolor{keywordtype}{double} mdlec = stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}} + g.dot(etaC) + .5 * HetaC.dot(etaC);}
+\DoxyCodeLine{298         \textcolor{keywordflow}{if} (mdlec < mdle \&\& stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}} == 0) \{}
+\DoxyCodeLine{299           eta\_              = etaC;}
+\DoxyCodeLine{300           Heta\_             = HetaC;}
+\DoxyCodeLine{301           info\_.\mbox{\hyperlink{a02183_ac6037dd6d1303ded090d9da71dea06b9}{used\_cauchy}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{302 }
+\DoxyCodeLine{303           info\_.\mbox{\hyperlink{a02183_a3947b27f29bf44beb7f3f19e91c344f9}{cauchystr}} = \textcolor{stringliteral}{"{} USED CAUCHY POINT!"{}};}
+\DoxyCodeLine{304         \}}
+\DoxyCodeLine{305       \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{306         info\_.\mbox{\hyperlink{a02183_a3947b27f29bf44beb7f3f19e91c344f9}{cauchystr}} = \textcolor{stringliteral}{"{}                  "{}};}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{308       stats\_.\mbox{\hyperlink{a02187_a178607b87a8d27eb7b02bb22dc0d2c63}{etaNorm}} = eta\_.norm();}
+\DoxyCodeLine{309 }
+\DoxyCodeLine{310       updateFunction\_(x, eta\_);}
+\DoxyCodeLine{311 }
+\DoxyCodeLine{312       \textcolor{comment}{// Calculate energy of our proposed update step}}
+\DoxyCodeLine{313       e                     = energyF(x);}
+\DoxyCodeLine{314       stats\_.\mbox{\hyperlink{a02187_a3a03ce164638213312bece9e8b54fdcd}{energyProposal}} = e;}
+\DoxyCodeLine{315 }
+\DoxyCodeLine{316       \textcolor{comment}{// Will we accept the proposal or not?}}
+\DoxyCodeLine{317       \textcolor{comment}{// Check the performance of the quadratic model against the actual energy.}}
+\DoxyCodeLine{318       \textcolor{keyword}{auto} rhonum = stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}} -\/ stats\_.\mbox{\hyperlink{a02187_a3a03ce164638213312bece9e8b54fdcd}{energyProposal}};}
+\DoxyCodeLine{319       \textcolor{keyword}{auto} rhoden = -\/eta\_.dot(g + 0.5 * Heta\_);}
+\DoxyCodeLine{320 }
+\DoxyCodeLine{321       \textcolor{comment}{/*  Close to convergence the proposed energy and the real energy almost coincide.}}
+\DoxyCodeLine{322 \textcolor{comment}{       *  Therefore, the performance check of our model becomes ill-\/conditioned}}
+\DoxyCodeLine{323 \textcolor{comment}{       *  The regularisation fixes this */}}
+\DoxyCodeLine{324       \textcolor{keyword}{const} \textcolor{keyword}{auto} rhoReg = std::max(1.0, abs(stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}})) * eps\_ * settings\_.\mbox{\hyperlink{a02171_a29358b818a3eabe94a0d75218225de0d}{rho\_reg}};}
+\DoxyCodeLine{325       rhonum            = rhonum + rhoReg;}
+\DoxyCodeLine{326       rhoden            = rhoden + rhoReg;}
+\DoxyCodeLine{327 }
+\DoxyCodeLine{328       \textcolor{keyword}{const} \textcolor{keywordtype}{bool} modelDecreased = rhoden > 0.0;}
+\DoxyCodeLine{329 }
+\DoxyCodeLine{330       \textcolor{keywordflow}{if} (!modelDecreased)}
+\DoxyCodeLine{331         info\_.\mbox{\hyperlink{a02183_af34cb5bb79e983db99b959d871afd353}{stopReasonString}}.append(\textcolor{stringliteral}{"{}, model did not decrease"{}});}
+\DoxyCodeLine{332 }
+\DoxyCodeLine{333       stats\_.\mbox{\hyperlink{a02187_a1111f89e925a512bd145b50a8f25c2be}{rho}} = rhonum / rhoden;}
+\DoxyCodeLine{334       stats\_.\mbox{\hyperlink{a02187_a1111f89e925a512bd145b50a8f25c2be}{rho}} = stats\_.\mbox{\hyperlink{a02187_a1111f89e925a512bd145b50a8f25c2be}{rho}} < 0.0 ? -\/1.0 : stats\_.\mbox{\hyperlink{a02187_a1111f89e925a512bd145b50a8f25c2be}{rho}}; \textcolor{comment}{// move rho to the domain [-\/1.0,inf]}}
+\DoxyCodeLine{335 }
+\DoxyCodeLine{336       info\_.\mbox{\hyperlink{a02183_ae987404091035ade31e839e9f00b7cbd}{trstr}} = \textcolor{stringliteral}{"{}   "{}};}
+\DoxyCodeLine{337 }
+\DoxyCodeLine{338       \textcolor{comment}{// measure if energy decreased}}
+\DoxyCodeLine{339       \textcolor{keyword}{const} \textcolor{keywordtype}{bool} energyDecreased = Dune::FloatCmp::ge(stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}} -\/ stats\_.\mbox{\hyperlink{a02187_a3a03ce164638213312bece9e8b54fdcd}{energyProposal}}, -\/1e-\/12);}
+\DoxyCodeLine{340 }
+\DoxyCodeLine{341       \textcolor{comment}{// If the model behaves badly or if the energy increased we reduce the trust region size}}
+\DoxyCodeLine{342       \textcolor{keywordflow}{if} (stats\_.\mbox{\hyperlink{a02187_a1111f89e925a512bd145b50a8f25c2be}{rho}} < 1e-\/4 || not modelDecreased || std::isnan(stats\_.\mbox{\hyperlink{a02187_a1111f89e925a512bd145b50a8f25c2be}{rho}}) || not energyDecreased) \{}
+\DoxyCodeLine{343         info\_.\mbox{\hyperlink{a02183_ae987404091035ade31e839e9f00b7cbd}{trstr}} = \textcolor{stringliteral}{"{}TR-\/"{}};}
+\DoxyCodeLine{344         innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}} /= 4.0;}
+\DoxyCodeLine{345         info\_.\mbox{\hyperlink{a02183_afc288b38be6c8627cf079d9bffc3cda9}{consecutive\_TRplus}} = 0;}
+\DoxyCodeLine{346         info\_.\mbox{\hyperlink{a02183_aab1636ca718e535e09e61cdefc348084}{consecutive\_TRminus}}++;}
+\DoxyCodeLine{347         \textcolor{keywordflow}{if} (info\_.\mbox{\hyperlink{a02183_aab1636ca718e535e09e61cdefc348084}{consecutive\_TRminus}} >= 5 \&\& settings\_.\mbox{\hyperlink{a02171_a3b6b5fd328830b37cf47a8c3b485eb3e}{verbosity}} >= 1) \{}
+\DoxyCodeLine{348           info\_.\mbox{\hyperlink{a02183_aab1636ca718e535e09e61cdefc348084}{consecutive\_TRminus}} = -\/std::numeric\_limits<int>::infinity();}
+\DoxyCodeLine{349           spdlog::info(\textcolor{stringliteral}{"{} +++ Detected many consecutive TR-\/ (radius decreases)."{}});}
+\DoxyCodeLine{350           spdlog::info(\textcolor{stringliteral}{"{} +++ Consider decreasing options.Delta\_bar by an order of magnitude."{}});}
+\DoxyCodeLine{351         \}}
+\DoxyCodeLine{352 }
+\DoxyCodeLine{353       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (stats\_.\mbox{\hyperlink{a02187_a1111f89e925a512bd145b50a8f25c2be}{rho}} > 0.99 \&\& (innerInfo\_.\mbox{\hyperlink{a02063_a9c7c8b39cd33322b4ce22154628f4b7e}{stop\_tCG}} == \mbox{\hyperlink{a00524_a99c0436bed03f4dd4168a21f6b69ad5aa09116173dd03279374ae42ad40f940ba}{Eigen::TCGStopReason::negativeCurvature}} ||}
+\DoxyCodeLine{354                                        innerInfo\_.\mbox{\hyperlink{a02063_a9c7c8b39cd33322b4ce22154628f4b7e}{stop\_tCG}} == \mbox{\hyperlink{a00524_a99c0436bed03f4dd4168a21f6b69ad5aa9e095c14131d90a6c10c08cd802c8aed}{Eigen::TCGStopReason::exceededTrustRegion}})) \{}
+\DoxyCodeLine{355         info\_.\mbox{\hyperlink{a02183_ae987404091035ade31e839e9f00b7cbd}{trstr}}               = \textcolor{stringliteral}{"{}TR+"{}};}
+\DoxyCodeLine{356         innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}}          = std::min(3.5 * innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}}, settings\_.\mbox{\hyperlink{a02171_a275deb9273559ec6b6bae0e1a0650bd8}{Delta\_bar}});}
+\DoxyCodeLine{357         info\_.\mbox{\hyperlink{a02183_aab1636ca718e535e09e61cdefc348084}{consecutive\_TRminus}} = 0;}
+\DoxyCodeLine{358         info\_.\mbox{\hyperlink{a02183_afc288b38be6c8627cf079d9bffc3cda9}{consecutive\_TRplus}}++;}
+\DoxyCodeLine{359         \textcolor{keywordflow}{if} (info\_.\mbox{\hyperlink{a02183_afc288b38be6c8627cf079d9bffc3cda9}{consecutive\_TRplus}} >= 5 \&\& settings\_.\mbox{\hyperlink{a02171_a3b6b5fd328830b37cf47a8c3b485eb3e}{verbosity}} >= 1) \{}
+\DoxyCodeLine{360           info\_.\mbox{\hyperlink{a02183_afc288b38be6c8627cf079d9bffc3cda9}{consecutive\_TRplus}} = -\/std::numeric\_limits<int>::infinity();}
+\DoxyCodeLine{361           spdlog::info(\textcolor{stringliteral}{"{} +++ Detected many consecutive TR+ (radius increases)"{}});}
+\DoxyCodeLine{362           spdlog::info(\textcolor{stringliteral}{"{} +++ Consider increasing options.Delta\_bar by an order of magnitude"{}});}
 \DoxyCodeLine{363 }
-\DoxyCodeLine{365   \textcolor{keyword}{constexpr} std::string \mbox{\hyperlink{a01479_a9083793b2c3f52cae4b7e766452e1bcd}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Displacement Control"{}}; \}}
-\DoxyCodeLine{366 }
-\DoxyCodeLine{367 \textcolor{keyword}{private}:}
-\DoxyCodeLine{368   std::vector<int> controlledIndices; }
-\DoxyCodeLine{369   \textcolor{keywordtype}{bool} computedInitialPredictor\{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{370 \};}
-\DoxyCodeLine{371 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{364         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{365           info\_.\mbox{\hyperlink{a02183_afc288b38be6c8627cf079d9bffc3cda9}{consecutive\_TRplus}}  = 0;}
+\DoxyCodeLine{366           info\_.\mbox{\hyperlink{a02183_aab1636ca718e535e09e61cdefc348084}{consecutive\_TRminus}} = 0;}
+\DoxyCodeLine{367         \}}
+\DoxyCodeLine{368       \}}
+\DoxyCodeLine{369 }
+\DoxyCodeLine{370       \textcolor{keywordflow}{if} (modelDecreased \&\& stats\_.\mbox{\hyperlink{a02187_a1111f89e925a512bd145b50a8f25c2be}{rho}} > settings\_.\mbox{\hyperlink{a02171_acf36d2743732832643df20a287a9ca91}{rho\_prime}} \&\& energyDecreased) \{}
+\DoxyCodeLine{371         \textcolor{keywordflow}{if} (stats\_.\mbox{\hyperlink{a02187_a3a03ce164638213312bece9e8b54fdcd}{energyProposal}} > stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}})}
+\DoxyCodeLine{372           spdlog::info(}
+\DoxyCodeLine{373               \textcolor{stringliteral}{"{}Energy function increased by \{\} (step size: \{\}). Since this is small we accept the step and hope for "{}}}
+\DoxyCodeLine{374               \textcolor{stringliteral}{"{}convergence of the gradient norm."{}},}
+\DoxyCodeLine{375               stats\_.\mbox{\hyperlink{a02187_a3a03ce164638213312bece9e8b54fdcd}{energyProposal}} -\/ stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}}, stats\_.\mbox{\hyperlink{a02187_a178607b87a8d27eb7b02bb22dc0d2c63}{etaNorm}});}
+\DoxyCodeLine{376 }
+\DoxyCodeLine{377         info\_.\mbox{\hyperlink{a02183_a8c3abc0958c354cc92394dfd12a0317b}{acceptProposal}}       = \textcolor{keyword}{true};}
+\DoxyCodeLine{378         info\_.\mbox{\hyperlink{a02183_af3d423f3f05e0bdd445e2b9de7dc9daf}{accstr}}               = \textcolor{stringliteral}{"{}acc"{}};}
+\DoxyCodeLine{379         info\_.\mbox{\hyperlink{a02183_ae1f58001cb449db18bdbd98740dd143d}{consecutive\_Rejected}} = 0;}
+\DoxyCodeLine{380       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{381         info\_.\mbox{\hyperlink{a02183_a8c3abc0958c354cc92394dfd12a0317b}{acceptProposal}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{382         info\_.\mbox{\hyperlink{a02183_af3d423f3f05e0bdd445e2b9de7dc9daf}{accstr}}         = \textcolor{stringliteral}{"{}REJ"{}};}
+\DoxyCodeLine{383 }
+\DoxyCodeLine{384         \textcolor{keywordflow}{if} (info\_.\mbox{\hyperlink{a02183_ae1f58001cb449db18bdbd98740dd143d}{consecutive\_Rejected}} >= 5)}
+\DoxyCodeLine{385           innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}} /= 2;}
+\DoxyCodeLine{386         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{387           innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}} = std::min(innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}}, stats\_.\mbox{\hyperlink{a02187_a178607b87a8d27eb7b02bb22dc0d2c63}{etaNorm}} / 2.0);}
+\DoxyCodeLine{388         ++info\_.\mbox{\hyperlink{a02183_ae1f58001cb449db18bdbd98740dd143d}{consecutive\_Rejected}};}
+\DoxyCodeLine{389       \}}
+\DoxyCodeLine{390 }
+\DoxyCodeLine{391       stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}}++;}
+\DoxyCodeLine{392 }
+\DoxyCodeLine{393       \textcolor{keywordflow}{if} (settings\_.\mbox{\hyperlink{a02171_a3b6b5fd328830b37cf47a8c3b485eb3e}{verbosity}} == 1)}
+\DoxyCodeLine{394         logState();}
+\DoxyCodeLine{395 }
+\DoxyCodeLine{396       info\_.\mbox{\hyperlink{a02183_a84be03aa6ebbd80ab2e6fac5a78aacd3}{randomPredictionString}} = \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{397 }
+\DoxyCodeLine{398       solverInformation.\mbox{\hyperlink{a02167_a66f51414779f3e563557157fb688f18b}{correctionNorm}} = stats\_.\mbox{\hyperlink{a02187_a178607b87a8d27eb7b02bb22dc0d2c63}{etaNorm}};}
+\DoxyCodeLine{399       solverInformation.\mbox{\hyperlink{a02167_ab09859737734f97734f20624f9f3c934}{residualNorm}}   = stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}};}
+\DoxyCodeLine{400       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4}{CORRECTION\_UPDATED}}, state);}
+\DoxyCodeLine{401 }
+\DoxyCodeLine{402       \textcolor{keywordflow}{if} (info\_.\mbox{\hyperlink{a02183_a8c3abc0958c354cc92394dfd12a0317b}{acceptProposal}}) \{}
+\DoxyCodeLine{403         stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}} = stats\_.\mbox{\hyperlink{a02187_a3a03ce164638213312bece9e8b54fdcd}{energyProposal}};}
+\DoxyCodeLine{404         this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78}{CORRECTIONNORM\_UPDATED}}, state);}
+\DoxyCodeLine{405         this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14}{RESIDUALNORM\_UPDATED}}, state);}
+\DoxyCodeLine{406         this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{SOLUTION\_CHANGED}}, state);}
+\DoxyCodeLine{407       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{408         updateFunction\_(x, -\/eta\_);}
+\DoxyCodeLine{409         eta\_.setZero();}
+\DoxyCodeLine{410       \}}
+\DoxyCodeLine{411       e               = energyF(x);}
+\DoxyCodeLine{412       g               = gradientF(x);}
+\DoxyCodeLine{413       h               = hessianF(x);}
+\DoxyCodeLine{414       stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}} = g.norm();}
+\DoxyCodeLine{415       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815}{NonLinearSolverMessages::ITERATION\_ENDED}}, state);}
+\DoxyCodeLine{416     \}}
+\DoxyCodeLine{417     spdlog::info(\textcolor{stringliteral}{"{}\{\}"{}}, info\_.\mbox{\hyperlink{a02183_a8df37485a1fdbbce8d153a8fadd537bf}{reasonString}});}
+\DoxyCodeLine{418     spdlog::info(\textcolor{stringliteral}{"{}Total iterations: \{\} Total CG Iterations: \{\}"{}}, stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}}, stats\_.\mbox{\hyperlink{a02187_ac5053b65db9ceae8340aaebe952c7792}{innerIterSum}});}
+\DoxyCodeLine{419 }
+\DoxyCodeLine{420     solverInformation.\mbox{\hyperlink{a02167_acb65d72d7b2291a9b0d958ce0e4e0887}{success}} =}
+\DoxyCodeLine{421         (info\_.\mbox{\hyperlink{a02183_a68f203529fcd8a947fd49330a83d42b2}{stop}} == \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674ad1c6a6016de417acc66b5ac44a1fdca3}{StopReason::correctionNormTolReached}}) or (info\_.\mbox{\hyperlink{a02183_a68f203529fcd8a947fd49330a83d42b2}{stop}} == \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674a0c4f44592a7ae85baf42cb3fb4a5a3d1}{StopReason::gradientNormTolReached}});}
+\DoxyCodeLine{422 }
+\DoxyCodeLine{423     solverInformation.\mbox{\hyperlink{a02167_a81570cd3d9f6589a4d1ba81211f41b99}{iterations}}   = stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}};}
+\DoxyCodeLine{424     solverInformation.\mbox{\hyperlink{a02167_ab09859737734f97734f20624f9f3c934}{residualNorm}} = stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}};}
+\DoxyCodeLine{425     \textcolor{keywordflow}{if} (solverInformation.\mbox{\hyperlink{a02167_acb65d72d7b2291a9b0d958ce0e4e0887}{success}})}
+\DoxyCodeLine{426       this-\/>\mbox{\hyperlink{a02203_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931}{NonLinearSolverMessages::FINISHED\_SUCESSFULLY}}, state);}
+\DoxyCodeLine{427     \textcolor{keywordflow}{return} solverInformation;}
+\DoxyCodeLine{428   \}}
+\DoxyCodeLine{429 }
+\DoxyCodeLine{434   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02179_a249a3e9cd4af947d99625d7e5596e8ae}{energy}}() \{ \textcolor{keywordflow}{return} energyFunction\_; \}}
+\DoxyCodeLine{435 }
+\DoxyCodeLine{440   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02179_ae4849fbb7f4c1c022cdfc606e9b69aee}{energy}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} energyFunction\_; \}}
+\DoxyCodeLine{441 }
+\DoxyCodeLine{446   \textcolor{keyword}{auto} \mbox{\hyperlink{a02179_a45645355919a4fc38dc32269e1ecacd0}{residual}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} derivative(energyFunction\_); \}}
+\DoxyCodeLine{447 }
+\DoxyCodeLine{452   \textcolor{keyword}{const} \mbox{\hyperlink{a02179_adc7a64d13ac5c218eb2b872234ce254d}{UpdateFunction}}\& \mbox{\hyperlink{a02179_a9de9ce29a77692a16a78c0a026e0e4d5}{updateFunction}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} updateFunction\_; \}}
+\DoxyCodeLine{453 }
+\DoxyCodeLine{458   \textcolor{keyword}{const} \mbox{\hyperlink{a02179_a4864089ed870153c8e2090f63991f06d}{IDBCForceFunction}}\& \mbox{\hyperlink{a02179_a3ab35e733f37520c75afe1c02e0664e2}{idbcForceFunction}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} idbcForceFunction\_; \}}
+\DoxyCodeLine{459 }
+\DoxyCodeLine{460 \textcolor{keyword}{private}:}
+\DoxyCodeLine{461   \textcolor{keyword}{template} <\textcolor{keyword}{class} T>}
+\DoxyCodeLine{462   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} make\_optional\_reference(T\& value) \{}
+\DoxyCodeLine{463     \textcolor{keywordflow}{return} std::make\_optional<std::reference\_wrapper<const T>>(std::cref(value));}
+\DoxyCodeLine{464   \}}
+\DoxyCodeLine{465 }
+\DoxyCodeLine{466   \textcolor{keyword}{template} <\textcolor{keyword}{class} T>}
+\DoxyCodeLine{467   \textcolor{keyword}{requires}(not std::is\_lvalue\_reference\_v<T>)}
+\DoxyCodeLine{468   \textcolor{keyword}{constexpr} T make\_optional\_reference(T\&\& value) \{}
+\DoxyCodeLine{469     \textcolor{keywordflow}{return} value;}
+\DoxyCodeLine{470   \}}
+\DoxyCodeLine{471 }
+\DoxyCodeLine{472   \textcolor{keywordtype}{void} logState()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{473     spdlog::info(}
+\DoxyCodeLine{474         \textcolor{stringliteral}{"{}\{:>3s\} \{:>3s\} \{:>6d\} \{:>9d\}  \{:>6.2f\}  \{:>9.2e\}  \{:>9.2e\}  \{:>11.2e\}  \{:>9.2e\}  \{:>9.2e\}  \{:>11.2e\}   "{}}}
+\DoxyCodeLine{475         \textcolor{stringliteral}{"{}\{:<73\}"{}},}
+\DoxyCodeLine{476         info\_.\mbox{\hyperlink{a02183_af3d423f3f05e0bdd445e2b9de7dc9daf}{accstr}}, info\_.\mbox{\hyperlink{a02183_ae987404091035ade31e839e9f00b7cbd}{trstr}}, stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}}, innerInfo\_.\mbox{\hyperlink{a02063_aea7d60a8e86f8c8a17251b1da948ea68}{numInnerIter}}, stats\_.\mbox{\hyperlink{a02187_a1111f89e925a512bd145b50a8f25c2be}{rho}}, stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}},}
+\DoxyCodeLine{477         stats\_.\mbox{\hyperlink{a02187_a3a03ce164638213312bece9e8b54fdcd}{energyProposal}}, stats\_.\mbox{\hyperlink{a02187_a3a03ce164638213312bece9e8b54fdcd}{energyProposal}} -\/ stats\_.\mbox{\hyperlink{a02187_a43b868b19908b5435f1e2f18fb1d7625}{energy}}, stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}}, innerInfo\_.\mbox{\hyperlink{a02063_a8e52ebafb750281e8b3f00cb698bd3dd}{Delta}}, stats\_.\mbox{\hyperlink{a02187_a178607b87a8d27eb7b02bb22dc0d2c63}{etaNorm}},}
+\DoxyCodeLine{478         info\_.\mbox{\hyperlink{a02183_af34cb5bb79e983db99b959d871afd353}{stopReasonString}} + info\_.\mbox{\hyperlink{a02183_a3947b27f29bf44beb7f3f19e91c344f9}{cauchystr}} + info\_.\mbox{\hyperlink{a02183_a84be03aa6ebbd80ab2e6fac5a78aacd3}{randomPredictionString}});}
+\DoxyCodeLine{479   \}}
+\DoxyCodeLine{480 }
+\DoxyCodeLine{481   \textcolor{keywordtype}{void} logFinalState() \{}
+\DoxyCodeLine{482     spdlog::info(\textcolor{stringliteral}{"{}\{:>3s\} \{:>3s\} \{:>6d\} \{:>9d\}  \{: \string^6\}  \{: \string^9\}  \{: \string^9\}  \{: \string^11\}  \{:>9.2e\}  \{: \string^9\}  \{: \string^11\}   \{:<73\}"{}},}
+\DoxyCodeLine{483                  info\_.\mbox{\hyperlink{a02183_af3d423f3f05e0bdd445e2b9de7dc9daf}{accstr}}, info\_.\mbox{\hyperlink{a02183_ae987404091035ade31e839e9f00b7cbd}{trstr}}, stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}}, innerInfo\_.\mbox{\hyperlink{a02063_aea7d60a8e86f8c8a17251b1da948ea68}{numInnerIter}}, \textcolor{stringliteral}{"{} "{}}, \textcolor{stringliteral}{"{} "{}}, \textcolor{stringliteral}{"{} "{}}, \textcolor{stringliteral}{"{} "{}},}
+\DoxyCodeLine{484                  stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}}, \textcolor{stringliteral}{"{} "{}}, \textcolor{stringliteral}{"{} "{}}, info\_.\mbox{\hyperlink{a02183_af34cb5bb79e983db99b959d871afd353}{stopReasonString}} + info\_.\mbox{\hyperlink{a02183_a3947b27f29bf44beb7f3f19e91c344f9}{cauchystr}} + info\_.\mbox{\hyperlink{a02183_a84be03aa6ebbd80ab2e6fac5a78aacd3}{randomPredictionString}});}
+\DoxyCodeLine{485   \}}
+\DoxyCodeLine{486 }
+\DoxyCodeLine{487   \textcolor{keywordtype}{bool} stoppingCriterion(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02179_a249a3e9cd4af947d99625d7e5596e8ae}{energy}}) \{}
+\DoxyCodeLine{488     std::ostringstream stream;}
+\DoxyCodeLine{490     \textcolor{keywordflow}{if} (stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}} < settings\_.\mbox{\hyperlink{a02171_a1cc69f38c3569c63cb4bf86a39a16050}{grad\_tol}} \&\& stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}} != 0) \{}
+\DoxyCodeLine{491       logFinalState();}
+\DoxyCodeLine{492       spdlog::info(\textcolor{stringliteral}{"{}CONVERGENCE:  Energy: \{:1.16e\}    norm(gradient): \{:1.16e\}"{}}, \mbox{\hyperlink{a02179_a249a3e9cd4af947d99625d7e5596e8ae}{energy}}, stats\_.\mbox{\hyperlink{a02187_a58ec024d2233720f0bf164b8b21a6626}{gradNorm}});}
+\DoxyCodeLine{493       stream << \textcolor{stringliteral}{"{}Gradient norm tolerance reached; options.tolerance = "{}} << settings\_.\mbox{\hyperlink{a02171_a1cc69f38c3569c63cb4bf86a39a16050}{grad\_tol}};}
+\DoxyCodeLine{494 }
+\DoxyCodeLine{495       info\_.\mbox{\hyperlink{a02183_a8df37485a1fdbbce8d153a8fadd537bf}{reasonString}} = stream.str();}
+\DoxyCodeLine{496 }
+\DoxyCodeLine{497       info\_.\mbox{\hyperlink{a02183_a68f203529fcd8a947fd49330a83d42b2}{stop}} = \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674a0c4f44592a7ae85baf42cb3fb4a5a3d1}{StopReason::gradientNormTolReached}};}
+\DoxyCodeLine{498       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{499     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (stats\_.\mbox{\hyperlink{a02187_a178607b87a8d27eb7b02bb22dc0d2c63}{etaNorm}} < settings\_.\mbox{\hyperlink{a02171_ab598fd07116bda4ec7ff4ec10ad771bb}{corr\_tol}} \&\& stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}} != 0) \{}
+\DoxyCodeLine{500       logFinalState();}
+\DoxyCodeLine{501       spdlog::info(\textcolor{stringliteral}{"{}CONVERGENCE:  Energy: \{:1.16e\}    norm(correction): \{:1.16e\}"{}}, \mbox{\hyperlink{a02179_a249a3e9cd4af947d99625d7e5596e8ae}{energy}}, stats\_.\mbox{\hyperlink{a02187_a178607b87a8d27eb7b02bb22dc0d2c63}{etaNorm}});}
+\DoxyCodeLine{502       stream << \textcolor{stringliteral}{"{}Displacement norm tolerance reached;  = "{}} << settings\_.\mbox{\hyperlink{a02171_ab598fd07116bda4ec7ff4ec10ad771bb}{corr\_tol}} << \textcolor{stringliteral}{"{}."{}} << std::endl;}
+\DoxyCodeLine{503 }
+\DoxyCodeLine{504       info\_.\mbox{\hyperlink{a02183_a8df37485a1fdbbce8d153a8fadd537bf}{reasonString}} = stream.str();}
+\DoxyCodeLine{505       info\_.\mbox{\hyperlink{a02183_a68f203529fcd8a947fd49330a83d42b2}{stop}}         = \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674ad1c6a6016de417acc66b5ac44a1fdca3}{StopReason::correctionNormTolReached}};}
+\DoxyCodeLine{506       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{507     \}}
+\DoxyCodeLine{508 }
+\DoxyCodeLine{510     \textcolor{keywordflow}{if} (stats\_.\mbox{\hyperlink{a02187_ab3cab6865c16d06ec81b5db14b0dc5e2}{time}} >= settings\_.\mbox{\hyperlink{a02171_a65731eb979e7677f54722743edebc4c7}{maxtime}}) \{}
+\DoxyCodeLine{511       logFinalState();}
+\DoxyCodeLine{512       stream << \textcolor{stringliteral}{"{}Max time exceeded; options.maxtime = "{}} << settings\_.\mbox{\hyperlink{a02171_a65731eb979e7677f54722743edebc4c7}{maxtime}} << \textcolor{stringliteral}{"{}."{}};}
+\DoxyCodeLine{513       info\_.\mbox{\hyperlink{a02183_a8df37485a1fdbbce8d153a8fadd537bf}{reasonString}} = stream.str();}
+\DoxyCodeLine{514       info\_.\mbox{\hyperlink{a02183_a68f203529fcd8a947fd49330a83d42b2}{stop}}         = \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674ad205528fe2a4412b89626ff7eee936f9}{StopReason::maximumTimeReached}};}
+\DoxyCodeLine{515       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{516     \}}
+\DoxyCodeLine{517 }
+\DoxyCodeLine{519     \textcolor{keywordflow}{if} (stats\_.\mbox{\hyperlink{a02187_a79ff262003d1f3ff65ef2877aca8df0f}{outerIter}} >= settings\_.\mbox{\hyperlink{a02171_ac496e08f6fc420b641d2e838d4adbb53}{maxIter}}) \{}
+\DoxyCodeLine{520       logFinalState();}
+\DoxyCodeLine{521       stream << \textcolor{stringliteral}{"{}Max iteration count reached; options.maxiter = "{}} << settings\_.\mbox{\hyperlink{a02171_ac496e08f6fc420b641d2e838d4adbb53}{maxIter}} << \textcolor{stringliteral}{"{}."{}};}
+\DoxyCodeLine{522       info\_.\mbox{\hyperlink{a02183_a8df37485a1fdbbce8d153a8fadd537bf}{reasonString}} = stream.str();}
+\DoxyCodeLine{523       info\_.\mbox{\hyperlink{a02183_a68f203529fcd8a947fd49330a83d42b2}{stop}}         = \mbox{\hyperlink{a00507_abd5d0cf356d1ae81f6ee827b0f47c674a5ed07f9461b91dd3a6ba961a0ed5c8fe}{StopReason::maximumIterationsReached}};}
+\DoxyCodeLine{524       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{525     \}}
+\DoxyCodeLine{526     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{527   \}}
+\DoxyCodeLine{528 }
+\DoxyCodeLine{529   \textcolor{keywordtype}{void} solveInnerProblem(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& g, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& h) \{}
+\DoxyCodeLine{530     truncatedConjugateGradient\_.\mbox{\hyperlink{a02067_abca8364ed9fadd6e08510b46395dbf22}{setInfo}}(innerInfo\_);}
+\DoxyCodeLine{531     \textcolor{keywordtype}{int} attempts = 0;}
+\DoxyCodeLine{532     truncatedConjugateGradient\_.factorize(h);}
+\DoxyCodeLine{533     \textcolor{comment}{// If the preconditioner is IncompleteCholesky the factorization may fail if we have negative diagonal entries and}}
+\DoxyCodeLine{534     \textcolor{comment}{// the initial shift is too small. Therefore, if the factorization fails we increase the initial shift by a factor}}
+\DoxyCodeLine{535     \textcolor{comment}{// of 5.}}
+\DoxyCodeLine{536     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (preConditioner == \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff}{PreConditioner::IncompleteCholesky}}) \{}
+\DoxyCodeLine{537       \textcolor{keywordflow}{while} (truncatedConjugateGradient\_.info() != Eigen::Success) \{}
+\DoxyCodeLine{538         choleskyInitialShift\_ *= 5;}
+\DoxyCodeLine{539         truncatedConjugateGradient\_.preconditioner().setInitialShift(choleskyInitialShift\_);}
+\DoxyCodeLine{540         truncatedConjugateGradient\_.factorize(h);}
+\DoxyCodeLine{541         \textcolor{keywordflow}{if} (attempts > 5)}
+\DoxyCodeLine{542           DUNE\_THROW(Dune::MathError, \textcolor{stringliteral}{"{}Factorization of preconditioner failed!"{}});}
+\DoxyCodeLine{543         ++attempts;}
+\DoxyCodeLine{544       \}}
+\DoxyCodeLine{545       \textcolor{keywordflow}{if} (truncatedConjugateGradient\_.info() == Eigen::Success)}
+\DoxyCodeLine{546         choleskyInitialShift\_ = 1e-\/3;}
+\DoxyCodeLine{547     \}}
+\DoxyCodeLine{548     eta\_       = truncatedConjugateGradient\_.solveWithGuess(-\/g, eta\_);}
+\DoxyCodeLine{549     innerInfo\_ = truncatedConjugateGradient\_.\mbox{\hyperlink{a02067_a81a7f70d30cfbf103d6ac946ebc2a598}{getInfo}}();}
+\DoxyCodeLine{550   \}}
+\DoxyCodeLine{551 }
+\DoxyCodeLine{552   F energyFunction\_;}
+\DoxyCodeLine{553 }
+\DoxyCodeLine{554   \mbox{\hyperlink{a02179_adc7a64d13ac5c218eb2b872234ce254d}{UpdateFunction}} updateFunction\_;}
+\DoxyCodeLine{555   \mbox{\hyperlink{a02179_a4864089ed870153c8e2090f63991f06d}{IDBCForceFunction}} idbcForceFunction\_;}
+\DoxyCodeLine{556   std::remove\_cvref\_t<CorrectionType> eta\_;}
+\DoxyCodeLine{557   std::remove\_cvref\_t<CorrectionType> Heta\_;}
+\DoxyCodeLine{558   \mbox{\hyperlink{a02179_a841366a076612703e4bf3993a307169d}{Settings}} settings\_;}
+\DoxyCodeLine{559   AlgoInfo info\_;}
+\DoxyCodeLine{560   \textcolor{keywordtype}{double} choleskyInitialShift\_ = 1e-\/3;}
+\DoxyCodeLine{561   \mbox{\hyperlink{a02063}{Eigen::TCGInfo<double>}} innerInfo\_;}
+\DoxyCodeLine{562   Stats stats\_;}
+\DoxyCodeLine{563   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} eps\_ = 0.0001220703125; \textcolor{comment}{// 0.0001220703125 is sqrt(sqrt(maschine-\/precision))}}
+\DoxyCodeLine{564   std::array<std::string, 6> tcg\_stop\_reason\_\{}
+\DoxyCodeLine{565       \{\textcolor{stringliteral}{"{}negative curvature"{}}, \textcolor{stringliteral}{"{}exceeded trust region"{}}, \textcolor{stringliteral}{"{}reached target residual-\/kappa (linear)"{}},}
+\DoxyCodeLine{566        \textcolor{stringliteral}{"{}reached target residual-\/theta (superlinear)"{}}, \textcolor{stringliteral}{"{}maximum inner iterations"{}}, \textcolor{stringliteral}{"{}model increased"{}}\}}
+\DoxyCodeLine{567   \};}
+\DoxyCodeLine{568 }
+\DoxyCodeLine{569   \textcolor{keyword}{using }PreConditionerType =}
+\DoxyCodeLine{570       std::conditional\_t<preConditioner == \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66a7a93111b975ec3c3824eab230f3ec608}{PreConditioner::IdentityPreconditioner}}, Eigen::IdentityPreconditioner,}
+\DoxyCodeLine{571                          std::conditional\_t<preConditioner == \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66a3c6b5404db3b7bf45a0302f376a53afc}{PreConditioner::DiagonalPreconditioner}},}
+\DoxyCodeLine{572                                             \textcolor{keyword}{typename} Eigen::DiagonalPreconditioner<std::decay\_t<EnergyType>>,}
+\DoxyCodeLine{573                                             \textcolor{keyword}{typename} Eigen::IncompleteCholesky<std::decay\_t<EnergyType>>>>;}
+\DoxyCodeLine{574   \mbox{\hyperlink{a02067}{Eigen::TruncatedConjugateGradient<std::decay\_t<HessianType>}}, Eigen::Lower | Eigen::Upper, PreConditionerType>}
+\DoxyCodeLine{575       truncatedConjugateGradient\_;}
+\DoxyCodeLine{576 \};}
+\DoxyCodeLine{577 }
+\DoxyCodeLine{588 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66}{PreConditioner}} preConditioner = \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff}{PreConditioner::IncompleteCholesky}},}
+\DoxyCodeLine{589           \textcolor{keyword}{typename} UF = utils::UpdateDefault, \textcolor{keyword}{typename} IDBCF = utils::IDBCForceDefault>}
+\DoxyCodeLine{590 \textcolor{keyword}{auto} \mbox{\hyperlink{a00507_a37b2b44fa6cbb2b6521791bcd9a2d5f6}{makeTrustRegion}}(\textcolor{keyword}{const} F\& f, UF\&\& updateFunction = \{\}, IDBCF\&\& idbcForceFunction = \{\}) \{}
+\DoxyCodeLine{591   \textcolor{keywordflow}{return} std::make\_shared<TrustRegion<F, preConditioner, UF, IDBCF>>(f, updateFunction, idbcForceFunction);}
+\DoxyCodeLine{592 \}}
+\DoxyCodeLine{593 }
+\DoxyCodeLine{594 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66}{PreConditioner}} preConditioner = \mbox{\hyperlink{a00507_ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff}{PreConditioner::IncompleteCholesky}},}
+\DoxyCodeLine{595           \textcolor{keyword}{typename} UF2 = utils::UpdateDefault, \textcolor{keyword}{typename} IDBCF2 = utils::IDBCForceDefault>}
+\DoxyCodeLine{596 \mbox{\hyperlink{a00507_a770b17ee7c15dbad9ad94509dcacd711}{TrustRegion}}(\textcolor{keyword}{const} F\& f, UF2\&\& updateFunction = \{\}, IDBCF2\&\& idbcForceFunction = \{\})}
+\DoxyCodeLine{597     -\/> \mbox{\hyperlink{a00507_a770b17ee7c15dbad9ad94509dcacd711}{TrustRegion}}<F, preConditioner, std::remove\_cvref\_t<UF2>, std::remove\_cvref\_t<IDBCF2>>;}
+\DoxyCodeLine{598 }
+\DoxyCodeLine{599 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

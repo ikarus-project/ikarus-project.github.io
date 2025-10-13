@@ -1,6 +1,4 @@
 var a01955 =
 [
-    [ "name", "a01955.html#a04443562de6bf1cf72a27db2f33b5e16", null ],
-    [ "ncomps", "a01955.html#a2208295b62e03319c06b599b0079bf83", null ],
-    [ "operator()", "a01955.html#a14fd89ab2a84416e5f1024c9930f7371", null ]
+    [ "type", "a01955.html#a2d4fc47d2a6bddddf07b74f415a2bd09", null ]
 ];
