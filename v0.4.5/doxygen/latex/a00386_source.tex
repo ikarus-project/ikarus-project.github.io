@@ -1,0 +1,126 @@
+\hypertarget{a00386_source}{}\doxysection{fehelper.\+hh}
+\label{a00386_source}\index{fehelper.hh@{fehelper.hh}}
+\mbox{\hyperlink{a00386}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <optional>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <dune/localfefunctions/manifolds/realTuple.hh>}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00014}{ikarus/utils/traversal.hh}}>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00512}{Ikarus::FEHelper}} \{}
+\DoxyCodeLine{27 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Traits, \textcolor{keyword}{typename} Vector, \textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{28 \textcolor{keyword}{auto} \mbox{\hyperlink{a00512_a899043a23720a93e6ce9be9025c3a4bb}{localSolutionBlockVector}}(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Vector\& x, \textcolor{keyword}{const} \textcolor{keyword}{typename} Traits::LocalView\& localView,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ST>>>\& dx = std::nullopt) \{}
+\DoxyCodeLine{31   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} worldDim = Traits::worlddim;}
+\DoxyCodeLine{32   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe         = localView.tree().child(0).finiteElement();}
+\DoxyCodeLine{33   Dune::BlockVector<Dune::RealTuple<ST, worldDim>> localX(fe.size());}
+\DoxyCodeLine{34   \textcolor{keywordflow}{if} (dx) \{}
+\DoxyCodeLine{35     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i = 0U; i < localX.size(); ++i)}
+\DoxyCodeLine{36       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} j = 0U; j < worldDim; ++j)}
+\DoxyCodeLine{37         localX[i][j] =}
+\DoxyCodeLine{38             dx.value().get()[i * worldDim + j] + x[localView.index(localView.tree().child(j).localIndex(i))[0]];}
+\DoxyCodeLine{39   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{40     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i = 0U; i < localX.size(); ++i)}
+\DoxyCodeLine{41       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} j = 0U; j < worldDim; ++j)}
+\DoxyCodeLine{42         localX[i][j] = x[localView.index(localView.tree().child(j).localIndex(i))[0]];}
+\DoxyCodeLine{43   \}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \textcolor{keywordflow}{return} localX;}
+\DoxyCodeLine{46 \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{61 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Traits, \textcolor{keyword}{typename} Vector, \textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{62 \textcolor{keyword}{auto} \mbox{\hyperlink{a00512_ae030e22f45542ff5c9568e7884b38713}{localSolutionBlockVectorScalar}}(}
+\DoxyCodeLine{63     \textcolor{keyword}{const} Vector\& x, \textcolor{keyword}{const} \textcolor{keyword}{typename} Traits::LocalView\& localView, \textcolor{keyword}{auto}\&\& treePath,}
+\DoxyCodeLine{64     \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ST>>>\& dx = std::nullopt) \{}
+\DoxyCodeLine{65   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} worldDim = Traits::worlddim;}
+\DoxyCodeLine{66   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe         = localView.tree().child(treePath).finiteElement();}
+\DoxyCodeLine{67   Dune::BlockVector<Dune::RealTuple<ST, 1>> localX(fe.size());}
+\DoxyCodeLine{68   \textcolor{keywordflow}{if} (dx) \{}
+\DoxyCodeLine{69     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i = 0U; i < localX.size(); ++i) \{}
+\DoxyCodeLine{70       \textcolor{keyword}{auto} iIdx    = localView.index(localView.tree().child(treePath).localIndex(i))[0];}
+\DoxyCodeLine{71       localX[i][0] = dx.value().get()[iIdx] + x[iIdx];}
+\DoxyCodeLine{72     \}}
+\DoxyCodeLine{73   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{74     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i = 0U; i < localX.size(); ++i)}
+\DoxyCodeLine{75       localX[i][0] = x[localView.index(localView.tree().child(treePath).localIndex(i))[0]];}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78   \textcolor{keywordflow}{return} localX;}
+\DoxyCodeLine{79 \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{94 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Traits, \textcolor{keyword}{typename} Vector, \textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{95 \textcolor{keyword}{auto} \mbox{\hyperlink{a00512_a2320eb085498437e5b77756b9615dbc8}{localSolutionBlockVectorComposite}}(}
+\DoxyCodeLine{96     \textcolor{keyword}{const} Vector\& x, \textcolor{keyword}{const} \textcolor{keyword}{typename} Traits::LocalView\& localView, \textcolor{keyword}{auto}\&\& treePath,}
+\DoxyCodeLine{97     \textcolor{keyword}{const} std::optional<std::reference\_wrapper<\textcolor{keyword}{const} Eigen::VectorX<ST>>>\& dx = std::nullopt) \{}
+\DoxyCodeLine{98   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} worldDim = Traits::worlddim;}
+\DoxyCodeLine{99   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe         = localView.tree().child(treePath).child(0).finiteElement();}
+\DoxyCodeLine{100   Dune::BlockVector<Dune::RealTuple<ST, worldDim>> localX(fe.size());}
+\DoxyCodeLine{101   \textcolor{keywordflow}{if} (dx) \{}
+\DoxyCodeLine{102     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i = 0U; i < localX.size(); ++i)}
+\DoxyCodeLine{103       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} j = 0U; j < worldDim; ++j) \{}
+\DoxyCodeLine{104         \textcolor{keyword}{auto} ijIndx  = localView.index(localView.tree().child(treePath).child(j).localIndex(i))[0];}
+\DoxyCodeLine{105         localX[i][j] = dx.value().get()[ijIndx] + x[ijIndx];}
+\DoxyCodeLine{106       \}}
+\DoxyCodeLine{107   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{108     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i = 0U; i < localX.size(); ++i)}
+\DoxyCodeLine{109       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} j = 0U; j < worldDim; ++j)}
+\DoxyCodeLine{110         localX[i][j] = x[localView.index(localView.tree().child(treePath).child(j).localIndex(i))[0]];}
+\DoxyCodeLine{111   \}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113   \textcolor{keywordflow}{return} localX;}
+\DoxyCodeLine{114 \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{127   \textcolor{keyword}{template} <\textcolor{keyword}{typename} LocalView, \textcolor{keyword}{typename} Node>}
+\DoxyCodeLine{128   \textcolor{keywordtype}{void} leafNodeIndices(\textcolor{keyword}{const} LocalView\& localView, \textcolor{keyword}{const} Node\& node,}
+\DoxyCodeLine{129                        std::vector<typename LocalView::MultiIndex>\& \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}}) \{}
+\DoxyCodeLine{130     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe = node.finiteElement();}
+\DoxyCodeLine{131     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < fe.size(); ++i)}
+\DoxyCodeLine{132       \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}}.push\_back(localView.index(node.localIndex(i)));}
+\DoxyCodeLine{133   \}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{145   \textcolor{keyword}{template} <\textcolor{keyword}{typename} LocalView, \textcolor{keyword}{typename} Node>}
+\DoxyCodeLine{146   \textcolor{keywordtype}{void} powerNodeIndices(\textcolor{keyword}{const} LocalView\& localView, \textcolor{keyword}{const} Node\& node,}
+\DoxyCodeLine{147                         std::vector<typename LocalView::MultiIndex>\& \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}}) \{}
+\DoxyCodeLine{148     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe         = node.child(0).finiteElement();}
+\DoxyCodeLine{149     \textcolor{keyword}{const} \textcolor{keywordtype}{int} childrenSize = node.degree();}
+\DoxyCodeLine{150     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < fe.size(); ++i)}
+\DoxyCodeLine{151       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < childrenSize; ++j)}
+\DoxyCodeLine{152         \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}}.push\_back(localView.index(node.child(j).localIndex(i)));}
+\DoxyCodeLine{153   \}}
+\DoxyCodeLine{154 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{164 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LocalView>}
+\DoxyCodeLine{165 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00512_a2a4ac5503d4288b339457aae427ff661}{globalIndicesFromLocalView}}(\textcolor{keyword}{const} LocalView\& localView,}
+\DoxyCodeLine{166                                 std::vector<typename LocalView::MultiIndex>\& \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}}) \{}
+\DoxyCodeLine{167   assert(localView.bound());}
+\DoxyCodeLine{168   \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}}.clear();}
+\DoxyCodeLine{169   \textcolor{keyword}{using namespace }Dune::Indices;}
+\DoxyCodeLine{170   \textcolor{keyword}{using namespace }FEHelper::Impl;}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172   \textcolor{keyword}{auto} leafOpFunc = [\&](\textcolor{keyword}{auto}\&\& node, [[maybe\_unused]] \textcolor{keyword}{auto}\&\& treePath) \{}
+\DoxyCodeLine{173     leafNodeIndices(localView, node, \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}});}
+\DoxyCodeLine{174   \};}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176   \textcolor{keyword}{auto} powerOpFunc = [\&](\textcolor{keyword}{auto}\&\& node, [[maybe\_unused]] \textcolor{keyword}{auto}\&\& treePath) \{}
+\DoxyCodeLine{177     powerNodeIndices(localView, node, \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}});}
+\DoxyCodeLine{178   \};}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{180   \mbox{\hyperlink{a00528_a63742d75d099b93da7ddf6e78a3c1f56}{utils::forEachLeafOrPowerLeafNode}}(localView.tree(), Dune::TypeTree::hybridTreePath(), powerOpFunc, leafOpFunc);}
+\DoxyCodeLine{181 \}}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{194 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FiniteElement>}
+\DoxyCodeLine{195 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}}(\textcolor{keyword}{const} FiniteElement\& fe, std::vector<typename FiniteElement::LocalView::MultiIndex>\& \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}}) \{}
+\DoxyCodeLine{196   \mbox{\hyperlink{a00512_a2a4ac5503d4288b339457aae427ff661}{globalIndicesFromLocalView}}(fe.localView(), \mbox{\hyperlink{a00512_a44e16df41148f7e4538be224814a3423}{globalIndices}});}
+\DoxyCodeLine{197 \}}
+\DoxyCodeLine{198 \} \textcolor{comment}{// namespace Ikarus::FEHelper}}
+
+\end{DoxyCode}

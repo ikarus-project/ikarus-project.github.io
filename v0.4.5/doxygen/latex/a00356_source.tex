@@ -1,0 +1,56 @@
+\hypertarget{a00356_source}{}\doxysection{decomposehyperelastic.\+hh}
+\label{a00356_source}\index{decomposehyperelastic.hh@{decomposehyperelastic.hh}}
+\mbox{\hyperlink{a00356}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03508}{ikarus/finiteelements/mechanics/materials.hh}}>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03556}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00507}{Ikarus}} \{}
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }Materials \{}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{20   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MAT>}
+\DoxyCodeLine{21   \textcolor{keyword}{struct }\mbox{\hyperlink{a01679}{DecomposedMaterialTypes}}}
+\DoxyCodeLine{22   \{}
+\DoxyCodeLine{23     \textcolor{keyword}{using }\mbox{\hyperlink{a01679_a617ed50b0cf6df143c0ee02f01bf4775}{TupleType}} = \textcolor{keyword}{decltype}(\mbox{\hyperlink{a00518_a6d0f6ef6d764120e2a1724ba4e864b85}{decomposeHyperelasticAndGetMaterialParameters}}(std::declval<MAT>()));}
+\DoxyCodeLine{24     \textcolor{keyword}{using }\mbox{\hyperlink{a01679_abf47168ecc2a8ec241f1fcbe63a4d305}{DevType}}   = std::tuple\_element\_t<0, TupleType>; }
+\DoxyCodeLine{25     \textcolor{keyword}{using }\mbox{\hyperlink{a01679_aa95e4b256339f52682d468802d4a9de9}{VolType}}   = std::tuple\_element\_t<1, TupleType>; }
+\DoxyCodeLine{26     \textcolor{keyword}{using }\mbox{\hyperlink{a01679_acd51c429aa82393c30fd7764aefa8e59}{DevParams}} = std::tuple\_element\_t<2, TupleType>; }
+\DoxyCodeLine{27     \textcolor{keyword}{using }\mbox{\hyperlink{a01679_ad6b6845f9ead7c48b67a5169d128742b}{VolParams}} = std::tuple\_element\_t<3, TupleType>; }
+\DoxyCodeLine{28   \};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{45   \textcolor{keyword}{template} <Concepts::Material MAT>}
+\DoxyCodeLine{46   \textcolor{keyword}{requires}(MAT::isHyperelastic)}
+\DoxyCodeLine{47   \textcolor{keyword}{auto} \mbox{\hyperlink{a00518_a6d0f6ef6d764120e2a1724ba4e864b85}{decomposeHyperelasticAndGetMaterialParameters}}(\textcolor{keyword}{const} MAT\& mat) \{}
+\DoxyCodeLine{48     \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{49         \mbox{\hyperlink{a00518_af5c7f692e2222a471befba43507671db}{Materials::UnderlyingMaterial\_t<MAT>::hasVolumetricPart}},}
+\DoxyCodeLine{50         \textcolor{stringliteral}{"{}decomposeHyperelastic is only implemented for the case where both deviatoric and volumetric part exists."{}});}
+\DoxyCodeLine{51     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& umat                  = \mbox{\hyperlink{a00518_ac5404e0750e9319f1ac0a7e48b64d3f4}{Materials::underlyingMaterial}}(mat);}
+\DoxyCodeLine{52     \textcolor{keyword}{const} \textcolor{keyword}{auto} dev                    = umat.deviatoricFunction();}
+\DoxyCodeLine{53     \textcolor{keyword}{const} \textcolor{keyword}{auto} vol                    = umat.volumetricFunction().volumetricFunction();}
+\DoxyCodeLine{54     \textcolor{keyword}{const} \textcolor{keyword}{auto} [devParams, volParams] = umat.materialParametersImpl();}
+\DoxyCodeLine{55     \textcolor{keyword}{const} \textcolor{keyword}{auto} hdev                   = \mbox{\hyperlink{a01723}{Materials::Hyperelastic}}(dev);}
+\DoxyCodeLine{56     \textcolor{keyword}{const} \textcolor{keyword}{auto} hvol                   = \mbox{\hyperlink{a00518_aeba8712b72a377b92c7e000a106c6657}{Materials::makePureVolumetric}}(vol, 1.0); \textcolor{comment}{// material parameter set to unity.}}
+\DoxyCodeLine{57     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not MAT::isReduced) \{}
+\DoxyCodeLine{58       \textcolor{keywordflow}{return} std::make\_tuple(hdev, hvol, devParams, volParams);}
+\DoxyCodeLine{59     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{60       \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} fixedPairs = MAT::fixedPairs;}
+\DoxyCodeLine{61       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (MAT::isStrainVanished) \{}
+\DoxyCodeLine{62         \textcolor{keyword}{const} \textcolor{keyword}{auto} reducedDev = \mbox{\hyperlink{a01815}{Materials::VanishingStrain}}<fixedPairs, std::remove\_cvref\_t<\textcolor{keyword}{decltype}(hdev)>>(hdev);}
+\DoxyCodeLine{63         \textcolor{keyword}{const} \textcolor{keyword}{auto} reducedVol = \mbox{\hyperlink{a01815}{Materials::VanishingStrain}}<fixedPairs, std::remove\_cvref\_t<\textcolor{keyword}{decltype}(hvol)>>(hvol);}
+\DoxyCodeLine{64         \textcolor{keywordflow}{return} std::make\_tuple(reducedDev, reducedVol, devParams, volParams);}
+\DoxyCodeLine{65       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{66         \textcolor{keyword}{const} \textcolor{keyword}{auto} reducedDev = \mbox{\hyperlink{a01819}{Materials::VanishingStress}}<fixedPairs, std::remove\_cvref\_t<\textcolor{keyword}{decltype}(hdev)>>(hdev);}
+\DoxyCodeLine{67         \textcolor{keyword}{const} \textcolor{keyword}{auto} reducedVol = \mbox{\hyperlink{a01819}{Materials::VanishingStress}}<fixedPairs, std::remove\_cvref\_t<\textcolor{keyword}{decltype}(hvol)>>(hvol);}
+\DoxyCodeLine{68         \textcolor{keywordflow}{return} std::make\_tuple(reducedDev, reducedVol, devParams, volParams);}
+\DoxyCodeLine{69       \}}
+\DoxyCodeLine{70     \}}
+\DoxyCodeLine{71   \}}
+\DoxyCodeLine{72 \} \textcolor{comment}{// namespace Materials}}
+\DoxyCodeLine{73 \} \textcolor{comment}{// namespace Ikarus}}
+
+\end{DoxyCode}
