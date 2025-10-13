@@ -1,0 +1,398 @@
+\hypertarget{a00239_source}{}\doxysection{assumedstress.\+hh}
+\label{a00239_source}\index{assumedstress.hh@{assumedstress.hh}}
+\mbox{\hyperlink{a00239}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#if HAVE\_DUNE\_LOCALFEFUNCTIONS}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{  \#include <dune/localfefunctions/derivativetransformators.hh>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{  \#include <dune/localfefunctions/linearAlgebraHelper.hh>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{  \#include <dune/localfefunctions/meta.hh>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00386}{ikarus/finiteelements/fehelper.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00404}{ikarus/finiteelements/ferequirements.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00374}{ikarus/finiteelements/mechanics/assumedstress/asfunctions.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00362}{ikarus/finiteelements/mechanics/assumedstress/asvariants.hh}}>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00347}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00203}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a03556}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00077}{ikarus/utils/linearalgebrahelper.hh}}>}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00507}{Ikarus}} \{}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE, \textcolor{keyword}{typename} ASType>}
+\DoxyCodeLine{29 \textcolor{keyword}{class }AssumedStress;}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{35 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ASType>}
+\DoxyCodeLine{36 \textcolor{keyword}{struct }\mbox{\hyperlink{a01567}{AssumedStressPre}}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01567_ab9227247f35da70bf587197182db5197}{numberOfParameters}}\{\};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01563}{Skill}} = \mbox{\hyperlink{a01563}{AssumedStress<PreFE, FE, ASType>}};}
+\DoxyCodeLine{42 \};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{55 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE, \textcolor{keyword}{typename} ASF>}
+\DoxyCodeLine{56 \textcolor{keyword}{class }\mbox{\hyperlink{a01563}{AssumedStress}}}
+\DoxyCodeLine{57     : \textcolor{keyword}{public} std::conditional\_t<std::same\_as<ASF, PS::LinearStress>,}
+\DoxyCodeLine{58                                 ResultTypeBase<ResultTypes::linearStress, ResultTypes::linearStressFull>,}
+\DoxyCodeLine{59                                 ResultTypeBase<ResultTypes::PK2Stress, ResultTypes::PK2StressFull>>}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \{}
+\DoxyCodeLine{62 \textcolor{keyword}{public}:}
+\DoxyCodeLine{63   \textcolor{keyword}{using }\mbox{\hyperlink{a01559}{Traits}}                = \mbox{\hyperlink{a01507_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};}
+\DoxyCodeLine{64   \textcolor{keyword}{using }\mbox{\hyperlink{a01523}{Requirement}}           = \mbox{\hyperlink{a01523}{FERequirements<FESolutions::displacement, FEParameter::loadfactor>}};}
+\DoxyCodeLine{65   \textcolor{keyword}{using }\mbox{\hyperlink{a01563_a5886ed9674866b485f49fe0f245684b2}{LocalView}}             = \textcolor{keyword}{typename} \mbox{\hyperlink{a01559_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}};}
+\DoxyCodeLine{66   \textcolor{keyword}{using }\mbox{\hyperlink{a01563_a7dfb3324cae0d363b0bd237e711a484e}{Geometry}}              = \textcolor{keyword}{typename} \mbox{\hyperlink{a01559_a0b7be1104fba2d190e3fed46f291a851}{Traits::Geometry}};}
+\DoxyCodeLine{67   \textcolor{keyword}{using }\mbox{\hyperlink{a01563_a96da8c1c71ac2742bb9edad46121e8d6}{GridView}}              = \textcolor{keyword}{typename} \mbox{\hyperlink{a01559_a3ec0294824df467074f5070cb58f5a91}{Traits::GridView}};}
+\DoxyCodeLine{68   \textcolor{keyword}{using }\mbox{\hyperlink{a01567}{Pre}}                   = \mbox{\hyperlink{a01567}{AssumedStressPre<ASF>}};}
+\DoxyCodeLine{69   \textcolor{keyword}{using }\mbox{\hyperlink{a01563_ad6345dd4f8ffffeeb936301af2809ff3}{AssumedStressFunction}} = ASF;}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{72   \textcolor{keyword}{using }\mbox{\hyperlink{a01563_aecc79d8446cbfa3726e1cecb25e713a5}{VectorXOptRef}} = std::optional<std::reference\_wrapper<const Eigen::VectorX<ST>>>;}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT>}
+\DoxyCodeLine{75   \textcolor{keyword}{using }\mbox{\hyperlink{a01543}{RTWrapperType}} = \mbox{\hyperlink{a01543}{ResultWrapper<RT<typename Traits::ctype, Traits::mydim, Traits::worlddim>}}, \mbox{\hyperlink{a00507_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{ResultShape::Vector}}>;}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01563_a6a84302533994009a266ee044b43685a}{myDim}}     = \mbox{\hyperlink{a01559_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}};}
+\DoxyCodeLine{78   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01563_aedf5a38dd94f9dbe0ec7e652baa29cd0}{strainDim}} = \mbox{\hyperlink{a01563_a6a84302533994009a266ee044b43685a}{myDim}} * (\mbox{\hyperlink{a01563_a6a84302533994009a266ee044b43685a}{myDim}} + 1) / 2;}
+\DoxyCodeLine{79   \textcolor{keyword}{using }\mbox{\hyperlink{a01563_af3b83f05cadcd9f68edc09035b66a6e3}{StrainVector}}             = Eigen::Vector<double, strainDim>;}
+\DoxyCodeLine{80   \textcolor{keyword}{using }\mbox{\hyperlink{a01563_aad957d9e9cad372e7aa356046947e3da}{MaterialMatrix}}           = Eigen::Matrix<double, strainDim, strainDim>;}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{86   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01563_a5fe5dccda6b7424b3beb55f7b323d996}{AssumedStress}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01567}{Pre}}\& pre) \{}
+\DoxyCodeLine{87     \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02475}{Concepts::Formulations::TotalLagrangian<FE::strainType, FE::stressType>}},}
+\DoxyCodeLine{88                   \textcolor{stringliteral}{"{}PS method is only implemented for the total Lagrangian setting."{}});}
+\DoxyCodeLine{89     \textcolor{keyword}{static\_assert}(not(FE::strainType == \mbox{\hyperlink{a00496_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}}) or (std::same\_as<ASF, PS::LinearStress>),}
+\DoxyCodeLine{90                   \textcolor{stringliteral}{"{}If FE::strainType is linear, then the assumed stress must also be linear."{}});}
+\DoxyCodeLine{91     asVariant\_.\mbox{\hyperlink{a01595_ac3a7e7d2503d74ddfaa59d1b18b67c64}{setAssumedStressType}}(pre.\mbox{\hyperlink{a01567_ab9227247f35da70bf587197182db5197}{numberOfParameters}});}
+\DoxyCodeLine{92   \}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{99   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01563_af336e67f7d24bf2ffa62c8bea69adf53}{asVariant}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} asVariant\_; \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{106   \textcolor{keyword}{auto} \mbox{\hyperlink{a01563_af1ac77e8df05e3a03be75632fec35861}{numberOfInternalVariables}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} asVariant\_.\mbox{\hyperlink{a01595_a331c210fd48d89e568c0f6f30ac0516d}{numberOfInternalVariables}}(); \}}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{121   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT>}
+\DoxyCodeLine{122   \textcolor{keyword}{requires}(AssumedStress::template supportsResultType<RT>())}
+\DoxyCodeLine{123   \textcolor{keyword}{auto} \mbox{\hyperlink{a01563_a8b68a8ed8d206e95cc3fe9d9f0aa3174}{calculateAtImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01523}{Requirement}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a02271}{Dune::FieldVector<double, Traits::mydim>}}\& local,}
+\DoxyCodeLine{124                        Dune::PriorityTag<2>) \textcolor{keyword}{const} \{}
+\DoxyCodeLine{125     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isSameResultType<RT, ResultTypes::linearStress> or isSameResultType<RT, ResultTypes::PK2Stress> or}
+\DoxyCodeLine{126                   isSameResultType<RT, ResultTypes::linearStressFull> or}
+\DoxyCodeLine{127                   isSameResultType<RT, ResultTypes::PK2StressFull>) \{}
+\DoxyCodeLine{128       \textcolor{keyword}{const} \textcolor{keyword}{auto} geo   = underlying().localView().element().geometry();}
+\DoxyCodeLine{129       \textcolor{keyword}{const} \textcolor{keyword}{auto} ufunc = underlying().displacementFunction(req);}
+\DoxyCodeLine{130       \textcolor{keyword}{auto} disp        = \mbox{\hyperlink{a00502_ga545d74839895f4576a3b8c97d72abefd}{Dune::viewAsFlatEigenVector}}(ufunc.coefficientsRef());}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132       \mbox{\hyperlink{a01543}{RTWrapperType<RT>}} resultWrapper\{\};}
+\DoxyCodeLine{133       \textcolor{keyword}{auto} calculateAtContribution = [\&]<\textcolor{keyword}{typename} AssumedStressT>(\textcolor{keyword}{const} AssumedStressT\& asFunction) \{}
+\DoxyCodeLine{134         Eigen::VectorXd beta;}
+\DoxyCodeLine{135         beta.setZero(\mbox{\hyperlink{a01563_af1ac77e8df05e3a03be75632fec35861}{numberOfInternalVariables}}());}
+\DoxyCodeLine{136         \textcolor{keyword}{const} \textcolor{keyword}{auto}\& Rtilde = calculateRtilde<double>(req);}
+\DoxyCodeLine{137         \textcolor{keyword}{typename} AssumedStressT::HType H;}
+\DoxyCodeLine{138         calculateHAndGMatrix(asFunction, req, H, G\_);}
+\DoxyCodeLine{139         beta = H.inverse() * (G\_ * disp);}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141         \textcolor{keyword}{const} \textcolor{keyword}{auto} SVoigt = AssumedStressFunction::value(geo, local, asFunction, beta);}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} ((isSameResultType<RT, ResultTypes::PK2StressFull> or}
+\DoxyCodeLine{144                        isSameResultType<RT, ResultTypes::linearStressFull>) and}
+\DoxyCodeLine{145                       \textcolor{keyword}{requires} \{ underlying().material().underlying(); \}) \{}
+\DoxyCodeLine{146           resultWrapper = enlargeStressAnsatz(SVoigt);}
+\DoxyCodeLine{147         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{148           resultWrapper = SVoigt;}
+\DoxyCodeLine{149         \}}
+\DoxyCodeLine{150       \};}
+\DoxyCodeLine{151       asVariant\_(calculateAtContribution);}
+\DoxyCodeLine{152       \textcolor{keywordflow}{return} resultWrapper;}
+\DoxyCodeLine{153     \}}
+\DoxyCodeLine{154     DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}The requested result type is not supported"{}});}
+\DoxyCodeLine{155   \}}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{162   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01563_a78daa29315674b949c9ff93e32ce6847}{setAssumedStressType}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{a01563_af1ac77e8df05e3a03be75632fec35861}{numberOfInternalVariables}}) \{}
+\DoxyCodeLine{163     \mbox{\hyperlink{a01563_af5ded5820c191f2e5ca96700bcdbfbad}{asApplicabilityCheck}}();}
+\DoxyCodeLine{164     asVariant\_.\mbox{\hyperlink{a01595_ac3a7e7d2503d74ddfaa59d1b18b67c64}{setAssumedStressType}}(\mbox{\hyperlink{a01563_af1ac77e8df05e3a03be75632fec35861}{numberOfInternalVariables}});}
+\DoxyCodeLine{165     initializeState();}
+\DoxyCodeLine{166   \}}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{173   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01563_a1188aaf6d30097a3f1ef7c46a40e10ad}{internalVariable}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} beta\_; \}}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{176   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01563_abd7e86082d0ce8e00f4af85f9882cfa2}{bindImpl}}() \{}
+\DoxyCodeLine{177     assert(underlying().localView().bound());}
+\DoxyCodeLine{178     asVariant\_.\mbox{\hyperlink{a01595_a730cdca69871f6860b1ff6f869a6a067}{bind}}(underlying().localView().element().geometry());}
+\DoxyCodeLine{179     initializeState();}
+\DoxyCodeLine{180   \}}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{191   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01563_a8bd2e3ec372af9da5168f4f634d47437}{updateStateImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01523}{Requirement}}\& par,}
+\DoxyCodeLine{192                        \textcolor{keyword}{const} std::remove\_reference\_t<\textcolor{keyword}{typename} Traits::template VectorType<>>\& correction) \{}
+\DoxyCodeLine{193     \textcolor{keyword}{using }ScalarType = \mbox{\hyperlink{a01559_a1b3bb63050509bf769c72be3c790db69}{Traits::ctype}};}
+\DoxyCodeLine{194     \mbox{\hyperlink{a01563_af5ded5820c191f2e5ca96700bcdbfbad}{asApplicabilityCheck}}();}
+\DoxyCodeLine{195     \textcolor{keyword}{auto} correctbeta = [\&]<\textcolor{keyword}{typename} AssumedStressT>(\textcolor{keyword}{const} AssumedStressT\& asFunction) \{}
+\DoxyCodeLine{196       \textcolor{keywordflow}{if} (correction.size() != par.\mbox{\hyperlink{a01523_a9701fdddf89b019507963dd2f68912da}{globalSolution}}().size())}
+\DoxyCodeLine{197         DUNE\_THROW(Dune::NotImplemented,}
+\DoxyCodeLine{198                    \textcolor{stringliteral}{"{}Solution vector and correction vector should be of the same size. Check if DBCOption::Full is "{}}}
+\DoxyCodeLine{199                    \textcolor{stringliteral}{"{}used. The sizes are "{}} +}
+\DoxyCodeLine{200                        std::to\_string(par.\mbox{\hyperlink{a01523_a9701fdddf89b019507963dd2f68912da}{globalSolution}}().size()) + \textcolor{stringliteral}{"{} and "{}} + std::to\_string(correction.size()));}
+\DoxyCodeLine{201       \textcolor{keyword}{const} \textcolor{keyword}{auto} localdxBlock = Ikarus::FEHelper::localSolutionBlockVector<Traits, Eigen::VectorXd, double>(}
+\DoxyCodeLine{202           correction, underlying().localView());}
+\DoxyCodeLine{203       \textcolor{keyword}{const} \textcolor{keyword}{auto} localdx = \mbox{\hyperlink{a00502_ga545d74839895f4576a3b8c97d72abefd}{Dune::viewAsFlatEigenVector}}(localdxBlock);}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{205       \textcolor{keyword}{typename} AssumedStressT::HType H;}
+\DoxyCodeLine{206       calculateHAndGMatrix(asFunction, par, H, G\_);}
+\DoxyCodeLine{207       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& Rtilde = calculateRtilde<ScalarType>(par);}
+\DoxyCodeLine{208       this-\/>beta\_ += H.inverse() * (Rtilde + (G\_ * localdx));}
+\DoxyCodeLine{209     \};}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211     asVariant\_(correctbeta);}
+\DoxyCodeLine{212     calculateMaterialInversion();}
+\DoxyCodeLine{213   \}}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{a01563_af5ded5820c191f2e5ca96700bcdbfbad}{asApplicabilityCheck}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{216     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& numberOfNodes = underlying().numberOfNodes();}
+\DoxyCodeLine{217     \textcolor{keywordflow}{if} (not((numberOfNodes == 4 and \mbox{\hyperlink{a01559_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}} == 2) or (numberOfNodes == 8 and \mbox{\hyperlink{a01559_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}} == 3)))}
+\DoxyCodeLine{218       DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}AssumedStress is only supported for Q1 and H1 elements"{}} +}
+\DoxyCodeLine{219                                            std::to\_string(numberOfNodes) + std::to\_string(\mbox{\hyperlink{a01559_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}}));}
+\DoxyCodeLine{220   \}}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{223   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01563_a257b1af8e164fc6d832a13c3afd9f6c6}{calculateMatrixImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01523}{Requirement}}\& par, \textcolor{keyword}{const} \mbox{\hyperlink{a00507_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}}\& affordance,}
+\DoxyCodeLine{224                            \textcolor{keyword}{typename} Traits::template MatrixType<> K,}
+\DoxyCodeLine{225                            \textcolor{keyword}{const} \mbox{\hyperlink{a01563_aecc79d8446cbfa3726e1cecb25e713a5}{VectorXOptRef<ScalarType>}}\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{226     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00533}{Dune}};}
+\DoxyCodeLine{227     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{229     \textcolor{keywordflow}{if} (affordance != \mbox{\hyperlink{a00507_a390d5311179ec61d163a29c943b3d1a0a086e8b527490b8abe606a8dd76586ab1}{MatrixAffordance::stiffness}})}
+\DoxyCodeLine{230       DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}MatrixAffordance not implemented: "{}} + \mbox{\hyperlink{a00507_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(affordance));}
+\DoxyCodeLine{231     \mbox{\hyperlink{a01563_af5ded5820c191f2e5ca96700bcdbfbad}{asApplicabilityCheck}}();}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233     \textcolor{keyword}{const} \textcolor{keyword}{auto} geo             = underlying().localView().element().geometry();}
+\DoxyCodeLine{234     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& strainFunction = underlying().strainFunction(par, dx);}
+\DoxyCodeLine{235     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& kGFunction     = underlying().template geometricStiffnessMatrixFunction<ScalarType>(par, K, dx);}
+\DoxyCodeLine{236     \textcolor{keyword}{const} \textcolor{keyword}{auto} numberOfNodes   = underlying().numberOfNodes();}
+\DoxyCodeLine{237     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis     = underlying().localBasis();}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239     \textcolor{keyword}{auto} calculateMatrixContribution = [\&]<\textcolor{keyword}{typename} AssumedStressT>(\textcolor{keyword}{const} AssumedStressT\& asFunction) \{}
+\DoxyCodeLine{240       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : strainFunction.viewOverIntegrationPoints()) \{}
+\DoxyCodeLine{241         \textcolor{keyword}{const} \textcolor{keyword}{auto} SVoigt = AssumedStressFunction::value(geo, gp.position(), asFunction, beta\_);}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{243         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < numberOfNodes; ++i)}
+\DoxyCodeLine{244           \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} j = 0; j < numberOfNodes; ++j) \{}
+\DoxyCodeLine{245             \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_dd =}
+\DoxyCodeLine{246                 strainFunction.evaluateDerivative(gpIndex, wrt(coeff(i, j)), along(SVoigt), on(gridElement));}
+\DoxyCodeLine{247             kGFunction(E\_dd, i, j, gp);}
+\DoxyCodeLine{248           \}}
+\DoxyCodeLine{249       \}}
+\DoxyCodeLine{250 }
+\DoxyCodeLine{251       \textcolor{keyword}{typename} AssumedStressT::HType H;}
+\DoxyCodeLine{252       calculateHAndGMatrix(asFunction, par, H, G\_, dx);}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254       K.template triangularView<Eigen::Upper>() += G\_.transpose() * H.inverse() * G\_;}
+\DoxyCodeLine{255       K.template triangularView<Eigen::StrictlyLower>() = K.transpose();}
+\DoxyCodeLine{256     \};}
+\DoxyCodeLine{257     asVariant\_(calculateMatrixContribution);}
+\DoxyCodeLine{258   \}}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{261   \textcolor{keyword}{inline} ScalarType \mbox{\hyperlink{a01563_ae1d9b7530f1a10b2dbfca6c9363df598}{calculateScalarImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01523}{Requirement}}\& par, \mbox{\hyperlink{a00507_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}} affordance,}
+\DoxyCodeLine{262                                         \textcolor{keyword}{const} \mbox{\hyperlink{a01563_aecc79d8446cbfa3726e1cecb25e713a5}{VectorXOptRef<ScalarType>}}\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{263     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00533}{Dune}};}
+\DoxyCodeLine{264     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
+\DoxyCodeLine{265     \mbox{\hyperlink{a01563_af5ded5820c191f2e5ca96700bcdbfbad}{asApplicabilityCheck}}();}
+\DoxyCodeLine{266     ScalarType energy = 0.0;}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268     \textcolor{comment}{// This will not work in the context of autodiff because `AutoDiffFE` class doesn't include static condensation of}}
+\DoxyCodeLine{269     \textcolor{comment}{// the internal variable}}
+\DoxyCodeLine{270     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not \mbox{\hyperlink{a02468}{Concepts::AutodiffScalar<ScalarType>}}) \{}
+\DoxyCodeLine{271       \textcolor{keyword}{const} \textcolor{keyword}{auto} geo            = underlying().localView().element().geometry();}
+\DoxyCodeLine{272       \textcolor{keyword}{const} \textcolor{keyword}{auto} strainFunction = underlying().strainFunction(par, dx);}
+\DoxyCodeLine{273 }
+\DoxyCodeLine{274       \textcolor{keyword}{auto} calculateScalarContribution = [\&]<\textcolor{keyword}{typename} AssumedStressT>(\textcolor{keyword}{const} AssumedStressT\& asFunction) \{}
+\DoxyCodeLine{275         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : strainFunction.viewOverIntegrationPoints()) \{}
+\DoxyCodeLine{276           \textcolor{keyword}{const} \textcolor{keyword}{auto} SVoigt = AssumedStressFunction::value(geo, gp.position(), asFunction, beta\_);}
+\DoxyCodeLine{277           \textcolor{keyword}{const} \textcolor{keyword}{auto}\& Es    = strainStates\_[gpIndex];}
+\DoxyCodeLine{278           \textcolor{keyword}{const} \textcolor{keyword}{auto} EVoigt = strainFunction.evaluate(gp.position(), on(gridElement));}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280           energy += ((SVoigt.transpose() * EVoigt -\/ ScalarType(0.5) * (SVoigt.transpose() * Es)).eval() *}
+\DoxyCodeLine{281                      geo.integrationElement(gp.position()) * gp.weight())}
+\DoxyCodeLine{282                         .eval()[0];}
+\DoxyCodeLine{283         \}}
+\DoxyCodeLine{284       \};}
+\DoxyCodeLine{285 }
+\DoxyCodeLine{286       asVariant\_(calculateScalarContribution);}
+\DoxyCodeLine{287     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{288       DUNE\_THROW(Dune::NotImplemented,}
+\DoxyCodeLine{289                  \textcolor{stringliteral}{"{}AssumedStress element does not support scalar calculations for autodiff scalars"{}});}
+\DoxyCodeLine{290     \}}
+\DoxyCodeLine{291     \textcolor{keywordflow}{return} energy;}
+\DoxyCodeLine{292   \}}
+\DoxyCodeLine{293 }
+\DoxyCodeLine{294   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{295   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01563_aa4b0dc761700bf5a41270c5289e21f02}{calculateVectorImpl}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01523}{Requirement}}\& par, \mbox{\hyperlink{a00507_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} affordance,}
+\DoxyCodeLine{296                            \textcolor{keyword}{typename} Traits::template VectorType<ScalarType> force,}
+\DoxyCodeLine{297                            \textcolor{keyword}{const} \mbox{\hyperlink{a01563_aecc79d8446cbfa3726e1cecb25e713a5}{VectorXOptRef<ScalarType>}}\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{298     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
+\DoxyCodeLine{299     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00533}{Dune}};}
+\DoxyCodeLine{300 }
+\DoxyCodeLine{301     \textcolor{keywordflow}{if} (affordance != \mbox{\hyperlink{a00507_aab9e3e38507d1db7602bc750718c302aa2c05161a7e67e946ddc889571aac4e89}{VectorAffordance::forces}})}
+\DoxyCodeLine{302       DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}VectorAffordance not implemented: "{}} + \mbox{\hyperlink{a00507_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(affordance));}
+\DoxyCodeLine{303     \mbox{\hyperlink{a01563_af5ded5820c191f2e5ca96700bcdbfbad}{asApplicabilityCheck}}();}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{305     \textcolor{keyword}{const} \textcolor{keyword}{auto} geo             = underlying().localView().element().geometry();}
+\DoxyCodeLine{306     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction      = underlying().displacementFunction(par, dx);}
+\DoxyCodeLine{307     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& strainFunction = underlying().strainFunction(par, dx);}
+\DoxyCodeLine{308     \textcolor{keyword}{const} \textcolor{keyword}{auto} numberOfNodes   = underlying().numberOfNodes();}
+\DoxyCodeLine{309     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis     = underlying().localBasis();}
+\DoxyCodeLine{310     \textcolor{keyword}{const} \textcolor{keyword}{auto} fIntFunction    = underlying().template internalForcesFunction<ScalarType>(par, force, dx);}
+\DoxyCodeLine{311 }
+\DoxyCodeLine{312     \textcolor{keyword}{auto} calculateForceContribution = [\&]<\textcolor{keyword}{typename} AssumedStressT>(\textcolor{keyword}{const} AssumedStressT\& asFunction) \{}
+\DoxyCodeLine{313       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : uFunction.viewOverIntegrationPoints()) \{}
+\DoxyCodeLine{314         \textcolor{keyword}{const} \textcolor{keyword}{auto} SVoigt = AssumedStressFunction::value(geo, gp.position(), asFunction, beta\_);}
+\DoxyCodeLine{315 }
+\DoxyCodeLine{316         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < numberOfNodes; ++i) \{}
+\DoxyCodeLine{317           \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_dI = strainFunction.evaluateDerivative(gpIndex, wrt(coeff(i)), on(gridElement));}
+\DoxyCodeLine{318           fIntFunction(SVoigt, E\_dI, i, gp);}
+\DoxyCodeLine{319         \}}
+\DoxyCodeLine{320       \}}
+\DoxyCodeLine{321       \textcolor{keyword}{typename} AssumedStressT::HType H;}
+\DoxyCodeLine{322       calculateHAndGMatrix(asFunction, par, H, G\_);}
+\DoxyCodeLine{323       \textcolor{keyword}{const} \textcolor{keyword}{auto} Rtilde = calculateRtilde(par, dx);}
+\DoxyCodeLine{324       force += G\_.transpose() * H.inverse() * Rtilde;}
+\DoxyCodeLine{325     \};}
+\DoxyCodeLine{326     asVariant\_(calculateForceContribution);}
+\DoxyCodeLine{327   \}}
+\DoxyCodeLine{328 }
+\DoxyCodeLine{329   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MT, \textcolor{keyword}{typename} BC>}
+\DoxyCodeLine{330   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01563_a4fd07faa1d680dade9eeab779d44cd2e}{subscribeToImpl}}(BC\& bc) \{}
+\DoxyCodeLine{331     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<MT, NonLinearSolverMessages>) \{}
+\DoxyCodeLine{332       \textcolor{keyword}{using }NLSState = \textcolor{keyword}{typename} BC::State;}
+\DoxyCodeLine{333       underlying().subscribe(bc, [\&](\mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keyword}{const} NLSState\& state) \{}
+\DoxyCodeLine{334         \textcolor{keywordflow}{if} (message == \mbox{\hyperlink{a00507_a662b2b6a80547adf4b9ce8b30d87fab5ad11b84c820726ca2e42e05bd9d2d4af4}{NonLinearSolverMessages::CORRECTION\_UPDATED}})}
+\DoxyCodeLine{335           this-\/>\mbox{\hyperlink{a01563_a8bd2e3ec372af9da5168f4f634d47437}{updateStateImpl}}(state.domain, state.correction);}
+\DoxyCodeLine{336       \});}
+\DoxyCodeLine{337     \}}
+\DoxyCodeLine{338   \}}
+\DoxyCodeLine{339 }
+\DoxyCodeLine{340 \textcolor{keyword}{private}:}
+\DoxyCodeLine{341   \mbox{\hyperlink{a01595}{PS::AssumedStressVariant<AssumedStressFunction, Geometry>}} asVariant\_;}
+\DoxyCodeLine{342   \textcolor{keyword}{mutable} Eigen::MatrixXd G\_;}
+\DoxyCodeLine{343   Eigen::VectorXd beta\_;}
+\DoxyCodeLine{344   std::vector<StrainVector> strainStates\_;}
+\DoxyCodeLine{345   std::vector<MaterialMatrix> invertedMaterialStates\_;}
+\DoxyCodeLine{346 }
+\DoxyCodeLine{347   \textcolor{comment}{//> CRTP}}
+\DoxyCodeLine{348   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& underlying()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{a01503}{FE}}\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{349   \textcolor{keyword}{auto}\& underlying() \{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}FE\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{350 }
+\DoxyCodeLine{354   \textcolor{keywordtype}{void} initializeState() \{}
+\DoxyCodeLine{355     beta\_.resize(\mbox{\hyperlink{a01563_af1ac77e8df05e3a03be75632fec35861}{numberOfInternalVariables}}());}
+\DoxyCodeLine{356     beta\_.setZero();}
+\DoxyCodeLine{357     strainStates\_.resize(underlying().localBasis().integrationPointSize(), StrainVector::Zero());}
+\DoxyCodeLine{358     invertedMaterialStates\_.resize(underlying().localBasis().integrationPointSize(), MaterialMatrix::Zero());}
+\DoxyCodeLine{359     calculateMaterialInversion();}
+\DoxyCodeLine{360   \}}
+\DoxyCodeLine{361 }
+\DoxyCodeLine{362   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType, \textcolor{keywordtype}{int} assumedStressSize>}
+\DoxyCodeLine{363   \textcolor{keywordtype}{void} calculateHAndGMatrix(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& asFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& par,}
+\DoxyCodeLine{364                             Eigen::Matrix<double, assumedStressSize, assumedStressSize>\& H,}
+\DoxyCodeLine{365                             Eigen::MatrixX<ScalarType>\& G, \textcolor{keyword}{const} VectorXOptRef<ScalarType>\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{366     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
+\DoxyCodeLine{367     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00533}{Dune}};}
+\DoxyCodeLine{368 }
+\DoxyCodeLine{369     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction      = underlying().displacementFunction(par);}
+\DoxyCodeLine{370     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& strainFunction = underlying().strainFunction(par, dx);}
+\DoxyCodeLine{371     \textcolor{keyword}{const} \textcolor{keyword}{auto} geo             = underlying().localView().element().geometry();}
+\DoxyCodeLine{372     \textcolor{keyword}{const} \textcolor{keyword}{auto} numberOfNodes   = underlying().numberOfNodes();}
+\DoxyCodeLine{373     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis     = underlying().localBasis();}
+\DoxyCodeLine{374     H.setZero();}
+\DoxyCodeLine{375     G.setZero(assumedStressSize, underlying().localView().size());}
+\DoxyCodeLine{376     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : uFunction.viewOverIntegrationPoints()) \{}
+\DoxyCodeLine{377       \textcolor{keyword}{const} \textcolor{keywordtype}{double} intElement = geo.integrationElement(gp.position()) * gp.weight();}
+\DoxyCodeLine{378 }
+\DoxyCodeLine{379       \textcolor{keyword}{const} \textcolor{keyword}{auto} SVoigt = AssumedStressFunction::value(geo, gp.position(), asFunction, beta\_);}
+\DoxyCodeLine{380       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& D     = invertedMaterialStates\_[gpIndex];}
+\DoxyCodeLine{381 }
+\DoxyCodeLine{382       \textcolor{keyword}{const} \textcolor{keyword}{auto} S\_b  = AssumedStressFunction::template firstDerivative(geo, uFunction, localBasis, gpIndex,}
+\DoxyCodeLine{383                                                                         gp.position(), asFunction, beta\_);}
+\DoxyCodeLine{384       \textcolor{keyword}{const} \textcolor{keyword}{auto} S\_bb = AssumedStressFunction::template secondDerivative(geo, uFunction, localBasis, gpIndex,}
+\DoxyCodeLine{385                                                                          gp.position(), SVoigt, asFunction, beta\_);}
+\DoxyCodeLine{386 }
+\DoxyCodeLine{387       H += (S\_b.transpose() * D * S\_b + S\_bb) * intElement;}
+\DoxyCodeLine{388 }
+\DoxyCodeLine{389       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0U; i < numberOfNodes; ++i) \{}
+\DoxyCodeLine{390         \textcolor{keyword}{const} \textcolor{keyword}{auto} E\_dI = strainFunction.evaluateDerivative(gpIndex, wrt(coeff(i)), on(gridElement));}
+\DoxyCodeLine{391 }
+\DoxyCodeLine{392         G.template block<assumedStressSize, Traits::worlddim>(0, \mbox{\hyperlink{a01563_a6a84302533994009a266ee044b43685a}{myDim}} * i) += S\_b.transpose() * E\_dI * intElement;}
+\DoxyCodeLine{393       \}}
+\DoxyCodeLine{394     \}}
+\DoxyCodeLine{395   \}}
+\DoxyCodeLine{396 }
+\DoxyCodeLine{397   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType>}
+\DoxyCodeLine{398   Eigen::VectorX<ScalarType> calculateRtilde(\textcolor{keyword}{const} \mbox{\hyperlink{a01563_aae2371213a37c5c520e3c2508684e5af}{Requirement}}\& par,}
+\DoxyCodeLine{399                                              \textcolor{keyword}{const} VectorXOptRef<ScalarType>\& dx = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{400     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00533}{Dune}};}
+\DoxyCodeLine{401     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
+\DoxyCodeLine{402 }
+\DoxyCodeLine{403     \textcolor{keyword}{const} \textcolor{keyword}{auto} geo            = underlying().localView().element().geometry();}
+\DoxyCodeLine{404     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction     = underlying().displacementFunction(par, dx);}
+\DoxyCodeLine{405     \textcolor{keyword}{const} \textcolor{keyword}{auto} strainFunction = underlying().strainFunction(par, dx);}
+\DoxyCodeLine{406     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis    = underlying().localBasis();}
+\DoxyCodeLine{407 }
+\DoxyCodeLine{408     Eigen::VectorX<ScalarType> Rtilde;}
+\DoxyCodeLine{409     Rtilde.setZero(\mbox{\hyperlink{a01563_af1ac77e8df05e3a03be75632fec35861}{numberOfInternalVariables}}());}
+\DoxyCodeLine{410 }
+\DoxyCodeLine{411     \textcolor{keyword}{auto} calculateRtildeContribution = [\&]<\textcolor{keyword}{typename} AssumedStressT>(\textcolor{keyword}{const} AssumedStressT\& asFunction) \{}
+\DoxyCodeLine{412       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : uFunction.viewOverIntegrationPoints()) \{}
+\DoxyCodeLine{413         \textcolor{keyword}{const} \textcolor{keyword}{auto} SVoigt = AssumedStressFunction::value(geo, gp.position(), asFunction, beta\_);}
+\DoxyCodeLine{414         \textcolor{keyword}{const} \textcolor{keyword}{auto} S\_b    = AssumedStressFunction::template firstDerivative(geo, uFunction, localBasis, gpIndex,}
+\DoxyCodeLine{415                                                                             gp.position(), asFunction, beta\_);}
+\DoxyCodeLine{416 }
+\DoxyCodeLine{417         \textcolor{keyword}{const} \textcolor{keyword}{auto}\& Es    = strainStates\_[gpIndex];}
+\DoxyCodeLine{418         \textcolor{keyword}{const} \textcolor{keyword}{auto} EVoigt = strainFunction.evaluate(gp.position(), on(gridElement));}
+\DoxyCodeLine{419 }
+\DoxyCodeLine{420         \textcolor{keyword}{const} \textcolor{keywordtype}{double} intElement = geo.integrationElement(gp.position()) * gp.weight();}
+\DoxyCodeLine{421         Rtilde += (S\_b.transpose() * (EVoigt -\/ Es)).eval() * intElement;}
+\DoxyCodeLine{422       \}}
+\DoxyCodeLine{423     \};}
+\DoxyCodeLine{424 }
+\DoxyCodeLine{425     asVariant\_(calculateRtildeContribution);}
+\DoxyCodeLine{426     \textcolor{keywordflow}{return} Rtilde;}
+\DoxyCodeLine{427   \}}
+\DoxyCodeLine{428 }
+\DoxyCodeLine{429   \textcolor{keywordtype}{void} calculateMaterialInversion() \{}
+\DoxyCodeLine{430     \textcolor{keyword}{auto} saveMaterialState = [\&]<\textcolor{keyword}{typename} AssumedStressT>(\textcolor{keyword}{const} AssumedStressT\& asFunction) \{}
+\DoxyCodeLine{431       \textcolor{keyword}{const} \textcolor{keyword}{auto} geo = underlying().localView().element().geometry();}
+\DoxyCodeLine{432 }
+\DoxyCodeLine{433       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [gpIndex, gp] : underlying().localBasis().viewOverIntegrationPoints()) \{}
+\DoxyCodeLine{434         \textcolor{keyword}{const} \textcolor{keyword}{auto} SVoigt = AssumedStressFunction::value(geo, gp.position(), asFunction, beta\_);}
+\DoxyCodeLine{435         \textcolor{keyword}{const} \textcolor{keyword}{auto}\& EsOld = strainStates\_[gpIndex];}
+\DoxyCodeLine{436         std::tie(invertedMaterialStates\_[gpIndex], strainStates\_[gpIndex]) =}
+\DoxyCodeLine{437             underlying().material().template materialInversion<FE::strainType, true>(SVoigt, EsOld);}
+\DoxyCodeLine{438       \}}
+\DoxyCodeLine{439     \};}
+\DoxyCodeLine{440     asVariant\_(saveMaterialState);}
+\DoxyCodeLine{441   \}}
+\DoxyCodeLine{442 }
+\DoxyCodeLine{443   \textcolor{keyword}{auto} enlargeStressAnsatz(\textcolor{keyword}{const} \mbox{\hyperlink{a01563_af3b83f05cadcd9f68edc09035b66a6e3}{StrainVector}}\& SVoigt, \textcolor{keywordtype}{size\_t} qpIndexForIteration = 0) const}
+\DoxyCodeLine{444   requires(decltype(underlying().material())::isReduced)}
+\DoxyCodeLine{445   \{}
+\DoxyCodeLine{446     \textcolor{keyword}{auto} [\_, Es] = underlying().material().template materialInversion<FE::strainType, true>(}
+\DoxyCodeLine{447         SVoigt, strainStates\_[qpIndexForIteration]);}
+\DoxyCodeLine{448     \textcolor{keyword}{auto} Esfull = \mbox{\hyperlink{a00502_ga30500f2c49b7d1997c7eb7b6ee90ad75}{enlargeIfReduced}}<\textcolor{keyword}{decltype}(underlying().material())>(Es).eval();}
+\DoxyCodeLine{449     \textcolor{keywordflow}{return} underlying().material().underlying().template stresses<FE::strainType, true>(Esfull);}
+\DoxyCodeLine{450   \}}
+\DoxyCodeLine{451 \};}
+\DoxyCodeLine{452 }
+\DoxyCodeLine{458 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ASType = PS::LinearStress>}
+\DoxyCodeLine{459 \textcolor{keyword}{auto} \mbox{\hyperlink{a00507_ace14ee68dd67562bfc182f1de3f53d47}{assumedStress}}(\textcolor{keywordtype}{int} numberOfInternalVariables) \{}
+\DoxyCodeLine{460   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01567}{AssumedStressPre<ASType>}}(numberOfInternalVariables);}
+\DoxyCodeLine{461 \}}
+\DoxyCodeLine{462 }
+\DoxyCodeLine{463 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{464 }
+\DoxyCodeLine{465 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{466 \textcolor{preprocessor}{  \#error AssumedStress depends on dune-\/localfefunctions, which is not included}}
+\DoxyCodeLine{467 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
