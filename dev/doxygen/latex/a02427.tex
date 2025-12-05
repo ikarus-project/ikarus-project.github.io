@@ -1,24 +1,19 @@
-\hypertarget{a02427}{}\doxysection{Ikarus\+::Concepts\+::Volumetric\+Function Concept Reference}
-\label{a02427}\index{Ikarus::Concepts::VolumetricFunction@{Ikarus::Concepts::VolumetricFunction}}
+\hypertarget{a02427}{}\doxysection{Ikarus\+::Concepts\+::Has\+Valid\+IDBCForce\+Function Concept Reference}
+\label{a02427}\index{Ikarus::Concepts::HasValidIDBCForceFunction@{Ikarus::Concepts::HasValidIDBCForceFunction}}
 
 
-Concept to check if the underlying function is a volumetric function.  
+A concept to check if the underlying solver has a valid function to handle inhomogeneous Dirichlet BCs.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/controlroutines/common.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} VF>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02427}{Ikarus::Concepts::VolumetricFunction}} =  \textcolor{keyword}{requires}(VF vf, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& j) \{}
-\DoxyCodeLine{  \{ vf.storedEnergyImpl(j) \} -\/> std::same\_as<double>;}
-\DoxyCodeLine{  \{ vf.firstDerivativeImpl(j) \} -\/> std::same\_as<double>;}
-\DoxyCodeLine{  \{ vf.secondDerivativeImpl(j) \} -\/> std::same\_as<double>;}
-\DoxyCodeLine{  \{ vf.name() \} -\/> std::convertible\_to<std::string>;}
-\DoxyCodeLine{\}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02427}{Ikarus::Concepts::HasValidIDBCForceFunction}} =  not std::same\_as<typename NLS::IDBCForceFunction, utils::IDBCForceDefault>}
 
 \end{DoxyCode}
 
@@ -26,6 +21,6 @@ Concept to check if the underlying function is a volumetric function.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em Type} & of the volumetric function. \\
+{\em NLS} & Type of the nonlinear solver. \\
 \hline
 \end{DoxyTemplParams}

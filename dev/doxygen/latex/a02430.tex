@@ -1,19 +1,24 @@
-\hypertarget{a02430}{}\doxysection{Ikarus\+::Concepts\+::Eigen\+Type Concept Reference}
-\label{a02430}\index{Ikarus::Concepts::EigenType@{Ikarus::Concepts::EigenType}}
+\hypertarget{a02430}{}\doxysection{Ikarus\+::Concepts\+::Volumetric\+Function Concept Reference}
+\label{a02430}\index{Ikarus::Concepts::VolumetricFunction@{Ikarus::Concepts::VolumetricFunction}}
 
 
-Concept to check if a type is derived from Eigen\+::\+Matrix\+Base.  
+Concept to check if the underlying function is a volumetric function.  
 
 
 
 
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/hyperelastic/concepts.\+hh$>$}
 
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02430}{Ikarus::Concepts::EigenType}} =  std::is\_base\_of\_v<Eigen::MatrixBase<std::decay\_t<T>>, std::decay\_t<T>>}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} VF>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02430}{Ikarus::Concepts::VolumetricFunction}} =  \textcolor{keyword}{requires}(VF vf, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& j) \{}
+\DoxyCodeLine{  \{ vf.storedEnergyImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.firstDerivativeImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.secondDerivativeImpl(j) \} -\/> std::same\_as<double>;}
+\DoxyCodeLine{  \{ vf.name() \} -\/> std::convertible\_to<std::string>;}
+\DoxyCodeLine{\}}
 
 \end{DoxyCode}
 
@@ -21,6 +26,6 @@ Concept to check if a type is derived from Eigen\+::\+Matrix\+Base.
 \doxysubsection{Detailed Description}
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em T} & The type to check. \\
+{\em Type} & of the volumetric function. \\
 \hline
 \end{DoxyTemplParams}

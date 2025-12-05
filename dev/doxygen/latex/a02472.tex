@@ -1,8 +1,8 @@
-\hypertarget{a02472}{}\doxysection{Ikarus\+::Concepts\+::Non\+Linear\+Solver\+State Concept Reference}
-\label{a02472}\index{Ikarus::Concepts::NonLinearSolverState@{Ikarus::Concepts::NonLinearSolverState}}
+\hypertarget{a02472}{}\doxysection{Ikarus\+::Concepts\+::Smart\+Pointer Concept Reference}
+\label{a02472}\index{Ikarus::Concepts::SmartPointer@{Ikarus::Concepts::SmartPointer}}
 
 
-Concept to check if a type represents a nonlinear solver state.  
+Concept to check if the type is either a unique\+\_\+ptr or a shared\+\_\+ptr.  
 
 
 
@@ -12,22 +12,17 @@ Concept to check if a type represents a nonlinear solver state.
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} S>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02472}{Ikarus::Concepts::NonLinearSolverState}} =  \textcolor{keyword}{requires}(S s) \{}
-\DoxyCodeLine{    \textcolor{keyword}{typename} S::Domain;}
-\DoxyCodeLine{    \textcolor{keyword}{typename} S::CorrectionType;}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \{ s.information \} -\/> std::same\_as<const NonLinearSolverInformation\&>;}
-\DoxyCodeLine{    \{ s.domain \} -\/> std::same\_as<const typename S::Domain\&>;}
-\DoxyCodeLine{    \{ s.correction \} -\/> std::same\_as<const typename S::CorrectionType\&>;}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02472}{Ikarus::Concepts::SmartPointer}} =  traits::isSharedPtr<T>::value || traits::isUniquePtr<T>::value}
 
 \end{DoxyCode}
 
 
 \doxysubsection{Detailed Description}
+Concept to check if the type is either a smart pointer or a raw pointer.
+
 
 \begin{DoxyTemplParams}{Template Parameters}
-{\em S} & the type to be checked \\
+{\em T} & The type to be checked. \\
 \hline
 \end{DoxyTemplParams}

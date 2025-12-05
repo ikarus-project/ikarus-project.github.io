@@ -1,36 +1,49 @@
-\hypertarget{a00419}{}\doxysection{simpleassemblers.\+hh File Reference}
-\label{a00419}\index{simpleassemblers.hh@{simpleassemblers.hh}}
+\hypertarget{a00419}{}\doxysection{assemblermanipulatorfuser.\+hh File Reference}
+\label{a00419}\index{assemblermanipulatorfuser.hh@{assemblermanipulatorfuser.hh}}
 
 
-Defines several assemblers for finite element assembly.  
+Defines a decorator for the assemblers that helps to manipulate the assembled quantities.  
 
 
-{\ttfamily \#include $<$utility$>$}\newline
-{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
-{\ttfamily \#include $<$Eigen/\+Sparse$>$}\newline
-{\ttfamily \#include $<$ikarus/assembler/interface.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/ferequirements.\+hh$>$}\newline
-{\ttfamily \#include \char`\"{}simpleassemblers.\+inl\char`\"{}}\newline
+{\ttfamily \#include $<$ikarus/assembler/assemblermanipulatorbuildingblocks.\+hh$>$}\newline
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{a01411}{Ikarus\+::\+Scalar\+Flat\+Assembler$<$ FEC, DV $>$}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{a01411}{Scalar\+Flat\+Assembler}} assembles scalar quantities. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{a01415}{Ikarus\+::\+Vector\+Flat\+Assembler$<$ FEC, DV $>$}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{a01415}{Vector\+Flat\+Assembler}} assembles vector quantities using a flat basis Indexing strategy. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{a01419}{Ikarus\+::\+Sparse\+Flat\+Assembler$<$ FEC, DV $>$}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{a01419}{Sparse\+Flat\+Assembler}} assembles matrix quantities using a flat basis Indexing strategy. The matrix is stored in a sparse matrix format. This format is exploited during the assembly process. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{a01423}{Ikarus\+::\+Dense\+Flat\+Assembler$<$ FEC, DV $>$}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{a01423}{Dense\+Flat\+Assembler}} assembles matrix quantities using a flat basis Indexing strategy. The matrix is stored in a dense matrix format. This format is exploited during the assembly process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+class \mbox{\hyperlink{a01386}{Ikarus\+::\+Assembler\+Manipulator$<$ A, Scalar\+Ass $>$}}
+\item 
+class \mbox{\hyperlink{a01390}{Ikarus\+::\+Assembler\+Manipulator$<$ A, Scalar\+Ass, Vector\+Ass $>$}}
+\item 
+class \mbox{\hyperlink{a01394}{Ikarus\+::\+Assembler\+Manipulator$<$ A, Scalar\+Ass, Vector\+Ass, Matrix\+Ass $>$}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
-namespace \mbox{\hyperlink{a00507}{Ikarus}}
+namespace \mbox{\hyperlink{a00510}{Ikarus}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{a00419_ab88748ddf71ad00ec25d8e9dabcefa82}{BASECLASSMEMBERFUNCTION}}(func,  A)
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename FEC , typename DV $>$ }\\auto \mbox{\hyperlink{a00507_a7b31ad9106d0c3d4052413bcbf5ea596}{Ikarus\+::make\+Sparse\+Flat\+Assembler}} (FEC \&\&fes, const DV \&dirichlet\+Values)
-\item 
-{\footnotesize template$<$typename FEC , typename DV $>$ }\\auto \mbox{\hyperlink{a00507_aa2e289f3c26f24717a19b05b5561538c}{Ikarus\+::make\+Dense\+Flat\+Assembler}} (FEC \&\&fes, const DV \&dirichlet\+Values)
-\end{DoxyCompactItemize}
+{\footnotesize template$<$typename A $>$ }\\auto \mbox{\hyperlink{a00510_afc83c2d114028f47280b981daf728ebe}{Ikarus\+::make\+Assembler\+Manipulator}} (A \&\&a)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{a01382}{Assembler\+Manipulator}} instance based on the type of the provided assembler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{a00419_ab88748ddf71ad00ec25d8e9dabcefa82}\label{a00419_ab88748ddf71ad00ec25d8e9dabcefa82}} 
+\index{assemblermanipulatorfuser.hh@{assemblermanipulatorfuser.hh}!BASECLASSMEMBERFUNCTION@{BASECLASSMEMBERFUNCTION}}
+\index{BASECLASSMEMBERFUNCTION@{BASECLASSMEMBERFUNCTION}!assemblermanipulatorfuser.hh@{assemblermanipulatorfuser.hh}}
+\doxysubsubsection{\texorpdfstring{BASECLASSMEMBERFUNCTION}{BASECLASSMEMBERFUNCTION}}
+{\footnotesize\ttfamily \#define BASECLASSMEMBERFUNCTION(\begin{DoxyParamCaption}\item[{}]{func,  }\item[{}]{A }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>                    \(\backslash\)}
+\DoxyCodeLine{  decltype(\textcolor{keyword}{auto}) base\_\textcolor{preprocessor}{\#\#func(Args... args) \{     \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{    return A::func(std::forward<Args>(args)...); \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{  \}}}
+
+\end{DoxyCode}

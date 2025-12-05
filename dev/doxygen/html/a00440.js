@@ -1,4 +1,4 @@
 var a00440 =
 [
-    [ "Ikarus::ControlRoutineFactory", "a01443.html", "a01443" ]
+    [ "Ikarus::ControlInformation", "a01438.html", "a01438" ]
 ];

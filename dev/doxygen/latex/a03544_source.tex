@@ -1,265 +1,165 @@
-\hypertarget{a03544_source}{}\doxysection{utils/dirichletvalues.hh}
+\hypertarget{a03544_source}{}\doxysection{python/dirichletvalues/dirichletvalues.hh}
 \label{a03544_source}\index{dirichletvalues.hh@{dirichletvalues.hh}}
 \mbox{\hyperlink{a03544}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <algorithm>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <concepts>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <cstddef>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <functional>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <type\_traits>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <utility>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <vector>}}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <dune/common/hybridutilities.hh>}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <dune/common/indices.hh>}}
-\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <dune/functions/backends/istlvectorbackend.hh>}}
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/boundarydofs.hh>}}
-\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/compositebasis.hh>}}
-\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/flatmultiindex.hh>}}
-\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/interpolate.hh>}}
-\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/subspacebasis.hh>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <cstdlib>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}dune/common/classname.hh"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/lagrangebasis.hh>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/powerbasis.hh>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <dune/grid/yaspgrid.hh>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <dune/python/common/typeregistry.hh>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <dune/python/functions/globalbasis.hh>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <dune/python/functions/subspacebasis.hh>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <dune/python/pybind11/eigen.h>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <dune/python/pybind11/functional.h>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl.h>}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl\_bind.h>}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00407}{ikarus/finiteelements/ferequirements.hh}}>}}
 \DoxyCodeLine{28 }
-\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{29 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00529}{Ikarus::Python}} \{}
 \DoxyCodeLine{30 }
-\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <autodiff/forward/real/real.hpp>}}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03556}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{35 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00533}{Dune}} \{}
-\DoxyCodeLine{36 \textcolor{keyword}{template} <\textcolor{keyword}{class} K, \textcolor{keywordtype}{int} N>}
-\DoxyCodeLine{37 \textcolor{keyword}{class }\mbox{\hyperlink{a02271}{FieldVector}};}
-\DoxyCodeLine{38 \}}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00507}{Ikarus}} \{}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{45 \textcolor{keyword}{template} <\textcolor{keyword}{class}>}
-\DoxyCodeLine{46 \textcolor{keyword}{struct }\mbox{\hyperlink{a02275}{DeriveSizeType}};}
+\DoxyCodeLine{31 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{32   \textcolor{keyword}{using }FixBoundaryDOFsWithGlobalIndexFunction = std::function<void(Eigen::Ref<Eigen::VectorX<bool>>, \textcolor{keywordtype}{int})>;}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34   \textcolor{keyword}{template} <\textcolor{keyword}{typename} LV>}
+\DoxyCodeLine{35   \textcolor{keyword}{using }FixBoundaryDOFsWithLocalViewFunction = std::function<void(Eigen::Ref<Eigen::VectorX<bool>>, \textcolor{keywordtype}{int}, LV\&)>;}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37   \textcolor{keyword}{template} <\textcolor{keyword}{typename} LV, \textcolor{keyword}{typename} IS>}
+\DoxyCodeLine{38   \textcolor{keyword}{using }FixBoundaryDOFsWithIntersectionFunction =}
+\DoxyCodeLine{39       std::function<void(Eigen::Ref<Eigen::VectorX<bool>>, \textcolor{keywordtype}{int}, LV\&, \textcolor{keyword}{const} IS\&)>;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Basis>}
+\DoxyCodeLine{42   \textcolor{keyword}{auto} registerSubSpaceLocalView() \{}
+\DoxyCodeLine{43     pybind11::module scopedf = pybind11::module::import(\textcolor{stringliteral}{"{}dune.functions"{}});}
+\DoxyCodeLine{44     \textcolor{keyword}{using }LocalViewWrapper   = Dune::Python::LocalViewWrapper<Basis>;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \textcolor{keyword}{auto} includes = Dune::Python::IncludeFiles\{\textcolor{stringliteral}{"{}dune/python/functions/globalbasis.hh"{}}\};}
 \DoxyCodeLine{47 }
-\DoxyCodeLine{48 \textcolor{keyword}{template} <Concepts::EigenVector T>}
-\DoxyCodeLine{49 \textcolor{keyword}{struct }\mbox{\hyperlink{a02275}{DeriveSizeType}}<T>}
-\DoxyCodeLine{50 \{}
-\DoxyCodeLine{51   \textcolor{keyword}{using }\mbox{\hyperlink{a02279_ad2f15a80c92d0ac72c16edbe30b7e9ba}{SizeType}} = Eigen::Index;}
-\DoxyCodeLine{52 \};}
-\DoxyCodeLine{53 }
-\DoxyCodeLine{54 \textcolor{keyword}{template} <>}
-\DoxyCodeLine{55 \textcolor{keyword}{struct }\mbox{\hyperlink{a02275}{DeriveSizeType}}<std::vector<bool>>}
-\DoxyCodeLine{56 \{}
-\DoxyCodeLine{57   \textcolor{keyword}{using }\mbox{\hyperlink{a02283_a737ba53080c8f2b8d01f458dd574de9c}{SizeType}} = std::vector<bool>::size\_type;}
-\DoxyCodeLine{58 \};}
+\DoxyCodeLine{48     Dune::Python::insertClass<Basis>(scopedf, \textcolor{stringliteral}{"{}SubspaceBasis\_"{}} + Dune::className<typename Basis::PrefixPath>(),}
+\DoxyCodeLine{49                                      Dune::Python::GenerateTypeName(Dune::className<Basis>()), includes);}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     \textcolor{keyword}{auto} [lv, isNew] = Dune::Python::insertClass<LocalViewWrapper>(}
+\DoxyCodeLine{52         scopedf, \textcolor{stringliteral}{"{}LocalView\_"{}} + Dune::className<typename Basis::PrefixPath>(),}
+\DoxyCodeLine{53         Dune::Python::GenerateTypeName(\textcolor{stringliteral}{"{}Dune::Python::LocalViewWrapper"{}}, Dune::MetaType<Basis>()), includes);}
+\DoxyCodeLine{54     \textcolor{keywordflow}{if} (isNew) \{}
+\DoxyCodeLine{55       lv.def(\textcolor{stringliteral}{"{}bind"{}}, \&LocalViewWrapper::bind);}
+\DoxyCodeLine{56       lv.def(\textcolor{stringliteral}{"{}unbind"{}}, \&LocalViewWrapper::unbind);}
+\DoxyCodeLine{57       lv.def(\textcolor{stringliteral}{"{}index"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& localView, \textcolor{keywordtype}{int} index) \{ \textcolor{keywordflow}{return} localView.index(index); \});}
+\DoxyCodeLine{58       lv.def(\textcolor{stringliteral}{"{}\_\_len\_\_"{}}, [](LocalViewWrapper\& self) -\/> \textcolor{keywordtype}{int} \{ \textcolor{keywordflow}{return} self.size(); \});}
 \DoxyCodeLine{59 }
-\DoxyCodeLine{60 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{61   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Tree>}
-\DoxyCodeLine{62   \textcolor{keyword}{struct }PreBasisInfo}
-\DoxyCodeLine{63   \{}
-\DoxyCodeLine{64   \};}
+\DoxyCodeLine{60       Dune::Python::Functions::registerTree<typename LocalViewWrapper::Tree>(lv);}
+\DoxyCodeLine{61       lv.def(\textcolor{stringliteral}{"{}tree"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& view) \{ \textcolor{keywordflow}{return} view.tree(); \});}
+\DoxyCodeLine{62     \}}
+\DoxyCodeLine{63   \}}
+\DoxyCodeLine{64 \} \textcolor{comment}{// namespace Impl}}
 \DoxyCodeLine{65 }
-\DoxyCodeLine{66   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Tree>}
-\DoxyCodeLine{67   \textcolor{keyword}{requires}(Tree::isLeaf)}
-\DoxyCodeLine{68   \textcolor{keyword}{struct} PreBasisInfo<Tree>}
-\DoxyCodeLine{69   \{}
-\DoxyCodeLine{70     \textcolor{keyword}{static} \textcolor{keyword}{constexpr} std::size\_t size = 0;}
-\DoxyCodeLine{71     \textcolor{keyword}{using }NodalSolutionType           = double;}
-\DoxyCodeLine{72   \};}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{74   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Tree>}
-\DoxyCodeLine{75   \textcolor{keyword}{requires}(Tree::isPower)}
-\DoxyCodeLine{76   \textcolor{keyword}{struct} PreBasisInfo<Tree>}
-\DoxyCodeLine{77   \{}
-\DoxyCodeLine{78     \textcolor{keyword}{static} \textcolor{keyword}{constexpr} std::size\_t size = Tree::degree();}
-\DoxyCodeLine{79     \textcolor{keyword}{using }NodalSolutionType           = Eigen::Vector<double, size>;}
-\DoxyCodeLine{80   \};}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{82   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Tree>}
-\DoxyCodeLine{83   \textcolor{keyword}{requires}(Tree::isComposite)}
-\DoxyCodeLine{84   \textcolor{keyword}{struct} PreBasisInfo<Tree>}
-\DoxyCodeLine{85   \{}
-\DoxyCodeLine{86     \textcolor{keyword}{using }ChildTreeType = Tree::template Child<0>::Type;}
-\DoxyCodeLine{87     \textcolor{keyword}{static\_assert}(not ChildTreeType::isComposite,}
-\DoxyCodeLine{88                   \textcolor{stringliteral}{"{}DirichletValues is not implemented to handle a composite basis within a composite basis."{}});}
-\DoxyCodeLine{89 }
-\DoxyCodeLine{90     \textcolor{keyword}{static} \textcolor{keyword}{constexpr} std::size\_t size = PreBasisInfo<ChildTreeType>::size;}
-\DoxyCodeLine{91     \textcolor{keyword}{using }NodalSolutionType           = PreBasisInfo<ChildTreeType>::NodalSolutionType;}
-\DoxyCodeLine{92   \};}
-\DoxyCodeLine{93 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{94 }
-\DoxyCodeLine{107 \textcolor{keyword}{template} <\textcolor{keyword}{typename} B, \textcolor{keyword}{typename} FC = std::vector<\textcolor{keywordtype}{bool}>>}
-\DoxyCodeLine{108 \textcolor{keyword}{class }\mbox{\hyperlink{a02295}{DirichletValues}}}
-\DoxyCodeLine{109 \{}
-\DoxyCodeLine{110 \textcolor{keyword}{public}:}
-\DoxyCodeLine{111   \textcolor{keyword}{using }\mbox{\hyperlink{a02295_a2e6f1ef4a810a7269303f54a6f74539f}{Basis}}                         = std::remove\_cvref\_t<B>;}
-\DoxyCodeLine{112   \textcolor{keyword}{using }\mbox{\hyperlink{a02295_aa71c2b94b37f2b4e83f9f1e059e6fe4c}{FlagsType}}                     = FC;}
-\DoxyCodeLine{113   \textcolor{keyword}{using }\mbox{\hyperlink{a02295_a3db820fbcd2b7edf58ce3b21b261f621}{BackendType}}                   = \textcolor{keyword}{decltype}(Dune::Functions::istlVectorBackend(std::declval<FlagsType\&>()));}
-\DoxyCodeLine{114   \textcolor{keyword}{using }\mbox{\hyperlink{a02295_ace0ece5adceb26d9db00c7c096568ea0}{SizeType}}                      = \textcolor{keyword}{typename} \mbox{\hyperlink{a02275}{DeriveSizeType<FlagsType>::SizeType}};}
-\DoxyCodeLine{115   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a02295_a79e90730d4ac67efb5e38590c0429df5}{worldDimension}} = Basis::GridView::dimensionworld;}
-\DoxyCodeLine{116   \textcolor{keyword}{using }\mbox{\hyperlink{a02295_aaf2345604ce343294767f88de67d3cda}{LocalView}}                     = Basis::LocalView;}
-\DoxyCodeLine{117   \textcolor{keyword}{using }\mbox{\hyperlink{a02295_a6c2ac9fe4bc48cbe533b5c641e80649f}{Tree}}                          = LocalView::Tree;}
-\DoxyCodeLine{118   \textcolor{keyword}{using }\mbox{\hyperlink{a02295_afe6a1b8a097846d76168ce1e29d8bf7d}{NodalSolutionType}}             = \textcolor{keyword}{typename} Impl::PreBasisInfo<Tree>::NodalSolutionType;}
-\DoxyCodeLine{119   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} std::size\_t \mbox{\hyperlink{a02295_aee0fc940b24de8b667f28254b939a0f8}{numberOfChildrenAtNode}} = Impl::PreBasisInfo<Tree>::size;}
-\DoxyCodeLine{120   \textcolor{keyword}{explicit} \mbox{\hyperlink{a02295_aeb81ceb2617369a584dd12f4574ab1dc}{DirichletValues}}(\textcolor{keyword}{const} B\& \mbox{\hyperlink{a02295_ae783c95d2e4b55d9d37f4c141b1d719b}{basis}})}
-\DoxyCodeLine{121       : basis\_\{\mbox{\hyperlink{a02295_ae783c95d2e4b55d9d37f4c141b1d719b}{basis}}\},}
-\DoxyCodeLine{122         dirichletFlagsBackend\_\{dirichletFlags\_\} \{}
-\DoxyCodeLine{123     dirichletFlagsBackend\_.resize(basis\_);}
-\DoxyCodeLine{124     std::fill(dirichletFlags\_.begin(), dirichletFlags\_.end(), \textcolor{keyword}{false});}
-\DoxyCodeLine{125     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Tree::isComposite) \{}
-\DoxyCodeLine{126       Dune::Hybrid::forEach(}
-\DoxyCodeLine{127           Dune::Hybrid::integralRange(Dune::index\_constant<std::tuple\_size\_v<typename Basis::PreBasis::SubPreBases>>()),}
-\DoxyCodeLine{128           [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto} i) \{}
-\DoxyCodeLine{129             \textcolor{keyword}{static\_assert}(not Tree::template Child<i>::Type::isComposite,}
-\DoxyCodeLine{130                           \textcolor{stringliteral}{"{}DirichletValues is not implemented to handle a composite basis within a composite basis."{}});}
-\DoxyCodeLine{131           \});}
-\DoxyCodeLine{132     \}}
-\DoxyCodeLine{133   \}}
-\DoxyCodeLine{134 }
-\DoxyCodeLine{144   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} TreePath = Dune::TypeTree::Hybr\textcolor{keywordtype}{id}TreePath<>>}
-\DoxyCodeLine{145   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02295_a3b40113e1bf44f2e269242d677afcc55}{fixBoundaryDOFs}}(F\&\& f, TreePath\&\& treePath = \{\}) \{}
-\DoxyCodeLine{146     \textcolor{keyword}{using namespace }Dune::Functions;}
-\DoxyCodeLine{147     \textcolor{keyword}{using }SubSpaceLocalView =}
-\DoxyCodeLine{148         \textcolor{keyword}{typename} std::remove\_cvref\_t<decltype(subspaceBasis(basis\_, std::forward<TreePath>(treePath)))>\mbox{\hyperlink{a02295_aaf2345604ce343294767f88de67d3cda}{::LocalView}};}
+\DoxyCodeLine{66 \textcolor{keyword}{template} <\textcolor{keyword}{class} DirichletValues>}
+\DoxyCodeLine{67 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00529_a7f83fd37212b1411d1dbae8f7064882c}{forwardCorrectFunction}}(\mbox{\hyperlink{a02298}{DirichletValues}}\& \mbox{\hyperlink{a00544_a453691a9a22118c4736e30240481a281}{dirichletValues}}, \textcolor{keyword}{const} pybind11::function\& functor, \textcolor{keyword}{auto}\&\& cppFunction) \{}
+\DoxyCodeLine{68   \textcolor{keyword}{using }Basis        = \textcolor{keyword}{typename} \mbox{\hyperlink{a02298_a2e6f1ef4a810a7269303f54a6f74539f}{DirichletValues::Basis}};}
+\DoxyCodeLine{69   \textcolor{keyword}{using }Intersection = \textcolor{keyword}{typename} Basis::GridView::Intersection;}
+\DoxyCodeLine{70   \textcolor{keyword}{using }BackendType  = \textcolor{keyword}{typename} \mbox{\hyperlink{a02298_a3db820fbcd2b7edf58ce3b21b261f621}{DirichletValues::BackendType}};}
+\DoxyCodeLine{71   \textcolor{keyword}{using }MultiIndex   = \textcolor{keyword}{typename} Basis::MultiIndex;}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73   \textcolor{comment}{// Disambiguate by number of arguments}}
+\DoxyCodeLine{74   pybind11::module inspect\_module = pybind11::module::import(\textcolor{stringliteral}{"{}inspect"{}});}
+\DoxyCodeLine{75   pybind11::object result         = inspect\_module.attr(\textcolor{stringliteral}{"{}signature"{}})(functor).attr(\textcolor{stringliteral}{"{}parameters"{}});}
+\DoxyCodeLine{76   \textcolor{keywordtype}{size\_t} numParams                = pybind11::len(result);}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78   \textcolor{keywordflow}{if} (numParams == 2) \{}
+\DoxyCodeLine{79     \textcolor{keyword}{auto} function = functor.template cast<const Impl::FixBoundaryDOFsWithGlobalIndexFunction>();}
+\DoxyCodeLine{80     \textcolor{keyword}{auto} lambda   = [\&](BackendType\& vec, \textcolor{keyword}{const} MultiIndex\& indexGlobal) \{ function(vec.vector(), indexGlobal); \};}
+\DoxyCodeLine{81     cppFunction(lambda);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (numParams == 3) \{}
+\DoxyCodeLine{84     \textcolor{keyword}{auto} lambda = [\&](BackendType\& vec, \textcolor{keywordtype}{int} localIndex, \textcolor{keyword}{auto}\&\& lv) \{}
+\DoxyCodeLine{85       \textcolor{keyword}{using }SubSpaceBasis = \textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(lv)>::GlobalBasis;}
+\DoxyCodeLine{86       Impl::registerSubSpaceLocalView<SubSpaceBasis>();}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88       \textcolor{keyword}{using }SubSpaceLocalViewWrapper = Dune::Python::LocalViewWrapper<SubSpaceBasis>;}
+\DoxyCodeLine{89       \textcolor{keyword}{auto} lvWrapper                 = SubSpaceLocalViewWrapper(lv);}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91       \textcolor{keyword}{auto} function =}
+\DoxyCodeLine{92           functor.template cast<const Impl::FixBoundaryDOFsWithLocalViewFunction<SubSpaceLocalViewWrapper>>();}
+\DoxyCodeLine{93       function(vec.vector(), localIndex, lvWrapper);}
+\DoxyCodeLine{94     \};}
+\DoxyCodeLine{95     cppFunction(lambda);}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (numParams == 4) \{}
+\DoxyCodeLine{98     \textcolor{keyword}{auto} lambda = [\&](BackendType\& vec, \textcolor{keywordtype}{int} localIndex, \textcolor{keyword}{auto}\&\& lv, \textcolor{keyword}{const} Intersection\& intersection) \{}
+\DoxyCodeLine{99       \textcolor{keyword}{using }SubSpaceBasis = \textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(lv)>::GlobalBasis;}
+\DoxyCodeLine{100       Impl::registerSubSpaceLocalView<SubSpaceBasis>();}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102       \textcolor{keyword}{using }SubSpaceLocalViewWrapper = Dune::Python::LocalViewWrapper<SubSpaceBasis>;}
+\DoxyCodeLine{103       \textcolor{keyword}{auto} lvWrapper                 = SubSpaceLocalViewWrapper(lv);}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105       \textcolor{keyword}{auto} function = functor.template cast<}
+\DoxyCodeLine{106           \textcolor{keyword}{const} Impl::FixBoundaryDOFsWithIntersectionFunction<SubSpaceLocalViewWrapper, Intersection>>();}
+\DoxyCodeLine{107       function(vec.vector(), localIndex, lvWrapper, intersection);}
+\DoxyCodeLine{108     \};}
+\DoxyCodeLine{109     cppFunction(lambda);}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{112     DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}fixBoundaryDOFs: A function with this signature is not supported"{}});}
+\DoxyCodeLine{113   \}}
+\DoxyCodeLine{114 \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{146 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a02298}{DirichletValues}}, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{147 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00502_ga39b6df6adfe4858b13ac71f5830f29f6}{registerDirichletValues}}(pybind11::handle scope, pybind11::class\_<DirichletValues, options...> cls) \{}
+\DoxyCodeLine{148   \textcolor{keyword}{using }pybind11::operator\textcolor{stringliteral}{"{}"{}}\_a;}
 \DoxyCodeLine{149 }
-\DoxyCodeLine{150     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02454}{Concepts::IsFunctorWithArgs<F, BackendType, typename Basis::MultiIndex>}}) \{}
-\DoxyCodeLine{151       \textcolor{keyword}{auto} lambda = [\&](\textcolor{keyword}{auto}\&\& indexGlobal) \{ f(dirichletFlagsBackend\_, indexGlobal); \};}
-\DoxyCodeLine{152       Dune::Functions::forEachBoundaryDOF(subspaceBasis(basis\_, std::forward<TreePath>(treePath)), lambda);}
-\DoxyCodeLine{153     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Concepts::IsFunctorWithArgs<F, BackendType, int, SubSpaceLocalView>) \{}
-\DoxyCodeLine{154       \textcolor{keyword}{auto} lambda = [\&](\textcolor{keyword}{auto}\&\& localIndex, \textcolor{keyword}{auto}\&\& localView) \{ f(dirichletFlagsBackend\_, localIndex, localView); \};}
-\DoxyCodeLine{155       Dune::Functions::forEachBoundaryDOF(subspaceBasis(basis\_, std::forward<TreePath>(treePath)), lambda);}
-\DoxyCodeLine{156     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Concepts::IsFunctorWithArgs<F, \mbox{\hyperlink{a02295_a3db820fbcd2b7edf58ce3b21b261f621}{BackendType}}, int, SubSpaceLocalView,}
-\DoxyCodeLine{157                                                      \textcolor{keyword}{typename} Basis::GridView::Intersection>) \{}
-\DoxyCodeLine{158       \textcolor{keyword}{auto} lambda = [\&](\textcolor{keyword}{auto}\&\& localIndex, \textcolor{keyword}{auto}\&\& localView, \textcolor{keyword}{auto}\&\& intersection) \{}
-\DoxyCodeLine{159         f(dirichletFlagsBackend\_, localIndex, localView, intersection);}
-\DoxyCodeLine{160       \};}
-\DoxyCodeLine{161       Dune::Functions::forEachBoundaryDOF(subspaceBasis(basis\_, std::forward<TreePath>(treePath)), lambda);}
-\DoxyCodeLine{162     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{163       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<F>(), \textcolor{stringliteral}{"{}fixBoundaryDOFs: A function with this signature is not supported"{}});}
-\DoxyCodeLine{164     \}}
-\DoxyCodeLine{165   \}}
-\DoxyCodeLine{166 }
-\DoxyCodeLine{175   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{176   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02295_a956ce2cdc09731f001821c7b59d49e85}{fixDOFs}}(F\&\& f) \{}
-\DoxyCodeLine{177     f(basis\_, dirichletFlagsBackend\_);}
-\DoxyCodeLine{178   \}}
-\DoxyCodeLine{179 }
-\DoxyCodeLine{186   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MultiIndex>}
-\DoxyCodeLine{187   \textcolor{keyword}{requires}(not std::integral<MultiIndex>)}
-\DoxyCodeLine{188   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02295_a179a4b05a361fc9ea0a3e935dcf0e45a}{setSingleDOF}}(\textcolor{keyword}{const} MultiIndex i, \textcolor{keywordtype}{bool} flag) \{}
-\DoxyCodeLine{189     dirichletFlagsBackend\_[i] = flag;}
-\DoxyCodeLine{190   \}}
-\DoxyCodeLine{191 }
-\DoxyCodeLine{199   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02295_a2c8ce98339eddd3f3bf1cdbf4e07a45f}{setSingleDOF}}(std::size\_t i, \textcolor{keywordtype}{bool} flag)}
-\DoxyCodeLine{200   \textcolor{keyword}{requires}(std::same\_as<typename Basis::MultiIndex, Dune::Functions::FlatMultiIndex<size\_t>>)}
-\DoxyCodeLine{201   \{}
-\DoxyCodeLine{202     dirichletFlags\_[i] = flag;}
-\DoxyCodeLine{203   \}}
-\DoxyCodeLine{204 }
-\DoxyCodeLine{208   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02295_ab8ae184ec5c0c79a893a8111d7315442}{reset}}() \{ std::fill(dirichletFlags\_.begin(), dirichletFlags\_.end(), \textcolor{keyword}{false}); \}}
-\DoxyCodeLine{209 }
-\DoxyCodeLine{210   \textcolor{comment}{/* \(\backslash\)brief Returns the local basis object */}}
-\DoxyCodeLine{211   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02295_ae783c95d2e4b55d9d37f4c141b1d719b}{basis}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} basis\_; \}}
-\DoxyCodeLine{212 }
-\DoxyCodeLine{213   \textcolor{comment}{/* \(\backslash\)brief Returns a boolean values, if the give multiIndex is constrained */}}
-\DoxyCodeLine{214   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MultiIndex>}
-\DoxyCodeLine{215   \textcolor{keyword}{requires}(not std::integral<MultiIndex>)}
-\DoxyCodeLine{216   [[nodiscard]] \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02295_a1b1fccdb71619c0a49aa24977682d43a}{isConstrained}}(\textcolor{keyword}{const} MultiIndex\& multiIndex) \textcolor{keyword}{const} \{}
-\DoxyCodeLine{217     \textcolor{keywordflow}{return} dirichletFlagsBackend\_[multiIndex];}
-\DoxyCodeLine{218   \}}
-\DoxyCodeLine{219 }
-\DoxyCodeLine{220   \textcolor{comment}{/* \(\backslash\)brief Returns a boolean values, if the i-\/th degree of freedom is constrained */}}
-\DoxyCodeLine{221   [[nodiscard]] \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02295_a1cdd766b0feb7e85ac3d3df10704e659}{isConstrained}}(std::size\_t i) \textcolor{keyword}{const}}
-\DoxyCodeLine{222   \textcolor{keyword}{requires}(std::same\_as<typename Basis::MultiIndex, Dune::Functions::FlatMultiIndex<size\_t>>)}
-\DoxyCodeLine{223   \{}
-\DoxyCodeLine{224     \textcolor{keywordflow}{return} dirichletFlags\_[i];}
-\DoxyCodeLine{225   \}}
-\DoxyCodeLine{226 }
-\DoxyCodeLine{227   \textcolor{comment}{/* \(\backslash\)brief Returns how many degrees of freedoms are fixed */}}
-\DoxyCodeLine{228   \textcolor{keyword}{auto} \mbox{\hyperlink{a02295_aeb299b04b2777be56012b32a3b2e6a9c}{fixedDOFsize}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} std::ranges::count(dirichletFlags\_, \textcolor{keyword}{true}); \}}
-\DoxyCodeLine{229 }
-\DoxyCodeLine{230   \textcolor{comment}{/* \(\backslash\)brief Returns how many degrees of freedom there are */}}
-\DoxyCodeLine{231   \textcolor{keyword}{auto} \mbox{\hyperlink{a02295_a010fa7b0721c137eb61221493e52dc92}{size}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} dirichletFlags\_.size(); \}}
-\DoxyCodeLine{232 }
-\DoxyCodeLine{233   \textcolor{comment}{/* \(\backslash\)brief Returns the underlying dof flag container */}}
-\DoxyCodeLine{234   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02295_af8495b65eac223b7b6c64f07b31cc814}{container}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} dirichletFlags\_; \}}
-\DoxyCodeLine{235 }
-\DoxyCodeLine{247   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{248   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02295_a61b544301204663466eb1644ccf65e1a}{storeInhomogeneousBoundaryCondition}}(F\&\& f, \textcolor{keywordtype}{double} lambda = 1.0) \{}
-\DoxyCodeLine{249     \textcolor{keyword}{auto} derivativeLambda = [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& globalCoord, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& lambda) \{}
-\DoxyCodeLine{250       autodiff::real lambdaDual = lambda;}
-\DoxyCodeLine{251       lambdaDual[1]             = 1; \textcolor{comment}{// Setting the derivative in lambda direction to 1}}
-\DoxyCodeLine{252       \textcolor{keywordflow}{return} derivative(f(globalCoord, lambdaDual));}
-\DoxyCodeLine{253     \};}
-\DoxyCodeLine{254     dirichletFunctions\_.push\_back(\{f, derivativeLambda\});}
-\DoxyCodeLine{255     setInhomogeneousBoundaryConditionFlag(lambda);}
-\DoxyCodeLine{256   \}}
-\DoxyCodeLine{257 }
-\DoxyCodeLine{263   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02295_a0cc0d889e5ae8a2684116dafa29b4612}{setZeroAtConstrainedDofs}}(Eigen::VectorXd\& xIh)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{264     \textcolor{keywordflow}{for} (Eigen::Index i = 0; i < xIh.size(); ++i)}
-\DoxyCodeLine{265       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{a02295_a1b1fccdb71619c0a49aa24977682d43a}{isConstrained}}(i))}
-\DoxyCodeLine{266         xIh[i] = 0.0;}
-\DoxyCodeLine{267   \}}
-\DoxyCodeLine{268 }
-\DoxyCodeLine{278   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02295_aad6e51cef8441f855748d5397440ae3d}{evaluateInhomogeneousBoundaryCondition}}(Eigen::VectorXd\& xIh, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& lambda)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{279     Eigen::VectorXd inhomogeneousBoundaryVectorDummy;}
-\DoxyCodeLine{280     inhomogeneousBoundaryVectorDummy.setZero(this-\/>\mbox{\hyperlink{a02295_a010fa7b0721c137eb61221493e52dc92}{size}}());}
-\DoxyCodeLine{281     xIh.resizeLike(inhomogeneousBoundaryVectorDummy);}
-\DoxyCodeLine{282     xIh.setZero();}
-\DoxyCodeLine{283     \textcolor{keyword}{auto} runInterpolateImpl = [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02295_ae783c95d2e4b55d9d37f4c141b1d719b}{basis}}) \{}
-\DoxyCodeLine{284       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& f : dirichletFunctions\_) \{}
-\DoxyCodeLine{285         interpolate(\mbox{\hyperlink{a02295_ae783c95d2e4b55d9d37f4c141b1d719b}{basis}}, inhomogeneousBoundaryVectorDummy,}
-\DoxyCodeLine{286                     [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& globalCoord) \{ \textcolor{keywordflow}{return} f.value(globalCoord, lambda); \});}
-\DoxyCodeLine{287         xIh += inhomogeneousBoundaryVectorDummy;}
-\DoxyCodeLine{288       \}}
-\DoxyCodeLine{289     \};}
-\DoxyCodeLine{290     runInterpolate(runInterpolateImpl);}
-\DoxyCodeLine{291   \}}
-\DoxyCodeLine{292 }
-\DoxyCodeLine{302   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02295_a500e53c07ab01f9bd9eab0752254ed5e}{evaluateInhomogeneousBoundaryConditionDerivative}}(Eigen::VectorXd\& xIh, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& lambda)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{303     Eigen::VectorXd inhomogeneousBoundaryVectorDummy;}
-\DoxyCodeLine{304     inhomogeneousBoundaryVectorDummy.setZero(this-\/>\mbox{\hyperlink{a02295_a010fa7b0721c137eb61221493e52dc92}{size}}());}
-\DoxyCodeLine{305     xIh.resizeLike(inhomogeneousBoundaryVectorDummy);}
-\DoxyCodeLine{306     xIh.setZero();}
-\DoxyCodeLine{307     \textcolor{keyword}{auto} runInterpolateImpl = [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02295_ae783c95d2e4b55d9d37f4c141b1d719b}{basis}}) \{}
-\DoxyCodeLine{308       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& f : dirichletFunctions\_) \{}
-\DoxyCodeLine{309         interpolate(\mbox{\hyperlink{a02295_ae783c95d2e4b55d9d37f4c141b1d719b}{basis}}, inhomogeneousBoundaryVectorDummy,}
-\DoxyCodeLine{310                     [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& globalCoord) \{ \textcolor{keywordflow}{return} f.derivative(globalCoord, lambda); \});}
-\DoxyCodeLine{311         xIh += inhomogeneousBoundaryVectorDummy;}
-\DoxyCodeLine{312       \}}
-\DoxyCodeLine{313     \};}
-\DoxyCodeLine{314     runInterpolate(runInterpolateImpl);}
-\DoxyCodeLine{315   \}}
-\DoxyCodeLine{316 }
-\DoxyCodeLine{317 \textcolor{keyword}{private}:}
-\DoxyCodeLine{318   \mbox{\hyperlink{a02295_a2e6f1ef4a810a7269303f54a6f74539f}{Basis}} basis\_;}
-\DoxyCodeLine{319   \mbox{\hyperlink{a02295_aa71c2b94b37f2b4e83f9f1e059e6fe4c}{FlagsType}} dirichletFlags\_;}
-\DoxyCodeLine{320   \mbox{\hyperlink{a02295_a3db820fbcd2b7edf58ce3b21b261f621}{BackendType}} dirichletFlagsBackend\_;}
-\DoxyCodeLine{321   \textcolor{keyword}{struct }DirichletFunctions}
-\DoxyCodeLine{322   \{}
-\DoxyCodeLine{323     \textcolor{keyword}{using }Signature = std::function<\mbox{\hyperlink{a02295_afe6a1b8a097846d76168ce1e29d8bf7d}{NodalSolutionType}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02271}{Dune::FieldVector<double, worldDimension>}}\&, \textcolor{keyword}{const} \textcolor{keywordtype}{double}\&)>;}
-\DoxyCodeLine{324     Signature value;}
-\DoxyCodeLine{325     Signature derivative;}
-\DoxyCodeLine{326   \};}
-\DoxyCodeLine{327   std::vector<DirichletFunctions> dirichletFunctions\_;}
-\DoxyCodeLine{328 }
-\DoxyCodeLine{329   \textcolor{keywordtype}{void} setInhomogeneousBoundaryConditionFlag(\textcolor{keywordtype}{double} lambda) \{}
-\DoxyCodeLine{330     Eigen::VectorXd inhomogeneousBoundaryVectorDummy;}
-\DoxyCodeLine{331     inhomogeneousBoundaryVectorDummy.setZero(this-\/>\mbox{\hyperlink{a02295_a010fa7b0721c137eb61221493e52dc92}{size}}());}
-\DoxyCodeLine{332     this-\/>\mbox{\hyperlink{a02295_aad6e51cef8441f855748d5397440ae3d}{evaluateInhomogeneousBoundaryCondition}}(inhomogeneousBoundaryVectorDummy, lambda);}
-\DoxyCodeLine{333     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} std::size\_t i : Dune::range(this-\/>\mbox{\hyperlink{a02295_a010fa7b0721c137eb61221493e52dc92}{size}}()))}
-\DoxyCodeLine{334       \textcolor{keywordflow}{if} (Dune::FloatCmp::ne(inhomogeneousBoundaryVectorDummy[i], 0.0))}
-\DoxyCodeLine{335         this-\/>\mbox{\hyperlink{a02295_a179a4b05a361fc9ea0a3e935dcf0e45a}{setSingleDOF}}(i, \textcolor{keyword}{true});}
-\DoxyCodeLine{336   \}}
-\DoxyCodeLine{337 }
-\DoxyCodeLine{338   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{339   \textcolor{keywordtype}{void} runInterpolate(F\&\& f)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{340     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Tree::isComposite)}
-\DoxyCodeLine{341       f(subspaceBasis(basis\_, Dune::Indices::\_0));}
-\DoxyCodeLine{342     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{343       f(basis\_);}
-\DoxyCodeLine{344   \}}
-\DoxyCodeLine{345 \};}
-\DoxyCodeLine{346 }
-\DoxyCodeLine{347 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{150   \textcolor{keyword}{using }Basis        = \textcolor{keyword}{typename} \mbox{\hyperlink{a02298_a2e6f1ef4a810a7269303f54a6f74539f}{DirichletValues::Basis}};}
+\DoxyCodeLine{151   \textcolor{keyword}{using }BackendType  = \textcolor{keyword}{typename} \mbox{\hyperlink{a02298_a3db820fbcd2b7edf58ce3b21b261f621}{DirichletValues::BackendType}};}
+\DoxyCodeLine{152   \textcolor{keyword}{using }FlagsType    = \textcolor{keyword}{typename} \mbox{\hyperlink{a02298_aa71c2b94b37f2b4e83f9f1e059e6fe4c}{DirichletValues::FlagsType}};}
+\DoxyCodeLine{153   \textcolor{keyword}{using }MultiIndex   = \textcolor{keyword}{typename} Basis::MultiIndex;}
+\DoxyCodeLine{154   \textcolor{keyword}{using }LocalView    = \textcolor{keyword}{typename} Basis::LocalView;}
+\DoxyCodeLine{155   \textcolor{keyword}{using }Intersection = \textcolor{keyword}{typename} Basis::GridView::Intersection;}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157   pybind11::module scopedf = pybind11::module::import(\textcolor{stringliteral}{"{}dune.functions"{}});}
+\DoxyCodeLine{158   \textcolor{keyword}{using }LocalViewWrapper   = Dune::Python::LocalViewWrapper<Basis>;}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160   \textcolor{keyword}{auto} includes    = Dune::Python::IncludeFiles\{\textcolor{stringliteral}{"{}dune/python/functions/globalbasis.hh"{}}\};}
+\DoxyCodeLine{161   \textcolor{keyword}{auto} [lv, isNew] = Dune::Python::insertClass<LocalViewWrapper>(}
+\DoxyCodeLine{162       scopedf, \textcolor{stringliteral}{"{}LocalView"{}}, Dune::Python::GenerateTypeName(\textcolor{stringliteral}{"{}Dune::Python::LocalViewWrapper"{}}, Dune::MetaType<Basis>()),}
+\DoxyCodeLine{163       includes);}
+\DoxyCodeLine{164 }
+\DoxyCodeLine{165   \textcolor{keywordflow}{if} (isNew) \{}
+\DoxyCodeLine{166     lv.def(\textcolor{stringliteral}{"{}bind"{}}, \&LocalViewWrapper::bind);}
+\DoxyCodeLine{167     lv.def(\textcolor{stringliteral}{"{}unbind"{}}, \&LocalViewWrapper::unbind);}
+\DoxyCodeLine{168     lv.def(\textcolor{stringliteral}{"{}index"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& localView, \textcolor{keywordtype}{int} index) \{ \textcolor{keywordflow}{return} localView.index(index); \});}
+\DoxyCodeLine{169     lv.def(\textcolor{stringliteral}{"{}\_\_len\_\_"{}}, [](LocalViewWrapper\& self) -\/> \textcolor{keywordtype}{int} \{ \textcolor{keywordflow}{return} self.size(); \});}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171     Dune::Python::Functions::registerTree<typename LocalViewWrapper::Tree>(lv);}
+\DoxyCodeLine{172     lv.def(\textcolor{stringliteral}{"{}tree"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& view) \{ \textcolor{keywordflow}{return} view.tree(); \});}
+\DoxyCodeLine{173   \}}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175   cls.def(\mbox{\hyperlink{a00510_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a02298}{DirichletValues}}(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}); \}), pybind11::keep\_alive<1, 2>());}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{177   cls.def\_property\_readonly(\textcolor{stringliteral}{"{}container"{}}, \&\mbox{\hyperlink{a02298_af8495b65eac223b7b6c64f07b31cc814}{DirichletValues::container}});}
+\DoxyCodeLine{178   cls.def\_property\_readonly(\textcolor{stringliteral}{"{}size"{}}, \&\mbox{\hyperlink{a02298_a010fa7b0721c137eb61221493e52dc92}{DirichletValues::size}});}
+\DoxyCodeLine{179   cls.def(\textcolor{stringliteral}{"{}\_\_len\_\_"{}}, \&\mbox{\hyperlink{a02298_a010fa7b0721c137eb61221493e52dc92}{DirichletValues::size}});}
+\DoxyCodeLine{180   cls.def\_property\_readonly(\textcolor{stringliteral}{"{}fixedDOFsize"{}}, \&\mbox{\hyperlink{a02298_aeb299b04b2777be56012b32a3b2e6a9c}{DirichletValues::fixedDOFsize}});}
+\DoxyCodeLine{181   cls.def(\textcolor{stringliteral}{"{}isConstrained"{}}, [](\mbox{\hyperlink{a02298}{DirichletValues}}\& self, std::size\_t i) -\/> \textcolor{keywordtype}{bool} \{ \textcolor{keywordflow}{return} self.\mbox{\hyperlink{a02298_a1b1fccdb71619c0a49aa24977682d43a}{isConstrained}}(i); \});}
+\DoxyCodeLine{182   cls.def(\textcolor{stringliteral}{"{}setSingleDOF"{}}, [](\mbox{\hyperlink{a02298}{DirichletValues}}\& self, std::size\_t i, \textcolor{keywordtype}{bool} flag) \{ self.\mbox{\hyperlink{a02298_a179a4b05a361fc9ea0a3e935dcf0e45a}{setSingleDOF}}(i, flag); \});}
+\DoxyCodeLine{183   cls.def(\textcolor{stringliteral}{"{}isConstrained"{}}, [](\mbox{\hyperlink{a02298}{DirichletValues}}\& self, MultiIndex i) -\/> \textcolor{keywordtype}{bool} \{ \textcolor{keywordflow}{return} self.\mbox{\hyperlink{a02298_a1b1fccdb71619c0a49aa24977682d43a}{isConstrained}}(i); \});}
+\DoxyCodeLine{184   cls.def(\textcolor{stringliteral}{"{}setSingleDOF"{}}, [](\mbox{\hyperlink{a02298}{DirichletValues}}\& self, MultiIndex i, \textcolor{keywordtype}{bool} flag) \{ self.\mbox{\hyperlink{a02298_a179a4b05a361fc9ea0a3e935dcf0e45a}{setSingleDOF}}(i, flag); \});}
+\DoxyCodeLine{185   cls.def(\textcolor{stringliteral}{"{}reset"{}}, \&\mbox{\hyperlink{a02298_ab8ae184ec5c0c79a893a8111d7315442}{DirichletValues::reset}});}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187   cls.def(\textcolor{stringliteral}{"{}fixDOFs"{}},}
+\DoxyCodeLine{188           [](\mbox{\hyperlink{a02298}{DirichletValues}}\& self, \textcolor{keyword}{const} std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const} Basis\&, Eigen::Ref<Eigen::VectorX<bool>>)>\& f) \{}
+\DoxyCodeLine{189             \textcolor{keyword}{auto} lambda = [\&](\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, BackendType\& vec) \{ f(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, vec.vector()); \};}
+\DoxyCodeLine{190             self.\mbox{\hyperlink{a02298_a956ce2cdc09731f001821c7b59d49e85}{fixDOFs}}(lambda);}
+\DoxyCodeLine{191           \});}
+\DoxyCodeLine{192 \}}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194 \} \textcolor{comment}{// namespace Ikarus::Python}}
 
 \end{DoxyCode}

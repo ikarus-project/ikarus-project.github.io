@@ -1,29 +1,27 @@
-\hypertarget{a00359}{}\doxysection{stressconversions.\+hh File Reference}
-\label{a00359}\index{stressconversions.hh@{stressconversions.hh}}
+\hypertarget{a00359}{}\doxysection{decomposehyperelastic.\+hh File Reference}
+\label{a00359}\index{decomposehyperelastic.hh@{decomposehyperelastic.hh}}
 
 
-Implementation of transformations for different stress measures.  
+Definition of helper struct and function to decompose a hyperelastic material model.  
 
 
-{\ttfamily \#include \char`\"{}tags.\+hh\char`\"{}}\newline
-{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/materialhelpers.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/tensorutils.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{a01682}{Ikarus\+::\+Materials\+::\+Decomposed\+Material\+Types$<$ MAT $>$}}
+\begin{DoxyCompactList}\small\item\em A helper struct to access the return types of the function decompose\+Hyperelastic\+And\+Get\+Material\+Parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
-namespace \mbox{\hyperlink{a00507}{Ikarus}}
+namespace \mbox{\hyperlink{a00510}{Ikarus}}
+\item 
+namespace \mbox{\hyperlink{a00521}{Ikarus\+::\+Materials}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00507_aac5f712024c37b9014278c6b91b79f41}{Ikarus\+::create\+PK2\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create PK2 stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00507_acda5fb24a857866c8be72dcb94edc70f}{Ikarus\+::create\+PK1\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create PK1 stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00507_ac072123f9f65284646424ff6fb2a3661}{Ikarus\+::create\+Kirchhoff\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create Kirchhoff stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00507_ad5371a3a1c5123b3241a103c6c844b88}{Ikarus\+::create\+Cauchy\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create Cauchy stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags from, Stress\+Tags to, typename DerivedS , typename DerivedF $>$ }\\auto \mbox{\hyperlink{a00507_a15a168e678f7086c461b0aab8eb69349}{Ikarus\+::transform\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ DerivedS $>$ \&s\+Raw, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Transform stress measures from one type to another. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$Concepts\+::\+Material MAT$>$ \newline
+requires (MAT\+::is\+Hyperelastic)}\\auto \mbox{\hyperlink{a00521_a6d0f6ef6d764120e2a1724ba4e864b85}{Ikarus\+::\+Materials\+::decompose\+Hyperelastic\+And\+Get\+Material\+Parameters}} (const MAT \&mat)
+\begin{DoxyCompactList}\small\item\em A helper function to decompose a hyperelastic material model and get the underlying deviatoric material model, volumetric material model and their material parameters as a tuple. Here, the material models returned still fulfill Concepts\+::\+Material and have also been reduced again if the underlying material model is reduced (vanishing stress or vanishing strain). \end{DoxyCompactList}\end{DoxyCompactItemize}

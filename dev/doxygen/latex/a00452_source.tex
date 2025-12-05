@@ -1,0 +1,208 @@
+\hypertarget{a00452_source}{}\doxysection{pathfollowingfunctions.\+hh}
+\label{a00452_source}\index{pathfollowingfunctions.hh@{pathfollowingfunctions.hh}}
+\mbox{\hyperlink{a00452}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <cmath>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <dune/common/exceptions.hh>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00425}{ikarus/controlroutines/common.hh}}>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03559}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00029}{ikarus/utils/defaultfunctions.hh}}>}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{34   \textcolor{keywordtype}{void} checkHasNoValidIDBCForceFunction() \{}
+\DoxyCodeLine{35     \textcolor{keyword}{static\_assert}(not Concepts::HasValidIDBCForceFunction<NLS>,}
+\DoxyCodeLine{36                   \textcolor{stringliteral}{"{}The given path following function is not implemented to handle inhomogeneous Dirichlet BCs."{}});}
+\DoxyCodeLine{37   \}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{48 \textcolor{keyword}{struct }\mbox{\hyperlink{a01482}{SubsidiaryArgs}}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01482_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};              }
+\DoxyCodeLine{51   Eigen::VectorX<double> \mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};    }
+\DoxyCodeLine{52   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};               }
+\DoxyCodeLine{53   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01482_a628b23aa9e90c0e0ba1461ad2241645a}{f}};                     }
+\DoxyCodeLine{54   Eigen::VectorX<double> \mbox{\hyperlink{a01482_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}; }
+\DoxyCodeLine{55   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01482_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}};            }
+\DoxyCodeLine{56   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01482_a217c729e1ae8b05a98c852f19b0d6ae5}{currentStep}};              }
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01482_a3e70d809781af8c529d89da7c80933b3}{setZero}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02433}{Concepts::EigenType}} \textcolor{keyword}{auto}\& firstParameter) \{}
+\DoxyCodeLine{59     \mbox{\hyperlink{a01482_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}} = 0.0;}
+\DoxyCodeLine{60     \mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.resizeLike(firstParameter);}
+\DoxyCodeLine{61     \mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.setZero();}
+\DoxyCodeLine{62     \mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} = 0.0;}
+\DoxyCodeLine{63     \mbox{\hyperlink{a01482_a628b23aa9e90c0e0ba1461ad2241645a}{f}}       = 0.0;}
+\DoxyCodeLine{64     \mbox{\hyperlink{a01482_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.resizeLike(firstParameter);}
+\DoxyCodeLine{65     \mbox{\hyperlink{a01482_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
+\DoxyCodeLine{66     \mbox{\hyperlink{a01482_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}}  = 0.0;}
+\DoxyCodeLine{67     \mbox{\hyperlink{a01482_a217c729e1ae8b05a98c852f19b0d6ae5}{currentStep}} = 0;}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69 \};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{88 \textcolor{keyword}{struct }\mbox{\hyperlink{a01486}{ArcLength}}}
+\DoxyCodeLine{89 \{}
+\DoxyCodeLine{102   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{103   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01486_a8f9f59519362a2beeb0bc085467c1caa}{operator()}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01482}{SubsidiaryArgs}}\& args)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{104     \textcolor{keyword}{const} \textcolor{keyword}{auto} idbcDelta = \mbox{\hyperlink{a00510_a9b0b6a51cf987a1cbade10295c9085cb}{idbcIncrement}}(req, nonlinearSolver, args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}});}
+\DoxyCodeLine{105     \textcolor{keyword}{const} \textcolor{keyword}{auto} root = sqrt(args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.squaredNorm() + idbcDelta.squaredNorm() + psi * psi * args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} * args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}});}
+\DoxyCodeLine{106     args.\mbox{\hyperlink{a01482_a628b23aa9e90c0e0ba1461ad2241645a}{f}}          = root -\/ args.\mbox{\hyperlink{a01482_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
+\DoxyCodeLine{107     \textcolor{keywordflow}{if} (not computedInitialPredictor) \{}
+\DoxyCodeLine{108       args.\mbox{\hyperlink{a01482_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
+\DoxyCodeLine{109       args.\mbox{\hyperlink{a01482_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}} = 0.0;}
+\DoxyCodeLine{110     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{111       args.\mbox{\hyperlink{a01482_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}       = args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}} / root;}
+\DoxyCodeLine{112       \textcolor{keyword}{const} \textcolor{keyword}{auto} Dhat0 = idbcDelta / args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}; \textcolor{comment}{// extracting Dhat0, assuming IDBC: Dhat = lambda * Dhat0}}
+\DoxyCodeLine{113       args.\mbox{\hyperlink{a01482_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}}  = ((Dhat0.dot(Dhat0) + psi * psi) * args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}) / root;}
+\DoxyCodeLine{114     \}}
+\DoxyCodeLine{115   \}}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{132   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{133   \textcolor{keywordtype}{void} \mbox{\hyperlink{a00493_gaba061801dde37d2f52d76916d5e2f749}{initialPrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01482}{SubsidiaryArgs}}\& args) \{}
+\DoxyCodeLine{134     \textcolor{keyword}{auto}\& residual               = nonlinearSolver.residual();}
+\DoxyCodeLine{135     \textcolor{keywordtype}{double} dlambda               = 1.0;}
+\DoxyCodeLine{136     \textcolor{keyword}{auto} idbcDelta               = \mbox{\hyperlink{a00510_a9b0b6a51cf987a1cbade10295c9085cb}{idbcIncrement}}(req, nonlinearSolver, dlambda);}
+\DoxyCodeLine{137     \textcolor{keyword}{const} \textcolor{keyword}{auto} Dhat0             = idbcDelta / dlambda;}
+\DoxyCodeLine{138     \textcolor{keyword}{const} \textcolor{keyword}{auto} idbcForceFunction = nonlinearSolver.idbcForceFunction();}
+\DoxyCodeLine{139     \textcolor{keyword}{const} \textcolor{keyword}{auto} updateFunction    = nonlinearSolver.updateFunction();}
+\DoxyCodeLine{140     req.parameter()              = dlambda;}
+\DoxyCodeLine{141     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) R             = residual(req);}
+\DoxyCodeLine{142     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) K             = derivative(residual)(req);}
+\DoxyCodeLine{143     \textcolor{keyword}{auto} linearSolver            = \mbox{\hyperlink{a00510_a2c5057b73232617e81f5e44318e3ffa7}{createSPDLinearSolverFromNonLinearSolver}}(nonlinearSolver);}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02427}{Concepts::HasValidIDBCForceFunction<NLS>}})}
+\DoxyCodeLine{146       R += idbcForceFunction(req);}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148     linearSolver.analyzePattern(K);}
+\DoxyCodeLine{149     linearSolver.factorize(K);}
+\DoxyCodeLine{150     linearSolver.solve(args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}, -\/R);}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152     \textcolor{keyword}{const} \textcolor{keyword}{auto} DD2    = args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.squaredNorm();}
+\DoxyCodeLine{153     \textcolor{keyword}{const} \textcolor{keyword}{auto} Dhat02 = Dhat0.squaredNorm();}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155     psi    = sqrt(DD2 + Dhat02);}
+\DoxyCodeLine{156     \textcolor{keyword}{auto} s = sqrt(DD2 + Dhat02 + psi * psi * dlambda * dlambda);}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158     args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}      = args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}} * args.\mbox{\hyperlink{a01482_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}} / s;}
+\DoxyCodeLine{159     args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} = args.\mbox{\hyperlink{a01482_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}} / s;}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161     idbcDelta *= args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} / dlambda;}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{163     updateFunction(req.globalSolution(), args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}});}
+\DoxyCodeLine{164     req.parameter() = args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166     \textcolor{comment}{// modify the globalSolution() considering inhomogeneous Dirichlet BCs}}
+\DoxyCodeLine{167     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02427}{Concepts::HasValidIDBCForceFunction<NLS>}})}
+\DoxyCodeLine{168       req.syncParameterAndGlobalSolution(updateFunction);}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170     \textcolor{comment}{// rescaling of psi}}
+\DoxyCodeLine{171     psi = sqrt((idbcDelta.squaredNorm() + args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}.squaredNorm()) / (args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} * args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}));}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173     computedInitialPredictor = \textcolor{keyword}{true};}
+\DoxyCodeLine{174   \}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{187   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{188   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01486_a955941b6a4e07ac2c05e3898879a37b6}{intermediatePrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01482}{SubsidiaryArgs}}\& args) \{}
+\DoxyCodeLine{189     \textcolor{keywordflow}{if} (not computedInitialPredictor)}
+\DoxyCodeLine{190       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}initialPrediction has to be called before intermediatePrediction."{}});}
+\DoxyCodeLine{191     nonlinearSolver.updateFunction()(req.globalSolution(), args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}});}
+\DoxyCodeLine{192     req.parameter() += args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
+\DoxyCodeLine{193     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02427}{Concepts::HasValidIDBCForceFunction<NLS>}})}
+\DoxyCodeLine{194       req.syncParameterAndGlobalSolution(nonlinearSolver.updateFunction());}
+\DoxyCodeLine{195   \}}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{198   \textcolor{keyword}{constexpr} std::string \mbox{\hyperlink{a01486_a93e75059eef2f2cb682cf0cc33503aa5}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Arc length"{}}; \}}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200 \textcolor{keyword}{private}:}
+\DoxyCodeLine{201   \textcolor{keywordtype}{double} psi\{0.0\};}
+\DoxyCodeLine{202   \textcolor{keywordtype}{bool} computedInitialPredictor\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{203 \};}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{217 \textcolor{keyword}{struct }\mbox{\hyperlink{a01490}{LoadControlSubsidiaryFunction}}}
+\DoxyCodeLine{218 \{}
+\DoxyCodeLine{230   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{231   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01490_a5399ff4844ac8f56b7f9b7129141f17f}{operator()}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01482}{SubsidiaryArgs}}\& args)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{232     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
+\DoxyCodeLine{233     args.\mbox{\hyperlink{a01482_a628b23aa9e90c0e0ba1461ad2241645a}{f}} = args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}} -\/ args.\mbox{\hyperlink{a01482_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
+\DoxyCodeLine{234     args.\mbox{\hyperlink{a01482_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
+\DoxyCodeLine{235     args.\mbox{\hyperlink{a01482_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}} = 1.0;}
+\DoxyCodeLine{236   \}}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{249   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{250   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01490_a58dd6187446a4397efc636ed733102fd}{initialPrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01482}{SubsidiaryArgs}}\& args) \{}
+\DoxyCodeLine{251     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
+\DoxyCodeLine{252     args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}}             = args.\mbox{\hyperlink{a01482_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
+\DoxyCodeLine{253     req.parameter()          = args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
+\DoxyCodeLine{254     computedInitialPredictor = \textcolor{keyword}{true};}
+\DoxyCodeLine{255   \}}
+\DoxyCodeLine{256 }
+\DoxyCodeLine{268   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{269   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01490_a609db6b87e683e5d650347294c044c79}{intermediatePrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01482}{SubsidiaryArgs}}\& args) \{}
+\DoxyCodeLine{270     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
+\DoxyCodeLine{271     \textcolor{keywordflow}{if} (not computedInitialPredictor)}
+\DoxyCodeLine{272       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}initialPrediction has to be called before intermediatePrediction."{}});}
+\DoxyCodeLine{273     req.parameter() += args.\mbox{\hyperlink{a01482_a0cd5cc302f164ea614b9edfadd7c82c9}{Dlambda}};}
+\DoxyCodeLine{274   \}}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{277   \textcolor{keyword}{constexpr} std::string \mbox{\hyperlink{a01490_aacf91307a0836a96c75320a3cd6a549e}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Load Control"{}}; \}}
+\DoxyCodeLine{278 }
+\DoxyCodeLine{279 \textcolor{keyword}{private}:}
+\DoxyCodeLine{280   \textcolor{keywordtype}{bool} computedInitialPredictor\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{281 \};}
+\DoxyCodeLine{282 }
+\DoxyCodeLine{295 \textcolor{keyword}{struct }\mbox{\hyperlink{a01494}{DisplacementControl}}}
+\DoxyCodeLine{296 \{}
+\DoxyCodeLine{302   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01494_aa15060bf256c9786fe44096fad899733}{DisplacementControl}}(std::vector<int> p\_controlledIndices)}
+\DoxyCodeLine{303       : controlledIndices\{std::move(p\_controlledIndices)\} \{\}}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{316   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{317   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01494_a884618fab228b21b1b6ce5c00843aa10}{operator()}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01482}{SubsidiaryArgs}}\& args)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{318     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
+\DoxyCodeLine{319     \textcolor{keyword}{const} \textcolor{keyword}{auto} controlledDOFsNorm = args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}(controlledIndices).norm();}
+\DoxyCodeLine{320     args.\mbox{\hyperlink{a01482_a628b23aa9e90c0e0ba1461ad2241645a}{f}}                        = controlledDOFsNorm -\/ args.\mbox{\hyperlink{a01482_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
+\DoxyCodeLine{321     args.\mbox{\hyperlink{a01482_a198c4e48b353f1ebe5c5922bf51e34e5}{dfdDlambda}}               = 0.0;}
+\DoxyCodeLine{322     args.\mbox{\hyperlink{a01482_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}.setZero();}
+\DoxyCodeLine{323     args.\mbox{\hyperlink{a01482_aa1bc7c1fc866571e3b6b22e14ed9afcf}{dfdDD}}(controlledIndices) = args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}(controlledIndices) / controlledDOFsNorm;}
+\DoxyCodeLine{324   \}}
+\DoxyCodeLine{325 }
+\DoxyCodeLine{337   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{338   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01494_ab42143626eb3596bddd52c69c5896ceb}{initialPrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01482}{SubsidiaryArgs}}\& args) \{}
+\DoxyCodeLine{339     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
+\DoxyCodeLine{340     args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}}(controlledIndices).array() = args.\mbox{\hyperlink{a01482_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
+\DoxyCodeLine{341     req.globalSolution()               = args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};}
+\DoxyCodeLine{342     computedInitialPredictor           = \textcolor{keyword}{true};}
+\DoxyCodeLine{343   \}}
+\DoxyCodeLine{344 }
+\DoxyCodeLine{356   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{357   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01494_a96a2010edec393d763c7ea30a1c31c1d}{intermediatePrediction}}(\textcolor{keyword}{typename} NLS::Domain\& req, NLS\& nonlinearSolver, \mbox{\hyperlink{a01482}{SubsidiaryArgs}}\& args) \{}
+\DoxyCodeLine{358     Impl::checkHasNoValidIDBCForceFunction<NLS>();}
+\DoxyCodeLine{359     \textcolor{keywordflow}{if} (not computedInitialPredictor)}
+\DoxyCodeLine{360       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}initialPrediction has to be called before intermediatePrediction."{}});}
+\DoxyCodeLine{361     req.globalSolution() += args.\mbox{\hyperlink{a01482_afc97f3ae46ddd6a208b90d253aa8a7e6}{DD}};}
+\DoxyCodeLine{362   \}}
+\DoxyCodeLine{363 }
+\DoxyCodeLine{365   \textcolor{keyword}{constexpr} std::string \mbox{\hyperlink{a01494_a9083793b2c3f52cae4b7e766452e1bcd}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Displacement Control"{}}; \}}
+\DoxyCodeLine{366 }
+\DoxyCodeLine{367 \textcolor{keyword}{private}:}
+\DoxyCodeLine{368   std::vector<int> controlledIndices; }
+\DoxyCodeLine{369   \textcolor{keywordtype}{bool} computedInitialPredictor\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{370 \};}
+\DoxyCodeLine{371 \} \textcolor{comment}{// namespace Ikarus}}
+
+\end{DoxyCode}

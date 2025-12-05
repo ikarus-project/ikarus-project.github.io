@@ -1,4 +1,5 @@
 var a00458 =
 [
-    [ "basis", "a00458.html#a0f9f04fa9d98e890cb6d4fe62ff889a4", null ]
+    [ "PYBIND11_MODULE", "a00458.html#a0e4f7cface71bec1c24bbed3aaa798d8", null ],
+    [ "registerScalarWrapper", "a00458.html#ac2c47f2dc30578300b98d15f90379897", null ]
 ];

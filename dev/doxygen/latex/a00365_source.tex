@@ -1,55 +1,99 @@
-\hypertarget{a00365_source}{}\doxysection{pk2stress.\+hh}
-\label{a00365_source}\index{pk2stress.hh@{pk2stress.hh}}
+\hypertarget{a00365_source}{}\doxysection{asvariants.\+hh}
+\label{a00365_source}\index{asvariants.hh@{asvariants.hh}}
 \mbox{\hyperlink{a00365}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/fvector.hh>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/localfefunctions/eigenDuneTransformations.hh>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/localfefunctions/expressions/greenLagrangeStrains.hh>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <Eigen/Core>}}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00038}{ikarus/utils/tensorutils.hh}}>}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00516}{Ikarus::PS}} \{}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{struct }\mbox{\hyperlink{a01575}{PK2Stress}}}
-\DoxyCodeLine{24 \{}
-\DoxyCodeLine{38   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} AST>}
-\DoxyCodeLine{39   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01575_a47b5284583b269b659f49b492a5e5283}{value}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \mbox{\hyperlink{a02271}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos, \textcolor{keyword}{const} AST\& asFunction,}
-\DoxyCodeLine{40                     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& beta) \{}
-\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keyword}{auto} P = asFunction(gpPos);}
-\DoxyCodeLine{42     \textcolor{keywordflow}{return} (P * beta).eval();}
-\DoxyCodeLine{43   \}}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{64   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} AST>}
-\DoxyCodeLine{65   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01575_af229bf78a29e326dbbbb5f31ba18519c}{firstDerivative}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& gpIndex,}
-\DoxyCodeLine{66                               \textcolor{keyword}{const} \mbox{\hyperlink{a02271}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos, \textcolor{keyword}{const} AST\& asFunction,}
-\DoxyCodeLine{67                               \textcolor{keyword}{const} \textcolor{keyword}{auto}\& beta, \textcolor{keyword}{const} \textcolor{keywordtype}{int} node = sNaN) \{}
-\DoxyCodeLine{68     \textcolor{keywordflow}{return} asFunction(gpPos);}
-\DoxyCodeLine{69   \}}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{93   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} ST, \textcolor{keyword}{typename} AST>}
-\DoxyCodeLine{94   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01575_a8e20c9960b72e5b3469cd704ae257635}{secondDerivative}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& gpIndex,}
-\DoxyCodeLine{95                                \textcolor{keyword}{const} \mbox{\hyperlink{a02271}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
-\DoxyCodeLine{96                                \textcolor{keyword}{const} Eigen::Vector<ST, GEO::mydimension*(GEO::mydimension + 1) / 2>\& S,}
-\DoxyCodeLine{97                                \textcolor{keyword}{const} AST\& asFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& beta, \textcolor{keyword}{const} \textcolor{keywordtype}{int} I = sNaN, \textcolor{keyword}{const} \textcolor{keywordtype}{int} J = sNaN) \{}
-\DoxyCodeLine{98     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim             = GEO::mydimension;}
-\DoxyCodeLine{99     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} assumedStressSize = AST::assumedStressSize;}
-\DoxyCodeLine{100 }
-\DoxyCodeLine{101     \textcolor{keywordflow}{return} Eigen::Matrix<ST, assumedStressSize, assumedStressSize>::Zero().eval();}
-\DoxyCodeLine{102   \}}
-\DoxyCodeLine{103 }
-\DoxyCodeLine{105   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01575_a46fae6a1d22ee4f5710e62ee1794268f}{name}}() \{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}PK2 Stress"{}}); \}}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{107 \textcolor{keyword}{private}:}
-\DoxyCodeLine{108   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} sNaN = std::numeric\_limits<int>::signaling\_NaN();}
-\DoxyCodeLine{109 \};}
-\DoxyCodeLine{110 }
-\DoxyCodeLine{111 \} \textcolor{comment}{// namespace Ikarus::PS}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00377}{ikarus/finiteelements/mechanics/assumedstress/asfunctions.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00374}{ikarus/finiteelements/mechanics/assumedstress/asvariants/linearandpk2stress.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00038}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00519}{Ikarus::PS}} \{}
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{18   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} myDim, \textcolor{keyword}{typename} ASFunction>}
+\DoxyCodeLine{19   \textcolor{keyword}{struct }AssumedStressType;}
+\DoxyCodeLine{20   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{21   \textcolor{keyword}{struct }AssumedStressType<GEO, 3, PS::LinearStress>}
+\DoxyCodeLine{22   \{}
+\DoxyCodeLine{23     \textcolor{keyword}{using }type = std::variant<S18<GEO>, S24<GEO>, S30<GEO>>;}
+\DoxyCodeLine{24   \};}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{26   \textcolor{keyword}{struct }AssumedStressType<GEO, 2, PS::LinearStress>}
+\DoxyCodeLine{27   \{}
+\DoxyCodeLine{28     \textcolor{keyword}{using }type = std::variant<S5<GEO>>;}
+\DoxyCodeLine{29   \};}
+\DoxyCodeLine{30   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keywordtype}{int} myDim>}
+\DoxyCodeLine{31   \textcolor{keyword}{struct }AssumedStressType<GEO, myDim, PS::PK2Stress>}
+\DoxyCodeLine{32   \{}
+\DoxyCodeLine{33     \textcolor{keyword}{using }type = AssumedStressType<GEO, myDim, PS::LinearStress>::type;}
+\DoxyCodeLine{34   \};}
+\DoxyCodeLine{35 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{42 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ASFunction, \textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{43 \textcolor{keyword}{struct }\mbox{\hyperlink{a01598}{AssumedStressVariant}}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01598_adfa5d168fff5a08370952f990d8d6b2d}{myDim}} = GEO::mydimension;}
+\DoxyCodeLine{46   \textcolor{keyword}{using }\mbox{\hyperlink{a01598_aab82fe8fd3fab5566d326e2f16ffd3a6}{Variant}}              = Impl::AssumedStressType<GEO, myDim, ASFunction>::type;}
+\DoxyCodeLine{47   \textcolor{keyword}{static\_assert}((\mbox{\hyperlink{a01598_adfa5d168fff5a08370952f990d8d6b2d}{myDim}} == 2) or (\mbox{\hyperlink{a01598_adfa5d168fff5a08370952f990d8d6b2d}{myDim}} == 3), \textcolor{stringliteral}{"{}AssumedStress variants are only available for 2D and 3D elements."{}});}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{54   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
+\DoxyCodeLine{55   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01598_affc51b112501fd9ae58cc14c770af1b9}{operator()}}(F\&\& f)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{56     std::visit([\&]<\textcolor{keyword}{typename} AssumedStressT>(\textcolor{keyword}{const} AssumedStressT\& asFunction) \{ f(asFunction); \}, var\_);}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{63   \textcolor{keyword}{auto} \mbox{\hyperlink{a01598_a331c210fd48d89e568c0f6f30ac0516d}{numberOfInternalVariables}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{64     \textcolor{keywordflow}{return} std::visit(}
+\DoxyCodeLine{65         []<\textcolor{keyword}{typename} AssumedStressT>(\textcolor{keyword}{const} AssumedStressT\&) -\/> \textcolor{keywordtype}{int} \{ \textcolor{keywordflow}{return} AssumedStressT::assumedStressSize; \}, var\_);}
+\DoxyCodeLine{66   \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01598_ac3a7e7d2503d74ddfaa59d1b18b67c64}{setAssumedStressType}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{a01598_a331c210fd48d89e568c0f6f30ac0516d}{numberOfInternalVariables}}) \{}
+\DoxyCodeLine{69     numberOfAssumedStressParameters\_ = \mbox{\hyperlink{a01598_a331c210fd48d89e568c0f6f30ac0516d}{numberOfInternalVariables}};}
+\DoxyCodeLine{70     \textcolor{keywordflow}{if} (geometry\_)}
+\DoxyCodeLine{71       createAssumedStressType();}
+\DoxyCodeLine{72   \}}
+\DoxyCodeLine{73   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01598_a730cdca69871f6860b1ff6f869a6a067}{bind}}(\textcolor{keyword}{const} GEO\& geometry) \{}
+\DoxyCodeLine{74     geometry\_ = std::make\_optional<GEO>(geometry);}
+\DoxyCodeLine{75     createAssumedStressType();}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{keyword}{private}:}
+\DoxyCodeLine{79   \textcolor{keywordtype}{void} createAssumedStressType() \{}
+\DoxyCodeLine{80     \textcolor{keyword}{const} std::string\& errorMessage =}
+\DoxyCodeLine{81         \textcolor{stringliteral}{"{}The given AssumedStress parameters are not available for the "{}} + std::to\_string(\mbox{\hyperlink{a01598_adfa5d168fff5a08370952f990d8d6b2d}{myDim}}) + \textcolor{stringliteral}{"{}D case."{}};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::same\_as<ASFunction, PS::LinearStress> or std::same\_as<ASFunction, PS::PK2Stress>) \{}
+\DoxyCodeLine{84       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01598_adfa5d168fff5a08370952f990d8d6b2d}{myDim}} == 2) \{}
+\DoxyCodeLine{85         \textcolor{keywordflow}{switch} (numberOfAssumedStressParameters\_) \{}
+\DoxyCodeLine{86           \textcolor{keywordflow}{case} 5:}
+\DoxyCodeLine{87             var\_ = \mbox{\hyperlink{a01606}{S5}}(geometry\_.value());}
+\DoxyCodeLine{88             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{89           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{90             DUNE\_THROW(Dune::NotImplemented, errorMessage);}
+\DoxyCodeLine{91         \}}
+\DoxyCodeLine{92       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01598_adfa5d168fff5a08370952f990d8d6b2d}{myDim}} == 3) \{}
+\DoxyCodeLine{93         \textcolor{keywordflow}{switch} (numberOfAssumedStressParameters\_) \{}
+\DoxyCodeLine{94           \textcolor{keywordflow}{case} 18:}
+\DoxyCodeLine{95             var\_ = S18(geometry\_.value());}
+\DoxyCodeLine{96             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{97           \textcolor{keywordflow}{case} 24:}
+\DoxyCodeLine{98             var\_ = S24(geometry\_.value());}
+\DoxyCodeLine{99             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{100           \textcolor{keywordflow}{case} 30:}
+\DoxyCodeLine{101             var\_ = S30(geometry\_.value());}
+\DoxyCodeLine{102             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{103           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{104             DUNE\_THROW(Dune::NotImplemented, errorMessage);}
+\DoxyCodeLine{105         \}}
+\DoxyCodeLine{106       \}}
+\DoxyCodeLine{107     \}}
+\DoxyCodeLine{108   \}}
+\DoxyCodeLine{109   std::optional<GEO> geometry\_;}
+\DoxyCodeLine{110   \mbox{\hyperlink{a01598_aab82fe8fd3fab5566d326e2f16ffd3a6}{Variant}} var\_;}
+\DoxyCodeLine{111   \textcolor{keywordtype}{int} numberOfAssumedStressParameters\_;}
+\DoxyCodeLine{112 \};}
+\DoxyCodeLine{113 \} \textcolor{comment}{// namespace Ikarus::PS}}
 
 \end{DoxyCode}

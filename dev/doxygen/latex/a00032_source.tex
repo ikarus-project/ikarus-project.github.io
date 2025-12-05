@@ -11,49 +11,49 @@
 \DoxyCodeLine{12 }
 \DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/functions/common/differentiablefunctionfromcallables.hh>}}
 \DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00410}{ikarus/assembler/dirichletbcenforcement.hh}}>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00404}{ikarus/finiteelements/ferequirements.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00413}{ikarus/assembler/dirichletbcenforcement.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00407}{ikarus/finiteelements/ferequirements.hh}}>}}
 \DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00062}{ikarus/utils/derivativetraits.hh}}>}}
 \DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00023}{ikarus/utils/differentiablefunction.hh}}>}}
 \DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00507}{Ikarus}} \{}
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
 \DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{struct }\mbox{\hyperlink{a02267}{DifferentiableFunctionFactory}}}
+\DoxyCodeLine{22 \textcolor{keyword}{struct }\mbox{\hyperlink{a02270}{DifferentiableFunctionFactory}}}
 \DoxyCodeLine{23 \{}
 \DoxyCodeLine{24   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Assembler, \textcolor{keyword}{typename}... Affordances>}
-\DoxyCodeLine{25   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a02267_aa362a29341818929bae2f15c4271e351}{op}}(Assembler\&\& as, \mbox{\hyperlink{a01519}{AffordanceCollection<Affordances...>}} affordances,}
-\DoxyCodeLine{26                  \mbox{\hyperlink{a00507_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption = \mbox{\hyperlink{a00507_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}}) \{}
+\DoxyCodeLine{25   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a02270_aa362a29341818929bae2f15c4271e351}{op}}(Assembler\&\& as, \mbox{\hyperlink{a01522}{AffordanceCollection<Affordances...>}} affordances,}
+\DoxyCodeLine{26                  \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption = \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}}) \{}
 \DoxyCodeLine{27     \textcolor{keyword}{auto} asPtr = toSharedPointer(std::forward<Assembler>(as));}
 \DoxyCodeLine{28 }
-\DoxyCodeLine{29     \textcolor{keyword}{using }FERequirement = \textcolor{keyword}{typename} \mbox{\hyperlink{a00532_a472256748675b3006507836bd8034a0e}{traits::remove\_pointer\_t<std::remove\_cvref\_t<Assembler>}}>::FERequirement;}
+\DoxyCodeLine{29     \textcolor{keyword}{using }FERequirement = \textcolor{keyword}{typename} \mbox{\hyperlink{a00535_a472256748675b3006507836bd8034a0e}{traits::remove\_pointer\_t<std::remove\_cvref\_t<Assembler>}}>::FERequirement;}
 \DoxyCodeLine{30 }
 \DoxyCodeLine{31     [[maybe\_unused]] \textcolor{keyword}{auto} KFunction = [dbcOption, assembler = asPtr, affordances](\textcolor{keyword}{const} FERequirement\& p) -\/> \textcolor{keyword}{auto}\& \{}
-\DoxyCodeLine{32       \textcolor{keywordflow}{return} assembler-\/>matrix(p, affordances.\mbox{\hyperlink{a01519_af7b6303f0ef9cc6677744559786d8966}{matrixAffordance}}(), dbcOption);}
+\DoxyCodeLine{32       \textcolor{keywordflow}{return} assembler-\/>matrix(p, affordances.\mbox{\hyperlink{a01522_af7b6303f0ef9cc6677744559786d8966}{matrixAffordance}}(), dbcOption);}
 \DoxyCodeLine{33     \};}
 \DoxyCodeLine{34 }
 \DoxyCodeLine{35     [[maybe\_unused]] \textcolor{keyword}{auto} residualFunction = [dbcOption, assembler = asPtr,}
 \DoxyCodeLine{36                                               affordances](\textcolor{keyword}{const} FERequirement\& p) -\/> \textcolor{keyword}{auto}\& \{}
-\DoxyCodeLine{37       \textcolor{keywordflow}{return} assembler-\/>vector(p, affordances.\mbox{\hyperlink{a01519_a9e6b82aa35f9d301b9ccdd661dbb8dde}{vectorAffordance}}(), dbcOption);}
+\DoxyCodeLine{37       \textcolor{keywordflow}{return} assembler-\/>vector(p, affordances.\mbox{\hyperlink{a01522_a9e6b82aa35f9d301b9ccdd661dbb8dde}{vectorAffordance}}(), dbcOption);}
 \DoxyCodeLine{38     \};}
 \DoxyCodeLine{39 }
 \DoxyCodeLine{40     \textcolor{keyword}{auto} reqArg = FERequirement(); \textcolor{comment}{// This is only created to help  makeDifferentiableFunction deduce the argument type}}
 \DoxyCodeLine{41                                    \textcolor{comment}{// of the functions. therefore, no valid values needed}}
 \DoxyCodeLine{42 }
-\DoxyCodeLine{43     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (affordances.\mbox{\hyperlink{a01519_abff0c7489d3ce4d83bf7f078e3e6bdfe}{hasScalarAffordance}}) \{}
+\DoxyCodeLine{43     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (affordances.\mbox{\hyperlink{a01522_abff0c7489d3ce4d83bf7f078e3e6bdfe}{hasScalarAffordance}}) \{}
 \DoxyCodeLine{44       [[maybe\_unused]] \textcolor{keyword}{auto} energyFunction = [assembler = asPtr, affordances](\textcolor{keyword}{const} FERequirement\& p) -\/> \textcolor{keyword}{auto}\& \{}
-\DoxyCodeLine{45         \textcolor{keywordflow}{return} assembler-\/>scalar(p, affordances.\mbox{\hyperlink{a01519_ac56ebfd26cad078d15800d620a9b1e93}{scalarAffordance}}());}
+\DoxyCodeLine{45         \textcolor{keywordflow}{return} assembler-\/>scalar(p, affordances.\mbox{\hyperlink{a01522_ac56ebfd26cad078d15800d620a9b1e93}{scalarAffordance}}());}
 \DoxyCodeLine{46       \};}
 \DoxyCodeLine{47 }
-\DoxyCodeLine{48       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00507_a7c304a58fc833d46ac3d8a7dc74f8ed0}{makeDifferentiableFunction}}(\mbox{\hyperlink{a00507_ab787b670f0d338c870988f417cf85f76}{functions}}(energyFunction, residualFunction, KFunction), reqArg);}
+\DoxyCodeLine{48       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_a7c304a58fc833d46ac3d8a7dc74f8ed0}{makeDifferentiableFunction}}(\mbox{\hyperlink{a00510_ab787b670f0d338c870988f417cf85f76}{functions}}(energyFunction, residualFunction, KFunction), reqArg);}
 \DoxyCodeLine{49     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{50       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00507_a7c304a58fc833d46ac3d8a7dc74f8ed0}{makeDifferentiableFunction}}(\mbox{\hyperlink{a00507_ab787b670f0d338c870988f417cf85f76}{functions}}(residualFunction, KFunction), reqArg);}
+\DoxyCodeLine{50       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_a7c304a58fc833d46ac3d8a7dc74f8ed0}{makeDifferentiableFunction}}(\mbox{\hyperlink{a00510_ab787b670f0d338c870988f417cf85f76}{functions}}(residualFunction, KFunction), reqArg);}
 \DoxyCodeLine{51   \}}
 \DoxyCodeLine{52 }
 \DoxyCodeLine{53   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Assembler>}
-\DoxyCodeLine{54   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a02267_aa8bd3774b63c814a3feb6d4a7b715045}{op}}(Assembler\&\& as, \mbox{\hyperlink{a00507_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{54   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a02270_aa8bd3774b63c814a3feb6d4a7b715045}{op}}(Assembler\&\& as, \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
 \DoxyCodeLine{55     \textcolor{keyword}{auto} asPtr = toSharedPointer(std::forward<Assembler>(as));}
 \DoxyCodeLine{56     \textcolor{keywordflow}{if} (as-\/>boundToAffordanceCollection())}
-\DoxyCodeLine{57       \textcolor{keywordflow}{return} \mbox{\hyperlink{a02267_aa362a29341818929bae2f15c4271e351}{op}}(asPtr, as-\/>affordanceCollection(), dbcOption);}
+\DoxyCodeLine{57       \textcolor{keywordflow}{return} \mbox{\hyperlink{a02270_aa362a29341818929bae2f15c4271e351}{op}}(asPtr, as-\/>affordanceCollection(), dbcOption);}
 \DoxyCodeLine{58 }
 \DoxyCodeLine{59     DUNE\_THROW(Dune::InvalidStateException,}
 \DoxyCodeLine{60                \textcolor{stringliteral}{"{}Assembler has to be bound to an affordance collection before you can call "{}}}
@@ -61,11 +61,11 @@
 \DoxyCodeLine{62   \}}
 \DoxyCodeLine{63 }
 \DoxyCodeLine{64   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Assembler>}
-\DoxyCodeLine{65   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a02267_a3b1c188a5de2bdd9da826d4c0a9b353d}{op}}(Assembler\&\& as) \{}
+\DoxyCodeLine{65   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a02270_a3b1c188a5de2bdd9da826d4c0a9b353d}{op}}(Assembler\&\& as) \{}
 \DoxyCodeLine{66     \textcolor{keyword}{auto} asPtr = toSharedPointer(std::forward<Assembler>(as));}
 \DoxyCodeLine{67 }
 \DoxyCodeLine{68     \textcolor{keywordflow}{if} (asPtr-\/>boundToAffordanceCollection() and asPtr-\/>boundToDBCOption())}
-\DoxyCodeLine{69       \textcolor{keywordflow}{return} \mbox{\hyperlink{a02267_aa362a29341818929bae2f15c4271e351}{op}}(asPtr, asPtr-\/>affordanceCollection(), asPtr-\/>dBCOption());}
+\DoxyCodeLine{69       \textcolor{keywordflow}{return} \mbox{\hyperlink{a02270_aa362a29341818929bae2f15c4271e351}{op}}(asPtr, asPtr-\/>affordanceCollection(), asPtr-\/>dBCOption());}
 \DoxyCodeLine{70     DUNE\_THROW(Dune::InvalidStateException,}
 \DoxyCodeLine{71                \textcolor{stringliteral}{"{}Assembler has to be bound to an affordance collection and to an "{}}}
 \DoxyCodeLine{72                \textcolor{stringliteral}{"{}DBCOption before you can call "{}}}
@@ -77,7 +77,7 @@
 \DoxyCodeLine{78   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Assembler>}
 \DoxyCodeLine{79   \textcolor{keyword}{static} \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) toSharedPointer(Assembler\&\& as) \{}
 \DoxyCodeLine{80     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_pointer\_v<std::remove\_cvref\_t<Assembler>> ||}
-\DoxyCodeLine{81                   \mbox{\hyperlink{a02371}{traits::isSharedPtr<std::remove\_cvref\_t<Assembler>}}>::value) \{}
+\DoxyCodeLine{81                   \mbox{\hyperlink{a02374}{traits::isSharedPtr<std::remove\_cvref\_t<Assembler>}}>::value) \{}
 \DoxyCodeLine{82       \textcolor{keywordflow}{return} std::forward<Assembler>(as);}
 \DoxyCodeLine{83     \} \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{84       \textcolor{keywordflow}{return} std::make\_shared<std::remove\_cvref\_t<Assembler>>(std::forward<Assembler>(as));}

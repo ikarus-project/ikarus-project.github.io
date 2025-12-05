@@ -1,29 +1,34 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="a02464" kind="concept">
-    <compoundname>Ikarus::Concepts::VectorFlatAssembler</compoundname>
-    <includes refid="a03556" local="no">ikarus/utils/concepts.hh</includes>
+    <compoundname>Ikarus::Concepts::ResultType</compoundname>
+    <includes refid="a03559" local="no">ikarus/utils/concepts.hh</includes>
     <templateparamlist>
       <param>
-        <type>typename T</type>
+        <type>template&lt; typename, int, int &gt; typename</type>
+        <declname>RT</declname>
+        <defname>RT</defname>
       </param>
     </templateparamlist>
-    <initializer>template&lt;typename T&gt;
-concept <ref refid="a02464" kindref="compound">Ikarus::Concepts::VectorFlatAssembler</ref> =  Concepts::ScalarFlatAssembler&lt;T&gt; and
-                                requires(T t, const typename T::FERequirement&amp; req,
-                                         typename T::AffordanceCollectionType affordance, DBCOption dbcOption) {
-                                  {
-                                    t.vector(req, affordance.vectorAffordance(), dbcOption)
-                                  } -&gt; std::convertible_to&lt;const Eigen::VectorXd&amp;&gt;;
-                                  { t.vector(dbcOption) } -&gt; std::convertible_to&lt;const Eigen::VectorXd&amp;&gt;;
-                                  { t.vector() } -&gt; std::convertible_to&lt;const Eigen::VectorXd&amp;&gt;;
-                                }    </initializer>
+    <initializer>template&lt;template&lt; typename, int, int &gt; typename RT&gt;
+concept <ref refid="a02464" kindref="compound">Ikarus::Concepts::ResultType</ref> = 
+      Impl::ResultType&lt;RT&lt;double, 1, 1&gt;&gt; or Impl::ResultType&lt;RT&lt;double, 1, 2&gt;&gt; or Impl::ResultType&lt;RT&lt;double, 1, 3&gt;&gt; or
+      Impl::ResultType&lt;RT&lt;double, 2, 3&gt;&gt; or Impl::ResultType&lt;RT&lt;double, 3, 3&gt;&gt;    </initializer>
     <briefdescription>
-<para>Concept representing the requirements for a VectorFlatAssembler.</para>
-<para>A type T satisfies VectorFlatAssembler if it is a ScalarFlatAssembler and if it provides the necessary vector() member functions. </para>
+<para>A concept to check if a template type satisfies the ResultType requirements. </para>
     </briefdescription>
     <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>RT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A template type with parameters (typename, int, int). The first parameter is the data type, and the next two parameters are the grid dimension and the world dimension. It checks for various instantiations to ensure they meet the ResultType concept. Specifically, it checks for the nested types &apos;type&apos;, &apos;Vectorizer&apos;, &apos;Matricizer&apos;, and the presence of a toString function returning a std::string. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
     </detaileddescription>
-    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="562" column="3"/>
+    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="505" column="3"/>
   </compounddef>
 </doxygen>

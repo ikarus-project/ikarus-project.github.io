@@ -1,10 +1,8 @@
-\hypertarget{a02462}{}\doxysection{Ikarus\+::Concepts\+::Flat\+Assembler Concept Reference}
-\label{a02462}\index{Ikarus::Concepts::FlatAssembler@{Ikarus::Concepts::FlatAssembler}}
+\hypertarget{a02462}{}\doxysection{Ikarus\+::Concepts\+::Is\+Material Concept Reference}
+\label{a02462}\index{Ikarus::Concepts::IsMaterial@{Ikarus::Concepts::IsMaterial}}
 
 
-Concept representing the requirements for a Flat\+Assembler.
-
-A type T satisfies Flat\+Assembler if it provides the necessary member functions and data types for assembling sparse matrices in a flat structure.  
+Concept defining the requirements for a material type.  
 
 
 
@@ -14,29 +12,24 @@ A type T satisfies Flat\+Assembler if it provides the necessary member functions
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02462}{Ikarus::Concepts::FlatAssembler}} =  \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
-\DoxyCodeLine{                                   \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00507_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
-\DoxyCodeLine{    \{ t.requirement() \} -\/> std::convertible\_to<const typename T::FERequirement\&>;}
-\DoxyCodeLine{    \{ t.affordanceCollection() \} -\/> std::convertible\_to<typename T::AffordanceCollectionType>;}
-\DoxyCodeLine{    \{ t.dBCOption() \} -\/> std::convertible\_to<DBCOption>;}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \{ t.bind(req, affordance, dbcOption) \} -\/> std::same\_as<void>;}
-\DoxyCodeLine{    \{ t.bind(req) \} -\/> std::same\_as<void>;}
-\DoxyCodeLine{    \{ t.bind(affordance) \} -\/> std::same\_as<void>;}
-\DoxyCodeLine{    \{ t.bind(dbcOption) \} -\/> std::same\_as<void>;}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \{ t.bound() \} -\/> std::convertible\_to<bool>;}
-\DoxyCodeLine{    \{ t.boundToRequirement() \} -\/> std::convertible\_to<bool>;}
-\DoxyCodeLine{    \{ t.boundToAffordanceCollection() \} -\/> std::convertible\_to<bool>;}
-\DoxyCodeLine{    \{ t.boundToDBCOption() \} -\/> std::convertible\_to<bool>;}
-\DoxyCodeLine{    \{ t.estimateOfConnectivity() \} -\/> std::convertible\_to<size\_t>;}
-\DoxyCodeLine{}
-\DoxyCodeLine{    \{ t.createFullVector(std::declval<Eigen::Ref<const Eigen::VectorXd>>()) \} -\/> std::convertible\_to<Eigen::VectorXd>;}
-\DoxyCodeLine{    \{ t.constraintsBelow(std::declval<size\_t>()) \} -\/> std::convertible\_to<size\_t>;}
-\DoxyCodeLine{    \{ t.isConstrained(std::declval<size\_t>()) \} -\/> std::convertible\_to<bool>;}
-\DoxyCodeLine{    \{ t.size() \} -\/> std::convertible\_to<size\_t>;}
-\DoxyCodeLine{    \{ t.reducedSize() \} -\/> std::convertible\_to<size\_t>;}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{template}< \textcolor{keyword}{typename}... > \textcolor{keyword}{class }MaterialToCheck, typename \mbox{\hyperlink{a02480}{Material}}>}
+\DoxyCodeLine{concept \mbox{\hyperlink{a00510}{Ikarus}}::\mbox{\hyperlink{a02462}{Concepts::IsMaterial}} =  Impl::isMaterial<MaterialToCheck, Material>()}
 
 \end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Material\+To\+Check} & Template representing the material type to check. \\
+\hline
+{\em Material} & Type representing the material to be checked.\\
+\hline
+\end{DoxyTemplParams}
+A type satisfies the Is\+Material concept if it meets one of the following conditions\+:
+
+
+\begin{DoxyEnumerate}
+\item The material is a specialization of the specified template {\ttfamily Material\+To\+Check}.
+\item The material is a specialization of {\ttfamily Vanishing\+Stress} or {\ttfamily Vanishing\+Strain} (i.\+e. reduced) with an underlying type that is a specialization of the specified template {\ttfamily Material\+To\+Check}. 
+\end{DoxyEnumerate}

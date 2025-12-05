@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: pk2stress.hh Source File</title>
+    <title>ikarus: asvariants.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,66 +155,114 @@ $(document).ready(function(){initNavTree('a00365_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">pk2stress.hh</div></div>
+  <div class="headertitle"><div class="title">asvariants.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00365.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;dune/common/fvector.hh&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;dune/localfefunctions/eigenDuneTransformations.hh&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;dune/localfefunctions/expressions/greenLagrangeStrains.hh&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a00038.html">ikarus/utils/tensorutils.hh</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00516.html">Ikarus::PS</a> {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a01575.html">   23</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01575.html">PK2Stress</a></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> GEO, <span class="keyword">typename</span> AST&gt;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a01575.html#a47b5284583b269b659f49b492a5e5283">   39</a></span>  <span class="keyword">static</span> <span class="keyword">auto</span> <a class="code hl_function" href="a01575.html#a47b5284583b269b659f49b492a5e5283">value</a>(<span class="keyword">const</span> GEO&amp; geo, <span class="keyword">const</span> <a class="code hl_class" href="a02271.html">Dune::FieldVector&lt;double, GEO::mydimension&gt;</a>&amp; gpPos, <span class="keyword">const</span> AST&amp; asFunction,</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; beta) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> <span class="keyword">auto</span> P = asFunction(gpPos);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> (P * beta).eval();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> GEO, <span class="keyword">typename</span> AST&gt;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a01575.html#af229bf78a29e326dbbbb5f31ba18519c">   65</a></span>  <span class="keyword">static</span> <span class="keyword">auto</span> <a class="code hl_function" href="a01575.html#af229bf78a29e326dbbbb5f31ba18519c">firstDerivative</a>(<span class="keyword">const</span> GEO&amp; geo, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; uFunction, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; localBasis, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; gpIndex,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                              <span class="keyword">const</span> <a class="code hl_class" href="a02271.html">Dune::FieldVector&lt;double, GEO::mydimension&gt;</a>&amp; gpPos, <span class="keyword">const</span> AST&amp; asFunction,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                              <span class="keyword">const</span> <span class="keyword">auto</span>&amp; beta, <span class="keyword">const</span> <span class="keywordtype">int</span> node = sNaN) {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> asFunction(gpPos);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> GEO, <span class="keyword">typename</span> ST, <span class="keyword">typename</span> AST&gt;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="a01575.html#a8e20c9960b72e5b3469cd704ae257635">   94</a></span>  <span class="keyword">static</span> <span class="keyword">auto</span> <a class="code hl_function" href="a01575.html#a8e20c9960b72e5b3469cd704ae257635">secondDerivative</a>(<span class="keyword">const</span> GEO&amp; geo, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; uFunction, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; localBasis, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; gpIndex,</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                               <span class="keyword">const</span> <a class="code hl_class" href="a02271.html">Dune::FieldVector&lt;double, GEO::mydimension&gt;</a>&amp; gpPos,</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                               <span class="keyword">const</span> Eigen::Vector&lt;ST, GEO::mydimension*(GEO::mydimension + 1) / 2&gt;&amp; S,</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                               <span class="keyword">const</span> AST&amp; asFunction, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; beta, <span class="keyword">const</span> <span class="keywordtype">int</span> I = sNaN, <span class="keyword">const</span> <span class="keywordtype">int</span> J = sNaN) {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">constexpr</span> <span class="keywordtype">int</span> myDim             = GEO::mydimension;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">constexpr</span> <span class="keywordtype">int</span> assumedStressSize = AST::assumedStressSize;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">return</span> Eigen::Matrix&lt;ST, assumedStressSize, assumedStressSize&gt;::Zero().eval();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a01575.html#a46fae6a1d22ee4f5710e62ee1794268f">  105</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="a01575.html#a46fae6a1d22ee4f5710e62ee1794268f">name</a>() { <span class="keywordflow">return</span> std::string(<span class="stringliteral">&quot;PK2 Stress&quot;</span>); }</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> sNaN = std::numeric_limits&lt;int&gt;::signaling_NaN();</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>};</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>} <span class="comment">// namespace Ikarus::PS</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00377.html">ikarus/finiteelements/mechanics/assumedstress/asfunctions.hh</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00374.html">ikarus/finiteelements/mechanics/assumedstress/asvariants/linearandpk2stress.hh</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00038.html">ikarus/utils/tensorutils.hh</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00519.html">Ikarus::PS</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>Impl {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> GEO, <span class="keywordtype">int</span> myDim, <span class="keyword">typename</span> ASFunction&gt;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">struct </span>AssumedStressType;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> GEO&gt;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">struct </span>AssumedStressType&lt;GEO, 3, PS::LinearStress&gt;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">using </span>type = std::variant&lt;S18&lt;GEO&gt;, S24&lt;GEO&gt;, S30&lt;GEO&gt;&gt;;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  };</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> GEO&gt;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keyword">struct </span>AssumedStressType&lt;GEO, 2, PS::LinearStress&gt;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">using </span>type = std::variant&lt;S5&lt;GEO&gt;&gt;;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  };</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> GEO, <span class="keywordtype">int</span> myDim&gt;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keyword">struct </span>AssumedStressType&lt;GEO, myDim, PS::PK2Stress&gt;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">using </span>type = AssumedStressType&lt;GEO, myDim, PS::LinearStress&gt;::type;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  };</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>} <span class="comment">// namespace Impl</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ASFunction, <span class="keyword">typename</span> GEO&gt;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a01598.html">   43</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01598.html">AssumedStressVariant</a></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a01598.html#adfa5d168fff5a08370952f990d8d6b2d">   45</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="a01598.html#adfa5d168fff5a08370952f990d8d6b2d">myDim</a> = GEO::mydimension;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a01598.html#aab82fe8fd3fab5566d326e2f16ffd3a6">   46</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01598.html#aab82fe8fd3fab5566d326e2f16ffd3a6">Variant</a>              = Impl::AssumedStressType&lt;GEO, myDim, ASFunction&gt;::type;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">static_assert</span>((<a class="code hl_variable" href="a01598.html#adfa5d168fff5a08370952f990d8d6b2d">myDim</a> == 2) or (<a class="code hl_variable" href="a01598.html#adfa5d168fff5a08370952f990d8d6b2d">myDim</a> == 3), <span class="stringliteral">&quot;AssumedStress variants are only available for 2D and 3D elements.&quot;</span>);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a01598.html#affc51b112501fd9ae58cc14c770af1b9">   55</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a01598.html#affc51b112501fd9ae58cc14c770af1b9">operator()</a>(F&amp;&amp; f)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    std::visit([&amp;]&lt;<span class="keyword">typename</span> AssumedStressT&gt;(<span class="keyword">const</span> AssumedStressT&amp; asFunction) { f(asFunction); }, var_);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a01598.html#a331c210fd48d89e568c0f6f30ac0516d">   63</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01598.html#a331c210fd48d89e568c0f6f30ac0516d">numberOfInternalVariables</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">return</span> std::visit(</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        []&lt;<span class="keyword">typename</span> AssumedStressT&gt;(<span class="keyword">const</span> AssumedStressT&amp;) -&gt; <span class="keywordtype">int</span> { <span class="keywordflow">return</span> AssumedStressT::assumedStressSize; }, var_);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a01598.html#ac3a7e7d2503d74ddfaa59d1b18b67c64">   68</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a01598.html#ac3a7e7d2503d74ddfaa59d1b18b67c64">setAssumedStressType</a>(<span class="keywordtype">int</span> <a class="code hl_function" href="a01598.html#a331c210fd48d89e568c0f6f30ac0516d">numberOfInternalVariables</a>) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    numberOfAssumedStressParameters_ = <a class="code hl_function" href="a01598.html#a331c210fd48d89e568c0f6f30ac0516d">numberOfInternalVariables</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">if</span> (geometry_)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>      createAssumedStressType();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a01598.html#a730cdca69871f6860b1ff6f869a6a067">   73</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a01598.html#a730cdca69871f6860b1ff6f869a6a067">bind</a>(<span class="keyword">const</span> GEO&amp; geometry) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    geometry_ = std::make_optional&lt;GEO&gt;(geometry);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    createAssumedStressType();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="keywordtype">void</span> createAssumedStressType() {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">const</span> std::string&amp; errorMessage =</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="stringliteral">&quot;The given AssumedStress parameters are not available for the &quot;</span> + std::to_string(<a class="code hl_variable" href="a01598.html#adfa5d168fff5a08370952f990d8d6b2d">myDim</a>) + <span class="stringliteral">&quot;D case.&quot;</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::same_as&lt;ASFunction, PS::LinearStress&gt; or std::same_as&lt;ASFunction, PS::PK2Stress&gt;) {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="a01598.html#adfa5d168fff5a08370952f990d8d6b2d">myDim</a> == 2) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">switch</span> (numberOfAssumedStressParameters_) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>          <span class="keywordflow">case</span> 5:</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            var_ = <a class="code hl_struct" href="a01606.html">S5</a>(geometry_.value());</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>          <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            DUNE_THROW(Dune::NotImplemented, errorMessage);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="a01598.html#adfa5d168fff5a08370952f990d8d6b2d">myDim</a> == 3) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">switch</span> (numberOfAssumedStressParameters_) {</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>          <span class="keywordflow">case</span> 18:</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            var_ = S18(geometry_.value());</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>          <span class="keywordflow">case</span> 24:</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            var_ = S24(geometry_.value());</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>          <span class="keywordflow">case</span> 30:</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            var_ = S30(geometry_.value());</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>          <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            DUNE_THROW(Dune::NotImplemented, errorMessage);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>      }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  std::optional&lt;GEO&gt; geometry_;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  <a class="code hl_typedef" href="a01598.html#aab82fe8fd3fab5566d326e2f16ffd3a6">Variant</a> var_;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  <span class="keywordtype">int</span> numberOfAssumedStressParameters_;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>};</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>} <span class="comment">// namespace Ikarus::PS</span></div>
 <div class="ttc" id="aa00038_html"><div class="ttname"><a href="a00038.html">tensorutils.hh</a></div><div class="ttdoc">Helper for the Eigen::Tensor types.</div></div>
-<div class="ttc" id="aa00516_html"><div class="ttname"><a href="a00516.html">Ikarus::PS</a></div><div class="ttdef"><b>Definition:</b> linearstress.hh:19</div></div>
-<div class="ttc" id="aa01575_html"><div class="ttname"><a href="a01575.html">Ikarus::PS::PK2Stress</a></div><div class="ttdef"><b>Definition:</b> pk2stress.hh:24</div></div>
-<div class="ttc" id="aa01575_html_a46fae6a1d22ee4f5710e62ee1794268f"><div class="ttname"><a href="a01575.html#a46fae6a1d22ee4f5710e62ee1794268f">Ikarus::PS::PK2Stress::name</a></div><div class="ttdeci">static constexpr auto name()</div><div class="ttdoc">The name of the assumed stress type.</div><div class="ttdef"><b>Definition:</b> pk2stress.hh:105</div></div>
-<div class="ttc" id="aa01575_html_a47b5284583b269b659f49b492a5e5283"><div class="ttname"><a href="a01575.html#a47b5284583b269b659f49b492a5e5283">Ikarus::PS::PK2Stress::value</a></div><div class="ttdeci">static auto value(const GEO &amp;geo, const Dune::FieldVector&lt; double, GEO::mydimension &gt; &amp;gpPos, const AST &amp;asFunction, const auto &amp;beta)</div><div class="ttdoc">Compute the stress vector at a given integration point or its index.</div><div class="ttdef"><b>Definition:</b> pk2stress.hh:39</div></div>
-<div class="ttc" id="aa01575_html_a8e20c9960b72e5b3469cd704ae257635"><div class="ttname"><a href="a01575.html#a8e20c9960b72e5b3469cd704ae257635">Ikarus::PS::PK2Stress::secondDerivative</a></div><div class="ttdeci">static auto secondDerivative(const GEO &amp;geo, const auto &amp;uFunction, const auto &amp;localBasis, const auto &amp;gpIndex, const Dune::FieldVector&lt; double, GEO::mydimension &gt; &amp;gpPos, const Eigen::Vector&lt; ST, GEO::mydimension *(GEO::mydimension+1)/2 &gt; &amp;S, const AST &amp;asFunction, const auto &amp;beta, const int I=sNaN, const int J=sNaN)</div><div class="ttdoc">Compute the second derivative of the PK2 stress w.r.t beta for a given node and integration point.</div><div class="ttdef"><b>Definition:</b> pk2stress.hh:94</div></div>
-<div class="ttc" id="aa01575_html_af229bf78a29e326dbbbb5f31ba18519c"><div class="ttname"><a href="a01575.html#af229bf78a29e326dbbbb5f31ba18519c">Ikarus::PS::PK2Stress::firstDerivative</a></div><div class="ttdeci">static auto firstDerivative(const GEO &amp;geo, const auto &amp;uFunction, const auto &amp;localBasis, const auto &amp;gpIndex, const Dune::FieldVector&lt; double, GEO::mydimension &gt; &amp;gpPos, const AST &amp;asFunction, const auto &amp;beta, const int node=sNaN)</div><div class="ttdoc">Compute the first derivative of the PK2 stress w.r.t beta for a given node and integration point.</div><div class="ttdef"><b>Definition:</b> pk2stress.hh:65</div></div>
-<div class="ttc" id="aa02271_html"><div class="ttname"><a href="a02271.html">Dune::FieldVector</a></div><div class="ttdef"><b>Definition:</b> utils/dirichletvalues.hh:37</div></div>
+<div class="ttc" id="aa00374_html"><div class="ttname"><a href="a00374.html">linearandpk2stress.hh</a></div><div class="ttdoc">Definition of the types of Assumed Stress formulations for 2D and 3D linear solid elements,...</div></div>
+<div class="ttc" id="aa00377_html"><div class="ttname"><a href="a00377.html">asfunctions.hh</a></div><div class="ttdoc">Header file for various assumed stress functions.</div></div>
+<div class="ttc" id="aa00519_html"><div class="ttname"><a href="a00519.html">Ikarus::PS</a></div><div class="ttdef"><b>Definition:</b> linearstress.hh:19</div></div>
+<div class="ttc" id="aa01598_html"><div class="ttname"><a href="a01598.html">Ikarus::PS::AssumedStressVariant</a></div><div class="ttdoc">Wrapper around the AssumedStress variant, contains helper functions.</div><div class="ttdef"><b>Definition:</b> asvariants.hh:44</div></div>
+<div class="ttc" id="aa01598_html_a331c210fd48d89e568c0f6f30ac0516d"><div class="ttname"><a href="a01598.html#a331c210fd48d89e568c0f6f30ac0516d">Ikarus::PS::AssumedStressVariant::numberOfInternalVariables</a></div><div class="ttdeci">auto numberOfInternalVariables() const</div><div class="ttdoc">A helper function to get the number of AssumedStress parameters.</div><div class="ttdef"><b>Definition:</b> asvariants.hh:63</div></div>
+<div class="ttc" id="aa01598_html_a730cdca69871f6860b1ff6f869a6a067"><div class="ttname"><a href="a01598.html#a730cdca69871f6860b1ff6f869a6a067">Ikarus::PS::AssumedStressVariant::bind</a></div><div class="ttdeci">void bind(const GEO &amp;geometry)</div><div class="ttdef"><b>Definition:</b> asvariants.hh:73</div></div>
+<div class="ttc" id="aa01598_html_aab82fe8fd3fab5566d326e2f16ffd3a6"><div class="ttname"><a href="a01598.html#aab82fe8fd3fab5566d326e2f16ffd3a6">Ikarus::PS::AssumedStressVariant::Variant</a></div><div class="ttdeci">Impl::AssumedStressType&lt; GEO, myDim, ASFunction &gt;::type Variant</div><div class="ttdef"><b>Definition:</b> asvariants.hh:46</div></div>
+<div class="ttc" id="aa01598_html_ac3a7e7d2503d74ddfaa59d1b18b67c64"><div class="ttname"><a href="a01598.html#ac3a7e7d2503d74ddfaa59d1b18b67c64">Ikarus::PS::AssumedStressVariant::setAssumedStressType</a></div><div class="ttdeci">void setAssumedStressType(int numberOfInternalVariables)</div><div class="ttdef"><b>Definition:</b> asvariants.hh:68</div></div>
+<div class="ttc" id="aa01598_html_adfa5d168fff5a08370952f990d8d6b2d"><div class="ttname"><a href="a01598.html#adfa5d168fff5a08370952f990d8d6b2d">Ikarus::PS::AssumedStressVariant::myDim</a></div><div class="ttdeci">static constexpr int myDim</div><div class="ttdef"><b>Definition:</b> asvariants.hh:45</div></div>
+<div class="ttc" id="aa01598_html_affc51b112501fd9ae58cc14c770af1b9"><div class="ttname"><a href="a01598.html#affc51b112501fd9ae58cc14c770af1b9">Ikarus::PS::AssumedStressVariant::operator()</a></div><div class="ttdeci">void operator()(F &amp;&amp;f) const</div><div class="ttdoc">Executes a function F on the variant.</div><div class="ttdef"><b>Definition:</b> asvariants.hh:55</div></div>
+<div class="ttc" id="aa01606_html"><div class="ttname"><a href="a01606.html">Ikarus::PS::S5</a></div><div class="ttdoc">S5 struct for AssumedStress (PS) for Q1 with 5 assumed stress parameters.</div><div class="ttdef"><b>Definition:</b> linearandpk2stress.hh:60</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -225,7 +273,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_34e442d8c1dd2b59eed3e9118cf1019a.html">assumedstress</a></li><li class="navelem"><a class="el" href="dir_bca6dfa9db174f08b5ac5e0aa26bca0c.html">asfunctions</a></li><li class="navelem"><a class="el" href="a00365.html">pk2stress.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_34e442d8c1dd2b59eed3e9118cf1019a.html">assumedstress</a></li><li class="navelem"><a class="el" href="a00365.html">asvariants.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -1,201 +1,251 @@
-\hypertarget{a03517_source}{}\doxysection{finiteelements/mechanics/materials/interface.hh}
+\hypertarget{a03517_source}{}\doxysection{assembler/interface.hh}
 \label{a03517_source}\index{interface.hh@{interface.hh}}
 \mbox{\hyperlink{a03517}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <ranges>}}
 \DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00314}{ikarus/finiteelements/mechanics/materials/materialhelpers.hh}}>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00299}{ikarus/finiteelements/mechanics/materials/numericalmaterialinversion.hh}}>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00353}{ikarus/finiteelements/mechanics/materials/strainconversions.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00347}{ikarus/finiteelements/mechanics/materials/tags.hh}}>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00389}{ikarus/finiteelements/physicshelper.hh}}>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03556}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00077}{ikarus/utils/linearalgebrahelper.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00005}{ikarus/utils/traits.hh}}>}}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00518}{Ikarus::Materials}} \{}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
-\DoxyCodeLine{24 \textcolor{keyword}{template} <\textcolor{keyword}{class} MImpl>}
-\DoxyCodeLine{25 \textcolor{keyword}{struct }\mbox{\hyperlink{a00496_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{Material}};}
-\DoxyCodeLine{26 }
-\DoxyCodeLine{27 \textcolor{keyword}{template} <auto stressIndexPair, \textcolor{keyword}{typename} MImpl>}
-\DoxyCodeLine{28 \textcolor{keyword}{struct }VanishingStress;}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30 \textcolor{keyword}{template} <auto strainIndexPair, \textcolor{keyword}{typename} MImpl>}
-\DoxyCodeLine{31 \textcolor{keyword}{struct }VanishingStrain;}
-\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{33 }
-\DoxyCodeLine{42 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MAT, \textcolor{keyword}{typename} S>}
-\DoxyCodeLine{43 \textcolor{keyword}{consteval} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a00518_acd3877457d719128ff83d44c6253ece8}{hasCorrectSize}}() \{}
-\DoxyCodeLine{44   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Concepts::EigenVector6<S> or Concepts::EigenMatrix33<S>)}
-\DoxyCodeLine{45     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{46   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (MAT::isReduced and \mbox{\hyperlink{a02455}{Concepts::EigenVector<S>}}) \{}
-\DoxyCodeLine{47     \textcolor{keywordflow}{return} S::RowsAtCompileTime == MAT::freeStrains;}
-\DoxyCodeLine{48   \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{49     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{50 \}}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{58 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MAT, \textcolor{keyword}{typename} S>}
-\DoxyCodeLine{59 \textcolor{keyword}{concept }\mbox{\hyperlink{a02428}{CorrectStrainSize}} = hasCorrectSize<MAT, S>();}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{65 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MAT, \textcolor{keywordtype}{bool} isReduced = MAT::isReduced>}
-\DoxyCodeLine{66 \textcolor{keyword}{struct }\mbox{\hyperlink{a01787}{UnderlyingMaterial}};}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MAT>}
-\DoxyCodeLine{69 \textcolor{keyword}{struct }\mbox{\hyperlink{a01787}{UnderlyingMaterial}}<MAT, true>}
-\DoxyCodeLine{70 \{}
-\DoxyCodeLine{71   \textcolor{keyword}{using }\mbox{\hyperlink{a01791_ad4162d39639eeab53e09fd81e5789520}{type}} = MAT::Underlying;}
-\DoxyCodeLine{72   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01791_aa7cc0a5911763bbcf82444c900f113b7}{material}}(\textcolor{keyword}{const} MAT\& mat) \{ \textcolor{keywordflow}{return} mat.underlying(); \}}
-\DoxyCodeLine{73 \};}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MAT>}
-\DoxyCodeLine{76 \textcolor{keyword}{struct }\mbox{\hyperlink{a01787}{UnderlyingMaterial}}<MAT, false>}
-\DoxyCodeLine{77 \{}
-\DoxyCodeLine{78   \textcolor{keyword}{using }\mbox{\hyperlink{a01795_a79b209db209a58b87ae3a907db34a209}{type}} = MAT;}
-\DoxyCodeLine{79   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01795_a3c2cb8c522f97903fe02bfea8a7e24f8}{material}}(\textcolor{keyword}{const} MAT\& mat) \{ \textcolor{keywordflow}{return} mat; \}}
-\DoxyCodeLine{80 \};}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{83 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MAT>}
-\DoxyCodeLine{84 \textcolor{keyword}{using }\mbox{\hyperlink{a00518_af5c7f692e2222a471befba43507671db}{UnderlyingMaterial\_t}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a01787}{UnderlyingMaterial<MAT>::type}};}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{87 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MAT>}
-\DoxyCodeLine{88 \textcolor{keyword}{auto} \mbox{\hyperlink{a00518_ac5404e0750e9319f1ac0a7e48b64d3f4}{underlyingMaterial}}(\textcolor{keyword}{const} MAT\& mat) \{}
-\DoxyCodeLine{89   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01787}{UnderlyingMaterial<MAT>::material}}(mat);}
-\DoxyCodeLine{90 \}}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{111 \textcolor{keyword}{template} <\textcolor{keyword}{class} MI>}
-\DoxyCodeLine{112 \textcolor{keyword}{struct }\mbox{\hyperlink{a01799}{Material}}}
-\DoxyCodeLine{113 \{}
-\DoxyCodeLine{114   \textcolor{keyword}{using }\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{MaterialImpl}} = MI; }
-\DoxyCodeLine{115 }
-\DoxyCodeLine{116   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01799_ab3bdf2b26371cbadad9b830fb418d8ce}{isStrainVanished}} =}
-\DoxyCodeLine{117       traits::isSpecializationNonTypeAndTypes<VanishingStrain, MaterialImpl>::value;}
-\DoxyCodeLine{118   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01799_ad3b7f253fed4f4d02758a7814f55c569}{isStressVanished}} =}
-\DoxyCodeLine{119       traits::isSpecializationNonTypeAndTypes<VanishingStress, MaterialImpl>::value;}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{124   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01799_af50dfddadfe829082a56eb804bfb7980}{isReduced}} = \mbox{\hyperlink{a01799_ab3bdf2b26371cbadad9b830fb418d8ce}{isStrainVanished}} or \mbox{\hyperlink{a01799_ad3b7f253fed4f4d02758a7814f55c569}{isStressVanished}};}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <dune/common/referencehelper.hh>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00413}{ikarus/assembler/dirichletbcenforcement.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00389}{ikarus/finiteelements/fehelper.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00407}{ikarus/finiteelements/ferequirements.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03547}{ikarus/utils/dirichletvalues.hh}}>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{28 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FEC, \textcolor{keyword}{typename} DV>}
+\DoxyCodeLine{29 \textcolor{keyword}{class }\mbox{\hyperlink{a01398}{FlatAssemblerBase}}}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31 \textcolor{keyword}{public}:}
+\DoxyCodeLine{32   \textcolor{keyword}{using }\mbox{\hyperlink{a01398_a05cbe5a00c2847e75eb7beb544f136ec}{FEContainerRaw}} = std::remove\_cvref\_t<FEC>; }
+\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a01398_a333c76dd0740ef9d6f4e8424021f0315}{FERequirement}}  = \textcolor{keyword}{typename} FEContainerRaw::value\_type::Requirement;}
+\DoxyCodeLine{35   \textcolor{keyword}{using }\mbox{\hyperlink{a01398_a9cd6c79d6625adb9767a14ba5c1ff283}{GlobalIndex}} = \textcolor{keyword}{typename} FEContainerRaw::value\_type::GlobalIndex; }
+\DoxyCodeLine{36   \textcolor{keyword}{using }\mbox{\hyperlink{a01398_affbdfc67b017b9304f2dfd519509a8fb}{Basis}}       = \textcolor{keyword}{typename} DV::Basis;                               }
+\DoxyCodeLine{37   \textcolor{keyword}{using }\mbox{\hyperlink{a01398_acee7beef45351811911847086414709e}{GridView}}    = \textcolor{keyword}{typename} Basis::GridView;                         }
+\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{a01398_a4bb11a213bcf6c6f18e731bf4281edcb}{FEContainer}} = FEC;                                              }
+\DoxyCodeLine{40   \textcolor{keyword}{using }\mbox{\hyperlink{a01398_abf6599ec65ab1574a3282a553584f9e9}{DirichletValuesType}} = DV;                          }
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01398_a36364ae9cda497b90ea2c952b9eaaa53}{SizeType}} = \textcolor{keyword}{typename} DirichletValuesType::SizeType; }
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{a01522}{AffordanceCollectionType}} = \mbox{\hyperlink{a01522}{AffordanceCollection<ScalarAffordance, VectorAffordance, MatrixAffordance>}};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{50   \textcolor{keyword}{template} <\textcolor{keyword}{typename} FEContainer\_ = FEContainer, \textcolor{keyword}{typename} DirichletValuesType\_ = DirichletValuesType>}
+\DoxyCodeLine{51   \mbox{\hyperlink{a01398_a5dcfae0f9b6e53f27b902be8dc5353eb}{FlatAssemblerBase}}(FEContainer\_\&\& fes, DirichletValuesType\_\&\& \mbox{\hyperlink{a01398_a55ec19180c55953ee40dcf2bf3735341}{dirichletValues}})}
+\DoxyCodeLine{52       : feContainer\_\{std::forward<FEContainer\_>(fes)\},}
+\DoxyCodeLine{53         dirichletValues\_\{std::forward<DirichletValuesType\_>(\mbox{\hyperlink{a01398_a55ec19180c55953ee40dcf2bf3735341}{dirichletValues}})\} \{}
+\DoxyCodeLine{54     constraintsBelow\_.reserve(dirichletValues\_.size());}
+\DoxyCodeLine{55     \textcolor{keywordtype}{size\_t} counter = 0;}
+\DoxyCodeLine{56     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} iv : std::ranges::iota\_view\{\textcolor{keyword}{decltype}(dirichletValues\_.size())(0), dirichletValues\_.size()\}) \{}
+\DoxyCodeLine{57       constraintsBelow\_.emplace\_back(counter);}
+\DoxyCodeLine{58       \textcolor{keywordflow}{if} (dirichletValues\_.isConstrained(iv))}
+\DoxyCodeLine{59         ++counter;}
+\DoxyCodeLine{60     \}}
+\DoxyCodeLine{61     fixedDofs\_ = dirichletValues\_.fixedDOFsize();}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{68   \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{a01398_a8b47f036b83e4e712b791d9cfe910f2b}{reducedSize}}() \{ \textcolor{keywordflow}{return} dirichletValues\_.size() -\/ fixedDofs\_; \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{74   \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{a01398_ae3fed93b367a8d5eb4e369132a7cc355}{size}}() \{ \textcolor{keywordflow}{return} dirichletValues\_.size(); \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{83   Eigen::VectorXd \mbox{\hyperlink{a01398_a5ca172ae99902193abf31ab542ff4aaf}{createFullVector}}(Eigen::Ref<const Eigen::VectorXd> reducedVector);}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{92   Eigen::VectorXd \mbox{\hyperlink{a01398_ab22f1dce13db668d43006b17f5bf1d18}{createReducedVector}}(Eigen::Ref<const Eigen::VectorXd> fullVector);}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{98   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01398_a674f16bc4a74e017c18900003be7f57e}{finiteElements}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} Dune::resolveRef(feContainer\_); \}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{104   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01398_af8e8f219fb90ee1465ad19948df0009e}{finiteElements}}() \{ \textcolor{keywordflow}{return} Dune::resolveRef(feContainer\_); \}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{110   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01398_a55ec19180c55953ee40dcf2bf3735341}{dirichletValues}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} Dune::resolveRef(dirichletValues\_); \}}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{116   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01398_af7c5c0e591d6b228efab5c9c66f61d46}{gridView}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} Dune::resolveRef(dirichletValues\_.basis().gridView()); \}}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{124   [[nodiscard]] \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{a01398_a72f083acd813f210d6d9f7a482021495}{constraintsBelow}}(\mbox{\hyperlink{a01398_a36364ae9cda497b90ea2c952b9eaaa53}{SizeType}} i)\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} constraintsBelow\_[i]; \}}
 \DoxyCodeLine{125 }
-\DoxyCodeLine{126   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01799_adaf662f055c31a4387b0bbcea1b6c34f}{isLinear}} = MI::strainTag == \mbox{\hyperlink{a00496_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}};}
-\DoxyCodeLine{127 }
-\DoxyCodeLine{128   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01799_a7ce8bc4494974503417d5f8404ae48aa}{isHyperelastic}} = [] \{}
-\DoxyCodeLine{129     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01799_af50dfddadfe829082a56eb804bfb7980}{isReduced}}) \{}
-\DoxyCodeLine{130       \textcolor{keywordflow}{return} \textcolor{keyword}{requires} \{}
-\DoxyCodeLine{131         \textcolor{keyword}{typename} MI::Underlying::DeviatoricType;}
-\DoxyCodeLine{132         \textcolor{keyword}{typename} MI::Underlying::VolumetricType;}
-\DoxyCodeLine{133       \};}
-\DoxyCodeLine{134     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{135       \textcolor{keywordflow}{return} \textcolor{keyword}{requires} \{}
-\DoxyCodeLine{136         \textcolor{keyword}{typename} MI::DeviatoricType;}
-\DoxyCodeLine{137         \textcolor{keyword}{typename} MI::VolumetricType;}
-\DoxyCodeLine{138       \};}
-\DoxyCodeLine{139     \}}
-\DoxyCodeLine{140   \}();}
-\DoxyCodeLine{141 }
-\DoxyCodeLine{147   \textcolor{keyword}{constexpr} \textcolor{keyword}{const} \mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{MaterialImpl}}\& \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{MaterialImpl}}\&\textcolor{keyword}{>}(*this); \}}
-\DoxyCodeLine{148 }
-\DoxyCodeLine{154   \textcolor{keyword}{constexpr} \mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{MaterialImpl}}\& \mbox{\hyperlink{a01799_ae6ac28e09154cef841393f09f76d680b}{impl}}() \{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{a01799_a5303817231472050f36f079bc730988b}{MaterialImpl}}\&\textcolor{keyword}{>}(*this); \}}
-\DoxyCodeLine{155 }
-\DoxyCodeLine{161   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01799_a03ae10e8656beed2aa69c8a9d27907e5}{name}}() \{ \textcolor{keywordflow}{return} MI::nameImpl(); \}}
-\DoxyCodeLine{162 }
-\DoxyCodeLine{167   [[nodiscard]] \textcolor{keyword}{auto} \mbox{\hyperlink{a01799_a0b4a203f259da74328dacbcc405c0c22}{materialParameters}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().materialParametersImpl(); \}}
-\DoxyCodeLine{168 }
-\DoxyCodeLine{175   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} \mbox{\hyperlink{a01799_ae9e08c2d0dc02321b8a4d81d4052f63f}{derivativeFactor}} = MI::derivativeFactorImpl;}
-\DoxyCodeLine{176 }
-\DoxyCodeLine{187   \textcolor{keyword}{template} <StrainTags tag, \textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{188   \textcolor{keyword}{requires} \mbox{\hyperlink{a02428}{CorrectStrainSize<MaterialImpl, Derived>}}}
-\DoxyCodeLine{189   [[nodiscard]] \textcolor{keyword}{auto} \mbox{\hyperlink{a01799_a8d6370e3d198662f4222a0b94e2d6703}{storedEnergy}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& Eraw)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{190     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) Ev = enlargeIfReduced<Material>(Eraw);}
-\DoxyCodeLine{191     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) E  = transformStrain<tag, MaterialImpl::strainTag>(Ev);}
-\DoxyCodeLine{192 }
-\DoxyCodeLine{193     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02455}{Concepts::EigenVector<Derived>}}) \{ \textcolor{comment}{// receiving vector means voigt notation}}
-\DoxyCodeLine{194       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (MaterialImpl::energyAcceptsVoigt)}
-\DoxyCodeLine{195         \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().storedEnergyImpl(\mbox{\hyperlink{a00503_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(E));}
-\DoxyCodeLine{196       \textcolor{keywordflow}{else}}
-\DoxyCodeLine{197         \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().storedEnergyImpl(E);}
-\DoxyCodeLine{198     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{199       \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().storedEnergyImpl(E);}
-\DoxyCodeLine{200   \}}
-\DoxyCodeLine{201 }
-\DoxyCodeLine{211   \textcolor{keyword}{template} <StrainTags tag, \textcolor{keywordtype}{bool} voigt = true, \textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{212   \textcolor{keyword}{requires} \mbox{\hyperlink{a02428}{CorrectStrainSize<MaterialImpl, Derived>}}}
-\DoxyCodeLine{213   [[nodiscard]] \textcolor{keyword}{auto} \mbox{\hyperlink{a01799_a8a68e052cade23285d1a28d1e08845f5}{stresses}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& Eraw)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{214     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) Ev = enlargeIfReduced<Material>(Eraw);}
-\DoxyCodeLine{215     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) E  = transformStrain<tag, MaterialImpl::strainTag>(Ev);}
-\DoxyCodeLine{216     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (voigt and MaterialImpl::stressToVoigt == \textcolor{keyword}{false})}
-\DoxyCodeLine{217       \textcolor{comment}{// user requests a Voigt shaped return but material is not able to. Therefore, we transform it here.}}
-\DoxyCodeLine{218       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00503_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(stressesMaybeTransformInputToVoigt<false>(E), \textcolor{keyword}{false});}
-\DoxyCodeLine{219     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{220       \textcolor{keywordflow}{return} stressesMaybeTransformInputToVoigt<voigt>(E);}
-\DoxyCodeLine{221   \}}
-\DoxyCodeLine{222 }
-\DoxyCodeLine{232   \textcolor{keyword}{template} <StrainTags tag, \textcolor{keywordtype}{bool} voigt = true, \textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{233   \textcolor{keyword}{requires} \mbox{\hyperlink{a02428}{CorrectStrainSize<MaterialImpl, Derived>}}}
-\DoxyCodeLine{234   [[nodiscard]] \textcolor{keyword}{auto} \mbox{\hyperlink{a01799_a7a97d64507fd1ce0c14e919edb8a639b}{tangentModuli}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& Eraw)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{235     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) Ev = enlargeIfReduced<Material>(Eraw);}
-\DoxyCodeLine{236     \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) E  = transformStrain<tag, MaterialImpl::strainTag>(Ev);}
-\DoxyCodeLine{237     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (voigt and MaterialImpl::moduliToVoigt == \textcolor{keyword}{false})}
-\DoxyCodeLine{238       \textcolor{comment}{// user request a Voigt shaped return but material is not able to. Therefore, we transform it here.}}
-\DoxyCodeLine{239       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00503_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(tangentModuliMaybeTransformInputToVoigt<false>(E));}
-\DoxyCodeLine{240     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{241       \textcolor{keywordflow}{return} tangentModuliMaybeTransformInputToVoigt<voigt>(E);}
-\DoxyCodeLine{242   \}}
-\DoxyCodeLine{243 }
-\DoxyCodeLine{264   \textcolor{keyword}{template} <StrainTags tag, \textcolor{keywordtype}{bool} voigt = true, \textcolor{keywordtype}{bool} useNumeric = false, \textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{265   \textcolor{keyword}{requires} \mbox{\hyperlink{a02428}{CorrectStrainSize<MaterialImpl, Derived>}}}
-\DoxyCodeLine{266   [[nodiscard]] \textcolor{keyword}{auto} \mbox{\hyperlink{a01799_a6c826469f37873817513d37d646881d3}{materialInversion}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& Sraw,}
-\DoxyCodeLine{267                                        \textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& EstartRaw = Derived::Zero().eval(),}
-\DoxyCodeLine{268                                        \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1e-\/12, \textcolor{keyword}{const} \textcolor{keywordtype}{int} maxIter = 20)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{269     \textcolor{keyword}{const} \textcolor{keyword}{auto} S = Impl::maybeFromVoigt(Sraw.derived(), \textcolor{keyword}{false}).eval();}
-\DoxyCodeLine{270 }
-\DoxyCodeLine{271     \textcolor{keyword}{auto} [D, Eraw] = [\&]() \{}
-\DoxyCodeLine{272       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().materialInversionImpl(S); \} and not useNumeric)}
-\DoxyCodeLine{273         \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().materialInversionImpl(S);}
-\DoxyCodeLine{274       \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{275         \textcolor{keyword}{const} \textcolor{keyword}{auto} Estart = Impl::maybeFromVoigt(EstartRaw.derived(), \textcolor{keyword}{true}).eval();}
-\DoxyCodeLine{276         \textcolor{keywordflow}{return} \mbox{\hyperlink{a00518_a8fbddf32993e15f5f5c590c599a2b5f3}{numericalMaterialInversion}}(\mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}(), S, Estart, tol, maxIter);}
-\DoxyCodeLine{277       \}}
-\DoxyCodeLine{278     \}();}
-\DoxyCodeLine{279 }
-\DoxyCodeLine{280     \textcolor{keyword}{const} \textcolor{keyword}{auto} E = transformStrain<MaterialImpl::strainTag, tag>(Eraw).eval();}
-\DoxyCodeLine{281     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (voigt)}
-\DoxyCodeLine{282       \textcolor{keywordflow}{return} std::make\_pair(D, \mbox{\hyperlink{a00503_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(E));}
-\DoxyCodeLine{283     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{284       \textcolor{keywordflow}{return} std::make\_pair(\mbox{\hyperlink{a00503_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(D), E);}
-\DoxyCodeLine{285   \}}
-\DoxyCodeLine{286 }
-\DoxyCodeLine{295   \textcolor{keyword}{template} <\textcolor{keyword}{typename} STO>}
-\DoxyCodeLine{296   \textcolor{keyword}{auto} \mbox{\hyperlink{a01799_a42dd4120574bc25d9bccd1891fc14024}{rebind}}()\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{297     \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().template rebind<STO>();}
-\DoxyCodeLine{298   \}}
-\DoxyCodeLine{299 }
-\DoxyCodeLine{300 \textcolor{keyword}{private}:}
-\DoxyCodeLine{301   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt = true, \textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{302   \textcolor{keyword}{auto} stressesMaybeTransformInputToVoigt(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{303     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02455}{Concepts::EigenVector<Derived>}}) \{ \textcolor{comment}{// receiving vector means Voigt notation}}
-\DoxyCodeLine{304       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (MaterialImpl::stressAcceptsVoigt)}
-\DoxyCodeLine{305         \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().template stressesImpl<voigt>(E);}
-\DoxyCodeLine{306       \textcolor{keywordflow}{else} \textcolor{comment}{// material is not able to accept Voigt shaped Input. Therefore, we transform it before.}}
-\DoxyCodeLine{307         \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().template stressesImpl<voigt>(\mbox{\hyperlink{a00503_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(E.derived()));}
-\DoxyCodeLine{308     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{309       \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().template stressesImpl<voigt>(E.derived());}
-\DoxyCodeLine{310   \}}
-\DoxyCodeLine{311 }
-\DoxyCodeLine{312   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt = true, \textcolor{keyword}{typename} Derived>}
-\DoxyCodeLine{313   \textcolor{keyword}{auto} tangentModuliMaybeTransformInputToVoigt(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{314     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Concepts::EigenVector<Derived>) \{ \textcolor{comment}{// receiving vector means voigt notation}}
-\DoxyCodeLine{315       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (MaterialImpl::moduliAcceptsVoigt)}
-\DoxyCodeLine{316         \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().template tangentModuliImpl<voigt>(E);}
-\DoxyCodeLine{317       \textcolor{keywordflow}{else}}
-\DoxyCodeLine{318         \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().template tangentModuliImpl<voigt>(\mbox{\hyperlink{a00503_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(E.derived()));}
-\DoxyCodeLine{319     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{320       \textcolor{keywordflow}{return} \mbox{\hyperlink{a01799_a2e6191f96be90789c574f58f268f5aea}{impl}}().template tangentModuliImpl<voigt>(E.derived());}
-\DoxyCodeLine{321   \}}
-\DoxyCodeLine{322 \};}
-\DoxyCodeLine{323 }
-\DoxyCodeLine{324 \} \textcolor{comment}{// namespace Ikarus::Materials}}
+\DoxyCodeLine{132   [[nodiscard]] \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01398_a8678490defc92df8bdb8f5269afeba44}{isConstrained}}(\mbox{\hyperlink{a01398_a36364ae9cda497b90ea2c952b9eaaa53}{SizeType}} i)\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} dirichletValues\_.isConstrained(i); \}}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{140   [[nodiscard]] \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{a01398_adf77b0e3c1dab4782a2da06fc712b9c5}{estimateOfConnectivity}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{141     \textcolor{keywordflow}{return} dirichletValues\_.basis().gridView().size(GridView::dimension) * 8;}
+\DoxyCodeLine{142   \}}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{150   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01398_a31f0e6f22fd268a6b1ca813db7cbc132}{bind}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01398_a333c76dd0740ef9d6f4e8424021f0315}{FERequirement}}\& req, \mbox{\hyperlink{a01522}{AffordanceCollectionType}} \mbox{\hyperlink{a01398_ae194120d201120bc7a4a6a929d576f94}{affordanceCollection}},}
+\DoxyCodeLine{151             \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption = \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}}) \{}
+\DoxyCodeLine{152     req\_         = std::make\_optional<std::reference\_wrapper<const FERequirement>>(std::ref(req));}
+\DoxyCodeLine{153     affordances\_ = std::make\_optional<AffordanceCollectionType>(\mbox{\hyperlink{a01398_ae194120d201120bc7a4a6a929d576f94}{affordanceCollection}});}
+\DoxyCodeLine{154     dBCOption\_   = std::make\_optional<DBCOption>(dbcOption);}
+\DoxyCodeLine{155   \}}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{162   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01398_a3d33fb50019b516b6c9a2f32b3add005}{bind}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01398_a333c76dd0740ef9d6f4e8424021f0315}{FERequirement}}\& req) \{}
+\DoxyCodeLine{163     req\_ = std::make\_optional<std::reference\_wrapper<const FERequirement>>(std::ref(req));}
+\DoxyCodeLine{164   \}}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{171   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01398_a00f5e3e4ca579dea6acecf9625910658}{bind}}(\mbox{\hyperlink{a01522}{AffordanceCollectionType}} \mbox{\hyperlink{a01398_ae194120d201120bc7a4a6a929d576f94}{affordanceCollection}}) \{}
+\DoxyCodeLine{172     affordances\_ = std::make\_optional<AffordanceCollectionType>(\mbox{\hyperlink{a01398_ae194120d201120bc7a4a6a929d576f94}{affordanceCollection}});}
+\DoxyCodeLine{173   \}}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{180   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01398_a363ca54e8c3ae9838ab7621cecf24930}{bind}}(\mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{ dBCOption\_ = std::make\_optional<DBCOption>(dbcOption); \}}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{187   [[nodiscard]]}
+\DoxyCodeLine{188   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01398_add087b8554f56a2c014de606fd253301}{bound}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{189     \textcolor{keywordflow}{if} (\mbox{\hyperlink{a01398_a6741ecbc2783722b5a049ce0939f94b7}{boundToRequirement}}() and \mbox{\hyperlink{a01398_a4a3a1767c8d26f75fe217de7d099844d}{boundToAffordanceCollection}}() and \mbox{\hyperlink{a01398_a68d6a71fc6866363e9b8519c8f4334b1}{boundToDBCOption}}())}
+\DoxyCodeLine{190       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{191     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{192       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}The assembler is not bound to a requirement, affordance or dBCOption."{}});}
+\DoxyCodeLine{193   \}}
+\DoxyCodeLine{194 }
+\DoxyCodeLine{200   [[nodiscard]]}
+\DoxyCodeLine{201   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01398_a6741ecbc2783722b5a049ce0939f94b7}{boundToRequirement}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{202     \textcolor{keywordflow}{return} req\_.has\_value();}
+\DoxyCodeLine{203   \}}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{210   [[nodiscard]]}
+\DoxyCodeLine{211   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01398_a4a3a1767c8d26f75fe217de7d099844d}{boundToAffordanceCollection}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{212     \textcolor{keywordflow}{return} affordances\_.has\_value();}
+\DoxyCodeLine{213   \}}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{220   [[nodiscard]]}
+\DoxyCodeLine{221   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01398_a68d6a71fc6866363e9b8519c8f4334b1}{boundToDBCOption}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{222     \textcolor{keywordflow}{return} dBCOption\_.has\_value();}
+\DoxyCodeLine{223   \}}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{229   \textcolor{keyword}{const} \mbox{\hyperlink{a01398_a333c76dd0740ef9d6f4e8424021f0315}{FERequirement}}\& \mbox{\hyperlink{a01398_a5305c9031c0322949ab3fe5f03ec029c}{requirement}}() \{}
+\DoxyCodeLine{230     \textcolor{keywordflow}{if} (req\_.has\_value())}
+\DoxyCodeLine{231       \textcolor{keywordflow}{return} req\_.value().get();}
+\DoxyCodeLine{232     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{233       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}The requirement can only be obtained after binding"{}});}
+\DoxyCodeLine{234   \}}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{240   \mbox{\hyperlink{a01522}{AffordanceCollectionType}} \mbox{\hyperlink{a01398_ae194120d201120bc7a4a6a929d576f94}{affordanceCollection}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{241     \textcolor{keywordflow}{if} (affordances\_.has\_value())}
+\DoxyCodeLine{242       \textcolor{keywordflow}{return} affordances\_.value();}
+\DoxyCodeLine{243     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{244       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}The affordance can only be obtained after binding"{}});}
+\DoxyCodeLine{245   \}}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{251   \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} \mbox{\hyperlink{a01398_a74f21be5d0b287d3dee421301051e4b3}{dBCOption}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{252     \textcolor{keywordflow}{if} (dBCOption\_.has\_value())}
+\DoxyCodeLine{253       \textcolor{keywordflow}{return} dBCOption\_.value();}
+\DoxyCodeLine{254     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{255       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}The dBCOption can only be obtained after binding"{}});}
+\DoxyCodeLine{256   \}}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258 \textcolor{keyword}{private}:}
+\DoxyCodeLine{259   \mbox{\hyperlink{a01398_a4bb11a213bcf6c6f18e731bf4281edcb}{FEContainer}} feContainer\_;}
+\DoxyCodeLine{260   \mbox{\hyperlink{a01398_abf6599ec65ab1574a3282a553584f9e9}{DirichletValuesType}} dirichletValues\_;}
+\DoxyCodeLine{261   std::optional<std::reference\_wrapper<const FERequirement>> req\_;}
+\DoxyCodeLine{262   std::optional<AffordanceCollectionType> affordances\_;}
+\DoxyCodeLine{263   std::vector<size\_t> constraintsBelow\_\{\};}
+\DoxyCodeLine{264   \textcolor{keywordtype}{size\_t} fixedDofs\_\{\};}
+\DoxyCodeLine{265   std::optional<DBCOption> dBCOption\_;}
+\DoxyCodeLine{266 \};}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
+\DoxyCodeLine{270 \textcolor{keyword}{template} <\textcolor{keyword}{class} FEV, \textcolor{keyword}{class} DirichletValuesType>}
+\DoxyCodeLine{271 FlatAssemblerBase(\textcolor{keyword}{const} FEV\& fes,}
+\DoxyCodeLine{272                   \textcolor{keyword}{const} DirichletValuesType\& \mbox{\hyperlink{a00544_a453691a9a22118c4736e30240481a281}{dirichletValues}}) -\/> FlatAssemblerBase<FEV, DirichletValuesType>;}
+\DoxyCodeLine{273 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{274 }
+\DoxyCodeLine{282 \textcolor{keyword}{template} <\textcolor{keyword}{typename} SA, \textcolor{keyword}{typename} FEC, \textcolor{keyword}{typename} DV, \textcolor{keyword}{typename} ST>}
+\DoxyCodeLine{283 \textcolor{keyword}{class }\mbox{\hyperlink{a01402}{ScalarAssembler}}}
+\DoxyCodeLine{284 \{}
+\DoxyCodeLine{285 \textcolor{keyword}{public}:}
+\DoxyCodeLine{286   \textcolor{keyword}{using }\mbox{\hyperlink{a01402_a495146eca3941b7f3fce4e4cfad0db5b}{ScalarAssemblerType}} = SA;}
+\DoxyCodeLine{287   \textcolor{keyword}{using }\mbox{\hyperlink{a01402_a16ca73d65a203ae40cc5fde52a842d55}{ScalarType}}          = ST;}
+\DoxyCodeLine{288   \textcolor{keyword}{using }\mbox{\hyperlink{a01402_a67cc8482921daea5596b429c4e4eafc0}{DirichletValuesType}} = DV;}
+\DoxyCodeLine{289   \textcolor{keyword}{using }\mbox{\hyperlink{a01402_ad3ee06841d700fcd7cfe172863c5e0a5}{FEContainer}}         = FEC;}
+\DoxyCodeLine{290   \textcolor{keyword}{using }\mbox{\hyperlink{a01402_a19e5808c52606d12f9bd37d3c719d1a4}{FEContainerRaw}}      = std::remove\_cvref\_t<FEC>; }
+\DoxyCodeLine{291   \textcolor{keyword}{using }\mbox{\hyperlink{a01402_a168924ea15d45b7ba44a68b3aac9dc01}{FERequirement}}       = \textcolor{keyword}{typename} FEContainerRaw::value\_type::Requirement;}
+\DoxyCodeLine{292 }
+\DoxyCodeLine{300   \mbox{\hyperlink{a01402_a16ca73d65a203ae40cc5fde52a842d55}{ScalarType}}\& \mbox{\hyperlink{a01402_a8a2c2b61a0d309944bb7adb0df9b5e05}{scalar}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01402_a168924ea15d45b7ba44a68b3aac9dc01}{FERequirement}}\& feRequirements, \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}} affordance) \{}
+\DoxyCodeLine{301     \textcolor{keywordflow}{return} underlying().getScalarImpl(feRequirements, affordance);}
+\DoxyCodeLine{302   \}}
+\DoxyCodeLine{303 }
+\DoxyCodeLine{309   \mbox{\hyperlink{a01402_a16ca73d65a203ae40cc5fde52a842d55}{ScalarType}}\& \mbox{\hyperlink{a01402_a576e3d47d49dedd55a2c76f2fe80788e}{scalar}}() \{}
+\DoxyCodeLine{310     \textcolor{keywordflow}{return} underlying().getScalarImpl(underlying().requirement(),}
+\DoxyCodeLine{311                                       underlying().affordanceCollection().\mbox{\hyperlink{a00510_a9f58a3849d4736e5cc314f6f995fe9e7}{scalarAffordance}}());}
+\DoxyCodeLine{312   \}}
+\DoxyCodeLine{313 }
+\DoxyCodeLine{314 \textcolor{keyword}{private}:}
+\DoxyCodeLine{315   \textcolor{comment}{//> CRTP}}
+\DoxyCodeLine{316   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& underlying()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{a01402_a495146eca3941b7f3fce4e4cfad0db5b}{ScalarAssemblerType}}\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{317   \textcolor{keyword}{auto}\& underlying() \{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{a01402_a495146eca3941b7f3fce4e4cfad0db5b}{ScalarAssemblerType}}\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{318 \};}
+\DoxyCodeLine{319 }
+\DoxyCodeLine{327 \textcolor{keyword}{template} <\textcolor{keyword}{typename} VA, \textcolor{keyword}{typename} FEC, \textcolor{keyword}{typename} DV, \textcolor{keyword}{typename} VT>}
+\DoxyCodeLine{328 \textcolor{keyword}{class }\mbox{\hyperlink{a01406}{VectorAssembler}}}
+\DoxyCodeLine{329 \{}
+\DoxyCodeLine{330 \textcolor{keyword}{public}:}
+\DoxyCodeLine{331   \textcolor{keyword}{using }\mbox{\hyperlink{a01406_a59543aeefbb4609bfb6e4b5058d13feb}{VectorAssemblerType}} = VA;}
+\DoxyCodeLine{332   \textcolor{keyword}{using }\mbox{\hyperlink{a01406_a7ffbdbded5dd399d9aae926c5fa83426}{VectorType}}          = VT;}
+\DoxyCodeLine{333 }
+\DoxyCodeLine{334   \textcolor{keyword}{using }\mbox{\hyperlink{a01406_a84da792417efdb20be1175a3aebba613}{FEContainerRaw}} = std::remove\_cvref\_t<FEC>; }
+\DoxyCodeLine{335   \textcolor{keyword}{using }\mbox{\hyperlink{a01406_a6c645e13a046cb23df4a613bf16fb2b8}{FERequirement}}  = \textcolor{keyword}{typename} FEContainerRaw::value\_type::Requirement;}
+\DoxyCodeLine{337   \textcolor{keyword}{using }\mbox{\hyperlink{a01406_af8ddad31c22caf7ab7b4c26bb1b6caf6}{GlobalIndex}} = \textcolor{keyword}{typename} FEContainerRaw::value\_type::GlobalIndex; }
+\DoxyCodeLine{338 }
+\DoxyCodeLine{339   \textcolor{keyword}{using }\mbox{\hyperlink{a01406_a44d532fe6ff766e87860b4a8d225ed1b}{DirichletValuesType}} = DV;}
+\DoxyCodeLine{340   \textcolor{keyword}{using }\mbox{\hyperlink{a01406_ab59a1675e2fad639a226229578fd1202}{FEContainer}}         = FEC;}
+\DoxyCodeLine{341 }
+\DoxyCodeLine{355   \mbox{\hyperlink{a01406_a7ffbdbded5dd399d9aae926c5fa83426}{VectorType}}\& \mbox{\hyperlink{a01406_aaa9c14cda740764ab510656645b23e70}{vector}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01406_a6c645e13a046cb23df4a613bf16fb2b8}{FERequirement}}\& feRequirements, \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} affordance,}
+\DoxyCodeLine{356                      \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption = \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}}) \{}
+\DoxyCodeLine{357     \textcolor{keywordflow}{if} (dbcOption == \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eeca65e65c8ab0d8609ce12fc68a03cb8e00}{DBCOption::Raw}}) \{}
+\DoxyCodeLine{358       \textcolor{keywordflow}{return} underlying().getRawVectorImpl(feRequirements, affordance);}
+\DoxyCodeLine{359     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (dbcOption == \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eeca4335949a935758ca1b570689c3c6750b}{DBCOption::Reduced}}) \{}
+\DoxyCodeLine{360       \textcolor{keywordflow}{return} underlying().getReducedVectorImpl(feRequirements, affordance);}
+\DoxyCodeLine{361     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (dbcOption == \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}}) \{}
+\DoxyCodeLine{362       \textcolor{keywordflow}{return} underlying().getVectorImpl(feRequirements, affordance);}
+\DoxyCodeLine{363     \}}
+\DoxyCodeLine{364     \_\_builtin\_unreachable();}
+\DoxyCodeLine{365   \}}
+\DoxyCodeLine{366 }
+\DoxyCodeLine{377   \mbox{\hyperlink{a01406_a7ffbdbded5dd399d9aae926c5fa83426}{VectorType}}\& \mbox{\hyperlink{a01406_a8cd13b3cdc0d87380d81a44d6c4599f4}{vector}}(\mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{378     \textcolor{keywordflow}{return} \mbox{\hyperlink{a01406_abd544de7415960d9403c8a432844e4ed}{vector}}(underlying().requirement(), underlying().affordanceCollection().\mbox{\hyperlink{a00510_a2597fb8b5ba646668b01bcc4e5f75818}{vectorAffordance}}(), dbcOption);}
+\DoxyCodeLine{379   \}}
+\DoxyCodeLine{380 }
+\DoxyCodeLine{389   \mbox{\hyperlink{a01406_a7ffbdbded5dd399d9aae926c5fa83426}{VectorType}}\& \mbox{\hyperlink{a01406_abd544de7415960d9403c8a432844e4ed}{vector}}() \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a01406_abd544de7415960d9403c8a432844e4ed}{vector}}(underlying().dBCOption()); \}}
+\DoxyCodeLine{390 }
+\DoxyCodeLine{391 \textcolor{keyword}{private}:}
+\DoxyCodeLine{392   \textcolor{comment}{//> CRTP}}
+\DoxyCodeLine{393   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& underlying()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{a01406_a59543aeefbb4609bfb6e4b5058d13feb}{VectorAssemblerType}}\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{394   \textcolor{keyword}{auto}\& underlying() \{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{a01406_a59543aeefbb4609bfb6e4b5058d13feb}{VectorAssemblerType}}\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{395 \};}
+\DoxyCodeLine{396 }
+\DoxyCodeLine{404 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MA, \textcolor{keyword}{typename} FEC, \textcolor{keyword}{typename} DV, \textcolor{keyword}{typename} MT>}
+\DoxyCodeLine{405 \textcolor{keyword}{class }\mbox{\hyperlink{a01410}{MatrixAssembler}}}
+\DoxyCodeLine{406 \{}
+\DoxyCodeLine{407 \textcolor{keyword}{public}:}
+\DoxyCodeLine{408   \textcolor{keyword}{using }\mbox{\hyperlink{a01410_a9c63238dcb046fa9c2aa4c19e56f2f52}{MatrixAssemblerType}} = MA;}
+\DoxyCodeLine{409   \textcolor{keyword}{using }\mbox{\hyperlink{a01410_a7e7b9863a583cd74316bbce5c6109327}{MatrixType}}          = MT;}
+\DoxyCodeLine{410 }
+\DoxyCodeLine{411   \textcolor{keyword}{using }\mbox{\hyperlink{a01410_a4d8b5a9afd03c57b4868392c528ddcd7}{FEContainerRaw}} = std::remove\_cvref\_t<FEC>; }
+\DoxyCodeLine{412   \textcolor{keyword}{using }\mbox{\hyperlink{a01410_a1e490ff104a641431898e23c72f79c49}{FERequirement}}  = \textcolor{keyword}{typename} FEContainerRaw::value\_type::Requirement;}
+\DoxyCodeLine{414   \textcolor{keyword}{using }\mbox{\hyperlink{a01410_a194b5b06d61b6cbb75c3c08b02b6510e}{GlobalIndex}} = \textcolor{keyword}{typename} FEContainerRaw::value\_type::GlobalIndex; }
+\DoxyCodeLine{415 }
+\DoxyCodeLine{416   \textcolor{keyword}{using }\mbox{\hyperlink{a01410_a1351709f93ba492547e6a8006baeeeaa}{DirichletValuesType}} = DV;}
+\DoxyCodeLine{417   \textcolor{keyword}{using }\mbox{\hyperlink{a01410_a89fb72c2d9d9c13f2f4f12b0ec779fe2}{FEContainer}}         = FEC;}
+\DoxyCodeLine{418 }
+\DoxyCodeLine{430   \mbox{\hyperlink{a01410_a7e7b9863a583cd74316bbce5c6109327}{MatrixType}}\& \mbox{\hyperlink{a01410_a848a1cc00225f2e9a847eba18a6b9b20}{matrix}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01410_a1e490ff104a641431898e23c72f79c49}{FERequirement}}\& feRequirements, \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}} affordance,}
+\DoxyCodeLine{431                      \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption = \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}}) \{}
+\DoxyCodeLine{432     \textcolor{keywordflow}{if} (dbcOption == \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eeca65e65c8ab0d8609ce12fc68a03cb8e00}{DBCOption::Raw}}) \{}
+\DoxyCodeLine{433       \textcolor{keywordflow}{return} underlying().getRawMatrixImpl(feRequirements, affordance);}
+\DoxyCodeLine{434     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (dbcOption == \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eeca4335949a935758ca1b570689c3c6750b}{DBCOption::Reduced}}) \{}
+\DoxyCodeLine{435       \textcolor{keywordflow}{return} underlying().getReducedMatrixImpl(feRequirements, affordance);}
+\DoxyCodeLine{436     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (dbcOption == \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}}) \{}
+\DoxyCodeLine{437       \textcolor{keywordflow}{return} underlying().getMatrixImpl(feRequirements, affordance);}
+\DoxyCodeLine{438     \}}
+\DoxyCodeLine{439     \_\_builtin\_unreachable();}
+\DoxyCodeLine{440   \}}
+\DoxyCodeLine{441 }
+\DoxyCodeLine{450   \mbox{\hyperlink{a01410_a7e7b9863a583cd74316bbce5c6109327}{MatrixType}}\& \mbox{\hyperlink{a01410_afc188b36f5872b6c89060f9f10dc4afc}{matrix}}(\mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{451     \textcolor{keywordflow}{return} \mbox{\hyperlink{a01410_a09fdcb8077bc6e8b181dd86c1820568c}{matrix}}(underlying().requirement(), underlying().affordanceCollection().matrixAffordance(), dbcOption);}
+\DoxyCodeLine{452   \}}
+\DoxyCodeLine{453 }
+\DoxyCodeLine{462   \mbox{\hyperlink{a01410_a7e7b9863a583cd74316bbce5c6109327}{MatrixType}}\& \mbox{\hyperlink{a01410_a09fdcb8077bc6e8b181dd86c1820568c}{matrix}}() \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{a01410_a09fdcb8077bc6e8b181dd86c1820568c}{matrix}}(underlying().dBCOption()); \}}
+\DoxyCodeLine{463 }
+\DoxyCodeLine{464 \textcolor{keyword}{private}:}
+\DoxyCodeLine{465   \textcolor{comment}{//> CRTP}}
+\DoxyCodeLine{466   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& underlying()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }\mbox{\hyperlink{a01410_a9c63238dcb046fa9c2aa4c19e56f2f52}{MatrixAssemblerType}}\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{467   \textcolor{keyword}{auto}\& underlying() \{ \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{a01410_a9c63238dcb046fa9c2aa4c19e56f2f52}{MatrixAssemblerType}}\&\textcolor{keyword}{>}(*this); \}}
+\DoxyCodeLine{468 \};}
+\DoxyCodeLine{469 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

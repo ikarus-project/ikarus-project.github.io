@@ -1,54 +1,56 @@
-\hypertarget{a00425_source}{}\doxysection{adaptivestepsizing.\+hh}
-\label{a00425_source}\index{adaptivestepsizing.hh@{adaptivestepsizing.hh}}
+\hypertarget{a00425_source}{}\doxysection{common.\+hh}
+\label{a00425_source}\index{common.hh@{common.hh}}
 \mbox{\hyperlink{a00425}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00449}{ikarus/controlroutines/pathfollowingfunctions.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00158}{ikarus/solver/nonlinearsolver/solverinfos.hh}}>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <concepts>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00182}{ikarus/solver/linearsolver/linearsolver.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00029}{ikarus/utils/defaultfunctions.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00005}{ikarus/utils/traits.hh}}>}}
 \DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00509}{Ikarus::AdaptiveStepSizing}} \{}
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
 \DoxyCodeLine{18 }
-\DoxyCodeLine{24 \textcolor{keyword}{struct }\mbox{\hyperlink{a01427}{NoOp}}}
-\DoxyCodeLine{25 \{}
-\DoxyCodeLine{36   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{37   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01427_a4d2706eae2283cce9e3982df1f3f3517}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02167}{NonLinearSolverInformation}}\& solverInfo, \mbox{\hyperlink{a01479}{SubsidiaryArgs}}\& subsidiaryArgs, \textcolor{keyword}{const} F\& f) \{\}}
-\DoxyCodeLine{38 }
-\DoxyCodeLine{43   [[nodiscard]] \textcolor{keywordtype}{int} \mbox{\hyperlink{a01427_af42dff6b9945230918607a14f159e52e}{targetIterations}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} 0; \}}
-\DoxyCodeLine{44 }
-\DoxyCodeLine{49   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01427_aae9af895e735c2c5f87a9e2eb77aa737}{setTargetIterations}}([[maybe\_unused]] \textcolor{keywordtype}{int} \mbox{\hyperlink{a01427_af42dff6b9945230918607a14f159e52e}{targetIterations}}) \{\}}
-\DoxyCodeLine{50 \};}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{62 \textcolor{keyword}{struct }\mbox{\hyperlink{a01431}{IterationBased}}}
-\DoxyCodeLine{63 \{}
-\DoxyCodeLine{74   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{75   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01431_a5456594c81a3b2f50042998a0cd9f6c3}{operator()}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02167}{NonLinearSolverInformation}}\& solverInfo, \mbox{\hyperlink{a01479}{SubsidiaryArgs}}\& subsidiaryArgs, \textcolor{keyword}{const} F\& f) \{}
-\DoxyCodeLine{76     \textcolor{keywordflow}{if} (subsidiaryArgs.\mbox{\hyperlink{a01479_a217c729e1ae8b05a98c852f19b0d6ae5}{currentStep}} == 0)}
-\DoxyCodeLine{77       \textcolor{keywordflow}{return};}
-\DoxyCodeLine{78     \textcolor{keywordflow}{if} (targetIterations\_ == 0)}
-\DoxyCodeLine{79       DUNE\_THROW(Dune::InvalidStateException,}
-\DoxyCodeLine{80                  \textcolor{stringliteral}{"{}TargetIterations should not be equal to 0. Try calling "{}}}
-\DoxyCodeLine{81                  \textcolor{stringliteral}{"{}setTargetIterations(int) first."{}});}
-\DoxyCodeLine{82     \textcolor{keyword}{const} \textcolor{keyword}{auto} previousIterations = solverInfo.\mbox{\hyperlink{a02167_a81570cd3d9f6589a4d1ba81211f41b99}{iterations}};}
-\DoxyCodeLine{83     \textcolor{keywordflow}{if} (previousIterations > targetIterations\_)}
-\DoxyCodeLine{84       subsidiaryArgs.\mbox{\hyperlink{a01479_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}} =}
-\DoxyCodeLine{85           sqrt(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(targetIterations\_) / previousIterations) * subsidiaryArgs.\mbox{\hyperlink{a01479_a9c0bca7ed999dcf751648d41b5d9aa78}{stepSize}};}
-\DoxyCodeLine{86   \}}
-\DoxyCodeLine{87 }
-\DoxyCodeLine{92   [[nodiscard]] \textcolor{keywordtype}{int} \mbox{\hyperlink{a01431_aabdaad05b950b53e014624271a16fd9c}{targetIterations}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} targetIterations\_; \}}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{98   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01431_a52017ebcd89859d5ae214cc8767ef78d}{setTargetIterations}}(\textcolor{keywordtype}{int} \mbox{\hyperlink{a01431_aabdaad05b950b53e014624271a16fd9c}{targetIterations}}) \{}
-\DoxyCodeLine{99     \textcolor{keywordflow}{if} (\mbox{\hyperlink{a01431_aabdaad05b950b53e014624271a16fd9c}{targetIterations}} == 0)}
-\DoxyCodeLine{100       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}TargetIterations should not be equal to 0."{}});}
-\DoxyCodeLine{101     targetIterations\_ = \mbox{\hyperlink{a01431_aabdaad05b950b53e014624271a16fd9c}{targetIterations}};}
-\DoxyCodeLine{102   \}}
-\DoxyCodeLine{103 }
-\DoxyCodeLine{104 \textcolor{keyword}{private}:}
-\DoxyCodeLine{105   \textcolor{keywordtype}{int} targetIterations\_\{0\};}
-\DoxyCodeLine{106 \};}
-\DoxyCodeLine{107 \} \textcolor{comment}{// namespace Ikarus::AdaptiveStepSizing}}
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }Concepts \{}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{26   \textcolor{keyword}{concept }\mbox{\hyperlink{a02427}{HasValidIDBCForceFunction}} = not std::same\_as<typename NLS::IDBCForceFunction, utils::IDBCForceDefault>;}
+\DoxyCodeLine{27 \} \textcolor{comment}{// namespace Concepts}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{39 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{40 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a2c5057b73232617e81f5e44318e3ffa7}{createSPDLinearSolverFromNonLinearSolver}}(\textcolor{keyword}{const} NLS\& nls) \{}
+\DoxyCodeLine{41   \textcolor{keyword}{using }JacobianType = std::remove\_cvref\_t<typename NLS::JacobianType>;}
+\DoxyCodeLine{42   \textcolor{keyword}{static\_assert}((traits::isSpecializationTypeAndNonTypes<Eigen::Matrix, JacobianType>::value) or}
+\DoxyCodeLine{43                     (traits::isSpecializationTypeNonTypeAndType<Eigen::SparseMatrix, JacobianType>::value),}
+\DoxyCodeLine{44                 \textcolor{stringliteral}{"{}Linear solver not implemented for the chosen derivative type of the non-\/linear operator"{}});}
+\DoxyCodeLine{45   \mbox{\hyperlink{a00510_a731a9ee6621f91193c15f31b9a399906}{SolverTypeTag}} solverTag;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \textcolor{keyword}{auto}\&\& residual = nls.residual();}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (traits::isSpecializationTypeAndNonTypes<Eigen::Matrix, JacobianType>::value)}
+\DoxyCodeLine{50     solverTag = \mbox{\hyperlink{a00510_a731a9ee6621f91193c15f31b9a399906ad495de2cc8831501954c24afe8688190}{SolverTypeTag::d\_LDLT}};}
+\DoxyCodeLine{51   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{52     solverTag = \mbox{\hyperlink{a00510_a731a9ee6621f91193c15f31b9a399906af493d8a2d2d89f06181e77bc79cabf1c}{SolverTypeTag::sd\_SimplicialLDLT}};}
+\DoxyCodeLine{53   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_a2afda25e777ed3a794da319ba535b87b}{LinearSolver}}(solverTag);}
+\DoxyCodeLine{54 \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{63 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{64 \textcolor{keyword}{typename} NLS::Domain::SolutionVectorType \mbox{\hyperlink{a00510_a9b0b6a51cf987a1cbade10295c9085cb}{idbcIncrement}}(\textcolor{keyword}{typename} NLS::Domain\& x, \textcolor{keyword}{const} NLS\& nls, \textcolor{keywordtype}{double} Dlambda) \{}
+\DoxyCodeLine{65   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02427}{Concepts::HasValidIDBCForceFunction<NLS>}}) \{}
+\DoxyCodeLine{66     \textcolor{keyword}{auto} y = x;}
+\DoxyCodeLine{67     y.parameter() += Dlambda;}
+\DoxyCodeLine{68     y.syncParameterAndGlobalSolution(nls.updateFunction());}
+\DoxyCodeLine{69     \textcolor{keyword}{const} \textcolor{keyword}{auto} delta = (y.globalSolution() -\/ x.globalSolution()).eval();}
+\DoxyCodeLine{70     \textcolor{keywordflow}{return} delta;}
+\DoxyCodeLine{71   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{72     Eigen::VectorXd v;}
+\DoxyCodeLine{73     v.setZero(x.globalSolution().size());}
+\DoxyCodeLine{74     \textcolor{keywordflow}{return} v;}
+\DoxyCodeLine{75   \}}
+\DoxyCodeLine{76 \}}
+\DoxyCodeLine{77 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

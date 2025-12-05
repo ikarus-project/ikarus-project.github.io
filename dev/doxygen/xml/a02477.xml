@@ -1,35 +1,22 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
   <compounddef id="a02477" kind="concept">
-    <compoundname>Ikarus::Concepts::Material</compoundname>
-    <includes refid="a03556" local="no">ikarus/utils/concepts.hh</includes>
+    <compoundname>Ikarus::Concepts::ReferenceConfiguraionStress</compoundname>
+    <includes refid="a03559" local="no">ikarus/utils/concepts.hh</includes>
     <templateparamlist>
       <param>
-        <type>typename M</type>
+        <type>StressTags</type>
+        <declname>tag</declname>
+        <defname>tag</defname>
       </param>
     </templateparamlist>
-    <initializer>template&lt;typename M&gt;
-concept <ref refid="a02477" kindref="compound">Ikarus::Concepts::Material</ref> =  requires(M m, Eigen::Matrix3d C) {
-    M::strainTag;
-    M::stressTag;
-    M::tangentModuliTag;
-    M::derivativeFactor;
-    M::isReduced;
-
-    typename M::ScalarType;
-
-    { m.name() } -&gt; std::convertible_to&lt;std::string&gt;;
-    { m.materialParameters() } -&gt; std::same_as&lt;typename M::MaterialParameters&gt;;
-    { m.template storedEnergy&lt;M::strainTag&gt;(C) } -&gt; std::same_as&lt;typename M::ScalarType&gt;;
-    { m.template stresses&lt;M::strainTag&gt;(C) };
-    { m.template tangentModuli&lt;M::strainTag&gt;(C) };
-  }    </initializer>
+    <initializer>template&lt;StressTags tag&gt;
+concept <ref refid="a02477" kindref="compound">Ikarus::Concepts::ReferenceConfiguraionStress</ref> =  (tag == StressTags::PK2) or (tag == StressTags::linear)    </initializer>
     <briefdescription>
-<para>Concept representing a material interface. </para>
+<para>Returns true if a given stresstag is related only to the reference configuration. </para>
     </briefdescription>
     <detaileddescription>
-<para>A type M satisfies the material interface if it provides the necessary member functions and type. </para>
     </detaileddescription>
-    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="715" column="3"/>
+    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/concepts.hh" line="684" column="3"/>
   </compounddef>
 </doxygen>

@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: Ikarus::Concepts::MatrixFlatAssembler Concept Reference</title>
+    <title>ikarus: Ikarus::Concepts::FlatAssembler Concept Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,26 +155,41 @@ $(document).ready(function(){initNavTree('a02465.html',''); initResizable(); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Ikarus::Concepts::MatrixFlatAssembler Concept Reference</div></div>
+  <div class="headertitle"><div class="title">Ikarus::Concepts::FlatAssembler Concept Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Concept representing the requirements for a MatrixFlatAssembler.A type T satisfies MatrixFlatAssembler if it is a VectorFlatAssembler and if it provides the necessary matrix() member functions.  
+<p>Concept representing the requirements for a FlatAssembler.A type T satisfies FlatAssembler if it provides the necessary member functions and data types for assembling sparse matrices in a flat structure.  
 </p>
 
-<p><code>#include &lt;<a class="el" href="a03556_source.html">ikarus/utils/concepts.hh</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03559_source.html">ikarus/utils/concepts.hh</a>&gt;</code></p>
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="a02465.html">Ikarus::Concepts::MatrixFlatAssembler</a> =  <a class="code hl_concept" href="a02464.html">Concepts::VectorFlatAssembler&lt;T&gt;</a> and</div>
-<div class="line">                                <span class="keyword">requires</span>(T t, <span class="keyword">const</span> <span class="keyword">typename</span> T::FERequirement&amp; req,</div>
-<div class="line">                                         <span class="keyword">typename</span> T::AffordanceCollectionType affordance, <a class="code hl_enumeration" href="a00507.html#a9f83fad9f4c149f249165a13f2370eec">DBCOption</a> dbcOption) {</div>
-<div class="line">                                  { t.matrix(req, affordance.matrixAffordance(), dbcOption) };</div>
-<div class="line">                                  { t.matrix(dbcOption) };</div>
-<div class="line">                                  { t.matrix() };</div>
-<div class="line">                                }</div>
-<div class="ttc" id="aa00507_html_a9f83fad9f4c149f249165a13f2370eec"><div class="ttname"><a href="a00507.html#a9f83fad9f4c149f249165a13f2370eec">Ikarus::DBCOption</a></div><div class="ttdeci">DBCOption</div><div class="ttdef"><b>Definition:</b> dirichletbcenforcement.hh:8</div></div>
-<div class="ttc" id="aa02464_html"><div class="ttname"><a href="a02464.html">Ikarus::Concepts::VectorFlatAssembler</a></div><div class="ttdoc">Concept representing the requirements for a VectorFlatAssembler.A type T satisfies VectorFlatAssemble...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:562</div></div>
-<div class="ttc" id="aa02465_html"><div class="ttname"><a href="a02465.html">Ikarus::Concepts::MatrixFlatAssembler</a></div><div class="ttdoc">Concept representing the requirements for a MatrixFlatAssembler.A type T satisfies MatrixFlatAssemble...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:579</div></div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="a02465.html">Ikarus::Concepts::FlatAssembler</a> =  <span class="keyword">requires</span>(T t, <span class="keyword">const</span> <span class="keyword">typename</span> T::FERequirement&amp; req,</div>
+<div class="line">                                   <span class="keyword">typename</span> T::AffordanceCollectionType affordance, <a class="code hl_enumeration" href="a00510.html#a9f83fad9f4c149f249165a13f2370eec">DBCOption</a> dbcOption) {</div>
+<div class="line">    { t.requirement() } -&gt; std::convertible_to&lt;const typename T::FERequirement&amp;&gt;;</div>
+<div class="line">    { t.affordanceCollection() } -&gt; std::convertible_to&lt;typename T::AffordanceCollectionType&gt;;</div>
+<div class="line">    { t.dBCOption() } -&gt; std::convertible_to&lt;DBCOption&gt;;</div>
+<div class="line"> </div>
+<div class="line">    { t.bind(req, affordance, dbcOption) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line">    { t.bind(req) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line">    { t.bind(affordance) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line">    { t.bind(dbcOption) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"> </div>
+<div class="line">    { t.bound() } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line">    { t.boundToRequirement() } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line">    { t.boundToAffordanceCollection() } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line">    { t.boundToDBCOption() } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line">    { t.estimateOfConnectivity() } -&gt; std::convertible_to&lt;size_t&gt;;</div>
+<div class="line"> </div>
+<div class="line">    { t.createFullVector(std::declval&lt;Eigen::Ref&lt;const Eigen::VectorXd&gt;&gt;()) } -&gt; std::convertible_to&lt;Eigen::VectorXd&gt;;</div>
+<div class="line">    { t.constraintsBelow(std::declval&lt;size_t&gt;()) } -&gt; std::convertible_to&lt;size_t&gt;;</div>
+<div class="line">    { t.isConstrained(std::declval&lt;size_t&gt;()) } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line">    { t.size() } -&gt; std::convertible_to&lt;size_t&gt;;</div>
+<div class="line">    { t.reducedSize() } -&gt; std::convertible_to&lt;size_t&gt;;</div>
+<div class="line">  }</div>
+<div class="ttc" id="aa00510_html_a9f83fad9f4c149f249165a13f2370eec"><div class="ttname"><a href="a00510.html#a9f83fad9f4c149f249165a13f2370eec">Ikarus::DBCOption</a></div><div class="ttdeci">DBCOption</div><div class="ttdef"><b>Definition:</b> dirichletbcenforcement.hh:8</div></div>
+<div class="ttc" id="aa02465_html"><div class="ttname"><a href="a02465.html">Ikarus::Concepts::FlatAssembler</a></div><div class="ttdoc">Concept representing the requirements for a FlatAssembler.A type T satisfies FlatAssembler if it prov...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:517</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -185,7 +200,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="a00507.html">Ikarus</a></li><li class="navelem"><a class="el" href="a00510.html">Concepts</a></li><li class="navelem"><a class="el" href="a02465.html">MatrixFlatAssembler</a></li>
+        <li class="navelem"><a class="el" href="a00510.html">Ikarus</a></li><li class="navelem"><a class="el" href="a00513.html">Concepts</a></li><li class="navelem"><a class="el" href="a02465.html">FlatAssembler</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -1,4 +1,4 @@
 var a00368 =
 [
-    [ "Ikarus::PS::LinearStress", "a01571.html", "a01571" ]
+    [ "Ikarus::PS::PK2Stress", "a01578.html", "a01578" ]
 ];

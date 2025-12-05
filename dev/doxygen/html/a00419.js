@@ -1,5 +1,8 @@
 var a00419 =
 [
-    [ "makeDenseFlatAssembler", "a00419.html#aa2e289f3c26f24717a19b05b5561538c", null ],
-    [ "makeSparseFlatAssembler", "a00419.html#a7b31ad9106d0c3d4052413bcbf5ea596", null ]
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss >", "a01386.html", "a01386" ],
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss >", "a01390.html", "a01390" ],
+    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss, MatrixAss >", "a01394.html", "a01394" ],
+    [ "BASECLASSMEMBERFUNCTION", "a00419.html#ab88748ddf71ad00ec25d8e9dabcefa82", null ],
+    [ "makeAssemblerManipulator", "a00419.html#afc83c2d114028f47280b981daf728ebe", null ]
 ];

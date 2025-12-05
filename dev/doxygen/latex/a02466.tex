@@ -1,5 +1,12 @@
-\hypertarget{a02466}{}\doxysection{Ikarus\+::Concepts\+::Data\+Collector Concept Reference}
-\label{a02466}\index{Ikarus::Concepts::DataCollector@{Ikarus::Concepts::DataCollector}}
+\hypertarget{a02466}{}\doxysection{Ikarus\+::Concepts\+::Scalar\+Flat\+Assembler Concept Reference}
+\label{a02466}\index{Ikarus::Concepts::ScalarFlatAssembler@{Ikarus::Concepts::ScalarFlatAssembler}}
+
+
+Concept representing the requirements for a Scalar\+Flat\+Assembler.
+
+A type T satisfies Scalar\+Flat\+Assembler if it is a Flat\+Assembler and if it provides the necessary scalar() member functions.  
+
+
 
 
 {\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}
@@ -7,13 +14,12 @@
 \doxysubsection{Concept definition}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{class} DC>}
-\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02466}{Ikarus::Concepts::DataCollector}} =  \textcolor{keyword}{requires}(DC dc) \{}
-\DoxyCodeLine{    \textcolor{keyword}{typename} DC::GridView;}
-\DoxyCodeLine{    \{ dc.update() \} -\/> std::same\_as<void>;}
-\DoxyCodeLine{    \{ dc.numPoints() \} -\/> std::convertible\_to<std::uint64\_t>;}
-\DoxyCodeLine{    \{ dc.numCells() \} -\/> std::convertible\_to<std::uint64\_t>;}
-\DoxyCodeLine{    \{ dc.gridView() \} -\/> std::same\_as<const typename DC::GridView\&>;}
-\DoxyCodeLine{  \}}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{a02466}{Ikarus::Concepts::ScalarFlatAssembler}} = }
+\DoxyCodeLine{      \mbox{\hyperlink{a02465}{Concepts::FlatAssembler<T>}} and \textcolor{keyword}{requires}(T t, \textcolor{keyword}{const} \textcolor{keyword}{typename} T::FERequirement\& req,}
+\DoxyCodeLine{                                              \textcolor{keyword}{typename} T::AffordanceCollectionType affordance, \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{}
+\DoxyCodeLine{        \{ t.scalar(req, affordance.scalarAffordance()) \} -\/> std::convertible\_to<const double\&>;}
+\DoxyCodeLine{        \{ t.scalar() \} -\/> std::convertible\_to<const double\&>;}
+\DoxyCodeLine{      \}}
 
 \end{DoxyCode}

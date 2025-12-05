@@ -1,4 +1,5 @@
 var a00350 =
 [
-    [ "StVenantKirchhoff", "a00350.html#a68ee2f9a7730fbcf6969940b0c5da418", null ]
+    [ "createTwoPointMaterialTensor", "a00350.html#a4fd4645099bdac5d720507dbe784875c", null ],
+    [ "transformTangentModuli", "a00350.html#aa7cefe6207ae33624dc765db0d52759b", null ]
 ];

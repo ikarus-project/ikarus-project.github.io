@@ -1,6 +1,4 @@
 var a03514 =
 [
-    [ "Ikarus::ScalarAssembler< SA, FEC, DV, ST >", "a01399.html", "a01399" ],
-    [ "Ikarus::VectorAssembler< VA, FEC, DV, VT >", "a01403.html", "a01403" ],
-    [ "Ikarus::MatrixAssembler< MA, FEC, DV, MT >", "a01407.html", "a01407" ]
+    [ "addBindingsToMaterials", "a00498.html#ga083f48b0fb1d328f8f4700c3f15acbdb", null ]
 ];

@@ -1,6 +1,5 @@
 var a00422 =
 [
-    [ "Ikarus::Concepts::HasValidIDBCForceFunction", "a02424.html", null ],
-    [ "createSPDLinearSolverFromNonLinearSolver", "a00422.html#a2c5057b73232617e81f5e44318e3ffa7", null ],
-    [ "idbcIncrement", "a00422.html#a9b0b6a51cf987a1cbade10295c9085cb", null ]
+    [ "makeDenseFlatAssembler", "a00422.html#aa2e289f3c26f24717a19b05b5561538c", null ],
+    [ "makeSparseFlatAssembler", "a00422.html#a7b31ad9106d0c3d4052413bcbf5ea596", null ]
 ];
