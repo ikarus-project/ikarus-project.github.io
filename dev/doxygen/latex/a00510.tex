@@ -748,6 +748,10 @@ requires std\+::integral$<$T$>$}\\constexpr T \mbox{\hyperlink{a00510_ae55d4d0c3
 \begin{DoxyCompactList}\small\item\em Compile-\/time square root for integer types. \end{DoxyCompactList}\item 
 {\footnotesize template$<$class Base\+Quadrature , class Quadrature $>$ }\\auto \mbox{\hyperlink{a00510_a839e2d8a648318c584c66024e62ddd91}{tensor\+Product\+Quadrature}} (const Base\+Quadrature \&base\+Quad, const Quadrature \&oned\+Quad)
 \begin{DoxyCompactList}\small\item\em Computes the tensor product quadrature rule using a base and one-\/dimensional quadrature rule. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int dim, typename Element $>$ }\\auto \mbox{\hyperlink{a00510_aa92ba5c8dfc0123e28236e017c3671d3}{default\+Quadrature\+Rule}} (const Element \&element, int order)
+\begin{DoxyCompactList}\small\item\em A helper function to provide a default quadrature rule for integration. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{a00510_a664c5f26c38c5958545919ecc5bd66c8}{number\+Of\+Gauss\+Points\+To\+Order}} (int n\+GP)
+\begin{DoxyCompactList}\small\item\em A helper function to convert the number of Gauss integration points to the polynomial order of the function being integrated. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename Derived , typename T , auto rank$>$ }\\Eigen\+::\+Tensor$<$ typename Derived\+::\+Scalar, rank $>$ \mbox{\hyperlink{a00506_ga5cfd9d098384fb067d897b3c0499b447}{tensor\+View}} (const \mbox{\hyperlink{a02210}{Eigen\+::\+Eigen\+Base}}$<$ Derived $>$ \&matrix, const std\+::array$<$ T, rank $>$ \&dims)
 \begin{DoxyCompactList}\small\item\em View an \mbox{\hyperlink{a00527}{Eigen}} matrix as an \mbox{\hyperlink{a00527}{Eigen}} Tensor with specified dimensions. \end{DoxyCompactList}\item 
 auto \mbox{\hyperlink{a00506_gab2cea9ac847cc3635812467c9d96ceb4}{dyadic}} (const auto \&A\+\_\+ij, const auto \&B\+\_\+kl)
@@ -1739,6 +1743,30 @@ Here is the caller graph for this function\+:
 \includegraphics[width=350pt]{a00510_ae55d4d0c3478ab3ecf54ce905ddf223b_icgraph}
 \end{center}
 \end{figure}
+\mbox{\Hypertarget{a00510_aa92ba5c8dfc0123e28236e017c3671d3}\label{a00510_aa92ba5c8dfc0123e28236e017c3671d3}} 
+\index{Ikarus@{Ikarus}!defaultQuadratureRule@{defaultQuadratureRule}}
+\index{defaultQuadratureRule@{defaultQuadratureRule}!Ikarus@{Ikarus}}
+\doxysubsubsection{\texorpdfstring{defaultQuadratureRule()}{defaultQuadratureRule()}}
+{\footnotesize\ttfamily template$<$int dim, typename Element $>$ \\
+auto Ikarus\+::default\+Quadrature\+Rule (\begin{DoxyParamCaption}\item[{const Element \&}]{element,  }\item[{int}]{order }\end{DoxyParamCaption})}
+
+A helper function to provide a default (Quadrature\+Type\+::\+Gauss\+Legendre) quadrature rule for integration. It also provides a default, if trimming operations are performed while working with NURBS basis functions. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em dim} & Dimension of the grid element (mydimension) \\
+\hline
+{\em Element} & Type of the grid element. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em element} & The grid element. \\
+\hline
+{\em order} & The order of functions to be integrated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A default quadrature rule. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{a00510_aff7184c8b9bf7333cce42c28dc459851}\label{a00510_aff7184c8b9bf7333cce42c28dc459851}} 
 \index{Ikarus@{Ikarus}!DerivativeTraitsFromCallables@{DerivativeTraitsFromCallables}}
 \index{DerivativeTraitsFromCallables@{DerivativeTraitsFromCallables}!Ikarus@{Ikarus}}
@@ -2524,6 +2552,20 @@ auto Ikarus\+::non\+Linear\+Elastic (\begin{DoxyParamCaption}\item[{const MAT \&
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 A non-\/linear elastic pre finite element. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{a00510_a664c5f26c38c5958545919ecc5bd66c8}\label{a00510_a664c5f26c38c5958545919ecc5bd66c8}} 
+\index{Ikarus@{Ikarus}!numberOfGaussPointsToOrder@{numberOfGaussPointsToOrder}}
+\index{numberOfGaussPointsToOrder@{numberOfGaussPointsToOrder}!Ikarus@{Ikarus}}
+\doxysubsubsection{\texorpdfstring{numberOfGaussPointsToOrder()}{numberOfGaussPointsToOrder()}}
+{\footnotesize\ttfamily int Ikarus\+::number\+Of\+Gauss\+Points\+To\+Order (\begin{DoxyParamCaption}\item[{int}]{n\+GP }\end{DoxyParamCaption})}
+
+Dune\+::\+Quadrature\+Rules usually uses order of a function as an argument instead of number of integration points (n\+GP). This function takes in n\+GP as an argument and returns the polynomial order (2 $\ast$ n\+GP -\/ 1) upto which a function could be exactly integrated. 
+\begin{DoxyParams}{Parameters}
+{\em n\+GP} & Number of Gauss points to be used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Polynomial order upto which a function can be exactly integrated. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{a00510_af366ed9ed9329aecf202c8b170476efa}\label{a00510_af366ed9ed9329aecf202c8b170476efa}} 
 \index{Ikarus@{Ikarus}!reduceMatrix@{reduceMatrix}}

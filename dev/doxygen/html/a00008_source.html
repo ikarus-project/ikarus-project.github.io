@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: autodiffhelper.hh Source File</title>
+    <title>ikarus: quadraturerulehelper.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -136,7 +136,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('a00011_source.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('a00008_source.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -155,31 +155,57 @@ $(document).ready(function(){initNavTree('a00011_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">autodiffhelper.hh</div></div>
+  <div class="headertitle"><div class="title">quadraturerulehelper.hh</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00011.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
+<a href="a00008.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2025 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;autodiff/forward/dual.hpp&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;autodiff/forward/dual/eigen.hpp&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;dune/geometry/quadraturerules.hh&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00510.html">Ikarus</a> {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00531.html">Ikarus::utils</a> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Fun, <span class="keyword">typename</span>... Vars, <span class="keyword">typename</span>... Args, <span class="keyword">typename</span> U, <span class="keyword">typename</span> G, <span class="keyword">typename</span> H&gt;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a00505.html#ga2a6c26beeb8d52283e82939ca585dc20">   35</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00505.html#ga2a6c26beeb8d52283e82939ca585dc20">hessianN</a>(<span class="keyword">const</span> Fun&amp; f, <span class="keyword">const</span> autodiff::Wrt&lt;Vars...&gt;&amp; wrt, <span class="keyword">const</span> autodiff::At&lt;Args...&gt;&amp; at, U&amp; u,</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>              std::array&lt;G, U::RowsAtCompileTime&gt;&amp; g, std::array&lt;H, U::RowsAtCompileTime&gt;&amp; h) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">static_assert</span>(<span class="keyword">sizeof</span>...(Vars) &gt;= 1);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keyword">static_assert</span>(<span class="keyword">sizeof</span>...(Args) &gt;= 1);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="keyword">auto</span> fEntry = [&amp;](<span class="keyword">auto</span>&amp; I) { <span class="keywordflow">return</span> [&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp;) { <span class="keywordflow">return</span> std::apply(f, at.args)[I]; }; };</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; U::RowsAtCompileTime; ++i)</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    hessian(fEntry(i), wrt, at, u[i], g[i], h[i]);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <span class="comment">// namespace Ikarus::utils</span></div>
-<div class="ttc" id="aa00505_html_ga2a6c26beeb8d52283e82939ca585dc20"><div class="ttname"><a href="a00505.html#ga2a6c26beeb8d52283e82939ca585dc20">Ikarus::utils::hessianN</a></div><div class="ttdeci">void hessianN(const Fun &amp;f, const autodiff::Wrt&lt; Vars... &gt; &amp;wrt, const autodiff::At&lt; Args... &gt; &amp;at, U &amp;u, std::array&lt; G, U::RowsAtCompileTime &gt; &amp;g, std::array&lt; H, U::RowsAtCompileTime &gt; &amp;h)</div><div class="ttdoc">Computes the Hessian matrix for each parameter of a given function.The Hessian matrix represents the ...</div><div class="ttdef"><b>Definition:</b> autodiffhelper.hh:35</div></div>
-<div class="ttc" id="aa00531_html"><div class="ttname"><a href="a00531.html">Ikarus::utils</a></div><div class="ttdef"><b>Definition:</b> algorithms.hh:17</div></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> BaseQuadrature, <span class="keyword">class</span> Quadrature&gt;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a00510.html#a839e2d8a648318c584c66024e62ddd91">   29</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00510.html#a839e2d8a648318c584c66024e62ddd91">tensorProductQuadrature</a>(<span class="keyword">const</span> BaseQuadrature&amp; baseQuad, <span class="keyword">const</span> Quadrature&amp; onedQuad) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keyword">constexpr</span> <span class="keywordtype">int</span> baseQuadDim       = BaseQuadrature::d;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keyword">auto</span> rule                       = Dune::QuadratureRule&lt;double, baseQuadDim + 1&gt;();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> baseQuadSize = baseQuad.size();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> bqi = 0; bqi &lt; baseQuadSize; ++bqi) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">const</span> <span class="keyword">typename</span> Dune::QuadraturePoint&lt;double, baseQuadDim&gt;::Vector&amp; basePoint = baseQuad[bqi].position();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; baseWeight                                                     = baseQuad[bqi].weight();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">typename</span> Dune::QuadraturePoint&lt;double, baseQuadDim + 1&gt;::Vector point;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; baseQuadDim; ++i)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      point[i] = basePoint[i];</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> onedQuadSize = onedQuad.size();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> oqi = 0; oqi &lt; onedQuadSize; ++oqi) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>      point[baseQuadDim] = onedQuad[oqi].position()[0];</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>      rule.emplace_back(Dune::QuadraturePoint(point, baseWeight * onedQuad[oqi].weight()));</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keywordflow">return</span> rule;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">template</span> &lt;<span class="keywordtype">int</span> dim, <span class="keyword">typename</span> Element&gt;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a00510.html#aa92ba5c8dfc0123e28236e017c3671d3">   62</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00510.html#aa92ba5c8dfc0123e28236e017c3671d3">defaultQuadratureRule</a>(<span class="keyword">const</span> Element&amp; element, <span class="keywordtype">int</span> order) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keyword">const</span> <span class="keyword">auto</span> defaultRule = Dune::QuadratureRules&lt;double, dim&gt;::rule(element.type(), order);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">requires</span> { element.impl().getQuadratureRule(order); })</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">if</span> (element.impl().isTrimmed())</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      <span class="keywordflow">return</span> element.impl().getQuadratureRule(order);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>      <span class="keywordflow">return</span> defaultRule;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">return</span> defaultRule;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a00510.html#a664c5f26c38c5958545919ecc5bd66c8">   82</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a00510.html#a664c5f26c38c5958545919ecc5bd66c8">numberOfGaussPointsToOrder</a>(<span class="keywordtype">int</span> nGP) { <span class="keywordflow">return</span> 2 * nGP - 1; }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="ttc" id="aa00510_html"><div class="ttname"><a href="a00510.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
+<div class="ttc" id="aa00510_html_a664c5f26c38c5958545919ecc5bd66c8"><div class="ttname"><a href="a00510.html#a664c5f26c38c5958545919ecc5bd66c8">Ikarus::numberOfGaussPointsToOrder</a></div><div class="ttdeci">int numberOfGaussPointsToOrder(int nGP)</div><div class="ttdoc">A helper function to convert the number of Gauss integration points to the polynomial order of the fu...</div><div class="ttdef"><b>Definition:</b> quadraturerulehelper.hh:82</div></div>
+<div class="ttc" id="aa00510_html_a839e2d8a648318c584c66024e62ddd91"><div class="ttname"><a href="a00510.html#a839e2d8a648318c584c66024e62ddd91">Ikarus::tensorProductQuadrature</a></div><div class="ttdeci">auto tensorProductQuadrature(const BaseQuadrature &amp;baseQuad, const Quadrature &amp;onedQuad)</div><div class="ttdoc">Computes the tensor product quadrature rule using a base and one-dimensional quadrature rule.</div><div class="ttdef"><b>Definition:</b> quadraturerulehelper.hh:29</div></div>
+<div class="ttc" id="aa00510_html_aa92ba5c8dfc0123e28236e017c3671d3"><div class="ttname"><a href="a00510.html#aa92ba5c8dfc0123e28236e017c3671d3">Ikarus::defaultQuadratureRule</a></div><div class="ttdeci">auto defaultQuadratureRule(const Element &amp;element, int order)</div><div class="ttdoc">A helper function to provide a default quadrature rule for integration.</div><div class="ttdef"><b>Definition:</b> quadraturerulehelper.hh:62</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -190,7 +216,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a00011.html">autodiffhelper.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a00008.html">quadraturerulehelper.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

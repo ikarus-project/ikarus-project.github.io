@@ -7,7 +7,7 @@ var searchData=
   ['parameters_4',['parameters',['../a02178.html#a87325ab25c1f8012887ed2e04ad915db',1,'Ikarus::TrustRegionConfig::parameters()'],['../a02134.html#ae23c08d9dec054bf347c1aa0029385de',1,'Ikarus::NewtonRaphsonWithSubsidiaryFunctionConfig::parameters()'],['../a02122.html#a922b30ab03310830597edd216fd5e68a',1,'Ikarus::NewtonRaphsonConfig::parameters()']]],
   ['parameterspacetype_5',['ParameterSpaceType',['../a01562.html#ac221dbf16d284b783228c103773a6939',1,'Ikarus::FETraits']]],
   ['parametertype_6',['ParameterType',['../a01526.html#a50a1c42fc0b05811dfc370217fb70169',1,'Ikarus::FERequirements']]],
-  ['parens_7',['PARENS',['../a00050.html#a9357f62275c685754a405c064db6ec41',1,'makeenum.hh']]],
+  ['parens_7',['PARENS',['../a00053.html#a9357f62275c685754a405c064db6ec41',1,'makeenum.hh']]],
   ['partialgeneralizedsymeigensolver_8',['PartialGeneralizedSymEigenSolver',['../a02098.html',1,'Ikarus::PartialGeneralizedSymEigenSolver&lt; MT &gt;'],['../a02098.html#a30255ff06e25ffd6755ebbe9cf1d970e',1,'Ikarus::PartialGeneralizedSymEigenSolver::PartialGeneralizedSymEigenSolver(std::shared_ptr&lt; AssemblerA &gt; assemblerA, std::shared_ptr&lt; AssemblerB &gt; assemblerB, Eigen::Index nev)'],['../a02098.html#afd6f6b240369c7c78dc49d281b0d030e',1,'Ikarus::PartialGeneralizedSymEigenSolver::PartialGeneralizedSymEigenSolver(MATA &amp;&amp;A, MATB &amp;&amp;B, Eigen::Index nev)']]],
   ['pathfollowing_9',['PathFollowing',['../a01474.html',1,'Ikarus::PathFollowing&lt; NLS, PF, ASS &gt;'],['../a01474.html#af73474b0eccdddd65e046ebe813566f9',1,'Ikarus::PathFollowing::PathFollowing()']]],
   ['pathfollowing_2ehh_10',['pathfollowing.hh',['../a00431.html',1,'']]],
@@ -50,7 +50,7 @@ var searchData=
   ['pybind11_5fmodule_47',['PYBIND11_MODULE',['../a00458.html#a0e4f7cface71bec1c24bbed3aaa798d8',1,'_ikarus.cc']]],
   ['python_48',['Python',['../a00540.html',1,'']]],
   ['python_20bindings_49',['Python bindings',['../a00502.html',1,'']]],
-  ['pythonautodiffdefinitions_2ehh_50',['pythonautodiffdefinitions.hh',['../a00020.html',1,'']]],
+  ['pythonautodiffdefinitions_2ehh_50',['pythonautodiffdefinitions.hh',['../a00023.html',1,'']]],
   ['pythonhelpers_2ehh_51',['pythonhelpers.hh',['../a00473.html',1,'']]],
   ['vtkwriter_2ehh_52',['vtkwriter.hh',['../a03553.html',1,'']]]
 ];

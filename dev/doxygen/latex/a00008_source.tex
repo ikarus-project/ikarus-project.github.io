@@ -1,6 +1,6 @@
-\hypertarget{a00068_source}{}\doxysection{tensorproductquadrule.\+hh}
-\label{a00068_source}\index{tensorproductquadrule.hh@{tensorproductquadrule.hh}}
-\mbox{\hyperlink{a00068}{Go to the documentation of this file.}}
+\hypertarget{a00008_source}{}\doxysection{quadraturerulehelper.\+hh}
+\label{a00008_source}\index{quadraturerulehelper.hh@{quadraturerulehelper.hh}}
+\mbox{\hyperlink{a00008}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
@@ -31,6 +31,20 @@
 \DoxyCodeLine{46   \}}
 \DoxyCodeLine{47   \textcolor{keywordflow}{return} rule;}
 \DoxyCodeLine{48 \}}
-\DoxyCodeLine{49 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{61 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} dim, \textcolor{keyword}{typename} Element>}
+\DoxyCodeLine{62 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_aa92ba5c8dfc0123e28236e017c3671d3}{defaultQuadratureRule}}(\textcolor{keyword}{const} Element\& element, \textcolor{keywordtype}{int} order) \{}
+\DoxyCodeLine{63   \textcolor{keyword}{const} \textcolor{keyword}{auto} defaultRule = Dune::QuadratureRules<double, dim>::rule(element.type(), order);}
+\DoxyCodeLine{64   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ element.impl().getQuadratureRule(order); \})}
+\DoxyCodeLine{65     \textcolor{keywordflow}{if} (element.impl().isTrimmed())}
+\DoxyCodeLine{66       \textcolor{keywordflow}{return} element.impl().getQuadratureRule(order);}
+\DoxyCodeLine{67     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{68       \textcolor{keywordflow}{return} defaultRule;}
+\DoxyCodeLine{69   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{70     \textcolor{keywordflow}{return} defaultRule;}
+\DoxyCodeLine{71 \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{82 \textcolor{keywordtype}{int} \mbox{\hyperlink{a00510_a664c5f26c38c5958545919ecc5bd66c8}{numberOfGaussPointsToOrder}}(\textcolor{keywordtype}{int} nGP) \{ \textcolor{keywordflow}{return} 2 * nGP -\/ 1; \}}
+\DoxyCodeLine{83 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

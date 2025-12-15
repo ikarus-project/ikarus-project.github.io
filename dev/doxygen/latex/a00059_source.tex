@@ -1,170 +1,81 @@
-\hypertarget{a00059_source}{}\doxysection{functionsanitychecks.\+hh}
-\label{a00059_source}\index{functionsanitychecks.hh@{functionsanitychecks.hh}}
+\hypertarget{a00059_source}{}\doxysection{lambertw.\+hh}
+\label{a00059_source}\index{lambertw.hh@{lambertw.hh}}
 \mbox{\hyperlink{a00059}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <cmath>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <limits>}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/functions/common/signature.hh>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/exceptions.hh>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
 \DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <spdlog/spdlog.h>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03559}{ikarus/utils/concepts.hh}}>}}
 \DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00029}{ikarus/utils/defaultfunctions.hh}}>}}
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00538}{Ikarus::util}} \{}
 \DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00531}{Ikarus::utils}} \{}
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{31   \textcolor{keywordtype}{double} drawResultAndReturnSlope(std::string\&\& functionName, \textcolor{keyword}{const} std::function<\textcolor{keywordtype}{double}(\textcolor{keywordtype}{double})>\& ftfunc, \textcolor{keywordtype}{bool} \mbox{\hyperlink{a00209_a65b25c4ffa5a9d9f808da12703e79cb2}{draw}},}
-\DoxyCodeLine{32                                   \textcolor{keywordtype}{int} slopeOfReference);}
-\DoxyCodeLine{33 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{37 \textcolor{comment}{}\textcolor{keyword}{struct }\mbox{\hyperlink{a02330}{CheckFlags}}}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{39   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02330_a08fa473dcdfbdb5dcf759546ea2da3b8}{draw}}                        = \textcolor{keyword}{true};}
-\DoxyCodeLine{40   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02330_ac9946207ee221c94e843ea7c048a16a3}{writeSlopeStatementIfFailed}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{41   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02330_a6c1e702608ca901f9f7efca524560b25}{tolerance}}                 = 1e-\/2;}
-\DoxyCodeLine{42 \};}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{57 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} UF = UpdateDefault>}
-\DoxyCodeLine{58 \textcolor{keywordtype}{bool} \mbox{\hyperlink{a00505_ga9552c352e9fa0eeca4b3ae3d1dd1f585}{checkGradient}}(F\& f, \textcolor{keyword}{const} \textcolor{keyword}{typename} F::Domain\& p, \mbox{\hyperlink{a02330}{CheckFlags}} checkFlags = \mbox{\hyperlink{a02330}{CheckFlags}}(),}
-\DoxyCodeLine{59                    UF\&\& p\_updateFunction = \{\}) \{}
-\DoxyCodeLine{60   \textcolor{keyword}{auto} x           = p;}
-\DoxyCodeLine{61   \textcolor{keyword}{auto} gradF       = derivative(f);}
-\DoxyCodeLine{62   \textcolor{keyword}{const} \textcolor{keyword}{auto} e     = f(x);}
-\DoxyCodeLine{63   \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) g = gradF(x);}
-\DoxyCodeLine{64   \textcolor{keyword}{using }UpdateType = std::remove\_cvref\_t<\textcolor{keyword}{decltype}(g)>;}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{66   UpdateType b;}
-\DoxyCodeLine{67   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not std::is\_floating\_point\_v<UpdateType>) \{}
-\DoxyCodeLine{68     b.resizeLike(g);}
-\DoxyCodeLine{69     b.setRandom();}
-\DoxyCodeLine{70     b /= b.norm();}
-\DoxyCodeLine{71   \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{72     b = 1;}
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{21   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{22   T log1p(T x) \{}
+\DoxyCodeLine{23     \textcolor{keywordflow}{return} log(T(1.0) + x);}
+\DoxyCodeLine{24   \}}
+\DoxyCodeLine{25 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{41 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST = \textcolor{keywordtype}{double}>}
+\DoxyCodeLine{42 ST \mbox{\hyperlink{a00538_a5dd4fe61d5a2366ba3e8bf4d55d451e1}{lambertW0}}(ST z, \textcolor{keywordtype}{int} maxIterations = 20, ST eps = std::numeric\_limits<ST>::epsilon()) \{}
+\DoxyCodeLine{43   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not \mbox{\hyperlink{a02471}{Concepts::AutodiffScalar<ST>}}) \{}
+\DoxyCodeLine{44     \textcolor{keywordflow}{if} (std::isnan(z))}
+\DoxyCodeLine{45       \textcolor{keywordflow}{return} std::numeric\_limits<ST>::quiet\_NaN();}
+\DoxyCodeLine{46     \textcolor{keywordflow}{if} (std::isinf(z))}
+\DoxyCodeLine{47       \textcolor{keywordflow}{return} z;}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \textcolor{keyword}{const} ST branchPoint = -\/1.0 / std::exp(1.0);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{comment}{// If z equals -\/1/e then W(z) = -\/1.}}
+\DoxyCodeLine{53   \textcolor{keywordflow}{if} (Dune::FloatCmp::eq(z, branchPoint))}
+\DoxyCodeLine{54     \textcolor{keywordflow}{return} -\/1.0;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \textcolor{comment}{// For branch 0 the domain is z >= -\/1/e.}}
+\DoxyCodeLine{57   \textcolor{keywordflow}{if} (z < branchPoint)}
+\DoxyCodeLine{58     DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}lambertW0: z must be >= -\/1/e for branch 0"{}});}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{comment}{// Choose an initial guess x0. See https://en.wikipedia.org/wiki/Lambert\_W\_function.}}
+\DoxyCodeLine{61   ST x0;}
+\DoxyCodeLine{62   \textcolor{keywordflow}{if} (Dune::FloatCmp::gt(z, ST(1.0))) \{}
+\DoxyCodeLine{63     ST lx  = log(z);}
+\DoxyCodeLine{64     ST llx = log(lx);}
+\DoxyCodeLine{65     x0     = lx -\/ llx -\/ 0.5 * Impl::log1p<ST>(-\/llx / lx);}
+\DoxyCodeLine{66   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{67     x0 = 0.567 * z;}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{comment}{// Begin Halley's iterative method. See https://en.wikipedia.org/wiki/Halley\%27s\_method.}}
+\DoxyCodeLine{71   ST x        = x0;}
+\DoxyCodeLine{72   ST lastDiff = 0.0;}
 \DoxyCodeLine{73 }
-\DoxyCodeLine{74   \textcolor{keywordtype}{double} gradfv;}
-\DoxyCodeLine{75   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not std::is\_floating\_point\_v<UpdateType>)}
-\DoxyCodeLine{76     gradfv = g.dot(b);}
-\DoxyCodeLine{77   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{78     gradfv = g * b;}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{80   \textcolor{keyword}{auto} ftfunc = [\&](\textcolor{keyword}{auto} t) \{}
-\DoxyCodeLine{81     p\_updateFunction(x, t * b);}
-\DoxyCodeLine{82     \textcolor{keyword}{const} \textcolor{keyword}{auto} ept = f(x);}
-\DoxyCodeLine{83     \textcolor{keyword}{auto} value     = std::abs(ept -\/ e -\/ t * gradfv);}
-\DoxyCodeLine{84     p\_updateFunction(x, -\/t * b);}
-\DoxyCodeLine{85     \textcolor{keywordflow}{return} value;}
-\DoxyCodeLine{86   \};}
+\DoxyCodeLine{74   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} iter = 0; iter < maxIterations; ++iter) \{}
+\DoxyCodeLine{75     \textcolor{keyword}{const} ST ex          = exp(x);}
+\DoxyCodeLine{76     \textcolor{keyword}{const} ST f           = x * ex -\/ z;}
+\DoxyCodeLine{77     \textcolor{keyword}{const} ST fPrime      = ex * (x + 1.0);}
+\DoxyCodeLine{78     \textcolor{keyword}{const} ST fPrimePrime = ex * (x + 2.0);}
+\DoxyCodeLine{79     \textcolor{keyword}{const} ST denom       = fPrime -\/ ((1.0 / 2.0) * (fPrimePrime / fPrime) * f);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keyword}{const} ST newX = x -\/ f / denom;}
+\DoxyCodeLine{82     \textcolor{keyword}{const} ST diff = abs(newX -\/ x);}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84     \textcolor{comment}{// Check for convergence:}}
+\DoxyCodeLine{85     \textcolor{keywordflow}{if} (Dune::FloatCmp::le<ST>(diff, 3 * eps * abs(x)) || Dune::FloatCmp::eq<ST>(diff, lastDiff))}
+\DoxyCodeLine{86       \textcolor{keywordflow}{return} newX;}
 \DoxyCodeLine{87 }
-\DoxyCodeLine{88   \textcolor{keyword}{const} \textcolor{keywordtype}{double} slope = Impl::drawResultAndReturnSlope(\textcolor{stringliteral}{"{}Gradient"{}}, ftfunc, checkFlags.draw, 2);}
-\DoxyCodeLine{89 }
-\DoxyCodeLine{90   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} checkPassed = Dune::FloatCmp::le(2.0, slope, checkFlags.tolerance);}
+\DoxyCodeLine{88     lastDiff = diff;}
+\DoxyCodeLine{89     x        = newX;}
+\DoxyCodeLine{90   \}}
 \DoxyCodeLine{91 }
-\DoxyCodeLine{92   \textcolor{keywordflow}{if} (checkFlags.writeSlopeStatementIfFailed and not checkPassed) \{}
-\DoxyCodeLine{93     spdlog::info(\textcolor{stringliteral}{"{}Gradient check:"{}});}
-\DoxyCodeLine{94     spdlog::info(\textcolor{stringliteral}{"{}The slope should be 2. It seems to be \{\}."{}}, slope);}
-\DoxyCodeLine{95     \textcolor{keywordflow}{if} (checkPassed)}
-\DoxyCodeLine{96       spdlog::info(\textcolor{stringliteral}{"{}We consider this as sufficient."{}});}
-\DoxyCodeLine{97     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{98       spdlog::info(\textcolor{stringliteral}{"{}The gradient seems wrong."{}});}
-\DoxyCodeLine{99   \}}
-\DoxyCodeLine{100 }
-\DoxyCodeLine{101   \textcolor{keywordflow}{return} checkPassed;}
-\DoxyCodeLine{102 \}}
-\DoxyCodeLine{103 }
-\DoxyCodeLine{117 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} UF = UpdateDefault>}
-\DoxyCodeLine{118 \textcolor{keywordtype}{bool} \mbox{\hyperlink{a00505_ga9ebceb909ac3c21db81ccd0dbbf03a33}{checkJacobian}}(F\& f, \textcolor{keyword}{const} \textcolor{keyword}{typename} F::Domain\& p, \mbox{\hyperlink{a02330}{CheckFlags}} checkFlags = \mbox{\hyperlink{a02330}{CheckFlags}}(),}
-\DoxyCodeLine{119                    UF\&\& p\_updateFunction = \{\}) \{}
-\DoxyCodeLine{120   \textcolor{keyword}{auto} x = p;}
-\DoxyCodeLine{121 }
-\DoxyCodeLine{122   \textcolor{keyword}{auto} gradF       = derivative(f);}
-\DoxyCodeLine{123   \textcolor{keyword}{const} \textcolor{keyword}{auto} e     = f(x);}
-\DoxyCodeLine{124   \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) g = gradF(x);}
-\DoxyCodeLine{125   \textcolor{keyword}{using }UpdateType =}
-\DoxyCodeLine{126       std::conditional\_t<F::nDerivatives == 2, std::remove\_cvref\_t<\textcolor{keyword}{decltype}(g)>, std::remove\_cvref\_t<\textcolor{keyword}{decltype}(e)>>;}
-\DoxyCodeLine{127 }
-\DoxyCodeLine{128   UpdateType b;}
-\DoxyCodeLine{129   b.resizeLike(g.col(0));}
-\DoxyCodeLine{130   b.setRandom();}
-\DoxyCodeLine{131   b /= b.norm();}
-\DoxyCodeLine{132 }
-\DoxyCodeLine{133   \textcolor{keyword}{const} \textcolor{keyword}{auto} jacofv = (g * b).eval();}
-\DoxyCodeLine{134 }
-\DoxyCodeLine{135   \textcolor{keyword}{auto} ftfunc = [\&](\textcolor{keyword}{auto} t) \{}
-\DoxyCodeLine{136     p\_updateFunction(x, t * b);}
-\DoxyCodeLine{137     \textcolor{keyword}{const} \textcolor{keyword}{auto} etb = f(x);}
-\DoxyCodeLine{138     \textcolor{keyword}{auto} value     = (etb -\/ e -\/ t * jacofv).\mbox{\hyperlink{a00505_ga0ffc0c74dbd9aeee3e53b199a21b828c}{norm}}();}
-\DoxyCodeLine{139     p\_updateFunction(x, -\/t * b);}
-\DoxyCodeLine{140     \textcolor{keywordflow}{return} value;}
-\DoxyCodeLine{141   \};}
-\DoxyCodeLine{142 }
-\DoxyCodeLine{143   \textcolor{keyword}{const} \textcolor{keywordtype}{double} slope = Impl::drawResultAndReturnSlope(\textcolor{stringliteral}{"{}Jacobian"{}}, ftfunc, checkFlags.draw, 2);}
-\DoxyCodeLine{144 }
-\DoxyCodeLine{145   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} checkPassed = Dune::FloatCmp::le(2.0, slope, checkFlags.tolerance);}
-\DoxyCodeLine{146 }
-\DoxyCodeLine{147   \textcolor{keywordflow}{if} (checkFlags.writeSlopeStatementIfFailed and not checkPassed) \{}
-\DoxyCodeLine{148     spdlog::info(\textcolor{stringliteral}{"{}Jacobian check:"{}});}
-\DoxyCodeLine{149     spdlog::info(\textcolor{stringliteral}{"{}The slope should be 2. It seems to be \{\}."{}}, slope);}
-\DoxyCodeLine{150     \textcolor{keywordflow}{if} (checkPassed)}
-\DoxyCodeLine{151       spdlog::info(\textcolor{stringliteral}{"{}We consider this as sufficient."{}});}
-\DoxyCodeLine{152     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{153       spdlog::info(\textcolor{stringliteral}{"{}The Jacobian seems wrong."{}});}
-\DoxyCodeLine{154   \}}
-\DoxyCodeLine{155   \textcolor{keywordflow}{return} checkPassed;}
-\DoxyCodeLine{156 \}}
-\DoxyCodeLine{157 }
-\DoxyCodeLine{171 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F, \textcolor{keyword}{typename} UF = UpdateDefault>}
-\DoxyCodeLine{172 \textcolor{keywordtype}{bool} \mbox{\hyperlink{a00505_gaaf21900c80f097360a624da5505eddf9}{checkHessian}}(F\& f, \textcolor{keyword}{const} \textcolor{keyword}{typename} F::Domain\& p, \mbox{\hyperlink{a02330}{CheckFlags}} checkFlags = \mbox{\hyperlink{a02330}{CheckFlags}}(), UF\&\& p\_updateFunction = \{\}) \{}
-\DoxyCodeLine{173   \textcolor{keyword}{auto} x           = p;}
-\DoxyCodeLine{174   \textcolor{keyword}{auto} gradF       = derivative(f);}
-\DoxyCodeLine{175   \textcolor{keyword}{auto} hessF       = derivative(gradF);}
-\DoxyCodeLine{176   \textcolor{keyword}{const} \textcolor{keyword}{auto} e     = f(x);}
-\DoxyCodeLine{177   \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) g = gradF(x);}
-\DoxyCodeLine{178   \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) h = hessF(x);}
-\DoxyCodeLine{179   \textcolor{keyword}{using }UpdateType = std::remove\_cvref\_t<\textcolor{keyword}{decltype}(g)>;}
-\DoxyCodeLine{180   UpdateType b;}
-\DoxyCodeLine{181 }
-\DoxyCodeLine{182   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not std::is\_floating\_point\_v<UpdateType>) \{}
-\DoxyCodeLine{183     b.resizeLike(g);}
-\DoxyCodeLine{184     b.setRandom();}
-\DoxyCodeLine{185     b /= b.norm();}
-\DoxyCodeLine{186   \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{187     b = 1;}
-\DoxyCodeLine{188 }
-\DoxyCodeLine{189   \textcolor{keywordtype}{double} gradfv, vhessv;}
-\DoxyCodeLine{190   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not std::is\_floating\_point\_v<UpdateType>) \{}
-\DoxyCodeLine{191     gradfv = g.dot(b);}
-\DoxyCodeLine{192     vhessv = (h * b).dot(b);}
-\DoxyCodeLine{193   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{194     gradfv = g * b;}
-\DoxyCodeLine{195     vhessv = h * b * b;}
-\DoxyCodeLine{196   \}}
-\DoxyCodeLine{197 }
-\DoxyCodeLine{198   \textcolor{keyword}{auto} ftfunc = [\&](\textcolor{keyword}{auto} t) \{}
-\DoxyCodeLine{199     p\_updateFunction(x, t * b);}
-\DoxyCodeLine{200     \textcolor{keyword}{const} \textcolor{keyword}{auto} etb = f(x);}
-\DoxyCodeLine{201     \textcolor{keyword}{auto} value     = std::abs(etb -\/ e -\/ t * gradfv -\/ 0.5 * t * t * vhessv);}
-\DoxyCodeLine{202     p\_updateFunction(x, -\/t * b);}
-\DoxyCodeLine{203     \textcolor{keywordflow}{return} value;}
-\DoxyCodeLine{204   \};}
-\DoxyCodeLine{205 }
-\DoxyCodeLine{206   \textcolor{keyword}{const} \textcolor{keywordtype}{double} slope = Impl::drawResultAndReturnSlope(\textcolor{stringliteral}{"{}Hessian"{}}, ftfunc, checkFlags.draw, 3);}
-\DoxyCodeLine{207 }
-\DoxyCodeLine{208   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} checkPassed = Dune::FloatCmp::le(3.0, slope, checkFlags.tolerance);}
-\DoxyCodeLine{209 }
-\DoxyCodeLine{210   \textcolor{keywordflow}{if} (checkFlags.writeSlopeStatementIfFailed and not checkPassed) \{}
-\DoxyCodeLine{211     spdlog::info(\textcolor{stringliteral}{"{}Hessian check:"{}});}
-\DoxyCodeLine{212     spdlog::info(\textcolor{stringliteral}{"{}The slope should be 3. It seems to be \{\}."{}}, slope);}
-\DoxyCodeLine{213     \textcolor{keywordflow}{if} (checkPassed)}
-\DoxyCodeLine{214       spdlog::info(\textcolor{stringliteral}{"{}We consider this as sufficient."{}});}
-\DoxyCodeLine{215     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{216       spdlog::info(\textcolor{stringliteral}{"{}The Hessian seems wrong."{}});}
-\DoxyCodeLine{217   \}}
-\DoxyCodeLine{218   \textcolor{keywordflow}{return} checkPassed;}
-\DoxyCodeLine{219 \}}
-\DoxyCodeLine{220 \} \textcolor{comment}{// namespace Ikarus::utils}}
+\DoxyCodeLine{92   DUNE\_THROW(Dune::MathError, \textcolor{stringliteral}{"{}lambertW0: failed to converge within the maximum number of iterations"{}});}
+\DoxyCodeLine{93 \}}
+\DoxyCodeLine{94 \} \textcolor{comment}{// namespace Ikarus::util}}
 
 \end{DoxyCode}

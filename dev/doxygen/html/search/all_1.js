@@ -22,7 +22,7 @@ var searchData=
   ['affordancecollectiontype_19',['AffordanceCollectionType',['../a01398.html#ab329b44ba5ca22e6bdb3f7d65953caa7',1,'Ikarus::FlatAssemblerBase']]],
   ['algoinfo_20',['AlgoInfo',['../a02186.html',1,'Ikarus']]],
   ['algorithms_21',['Algorithms',['../a00507.html',1,'']]],
-  ['algorithms_2ehh_22',['algorithms.hh',['../a00053.html',1,'']]],
+  ['algorithms_2ehh_22',['algorithms.hh',['../a00056.html',1,'']]],
   ['analyzepattern_23',['analyzePattern',['../a02102.html#a771b39a199d35745e0a1cbdec03db762',1,'Ikarus::LinearSolverTemplate']]],
   ['ansatztype_24',['AnsatzType',['../a01906.html#a7617b4559fe46d6de79584c0416d6e35',1,'Ikarus::EAS::E0::AnsatzType()'],['../a01614.html#a846b9c6f9d0f64ff3ac5a5adbb3527f3',1,'Ikarus::PS::S24::AnsatzType()'],['../a01610.html#aedee804d539c866a6fcc6c7d9b131b85',1,'Ikarus::PS::S18::AnsatzType()'],['../a01606.html#a95d51f255617e1da3dda9738dacb723d',1,'Ikarus::PS::S5::AnsatzType()'],['../a01602.html#a788027f1dcc912014698afbd597b48c0',1,'Ikarus::PS::SX::AnsatzType()'],['../a01618.html#a9a424870049657f075cf0634775961fd',1,'Ikarus::PS::S30::AnsatzType()'],['../a01886.html#a38a9b5aaf01cb25fc10d33468e632991',1,'Ikarus::EAS::HX::AnsatzType()'],['../a01890.html#aa9a84ac440a37e7487238f8a0618a34c',1,'Ikarus::EAS::H0::AnsatzType()'],['../a01894.html#a63ece1954685fc94f25fb537b0f20696',1,'Ikarus::EAS::H4::AnsatzType()'],['../a01898.html#a0403002282b55046395d4a05f37d431d',1,'Ikarus::EAS::H9::AnsatzType()'],['../a01902.html#ac194c58b07dc99120524d2af96b5594c',1,'Ikarus::EAS::EX::AnsatzType()'],['../a01910.html#a71f35746b29078142e578f52494e8c0b',1,'Ikarus::EAS::E4::AnsatzType()'],['../a01914.html#af556954b99a491533ed819017627eead',1,'Ikarus::EAS::E5::AnsatzType()'],['../a01918.html#aad9614d395460149baa944ef0af88615',1,'Ikarus::EAS::E7::AnsatzType()'],['../a01922.html#a3855d7d46fc318bc5e072f7bfd0576e8',1,'Ikarus::EAS::E11::AnsatzType()'],['../a01926.html#aecf37a10381af79c1a0f8c77ec691aad',1,'Ikarus::EAS::E9::AnsatzType()'],['../a01930.html#a9ad50cb902dea7b4d908357c1dc1cce0',1,'Ikarus::EAS::E21::AnsatzType()']]],
   ['any_5fof_25',['any_of',['../a00507.html#gab6d955a70ec9215ae9a8f3841582ab49',1,'Ikarus::utils']]],
@@ -64,7 +64,7 @@ var searchData=
   ['asvec_61',['asVec',['../a01546.html#ae1be56ef0981f28e1dfa4f77453251d3',1,'Ikarus::ResultWrapper']]],
   ['autodifffe_62',['AutoDiffFE',['../a01502.html#a26248faa29dc3165140f3647f94c5d4a',1,'Ikarus::AutoDiffFE::AutoDiffFE()'],['../a01502.html',1,'Ikarus::AutoDiffFE&lt; FEImpl, forceAutoDiff &gt;']]],
   ['autodifffe_2ehh_63',['autodifffe.hh',['../a00404.html',1,'']]],
-  ['autodiffhelper_2ehh_64',['autodiffhelper.hh',['../a00011.html',1,'']]],
+  ['autodiffhelper_2ehh_64',['autodiffhelper.hh',['../a00014.html',1,'']]],
   ['autodiffmat_65',['AutoDiffMAT',['../a01498.html#ac17660b052b5c6b22e0c28ee46cc2865',1,'Ikarus::Experimental::AutoDiffMAT::AutoDiffMAT()'],['../a01498.html',1,'Ikarus::Experimental::AutoDiffMAT&lt; RealMAT, forceAutoDiffV, forceAutoDiffS &gt;']]],
   ['autodiffmat_2ehh_66',['autodiffmat.hh',['../a00227.html',1,'']]],
   ['interface_2ehh_67',['interface.hh',['../a03517.html',1,'']]]

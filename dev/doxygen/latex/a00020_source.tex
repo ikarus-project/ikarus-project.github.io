@@ -1,56 +1,105 @@
-\hypertarget{a00020_source}{}\doxysection{pythonautodiffdefinitions.\+hh}
-\label{a00020_source}\index{pythonautodiffdefinitions.hh@{pythonautodiffdefinitions.hh}}
+\hypertarget{a00020_source}{}\doxysection{functionhelper.\+hh}
+\label{a00020_source}\index{functionhelper.hh@{functionhelper.hh}}
 \mbox{\hyperlink{a00020}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2025 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <cstddef>}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Python.h>}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <ranges>}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/fufem/dunepython.hh>}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <autodiff/forward/real/real.hpp>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00540}{Python}} \{}
-\DoxyCodeLine{18 \textcolor{comment}{// *****************************************************************************}}
-\DoxyCodeLine{19 \textcolor{comment}{// specializations of Conversion that do the PyObject* <-\/> C++-\/type conversion}}
-\DoxyCodeLine{20 \textcolor{comment}{// *****************************************************************************}}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{27 \textcolor{keyword}{template} <std::\textcolor{keywordtype}{size\_t} order, \textcolor{keyword}{class} T>}
-\DoxyCodeLine{28 \textcolor{keyword}{struct }Conversion<autodiff::Real<order, T>>}
-\DoxyCodeLine{29 \{}
-\DoxyCodeLine{30   \textcolor{keyword}{enum}}
-\DoxyCodeLine{31   \{}
-\DoxyCodeLine{32     useDefaultConstructorConversion = \textcolor{keyword}{true}}
-\DoxyCodeLine{33   \};}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{40   \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{a02358_aab78500f06d24b5eb1cd894b68eec03c}{toC}}(PyObject* list, autodiff::Real<order, T>\& v) \{}
-\DoxyCodeLine{41     \textcolor{keyword}{auto} rlist = Reference(Imp::inc(list));}
-\DoxyCodeLine{42     \textcolor{comment}{// Reference is needed to enable the "{}.get()"{} function and "{}Imp::inc"{} is}}
-\DoxyCodeLine{43     \textcolor{comment}{// needed since Reference owns the PyObject pointer and decrements it at the end of the scope}}
-\DoxyCodeLine{44     \textcolor{comment}{// Imp::inc artificially increases the reference counter by one.}}
-\DoxyCodeLine{45     \textcolor{comment}{// When we return from this function, these two cancel out and the PyObject* is as before}}
-\DoxyCodeLine{46 }
-\DoxyCodeLine{47     \textcolor{keyword}{auto} wF = Callable(rlist.get(\textcolor{stringliteral}{"{}\_\_getitem\_\_"{}}));}
-\DoxyCodeLine{48     \textcolor{keywordflow}{for} (std::size\_t i = 0; i < order + 1; ++i)}
-\DoxyCodeLine{49       v[i] = PyFloat\_AsDouble(wF(i));}
-\DoxyCodeLine{50   \}}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{57   \textcolor{keyword}{static} PyObject* \mbox{\hyperlink{a02358_ae7c12c134c747ccf36ff0bf9c453f69e}{toPy}}(\textcolor{keyword}{const} autodiff::Real<order, T>\& v) \{}
-\DoxyCodeLine{58     \textcolor{keyword}{auto} pyMain           = Python::main();}
-\DoxyCodeLine{59     Python::Module module = pyMain.import(\textcolor{stringliteral}{"{}autodiff"{}});}
-\DoxyCodeLine{60 }
-\DoxyCodeLine{61     \textcolor{keyword}{auto} real1stClass = module.get(\textcolor{stringliteral}{"{}real1st"{}});}
-\DoxyCodeLine{62     \textcolor{keyword}{auto} real1st      = Callable(Imp::inc(real1stClass))();}
-\DoxyCodeLine{63     \textcolor{keyword}{auto} wF           = Callable(Imp::inc(real1st).get(\textcolor{stringliteral}{"{}\_\_setitem\_\_"{}}));}
-\DoxyCodeLine{64     \textcolor{keywordflow}{for} (std::size\_t i = 0; i < order + 1; ++i)}
-\DoxyCodeLine{65       wF(i, v[i]); \textcolor{comment}{// real1st.\_\_setitem\_\_(i,v[i]);}}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{67     \textcolor{keywordflow}{return} real1st;}
-\DoxyCodeLine{68   \}}
-\DoxyCodeLine{69 \};}
-\DoxyCodeLine{70 \} \textcolor{comment}{// namespace Python}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/grid/utility/hierarchicsearch.hh>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03559}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00017}{ikarus/utils/traversal.hh}}>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00531}{Ikarus::utils}} \{}
+\DoxyCodeLine{29 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} size, \textcolor{keyword}{typename} LV>}
+\DoxyCodeLine{30 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00505_gae9098182120929a0d21cff1c38f5ca84}{obtainLagrangeGlobalNodePositions}}(\textcolor{keyword}{const} LV\& localView,}
+\DoxyCodeLine{31                                        std::vector<\mbox{\hyperlink{a02274}{Dune::FieldVector<double, size>}}>\& lagrangeNodeGlobalCoords) \{}
+\DoxyCodeLine{32   \textcolor{keyword}{auto} fT = [\&]([[maybe\_unused]] \textcolor{keywordtype}{int} nodeNumber, \mbox{\hyperlink{a02274}{Dune::FieldVector<double, size>}}\&\& localCoordinate) \{}
+\DoxyCodeLine{33     lagrangeNodeGlobalCoords.emplace\_back(localView.element().geometry().global(localCoordinate));}
+\DoxyCodeLine{34     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{35   \};}
+\DoxyCodeLine{36   \mbox{\hyperlink{a00531_ad8f6a5b5d6fb5a916fd5791adf5ef4d9}{forEachLagrangeNodePosition}}(localView, fT);}
+\DoxyCodeLine{37 \}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{49 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} worldDim, \textcolor{keyword}{typename} Basis>}
+\DoxyCodeLine{50 \textcolor{keyword}{auto} \mbox{\hyperlink{a00505_gad3d42db776c355317260011c95b0ce67}{globalIndexFromGlobalPosition}}(\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, worldDim>}}\& pos) \{}
+\DoxyCodeLine{51   \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02435}{Concepts::LagrangeNode}}<std::remove\_cvref\_t<\textcolor{keyword}{decltype}(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.localView().tree().child(0))>>,}
+\DoxyCodeLine{52                 \textcolor{stringliteral}{"{}globalIndexFromGlobalPosition is only supported for Lagrange basis"{}});}
+\DoxyCodeLine{53   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} tol = 1e-\/8;}
+\DoxyCodeLine{54   \textcolor{keyword}{using }LocalView      = std::remove\_cvref\_t<\textcolor{keyword}{decltype}(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.localView())>;}
+\DoxyCodeLine{55   \textcolor{keyword}{using }MultiIndex     = \textcolor{keyword}{typename} LocalView::MultiIndex;}
+\DoxyCodeLine{56   \textcolor{keyword}{using }Element        = \textcolor{keyword}{typename} LocalView::Element;}
+\DoxyCodeLine{57   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim  = Element::mydimension;}
+\DoxyCodeLine{58   Dune::HierarchicSearch hSearch(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.gridView().grid(), \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.gridView().indexSet());}
+\DoxyCodeLine{59   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& ele = hSearch.findEntity(pos);}
+\DoxyCodeLine{60   \textcolor{keyword}{auto} localView  = \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.localView();}
+\DoxyCodeLine{61   localView.bind(ele);}
+\DoxyCodeLine{62   \textcolor{keyword}{const} \textcolor{keyword}{auto} geo   = localView.element().geometry();}
+\DoxyCodeLine{63   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& node = localView.tree();}
+\DoxyCodeLine{64   std::optional<std::array<MultiIndex, worldDim>> \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}};}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   \textcolor{keyword}{auto} fT = [\&](\textcolor{keywordtype}{int} nodeNumber, \mbox{\hyperlink{a02274}{Dune::FieldVector<double, myDim>}}\&\& localCoordinate) \{}
+\DoxyCodeLine{67     \textcolor{keywordflow}{if} (Dune::FloatCmp::eq(geo.global(localCoordinate), pos, tol)) \{}
+\DoxyCodeLine{68       \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}}.emplace();}
+\DoxyCodeLine{69       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < worldDim; j++)}
+\DoxyCodeLine{70         \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}}.value()[j] = localView.index(node.child(j).localIndex(nodeNumber));}
+\DoxyCodeLine{71       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{72     \}}
+\DoxyCodeLine{73     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{74   \};}
+\DoxyCodeLine{75   \mbox{\hyperlink{a00531_ad8f6a5b5d6fb5a916fd5791adf5ef4d9}{forEachLagrangeNodePosition}}(localView, fT);}
+\DoxyCodeLine{76   \textcolor{keywordflow}{if} (not \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}}.has\_value())}
+\DoxyCodeLine{77     DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}No Lagrange node found at the given position in the grid."{}});}
+\DoxyCodeLine{78   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}}.value();}
+\DoxyCodeLine{79 \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{89 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FE>}
+\DoxyCodeLine{90 \textcolor{keyword}{auto} \mbox{\hyperlink{a00505_ga30df35336d19b00bc5db2a0b52ce650e}{referenceElementSubEntityPositions}}(\mbox{\hyperlink{a01506}{FE}}\& fe, \textcolor{keywordtype}{int} codim) \{}
+\DoxyCodeLine{91   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} dim            = \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{FE::Traits::mydim}};}
+\DoxyCodeLine{92   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& element          = fe.\mbox{\hyperlink{a01506_ae84fc54bd26077a2edb0ec07361d0716}{gridElement}}();}
+\DoxyCodeLine{93   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& referenceElement = Dune::referenceElement<double, dim>(element.type());}
+\DoxyCodeLine{94   \textcolor{keyword}{const} \textcolor{keywordtype}{int} numberOfVertices   = referenceElement.size(codim);}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   \textcolor{keyword}{auto} getPosition = [=](\textcolor{keyword}{const} \textcolor{keywordtype}{int} i) \{ \textcolor{keywordflow}{return} referenceElement.position(i, codim); \};}
+\DoxyCodeLine{97   \textcolor{keywordflow}{return} std::views::transform(std::views::iota(0, numberOfVertices), getPosition);}
+\DoxyCodeLine{98 \}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{107 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FE>}
+\DoxyCodeLine{108 \textcolor{keyword}{auto} \mbox{\hyperlink{a00505_ga8c05dce8a66fc4efbe31674b87d18298}{referenceElementVertexPositions}}(\mbox{\hyperlink{a01506}{FE}}\& fe) \{}
+\DoxyCodeLine{109   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00505_ga30df35336d19b00bc5db2a0b52ce650e}{referenceElementSubEntityPositions}}(fe, \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{FE::Traits::mydim}});}
+\DoxyCodeLine{110 \}}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{119 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{120 \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) \mbox{\hyperlink{a00531_af8ee685bd6d75a8b5f737eafd53860ae}{maybeDeref}}(T\& t) \{}
+\DoxyCodeLine{121   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02473}{Concepts::PointerOrSmartPointer<T>}})}
+\DoxyCodeLine{122     \textcolor{keywordflow}{return} *t;}
+\DoxyCodeLine{123   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{124     \textcolor{keywordflow}{return} t;}
+\DoxyCodeLine{125 \}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{132 \textcolor{keyword}{template} <\textcolor{keyword}{typename} A>}
+\DoxyCodeLine{133 \textcolor{keyword}{requires}(std::is\_pointer\_v<std::remove\_cvref\_t<A>> || \mbox{\hyperlink{a02374}{traits::isSharedPtr<std::remove\_cvref\_t<A>}}>::value)}
+\DoxyCodeLine{134 \textcolor{keyword}{auto} \mbox{\hyperlink{a00531_a8a9dd9a34514881c4b30b3fdc62a62f9}{obtainForcesDueToIDBC}}(\textcolor{keyword}{const} A\& assembler) \{}
+\DoxyCodeLine{135   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& K = assembler-\/>matrix(\mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eeca65e65c8ab0d8609ce12fc68a03cb8e00}{DBCOption::Raw}});}
+\DoxyCodeLine{136   \textcolor{keyword}{auto}\& dv      = assembler-\/>dirichletValues();}
+\DoxyCodeLine{137   \textcolor{keyword}{auto} newInc   = Eigen::VectorXd::Zero(dv.size()).eval();}
+\DoxyCodeLine{138   dv.evaluateInhomogeneousBoundaryConditionDerivative(newInc, 1.0);}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140   Eigen::VectorXd F\_dirichlet;}
+\DoxyCodeLine{141   F\_dirichlet = K * newInc;}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143   \textcolor{keywordflow}{if} (assembler-\/>dBCOption() == \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}})}
+\DoxyCodeLine{144     assembler-\/>dirichletValues().setZeroAtConstrainedDofs(F\_dirichlet);}
+\DoxyCodeLine{145   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{146     F\_dirichlet = assembler-\/>createReducedVector(F\_dirichlet);}
+\DoxyCodeLine{147   \textcolor{keywordflow}{return} F\_dirichlet;}
+\DoxyCodeLine{148 \}}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150 \} \textcolor{comment}{// namespace Ikarus::utils}}
 
 \end{DoxyCode}

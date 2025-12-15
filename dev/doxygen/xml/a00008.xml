@@ -1,12 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.4" xml:lang="en-US">
-  <compounddef id="a00068" kind="file" language="C++">
-    <compoundname>tensorproductquadrule.hh</compoundname>
+  <compounddef id="a00008" kind="file" language="C++">
+    <compoundname>quadraturerulehelper.hh</compoundname>
     <includes local="no">dune/geometry/quadraturerules.hh</includes>
+    <includedby refid="a00233" local="no">displacementpressure.hh</includedby>
+    <includedby refid="a00248" local="no">kirchhoffloveshell.hh</includedby>
+    <includedby refid="a00242" local="no">linearelastic.hh</includedby>
+    <includedby refid="a00383" local="no">nonlinearelastic.hh</includedby>
     <incdepgraph>
       <node id="1">
-        <label>tensorproductquadrule.hh</label>
-        <link refid="a00068"/>
+        <label>quadraturerulehelper.hh</label>
+        <link refid="a00008"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
@@ -14,6 +18,36 @@
         <label>dune/geometry/quadraturerules.hh</label>
       </node>
     </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>displacementpressure.hh</label>
+        <link refid="a00233"/>
+      </node>
+      <node id="3">
+        <label>kirchhoffloveshell.hh</label>
+        <link refid="a00248"/>
+      </node>
+      <node id="4">
+        <label>linearelastic.hh</label>
+        <link refid="a00242"/>
+      </node>
+      <node id="5">
+        <label>nonlinearelastic.hh</label>
+        <link refid="a00383"/>
+      </node>
+      <node id="1">
+        <label>quadraturerulehelper.hh</label>
+        <link refid="a00008"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
     <innernamespace refid="a00510">Ikarus</innernamespace>
     <briefdescription>
 <para>Free function for creating a tensor product quadrature rule and other Dune::Quadrature rule utils. </para>
@@ -50,8 +84,22 @@
 <codeline lineno="46"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rule;</highlight></codeline>
 <codeline lineno="48"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="49"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Ikarus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dim,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Element&gt;</highlight></codeline>
+<codeline lineno="62" refid="a00510_1aa92ba5c8dfc0123e28236e017c3671d3" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="a00510_1aa92ba5c8dfc0123e28236e017c3671d3" kindref="member">defaultQuadratureRule</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Element&amp;<sp/>element,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>order)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>defaultRule<sp/>=<sp/>Dune::QuadratureRules&lt;double,<sp/>dim&gt;::rule(element.type(),<sp/>order);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">requires</highlight><highlight class="normal"><sp/>{<sp/>element.impl().getQuadratureRule(order);<sp/>})</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(element.impl().isTrimmed())</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>element.impl().getQuadratureRule(order);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>defaultRule;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>defaultRule;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="a00510_1a664c5f26c38c5958545919ecc5bd66c8" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="a00510_1a664c5f26c38c5958545919ecc5bd66c8" kindref="member">numberOfGaussPointsToOrder</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nGP)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>2<sp/>*<sp/>nGP<sp/>-<sp/>1;<sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Ikarus</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/tensorproductquadrule.hh"/>
+    <location file="/__w/ikarus/ikarus/repo/ikarus/utils/quadraturerulehelper.hh"/>
   </compounddef>
 </doxygen>

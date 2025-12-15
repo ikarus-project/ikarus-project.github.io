@@ -210,7 +210,7 @@ docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/makeenum.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/math.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/polyfit.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/pythonautodiffdefinitions.hh
-docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/tensorproductquadrule.hh
+docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/quadraturerulehelper.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/tensorutils.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/traits.hh
 docs/website/doxygen/html: /__w/ikarus/ikarus/repo/ikarus/utils/traversal.hh
