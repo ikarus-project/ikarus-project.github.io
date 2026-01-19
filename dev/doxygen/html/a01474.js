@@ -10,5 +10,7 @@ var a01474 =
     [ "notify", "a01474.html#a0cc3593f3af31f30ea97adc1d040c8f2", null ],
     [ "registerListener", "a01474.html#a50f7d8360254792256006fe4ead0350c", null ],
     [ "run", "a01474.html#a54f969372e829774fbad347b8436a49c", null ],
+    [ "subsidiaryArgs", "a01474.html#a3df869c5a5329092cfa90a444f54da02", null ],
+    [ "subsidiaryArgs", "a01474.html#a7485492addfa19dcc77042cbf62ed943", null ],
     [ "unregisterListener", "a01474.html#af78c5019f3563fe5ee567f98a3d63e6e", null ]
 ];

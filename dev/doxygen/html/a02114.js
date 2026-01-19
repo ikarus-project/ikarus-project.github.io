@@ -14,6 +14,8 @@ var a02114 =
     [ "UpdateFunction", "a02114.html#a2b1ac11681ef7b00f9bafbe2ea2653dc", null ],
     [ "NewtonRaphson", "a02114.html#afb4151086cedd48973ee0ae9b5fe75cc", null ],
     [ "idbcForceFunction", "a02114.html#a718cfccce23f918b9923023ee2c04446", null ],
+    [ "jacobian", "a02114.html#a0fa34436c03163fde755954e958d7624", null ],
+    [ "jacobian", "a02114.html#a8107a06649a9d4b7b4affa0f2cfad5aa", null ],
     [ "notify", "a02114.html#a0cc3593f3af31f30ea97adc1d040c8f2", null ],
     [ "registerListener", "a02114.html#a50f7d8360254792256006fe4ead0350c", null ],
     [ "residual", "a02114.html#aeca4e03540454abb422ac6ced915cc08", null ],

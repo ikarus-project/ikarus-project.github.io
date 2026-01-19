@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['kgbending_0',['kgBending',['../a01642.html#a93f11b9294df96b1955867984fe71670',1,'Ikarus::KirchhoffLoveShell']]],
-  ['kirchhoffloveshell_1',['KirchhoffLoveShell',['../a01642.html#a66a395230714582f88bc53779690e900',1,'Ikarus::KirchhoffLoveShell']]],
-  ['kirchhoffloveshell_2',['kirchhoffLoveShell',['../a00510.html#aecb794f40bd585f77e094976751ba41e',1,'Ikarus::kirchhoffLoveShell()'],['../a00545.html#ae49d79d1210e031e9a6d4c0f534678ed',1,'ikarus.finite_elements.kirchhoffLoveShell()']]]
+  ['jacobian_0',['jacobian',['../a02114.html#a0fa34436c03163fde755954e958d7624',1,'Ikarus::NewtonRaphson::jacobian()'],['../a02114.html#a8107a06649a9d4b7b4affa0f2cfad5aa',1,'Ikarus::NewtonRaphson::jacobian() const'],['../a02126.html#a117e5b5582f969862262a3fde7a94acf',1,'Ikarus::NewtonRaphsonWithSubsidiaryFunction::jacobian()'],['../a02126.html#a1e577efb7ef8919df9d609557e18c8ad',1,'Ikarus::NewtonRaphsonWithSubsidiaryFunction::jacobian() const']]]
 ];

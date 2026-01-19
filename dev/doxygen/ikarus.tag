@@ -13316,6 +13316,20 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>auto &amp;</type>
+      <name>jacobian</name>
+      <anchorfile>a02114.html</anchorfile>
+      <anchor>a0fa34436c03163fde755954e958d7624</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const auto &amp;</type>
+      <name>jacobian</name>
+      <anchorfile>a02114.html</anchorfile>
+      <anchor>a8107a06649a9d4b7b4affa0f2cfad5aa</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
       <type>const UpdateFunction &amp;</type>
       <name>updateFunction</name>
       <anchorfile>a02114.html</anchorfile>
@@ -13560,6 +13574,20 @@
       <name>residual</name>
       <anchorfile>a02126.html</anchorfile>
       <anchor>ab52cbd8a0788907ae405eb2709b887f1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>auto &amp;</type>
+      <name>jacobian</name>
+      <anchorfile>a02126.html</anchorfile>
+      <anchor>a117e5b5582f969862262a3fde7a94acf</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const auto &amp;</type>
+      <name>jacobian</name>
+      <anchorfile>a02126.html</anchorfile>
+      <anchor>a1e577efb7ef8919df9d609557e18c8ad</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -14681,6 +14709,20 @@
       <anchorfile>a01474.html</anchorfile>
       <anchor>a6c40405d18d6dfab95c80b9871905331</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>auto &amp;</type>
+      <name>subsidiaryArgs</name>
+      <anchorfile>a01474.html</anchorfile>
+      <anchor>a3df869c5a5329092cfa90a444f54da02</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const auto &amp;</type>
+      <name>subsidiaryArgs</name>
+      <anchorfile>a01474.html</anchorfile>
+      <anchor>a7485492addfa19dcc77042cbf62ed943</anchor>
+      <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Token</type>

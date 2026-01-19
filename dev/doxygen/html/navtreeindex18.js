@@ -1,5 +1,14 @@
 var NAVTREEINDEX18 =
 {
+"functions_type_c.html":[6,3,3,2],
+"functions_type_d.html":[6,3,3,3],
+"functions_type_e.html":[6,3,3,4],
+"functions_type_f.html":[6,3,3,5],
+"functions_type_g.html":[6,3,3,6],
+"functions_type_h.html":[6,3,3,7],
+"functions_type_i.html":[6,3,3,8],
+"functions_type_j.html":[6,3,3,9],
+"functions_type_k.html":[6,3,3,10],
 "functions_type_l.html":[6,3,3,11],
 "functions_type_m.html":[6,3,3,12],
 "functions_type_n.html":[6,3,3,13],
