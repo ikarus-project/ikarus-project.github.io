@@ -18,9 +18,9 @@ Collaboration diagram for Utilities\+:
 \item 
 class \mbox{\hyperlink{a02202}{Ikarus\+::\+Basis\+Handler$<$ PB $>$}}
 \begin{DoxyCompactList}\small\item\em Wrapper class for a hierarchical basis constructed from a pre-\/basis. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{a02298}{Ikarus\+::\+Dirichlet\+Values$<$ B, FC $>$}}
+class \mbox{\hyperlink{a02290}{Ikarus\+::\+Dirichlet\+Values$<$ B, FC $>$}}
 \begin{DoxyCompactList}\small\item\em Class for handling Dirichlet boundary conditions in \mbox{\hyperlink{a00510}{Ikarus}}. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{a02306}{Ikarus\+::\+Flat\+Pre\+Basis$<$ Pre\+Basis $>$}}
+struct \mbox{\hyperlink{a02298}{Ikarus\+::\+Flat\+Pre\+Basis$<$ Pre\+Basis $>$}}
 \begin{DoxyCompactList}\small\item\em Transform a Pre\+Basis into one with flat index-\/merging strategy
 
 This utility takes a pre-\/basis and converts recursively all index-\/merging strategies into their flat analog, i.\+e. {\ttfamily Blocked\+Interleaved} is converted into {\ttfamily Flat\+Interleaved} and {\ttfamily Blocked\+Lexicographic} is transformed into {\ttfamily Flat\+Lexicographic}. \end{DoxyCompactList}\item 
@@ -48,7 +48,7 @@ std\+::tuple$<$ Dune\+::\+Functions\+::\+Polynomial$<$ double $>$, decltype(Eige
 \begin{DoxyCompactList}\small\item\em Generator function for a flatted Pre\+Basis. \end{DoxyCompactList}\item 
 {\footnotesize template$<$int size, typename LV $>$ }\\void \mbox{\hyperlink{a00505_gae9098182120929a0d21cff1c38f5ca84}{Ikarus\+::utils\+::obtain\+Lagrange\+Global\+Node\+Positions}} (const LV \&local\+View, std\+::vector$<$ \mbox{\hyperlink{a02274}{Dune\+::\+Field\+Vector}}$<$ double, size $>$ $>$ \&lagrange\+Node\+Global\+Coords)
 \begin{DoxyCompactList}\small\item\em A function to obtain the global positions of the nodes of an element with Lagrangian basis. \end{DoxyCompactList}\item 
-{\footnotesize template$<$int world\+Dim, typename Basis $>$ }\\auto \mbox{\hyperlink{a00505_gad3d42db776c355317260011c95b0ce67}{Ikarus\+::utils\+::global\+Index\+From\+Global\+Position}} (const Basis \&basis, const \mbox{\hyperlink{a02274}{Dune\+::\+Field\+Vector}}$<$ double, world\+Dim $>$ \&pos)
+{\footnotesize template$<$int world\+Dim, typename Basis , Dune\+::\+Float\+Cmp\+::\+Cmp\+Style cmp\+Style = Dune\+::\+Float\+Cmp\+::\+Cmp\+Style\+::absolute$>$ }\\auto \mbox{\hyperlink{a00505_ga334aa3c552eca9519c71f6b5aac1c5b8}{Ikarus\+::utils\+::global\+Index\+From\+Global\+Position}} (const Basis \&basis, const \mbox{\hyperlink{a02274}{Dune\+::\+Field\+Vector}}$<$ double, world\+Dim $>$ \&pos)
 \begin{DoxyCompactList}\small\item\em A helper function to obtain the global index from the global positions for a Lagrange node. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename \mbox{\hyperlink{a01506}{FE}} $>$ }\\auto \mbox{\hyperlink{a00505_ga30df35336d19b00bc5db2a0b52ce650e}{Ikarus\+::utils\+::reference\+Element\+Sub\+Entity\+Positions}} (\mbox{\hyperlink{a01506}{FE}} \&fe, int codim)
 \begin{DoxyCompactList}\small\item\em A function to obtain the local coordinates of subentities of an Finite\+Element. \end{DoxyCompactList}\item 
@@ -491,20 +491,27 @@ Here is the caller graph for this function\+:
 \begin{DoxyReturn}{Returns}
 Absolute value of the scalar. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{a00505_gad3d42db776c355317260011c95b0ce67}\label{a00505_gad3d42db776c355317260011c95b0ce67}} 
+\mbox{\Hypertarget{a00505_ga334aa3c552eca9519c71f6b5aac1c5b8}\label{a00505_ga334aa3c552eca9519c71f6b5aac1c5b8}} 
 \index{Utilities@{Utilities}!globalIndexFromGlobalPosition@{globalIndexFromGlobalPosition}}
 \index{globalIndexFromGlobalPosition@{globalIndexFromGlobalPosition}!Utilities@{Utilities}}
 \doxysubsubsection{\texorpdfstring{globalIndexFromGlobalPosition()}{globalIndexFromGlobalPosition()}}
-{\footnotesize\ttfamily template$<$int world\+Dim, typename Basis $>$ \\
+{\footnotesize\ttfamily template$<$int world\+Dim, typename Basis , Dune\+::\+Float\+Cmp\+::\+Cmp\+Style cmp\+Style = Dune\+::\+Float\+Cmp\+::\+Cmp\+Style\+::absolute$>$ \\
 auto Ikarus\+::utils\+::global\+Index\+From\+Global\+Position (\begin{DoxyParamCaption}\item[{const Basis \&}]{basis,  }\item[{const \mbox{\hyperlink{a02274}{Dune\+::\+Field\+Vector}}$<$ double, world\+Dim $>$ \&}]{pos }\end{DoxyParamCaption})}
 
 
 \begin{DoxyTemplParams}{Template Parameters}
 {\em world\+Dim} & Dimension of the world space. \\
 \hline
-{\em Basis} & Type of the basis.\\
+{\em Basis} & Type of the basis. \\
+\hline
+{\em cmp\+Style} & Comparison style being used to check if a node exists at a certain position.\\
 \hline
 \end{DoxyTemplParams}
+As per \href{https://gitlab.mn.tu-dresden.de/spraetor/dune-common-extensions/-/blob/master/dune/common/float_cmp.hh\#L58}{\texttt{ https\+://gitlab.\+mn.\+tu-\/dresden.\+de/spraetor/dune-\/common-\/extensions/-\//blob/master/dune/common/float\+\_\+cmp.\+hh\#\+L58}}, relative comparison styles do not work properly if one of the values being compared is zero. Hence, for this function, absolute is being used as the default comparison style.
+
+\begin{DoxyNote}{Note}
+For a composite basis, indices only of the first child are returned and a composite basis within a composite basis cannot be used.
+\end{DoxyNote}
 
 \begin{DoxyParams}{Parameters}
 {\em basis} & The grid basis. \\

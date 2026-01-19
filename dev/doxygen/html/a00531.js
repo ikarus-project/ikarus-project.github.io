@@ -19,7 +19,7 @@ var a00531 =
     [ "forEachLagrangeNodePosition", "a00531.html#ad8f6a5b5d6fb5a916fd5791adf5ef4d9", null ],
     [ "forEachLeafOrPowerLeafNode", "a00531.html#a63742d75d099b93da7ddf6e78a3c1f56", null ],
     [ "getSpecialization", "a00507.html#ga05a5ccea0f87d41fc69956f55a2c1dbd", null ],
-    [ "globalIndexFromGlobalPosition", "a00505.html#gad3d42db776c355317260011c95b0ce67", null ],
+    [ "globalIndexFromGlobalPosition", "a00505.html#ga334aa3c552eca9519c71f6b5aac1c5b8", null ],
     [ "hasTypeSpecialization", "a00507.html#gaec2a5de0482441ef1e1c68fb7ff8a0bc", null ],
     [ "hessianN", "a00505.html#ga2a6c26beeb8d52283e82939ca585dc20", null ],
     [ "makeNestedTupleFlat", "a00531.html#a4c617d2458cc6d792f5ba3e6c64a0c7f", null ],

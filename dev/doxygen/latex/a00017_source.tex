@@ -33,26 +33,52 @@
 \DoxyCodeLine{50   \}}
 \DoxyCodeLine{51 \}}
 \DoxyCodeLine{52 }
-\DoxyCodeLine{63 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LV, \textcolor{keyword}{typename} F, \textcolor{keywordtype}{int} myDim = LV::Element::mydimension>}
-\DoxyCodeLine{64 \textcolor{keyword}{requires}(std::convertible\_to<F, std::function<bool(\textcolor{keywordtype}{int}, \mbox{\hyperlink{a02274}{Dune::FieldVector<double, myDim>}} \&\&)>>)}
-\DoxyCodeLine{65 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00531_ad8f6a5b5d6fb5a916fd5791adf5ef4d9}{forEachLagrangeNodePosition}}(\textcolor{keyword}{const} LV\& localView, F\&\& f) \{}
-\DoxyCodeLine{66   \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02435}{Concepts::LagrangeNode}}<std::remove\_cvref\_t<\textcolor{keyword}{decltype}(localView.tree().child(0))>>,}
-\DoxyCodeLine{67                 \textcolor{stringliteral}{"{}forEachLagrangeNodePosition is only supported for Lagrange power basis"{}});}
-\DoxyCodeLine{68   assert(localView.bound() \&\& \textcolor{stringliteral}{"{}The local view must be bound to an element"{}});}
-\DoxyCodeLine{69   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localFE = localView.tree().child(0).finiteElement();}
-\DoxyCodeLine{70   std::vector<Dune::FieldVector<double, myDim>> lagrangeNodeCoords;}
-\DoxyCodeLine{71   lagrangeNodeCoords.resize(localFE.size());}
-\DoxyCodeLine{72   std::vector<double> out;}
-\DoxyCodeLine{73   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < myDim; i++) \{}
-\DoxyCodeLine{74     \textcolor{keyword}{auto} ithCoord = [\&i](\textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, myDim>}}\& x) \{ \textcolor{keywordflow}{return} x[i]; \};}
-\DoxyCodeLine{75     localFE.localInterpolation().interpolate(ithCoord, out);}
-\DoxyCodeLine{76     \textcolor{keywordflow}{for} (std::size\_t j = 0; j < out.size(); j++)}
-\DoxyCodeLine{77       lagrangeNodeCoords[j][i] = out[j];}
-\DoxyCodeLine{78   \}}
-\DoxyCodeLine{79   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} nodeNumber = 0; \textcolor{keyword}{auto}\& nCoord : lagrangeNodeCoords)}
-\DoxyCodeLine{80     \textcolor{keywordflow}{if} (f(nodeNumber++, std::move(nCoord)))}
-\DoxyCodeLine{81       \textcolor{keywordflow}{break};}
-\DoxyCodeLine{82 \}}
-\DoxyCodeLine{83 \} \textcolor{comment}{// namespace Ikarus::utils}}
+\DoxyCodeLine{53 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{54   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} isScalar, \textcolor{keyword}{typename} NT>}
+\DoxyCodeLine{55   \textcolor{keywordtype}{void} checkLagrangeNode(\textcolor{keyword}{const} NT\& node) \{}
+\DoxyCodeLine{56     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isScalar) \{}
+\DoxyCodeLine{57       \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02435}{Concepts::LagrangeNode}}<std::remove\_cvref\_t<\textcolor{keyword}{decltype}(node)>>, \textcolor{stringliteral}{"{}Only supported for Lagrange basis"{}});}
+\DoxyCodeLine{58     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{59       \textcolor{keyword}{static\_assert}(Concepts::LagrangeNode<std::remove\_cvref\_t<\textcolor{keyword}{decltype}(node.child(0))>>,}
+\DoxyCodeLine{60                     \textcolor{stringliteral}{"{}Only supported for Lagrange basis"{}});}
+\DoxyCodeLine{61     \}}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{75 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LV, \textcolor{keyword}{typename} F, \textcolor{keywordtype}{int} myDim = LV::Element::mydimension>}
+\DoxyCodeLine{76 \textcolor{keyword}{requires}(std::convertible\_to<F, std::function<bool(\textcolor{keywordtype}{int}, \mbox{\hyperlink{a02274}{Dune::FieldVector<double, myDim>}} \&\&)>>)}
+\DoxyCodeLine{77 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00531_ad8f6a5b5d6fb5a916fd5791adf5ef4d9}{forEachLagrangeNodePosition}}(\textcolor{keyword}{const} LV\& localView, F\&\& f) \{}
+\DoxyCodeLine{78   \textcolor{keyword}{using }Tree                     = LV::Tree;}
+\DoxyCodeLine{79   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isScalar = Tree::isLeaf;}
+\DoxyCodeLine{80   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isPower  = Tree::isPower;}
+\DoxyCodeLine{81   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& node               = [\&]() \{}
+\DoxyCodeLine{82     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isScalar or isPower)}
+\DoxyCodeLine{83       \textcolor{keywordflow}{return} localView.tree();}
+\DoxyCodeLine{84     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{85       \textcolor{keywordflow}{return} localView.tree().template child<0>();}
+\DoxyCodeLine{86   \}();}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88   Impl::checkLagrangeNode<isScalar>(node);}
+\DoxyCodeLine{89   assert(localView.bound() \&\& \textcolor{stringliteral}{"{}The local view must be bound to an element"{}});}
+\DoxyCodeLine{90   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localFE = [\&]() \{}
+\DoxyCodeLine{91     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isScalar)}
+\DoxyCodeLine{92       \textcolor{keywordflow}{return} node.finiteElement();}
+\DoxyCodeLine{93     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{94       \textcolor{keywordflow}{return} node.child(0).finiteElement();}
+\DoxyCodeLine{95   \}();}
+\DoxyCodeLine{96   std::vector<Dune::FieldVector<double, myDim>> lagrangeNodeCoords;}
+\DoxyCodeLine{97   lagrangeNodeCoords.resize(localFE.size());}
+\DoxyCodeLine{98   std::vector<double> out;}
+\DoxyCodeLine{99   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < myDim; i++) \{}
+\DoxyCodeLine{100     \textcolor{keyword}{auto} ithCoord = [\&i](\textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, myDim>}}\& x) \{ \textcolor{keywordflow}{return} x[i]; \};}
+\DoxyCodeLine{101     localFE.localInterpolation().interpolate(ithCoord, out);}
+\DoxyCodeLine{102     \textcolor{keywordflow}{for} (std::size\_t j = 0; j < out.size(); j++)}
+\DoxyCodeLine{103       lagrangeNodeCoords[j][i] = out[j];}
+\DoxyCodeLine{104   \}}
+\DoxyCodeLine{105   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} nodeNumber = 0; \textcolor{keyword}{auto}\& nCoord : lagrangeNodeCoords)}
+\DoxyCodeLine{106     \textcolor{keywordflow}{if} (f(nodeNumber++, std::move(nCoord)))}
+\DoxyCodeLine{107       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{108 \}}
+\DoxyCodeLine{109 \} \textcolor{comment}{// namespace Ikarus::utils}}
 
 \end{DoxyCode}

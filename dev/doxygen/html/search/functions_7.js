@@ -16,7 +16,7 @@ var searchData=
   ['getscalarimpl_13',['getScalarImpl',['../a01366.html#aba335c4956a927a322c511e523c7b6fe',1,'Ikarus::ScalarManipulator::getScalarImpl()'],['../a01414.html#a8edb919038d3239ca7bcc00df81bfa60',1,'Ikarus::ScalarFlatAssembler::getScalarImpl()']]],
   ['getspecialization_14',['getSpecialization',['../a00507.html#ga05a5ccea0f87d41fc69956f55a2c1dbd',1,'Ikarus::utils']]],
   ['getvectorimpl_15',['getVectorImpl',['../a01370.html#aef64c6065be1268a73cefc38614c3901',1,'Ikarus::VectorManipulator::getVectorImpl()'],['../a01418.html#aa7b5dcb6865242054999644554a0f50c',1,'Ikarus::VectorFlatAssembler::getVectorImpl()']]],
-  ['globalindexfromglobalposition_16',['globalIndexFromGlobalPosition',['../a00549.html#adb191bde0042adbfd48bc16a3a661353',1,'ikarus.utils.globalIndexFromGlobalPosition()'],['../a00505.html#gad3d42db776c355317260011c95b0ce67',1,'Ikarus::utils::globalIndexFromGlobalPosition()']]],
+  ['globalindexfromglobalposition_16',['globalIndexFromGlobalPosition',['../a00549.html#adb191bde0042adbfd48bc16a3a661353',1,'ikarus.utils.globalIndexFromGlobalPosition()'],['../a00505.html#ga334aa3c552eca9519c71f6b5aac1c5b8',1,'Ikarus::utils::globalIndexFromGlobalPosition()']]],
   ['globalindices_17',['globalIndices',['../a00515.html#a44e16df41148f7e4538be224814a3423',1,'Ikarus::FEHelper']]],
   ['globalindicesfromlocalview_18',['globalIndicesFromLocalView',['../a00515.html#a2a4ac5503d4288b339457aae427ff661',1,'Ikarus::FEHelper']]],
   ['globalsolution_19',['globalSolution',['../a01526.html#a5d0f016635b556faf2ead5696dd4a510',1,'Ikarus::FERequirements::globalSolution()'],['../a01526.html#a9701fdddf89b019507963dd2f68912da',1,'Ikarus::FERequirements::globalSolution() const']]],

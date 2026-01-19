@@ -59,7 +59,7 @@ var hierarchy =
     [ "Dune::Functions::DifferentiableFunctionFromCallables", null, [
       [ "Ikarus::DifferentiableFunction< Range(D), DerivativeTraits, F, FF... >", "a02266.html", null ]
     ] ],
-    [ "Ikarus::DirichletValues< B, FC >", "a02298.html", null ],
+    [ "Ikarus::DirichletValues< B, FC >", "a02290.html", null ],
     [ "Ikarus::DisplacementControl", "a01494.html", null ],
     [ "Ikarus::EAS::DisplacementGradient", "a01838.html", null ],
     [ "Ikarus::EAS::DisplacementGradientTransposed", "a01842.html", null ],
@@ -115,12 +115,12 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
-    [ "Ikarus::FlatIndexMergingStrategy< IMS >", "a02310.html", null ],
-    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedInterleaved >", "a02314.html", null ],
-    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedLexicographic >", "a02318.html", null ],
-    [ "Ikarus::FlatPreBasis< PreBasis >", "a02306.html", null ],
-    [ "Ikarus::FlatPreBasis< Dune::Functions::CompositePreBasis< IMS, SPB... > >", "a02322.html", null ],
-    [ "Ikarus::FlatPreBasis< Dune::Functions::PowerPreBasis< IMS, SPB, C > >", "a02326.html", null ],
+    [ "Ikarus::FlatIndexMergingStrategy< IMS >", "a02302.html", null ],
+    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedInterleaved >", "a02306.html", null ],
+    [ "Ikarus::FlatIndexMergingStrategy< Dune::Functions::BasisFactory::BlockedLexicographic >", "a02310.html", null ],
+    [ "Ikarus::FlatPreBasis< PreBasis >", "a02298.html", null ],
+    [ "Ikarus::FlatPreBasis< Dune::Functions::CompositePreBasis< IMS, SPB... > >", "a02314.html", null ],
+    [ "Ikarus::FlatPreBasis< Dune::Functions::PowerPreBasis< IMS, SPB, C > >", "a02318.html", null ],
     [ "Ikarus::traits::FunctionTraits< T, typename >", "a02414.html", null ],
     [ "Ikarus::GeneralizedSymEigenSolver< SolverType, MT >", "a02086.html", null ],
     [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Eigen, MT >", "a02094.html", null ],

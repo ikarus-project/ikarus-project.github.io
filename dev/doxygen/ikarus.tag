@@ -2186,6 +2186,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/</path>
     <filename>a03547.html</filename>
     <includes id="a03559" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a00029" name="flatprebasis.hh" local="no" imported="no">ikarus/utils/flatprebasis.hh</includes>
     <class kind="struct">Ikarus::DeriveSizeType&lt; T &gt;</class>
     <class kind="struct">Ikarus::DeriveSizeType&lt; std::vector&lt; bool &gt; &gt;</class>
     <class kind="class">Ikarus::DirichletValues</class>
@@ -3258,6 +3259,7 @@
     <class kind="struct">Ikarus::FlatPreBasis&lt; Dune::Functions::CompositePreBasis&lt; IMS, SPB... &gt; &gt;</class>
     <class kind="struct">Ikarus::FlatPreBasis&lt; Dune::Functions::PowerPreBasis&lt; IMS, SPB, C &gt; &gt;</class>
     <namespace>Ikarus</namespace>
+    <namespace>Ikarus::utils</namespace>
     <member kind="typedef">
       <type>typename FlatPreBasis&lt; PreBasis &gt;::type</type>
       <name>FlatPreBasis_t</name>
@@ -3278,6 +3280,7 @@
     <path>/__w/ikarus/ikarus/repo/ikarus/utils/</path>
     <filename>a00020.html</filename>
     <includes id="a03559" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
+    <includes id="a00029" name="flatprebasis.hh" local="no" imported="no">ikarus/utils/flatprebasis.hh</includes>
     <includes id="a00017" name="traversal.hh" local="no" imported="no">ikarus/utils/traversal.hh</includes>
     <namespace>Ikarus</namespace>
     <namespace>Ikarus::utils</namespace>
@@ -3292,7 +3295,7 @@
       <type>auto</type>
       <name>globalIndexFromGlobalPosition</name>
       <anchorfile>a00505.html</anchorfile>
-      <anchor>gad3d42db776c355317260011c95b0ce67</anchor>
+      <anchor>ga334aa3c552eca9519c71f6b5aac1c5b8</anchor>
       <arglist>(const Basis &amp;basis, const Dune::FieldVector&lt; double, worldDim &gt; &amp;pos)</arglist>
     </member>
     <member kind="function">
@@ -7050,181 +7053,181 @@
   </compound>
   <compound kind="class">
     <name>Ikarus::DirichletValues</name>
-    <filename>a02298.html</filename>
+    <filename>a02290.html</filename>
     <templarg>typename B</templarg>
     <templarg>typename FC</templarg>
     <member kind="typedef">
       <type>std::remove_cvref_t&lt; B &gt;</type>
       <name>Basis</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a2e6f1ef4a810a7269303f54a6f74539f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>FC</type>
       <name>FlagsType</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>aa71c2b94b37f2b4e83f9f1e059e6fe4c</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>decltype(Dune::Functions::istlVectorBackend(std::declval&lt; FlagsType &amp; &gt;()))</type>
       <name>BackendType</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a3db820fbcd2b7edf58ce3b21b261f621</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>typename DeriveSizeType&lt; FlagsType &gt;::SizeType</type>
       <name>SizeType</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>ace0ece5adceb26d9db00c7c096568ea0</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Basis::LocalView</type>
       <name>LocalView</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>aaf2345604ce343294767f88de67d3cda</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>LocalView::Tree</type>
       <name>Tree</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a6c2ac9fe4bc48cbe533b5c641e80649f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>typename Impl::PreBasisInfo&lt; Tree &gt;::NodalSolutionType</type>
+      <type>typename utils::Impl::PreBasisInfo&lt; Tree &gt;::NodalSolutionType</type>
       <name>NodalSolutionType</name>
-      <anchorfile>a02298.html</anchorfile>
-      <anchor>afe6a1b8a097846d76168ce1e29d8bf7d</anchor>
+      <anchorfile>a02290.html</anchorfile>
+      <anchor>a2d228634d490af1a995a696770676cb3</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>DirichletValues</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>aeb81ceb2617369a584dd12f4574ab1dc</anchor>
       <arglist>(const B &amp;basis)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>fixBoundaryDOFs</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a3b40113e1bf44f2e269242d677afcc55</anchor>
       <arglist>(F &amp;&amp;f, TreePath &amp;&amp;treePath={})</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>fixDOFs</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a956ce2cdc09731f001821c7b59d49e85</anchor>
       <arglist>(F &amp;&amp;f)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>setSingleDOF</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a179a4b05a361fc9ea0a3e935dcf0e45a</anchor>
       <arglist>(const MultiIndex i, bool flag)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>setSingleDOF</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a2c8ce98339eddd3f3bf1cdbf4e07a45f</anchor>
       <arglist>(std::size_t i, bool flag)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>reset</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>ab8ae184ec5c0c79a893a8111d7315442</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>const auto &amp;</type>
       <name>basis</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>ae783c95d2e4b55d9d37f4c141b1d719b</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
       <name>isConstrained</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a1b1fccdb71619c0a49aa24977682d43a</anchor>
       <arglist>(const MultiIndex &amp;multiIndex) const</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
       <name>isConstrained</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a1cdd766b0feb7e85ac3d3df10704e659</anchor>
       <arglist>(std::size_t i) const</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>fixedDOFsize</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>aeb299b04b2777be56012b32a3b2e6a9c</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>size</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a010fa7b0721c137eb61221493e52dc92</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>auto &amp;</type>
       <name>container</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>af8495b65eac223b7b6c64f07b31cc814</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>storeInhomogeneousBoundaryCondition</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a61b544301204663466eb1644ccf65e1a</anchor>
       <arglist>(F &amp;&amp;f, double lambda=1.0)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>setZeroAtConstrainedDofs</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a0cc0d889e5ae8a2684116dafa29b4612</anchor>
       <arglist>(Eigen::VectorXd &amp;xIh) const</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>evaluateInhomogeneousBoundaryCondition</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>aad6e51cef8441f855748d5397440ae3d</anchor>
       <arglist>(Eigen::VectorXd &amp;xIh, const double &amp;lambda) const</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>evaluateInhomogeneousBoundaryConditionDerivative</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a500e53c07ab01f9bd9eab0752254ed5e</anchor>
       <arglist>(Eigen::VectorXd &amp;xIh, const double &amp;lambda) const</arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr int</type>
       <name>worldDimension</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>a79e90730d4ac67efb5e38590c0429df5</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr std::size_t</type>
       <name>numberOfChildrenAtNode</name>
-      <anchorfile>a02298.html</anchorfile>
+      <anchorfile>a02290.html</anchorfile>
       <anchor>aee0fc940b24de8b667f28254b939a0f8</anchor>
       <arglist></arglist>
     </member>
@@ -9641,122 +9644,122 @@
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatIndexMergingStrategy</name>
-    <filename>a02310.html</filename>
+    <filename>a02302.html</filename>
     <templarg>class IMS</templarg>
     <member kind="typedef">
       <type>IMS</type>
       <name>type</name>
-      <anchorfile>a02310.html</anchorfile>
+      <anchorfile>a02302.html</anchorfile>
       <anchor>aa18699c386a7d8e60d0f53cbc4a83261</anchor>
       <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatIndexMergingStrategy&lt; Dune::Functions::BasisFactory::BlockedInterleaved &gt;</name>
-    <filename>a02314.html</filename>
+    <filename>a02306.html</filename>
     <member kind="typedef">
       <type>Dune::Functions::BasisFactory::FlatInterleaved</type>
       <name>type</name>
-      <anchorfile>a02314.html</anchorfile>
+      <anchorfile>a02306.html</anchorfile>
       <anchor>a0a464466ec348e17886e7c49c03964d6</anchor>
       <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatIndexMergingStrategy&lt; Dune::Functions::BasisFactory::BlockedLexicographic &gt;</name>
-    <filename>a02318.html</filename>
+    <filename>a02310.html</filename>
     <member kind="typedef">
       <type>Dune::Functions::BasisFactory::FlatLexicographic</type>
       <name>type</name>
-      <anchorfile>a02318.html</anchorfile>
+      <anchorfile>a02310.html</anchorfile>
       <anchor>add1dc46010d8b320cd215e331a3f1fa4</anchor>
       <arglist></arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatPreBasis</name>
-    <filename>a02306.html</filename>
+    <filename>a02298.html</filename>
     <templarg>class PreBasis</templarg>
     <member kind="typedef">
       <type>PreBasis</type>
       <name>type</name>
-      <anchorfile>a02306.html</anchorfile>
+      <anchorfile>a02298.html</anchorfile>
       <anchor>a448426468de3637416804f6ef6f8ce90</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" static="yes">
       <type>static type</type>
       <name>create</name>
-      <anchorfile>a02306.html</anchorfile>
+      <anchorfile>a02298.html</anchorfile>
       <anchor>a9c133ba014522aa8c8d90f2a3835c7e1</anchor>
       <arglist>(PB const &amp;preBasis)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static const PreBasis &amp;</type>
       <name>create</name>
-      <anchorfile>a02306.html</anchorfile>
+      <anchorfile>a02298.html</anchorfile>
       <anchor>af5414357864c26a827136edac1a085f4</anchor>
       <arglist>(const PreBasis &amp;preBasis)</arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatPreBasis&lt; Dune::Functions::CompositePreBasis&lt; IMS, SPB... &gt; &gt;</name>
-    <filename>a02322.html</filename>
+    <filename>a02314.html</filename>
     <templarg>class IMS</templarg>
     <templarg>class... SPB</templarg>
     <member kind="typedef">
       <type>typename FlatIndexMergingStrategy&lt; IMS &gt;::type</type>
       <name>FIMS</name>
-      <anchorfile>a02322.html</anchorfile>
+      <anchorfile>a02314.html</anchorfile>
       <anchor>a2387375090283dac7ebbfb8bc58e1994</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Dune::Functions::CompositePreBasis&lt; FIMS, FlatPreBasis_t&lt; SPB &gt;... &gt;</type>
       <name>type</name>
-      <anchorfile>a02322.html</anchorfile>
+      <anchorfile>a02314.html</anchorfile>
       <anchor>a5b93764f4d9fd3897ad37658526e37fd</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" static="yes">
       <type>static type</type>
       <name>create</name>
-      <anchorfile>a02322.html</anchorfile>
+      <anchorfile>a02314.html</anchorfile>
       <anchor>aaaf91aed22e7c32c6f2c26ff961ae3e1</anchor>
       <arglist>(const PreBasis &amp;preBasis)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static type</type>
       <name>create</name>
-      <anchorfile>a02322.html</anchorfile>
+      <anchorfile>a02314.html</anchorfile>
       <anchor>aab16d08ac65576f292078b2c4f135645</anchor>
       <arglist>(const PreBasis &amp;preBasis, std::index_sequence&lt; I... &gt;)</arglist>
     </member>
   </compound>
   <compound kind="struct">
     <name>Ikarus::FlatPreBasis&lt; Dune::Functions::PowerPreBasis&lt; IMS, SPB, C &gt; &gt;</name>
-    <filename>a02326.html</filename>
+    <filename>a02318.html</filename>
     <templarg>class IMS</templarg>
     <templarg>class SPB</templarg>
     <templarg>std::size_t C</templarg>
     <member kind="typedef">
       <type>typename FlatIndexMergingStrategy&lt; IMS &gt;::type</type>
       <name>FIMS</name>
-      <anchorfile>a02326.html</anchorfile>
+      <anchorfile>a02318.html</anchorfile>
       <anchor>aef8f8b43a63a4bf4c7c3bc193c4ee1f0</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Dune::Functions::PowerPreBasis&lt; FIMS, FlatPreBasis_t&lt; SPB &gt;, C &gt;</type>
       <name>type</name>
-      <anchorfile>a02326.html</anchorfile>
+      <anchorfile>a02318.html</anchorfile>
       <anchor>ae56d4cd604948715e51d517f27d7f0c9</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" static="yes">
       <type>static type</type>
       <name>create</name>
-      <anchorfile>a02326.html</anchorfile>
+      <anchorfile>a02318.html</anchorfile>
       <anchor>ad2ce954f09e165f4440f6e4139ed0b85</anchor>
       <arglist>(const PreBasis &amp;preBasis)</arglist>
     </member>
@@ -22897,7 +22900,7 @@
       <type>auto</type>
       <name>globalIndexFromGlobalPosition</name>
       <anchorfile>a00505.html</anchorfile>
-      <anchor>gad3d42db776c355317260011c95b0ce67</anchor>
+      <anchor>ga334aa3c552eca9519c71f6b5aac1c5b8</anchor>
       <arglist>(const Basis &amp;basis, const Dune::FieldVector&lt; double, worldDim &gt; &amp;pos)</arglist>
     </member>
     <member kind="function">
@@ -23413,7 +23416,7 @@
       <type>auto</type>
       <name>globalIndexFromGlobalPosition</name>
       <anchorfile>a00505.html</anchorfile>
-      <anchor>gad3d42db776c355317260011c95b0ce67</anchor>
+      <anchor>ga334aa3c552eca9519c71f6b5aac1c5b8</anchor>
       <arglist>(const Basis &amp;basis, const Dune::FieldVector&lt; double, worldDim &gt; &amp;pos)</arglist>
     </member>
     <member kind="function">

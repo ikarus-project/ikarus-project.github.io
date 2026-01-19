@@ -60,7 +60,7 @@ var searchData=
   ['requirementtype_57',['RequirementType',['../a01950.html',1,'Ikarus::FEMixin']]],
   ['requirementtype_3c_20false_2c_20t_20_3e_58',['RequirementType&lt; false, T &gt;',['../a01954.html',1,'Ikarus::FEMixin']]],
   ['requirementtype_3c_20true_2c_20t_20_3e_59',['RequirementType&lt; true, T &gt;',['../a01958.html',1,'Ikarus::FEMixin']]],
-  ['reset_60',['reset',['../a02298.html#ab8ae184ec5c0c79a893a8111d7315442',1,'Ikarus::DirichletValues']]],
+  ['reset_60',['reset',['../a02290.html#ab8ae184ec5c0c79a893a8111d7315442',1,'Ikarus::DirichletValues']]],
   ['residual_61',['residual',['../a02182.html#a45645355919a4fc38dc32269e1ecacd0',1,'Ikarus::TrustRegion::residual()'],['../a02114.html#aeca4e03540454abb422ac6ced915cc08',1,'Ikarus::NewtonRaphson::residual()'],['../a02114.html#ace718e120082634eb6f89dd32d6ebd38',1,'Ikarus::NewtonRaphson::residual() const'],['../a02126.html#a11824336e5db078f8991b0cda4dad16a',1,'Ikarus::NewtonRaphsonWithSubsidiaryFunction::residual()'],['../a02126.html#ab52cbd8a0788907ae405eb2709b887f1',1,'Ikarus::NewtonRaphsonWithSubsidiaryFunction::residual() const']]],
   ['residualnorm_62',['residualNorm',['../a02170.html#ab09859737734f97734f20624f9f3c934',1,'Ikarus::NonLinearSolverInformation']]],
   ['residualnorm_5fupdated_63',['RESIDUALNORM_UPDATED',['../a00510.html#a662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14',1,'Ikarus']]],

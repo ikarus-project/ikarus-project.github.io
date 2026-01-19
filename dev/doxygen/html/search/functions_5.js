@@ -20,7 +20,7 @@ var searchData=
   ['enlargeifreduced_17',['enlargeIfReduced',['../a00505.html#ga30500f2c49b7d1997c7eb7b6ee90ad75',1,'Ikarus']]],
   ['estimateofconnectivity_18',['estimateOfConnectivity',['../a01398.html#adf77b0e3c1dab4782a2da06fc712b9c5',1,'Ikarus::FlatAssemblerBase']]],
   ['evaluate_19',['evaluate',['../a02018.html#add24f14249cce07c37dd92e3f81cf50c',1,'Ikarus::ResultFunction']]],
-  ['evaluateinhomogeneousboundarycondition_20',['evaluateInhomogeneousBoundaryCondition',['../a02298.html#aad6e51cef8441f855748d5397440ae3d',1,'Ikarus::DirichletValues']]],
-  ['evaluateinhomogeneousboundaryconditionderivative_21',['evaluateInhomogeneousBoundaryConditionDerivative',['../a02298.html#a500e53c07ab01f9bd9eab0752254ed5e',1,'Ikarus::DirichletValues']]],
+  ['evaluateinhomogeneousboundarycondition_20',['evaluateInhomogeneousBoundaryCondition',['../a02290.html#aad6e51cef8441f855748d5397440ae3d',1,'Ikarus::DirichletValues']]],
+  ['evaluateinhomogeneousboundaryconditionderivative_21',['evaluateInhomogeneousBoundaryConditionDerivative',['../a02290.html#a500e53c07ab01f9bd9eab0752254ed5e',1,'Ikarus::DirichletValues']]],
   ['ex_22',['EX',['../a01902.html#a4c231edbb4522822f4fcb716874fa9a6',1,'Ikarus::EAS::EX::EX()=default'],['../a01902.html#ae0c874d1c2cfb52040282080f9cb2a3f',1,'Ikarus::EAS::EX::EX(const GEO &amp;geometry)']]]
 ];

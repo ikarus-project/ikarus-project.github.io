@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['basis_0',['basis',['../a00543.html#a0f9f04fa9d98e890cb6d4fe62ff889a4',1,'ikarus.basis.basis()'],['../a02298.html#ae783c95d2e4b55d9d37f4c141b1d719b',1,'Ikarus::DirichletValues::basis()']]],
+  ['basis_0',['basis',['../a00543.html#a0f9f04fa9d98e890cb6d4fe62ff889a4',1,'ikarus.basis.basis()'],['../a02290.html#ae783c95d2e4b55d9d37f4c141b1d719b',1,'Ikarus::DirichletValues::basis()']]],
   ['basishandler_1',['BasisHandler',['../a02202.html#a5283dfd83bb82dfc11a99dc714da154b',1,'Ikarus::BasisHandler']]],
   ['beammaterial_2',['beamMaterial',['../a00521.html#ab89e3a8a28d4e7241ab9dfd41fbbd153',1,'Ikarus::Materials']]],
   ['beta_3',['beta',['../a01754.html#a7f795f3f3751c0e13bff4d6dfd36a062',1,'Ikarus::Materials::VF4::beta()'],['../a01766.html#a82bdc9ff4d1e5505bdbd6414d6842af3',1,'Ikarus::Materials::VF7::beta()'],['../a01778.html#a0d1a430961cf9ed01796413c4cf2af2b',1,'Ikarus::Materials::VF10::beta()']]],
