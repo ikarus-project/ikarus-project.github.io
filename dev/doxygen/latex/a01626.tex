@@ -16,7 +16,7 @@ Inheritance diagram for Ikarus\+::Displacement\+Pressure\texorpdfstring{$<$}{<} 
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=306pt]{a01625}
+\includegraphics[width=350pt]{a01625}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Types}
@@ -87,9 +87,8 @@ const Dune\+::\+Cached\+Local\+Basis$<$ std\+::remove\+\_\+cvref\+\_\+t$<$ \mbox
 \item 
 {\footnotesize template$<$typename Scalar\+Type  = double$>$ }\\decltype(auto) \mbox{\hyperlink{a01626_a3c296dfc565166c1b58efa33dc826c38}{constitutive\+Driver}} () const
 \item 
-{\footnotesize template$<$template$<$ typename, int, int $>$ class RT$>$ \newline
-requires (\mbox{\hyperlink{a01558_af33553a01e6940265639d561c31b7746}{supports\+Result\+Type}}$<$RT$>$())}\\auto \mbox{\hyperlink{a01626_a7dcdd112d506a21c1a257f2abe96a60e}{result\+Function}} () const
-\begin{DoxyCompactList}\small\item\em Get a lambda function that evaluates the requested result type for a given strain (in Voigt notation) and pressure. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename D , typename V $>$ }\\auto \mbox{\hyperlink{a01626_a20b7bb7e175706892d7fd73635b4ad76}{calculate\+Stress}} (const D \&dev, const V \&vol, const Eigen\+::\+Vector$<$ double, \mbox{\hyperlink{a01626_ab227ad59b7f7aa87cc798a302adb95fb}{strain\+Dim}} $>$ \&strain\+In\+Voigt, double p) const
+\begin{DoxyCompactList}\small\item\em Get the PK2 stress for a given strain (in Voigt notation). \end{DoxyCompactList}\item 
 {\footnotesize template$<$template$<$ typename, int, int $>$ class RT$>$ \newline
 requires (\mbox{\hyperlink{a01558_af33553a01e6940265639d561c31b7746}{supports\+Result\+Type}}$<$RT$>$())}\\auto \mbox{\hyperlink{a01626_a489a92baa9ad1935f8867484ce5016dc}{calculate\+At\+Impl}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&req, const \mbox{\hyperlink{a02274}{Dune\+::\+Field\+Vector}}$<$ double, \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}} $>$ \&local, Dune\+::\+Priority\+Tag$<$ 1 $>$) const
 \begin{DoxyCompactList}\small\item\em Calculates a requested result at a specific local position. \end{DoxyCompactList}\item 
@@ -375,6 +374,48 @@ void \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyp
 template$<$typename Scalar\+Type $>$ \\
 auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::calculate\+Scalar\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{\mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{Scalar\+Affordance}}}]{affordance,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const -\/$>$ Scalar\+Type \hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
 
+\mbox{\Hypertarget{a01626_a20b7bb7e175706892d7fd73635b4ad76}\label{a01626_a20b7bb7e175706892d7fd73635b4ad76}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!calculateStress@{calculateStress}}
+\index{calculateStress@{calculateStress}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{calculateStress()}{calculateStress()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename D , typename V $>$ \\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::calculate\+Stress (\begin{DoxyParamCaption}\item[{const D \&}]{dev,  }\item[{const V \&}]{vol,  }\item[{const Eigen\+::\+Vector$<$ double, \mbox{\hyperlink{a01626_ab227ad59b7f7aa87cc798a302adb95fb}{strain\+Dim}} $>$ \&}]{strain\+In\+Voigt,  }\item[{double}]{p }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyNote}{Note}
+The material model passed here could be either the underlying material for the reduced case or the actual material type itself, depending on whether PK2\+Stress or PK2\+Stress\+Full is needed for post-\/processing. 
+
+It is assumed that the material model uses and returns PK2 stress as the stress measure. 
+\end{DoxyNote}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em D} & Type of the deviatoric part of the material \\
+\hline
+{\em V} & Type of the volumetric part of the material \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em dev} & The deviatoric part of the material model. \\
+\hline
+{\em vol} & The volumetric part of the material model. \\
+\hline
+{\em strain\+In\+Voigt} & The strain measure in Voigt notation. \\
+\hline
+{\em p} & The value of the pressure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+PK2 stresses. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01626_a20b7bb7e175706892d7fd73635b4ad76_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{a01626_a533168541b41f442e995c45afc0956c2}\label{a01626_a533168541b41f442e995c45afc0956c2}} 
 \index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!calculateVectorImpl@{calculateVectorImpl}}
 \index{calculateVectorImpl@{calculateVectorImpl}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
@@ -594,23 +635,6 @@ Here is the caller graph for this function\+:
 \includegraphics[width=350pt]{a01626_aeb007c4c59b10f6fa84a23c6d560097e_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{a01626_a7dcdd112d506a21c1a257f2abe96a60e}\label{a01626_a7dcdd112d506a21c1a257f2abe96a60e}} 
-\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!resultFunction@{resultFunction}}
-\index{resultFunction@{resultFunction}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
-\doxysubsubsection{\texorpdfstring{resultFunction()}{resultFunction()}}
-{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
-template$<$template$<$ typename, int, int $>$ class RT$>$ \newline
-requires (\mbox{\hyperlink{a01558_af33553a01e6940265639d561c31b7746}{supports\+Result\+Type}}$<$RT$>$())\\
-auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::result\+Function (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em RT} & The type representing the requested result. \\
-\hline
-\end{DoxyTemplParams}
-\begin{DoxyReturn}{Returns}
-A lambda function that evaluates the requested result type for a given strain (in Voigt notation). 
-\end{DoxyReturn}
 \mbox{\Hypertarget{a01626_ad15adef35f65186d7769f941c2a080e5}\label{a01626_ad15adef35f65186d7769f941c2a080e5}} 
 \index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!strainFunction@{strainFunction}}
 \index{strainFunction@{strainFunction}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}

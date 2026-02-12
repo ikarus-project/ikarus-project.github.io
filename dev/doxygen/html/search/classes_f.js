@@ -10,7 +10,7 @@ var searchData=
   ['resulttypebase_7',['ResultTypeBase',['../a01558.html',1,'Ikarus']]],
   ['resulttypebase_3c_20resulttypes_3a_3acauchyaxialforce_2c_20resulttypes_3a_3apk2axialforce_2c_20resulttypes_3a_3alinearaxialforce_20_3e_8',['ResultTypeBase&lt; ResultTypes::cauchyAxialForce, ResultTypes::PK2AxialForce, ResultTypes::linearAxialForce &gt;',['../a01558.html',1,'Ikarus']]],
   ['resulttypebase_3c_20resulttypes_3a_3alinearstress_2c_20resulttypes_3a_3alinearstressfull_20_3e_9',['ResultTypeBase&lt; ResultTypes::linearStress, ResultTypes::linearStressFull &gt;',['../a01558.html',1,'Ikarus']]],
-  ['resulttypebase_3c_20resulttypes_3a_3apk2stress_2c_20resulttypes_3a_3apk2stressfull_20_3e_10',['ResultTypeBase&lt; ResultTypes::PK2Stress, ResultTypes::PK2StressFull &gt;',['../a01558.html',1,'Ikarus']]],
+  ['resulttypebase_3c_20resulttypes_3a_3apk2stress_2c_20resulttypes_3a_3apk2stressfull_2c_20resulttypes_3a_3akirchhoffstress_2c_20resulttypes_3a_3acauchystress_20_3e_10',['ResultTypeBase&lt; ResultTypes::PK2Stress, ResultTypes::PK2StressFull, ResultTypes::kirchhoffStress, ResultTypes::cauchyStress &gt;',['../a01558.html',1,'Ikarus']]],
   ['resulttypebase_3c_3e_11',['ResultTypeBase&lt;&gt;',['../a01558.html',1,'Ikarus']]],
   ['resultwrapper_12',['ResultWrapper',['../a01546.html',1,'Ikarus']]]
 ];

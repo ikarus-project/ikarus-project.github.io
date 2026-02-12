@@ -16,7 +16,7 @@ Inheritance diagram for Ikarus\+::Non\+Linear\+Elastic\texorpdfstring{$<$}{<} Pr
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=306pt]{a01829}
+\includegraphics[width=350pt]{a01829}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Types}
@@ -81,9 +81,8 @@ const Dune\+::\+Cached\+Local\+Basis$<$ std\+::remove\+\_\+cvref\+\_\+t$<$ \mbox
 \item 
 {\footnotesize template$<$typename Scalar\+Type  = double$>$ }\\decltype(auto) \mbox{\hyperlink{a01830_a881c2f56424f21b925f6fee08f2b83b2}{material}} () const
 \item 
-{\footnotesize template$<$template$<$ typename, int, int $>$ class RT$>$ \newline
-requires (\mbox{\hyperlink{a01558_af33553a01e6940265639d561c31b7746}{supports\+Result\+Type}}$<$RT$>$())}\\auto \mbox{\hyperlink{a01830_a9ef6e4138616ab46b1aadc93e6688f74}{result\+Function}} () const
-\begin{DoxyCompactList}\small\item\em Get a lambda function that evaluates the requested result type for a given strain (in Voigt notation). \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename M $>$ }\\auto \mbox{\hyperlink{a01830_acf1be667b7ec7e210f9d32d0b92ce6d1}{calculate\+Stress}} (const M \&mat, const Eigen\+::\+Vector$<$ double, \mbox{\hyperlink{a01830_ab6d202ad9add3c430c1cd72ab94a8217}{strain\+Dim}} $>$ \&strain\+In\+Voigt) const
+\begin{DoxyCompactList}\small\item\em Get the PK2 stress for a given strain (in Voigt notation). \end{DoxyCompactList}\item 
 {\footnotesize template$<$template$<$ typename, int, int $>$ class RT$>$ \newline
 requires (\mbox{\hyperlink{a01558_af33553a01e6940265639d561c31b7746}{supports\+Result\+Type}}$<$RT$>$())}\\auto \mbox{\hyperlink{a01830_a7c8edbff09762bdb9cae26d4cf6b0a91}{calculate\+At\+Impl}} (const \mbox{\hyperlink{a01830_a6302108caed08123cb8e56109ae95383}{Requirement}} \&req, const \mbox{\hyperlink{a02274}{Dune\+::\+Field\+Vector}}$<$ double, \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}} $>$ \&local, Dune\+::\+Priority\+Tag$<$ 1 $>$) const
 \begin{DoxyCompactList}\small\item\em Calculates a requested result at a specific local position. \end{DoxyCompactList}\item 
@@ -339,6 +338,42 @@ void \mbox{\hyperlink{a01830}{Ikarus\+::\+Non\+Linear\+Elastic}}$<$ \mbox{\hyper
 template$<$typename Scalar\+Type $>$ \\
 auto \mbox{\hyperlink{a01830}{Ikarus\+::\+Non\+Linear\+Elastic}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::calculate\+Scalar\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01830_a6302108caed08123cb8e56109ae95383}{Requirement}} \&}]{par,  }\item[{\mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{Scalar\+Affordance}}}]{affordance,  }\item[{const \mbox{\hyperlink{a01830_a3a3a62d6e281c0ad8d1af5c8ef00633a}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const -\/$>$ Scalar\+Type \hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
 
+\mbox{\Hypertarget{a01830_acf1be667b7ec7e210f9d32d0b92ce6d1}\label{a01830_acf1be667b7ec7e210f9d32d0b92ce6d1}} 
+\index{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$@{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$}!calculateStress@{calculateStress}}
+\index{calculateStress@{calculateStress}!Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$@{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{calculateStress()}{calculateStress()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename M $>$ \\
+auto \mbox{\hyperlink{a01830}{Ikarus\+::\+Non\+Linear\+Elastic}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::calculate\+Stress (\begin{DoxyParamCaption}\item[{const M \&}]{mat,  }\item[{const Eigen\+::\+Vector$<$ double, \mbox{\hyperlink{a01830_ab6d202ad9add3c430c1cd72ab94a8217}{strain\+Dim}} $>$ \&}]{strain\+In\+Voigt }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyNote}{Note}
+The material model passed here could be either the underlying material for the reduced case or the actual material type itself, depending on whether PK2\+Stress or PK2\+Stress\+Full is needed for post-\/processing. 
+
+It is assumed that the material model uses and returns PK2 stress as the stress measure. 
+\end{DoxyNote}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em M} & Type of the material \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em mat} & The material model. \\
+\hline
+{\em strain\+In\+Voigt} & The strain measure in Voigt notation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+PK2 stresses. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01830_acf1be667b7ec7e210f9d32d0b92ce6d1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{a01830_a5e62e6ec43efe86c95342ee377f664f5}\label{a01830_a5e62e6ec43efe86c95342ee377f664f5}} 
 \index{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$@{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$}!calculateVectorImpl@{calculateVectorImpl}}
 \index{calculateVectorImpl@{calculateVectorImpl}!Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$@{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$}}
@@ -584,23 +619,6 @@ size\+\_\+t \mbox{\hyperlink{a01830}{Ikarus\+::\+Non\+Linear\+Elastic}}$<$ \mbox
 {\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
 int \mbox{\hyperlink{a01830}{Ikarus\+::\+Non\+Linear\+Elastic}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::order (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{a01830_a9ef6e4138616ab46b1aadc93e6688f74}\label{a01830_a9ef6e4138616ab46b1aadc93e6688f74}} 
-\index{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$@{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$}!resultFunction@{resultFunction}}
-\index{resultFunction@{resultFunction}!Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$@{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$}}
-\doxysubsubsection{\texorpdfstring{resultFunction()}{resultFunction()}}
-{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
-template$<$template$<$ typename, int, int $>$ class RT$>$ \newline
-requires (\mbox{\hyperlink{a01558_af33553a01e6940265639d561c31b7746}{supports\+Result\+Type}}$<$RT$>$())\\
-auto \mbox{\hyperlink{a01830}{Ikarus\+::\+Non\+Linear\+Elastic}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::result\+Function (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-\begin{DoxyTemplParams}{Template Parameters}
-{\em RT} & The type representing the requested result. \\
-\hline
-\end{DoxyTemplParams}
-\begin{DoxyReturn}{Returns}
-A lambda function that evaluates the requested result type for a given strain (in Voigt notation). 
-\end{DoxyReturn}
 \mbox{\Hypertarget{a01830_a0557b74d237d37ec2fbe85cfff7019f2}\label{a01830_a0557b74d237d37ec2fbe85cfff7019f2}} 
 \index{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$@{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$}!strainFunction@{strainFunction}}
 \index{strainFunction@{strainFunction}!Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$@{Ikarus::NonLinearElastic$<$ PreFE, FE, PRE $>$}}

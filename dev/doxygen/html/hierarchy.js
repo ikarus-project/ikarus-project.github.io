@@ -235,7 +235,7 @@ var hierarchy =
     [ "Ikarus::ResultTypeBase< ResultTypes::linearStress, ResultTypes::linearStressFull >", "a01558.html", [
       [ "Ikarus::LinearElastic< PreFE, FE, PRE >", "a01658.html", null ]
     ] ],
-    [ "Ikarus::ResultTypeBase< ResultTypes::PK2Stress, ResultTypes::PK2StressFull >", "a01558.html", [
+    [ "Ikarus::ResultTypeBase< ResultTypes::PK2Stress, ResultTypes::PK2StressFull, ResultTypes::kirchhoffStress, ResultTypes::cauchyStress >", "a01558.html", [
       [ "Ikarus::DisplacementPressure< PreFE, FE, PRE >", "a01626.html", null ],
       [ "Ikarus::NonLinearElastic< PreFE, FE, PRE >", "a01830.html", null ]
     ] ],

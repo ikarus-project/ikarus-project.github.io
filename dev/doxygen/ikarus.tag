@@ -620,6 +620,13 @@
       <type></type>
       <name>REGISTER_SIMPLE_SYMMETRIC_RESULTTYPE</name>
       <anchorfile>a00518.html</anchorfile>
+      <anchor>a9a1c2999a6073328fe5c1585d9da70f4</anchor>
+      <arglist>(kirchhoffStress, worldDim, worldDim, false)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>REGISTER_SIMPLE_SYMMETRIC_RESULTTYPE</name>
+      <anchorfile>a00518.html</anchorfile>
       <anchor>a6b389a778d302b7827c5aea71d406ad1</anchor>
       <arglist>(cauchyStress, worldDim, worldDim, false)</arglist>
     </member>
@@ -760,6 +767,8 @@
     <includes id="a00407" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
     <includes id="a00377" name="asfunctions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/assumedstress/asfunctions.hh</includes>
     <includes id="a00365" name="asvariants.hh" local="no" imported="no">ikarus/finiteelements/mechanics/assumedstress/asvariants.hh</includes>
+    <includes id="a00356" name="strainconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/strainconversions.hh</includes>
+    <includes id="a00362" name="stressconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/stressconversions.hh</includes>
     <includes id="a00347" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00203" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
     <includes id="a03559" name="utils/concepts.hh" local="no" imported="no">ikarus/utils/concepts.hh</includes>
@@ -834,6 +843,8 @@
     <includes id="a00380" name="loads.hh" local="no" imported="no">ikarus/finiteelements/mechanics/loads.hh</includes>
     <includes id="a00359" name="decomposehyperelastic.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/decomposehyperelastic.hh</includes>
     <includes id="a03523" name="finiteelements/mechanics/materials/hyperelastic/interface.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/hyperelastic/interface.hh</includes>
+    <includes id="a00356" name="strainconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/strainconversions.hh</includes>
+    <includes id="a00362" name="stressconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/stressconversions.hh</includes>
     <includes id="a00347" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00284" name="easfunctions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easfunctions.hh</includes>
     <includes id="a00392" name="physicshelper.hh" local="no" imported="no">ikarus/finiteelements/physicshelper.hh</includes>
@@ -858,6 +869,8 @@
     <filename>a00257.html</filename>
     <includes id="a00389" name="fehelper.hh" local="no" imported="no">ikarus/finiteelements/fehelper.hh</includes>
     <includes id="a00407" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
+    <includes id="a00356" name="strainconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/strainconversions.hh</includes>
+    <includes id="a00362" name="stressconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/stressconversions.hh</includes>
     <includes id="a00347" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00275" name="easvariants.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easvariants.hh</includes>
     <includes id="a00203" name="broadcastermessages.hh" local="no" imported="no">ikarus/utils/broadcaster/broadcastermessages.hh</includes>
@@ -1717,6 +1730,8 @@
     <includes id="a00389" name="fehelper.hh" local="no" imported="no">ikarus/finiteelements/fehelper.hh</includes>
     <includes id="a00407" name="ferequirements.hh" local="no" imported="no">ikarus/finiteelements/ferequirements.hh</includes>
     <includes id="a00380" name="loads.hh" local="no" imported="no">ikarus/finiteelements/mechanics/loads.hh</includes>
+    <includes id="a00356" name="strainconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/strainconversions.hh</includes>
+    <includes id="a00362" name="stressconversions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/stressconversions.hh</includes>
     <includes id="a00347" name="tags.hh" local="no" imported="no">ikarus/finiteelements/mechanics/materials/tags.hh</includes>
     <includes id="a00284" name="easfunctions.hh" local="no" imported="no">ikarus/finiteelements/mechanics/strainenhancements/easfunctions.hh</includes>
     <includes id="a00392" name="physicshelper.hh" local="no" imported="no">ikarus/finiteelements/physicshelper.hh</includes>
@@ -7276,6 +7291,13 @@
     <filename>a01838.html</filename>
     <member kind="function" static="yes">
       <type>static auto</type>
+      <name>computeDisplacementGradient</name>
+      <anchorfile>a01838.html</anchorfile>
+      <anchor>a234ed2ae004003342b20081e5e0bee3f</anchor>
+      <arglist>(const GEO &amp;geo, const auto &amp;uFunction, const Dune::FieldVector&lt; double, GEO::mydimension &gt; &amp;gpPos, const EAST &amp;easFunction, const auto &amp;alpha)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static auto</type>
       <name>value</name>
       <anchorfile>a01838.html</anchorfile>
       <anchor>a5b01b01712c3b01d1b28ea383e0d4f2d</anchor>
@@ -7306,6 +7328,13 @@
   <compound kind="struct">
     <name>Ikarus::EAS::DisplacementGradientTransposed</name>
     <filename>a01842.html</filename>
+    <member kind="function" static="yes">
+      <type>static auto</type>
+      <name>computeDisplacementGradient</name>
+      <anchorfile>a01842.html</anchorfile>
+      <anchor>a7d279af9f44c2cbbf1090036aef2c13c</anchor>
+      <arglist>(const GEO &amp;geo, const auto &amp;uFunction, const Dune::FieldVector&lt; double, GEO::mydimension &gt; &amp;gpPos, const EAST &amp;easFunction, const auto &amp;alpha)</arglist>
+    </member>
     <member kind="function" static="yes">
       <type>static auto</type>
       <name>value</name>
@@ -7341,7 +7370,7 @@
     <templarg>typename PreFE</templarg>
     <templarg>typename FE</templarg>
     <templarg>typename PRE</templarg>
-    <base>ResultTypeBase&lt; ResultTypes::PK2Stress, ResultTypes::PK2StressFull &gt;</base>
+    <base>ResultTypeBase&lt; ResultTypes::PK2Stress, ResultTypes::PK2StressFull, ResultTypes::kirchhoffStress, ResultTypes::cauchyStress &gt;</base>
     <member kind="typedef">
       <type>PreFE::Traits</type>
       <name>Traits</name>
@@ -7561,10 +7590,10 @@
     </member>
     <member kind="function">
       <type>auto</type>
-      <name>resultFunction</name>
+      <name>calculateStress</name>
       <anchorfile>a01626.html</anchorfile>
-      <anchor>a7dcdd112d506a21c1a257f2abe96a60e</anchor>
-      <arglist>() const</arglist>
+      <anchor>a20b7bb7e175706892d7fd73635b4ad76</anchor>
+      <arglist>(const D &amp;dev, const V &amp;vol, const Eigen::Vector&lt; double, strainDim &gt; &amp;strainInVoigt, double p) const</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
@@ -11762,10 +11791,10 @@
     </member>
     <member kind="function">
       <type>auto</type>
-      <name>resultFunction</name>
+      <name>calculateStress</name>
       <anchorfile>a01658.html</anchorfile>
-      <anchor>a47a2e417684205fbed3800853d0c8d86</anchor>
-      <arglist>() const</arglist>
+      <anchor>abb601d5699c76676375ca6f652a6a9c3</anchor>
+      <arglist>(const M &amp;mat, const Eigen::Vector&lt; double, strainDim &gt; &amp;strainInVoigt) const</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
@@ -13830,7 +13859,7 @@
     <templarg>typename PreFE</templarg>
     <templarg>typename FE</templarg>
     <templarg>typename PRE</templarg>
-    <base>ResultTypeBase&lt; ResultTypes::PK2Stress, ResultTypes::PK2StressFull &gt;</base>
+    <base>ResultTypeBase&lt; ResultTypes::PK2Stress, ResultTypes::PK2StressFull, ResultTypes::kirchhoffStress, ResultTypes::cauchyStress &gt;</base>
     <member kind="typedef">
       <type>PreFE::Traits</type>
       <name>Traits</name>
@@ -14029,10 +14058,10 @@
     </member>
     <member kind="function">
       <type>auto</type>
-      <name>resultFunction</name>
+      <name>calculateStress</name>
       <anchorfile>a01830.html</anchorfile>
-      <anchor>a9ef6e4138616ab46b1aadc93e6688f74</anchor>
-      <arglist>() const</arglist>
+      <anchor>acf1be667b7ec7e210f9d32d0b92ce6d1</anchor>
+      <arglist>(const M &amp;mat, const Eigen::Vector&lt; double, strainDim &gt; &amp;strainInVoigt) const</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
@@ -22587,6 +22616,13 @@
       <anchorfile>a00518.html</anchorfile>
       <anchor>a71a26eea02ef9fdd54621f7146d6dd0d</anchor>
       <arglist>(PK2Stress, worldDim, worldDim, false)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>REGISTER_SIMPLE_SYMMETRIC_RESULTTYPE</name>
+      <anchorfile>a00518.html</anchorfile>
+      <anchor>a9a1c2999a6073328fe5c1585d9da70f4</anchor>
+      <arglist>(kirchhoffStress, worldDim, worldDim, false)</arglist>
     </member>
     <member kind="function">
       <type></type>
