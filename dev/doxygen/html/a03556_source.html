@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: concepts.hh Source File</title>
+    <title>ikarus: vtkwriter.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -98,7 +98,7 @@ window.MathJax = {
                 <td id="projectlogo"><a href="index.html"><img alt="Logo" src="BigLogo_transparent.png" width="150px"/></a></td>
                 <td id="projectalign" style="padding-left: 0.5em;">
                     <div id="projectname">
-                        &#160;<span id="projectnumber">version 0.4.7</span>
+                        &#160;<span id="projectnumber">version 0.4.8</span>
                     </div>
                 </td>
             </tr>
@@ -155,57 +155,165 @@ $(document).ready(function(){initNavTree('a03556_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">finiteelements/mechanics/materials/hyperelastic/concepts.hh</div></div>
+  <div class="headertitle"><div class="title">io/vtkwriter.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a03556.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;concepts&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a03559.html">ikarus/utils/concepts.hh</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00513.html">Ikarus::Concepts</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> DF&gt;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a02429.html">   26</a></span><span class="keyword">concept </span><a class="code hl_concept" href="a02429.html">DeviatoricFunction</a> = <span class="keyword">requires</span>(DF dm, <span class="keyword">const</span> <span class="keyword">typename</span> DF::template PrincipalStretches&lt;&gt;&amp; lambda) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">typename</span> DF::ScalarType;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keyword">typename</span> DF::template PrincipalStretches&lt;&gt;;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keyword">typename</span> DF::template FirstDerivative&lt;&gt;;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keyword">typename</span> DF::template SecondDerivative&lt;&gt;;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keyword">typename</span> DF::MaterialParameters;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keyword">requires</span> <a class="code hl_concept" href="a02458.html">Concepts::EigenVector&lt;typename DF::template FirstDerivative&lt;&gt;</a>&gt;;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keyword">requires</span> <a class="code hl_concept" href="a02459.html">Concepts::EigenMatrix&lt;typename DF::template SecondDerivative&lt;&gt;</a>&gt;;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">requires</span> std::is_same_v&lt;typename DF::template PrincipalStretches&lt;&gt;, <span class="keyword">typename</span> DF::template FirstDerivative&lt;&gt;&gt;;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  { dm.storedEnergyImpl(lambda) } -&gt; std::same_as&lt;typename DF::ScalarType&gt;;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  { dm.firstDerivativeImpl(lambda) } -&gt; std::same_as&lt;typename DF::template FirstDerivative&lt;&gt;&gt;;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  { dm.secondDerivativeImpl(lambda) } -&gt; std::same_as&lt;typename DF::template SecondDerivative&lt;&gt;&gt;;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  { dm.materialParametersImpl() } -&gt; std::same_as&lt;typename DF::MaterialParameters&gt;;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  { dm.name() } -&gt; std::convertible_to&lt;std::string&gt;;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="a00374.html">vtkcontainertypes.hh</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="a00368.html">vtkdatatag.hh</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;dune/common/fvector.hh&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;dune/functions/gridfunctions/discreteglobalbasisfunction.hh&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;dune/grid/yaspgrid.hh&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;dune/vtk/vtkwriter.hh&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;dune/vtk/writers/unstructuredgridwriter.hh&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a00371.html">ikarus/io/resultfunction.hh</a>&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a03520.html">ikarus/utils/concepts.hh</a>&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00525.html">Ikarus::Vtk</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> AS, <span class="keyword">typename</span> DC, <span class="keyword">typename</span> Base&gt;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">requires</span>(Concepts::FlatAssembler&lt;AS&gt; &amp;&amp; Concepts::DataCollector&lt;DC&gt;)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a02050.html">   37</a></span><span class="keyword">struct</span> <a class="code hl_struct" href="a02050.html">Writer</a> : <span class="keyword">public</span> Base</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a02050.html#a48666f99819393e871c84b4f4bd4b816">   40</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02050.html#a48666f99819393e871c84b4f4bd4b816">Assembler</a>     = AS;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a02050.html#aadd66859407a6b1a5d7604e693348c00">   41</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02050.html#aadd66859407a6b1a5d7604e693348c00">GridView</a>      = <span class="keyword">typename</span> Assembler::GridView;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a02050.html#af943a6fe7f917d909b06aaace360c129">   42</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02050.html#af943a6fe7f917d909b06aaace360c129">FERequirement</a> = <span class="keyword">typename</span> Assembler::FERequirement;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a02050.html#aaac8aafaef3b80c862dd57fbf7b97279">   43</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02050.html#aaac8aafaef3b80c862dd57fbf7b97279">FEContainer</a>   = <span class="keyword">typename</span> Assembler::FEContainer;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a02050.html#a3a3fcd008921213a40a189cf5c947a08">   44</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02050.html#a3a3fcd008921213a40a189cf5c947a08">FEType</a>        = <span class="keyword">typename</span> std::remove_cvref_t&lt;FEContainer&gt;::value_type;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> VF&gt;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a02430.html">   53</a></span><span class="keyword">concept </span><a class="code hl_concept" href="a02430.html">VolumetricFunction</a> = <span class="keyword">requires</span>(VF vf, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; j) {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  { vf.storedEnergyImpl(j) } -&gt; std::same_as&lt;double&gt;;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  { vf.firstDerivativeImpl(j) } -&gt; std::same_as&lt;double&gt;;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  { vf.secondDerivativeImpl(j) } -&gt; std::same_as&lt;double&gt;;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  { vf.name() } -&gt; std::convertible_to&lt;std::string&gt;;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a02050.html#a700ee4a5f71f8985ee7e4364372c6895">   46</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02050.html#a700ee4a5f71f8985ee7e4364372c6895">DataCollector</a> = DC;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a02050.html#a7e43687c38b914c1c3805c0ebefff9bd">   47</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02050.html#a7e43687c38b914c1c3805c0ebefff9bd">VTKWriter</a>     = Base;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keyword">template</span> &lt;<span class="keyword">class</span>... Args&gt;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a02050.html#a7f632eb9736d0518bfccc57782911611">   56</a></span>  <a class="code hl_function" href="a02050.html#a7f632eb9736d0518bfccc57782911611">Writer</a>(std::shared_ptr&lt;AS&gt; assembler, Args... args)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>      : Base(assembler-&gt;gridView(), std::forward&lt;Args&gt;(args)...),</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        assembler_(assembler) {}</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace Ikarus::Concepts</span></div>
-<div class="ttc" id="aa00513_html"><div class="ttname"><a href="a00513.html">Ikarus::Concepts</a></div><div class="ttdef"><b>Definition:</b> common.hh:19</div></div>
-<div class="ttc" id="aa02429_html"><div class="ttname"><a href="a02429.html">Ikarus::Concepts::DeviatoricFunction</a></div><div class="ttdoc">Concept to check if the underlying function is a deviatoric function.</div><div class="ttdef"><b>Definition:</b> finiteelements/mechanics/materials/hyperelastic/concepts.hh:26</div></div>
-<div class="ttc" id="aa02430_html"><div class="ttname"><a href="a02430.html">Ikarus::Concepts::VolumetricFunction</a></div><div class="ttdoc">Concept to check if the underlying function is a volumetric function.</div><div class="ttdef"><b>Definition:</b> finiteelements/mechanics/materials/hyperelastic/concepts.hh:53</div></div>
-<div class="ttc" id="aa02458_html"><div class="ttname"><a href="a02458.html">Ikarus::Concepts::EigenVector</a></div><div class="ttdoc">Concept defining the requirements for Eigen vectors.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:365</div></div>
-<div class="ttc" id="aa02459_html"><div class="ttname"><a href="a02459.html">Ikarus::Concepts::EigenMatrix</a></div><div class="ttdoc">Concept defining the requirements for Eigen matrices. This also includes Eigen vectors.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:373</div></div>
-<div class="ttc" id="aa03559_html"><div class="ttname"><a href="a03559.html">concepts.hh</a></div><div class="ttdoc">Several concepts.</div></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> DC_, <span class="keyword">class</span>... Args&gt;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keyword">requires</span> <a class="code hl_concept" href="a02469.html">Concepts::DataCollector&lt;std::decay_t&lt;DC_&gt;</a>&gt;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a02050.html#a2bd5df12f7819102911d2ec09ce8a977">   69</a></span>  <a class="code hl_function" href="a02050.html#a2bd5df12f7819102911d2ec09ce8a977">Writer</a>(std::shared_ptr&lt;AS&gt; assembler, DC_&amp;&amp; dc, Args... args)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>      : Base(std::forward&lt;std::decay_t&lt;DC_&gt;&gt;(dc), std::forward&lt;Args&gt;(args)...),</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        assembler_(assembler) {}</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> RF&gt;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="a02050.html#a658290b81fbe3d75d228ea393f5a6d47">   81</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02050.html#a658290b81fbe3d75d228ea393f5a6d47">addResultFunction</a>(RF&amp;&amp; resultFunction, <a class="code hl_enumeration" href="a00525.html#af59748ac04116ae85cd64ea8675d273b">DataTag</a> dataTag = <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">DataTag::asPointData</a>) {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">if</span> (dataTag == <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546">DataTag::asCellData</a> or dataTag == <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926">DataTag::asCellAndPointData</a>)</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>      Base::addCellData(std::forward&lt;RF&gt;(resultFunction));</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">if</span> (dataTag == <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">DataTag::asPointData</a> or dataTag == <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926">DataTag::asCellAndPointData</a>)</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      Base::addPointData(std::forward&lt;RF&gt;(resultFunction));</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  <span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>&gt; <span class="keyword">class </span>RT, <span class="keyword">typename</span> UserFunction = Ikarus::Impl::DefaultUserFunction&gt;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <span class="keyword">requires</span>(<a class="code hl_concept" href="a02464.html">Concepts::ResultType&lt;RT&gt;</a>)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="a02050.html#a80776ad077f50b77de658392cb8736fe">   96</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02050.html#a80776ad077f50b77de658392cb8736fe">addResult</a>(<a class="code hl_enumeration" href="a00525.html#af59748ac04116ae85cd64ea8675d273b">DataTag</a> dataTag = <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">DataTag::asPointData</a>, UserFunction&amp;&amp; userFunction = {}) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">auto</span> resFunction = makeResultFunction&lt;RT&gt;(assembler_, std::forward&lt;UserFunction&gt;(userFunction));</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    addResultFunction(std::move(resFunction), dataTag);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  }</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a02050.html#a1e3b740ff000dacda0ade44cc0646d9d">  106</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02050.html#a1e3b740ff000dacda0ade44cc0646d9d">addAllResults</a>(<a class="code hl_enumeration" href="a00525.html#af59748ac04116ae85cd64ea8675d273b">DataTag</a> dataTag = <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">DataTag::asPointData</a>) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">using </span>ResultTuple = <span class="keyword">typename</span> FEType::SupportedResultTypes;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    Dune::Hybrid::forEach(ResultTuple(), [&amp;]&lt;<span class="keyword">typename</span> RT&gt;(RT i) { addResult&lt;RT::template Rebind&gt;(dataTag); });</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Basis, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="a02050.html#a8c9074230eff3e4b2518c4ab657b6c26">  126</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a02050.html#a8c9074230eff3e4b2518c4ab657b6c26">addInterpolation</a>(R&amp;&amp; vals, Basis&amp;&amp; <a class="code hl_function" href="a00543.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>, <span class="keyword">const</span> std::string&amp; name, <a class="code hl_enumeration" href="a00525.html#af59748ac04116ae85cd64ea8675d273b">DataTag</a> dataTag = <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">DataTag::asPointData</a>) {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keyword">using </span>Container = Impl::ResultContainer_t&lt;std::remove_cvref_t&lt;Basis&gt;&gt;;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">auto</span> gridFunction =</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        Dune::Functions::makeDiscreteGlobalBasisFunction&lt;Container&gt;(std::forward&lt;Basis&gt;(<a class="code hl_function" href="a00543.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">basis</a>), std::forward&lt;R&gt;(vals));</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keyword">auto</span> fieldInfo = Dune::Vtk::FieldInfo(name, Impl::sizeOfContainer&lt;Container&gt;);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordflow">if</span> (dataTag == <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546">DataTag::asCellData</a> or dataTag == <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926">DataTag::asCellAndPointData</a>)</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>      Base::addCellData(gridFunction, fieldInfo);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordflow">if</span> (dataTag == <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">DataTag::asPointData</a> or dataTag == <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926">DataTag::asCellAndPointData</a>)</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>      Base::addPointData(gridFunction, fieldInfo);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>  }</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>  std::shared_ptr&lt;Assembler&gt; assembler_;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>};</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> G&gt;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="a02054.html">  149</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02054.html">IsStructured</a> : std::false_type</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>{</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>};</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="keyword">template</span> &lt;<span class="keywordtype">int</span> dim, <span class="keyword">typename</span> Coordinates&gt;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="a02058.html">  157</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02054.html">IsStructured</a>&lt;<a class="code hl_namespace" href="a00536.html">Dune</a>::YaspGrid&lt;dim, Coordinates&gt;&gt; : std::true_type</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>{</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>};</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> GV&gt;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="keyword">requires</span> <a class="code hl_concept" href="a02470.html">Concepts::GridView&lt;GV&gt;</a></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="a02062.html">  168</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02062.html">DefaultVTKWriterManager</a></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>{</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="a02062.html#aab70186996e55b41bd657d71789541c1">  170</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="a02062.html#aab70186996e55b41bd657d71789541c1">isStructured</a> = <a class="code hl_struct" href="a02054.html">IsStructured&lt;typename GV::Grid&gt;::value</a>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="a02062.html#ab9e11e450e83e9c543ede585890c55d0">  171</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02062.html#ab9e11e450e83e9c543ede585890c55d0">DefaultDataCollector</a> =</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>      std::conditional_t&lt;isStructured, Dune::Vtk::YaspDataCollector&lt;GV&gt;, Dune::Vtk::ContinuousDataCollector&lt;GV&gt;&gt;;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> DC = DefaultDataCollector&gt;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="a02062.html#ab81f859a7f02f174a9493d28b1be52a4">  175</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a02062.html#ab81f859a7f02f174a9493d28b1be52a4">DefaultVTKWriter</a> = std::conditional_t&lt;isStructured, Dune::Vtk::RectilinearGridWriter&lt;typename DC::GridView, DC&gt;,</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                                              Dune::Vtk::UnstructuredGridWriter&lt;typename DC::GridView, DC&gt;&gt;;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>};</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">// Class template argument deduction guides for VTK::Writer</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> AS, <span class="keyword">class</span>... Args&gt;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="keyword">requires</span>(<a class="code hl_concept" href="a02465.html">Ikarus::Concepts::FlatAssembler&lt;AS&gt;</a>)</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="a00525.html#a6b54a4966e54b45e51358c7b7877a5b5">  183</a></span><a class="code hl_function" href="a00525.html#a6b54a4966e54b45e51358c7b7877a5b5">Writer</a>(std::shared_ptr&lt;AS&gt;,</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>       Args...) -&gt; <a class="code hl_struct" href="a02050.html">Writer&lt;AS, typename DefaultVTKWriterManager&lt;typename AS::GridView&gt;::DefaultDataCollector</a>,</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                          <span class="keyword">typename</span> <a class="code hl_struct" href="a02062.html">DefaultVTKWriterManager&lt;typename AS::GridView&gt;::template</a> DefaultVTKWriter&lt;&gt;&gt;;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> AS, <span class="keyword">typename</span> DC, <span class="keyword">class</span>... Args, Dune::Vtk::IsDataCollector&lt;std::decay_t&lt;DC&gt;&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="keyword">requires</span>(<a class="code hl_concept" href="a02465.html">Ikarus::Concepts::FlatAssembler&lt;AS&gt;</a>)</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="a00525.html#a619faa9f2da801ac98217d31ddfa88a3">  189</a></span><a class="code hl_function" href="a00525.html#a6b54a4966e54b45e51358c7b7877a5b5">Writer</a>(std::shared_ptr&lt;AS&gt;, DC&amp;&amp;, Args...)</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    -&gt; <a class="code hl_struct" href="a02050.html">Writer&lt;AS, std::decay_t&lt;DC&gt;</a>,</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>              <span class="keyword">typename</span> <a class="code hl_struct" href="a02062.html">DefaultVTKWriterManager&lt;typename AS::GridView&gt;::template</a> DefaultVTKWriter&lt;std::decay_t&lt;DC&gt;&gt;&gt;;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>} <span class="comment">// namespace Ikarus::Vtk</span></div>
+<div class="ttc" id="aa00368_html"><div class="ttname"><a href="a00368.html">vtkdatatag.hh</a></div></div>
+<div class="ttc" id="aa00371_html"><div class="ttname"><a href="a00371.html">resultfunction.hh</a></div><div class="ttdoc">Ikarus Result Function for Stress and other finite element results.</div></div>
+<div class="ttc" id="aa00374_html"><div class="ttname"><a href="a00374.html">vtkcontainertypes.hh</a></div><div class="ttdoc">Implementation of container types for the vtk writer.</div></div>
+<div class="ttc" id="aa00525_html"><div class="ttname"><a href="a00525.html">Ikarus::Vtk</a></div><div class="ttdef"><b>Definition:</b> vtkcontainertypes.hh:19</div></div>
+<div class="ttc" id="aa00525_html_a6b54a4966e54b45e51358c7b7877a5b5"><div class="ttname"><a href="a00525.html#a6b54a4966e54b45e51358c7b7877a5b5">Ikarus::Vtk::Writer</a></div><div class="ttdeci">Writer(std::shared_ptr&lt; AS &gt;, Args...) -&gt; Writer&lt; AS, typename DefaultVTKWriterManager&lt; typename AS::GridView &gt;::DefaultDataCollector, typename DefaultVTKWriterManager&lt; typename AS::GridView &gt;::template DefaultVTKWriter&lt;&gt; &gt;</div></div>
+<div class="ttc" id="aa00525_html_af59748ac04116ae85cd64ea8675d273b"><div class="ttname"><a href="a00525.html#af59748ac04116ae85cd64ea8675d273b">Ikarus::Vtk::DataTag</a></div><div class="ttdeci">DataTag</div><div class="ttdoc">Tag enum indicating cell data or point data.</div><div class="ttdef"><b>Definition:</b> vtkdatatag.hh:13</div></div>
+<div class="ttc" id="aa00525_html_af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546"><div class="ttname"><a href="a00525.html#af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546">Ikarus::Vtk::DataTag::asCellData</a></div><div class="ttdeci">@ asCellData</div></div>
+<div class="ttc" id="aa00525_html_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b"><div class="ttname"><a href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">Ikarus::Vtk::DataTag::asPointData</a></div><div class="ttdeci">@ asPointData</div></div>
+<div class="ttc" id="aa00525_html_af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926"><div class="ttname"><a href="a00525.html#af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926">Ikarus::Vtk::DataTag::asCellAndPointData</a></div><div class="ttdeci">@ asCellAndPointData</div></div>
+<div class="ttc" id="aa00536_html"><div class="ttname"><a href="a00536.html">Dune</a></div><div class="ttdef"><b>Definition:</b> utils/dirichletvalues.hh:36</div></div>
+<div class="ttc" id="aa00543_html_a0f9f04fa9d98e890cb6d4fe62ff889a4"><div class="ttname"><a href="a00543.html#a0f9f04fa9d98e890cb6d4fe62ff889a4">ikarus.basis.basis</a></div><div class="ttdeci">def basis(gv, tree)</div><div class="ttdef"><b>Definition:</b> basis.py:10</div></div>
+<div class="ttc" id="aa02050_html"><div class="ttname"><a href="a02050.html">Ikarus::Vtk::Writer</a></div><div class="ttdoc">Manages writing results using VTK, based on assembler and data collector.</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:38</div></div>
+<div class="ttc" id="aa02050_html_a1e3b740ff000dacda0ade44cc0646d9d"><div class="ttname"><a href="a02050.html#a1e3b740ff000dacda0ade44cc0646d9d">Ikarus::Vtk::Writer::addAllResults</a></div><div class="ttdeci">void addAllResults(DataTag dataTag=DataTag::asPointData)</div><div class="ttdoc">Adds all results for the given data tag.</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:106</div></div>
+<div class="ttc" id="aa02050_html_a2bd5df12f7819102911d2ec09ce8a977"><div class="ttname"><a href="a02050.html#a2bd5df12f7819102911d2ec09ce8a977">Ikarus::Vtk::Writer::Writer</a></div><div class="ttdeci">Writer(std::shared_ptr&lt; AS &gt; assembler, DC_ &amp;&amp;dc, Args... args)</div><div class="ttdoc">Constructor with assembler, data collector, and additional arguments.</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:69</div></div>
+<div class="ttc" id="aa02050_html_a3a3fcd008921213a40a189cf5c947a08"><div class="ttname"><a href="a02050.html#a3a3fcd008921213a40a189cf5c947a08">Ikarus::Vtk::Writer::FEType</a></div><div class="ttdeci">typename std::remove_cvref_t&lt; FEContainer &gt;::value_type FEType</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:44</div></div>
+<div class="ttc" id="aa02050_html_a48666f99819393e871c84b4f4bd4b816"><div class="ttname"><a href="a02050.html#a48666f99819393e871c84b4f4bd4b816">Ikarus::Vtk::Writer::Assembler</a></div><div class="ttdeci">AS Assembler</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:40</div></div>
+<div class="ttc" id="aa02050_html_a658290b81fbe3d75d228ea393f5a6d47"><div class="ttname"><a href="a02050.html#a658290b81fbe3d75d228ea393f5a6d47">Ikarus::Vtk::Writer::addResultFunction</a></div><div class="ttdeci">void addResultFunction(RF &amp;&amp;resultFunction, DataTag dataTag=DataTag::asPointData)</div><div class="ttdoc">Adds a result function for the given data tag.</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:81</div></div>
+<div class="ttc" id="aa02050_html_a700ee4a5f71f8985ee7e4364372c6895"><div class="ttname"><a href="a02050.html#a700ee4a5f71f8985ee7e4364372c6895">Ikarus::Vtk::Writer::DataCollector</a></div><div class="ttdeci">DC DataCollector</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:46</div></div>
+<div class="ttc" id="aa02050_html_a7e43687c38b914c1c3805c0ebefff9bd"><div class="ttname"><a href="a02050.html#a7e43687c38b914c1c3805c0ebefff9bd">Ikarus::Vtk::Writer::VTKWriter</a></div><div class="ttdeci">Base VTKWriter</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:47</div></div>
+<div class="ttc" id="aa02050_html_a7f632eb9736d0518bfccc57782911611"><div class="ttname"><a href="a02050.html#a7f632eb9736d0518bfccc57782911611">Ikarus::Vtk::Writer::Writer</a></div><div class="ttdeci">Writer(std::shared_ptr&lt; AS &gt; assembler, Args... args)</div><div class="ttdoc">Constructor with assembler and additional arguments.</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:56</div></div>
+<div class="ttc" id="aa02050_html_a80776ad077f50b77de658392cb8736fe"><div class="ttname"><a href="a02050.html#a80776ad077f50b77de658392cb8736fe">Ikarus::Vtk::Writer::addResult</a></div><div class="ttdeci">void addResult(DataTag dataTag=DataTag::asPointData, UserFunction &amp;&amp;userFunction={})</div><div class="ttdoc">Adds a result for the given data tag.</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:96</div></div>
+<div class="ttc" id="aa02050_html_a8c9074230eff3e4b2518c4ab657b6c26"><div class="ttname"><a href="a02050.html#a8c9074230eff3e4b2518c4ab657b6c26">Ikarus::Vtk::Writer::addInterpolation</a></div><div class="ttdeci">void addInterpolation(R &amp;&amp;vals, Basis &amp;&amp;basis, const std::string &amp;name, DataTag dataTag=DataTag::asPointData)</div><div class="ttdoc">Adds interpolation data for the given basis and container.</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:126</div></div>
+<div class="ttc" id="aa02050_html_aaac8aafaef3b80c862dd57fbf7b97279"><div class="ttname"><a href="a02050.html#aaac8aafaef3b80c862dd57fbf7b97279">Ikarus::Vtk::Writer::FEContainer</a></div><div class="ttdeci">typename Assembler::FEContainer FEContainer</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:43</div></div>
+<div class="ttc" id="aa02050_html_aadd66859407a6b1a5d7604e693348c00"><div class="ttname"><a href="a02050.html#aadd66859407a6b1a5d7604e693348c00">Ikarus::Vtk::Writer::GridView</a></div><div class="ttdeci">typename Assembler::GridView GridView</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:41</div></div>
+<div class="ttc" id="aa02050_html_af943a6fe7f917d909b06aaace360c129"><div class="ttname"><a href="a02050.html#af943a6fe7f917d909b06aaace360c129">Ikarus::Vtk::Writer::FERequirement</a></div><div class="ttdeci">typename Assembler::FERequirement FERequirement</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:42</div></div>
+<div class="ttc" id="aa02054_html"><div class="ttname"><a href="a02054.html">Ikarus::Vtk::IsStructured</a></div><div class="ttdoc">Meta type to check whether a grid is structured, inherits from false_type.</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:150</div></div>
+<div class="ttc" id="aa02062_html"><div class="ttname"><a href="a02062.html">Ikarus::Vtk::DefaultVTKWriterManager</a></div><div class="ttdoc">Manages the default template parameter for the Vtk::Writer</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:169</div></div>
+<div class="ttc" id="aa02062_html_aab70186996e55b41bd657d71789541c1"><div class="ttname"><a href="a02062.html#aab70186996e55b41bd657d71789541c1">Ikarus::Vtk::DefaultVTKWriterManager::isStructured</a></div><div class="ttdeci">static constexpr bool isStructured</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:170</div></div>
+<div class="ttc" id="aa02062_html_ab81f859a7f02f174a9493d28b1be52a4"><div class="ttname"><a href="a02062.html#ab81f859a7f02f174a9493d28b1be52a4">Ikarus::Vtk::DefaultVTKWriterManager::DefaultVTKWriter</a></div><div class="ttdeci">std::conditional_t&lt; isStructured, Dune::Vtk::RectilinearGridWriter&lt; typename DC::GridView, DC &gt;, Dune::Vtk::UnstructuredGridWriter&lt; typename DC::GridView, DC &gt; &gt; DefaultVTKWriter</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:176</div></div>
+<div class="ttc" id="aa02062_html_ab9e11e450e83e9c543ede585890c55d0"><div class="ttname"><a href="a02062.html#ab9e11e450e83e9c543ede585890c55d0">Ikarus::Vtk::DefaultVTKWriterManager::DefaultDataCollector</a></div><div class="ttdeci">std::conditional_t&lt; isStructured, Dune::Vtk::YaspDataCollector&lt; GV &gt;, Dune::Vtk::ContinuousDataCollector&lt; GV &gt; &gt; DefaultDataCollector</div><div class="ttdef"><b>Definition:</b> io/vtkwriter.hh:172</div></div>
+<div class="ttc" id="aa02464_html"><div class="ttname"><a href="a02464.html">Ikarus::Concepts::ResultType</a></div><div class="ttdoc">A concept to check if a template type satisfies the ResultType requirements.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:505</div></div>
+<div class="ttc" id="aa02465_html"><div class="ttname"><a href="a02465.html">Ikarus::Concepts::FlatAssembler</a></div><div class="ttdoc">Concept representing the requirements for a FlatAssembler.A type T satisfies FlatAssembler if it prov...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:517</div></div>
+<div class="ttc" id="aa02469_html"><div class="ttname"><a href="a02469.html">Ikarus::Concepts::DataCollector</a></div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:589</div></div>
+<div class="ttc" id="aa02470_html"><div class="ttname"><a href="a02470.html">Ikarus::Concepts::GridView</a></div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:598</div></div>
+<div class="ttc" id="aa03520_html"><div class="ttname"><a href="a03520.html">concepts.hh</a></div><div class="ttdoc">Several concepts.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -216,12 +324,12 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="dir_a03d0955ec786907fd5e2d9460a59b20.html">hyperelastic</a></li><li class="navelem"><a class="el" href="a03556.html">concepts.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_cd0257e5a0a5e21e0bd17a30fdd07a18.html">io</a></li><li class="navelem"><a class="el" href="a03556.html">vtkwriter.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /
             code examples: <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">LGPLv3 or later</a>) &#160;
-            <img class="footer" alt="Ikarus" src="BigLogo_transparent.png" height="15"/> 0.4.7
+            <img class="footer" alt="Ikarus" src="BigLogo_transparent.png" height="15"/> 0.4.8
             &#160; Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
     </ul>
 </div>

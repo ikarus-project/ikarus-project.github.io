@@ -1,5 +1,6 @@
 var a00449 =
 [
-    [ "Ikarus::ControlRoutineState< D >", "a01450.html", "a01450" ],
-    [ "ControlRoutineStateType", "a00449.html#ab71b02978dced6654ecc969879d4f21f", null ]
+    [ "Ikarus::LoadControlConfig", "a01462.html", "a01462" ],
+    [ "Ikarus::LoadControl< NLS >", "a01458.html", "a01458" ],
+    [ "createControlRoutine", "a00449.html#a5aec737453e85d8a0cd6061b39300694", null ]
 ];

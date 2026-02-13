@@ -1,4 +1,5 @@
 var a00353 =
 [
-    [ "StVenantKirchhoff", "a00353.html#a68ee2f9a7730fbcf6969940b0c5da418", null ]
+    [ "Ikarus::GenericListener< BC >", "a02346.html", "a02346" ],
+    [ "GenericListener", "a00353.html#abf2bcdf0a180600b42282f124ef381de", null ]
 ];

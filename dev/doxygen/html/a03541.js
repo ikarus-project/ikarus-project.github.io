@@ -1,5 +1,7 @@
 var a03541 =
 [
-    [ "makeBasis", "a03541.html#aa8350697b25edf5034483b28fb0c3f76", null ],
-    [ "makeBasis", "a03541.html#a9acabb8291c86afe74e8617830e033de", null ]
+    [ "Ikarus::EAS::HX< GEO, ess >", "a01886.html", "a01886" ],
+    [ "Ikarus::EAS::H0< GEO >", "a01890.html", "a01890" ],
+    [ "Ikarus::EAS::H4< GEO >", "a01894.html", "a01894" ],
+    [ "Ikarus::EAS::H9< GEO >", "a01898.html", "a01898" ]
 ];

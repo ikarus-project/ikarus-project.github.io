@@ -1,8 +1,11 @@
 var a00389 =
 [
-    [ "globalIndices", "a00389.html#a44e16df41148f7e4538be224814a3423", null ],
-    [ "globalIndicesFromLocalView", "a00389.html#a2a4ac5503d4288b339457aae427ff661", null ],
-    [ "localSolutionBlockVector", "a00389.html#a899043a23720a93e6ce9be9025c3a4bb", null ],
-    [ "localSolutionBlockVectorComposite", "a00389.html#a2320eb085498437e5b77756b9615dbc8", null ],
-    [ "localSolutionBlockVectorScalar", "a00389.html#ae030e22f45542ff5c9568e7884b38713", null ]
+    [ "DBCOption", "a00389.html#a9f83fad9f4c149f249165a13f2370eec", [
+      [ "BEGIN", "a00389.html#a9f83fad9f4c149f249165a13f2370eeca19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Raw", "a00389.html#a9f83fad9f4c149f249165a13f2370eeca65e65c8ab0d8609ce12fc68a03cb8e00", null ],
+      [ "Reduced", "a00389.html#a9f83fad9f4c149f249165a13f2370eeca4335949a935758ca1b570689c3c6750b", null ],
+      [ "Full", "a00389.html#a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75", null ],
+      [ "END", "a00389.html#a9f83fad9f4c149f249165a13f2370eecab1a326c06d88bf042f73d70f50197905", null ]
+    ] ],
+    [ "toString", "a00389.html#aef80b6b5b45dcfbea4f722f51a84f53f", null ]
 ];

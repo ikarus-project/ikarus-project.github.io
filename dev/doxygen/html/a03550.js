@@ -1,9 +1,5 @@
 var a03550 =
 [
-    [ "Ikarus::Vtk::Writer< AS, DC, Base >", "a02050.html", "a02050" ],
-    [ "Ikarus::Vtk::IsStructured< G >", "a02054.html", null ],
-    [ "Ikarus::Vtk::IsStructured< Dune::YaspGrid< dim, Coordinates > >", "a02058.html", null ],
-    [ "Ikarus::Vtk::DefaultVTKWriterManager< GV >", "a02062.html", "a02062" ],
-    [ "Writer", "a03550.html#a6b54a4966e54b45e51358c7b7877a5b5", null ],
-    [ "Writer", "a03550.html#a619faa9f2da801ac98217d31ddfa88a3", null ]
+    [ "forwardCorrectFunction", "a03550.html#a7f83fd37212b1411d1dbae8f7064882c", null ],
+    [ "registerDirichletValues", "a03550.html#ga39b6df6adfe4858b13ac71f5830f29f6", null ]
 ];

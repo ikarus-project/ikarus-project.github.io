@@ -1,108 +1,81 @@
-\hypertarget{a00395_source}{}\doxysection{febase.\+hh}
-\label{a00395_source}\index{febase.hh@{febase.hh}}
+\hypertarget{a00395_source}{}\doxysection{generalizedeigensolverfactory.\+hh}
+\label{a00395_source}\index{generalizedeigensolverfactory.hh@{generalizedeigensolverfactory.hh}}
 \mbox{\hyperlink{a00395}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00398}{ikarus/solver/eigenvaluesolver/generalizedeigensolver.hh}}>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
 \DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00407}{ikarus/finiteelements/ferequirements.hh}}>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00398}{ikarus/finiteelements/fetraits.hh}}>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00230}{ikarus/finiteelements/mixin.hh}}>}}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... Skills>}
-\DoxyCodeLine{22 \textcolor{keyword}{class }FE;}
-\DoxyCodeLine{23 }
-\DoxyCodeLine{31 \textcolor{keyword}{template} <\textcolor{keyword}{typename} BH, \textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false>}
-\DoxyCodeLine{32 \textcolor{keyword}{struct }\mbox{\hyperlink{a01510}{PreFE}}}
-\DoxyCodeLine{33 \{}
-\DoxyCodeLine{34   \textcolor{keyword}{using }\mbox{\hyperlink{a01510_a96f8fe069706faeb6233e8ad31588b66}{BasisHandler}}                      = BH;}
-\DoxyCodeLine{35   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01510_ac62b5b022663d48416e0560803590259}{worldDim}}           = BasisHandler::Basis::worlddim;}
-\DoxyCodeLine{36   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01510_a4227356aa324e40ecd1c09da5e56cb00}{useEigenReference}} = useEigenRef;}
-\DoxyCodeLine{37   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01510_a67f4db661ba63b8be2f15903c52f3ffd}{useFlatBasis}}      = useFlat;}
-\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{a01562}{Traits}}                            = \mbox{\hyperlink{a01562}{FETraits<BH, useEigenRef, useFlat>}};}
-\DoxyCodeLine{39 }
-\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... \mbox{\hyperlink{a01962}{Skills}}>}
-\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01510_ac7266f723a312adbd690b47d5cd06a60}{FE}} = \mbox{\hyperlink{a01510_ac7266f723a312adbd690b47d5cd06a60}{FE}}<\mbox{\hyperlink{a01510}{PreFE}}, \mbox{\hyperlink{a01962}{Skills}}...>;}
-\DoxyCodeLine{42 \};}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{44 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{45   \textcolor{comment}{// Since base classes are initialized, in declaration order before member variables, we have to make sure the}}
-\DoxyCodeLine{46   \textcolor{comment}{// localview\_ object of FE is defined. To do this we add this artificial inheritance by inheriting below first from}}
-\DoxyCodeLine{47   \textcolor{comment}{// FEInit, which initializes the localview object first, siche we the other FEMixin base class constructors are called}}
-\DoxyCodeLine{48   \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
-\DoxyCodeLine{49   \textcolor{keyword}{struct }FEInit}
-\DoxyCodeLine{50   \{}
-\DoxyCodeLine{51     \textcolor{keyword}{using }Traits       = \mbox{\hyperlink{a01510_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};              }
-\DoxyCodeLine{52     \textcolor{keyword}{using }\mbox{\hyperlink{a02202}{BasisHandler}} = \mbox{\hyperlink{a01562_a129085c175bca28f94c71699b734ba04}{Traits::BasisHandler}};       }
-\DoxyCodeLine{53     \textcolor{keyword}{using }LocalView    = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}}; }
-\DoxyCodeLine{54     \textcolor{keyword}{friend} \mbox{\hyperlink{a01506}{FE}};}
-\DoxyCodeLine{55     FEInit(\textcolor{keyword}{const} \mbox{\hyperlink{a02202}{BasisHandler}}\& basisHandler)}
-\DoxyCodeLine{56         : localView\_\{[\&]() -\/> LocalView \{}
-\DoxyCodeLine{57             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01562_ac93d8ec6254e0ca3668966e7a56886ac}{Traits::useFlatBasis}})}
-\DoxyCodeLine{58               \textcolor{keywordflow}{return} basisHandler.\mbox{\hyperlink{a02202_a259a6b38e59d58970716c03ac511d3c5}{flat}}().localView();}
-\DoxyCodeLine{59             \textcolor{keywordflow}{else}}
-\DoxyCodeLine{60               \textcolor{keywordflow}{return} basisHandler.\mbox{\hyperlink{a02202_aa3e286f5563f510fc4b0eaa005eb0a2b}{untouched}}().localView();}
-\DoxyCodeLine{61           \}()\} \{\}}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63   \textcolor{keyword}{private}:}
-\DoxyCodeLine{64     LocalView localView\_;}
-\DoxyCodeLine{65   \};}
-\DoxyCodeLine{66 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{24 \textcolor{keyword}{template} <EigenValueSolverType tag, \textcolor{keyword}{typename} MATA, \textcolor{keyword}{typename} MATB>}
+\DoxyCodeLine{25 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>> \&\&}
+\DoxyCodeLine{26          std::same\_as<std::remove\_cvref\_t<MATA>, std::remove\_cvref\_t<MATB>> \&\&}
+\DoxyCodeLine{27          not(tag == \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<std::remove\_cvref\_t<MATA>>))}
+\DoxyCodeLine{28 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a1cc0f8e32e7acced01b70734c92b2ce6}{makeGeneralizedSymEigenSolver}}(MATA\&\& A, MATB\&\& B) \{}
+\DoxyCodeLine{29   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{30   \textcolor{keywordflow}{return} \mbox{\hyperlink{a02086}{GeneralizedSymEigenSolver<tag, MatrixType>}}\{std::forward<MATA>(A), std::forward<MATB>(B)\};}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{44 \textcolor{keyword}{template} <EigenValueSolverType tag, Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB>}
+\DoxyCodeLine{45 \textcolor{keyword}{requires}(std::same\_as<typename AssemblerA::MatrixType, typename AssemblerB::MatrixType> \&\&}
+\DoxyCodeLine{46          not(tag == \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<typename AssemblerA::MatrixType>))}
+\DoxyCodeLine{47 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a1cc0f8e32e7acced01b70734c92b2ce6}{makeGeneralizedSymEigenSolver}}(\textcolor{keyword}{const} std::shared\_ptr<AssemblerA> assemblerA,}
+\DoxyCodeLine{48                                    \textcolor{keyword}{const} std::shared\_ptr<AssemblerB> assemblerB) \{}
+\DoxyCodeLine{49   \mbox{\hyperlink{a00510_a1cc0f8e32e7acced01b70734c92b2ce6}{makeGeneralizedSymEigenSolver}}(assemblerA-\/>matrix(), assemblerB-\/>matrix());}
+\DoxyCodeLine{50 \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{60 \textcolor{keyword}{template} <EigenValueSolverType tag, \textcolor{keyword}{typename} MATA>}
+\DoxyCodeLine{61 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>> \&\&}
+\DoxyCodeLine{62          not(tag == \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<std::remove\_cvref\_t<MATA>>))}
+\DoxyCodeLine{63 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a6d018cded22b7f93826ddbe4282a22f4}{makeIdentitySymEigenSolver}}(MATA\&\& A) \{}
+\DoxyCodeLine{64   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{65   MatrixType I     = MatrixType(A.rows(), A.cols());}
+\DoxyCodeLine{66   I.setIdentity();}
 \DoxyCodeLine{67 }
-\DoxyCodeLine{77 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... Skills>}
-\DoxyCodeLine{78 \textcolor{keyword}{class }\mbox{\hyperlink{a01506}{FE}} : \textcolor{keyword}{private} Impl::FEInit<PreFE, FE<PreFE, Skills...>>, \textcolor{keyword}{public} \mbox{\hyperlink{a01946}{FEMixin}}<PreFE, Skills...>}
-\DoxyCodeLine{79 \{}
-\DoxyCodeLine{80   \textcolor{keyword}{friend} Impl::FEInit<PreFE, FE>;}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{82 \textcolor{keyword}{protected}:}
-\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{a01946}{Mixin}} = \mbox{\hyperlink{a01946}{FEMixin}}<\mbox{\hyperlink{a01510}{PreFE}}, \mbox{\hyperlink{a01962}{Skills}}...>; }
-\DoxyCodeLine{84   \textcolor{keyword}{friend} \mbox{\hyperlink{a01506_a9651c0af07c052fe9be5546ad04fec26}{Mixin}};}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86 \textcolor{keyword}{public}:}
-\DoxyCodeLine{87   \textcolor{keyword}{using }\mbox{\hyperlink{a01562}{Traits}}       = \mbox{\hyperlink{a01510_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};                }
-\DoxyCodeLine{88   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_a26398fefb73f4d51895e26152e368cf8}{BasisHandler}} = \mbox{\hyperlink{a01562_a129085c175bca28f94c71699b734ba04}{Traits::BasisHandler}};         }
-\DoxyCodeLine{89   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}    = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}};   }
-\DoxyCodeLine{90   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_a636f6e2bb1a51cd89f190d3744cdb7dd}{GridView}}     = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_a3ec0294824df467074f5070cb58f5a91}{Traits::GridView}};    }
-\DoxyCodeLine{91   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_afcc1624cabc2a1e553af2eb4dd02190d}{GlobalIndex}}  = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_a77e825e03f2fae2bb4272c7888e478b6}{Traits::GlobalIndex}}; }
-\DoxyCodeLine{92   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_ae329d665e853b0286679e97418d3acad}{GridElement}}  = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_ac4668b9c9142defdf3b70cca8eeb30c4}{Traits::Element}};     }
-\DoxyCodeLine{93   \textcolor{keyword}{using }typename \mbox{\hyperlink{a01946_a86c0fea1b37e487f3c78cde6facca9c3}{Mixin::Requirement}};}
-\DoxyCodeLine{94 }
-\DoxyCodeLine{95   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01506_aad639c76b46707f9ecf9dd58e25827f9}{myDim}}    = \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}};}
-\DoxyCodeLine{96   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01506_a6b85ca6e6596543374c9ab104a471cec}{worldDim}} = \mbox{\hyperlink{a01562_a5d611e1d48285bac5c5ebd6fda9c7cc7}{Traits::worlddim}};}
-\DoxyCodeLine{97   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_a327f5479545f9b5d615c07ce535b0007}{PreTuple}}                = std::tuple<typename Skills<PreFE, FE>::Pre...>;}
-\DoxyCodeLine{98   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_a0791b693c48c68f2b5e42802404c4dc1}{IntegrationRule}}         = Dune::QuadratureRule<double, myDim>;}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{106   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01506_a395b4b566b17bb390d82de3c89c00e9d}{FE}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01506_a26398fefb73f4d51895e26152e368cf8}{BasisHandler}}\& basisHandler, \textcolor{keyword}{typename} \mbox{\hyperlink{a01962}{Skills<PreFE, FE>::Pre}}... skillsArgs)}
-\DoxyCodeLine{107       : Impl::FEInit<\mbox{\hyperlink{a01510}{PreFE}}, \mbox{\hyperlink{a01506}{FE}}>(basisHandler),}
-\DoxyCodeLine{108         \mbox{\hyperlink{a01946}{FEMixin}}<\mbox{\hyperlink{a01510}{PreFE}}, \mbox{\hyperlink{a01962}{Skills}}...>(std::forward<typename \mbox{\hyperlink{a01962}{Skills}}<\mbox{\hyperlink{a01510}{PreFE}}, \mbox{\hyperlink{a01506}{FE}}>::Pre>(skillsArgs)...) \{\}}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{114   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01506_a3a23d70495e802f44ba4b9923804dda0}{bind}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01506_ae329d665e853b0286679e97418d3acad}{GridElement}}\& element) \{}
-\DoxyCodeLine{115     this-\/>localView\_.bind(element);}
-\DoxyCodeLine{116     \mbox{\hyperlink{a01946_ad64afd529f274032176261fea660b027}{Mixin::bind}}();}
-\DoxyCodeLine{117   \}}
-\DoxyCodeLine{118 }
-\DoxyCodeLine{125   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01506_af71ce688b600890677c97ed5fec0e04a}{bind}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01506_a0791b693c48c68f2b5e42802404c4dc1}{IntegrationRule}}\& rule, \textcolor{keyword}{const} \mbox{\hyperlink{a01506_ae329d665e853b0286679e97418d3acad}{GridElement}}\& element) \{}
-\DoxyCodeLine{126     rule\_ = rule;}
-\DoxyCodeLine{127     \mbox{\hyperlink{a01946_ad64afd529f274032176261fea660b027}{bind}}(element);}
-\DoxyCodeLine{128   \}}
+\DoxyCodeLine{68   \textcolor{keywordflow}{return} \mbox{\hyperlink{a02086}{GeneralizedSymEigenSolver<tag, MatrixType>}}\{std::forward<MATA>(A), I\};}
+\DoxyCodeLine{69 \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{78 \textcolor{keyword}{template} <EigenValueSolverType tag, Concepts::FlatAssembler AssemblerA>}
+\DoxyCodeLine{79 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<typename AssemblerA::MatrixType> \&\&}
+\DoxyCodeLine{80          not(tag == \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<typename AssemblerA::MatrixType>))}
+\DoxyCodeLine{81 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a6d018cded22b7f93826ddbe4282a22f4}{makeIdentitySymEigenSolver}}(\textcolor{keyword}{const} std::shared\_ptr<AssemblerA>\& assemblerA) \{}
+\DoxyCodeLine{82   \textcolor{keywordflow}{return} makeIdentitySymEigenSolver<tag>(assemblerA-\/>matrix());}
+\DoxyCodeLine{83 \}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{94 \textcolor{keyword}{template} <Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB>}
+\DoxyCodeLine{95 \textcolor{keyword}{requires}(std::same\_as<typename AssemblerA::MatrixType, typename AssemblerB::MatrixType>)}
+\DoxyCodeLine{96 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_af803d89d17f03662003ac40afe2b0a50}{makePartialGeneralizedSymEigenSolver}}(std::shared\_ptr<AssemblerA> assemblerA,}
+\DoxyCodeLine{97                                           std::shared\_ptr<AssemblerB> assemblerB, Eigen::Index nev) \{}
+\DoxyCodeLine{98   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_af803d89d17f03662003ac40afe2b0a50}{makePartialGeneralizedSymEigenSolver}}(assemblerA-\/>matrix(), assemblerB-\/>matrix());}
+\DoxyCodeLine{99 \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{108 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MATA, \textcolor{keyword}{typename} MATB>}
+\DoxyCodeLine{109 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>> \&\&}
+\DoxyCodeLine{110          std::same\_as<std::remove\_cvref\_t<MATA>, std::remove\_cvref\_t<MATB>>)}
+\DoxyCodeLine{111 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_af803d89d17f03662003ac40afe2b0a50}{makePartialGeneralizedSymEigenSolver}}(MATA\&\& A, MATB\&\& B, Eigen::Index nev) \{}
+\DoxyCodeLine{112   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{113   \textcolor{keywordflow}{return} \mbox{\hyperlink{a02098}{PartialGeneralizedSymEigenSolver<MatrixType>}}\{std::forward<MATA>(A), std::forward<MATB>(B), nev\};}
+\DoxyCodeLine{114 \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{123 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MATA>}
+\DoxyCodeLine{124 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>>)}
+\DoxyCodeLine{125 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a64882ae20164dc6c63264d547f313e3e}{makePartialIdentitySymEigenSolver}}(MATA\&\& A, Eigen::Index nev) \{}
+\DoxyCodeLine{126   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{127   MatrixType I     = MatrixType(A.rows(), A.cols());}
+\DoxyCodeLine{128   I.setIdentity();}
 \DoxyCodeLine{129 }
-\DoxyCodeLine{133   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01506_addc98f87fd0541caa6a243eecc6c9670}{quadratureRule}}() \{ \textcolor{keywordflow}{return} rule\_; \}}
-\DoxyCodeLine{134 }
-\DoxyCodeLine{139   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{a01506_a1e05d6a5e50e3afd57c27adc0620e5b8}{size}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_.size(); \}}
-\DoxyCodeLine{140 }
-\DoxyCodeLine{145   \textcolor{keyword}{const} \mbox{\hyperlink{a01506_ae329d665e853b0286679e97418d3acad}{GridElement}}\& \mbox{\hyperlink{a01506_ae84fc54bd26077a2edb0ec07361d0716}{gridElement}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_.element(); \}}
-\DoxyCodeLine{146 }
-\DoxyCodeLine{151   \textcolor{keyword}{const} \mbox{\hyperlink{a01506_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}\& \mbox{\hyperlink{a01506_a1425316afd592244682b9ccc48cf59ef}{localView}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_; \}}
-\DoxyCodeLine{152 }
-\DoxyCodeLine{157   \mbox{\hyperlink{a01506_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}\& \mbox{\hyperlink{a01506_aa82acd5684364d92165b89e63d0eefb4}{localView}}() \{ \textcolor{keywordflow}{return} this-\/>localView\_; \}}
-\DoxyCodeLine{158 }
-\DoxyCodeLine{159 \textcolor{keyword}{private}:}
-\DoxyCodeLine{160   std::optional<IntegrationRule> rule\_ = std::nullopt;}
-\DoxyCodeLine{161 \};}
-\DoxyCodeLine{162 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{130   \textcolor{keywordflow}{return} \mbox{\hyperlink{a02098}{PartialGeneralizedSymEigenSolver<MatrixType>}}\{std::forward<MATA>(A), I, nev\};}
+\DoxyCodeLine{131 \}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{140 \textcolor{keyword}{template} <Concepts::FlatAssembler AssemblerA>}
+\DoxyCodeLine{141 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a64882ae20164dc6c63264d547f313e3e}{makePartialIdentitySymEigenSolver}}(\textcolor{keyword}{const} std::shared\_ptr<AssemblerA>\& assemblerA, Eigen::Index nev) \{}
+\DoxyCodeLine{142   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_a64882ae20164dc6c63264d547f313e3e}{makePartialIdentitySymEigenSolver}}(assemblerA-\/>matrix(), nev);}
+\DoxyCodeLine{143 \}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

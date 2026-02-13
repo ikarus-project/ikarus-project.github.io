@@ -1,11 +1,5 @@
 var a00278 =
 [
-    [ "Ikarus::EAS::EX< GEO, ess >", "a01902.html", "a01902" ],
-    [ "Ikarus::EAS::E0< GEO >", "a01906.html", "a01906" ],
-    [ "Ikarus::EAS::E4< GEO >", "a01910.html", "a01910" ],
-    [ "Ikarus::EAS::E5< GEO >", "a01914.html", "a01914" ],
-    [ "Ikarus::EAS::E7< GEO >", "a01918.html", "a01918" ],
-    [ "Ikarus::EAS::E11< GEO >", "a01922.html", "a01922" ],
-    [ "Ikarus::EAS::E9< GEO >", "a01926.html", "a01926" ],
-    [ "Ikarus::EAS::E21< GEO >", "a01930.html", "a01930" ]
+    [ "createTwoPointMaterialTensor", "a00278.html#a4fd4645099bdac5d720507dbe784875c", null ],
+    [ "transformTangentModuli", "a00278.html#aa7cefe6207ae33624dc765db0d52759b", null ]
 ];

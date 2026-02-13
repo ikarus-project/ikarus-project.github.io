@@ -1,7 +1,4 @@
 var a00062 =
 [
-    [ "Ikarus::utils::CheckFlags", "a02330.html", "a02330" ],
-    [ "checkGradient", "a00062.html#ga9552c352e9fa0eeca4b3ae3d1dd1f585", null ],
-    [ "checkHessian", "a00062.html#gaaf21900c80f097360a624da5505eddf9", null ],
-    [ "checkJacobian", "a00062.html#ga9ebceb909ac3c21db81ccd0dbbf03a33", null ]
+    [ "ct_sqrt", "a00062.html#ae55d4d0c3478ab3ecf54ce905ddf223b", null ]
 ];

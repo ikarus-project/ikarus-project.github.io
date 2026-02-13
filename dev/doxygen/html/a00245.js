@@ -1,6 +1,5 @@
 var a00245 =
 [
-    [ "Ikarus::TrussPre", "a01938.html", "a01938" ],
-    [ "Ikarus::Truss< PreFE, FE >::KinematicVariables< ST >", "a01942.html", "a01942" ],
-    [ "truss", "a00245.html#a1936b02a190200901c54cc8b1004506e", null ]
+    [ "Ikarus::ArrudaBoyceMatParameters", "a01686.html", "a01686" ],
+    [ "ArrudaBoyce", "a00245.html#a70cada02f1f5f294f44c438fb1270982", null ]
 ];

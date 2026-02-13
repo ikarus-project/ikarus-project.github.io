@@ -1,0 +1,380 @@
+<!--
+SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de
+SPDX-License-Identifier: LGPL-3.0-or-later
+-->
+<!-- HTML header for doxygen 1.8.13-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="generator" content="Doxygen 1.9.4"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- BEGIN opengraph metadata -->
+    <meta property="og:title" content="Ikarus documentation" />
+    <meta property="og:image" content="https://github.com/ikarus-project/ikarus/blob/e7b4aafc04e24f41c5aa6ee0f18e105d1aebefcc/docs/website/auxiliaryImages/BigLogo.png" />
+    <meta property="og:description" content="Code documentation of the open-source C++ finite element library Ikarus." />
+    <meta property="og:url" content="https://github.com/ikarus-project/ikarus/main/" />
+    <!-- END opengraph metadata -->
+<!--    &lt;!&ndash; BEGIN twitter metadata &ndash;&gt;-->
+<!--    <meta name="twitter:image:src" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
+<!--    <meta name="twitter:title" content="Dumux documentation" />-->
+<!--    <meta name="twitter:description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
+<!--    &lt;!&ndash; END twitter metadata &ndash;&gt;-->
+<!--    &lt;!&ndash; BEGIN Google+ metadata&ndash;&gt;-->
+<!--    <meta itemprop="name" content="Dumux documentation" />-->
+<!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
+<!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
+<!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
+    <title>ikarus: pathfollowing.hh Source File</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeFragmentCopyButton.init()
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeParagraphLink.init()
+        DoxygenAwesomeInteractiveToc.init()
+    </script>
+    <script type="text/javascript" src="ikarus-custom.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/require']
+  },
+  tex: {
+    macros: {    tr: "{\\mathrm{tr}\\,}",
+    BF: "{\\mathbf{F}}",
+    BC: "{\\mathbf{C}}",
+    BS: "{\\mathbf{S}}",
+    BE: "{\\mathbf{E}}",
+    BI: "{\\mathbf{I}}",
+    BBC: "{\\mathbb{C}}",
+    CI: "{\\mathcal{I}}",
+    de: "{\\delta}",
+    al: "{\\alpha}",
+    la: "{\\lambda}",
+    Bvep: "{\\boldsymbol\\varepsilon}",
+    fracpt: ["{\\frac{\\partial #1}{\\partial #2}}",2],
+    },
+    packages: ['base','configmacros','newcommand','require']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="ikarus-custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/-->
+<a href="https://github.com/ikarus-project/ikarus" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<!--MERMAID GRAPHS-->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!--MERMAID GRAPHS-->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+    <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr style="height: 56px;">
+                <td id="projectlogo"><a href="index.html"><img alt="Logo" src="BigLogo_transparent.png" width="150px"/></a></td>
+                <td id="projectalign" style="padding-left: 0.5em;">
+                    <div id="projectname">
+                        &#160;<span id="projectnumber">version 0.4.8</span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end header part -->
+<!-- Generated by Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a00455_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">pathfollowing.hh</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="a00455.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00446.html">ikarus/controlroutines/adaptivestepsizing.hh</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00437.html">ikarus/controlroutines/controlinfos.hh</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00431.html">ikarus/controlroutines/controlroutinebase.hh</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a00440.html">ikarus/controlroutines/controlroutinefactory.hh</a>&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a00443.html">ikarus/controlroutines/pathfollowingfunctions.hh</a>&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a00416.html">ikarus/solver/nonlinearsolver/newtonraphsonwithscalarsubsidiaryfunction.hh</a>&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a00413.html">ikarus/solver/nonlinearsolver/nonlinearsolverfactory.hh</a>&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a00344.html">ikarus/utils/broadcaster/broadcastermessages.hh</a>&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a00029.html">ikarus/utils/differentiablefunctionfactory.hh</a>&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00510.html">Ikarus</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> D&gt;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a01466.html">   31</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01466.html">PathFollowingState</a></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a01466.html#aaf06c06697db573f10222173fc8d70af">   33</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01466.html#aaf06c06697db573f10222173fc8d70af">Domain</a> = D;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a01466.html#a86de29d69928db78bcad0f1b52a63965">   35</a></span>  <span class="keyword">const</span> <a class="code hl_typedef" href="a01466.html#aaf06c06697db573f10222173fc8d70af">Domain</a>&amp; <a class="code hl_variable" href="a01466.html#a86de29d69928db78bcad0f1b52a63965">domain</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a01466.html#a7f77db2bee39d79bf48a4fc60b84590a">   36</a></span>  <span class="keyword">const</span> <a class="code hl_struct" href="a01438.html">ControlInformation</a>&amp; <a class="code hl_variable" href="a01466.html#a7f77db2bee39d79bf48a4fc60b84590a">information</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a01466.html#ab2abd1a958044ec4d412efa82c4a1ede">   37</a></span>  <span class="keyword">const</span> <a class="code hl_struct" href="a01482.html">SubsidiaryArgs</a>&amp; <a class="code hl_variable" href="a01466.html#ab2abd1a958044ec4d412efa82c4a1ede">subsidiaryArgs</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a01466.html#a8e1b8b12cc435ee7e0a6432ab74ad43f">   39</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="a01466.html#a8e1b8b12cc435ee7e0a6432ab74ad43f">loadStep</a>{-1};</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a01466.html#a3dcb62d0cf736628c90706c29f62da1f">   40</a></span>  <span class="keywordtype">double</span> <a class="code hl_variable" href="a01466.html#a3dcb62d0cf736628c90706c29f62da1f">stepSize</a>{};</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">namespace </span>Impl {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> NLS, <span class="keyword">typename</span> PF = ArcLength, <span class="keyword">typename</span> ASS&gt;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keyword">consteval</span> <span class="keywordtype">bool</span> checkPathFollowingTemplates() {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">return</span> Concepts::PathFollowingStrategy&lt;PF, std::remove_cvref_t&lt;NLS&gt;, SubsidiaryArgs&gt; and</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>           Concepts::AdaptiveStepSizingStrategy&lt;ASS, NonLinearSolverInformation, SubsidiaryArgs,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                                                std::remove_cvref_t&lt;typename NLS::DifferentiableFunction&gt;&gt; and</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>           Concepts::NonLinearSolverCheckForPathFollowing&lt;NLS&gt;;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="keyword">struct </span>PathFollowingStateFactory</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">using </span>SignatureTraits = <span class="keyword">typename</span> F::Traits;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">using </span>Domain          = <span class="keyword">typename</span> SignatureTraits::Domain;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">using </span>type = PathFollowingState&lt;Domain&gt;;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  };</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace Impl</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a00510.html#a55422e7318ffa2a289aee49663f1e2e1">   83</a></span><span class="keyword">using </span><a class="code hl_struct" href="a01466.html">PathFollowingStateType</a> = <a class="code hl_struct" href="a01466.html">Impl::PathFollowingStateFactory&lt;F&gt;::type</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> NLS, <span class="keyword">typename</span> PF, <span class="keyword">typename</span> ASS&gt;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keyword">requires</span>(Impl::checkPathFollowingTemplates&lt;NLS, PF, ASS&gt;())</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keyword">class</span> <a class="code hl_class" href="a01474.html">PathFollowing</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> PF_ = ArcLength, <span class="keyword">typename</span> ASS_ = AdaptiveStepSizing::NoOp&gt;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="a01478.html">   97</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01478.html">PathFollowingConfig</a></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>{</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a01478.html#ae8815581a5879dbd1fc9722590d4cdd3">   99</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01478.html#ae8815581a5879dbd1fc9722590d4cdd3">PF</a>  = PF_;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="a01478.html#ad17b1974f8ef19d7f7078dfa489dd6e1">  100</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01478.html#ad17b1974f8ef19d7f7078dfa489dd6e1">ASS</a> = ASS_;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a01478.html#af4dd889493d4c52b6a6ad9db9c174574">  102</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="a01478.html#af4dd889493d4c52b6a6ad9db9c174574">steps</a>{};</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a01478.html#a81216825fc8066d2055dd1e6201c4aff">  103</a></span>  <span class="keywordtype">double</span> <a class="code hl_variable" href="a01478.html#a81216825fc8066d2055dd1e6201c4aff">stepSize</a>{};</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="a01478.html#aa4fb4fa9616c8e2996e0b0523e30fa7a">  104</a></span>  <a class="code hl_typedef" href="a01478.html#ae8815581a5879dbd1fc9722590d4cdd3">PF</a> <a class="code hl_variable" href="a01478.html#aa4fb4fa9616c8e2996e0b0523e30fa7a">pathFollowingFunction</a>{};</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a01478.html#a7ffac719560deefbffff024765eac413">  105</a></span>  <a class="code hl_typedef" href="a01478.html#ad17b1974f8ef19d7f7078dfa489dd6e1">ASS</a> <a class="code hl_variable" href="a01478.html#a7ffac719560deefbffff024765eac413">adaptiveStepSizingFunction</a>{};</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>};</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#ifndef DOXYGEN</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>PathFollowingConfig(<span class="keywordtype">int</span>, <span class="keywordtype">double</span>) -&gt; PathFollowingConfig&lt;&gt;;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> PF&gt;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>PathFollowingConfig(<span class="keywordtype">int</span>, <span class="keywordtype">double</span>, PF) -&gt; PathFollowingConfig&lt;PF&gt;;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> PF, <span class="keyword">typename</span> ASS&gt;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>PathFollowingConfig(<span class="keywordtype">int</span>, <span class="keywordtype">double</span>, PF, ASS) -&gt; PathFollowingConfig&lt;PF, ASS&gt;;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> ASS&gt;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>PathFollowingConfig(<span class="keywordtype">int</span>, <span class="keywordtype">double</span>, ArcLength, ASS) -&gt; PathFollowingConfig&lt;ArcLength, ASS&gt;;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> NLS, <span class="keyword">typename</span> PFConfig&gt;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="keyword">requires</span> traits::isSpecialization&lt;PathFollowingConfig, std::remove_cvref_t&lt;PFConfig&gt;&gt;::value</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="a00510.html#a8e39557c3fe94302f5bf3ecb457d27f0">  132</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00510.html#a5aec737453e85d8a0cd6061b39300694">createControlRoutine</a>(PFConfig&amp;&amp; config, NLS&amp;&amp; nonlinearSolver) {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>  <span class="keywordflow">return</span> <a class="code hl_class" href="a01474.html">PathFollowing&lt;typename std::remove_cvref_t&lt;NLS&gt;::element_type</a>, <span class="keyword">typename</span> PFConfig::PF, <span class="keyword">typename</span> PFConfig::ASS&gt;(</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>      std::forward&lt;NLS&gt;(nonlinearSolver), config.steps, config.stepSize, config.pathFollowingFunction,</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>      config.adaptiveStepSizingFunction);</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> NLS, <span class="keyword">typename</span> PF = ArcLength, <span class="keyword">typename</span> ASS = AdaptiveStepSizing::NoOp&gt;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="keyword">requires</span>(Impl::checkPathFollowingTemplates&lt;NLS, PF, ASS&gt;())</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="a01474.html">  169</a></span><span class="keyword">class</span> <a class="code hl_class" href="a01474.html">PathFollowing</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a01442.html">ControlRoutineBase</a>&lt;<span class="keyword">typename</span> NLS::DifferentiableFunction,</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                                                <a class="code hl_struct" href="a01466.html">PathFollowingStateType&lt;typename NLS::DifferentiableFunction&gt;</a>&gt;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>{</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="a01474.html#a31b9c556cef2540c66676589b230ef5d">  175</a></span>  <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="a01474.html#a31b9c556cef2540c66676589b230ef5d">name</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::string(<span class="stringliteral">&quot;Path following with &quot;</span> + pathFollowingType_.name()); }</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="a01474.html#af73474b0eccdddd65e046ebe813566f9">  185</a></span>  <a class="code hl_function" href="a01474.html#af73474b0eccdddd65e046ebe813566f9">PathFollowing</a>(<span class="keyword">const</span> std::shared_ptr&lt;NLS&gt;&amp; nls, <span class="keywordtype">int</span> steps, <span class="keywordtype">double</span> stepSize, PF pathFollowingType = <a class="code hl_struct" href="a01486.html">ArcLength</a>{},</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                ASS adaptiveStepSizing = {})</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>      : nonLinearSolver_{nls},</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        steps_{steps},</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        stepSize_{stepSize},</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        pathFollowingType_{pathFollowingType},</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        adaptiveStepSizing_{adaptiveStepSizing} {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">if</span> (steps_ &lt;= 0)</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>      DUNE_THROW(Dune::InvalidStateException, <span class="stringliteral">&quot;Number of steps should be greater than zero.&quot;</span>);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>  }</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>  [[nodiscard]] ControlInformation run(<span class="keyword">typename</span> NLS::Domain&amp; d);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  <span class="comment">/* \brief returns the nonlinear solver */</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="a01474.html#a6c40405d18d6dfab95c80b9871905331">  206</a></span>  NLS&amp; <a class="code hl_function" href="a01474.html#a6c40405d18d6dfab95c80b9871905331">nonLinearSolver</a>() { <span class="keywordflow">return</span> *nonLinearSolver_; }</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="a01474.html#a3df869c5a5329092cfa90a444f54da02">  212</a></span>  <span class="keyword">auto</span>&amp; <a class="code hl_function" href="a01474.html#a3df869c5a5329092cfa90a444f54da02">subsidiaryArgs</a>() { <span class="keywordflow">return</span> subsidiaryArgs_; }</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="a01474.html#a7485492addfa19dcc77042cbf62ed943">  218</a></span>  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="a01474.html#a7485492addfa19dcc77042cbf62ed943">subsidiaryArgs</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> subsidiaryArgs_; }</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>  std::shared_ptr&lt;NLS&gt; nonLinearSolver_;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>  <span class="keywordtype">int</span> steps_;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>  <span class="keywordtype">double</span> stepSize_;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>  PF pathFollowingType_;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>  ASS adaptiveStepSizing_;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>  <a class="code hl_struct" href="a01482.html">SubsidiaryArgs</a> subsidiaryArgs_;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>  <span class="keywordtype">void</span> updateAndNotifyControlInfo(<a class="code hl_struct" href="a01438.html">ControlInformation</a>&amp; info, <span class="keyword">const</span> <a class="code hl_struct" href="a02170.html">NonLinearSolverInformation</a>&amp; solverInfo,</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                                  <span class="keyword">const</span> <span class="keyword">typename</span> <a class="code hl_struct" href="a01466.html">PathFollowing::State</a>&amp; state) {</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    info.<a class="code hl_variable" href="a01438.html#aedbd5de28f127726884cb99b067313bf">solverInfos</a>.push_back(solverInfo);</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    info.<a class="code hl_variable" href="a01438.html#a4712b189651e59cd46fd43b2e6a326bf">totalIterations</a> += solverInfo.<a class="code hl_variable" href="a02170.html#a81570cd3d9f6589a4d1ba81211f41b99">iterations</a>;</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    this-&gt;notify(<a class="code hl_enumvalue" href="a00510.html#a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">ControlMessages::SOLUTION_CHANGED</a>, state);</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    this-&gt;notify(<a class="code hl_enumvalue" href="a00510.html#a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">ControlMessages::STEP_ENDED</a>, state);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>  }</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>};</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="preprocessor">#include &lt;<a class="code" href="a00452.html">ikarus/controlroutines/pathfollowing.inl</a>&gt;</span></div>
+<div class="ttc" id="aa00029_html"><div class="ttname"><a href="a00029.html">differentiablefunctionfactory.hh</a></div><div class="ttdoc">Contains the generic DifferentiableFunctionFactory class.</div></div>
+<div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">broadcastermessages.hh</a></div><div class="ttdoc">Enums for observer messages.</div></div>
+<div class="ttc" id="aa00413_html"><div class="ttname"><a href="a00413.html">nonlinearsolverfactory.hh</a></div><div class="ttdoc">Contains the generic NonlinearSolverFactory class.</div></div>
+<div class="ttc" id="aa00416_html"><div class="ttname"><a href="a00416.html">newtonraphsonwithscalarsubsidiaryfunction.hh</a></div></div>
+<div class="ttc" id="aa00431_html"><div class="ttname"><a href="a00431.html">controlroutinebase.hh</a></div><div class="ttdoc">Base for all control routines.</div></div>
+<div class="ttc" id="aa00437_html"><div class="ttname"><a href="a00437.html">controlinfos.hh</a></div><div class="ttdoc">Defines the ControlInformation structure for storing control results.</div></div>
+<div class="ttc" id="aa00440_html"><div class="ttname"><a href="a00440.html">controlroutinefactory.hh</a></div><div class="ttdoc">Factory for controlroutines.</div></div>
+<div class="ttc" id="aa00443_html"><div class="ttname"><a href="a00443.html">pathfollowingfunctions.hh</a></div><div class="ttdoc">Defines structures and methods related to subsidiary functions for control routines.</div></div>
+<div class="ttc" id="aa00446_html"><div class="ttname"><a href="a00446.html">adaptivestepsizing.hh</a></div><div class="ttdoc">Contains the AdaptiveStepSizing namespace with strategies for adaptive step sizing.</div></div>
+<div class="ttc" id="aa00452_html"><div class="ttname"><a href="a00452.html">pathfollowing.inl</a></div><div class="ttdoc">Implementation of the run function.</div></div>
+<div class="ttc" id="aa00510_html"><div class="ttname"><a href="a00510.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
+<div class="ttc" id="aa00510_html_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577"><div class="ttname"><a href="a00510.html#a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577">Ikarus::ControlMessages::SOLUTION_CHANGED</a></div><div class="ttdeci">@ SOLUTION_CHANGED</div></div>
+<div class="ttc" id="aa00510_html_a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2"><div class="ttname"><a href="a00510.html#a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2">Ikarus::ControlMessages::STEP_ENDED</a></div><div class="ttdeci">@ STEP_ENDED</div></div>
+<div class="ttc" id="aa00510_html_a5aec737453e85d8a0cd6061b39300694"><div class="ttname"><a href="a00510.html#a5aec737453e85d8a0cd6061b39300694">Ikarus::createControlRoutine</a></div><div class="ttdeci">auto createControlRoutine(const LoadControlConfig &amp;config, NLS &amp;&amp;nonlinearSolver)</div><div class="ttdoc">Function to create a load control instance.</div><div class="ttdef"><b>Definition:</b> loadcontrol.hh:45</div></div>
+<div class="ttc" id="aa01438_html"><div class="ttname"><a href="a01438.html">Ikarus::ControlInformation</a></div><div class="ttdoc">Structure containing information about the control results.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:23</div></div>
+<div class="ttc" id="aa01438_html_a4712b189651e59cd46fd43b2e6a326bf"><div class="ttname"><a href="a01438.html#a4712b189651e59cd46fd43b2e6a326bf">Ikarus::ControlInformation::totalIterations</a></div><div class="ttdeci">int totalIterations</div><div class="ttdoc">Total number of iterations performed.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:30</div></div>
+<div class="ttc" id="aa01438_html_aedbd5de28f127726884cb99b067313bf"><div class="ttname"><a href="a01438.html#aedbd5de28f127726884cb99b067313bf">Ikarus::ControlInformation::solverInfos</a></div><div class="ttdeci">std::vector&lt; Ikarus::NonLinearSolverInformation &gt; solverInfos</div><div class="ttdoc">Vector containing information from nonlinear solvers.</div><div class="ttdef"><b>Definition:</b> controlinfos.hh:29</div></div>
+<div class="ttc" id="aa01442_html"><div class="ttname"><a href="a01442.html">Ikarus::ControlRoutineBase</a></div><div class="ttdoc">Base for all control routines. Defines the message interface that can be broadcasted to listeners.</div><div class="ttdef"><b>Definition:</b> controlroutinebase.hh:24</div></div>
+<div class="ttc" id="aa01466_html"><div class="ttname"><a href="a01466.html">Ikarus::PathFollowingState</a></div><div class="ttdoc">State for path following control routine.</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:32</div></div>
+<div class="ttc" id="aa01466_html_a3dcb62d0cf736628c90706c29f62da1f"><div class="ttname"><a href="a01466.html#a3dcb62d0cf736628c90706c29f62da1f">Ikarus::PathFollowingState::stepSize</a></div><div class="ttdeci">double stepSize</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:40</div></div>
+<div class="ttc" id="aa01466_html_a7f77db2bee39d79bf48a4fc60b84590a"><div class="ttname"><a href="a01466.html#a7f77db2bee39d79bf48a4fc60b84590a">Ikarus::PathFollowingState::information</a></div><div class="ttdeci">const ControlInformation &amp; information</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:36</div></div>
+<div class="ttc" id="aa01466_html_a86de29d69928db78bcad0f1b52a63965"><div class="ttname"><a href="a01466.html#a86de29d69928db78bcad0f1b52a63965">Ikarus::PathFollowingState::domain</a></div><div class="ttdeci">const Domain &amp; domain</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:35</div></div>
+<div class="ttc" id="aa01466_html_a8e1b8b12cc435ee7e0a6432ab74ad43f"><div class="ttname"><a href="a01466.html#a8e1b8b12cc435ee7e0a6432ab74ad43f">Ikarus::PathFollowingState::loadStep</a></div><div class="ttdeci">int loadStep</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:39</div></div>
+<div class="ttc" id="aa01466_html_aaf06c06697db573f10222173fc8d70af"><div class="ttname"><a href="a01466.html#aaf06c06697db573f10222173fc8d70af">Ikarus::PathFollowingState::Domain</a></div><div class="ttdeci">D Domain</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:33</div></div>
+<div class="ttc" id="aa01466_html_ab2abd1a958044ec4d412efa82c4a1ede"><div class="ttname"><a href="a01466.html#ab2abd1a958044ec4d412efa82c4a1ede">Ikarus::PathFollowingState::subsidiaryArgs</a></div><div class="ttdeci">const SubsidiaryArgs &amp; subsidiaryArgs</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:37</div></div>
+<div class="ttc" id="aa01474_html"><div class="ttname"><a href="a01474.html">Ikarus::PathFollowing</a></div><div class="ttdoc">The PathFollowing control routine for path-following analysis.</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:172</div></div>
+<div class="ttc" id="aa01474_html_a31b9c556cef2540c66676589b230ef5d"><div class="ttname"><a href="a01474.html#a31b9c556cef2540c66676589b230ef5d">Ikarus::PathFollowing::name</a></div><div class="ttdeci">constexpr auto name() const</div><div class="ttdoc">The name of the PathFollowing method.</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:175</div></div>
+<div class="ttc" id="aa01474_html_a3df869c5a5329092cfa90a444f54da02"><div class="ttname"><a href="a01474.html#a3df869c5a5329092cfa90a444f54da02">Ikarus::PathFollowing::subsidiaryArgs</a></div><div class="ttdeci">auto &amp; subsidiaryArgs()</div><div class="ttdoc">Access the subsidiary arguments.</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:212</div></div>
+<div class="ttc" id="aa01474_html_a6c40405d18d6dfab95c80b9871905331"><div class="ttname"><a href="a01474.html#a6c40405d18d6dfab95c80b9871905331">Ikarus::PathFollowing::nonLinearSolver</a></div><div class="ttdeci">NLS &amp; nonLinearSolver()</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:206</div></div>
+<div class="ttc" id="aa01474_html_a7485492addfa19dcc77042cbf62ed943"><div class="ttname"><a href="a01474.html#a7485492addfa19dcc77042cbf62ed943">Ikarus::PathFollowing::subsidiaryArgs</a></div><div class="ttdeci">const auto &amp; subsidiaryArgs() const</div><div class="ttdoc">Access the subsidiary arguments.</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:218</div></div>
+<div class="ttc" id="aa01474_html_af73474b0eccdddd65e046ebe813566f9"><div class="ttname"><a href="a01474.html#af73474b0eccdddd65e046ebe813566f9">Ikarus::PathFollowing::PathFollowing</a></div><div class="ttdeci">PathFollowing(const std::shared_ptr&lt; NLS &gt; &amp;nls, int steps, double stepSize, PF pathFollowingType=ArcLength{}, ASS adaptiveStepSizing={})</div><div class="ttdoc">Constructor for PathFollowing.</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:185</div></div>
+<div class="ttc" id="aa01478_html"><div class="ttname"><a href="a01478.html">Ikarus::PathFollowingConfig</a></div><div class="ttdoc">Config for the Path-Following control routine.</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:98</div></div>
+<div class="ttc" id="aa01478_html_a7ffac719560deefbffff024765eac413"><div class="ttname"><a href="a01478.html#a7ffac719560deefbffff024765eac413">Ikarus::PathFollowingConfig::adaptiveStepSizingFunction</a></div><div class="ttdeci">ASS adaptiveStepSizingFunction</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:105</div></div>
+<div class="ttc" id="aa01478_html_a81216825fc8066d2055dd1e6201c4aff"><div class="ttname"><a href="a01478.html#a81216825fc8066d2055dd1e6201c4aff">Ikarus::PathFollowingConfig::stepSize</a></div><div class="ttdeci">double stepSize</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:103</div></div>
+<div class="ttc" id="aa01478_html_aa4fb4fa9616c8e2996e0b0523e30fa7a"><div class="ttname"><a href="a01478.html#aa4fb4fa9616c8e2996e0b0523e30fa7a">Ikarus::PathFollowingConfig::pathFollowingFunction</a></div><div class="ttdeci">PF pathFollowingFunction</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:104</div></div>
+<div class="ttc" id="aa01478_html_ad17b1974f8ef19d7f7078dfa489dd6e1"><div class="ttname"><a href="a01478.html#ad17b1974f8ef19d7f7078dfa489dd6e1">Ikarus::PathFollowingConfig::ASS</a></div><div class="ttdeci">ASS_ ASS</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:100</div></div>
+<div class="ttc" id="aa01478_html_ae8815581a5879dbd1fc9722590d4cdd3"><div class="ttname"><a href="a01478.html#ae8815581a5879dbd1fc9722590d4cdd3">Ikarus::PathFollowingConfig::PF</a></div><div class="ttdeci">PF_ PF</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:99</div></div>
+<div class="ttc" id="aa01478_html_af4dd889493d4c52b6a6ad9db9c174574"><div class="ttname"><a href="a01478.html#af4dd889493d4c52b6a6ad9db9c174574">Ikarus::PathFollowingConfig::steps</a></div><div class="ttdeci">int steps</div><div class="ttdef"><b>Definition:</b> pathfollowing.hh:102</div></div>
+<div class="ttc" id="aa01482_html"><div class="ttname"><a href="a01482.html">Ikarus::SubsidiaryArgs</a></div><div class="ttdoc">Structure containing arguments for subsidiary functions.</div><div class="ttdef"><b>Definition:</b> pathfollowingfunctions.hh:49</div></div>
+<div class="ttc" id="aa01486_html"><div class="ttname"><a href="a01486.html">Ikarus::ArcLength</a></div><div class="ttdoc">Structure representing the subsidiary function for the standard arc-length method.</div><div class="ttdef"><b>Definition:</b> pathfollowingfunctions.hh:89</div></div>
+<div class="ttc" id="aa02170_html"><div class="ttname"><a href="a02170.html">Ikarus::NonLinearSolverInformation</a></div><div class="ttdoc">Information about the result of a non-linear solver.</div><div class="ttdef"><b>Definition:</b> solverinfos.hh:21</div></div>
+<div class="ttc" id="aa02170_html_a81570cd3d9f6589a4d1ba81211f41b99"><div class="ttname"><a href="a02170.html#a81570cd3d9f6589a4d1ba81211f41b99">Ikarus::NonLinearSolverInformation::iterations</a></div><div class="ttdeci">int iterations</div><div class="ttdef"><b>Definition:</b> solverinfos.hh:31</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!--
+SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de
+SPDX-License-Identifier: LGPL-3.0-or-later
+-->
+<!-- HTML footer for doxygen 1.9.6-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+    <ul>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_a97b071c9c6f7bcc51f4d0bc7519f177.html">controlroutines</a></li><li class="navelem"><a class="el" href="a00455.html">pathfollowing.hh</a></li>
+        <li class="footer">
+            &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
+            (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /
+            code examples: <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">LGPLv3 or later</a>) &#160;
+            <img class="footer" alt="Ikarus" src="BigLogo_transparent.png" height="15"/> 0.4.8
+            &#160; Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    </ul>
+</div>
+<!--MERMAID GRAPHS-->
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+            primaryColor: '#f4f4ff',
+            secondaryColor: 'rgba(244,244,255,0.9)',
+            tertiaryColor: '#F9FAFC',
+        },
+    });
+</script>
+<!--MERMAID GRAPHS-->
+</body>
+</html>

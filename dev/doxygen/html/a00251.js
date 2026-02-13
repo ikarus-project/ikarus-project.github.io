@@ -1,5 +1,4 @@
 var a00251 =
 [
-    [ "Ikarus::NeumannBoundaryLoadPre< GV >", "a01670.html", "a01670" ],
-    [ "neumannBoundaryLoad", "a00251.html#ac2ae666c1ffd22e3c22a3418ab390893", null ]
+    [ "NoDev", "a00251.html#a18d6677fffac7cc160427aba9eb089d8", null ]
 ];

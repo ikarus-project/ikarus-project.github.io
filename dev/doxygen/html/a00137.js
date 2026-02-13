@@ -1,9 +1,11 @@
 var a00137 =
 [
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00137.html#a945e022b757e5d054d6bab20a2ca291e", null ],
-    [ "MAKE_MaterialFunction", "a00137.html#a52604789ad84df5cf20d4571f90af39e", null ],
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00137.html#ac81cd08ca4f7222df18c123d422c932d", null ],
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00137.html#a85c1412e5300ac194ff82ebd146c6229", null ],
-    [ "MAKE_MATERIAL_REGISTRY_FUNCTION", "a00137.html#aab3a7ce35fb7a2f4a8a9e4d6a92e1f31", null ],
-    [ "registerMaterial", "a00137.html#a5038c66085a51f4147ef04e880f926dd", null ]
+    [ "registerAssumedStressPre", "a00137.html#afe5e1b30c11329edc511f6db03ff2c85", null ],
+    [ "registerEnhancedAssumedStrainsPre", "a00137.html#a79dfab8379c15a5c5da0d3e5a415f0a3", null ],
+    [ "registerKirchhoffLoveShellPre", "a00137.html#a0ef1ab14030985bd8af2551f51ceeeb6", null ],
+    [ "registerLinearElasticPre", "a00137.html#a04d0c82e615a65a1ba027cb77bbf784d", null ],
+    [ "registerNeumannBoundaryLoadPre", "a00137.html#a813121e686b5d64d6ef1e11bd4bfc59b", null ],
+    [ "registerNonLinearElasticPre", "a00137.html#ab45b29a3ca18f1c8bf87263c60d14711", null ],
+    [ "registerTrussPre", "a00137.html#a5004d72f594d4ceecaebb33ee71f80cf", null ],
+    [ "registerVolumeLoadPre", "a00137.html#a1f597ae7aac82dc24a8a2669f86fc12b", null ]
 ];

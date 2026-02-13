@@ -1,4 +1,5 @@
 var a00332 =
 [
-    [ "InvariantBased", "a00332.html#a54eda7633e477c02ff71fa6e3f40a1ab", null ]
+    [ "Ikarus::PreFE< BH, useFlat, useEigenRef >", "a01510.html", "a01510" ],
+    [ "Ikarus::FE< PreFE, Skills >", "a01506.html", "a01506" ]
 ];

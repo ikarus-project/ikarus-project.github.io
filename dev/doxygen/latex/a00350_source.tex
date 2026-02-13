@@ -1,63 +1,77 @@
-\hypertarget{a00350_source}{}\doxysection{materialconversions.\+hh}
-\label{a00350_source}\index{materialconversions.hh@{materialconversions.hh}}
+\hypertarget{a00350_source}{}\doxysection{controlvtkwriter.\+hh}
+\label{a00350_source}\index{controlvtkwriter.hh@{controlvtkwriter.hh}}
 \mbox{\hyperlink{a00350}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00347}{tags.hh}}"{}}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/functions/gridfunctions/discreteglobalbasisfunction.hh>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/grid/io/file/vtk/subsamplingvtkwriter.hh>}}
 \DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00314}{ikarus/finiteelements/mechanics/materials/materialhelpers.hh}}>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00041}{ikarus/utils/tensorutils.hh}}>}}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
-\DoxyCodeLine{20 }
-\DoxyCodeLine{37 \textcolor{keyword}{template} <TangentModuliTags tag, \textcolor{keyword}{typename} Derived, \textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{38 Eigen::TensorFixedSize<ST, Eigen::Sizes<3, 3, 3, 3>> \mbox{\hyperlink{a00510_a4fd4645099bdac5d720507dbe784875c}{createTwoPointMaterialTensor}}(}
-\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::TensorFixedSize<ST, Eigen::Sizes<3, 3, 3, 3>>\& C, \textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& sPK2,}
-\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& F) \{}
-\DoxyCodeLine{41   \textcolor{keyword}{static\_assert}(Concepts::EigenMatrix33<Derived>);}
-\DoxyCodeLine{42   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{TangentModuliTags::Material}}) \{}
-\DoxyCodeLine{43     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& S                    = sPK2.derived();}
-\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::Matrix<ST, 3, 3> Id = Eigen::Matrix<ST, 3, 3>::Identity();}
-\DoxyCodeLine{45     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} dim                = 3;}
-\DoxyCodeLine{46     Eigen::TensorFixedSize<ST, Eigen::Sizes<dim, dim, dim, dim>> A;}
-\DoxyCodeLine{47     A.setZero();}
-\DoxyCodeLine{48     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} i : Dune::range(dim))}
-\DoxyCodeLine{49       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} J : Dune::range(dim))}
-\DoxyCodeLine{50         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} k : Dune::range(dim))}
-\DoxyCodeLine{51           \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} L : Dune::range(dim)) \{}
-\DoxyCodeLine{52             A(i, J, k, L) += Id(i, k) * S(J, L);}
-\DoxyCodeLine{53             \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} I : Dune::range(dim))}
-\DoxyCodeLine{54               \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} K : Dune::range(dim))}
-\DoxyCodeLine{55                 A(i, J, k, L) += C(I, J, K, L) * F(i, I) * F(k, K);}
-\DoxyCodeLine{56           \}}
-\DoxyCodeLine{57     \textcolor{keywordflow}{return} A;}
-\DoxyCodeLine{58   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga05ac785124262c1e323d2f937d520a1ba331d16a2885c7f82ba949f286f48143d}{TangentModuliTags::TwoPoint}}) \{}
-\DoxyCodeLine{59     \textcolor{keywordflow}{return} C;}
-\DoxyCodeLine{60   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga05ac785124262c1e323d2f937d520a1ba33d7f1ec5fe18e7ba799474138e71504}{TangentModuliTags::Spatial}}) \{}
-\DoxyCodeLine{61     \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<ST>::value,}
-\DoxyCodeLine{62                   \textcolor{stringliteral}{"{}Transformation from spatial to two-\/point material tensor is not implemented."{}});}
-\DoxyCodeLine{63   \}}
-\DoxyCodeLine{64 \}}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{80 \textcolor{keyword}{template} <TangentModuliTags from, TangentModuliTags to, \textcolor{keyword}{typename} DerivedS, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} ST>}
-\DoxyCodeLine{81 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_aa7cefe6207ae33624dc765db0d52759b}{transformTangentModuli}}(\textcolor{keyword}{const} Eigen::TensorFixedSize<ST, Eigen::Sizes<3, 3, 3, 3>>\& C,}
-\DoxyCodeLine{82                             \textcolor{keyword}{const} Eigen::MatrixBase<DerivedS>\& sRaw, \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F) \{}
-\DoxyCodeLine{83   \textcolor{keyword}{static\_assert}(Concepts::EigenMatrix33<DerivedF>);}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85   \textcolor{keyword}{const} \textcolor{keyword}{auto} S = Impl::maybeFromVoigt(sRaw.derived(), \textcolor{keyword}{false});}
-\DoxyCodeLine{86 }
-\DoxyCodeLine{87   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (from == to)}
-\DoxyCodeLine{88     \textcolor{keywordflow}{return} C;}
-\DoxyCodeLine{89   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (to == \mbox{\hyperlink{a00499_gga05ac785124262c1e323d2f937d520a1ba331d16a2885c7f82ba949f286f48143d}{TangentModuliTags::TwoPoint}})}
-\DoxyCodeLine{90     \textcolor{keywordflow}{return} createTwoPointMaterialTensor<from>(C, S, F);}
-\DoxyCodeLine{91   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{92     \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<ST>::value, \textcolor{stringliteral}{"{}Transformation only to two-\/point material tensor is implemented."{}});}
-\DoxyCodeLine{93 \}}
-\DoxyCodeLine{94 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00344}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03520}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00347}{ikarus/utils/listener/listener.hh}}>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{31 \textcolor{keyword}{template} <\textcolor{keyword}{typename} B>}
+\DoxyCodeLine{32 \textcolor{keyword}{class }\mbox{\hyperlink{a02342}{ControlSubsamplingVertexVTKWriter}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02350}{Listener}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34   \textcolor{keyword}{using }Basis                     = B;}
+\DoxyCodeLine{35   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} components = Basis::LocalView::Tree::degree() == 0 ? 1 : Basis::LocalView::Tree::degree();}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{public}:}
+\DoxyCodeLine{46   \mbox{\hyperlink{a02342_aa9bc2f8915db560b403dc97a151d3e35}{ControlSubsamplingVertexVTKWriter}}(\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keywordtype}{int} refinementLevels = 0)}
+\DoxyCodeLine{47       : basis\_\{\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}\},}
+\DoxyCodeLine{48         vtkWriter\_(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.gridView(), \mbox{\hyperlink{a00536}{Dune}}::refinementLevels(refinementLevels)) \{\}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \textcolor{keyword}{template} <\textcolor{keyword}{typename} BC>}
+\DoxyCodeLine{51   \mbox{\hyperlink{a02342}{ControlSubsamplingVertexVTKWriter}}\& \mbox{\hyperlink{a02342_a3dae604f656fc27f82a60b713d1fb0cf}{subscribeTo}}(BC\& bc) \{}
+\DoxyCodeLine{52     this-\/>\mbox{\hyperlink{a02350_a199840d6ead51d771d5522acff779a4f}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00510_a35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message, \textcolor{keyword}{const} BC::State\& state) \{ this-\/>\mbox{\hyperlink{a02342_a03d2c1668d6894f3e4f3c5d3ef1c54f6}{update}}(message, state); \});}
+\DoxyCodeLine{53     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{65   \textcolor{keyword}{auto} \mbox{\hyperlink{a02342_afec0c3fe2aa8cac3e9970d8c9720c219}{setFieldInfo}}(std::string\&\& name, Dune::VTK::FieldInfo::Type type, std::size\_t size,}
+\DoxyCodeLine{66                     Dune::VTK::Precision prec = Dune::VTK::Precision::float32) \{}
+\DoxyCodeLine{67     fieldInfo\_      = Dune::VTK::FieldInfo(std::move(name), type, size, prec);}
+\DoxyCodeLine{68     isFieldInfoSet\_ = \textcolor{keyword}{true};}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{76   \textcolor{keyword}{auto} \mbox{\hyperlink{a02342_a8061e516e4c6626a2f6ea160e692e4e1}{setFileNamePrefix}}(std::string\&\& name) \{ prefixString\_ = std::move(name); \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{87   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02342_a03d2c1668d6894f3e4f3c5d3ef1c54f6}{update}}(\mbox{\hyperlink{a00510_a35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message, \textcolor{keyword}{const} \mbox{\hyperlink{a02474}{Concepts::ControlRoutineState}} \textcolor{keyword}{auto}\& state) \{}
+\DoxyCodeLine{88     assert(isFieldInfoSet\_ \&\& \textcolor{stringliteral}{"{}You need to call setFieldInfo first!"{}});}
+\DoxyCodeLine{89     \textcolor{keywordflow}{switch} (message) \{}
+\DoxyCodeLine{90       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00510_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{ControlMessages::SOLUTION\_CHANGED}}: \{}
+\DoxyCodeLine{91         \textcolor{keyword}{auto} disp = Dune::Functions::makeDiscreteGlobalBasisFunction<Dune::FieldVector<double, components>>(}
+\DoxyCodeLine{92             basis\_, state.domain.globalSolution());}
+\DoxyCodeLine{93         vtkWriter\_.addVertexData(disp, fieldInfo\_);}
+\DoxyCodeLine{94         vtkWriter\_.write(prefixString\_ + std::to\_string(step\_++));}
+\DoxyCodeLine{95       \} \textcolor{keywordflow}{break};}
+\DoxyCodeLine{96       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{97         \textcolor{keywordflow}{break}; \textcolor{comment}{// default: do nothing when notified}}
+\DoxyCodeLine{98     \}}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{keyword}{private}:}
+\DoxyCodeLine{102   \textcolor{keyword}{const} Basis\& basis\_;}
+\DoxyCodeLine{103   Dune::SubsamplingVTKWriter<typename Basis::GridView> vtkWriter\_;}
+\DoxyCodeLine{104   \textcolor{keywordtype}{int} step\_\{0\};}
+\DoxyCodeLine{105   Dune::VTK::FieldInfo fieldInfo\_\{\textcolor{stringliteral}{"{}Default"{}}, Dune::VTK::FieldInfo::Type::scalar, 1\};}
+\DoxyCodeLine{106   std::string prefixString\_\{\};}
+\DoxyCodeLine{107   \textcolor{keywordtype}{bool} isFieldInfoSet\_\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{108 \};}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
+\DoxyCodeLine{111 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Basis>}
+\DoxyCodeLine{112 ControlSubsamplingVertexVTKWriter(\textcolor{keyword}{const} Basis\&, \textcolor{keywordtype}{int}) -\/> ControlSubsamplingVertexVTKWriter<Basis>;}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

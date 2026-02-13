@@ -1,5 +1,4 @@
 var a00359 =
 [
-    [ "Ikarus::Materials::DecomposedMaterialTypes< MAT >", "a01682.html", "a01682" ],
-    [ "decomposeHyperelasticAndGetMaterialParameters", "a00359.html#a6d0f6ef6d764120e2a1724ba4e864b85", null ]
+    [ "Ikarus::ControlLogger", "a02338.html", "a02338" ]
 ];

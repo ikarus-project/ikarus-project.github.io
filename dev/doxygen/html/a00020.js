@@ -1,9 +1,8 @@
 var a00020 =
 [
-    [ "globalIndexFromGlobalPosition", "a00020.html#ga334aa3c552eca9519c71f6b5aac1c5b8", null ],
-    [ "maybeDeref", "a00020.html#af8ee685bd6d75a8b5f737eafd53860ae", null ],
-    [ "obtainForcesDueToIDBC", "a00020.html#a8a9dd9a34514881c4b30b3fdc62a62f9", null ],
-    [ "obtainLagrangeGlobalNodePositions", "a00020.html#gae9098182120929a0d21cff1c38f5ca84", null ],
-    [ "referenceElementSubEntityPositions", "a00020.html#ga30df35336d19b00bc5db2a0b52ce650e", null ],
-    [ "referenceElementVertexPositions", "a00020.html#ga8c05dce8a66fc4efbe31674b87d18298", null ]
+    [ "toDune", "a00020.html#a4e9e21776afdaaa93c4a9d19554976fa", null ],
+    [ "toDune", "a00020.html#a83633e77ee5a35cb31a7cd2f02aedb7f", null ],
+    [ "toDune", "a00020.html#a0fdba7f3ebe4bf1ada6618f450b50221", null ],
+    [ "toEigenMap", "a00020.html#aaa7e8e9b8bd8247afecc24cdd54ec658", null ],
+    [ "toEigenMap", "a00020.html#aaac71220182c301ee8c864f2a507c3db", null ]
 ];

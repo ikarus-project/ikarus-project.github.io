@@ -1,18 +1,84 @@
-\hypertarget{a00080_source}{}\doxysection{polyfit.\+hh}
-\label{a00080_source}\index{polyfit.hh@{polyfit.hh}}
+\hypertarget{a00080_source}{}\doxysection{traversal.\+hh}
+\label{a00080_source}\index{traversal.hh@{traversal.hh}}
 \mbox{\hyperlink{a00080}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dune/functions/analyticfunctions/polynomial.hh>}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
-\DoxyCodeLine{14 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00531}{Ikarus::utils}} \{}
-\DoxyCodeLine{24 std::tuple<Dune::Functions::Polynomial<double>, \textcolor{keywordtype}{double}> \mbox{\hyperlink{a00505_ga0d3a38551806e4de3ff44f311847ba51}{polyfit}}(\textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& x,}
-\DoxyCodeLine{25                                                                 \textcolor{keyword}{const} Eigen::Ref<const Eigen::VectorXd>\& y, \textcolor{keywordtype}{int} deg);}
-\DoxyCodeLine{26 \} \textcolor{comment}{// namespace Ikarus::utils}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03520}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00531}{Ikarus::utils}} \{}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{30 \textcolor{keyword}{template} <\textcolor{keyword}{class} T, \textcolor{keyword}{class} TreePath, \textcolor{keyword}{class} PowerFunc, \textcolor{keyword}{class} LeafFunc>}
+\DoxyCodeLine{31 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00531_a63742d75d099b93da7ddf6e78a3c1f56}{forEachLeafOrPowerLeafNode}}(T\&\& tree, TreePath\&\& treePath, PowerFunc\&\& powerFunc, LeafFunc\&\& leafFunc) \{}
+\DoxyCodeLine{32   \textcolor{keyword}{using }Tree = std::decay\_t<T>;}
+\DoxyCodeLine{33   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Tree::isLeaf) \{}
+\DoxyCodeLine{34     leafFunc(tree, treePath);}
+\DoxyCodeLine{35   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Tree::isPower) \{}
+\DoxyCodeLine{36     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Tree::template Child<Dune::Indices::\_0>::Type::isLeaf) \{}
+\DoxyCodeLine{37       powerFunc(tree, treePath);}
+\DoxyCodeLine{38     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{39       \textcolor{keywordflow}{for} (std::size\_t i = 0; i < tree.degree(); ++i) \{}
+\DoxyCodeLine{40         \textcolor{keyword}{auto} childTreePath = Dune::TypeTree::push\_back(treePath, i);}
+\DoxyCodeLine{41         \mbox{\hyperlink{a00531_a63742d75d099b93da7ddf6e78a3c1f56}{forEachLeafOrPowerLeafNode}}(tree.child(i), childTreePath, powerFunc, leafFunc);}
+\DoxyCodeLine{42       \}}
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{45     \textcolor{keyword}{auto} indices = std::make\_index\_sequence<Tree::degree()>\{\};}
+\DoxyCodeLine{46     Dune::Hybrid::forEach(indices, [\&](\textcolor{keyword}{auto} i) \{}
+\DoxyCodeLine{47       \textcolor{keyword}{auto} childTreePath = Dune::TypeTree::push\_back(treePath, i);}
+\DoxyCodeLine{48       \mbox{\hyperlink{a00531_a63742d75d099b93da7ddf6e78a3c1f56}{forEachLeafOrPowerLeafNode}}(tree.child(i), childTreePath, powerFunc, leafFunc);}
+\DoxyCodeLine{49     \});}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51 \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{54   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} isScalar, \textcolor{keyword}{typename} NT>}
+\DoxyCodeLine{55   \textcolor{keywordtype}{void} checkLagrangeNode(\textcolor{keyword}{const} NT\& node) \{}
+\DoxyCodeLine{56     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isScalar) \{}
+\DoxyCodeLine{57       \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02435}{Concepts::LagrangeNode}}<std::remove\_cvref\_t<\textcolor{keyword}{decltype}(node)>>, \textcolor{stringliteral}{"{}Only supported for Lagrange basis"{}});}
+\DoxyCodeLine{58     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{59       \textcolor{keyword}{static\_assert}(Concepts::LagrangeNode<std::remove\_cvref\_t<\textcolor{keyword}{decltype}(node.child(0))>>,}
+\DoxyCodeLine{60                     \textcolor{stringliteral}{"{}Only supported for Lagrange basis"{}});}
+\DoxyCodeLine{61     \}}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{75 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LV, \textcolor{keyword}{typename} F, \textcolor{keywordtype}{int} myDim = LV::Element::mydimension>}
+\DoxyCodeLine{76 \textcolor{keyword}{requires}(std::convertible\_to<F, std::function<bool(\textcolor{keywordtype}{int}, \mbox{\hyperlink{a02274}{Dune::FieldVector<double, myDim>}} \&\&)>>)}
+\DoxyCodeLine{77 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00531_ad8f6a5b5d6fb5a916fd5791adf5ef4d9}{forEachLagrangeNodePosition}}(\textcolor{keyword}{const} LV\& localView, F\&\& f) \{}
+\DoxyCodeLine{78   \textcolor{keyword}{using }Tree                     = LV::Tree;}
+\DoxyCodeLine{79   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isScalar = Tree::isLeaf;}
+\DoxyCodeLine{80   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isPower  = Tree::isPower;}
+\DoxyCodeLine{81   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& node               = [\&]() \{}
+\DoxyCodeLine{82     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isScalar or isPower)}
+\DoxyCodeLine{83       \textcolor{keywordflow}{return} localView.tree();}
+\DoxyCodeLine{84     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{85       \textcolor{keywordflow}{return} localView.tree().template child<0>();}
+\DoxyCodeLine{86   \}();}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88   Impl::checkLagrangeNode<isScalar>(node);}
+\DoxyCodeLine{89   assert(localView.bound() \&\& \textcolor{stringliteral}{"{}The local view must be bound to an element"{}});}
+\DoxyCodeLine{90   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localFE = [\&]() \{}
+\DoxyCodeLine{91     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isScalar)}
+\DoxyCodeLine{92       \textcolor{keywordflow}{return} node.finiteElement();}
+\DoxyCodeLine{93     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{94       \textcolor{keywordflow}{return} node.child(0).finiteElement();}
+\DoxyCodeLine{95   \}();}
+\DoxyCodeLine{96   std::vector<Dune::FieldVector<double, myDim>> lagrangeNodeCoords;}
+\DoxyCodeLine{97   lagrangeNodeCoords.resize(localFE.size());}
+\DoxyCodeLine{98   std::vector<double> out;}
+\DoxyCodeLine{99   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < myDim; i++) \{}
+\DoxyCodeLine{100     \textcolor{keyword}{auto} ithCoord = [\&i](\textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, myDim>}}\& x) \{ \textcolor{keywordflow}{return} x[i]; \};}
+\DoxyCodeLine{101     localFE.localInterpolation().interpolate(ithCoord, out);}
+\DoxyCodeLine{102     \textcolor{keywordflow}{for} (std::size\_t j = 0; j < out.size(); j++)}
+\DoxyCodeLine{103       lagrangeNodeCoords[j][i] = out[j];}
+\DoxyCodeLine{104   \}}
+\DoxyCodeLine{105   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} nodeNumber = 0; \textcolor{keyword}{auto}\& nCoord : lagrangeNodeCoords)}
+\DoxyCodeLine{106     \textcolor{keywordflow}{if} (f(nodeNumber++, std::move(nCoord)))}
+\DoxyCodeLine{107       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{108 \}}
+\DoxyCodeLine{109 \} \textcolor{comment}{// namespace Ikarus::utils}}
 
 \end{DoxyCode}

@@ -1,83 +1,106 @@
-\hypertarget{a00269_source}{}\doxysection{linearstrain.\+hh}
-\label{a00269_source}\index{linearstrain.hh@{linearstrain.hh}}
+\hypertarget{a00269_source}{}\doxysection{stressconversions.\+hh}
+\label{a00269_source}\index{stressconversions.hh@{stressconversions.hh}}
 \mbox{\hyperlink{a00269}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers mueller@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/fvector.hh>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/localfefunctions/eigenDuneTransformations.hh>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/localfefunctions/expressions/linearStrainsExpr.hh>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00275}{tags.hh}}"{}}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00284}{ikarus/finiteelements/mechanics/materials/materialhelpers.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00005}{ikarus/utils/tensorutils.hh}}>}}
 \DoxyCodeLine{18 }
-\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00522}{Ikarus::EAS}} \{}
-\DoxyCodeLine{24 \textcolor{keyword}{struct }\mbox{\hyperlink{a01850}{LinearStrain}}}
-\DoxyCodeLine{25 \{}
-\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} EAST>}
-\DoxyCodeLine{41   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01850_a277efa7b6486d4dfbb2a09a5475a9733}{value}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
-\DoxyCodeLine{42                     \textcolor{keyword}{const} EAST\& easFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha) \{}
-\DoxyCodeLine{43     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
-\DoxyCodeLine{44     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00536}{Dune}};}
-\DoxyCodeLine{45     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim        = GEO::mydimension;}
-\DoxyCodeLine{46     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& strainFunction = Dune::linearStrains(uFunction);}
-\DoxyCodeLine{47     \textcolor{keyword}{const} \textcolor{keyword}{auto} E               = (strainFunction.evaluate(gpPos, on(gridElement))).eval();}
-\DoxyCodeLine{48     \textcolor{keyword}{const} \textcolor{keyword}{auto} Etilde          = (easFunction(gpPos) * alpha).eval();}
-\DoxyCodeLine{49     \textcolor{keywordflow}{return} (E + Etilde).eval();}
-\DoxyCodeLine{50   \}}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{72   \textcolor{keyword}{template} <\textcolor{keywordtype}{int} wrtCoeff, \textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} EAST>}
-\DoxyCodeLine{73   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01850_a30ae373a402783bae1c5ea5869803b47}{firstDerivative}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& gpIndex,}
-\DoxyCodeLine{74                               \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos, \textcolor{keyword}{const} EAST\& easFunction,}
-\DoxyCodeLine{75                               \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha, \textcolor{keyword}{const} \textcolor{keywordtype}{int} node = sNaN) \{}
-\DoxyCodeLine{76     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 0) \{}
-\DoxyCodeLine{77       \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
-\DoxyCodeLine{78       \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00536}{Dune}};}
-\DoxyCodeLine{79       \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim        = GEO::mydimension;}
-\DoxyCodeLine{80       \textcolor{keyword}{const} \textcolor{keyword}{auto}\& strainFunction = Dune::linearStrains(uFunction);}
-\DoxyCodeLine{81       \textcolor{keyword}{const} \textcolor{keyword}{auto} bopI            = strainFunction.evaluateDerivative(gpIndex, wrt(coeff(node)), on(gridElement));}
-\DoxyCodeLine{82       \textcolor{keywordflow}{return} bopI.eval();}
-\DoxyCodeLine{83     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 1) \{}
-\DoxyCodeLine{84       \textcolor{keywordflow}{return} easFunction(gpPos);}
-\DoxyCodeLine{85     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{86       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<GEO>::value,}
-\DoxyCodeLine{87                     \textcolor{stringliteral}{"{}firstDerivative can only be called with wrtCoeff as 0 and 1 indicating first derivative of the "{}}}
-\DoxyCodeLine{88                     \textcolor{stringliteral}{"{}linear strain w.r.t d and "{}}}
-\DoxyCodeLine{89                     \textcolor{stringliteral}{"{}alpha, respectively."{}});}
-\DoxyCodeLine{90   \}}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{116   \textcolor{keyword}{template} <\textcolor{keywordtype}{int} wrtCoeff, \textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} ST, \textcolor{keyword}{typename} EAST>}
-\DoxyCodeLine{117   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01850_a6fcb11770bce6e92de6e75003ddc3a0a}{secondDerivative}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& gpIndex,}
-\DoxyCodeLine{118                                \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
-\DoxyCodeLine{119                                \textcolor{keyword}{const} Eigen::Vector<ST, GEO::mydimension*(GEO::mydimension + 1) / 2>\& S,}
-\DoxyCodeLine{120                                \textcolor{keyword}{const} EAST\& easFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha, \textcolor{keyword}{const} \textcolor{keywordtype}{int} I = sNaN, \textcolor{keyword}{const} \textcolor{keywordtype}{int} J = sNaN) \{}
-\DoxyCodeLine{121     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim              = GEO::mydimension;}
-\DoxyCodeLine{122     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} enhancedStrainSize = EAST::enhancedStrainSize;}
-\DoxyCodeLine{123     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 0) \{}
-\DoxyCodeLine{124       \textcolor{keyword}{const} \textcolor{keyword}{auto} kg = Eigen::Matrix<ST, myDim, myDim>::Zero().eval();}
-\DoxyCodeLine{125       \textcolor{keywordflow}{return} kg; \textcolor{comment}{// E\_dd}}
-\DoxyCodeLine{126     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 1) \{}
-\DoxyCodeLine{127       \textcolor{keyword}{const} \textcolor{keyword}{auto} kg = Eigen::Matrix<ST, enhancedStrainSize, enhancedStrainSize>::Zero().eval();}
-\DoxyCodeLine{128       \textcolor{keywordflow}{return} kg; \textcolor{comment}{// E\_aa}}
-\DoxyCodeLine{129     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 2) \{}
-\DoxyCodeLine{130       \textcolor{keyword}{const} \textcolor{keyword}{auto} kg = Eigen::Matrix<ST, enhancedStrainSize, myDim>::Zero().eval();}
-\DoxyCodeLine{131       \textcolor{keywordflow}{return} kg; \textcolor{comment}{// E\_ad}}
-\DoxyCodeLine{132     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{133       \textcolor{keyword}{static\_assert}(}
-\DoxyCodeLine{134           Dune::AlwaysFalse<GEO>::value,}
-\DoxyCodeLine{135           \textcolor{stringliteral}{"{}secondDerivative can only be called with wrtCoeff as 0, 1 and 2 indicating second derivative of the "{}}}
-\DoxyCodeLine{136           \textcolor{stringliteral}{"{}linear strain w.r.t d and "{}}}
-\DoxyCodeLine{137           \textcolor{stringliteral}{"{}alpha and the mixed derivative, respectively."{}});}
-\DoxyCodeLine{138   \}}
-\DoxyCodeLine{139 }
-\DoxyCodeLine{141   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01850_a55efc77ced1fadb428336239dbcaa22b}{name}}() \{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}Linear Strain"{}}); \}}
-\DoxyCodeLine{142 }
-\DoxyCodeLine{143 \textcolor{keyword}{private}:}
-\DoxyCodeLine{144   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} sNaN = std::numeric\_limits<int>::signaling\_NaN();}
-\DoxyCodeLine{145 \};}
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{32 \textcolor{keyword}{template} <StressTags tag, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{33 Derived \mbox{\hyperlink{a00510_aac5f712024c37b9014278c6b91b79f41}{createPK2Stress}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& sMB, \textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& F) \{}
+\DoxyCodeLine{34   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& S = sMB.derived();}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36   \textcolor{keyword}{static\_assert}(Concepts::EigenMatrix33<Derived> or Concepts::EigenMatrix22<Derived>);}
+\DoxyCodeLine{37   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501ea2ee21c55474972b3e65b31a6b0b57dc8}{StressTags::Cauchy}}) \{}
+\DoxyCodeLine{38     \textcolor{keyword}{auto} J    = F.determinant();}
+\DoxyCodeLine{39     \textcolor{keyword}{auto} invF = F.inverse().eval();}
+\DoxyCodeLine{40     \textcolor{keywordflow}{return} (J * invF * S * invF.transpose()).eval();}
+\DoxyCodeLine{41   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eadb46969ba633ea08a9181d8eb6218ba9}{StressTags::Kirchhoff}}) \{}
+\DoxyCodeLine{42     \textcolor{keyword}{auto} invF = F.inverse().eval();}
+\DoxyCodeLine{43     \textcolor{keywordflow}{return} (invF * S * invF.transpose()).eval();}
+\DoxyCodeLine{44   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eac34dd77ffb9238275b93ea1897664a7e}{StressTags::PK1}})}
+\DoxyCodeLine{45     \textcolor{keywordflow}{return} (F.inverse() * S).eval();}
+\DoxyCodeLine{46   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}})}
+\DoxyCodeLine{47     \textcolor{keywordflow}{return} S;}
+\DoxyCodeLine{48 \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{61 \textcolor{keyword}{template} <StressTags tag, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{62 Derived \mbox{\hyperlink{a00510_acda5fb24a857866c8be72dcb94edc70f}{createPK1Stress}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& sMB, \textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& F) \{}
+\DoxyCodeLine{63   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& S = sMB.derived();}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{keyword}{static\_assert}(Concepts::EigenMatrix33<Derived> or Concepts::EigenMatrix22<Derived>);}
+\DoxyCodeLine{66   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501ea2ee21c55474972b3e65b31a6b0b57dc8}{StressTags::Cauchy}})}
+\DoxyCodeLine{67     \textcolor{keywordflow}{return} (F.determinant() * S * F.inverse().transpose()).eval();}
+\DoxyCodeLine{68   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eadb46969ba633ea08a9181d8eb6218ba9}{StressTags::Kirchhoff}})}
+\DoxyCodeLine{69     \textcolor{keywordflow}{return} (S * F.inverse().transpose()).eval();}
+\DoxyCodeLine{70   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eac34dd77ffb9238275b93ea1897664a7e}{StressTags::PK1}})}
+\DoxyCodeLine{71     \textcolor{keywordflow}{return} S;}
+\DoxyCodeLine{72   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}})}
+\DoxyCodeLine{73     \textcolor{keywordflow}{return} (F * S).eval();}
+\DoxyCodeLine{74 \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{87 \textcolor{keyword}{template} <StressTags tag, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{88 Derived \mbox{\hyperlink{a00510_ac072123f9f65284646424ff6fb2a3661}{createKirchhoffStress}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& sMB, \textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& F) \{}
+\DoxyCodeLine{89   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& S = sMB.derived();}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91   \textcolor{keyword}{static\_assert}(Concepts::EigenMatrix33<Derived> or Concepts::EigenMatrix22<Derived>);}
+\DoxyCodeLine{92   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501ea2ee21c55474972b3e65b31a6b0b57dc8}{StressTags::Cauchy}})}
+\DoxyCodeLine{93     \textcolor{keywordflow}{return} (F.determinant() * S).eval();}
+\DoxyCodeLine{94   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eadb46969ba633ea08a9181d8eb6218ba9}{StressTags::Kirchhoff}})}
+\DoxyCodeLine{95     \textcolor{keywordflow}{return} S;}
+\DoxyCodeLine{96   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eac34dd77ffb9238275b93ea1897664a7e}{StressTags::PK1}})}
+\DoxyCodeLine{97     \textcolor{keywordflow}{return} (S * F.transpose()).eval();}
+\DoxyCodeLine{98   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}})}
+\DoxyCodeLine{99     \textcolor{keywordflow}{return} (F * S * F.transpose()).eval();}
+\DoxyCodeLine{100 \}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{113 \textcolor{keyword}{template} <StressTags tag, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{114 Derived \mbox{\hyperlink{a00510_ad5371a3a1c5123b3241a103c6c844b88}{createCauchyStress}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& sMB, \textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& F) \{}
+\DoxyCodeLine{115   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& S   = sMB.derived();}
+\DoxyCodeLine{116   \textcolor{keyword}{const} \textcolor{keyword}{auto} invJ = 1.0 / F.determinant();}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118   \textcolor{keyword}{static\_assert}(Concepts::EigenMatrix33<Derived> or Concepts::EigenMatrix22<Derived>);}
+\DoxyCodeLine{119   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501ea2ee21c55474972b3e65b31a6b0b57dc8}{StressTags::Cauchy}})}
+\DoxyCodeLine{120     \textcolor{keywordflow}{return} S;}
+\DoxyCodeLine{121   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eadb46969ba633ea08a9181d8eb6218ba9}{StressTags::Kirchhoff}})}
+\DoxyCodeLine{122     \textcolor{keywordflow}{return} (invJ * S).eval();}
+\DoxyCodeLine{123   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eac34dd77ffb9238275b93ea1897664a7e}{StressTags::PK1}})}
+\DoxyCodeLine{124     \textcolor{keywordflow}{return} (invJ * S * F.transpose()).eval();}
+\DoxyCodeLine{125   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (tag == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}})}
+\DoxyCodeLine{126     \textcolor{keywordflow}{return} (invJ * F * S * F.transpose()).eval();}
+\DoxyCodeLine{127 \}}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{141 \textcolor{keyword}{template} <StressTags from, StressTags to, \textcolor{keyword}{typename} DerivedS, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{142 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a15a168e678f7086c461b0aab8eb69349}{transformStress}}(\textcolor{keyword}{const} Eigen::MatrixBase<DerivedS>\& sRaw, \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F) \{}
+\DoxyCodeLine{143   \textcolor{keyword}{static\_assert}((from == to) or (from != \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}} and to != \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}}),}
+\DoxyCodeLine{144                 \textcolor{stringliteral}{"{}No useful transformation available for linear stresses."{}});}
+\DoxyCodeLine{145   \textcolor{keyword}{static\_assert}(Concepts::EigenMatrix33<DerivedF> or Concepts::EigenMatrix22<DerivedF>);}
 \DoxyCodeLine{146 }
-\DoxyCodeLine{147 \} \textcolor{comment}{// namespace Ikarus::EAS}}
+\DoxyCodeLine{147   \textcolor{keyword}{const} \textcolor{keyword}{auto} S = Impl::maybeFromVoigt(sRaw.derived(), \textcolor{keyword}{false});}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (from == to)}
+\DoxyCodeLine{150     \textcolor{keywordflow}{return} S;}
+\DoxyCodeLine{151   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (to == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}})}
+\DoxyCodeLine{152     \textcolor{keywordflow}{return} createPK2Stress<from>(S, F);}
+\DoxyCodeLine{153   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (to == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eac34dd77ffb9238275b93ea1897664a7e}{StressTags::PK1}})}
+\DoxyCodeLine{154     \textcolor{keywordflow}{return} createPK1Stress<from>(S, F);}
+\DoxyCodeLine{155   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (to == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eadb46969ba633ea08a9181d8eb6218ba9}{StressTags::Kirchhoff}})}
+\DoxyCodeLine{156     \textcolor{keywordflow}{return} createKirchhoffStress<from>(S, F);}
+\DoxyCodeLine{157   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (to == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501ea2ee21c55474972b3e65b31a6b0b57dc8}{StressTags::Cauchy}})}
+\DoxyCodeLine{158     \textcolor{keywordflow}{return} createCauchyStress<from>(S, F);}
+\DoxyCodeLine{159   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{160     \textcolor{keyword}{static\_assert}(to == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{StressTags::PK2}} or to == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eac34dd77ffb9238275b93ea1897664a7e}{StressTags::PK1}} or to == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eadb46969ba633ea08a9181d8eb6218ba9}{StressTags::Kirchhoff}} or}
+\DoxyCodeLine{161                   to == \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501ea2ee21c55474972b3e65b31a6b0b57dc8}{StressTags::Cauchy}});}
+\DoxyCodeLine{162 \}}
+\DoxyCodeLine{163 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

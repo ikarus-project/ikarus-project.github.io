@@ -1,8 +1,22 @@
 var a00419 =
 [
-    [ "Ikarus::AssemblerManipulator< A, ScalarAss >", "a01386.html", "a01386" ],
-    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss >", "a01390.html", "a01390" ],
-    [ "Ikarus::AssemblerManipulator< A, ScalarAss, VectorAss, MatrixAss >", "a01394.html", "a01394" ],
-    [ "BASECLASSMEMBERFUNCTION", "a00419.html#ab88748ddf71ad00ec25d8e9dabcefa82", null ],
-    [ "makeAssemblerManipulator", "a00419.html#afc83c2d114028f47280b981daf728ebe", null ]
+    [ "Ikarus::TRSettings", "a02174.html", "a02174" ],
+    [ "Ikarus::TrustRegionConfig< preConditioner, UF, IDBCF >", "a02178.html", "a02178" ],
+    [ "Ikarus::AlgoInfo", "a02186.html", "a02186" ],
+    [ "Ikarus::Stats", "a02190.html", "a02190" ],
+    [ "PreConditioner", "a00419.html#ace28d4868cfc647491f7938f04ef6c66", [
+      [ "IncompleteCholesky", "a00419.html#ace28d4868cfc647491f7938f04ef6c66a7a24b184ba388b8e327feb98dbe168ff", null ],
+      [ "IdentityPreconditioner", "a00419.html#ace28d4868cfc647491f7938f04ef6c66a7a93111b975ec3c3824eab230f3ec608", null ],
+      [ "DiagonalPreconditioner", "a00419.html#ace28d4868cfc647491f7938f04ef6c66a3c6b5404db3b7bf45a0302f376a53afc", null ]
+    ] ],
+    [ "StopReason", "a00419.html#abd5d0cf356d1ae81f6ee827b0f47c674", [
+      [ "gradientNormTolReached", "a00419.html#abd5d0cf356d1ae81f6ee827b0f47c674a0c4f44592a7ae85baf42cb3fb4a5a3d1", null ],
+      [ "correctionNormTolReached", "a00419.html#abd5d0cf356d1ae81f6ee827b0f47c674ad1c6a6016de417acc66b5ac44a1fdca3", null ],
+      [ "maximumTimeReached", "a00419.html#abd5d0cf356d1ae81f6ee827b0f47c674ad205528fe2a4412b89626ff7eee936f9", null ],
+      [ "maximumIterationsReached", "a00419.html#abd5d0cf356d1ae81f6ee827b0f47c674a5ed07f9461b91dd3a6ba961a0ed5c8fe", null ],
+      [ "dontStop", "a00419.html#abd5d0cf356d1ae81f6ee827b0f47c674a8d2fa9685be8b8f8994bd8a73bfa8c9f", null ]
+    ] ],
+    [ "createNonlinearSolver", "a00419.html#a0dd04e52f828b895e862bdb2edd8b3d1", null ],
+    [ "makeTrustRegion", "a00419.html#a37b2b44fa6cbb2b6521791bcd9a2d5f6", null ],
+    [ "TrustRegion", "a00419.html#a770b17ee7c15dbad9ad94509dcacd711", null ]
 ];

@@ -1,21 +1,36 @@
-\hypertarget{a00065}{}\doxysection{derivativetraits.\+hh File Reference}
-\label{a00065}\index{derivativetraits.hh@{derivativetraits.hh}}
+\hypertarget{a00065}{}\doxysection{functionhelper.\+hh File Reference}
+\label{a00065}\index{functionhelper.hh@{functionhelper.hh}}
 
 
-Contains derivative traits for common vbalue and derivative relations used for make\+Differentiable\+Function\+From\+Callables.  
+Helper for dune-\/functions.  
 
 
-{\ttfamily \#include $<$dune/functions/common/differentiablefunctionfromcallables.\+hh$>$}\newline
-{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
-{\ttfamily \#include $<$Eigen/\+Sparse$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/traits.\+hh$>$}\newline
+{\ttfamily \#include $<$ranges$>$}\newline
+{\ttfamily \#include $<$dune/common/float\+\_\+cmp.\+hh$>$}\newline
+{\ttfamily \#include $<$dune/grid/utility/hierarchicsearch.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/flatprebasis.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/traversal.\+hh$>$}\newline
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{a00510}{Ikarus}}
+\item 
+namespace \mbox{\hyperlink{a00531}{Ikarus\+::utils}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename... Derivative\+Args, typename Arg $>$ }\\\mbox{\hyperlink{a00510_aff7184c8b9bf7333cce42c28dc459851}{Ikarus\+::\+Derivative\+Traits\+From\+Callables}} (const Impl\+::\+Functions$<$ Derivative\+Args... $>$ \&derivatives\+Functions, Arg \&\&parameterI) -\/$>$ Derivative\+Traits\+From\+Callables$<$ Impl\+::\+Functions$<$ Derivative\+Args... $>$, Arg $>$
-\end{DoxyCompactItemize}
+{\footnotesize template$<$int size, typename LV $>$ }\\void \mbox{\hyperlink{a00505_gae9098182120929a0d21cff1c38f5ca84}{Ikarus\+::utils\+::obtain\+Lagrange\+Global\+Node\+Positions}} (const LV \&local\+View, std\+::vector$<$ \mbox{\hyperlink{a02274}{Dune\+::\+Field\+Vector}}$<$ double, size $>$ $>$ \&lagrange\+Node\+Global\+Coords)
+\begin{DoxyCompactList}\small\item\em A function to obtain the global positions of the nodes of an element with Lagrangian basis. \end{DoxyCompactList}\item 
+{\footnotesize template$<$int world\+Dim, typename Basis , Dune\+::\+Float\+Cmp\+::\+Cmp\+Style cmp\+Style = Dune\+::\+Float\+Cmp\+::\+Cmp\+Style\+::absolute$>$ }\\auto \mbox{\hyperlink{a00505_ga334aa3c552eca9519c71f6b5aac1c5b8}{Ikarus\+::utils\+::global\+Index\+From\+Global\+Position}} (const Basis \&basis, const \mbox{\hyperlink{a02274}{Dune\+::\+Field\+Vector}}$<$ double, world\+Dim $>$ \&pos)
+\begin{DoxyCompactList}\small\item\em A helper function to obtain the global index from the global positions for a Lagrange node. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename FE $>$ }\\auto \mbox{\hyperlink{a00505_ga30df35336d19b00bc5db2a0b52ce650e}{Ikarus\+::utils\+::reference\+Element\+Sub\+Entity\+Positions}} (FE \&fe, int codim)
+\begin{DoxyCompactList}\small\item\em A function to obtain the local coordinates of subentities of an Finite\+Element. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename FE $>$ }\\auto \mbox{\hyperlink{a00505_ga8c05dce8a66fc4efbe31674b87d18298}{Ikarus\+::utils\+::reference\+Element\+Vertex\+Positions}} (FE \&fe)
+\begin{DoxyCompactList}\small\item\em A function to obtain the local coordinates the vertices of an Finite\+Element. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\decltype(auto) \mbox{\hyperlink{a00531_af8ee685bd6d75a8b5f737eafd53860ae}{Ikarus\+::utils\+::maybe\+Deref}} (T \&t)
+\begin{DoxyCompactList}\small\item\em if T is a pointer type, return the dereferenced value, otherwise return the value itself. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename A $>$ \newline
+requires (std\+::is\+\_\+pointer\+\_\+v$<$std\+::remove\+\_\+cvref\+\_\+t$<$A$>$$>$ $\vert$$\vert$ traits\+::is\+Shared\+Ptr$<$std\+::remove\+\_\+cvref\+\_\+t$<$A$>$$>$\+::value)}\\auto \mbox{\hyperlink{a00531_a8a9dd9a34514881c4b30b3fdc62a62f9}{Ikarus\+::utils\+::obtain\+Forces\+Due\+To\+IDBC}} (const A \&assembler)
+\begin{DoxyCompactList}\small\item\em A helper function to compute the forces due to inhomogeneous Dirichlet BCs. \end{DoxyCompactList}\end{DoxyCompactItemize}

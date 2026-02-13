@@ -1,121 +1,130 @@
-\hypertarget{a00215_source}{}\doxysection{resultevaluators.\+hh}
-\label{a00215_source}\index{resultevaluators.hh@{resultevaluators.hh}}
+\hypertarget{a00215_source}{}\doxysection{vanishingstrain.\+hh}
+\label{a00215_source}\index{vanishingstrain.hh@{vanishingstrain.hh}}
 \mbox{\hyperlink{a00215}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/math.hh>}}
-\DoxyCodeLine{14 }
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03511}{ikarus/finiteelements/mechanics/materials.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00041}{ikarus/utils/tensorutils.hh}}>}}
-\DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00524}{Ikarus::ResultEvaluators}} \{}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{a01994}{VonMises}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00284}{materialhelpers.hh}}"{}}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03526}{ikarus/finiteelements/mechanics/materials/interface.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00221}{ikarus/finiteelements/mechanics/materials/strainconversions.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00404}{ikarus/solver/nonlinearsolver/newtonraphson.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00017}{ikarus/utils/differentiablefunction.hh}}>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00521}{Ikarus::Materials}} \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{27 \textcolor{keyword}{template} <auto strainIndexPair, \textcolor{keyword}{typename} MI>}
+\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{a01818}{VanishingStrain}} : \textcolor{keyword}{public} \mbox{\hyperlink{a01802}{Material}}<VanishingStrain<strainIndexPair, MI>>}
 \DoxyCodeLine{29 \{}
-\DoxyCodeLine{37   \textcolor{keyword}{template} <\textcolor{keyword}{typename} R>}
-\DoxyCodeLine{38   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01994_a4a16334a6d486018a77727fb2acca63c}{operator()}}(\textcolor{keyword}{const} R\& resultArray, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& pos, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe,}
-\DoxyCodeLine{39                     [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{40     \textcolor{keyword}{auto} sigma = \mbox{\hyperlink{a00506_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(resultArray, \textcolor{keyword}{false});}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{42     \textcolor{keyword}{auto} I2 = 1.0 / 2.0 * (sigma.squaredNorm() -\/ 1.0 / 3.0 * Dune::power(sigma.trace(), 2));}
-\DoxyCodeLine{43     \textcolor{keywordflow}{return} std::sqrt(3.0 * I2);}
-\DoxyCodeLine{44   \}}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{50   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01994_adc5bbea30401fd0a203237199f400872}{name}}() \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}VonMises"{}}; \}}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{56   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01994_a4fec0e03332fac9610d1f42a9e412f7f}{ncomps}}() \{ \textcolor{keywordflow}{return} 1; \}}
-\DoxyCodeLine{57 \};}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{65 \textcolor{keyword}{struct }\mbox{\hyperlink{a01998}{HydrostaticStress}}}
-\DoxyCodeLine{66 \{}
-\DoxyCodeLine{74   \textcolor{keyword}{template} <\textcolor{keyword}{typename} R>}
-\DoxyCodeLine{75   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01998_a35c0916886cd68004bedbebe4165fa97}{operator()}}(\textcolor{keyword}{const} R\& resultArray, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& pos, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe,}
-\DoxyCodeLine{76                     [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{77     \textcolor{keyword}{const} \textcolor{keyword}{auto} sigma = \mbox{\hyperlink{a00506_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(resultArray, \textcolor{keyword}{false});}
-\DoxyCodeLine{78     \textcolor{keywordflow}{return} 1.0 / sigma.rows() * sigma.trace();}
-\DoxyCodeLine{79   \}}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{85   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01998_a1cc516c9e54a36656b693f6ab7e8036f}{name}}() \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}HydrostaticStress"{}}; \}}
-\DoxyCodeLine{86 }
-\DoxyCodeLine{91   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01998_a7ad4bc9dedac16e50242b7d51d9ea2a0}{ncomps}}() \{ \textcolor{keywordflow}{return} 1; \}}
-\DoxyCodeLine{92 \};}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{101 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} dim>}
-\DoxyCodeLine{102 \textcolor{keyword}{requires}(dim == 2 or dim == 3)}
-\DoxyCodeLine{103 \textcolor{keyword}{struct} \mbox{\hyperlink{a02002}{PrincipalStress}}}
-\DoxyCodeLine{104 \{}
-\DoxyCodeLine{111   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02002_aafc25c13807fda614d68992dcd4923ae}{operator()}}(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& resultArray, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& pos, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe,}
-\DoxyCodeLine{112                     \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{113     \textcolor{keyword}{auto} mat = \mbox{\hyperlink{a00506_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(resultArray, \textcolor{keyword}{false});}
-\DoxyCodeLine{114     Eigen::SelfAdjointEigenSolver<\textcolor{keyword}{decltype}(mat)> eigensolver(mat, Eigen::EigenvaluesOnly);}
-\DoxyCodeLine{115     \textcolor{keywordflow}{return} eigensolver.eigenvalues().reverse()[comp];}
-\DoxyCodeLine{116   \}}
-\DoxyCodeLine{117 }
-\DoxyCodeLine{122   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a02002_a0a21ea2d96efed17295f27a0001dcd7c}{name}}() \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}PrincipalStress"{}}; \}}
-\DoxyCodeLine{123 }
-\DoxyCodeLine{128   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{a02002_a34a91abd5ffcb880813bd1fb90b221b6}{ncomps}}() \{ \textcolor{keywordflow}{return} dim; \}}
-\DoxyCodeLine{129 \};}
-\DoxyCodeLine{130 }
-\DoxyCodeLine{137 \textcolor{keyword}{struct }\mbox{\hyperlink{a02006}{Triaxiality}}}
-\DoxyCodeLine{138 \{}
-\DoxyCodeLine{146   \textcolor{keyword}{template} <\textcolor{keyword}{typename} R>}
-\DoxyCodeLine{147   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02006_a14fd89ab2a84416e5f1024c9930f7371}{operator()}}(\textcolor{keyword}{const} R\& resultArray, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& pos, [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe,}
-\DoxyCodeLine{148                     [[maybe\_unused]] \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{149     \textcolor{keyword}{auto} sigeq = \mbox{\hyperlink{a01994}{VonMises}}\{\}(resultArray, pos, fe, 0);}
-\DoxyCodeLine{150     \textcolor{keyword}{auto} sigm  = \mbox{\hyperlink{a01998}{HydrostaticStress}}\{\}(resultArray, pos, fe, 0);}
-\DoxyCodeLine{151     \textcolor{keywordflow}{return} sigm / sigeq;}
-\DoxyCodeLine{152   \}}
-\DoxyCodeLine{157   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a02006_a04443562de6bf1cf72a27db2f33b5e16}{name}}() \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Triaxiality"{}}; \}}
-\DoxyCodeLine{158 }
-\DoxyCodeLine{163   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{a02006_a2208295b62e03319c06b599b0079bf83}{ncomps}}() \{ \textcolor{keywordflow}{return} 1; \}}
-\DoxyCodeLine{164 \};}
-\DoxyCodeLine{165 }
-\DoxyCodeLine{171 \textcolor{keyword}{struct }\mbox{\hyperlink{a02010}{PolarStress}}}
-\DoxyCodeLine{172 \{}
-\DoxyCodeLine{173   \mbox{\hyperlink{a02010_ab7bd86fc0638f4c9b779153c69d917d4}{PolarStress}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, 2>}}\& origin)}
-\DoxyCodeLine{174       : origin\_(origin) \{\}}
-\DoxyCodeLine{175 }
-\DoxyCodeLine{183   \textcolor{keyword}{template} <\textcolor{keyword}{typename} R>}
-\DoxyCodeLine{184   \textcolor{keywordtype}{double} \mbox{\hyperlink{a02010_a22590930fe4d5d2d5e5a323cd3085cdb}{operator()}}(\textcolor{keyword}{const} R\& resultArray, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& pos, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& fe, \textcolor{keyword}{const} \textcolor{keywordtype}{int} comp)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{185     \textcolor{keyword}{static\_assert}(R::CompileTimeTraits::RowsAtCompileTime == 3, \textcolor{stringliteral}{"{}PolarStress is only valid for 2D."{}});}
-\DoxyCodeLine{186     \textcolor{keywordflow}{if} (comp > 2)}
-\DoxyCodeLine{187       DUNE\_THROW(Dune::RangeError, \textcolor{stringliteral}{"{}PolarStress: Comp out of range."{}});}
-\DoxyCodeLine{188 }
-\DoxyCodeLine{189     \textcolor{comment}{// Offset to center the coordinate system in the reference geometry}}
-\DoxyCodeLine{190     \mbox{\hyperlink{a02274}{Dune::FieldVector<double, 2>}} posGlobal = fe.geometry().global(pos) -\/ origin\_;}
-\DoxyCodeLine{191     \textcolor{keyword}{auto} theta                             = std::atan2(posGlobal[1], posGlobal[0]);}
-\DoxyCodeLine{192 }
-\DoxyCodeLine{193     \textcolor{keyword}{const} \textcolor{keyword}{auto} sigma = \mbox{\hyperlink{a00506_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(resultArray, \textcolor{keyword}{false});}
-\DoxyCodeLine{194     Eigen::Rotation2D<double> r(theta);}
-\DoxyCodeLine{195 }
-\DoxyCodeLine{196     \textcolor{comment}{// deliberately not evaluating this that it stays an expression for below}}
-\DoxyCodeLine{197     \textcolor{keyword}{auto} polarStress = r.inverse() * sigma * r;}
-\DoxyCodeLine{198     \textcolor{keywordflow}{switch} (comp) \{}
-\DoxyCodeLine{199       \textcolor{keywordflow}{case} 0:}
-\DoxyCodeLine{200         \textcolor{keywordflow}{return} polarStress(0, 0);}
-\DoxyCodeLine{201       \textcolor{keywordflow}{case} 1:}
-\DoxyCodeLine{202         \textcolor{keywordflow}{return} polarStress(1, 1);}
-\DoxyCodeLine{203       \textcolor{keywordflow}{case} 2:}
-\DoxyCodeLine{204         \textcolor{keywordflow}{return} polarStress(1, 0);}
-\DoxyCodeLine{205       \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{206         \_\_builtin\_unreachable();}
-\DoxyCodeLine{207     \}}
-\DoxyCodeLine{208   \}}
-\DoxyCodeLine{209 }
-\DoxyCodeLine{214   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a02010_affc08b406cc3750e46dff706eefd7ee6}{name}}() \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}PolarStress"{}}; \}}
-\DoxyCodeLine{215 }
-\DoxyCodeLine{220   \textcolor{keyword}{constexpr} \textcolor{keyword}{static} \textcolor{keywordtype}{int} \mbox{\hyperlink{a02010_a2b4c9a468e74dbbb93f6f6613cf07f7d}{ncomps}}() \{ \textcolor{keywordflow}{return} 3; \}}
-\DoxyCodeLine{221 }
-\DoxyCodeLine{222 \textcolor{keyword}{private}:}
-\DoxyCodeLine{223   \mbox{\hyperlink{a02274}{Dune::FieldVector<double, 2>}} origin\_;}
-\DoxyCodeLine{224 \};}
-\DoxyCodeLine{225 }
-\DoxyCodeLine{226 \} \textcolor{comment}{// namespace Ikarus::ResultEvaluators}}
+\DoxyCodeLine{30   \textcolor{keyword}{using }\mbox{\hyperlink{a01818_acfd42d1cfd231b255566e6105831dd83}{Underlying}}         = MI;                              }
+\DoxyCodeLine{31   \textcolor{keyword}{using }\mbox{\hyperlink{a01818_adef726aa7dd9d9caeb040b8e9021c1c6}{ScalarType}}         = \textcolor{keyword}{typename} Underlying::ScalarType; }
+\DoxyCodeLine{32   \textcolor{keyword}{using }\mbox{\hyperlink{a01818_ae2a3c2ed382992156a4f045ddacd4811}{MaterialParameters}} = \textcolor{keyword}{typename} Underlying::MaterialParameters;}
+\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a01818_ab9fb14bfbaaa1c2a32c4dc51a289d82a}{StrainMatrix}}       = \textcolor{keyword}{typename} Underlying::StrainMatrix;}
+\DoxyCodeLine{34   \textcolor{keyword}{using }\mbox{\hyperlink{a01818_a65ee526bd420577f96d6f892865091a6}{StressMatrix}}       = \textcolor{keyword}{typename} Underlying::StressMatrix;}
+\DoxyCodeLine{35   \textcolor{keyword}{using }\mbox{\hyperlink{a01818_ac2b3490ac22b0367864abbb9d9c64edb}{MaterialTensor}}     = \textcolor{keyword}{typename} Underlying::MaterialTensor;}
+\DoxyCodeLine{36   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01818_a6f8ea322e5e9fbce2c403f7c4324dd53}{dim}} = Underlying::dim;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01818_adc472e73bd4a5d3d6275e441e03abf9b}{fixedPairs}}        = strainIndexPair; }
+\DoxyCodeLine{39   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01818_ada0ce2ca22176f5ad77b585a8074469d}{freeVoigtIndices}}  = Impl::createfreeVoigtIndices(\mbox{\hyperlink{a01818_adc472e73bd4a5d3d6275e441e03abf9b}{fixedPairs}});  }
+\DoxyCodeLine{40   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01818_a9a971e98d2d363a27c8736ef90656bb6}{fixedVoigtIndices}} = Impl::createFixedVoigtIndices(\mbox{\hyperlink{a01818_adc472e73bd4a5d3d6275e441e03abf9b}{fixedPairs}}); }
+\DoxyCodeLine{41   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01818_a1b8acf0d2fa2bf072df8adcf17070f8f}{freeStrains}}       = \mbox{\hyperlink{a01818_ada0ce2ca22176f5ad77b585a8074469d}{freeVoigtIndices}}.size();                   }
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01818_a1f7a5f5b28a864dccd52725ef75fae1c}{strainTag}}              = Underlying::strainTag;            }
+\DoxyCodeLine{44   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01818_ac352289dd8b49f0bc24750efc2efa33e}{stressTag}}              = Underlying::stressTag;            }
+\DoxyCodeLine{45   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01818_a4253aef6798275650bc6f8fcefbd0846}{tangentModuliTag}}       = Underlying::tangentModuliTag;     }
+\DoxyCodeLine{46   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01818_a21f96c09bd4f2fedcbd9fc09d3dc917a}{energyAcceptsVoigt}}     = Underlying::energyAcceptsVoigt;   }
+\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01818_a07ba2fd1d665fb6e13c468f9c331ea46}{stressToVoigt}}          = \textcolor{keyword}{true};                             }
+\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01818_aaf558e549ef40a00c4519fac11ae93ed}{stressAcceptsVoigt}}     = \textcolor{keyword}{true};                             }
+\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01818_aabf916772e47d33c723dd15260cb5a34}{moduliToVoigt}}          = \textcolor{keyword}{true};                             }
+\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01818_adf5e8d3f4253af3e58c2421cbb502907}{moduliAcceptsVoigt}}     = \textcolor{keyword}{true};                             }
+\DoxyCodeLine{51   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} \mbox{\hyperlink{a01818_abd833fb16b68d5a89f7624d1b459f9d3}{derivativeFactorImpl}} = Underlying::derivativeFactorImpl; }
+\DoxyCodeLine{52 }
+\DoxyCodeLine{57   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01818_a4bdd8f990e468c1d3be3aac03c75dbd2}{VanishingStrain}}(MI mat)}
+\DoxyCodeLine{58       : matImpl\_\{mat\} \{\}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string \mbox{\hyperlink{a01818_a1e46c85b67800d0e2d513ea7574d8410}{nameImpl}}() noexcept \{}
+\DoxyCodeLine{61     \textcolor{keyword}{auto} matName = MI::name() + \textcolor{stringliteral}{"{}\_VanishingStrain("{}};}
+\DoxyCodeLine{62     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} p : \mbox{\hyperlink{a01818_adc472e73bd4a5d3d6275e441e03abf9b}{fixedPairs}})}
+\DoxyCodeLine{63       matName += \textcolor{stringliteral}{"{}("{}} + std::to\_string(p.row) + std::to\_string(p.col) + \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{64     matName += \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{65     \textcolor{keywordflow}{return} matName;}
+\DoxyCodeLine{66   \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{71   \mbox{\hyperlink{a01818_ae2a3c2ed382992156a4f045ddacd4811}{MaterialParameters}} \mbox{\hyperlink{a01818_a00304d9ddfcd5133bcf1a57e12179f66}{materialParametersImpl}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} matImpl\_.materialParametersImpl(); \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{79   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{80   \mbox{\hyperlink{a01818_adef726aa7dd9d9caeb040b8e9021c1c6}{ScalarType}} \mbox{\hyperlink{a01818_a0d0d616db11f4a4ffe7a63578d4747e2}{storedEnergyImpl}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{81     \textcolor{keyword}{const} \textcolor{keyword}{auto} Esol = reduceStrain(E);}
+\DoxyCodeLine{82     \textcolor{keywordflow}{return} matImpl\_.storedEnergyImpl(Esol);}
+\DoxyCodeLine{83   \}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{92   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{93   \textcolor{keyword}{auto} \mbox{\hyperlink{a01818_aa29dd3baf16c20438b69d5f3e6590b57}{stressesImpl}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{94     \textcolor{keyword}{const} \textcolor{keyword}{auto} Esol  = reduceStrain(E);}
+\DoxyCodeLine{95     \textcolor{keyword}{auto} stressesRed = matImpl\_.template stresses<Underlying::strainTag, true>(Esol);}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (voigt) \{}
+\DoxyCodeLine{98       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00505_ga2f675229501979101656ec4dee7764d5}{removeCol}}(stressesRed, \mbox{\hyperlink{a01818_a9a971e98d2d363a27c8736ef90656bb6}{fixedVoigtIndices}});}
+\DoxyCodeLine{99     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{100       stressesRed(\mbox{\hyperlink{a01818_a9a971e98d2d363a27c8736ef90656bb6}{fixedVoigtIndices}}).setZero();}
+\DoxyCodeLine{101       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00506_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(stressesRed, \textcolor{keyword}{false});}
+\DoxyCodeLine{102     \}}
+\DoxyCodeLine{103   \}}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{112   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{113   \textcolor{keyword}{auto} \mbox{\hyperlink{a01818_aa7bd7e40c6b4995a6e33dfba4ab88de0}{tangentModuliImpl}}(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{114     \textcolor{keyword}{const} \textcolor{keyword}{auto} Esol = reduceStrain(E);}
+\DoxyCodeLine{115     \textcolor{keyword}{auto} C          = matImpl\_.template tangentModuli<Underlying::strainTag, true>(Esol);}
+\DoxyCodeLine{116     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (voigt)}
+\DoxyCodeLine{117       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_af366ed9ed9329aecf202c8b170476efa}{reduceMatrix}}(C, \mbox{\hyperlink{a01818_a9a971e98d2d363a27c8736ef90656bb6}{fixedVoigtIndices}});}
+\DoxyCodeLine{118     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{119       \textcolor{keywordflow}{return} \mbox{\hyperlink{a00506_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(C);}
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{127   \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarTypeOther>}
+\DoxyCodeLine{128   \textcolor{keyword}{auto} \mbox{\hyperlink{a01818_ad3b8dcc13b0daf689a7efd6a26211fce}{rebind}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{129     \textcolor{keyword}{auto} reboundMatImpl = matImpl\_.template rebind<ScalarTypeOther>();}
+\DoxyCodeLine{130     \textcolor{keywordflow}{return} \mbox{\hyperlink{a01818}{VanishingStrain<strainIndexPair, decltype(reboundMatImpl)>}}(reboundMatImpl);}
+\DoxyCodeLine{131   \}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{136   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01818_a954b8a5a4b8173783451c471462df9b1}{underlying}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} matImpl\_; \}}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138 \textcolor{keyword}{private}:}
+\DoxyCodeLine{139   \mbox{\hyperlink{a01818_acfd42d1cfd231b255566e6105831dd83}{Underlying}} matImpl\_; }
+\DoxyCodeLine{140 }
+\DoxyCodeLine{147   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{148   \textcolor{keyword}{auto} reduceStrain(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& Eraw)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{149     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01818_a1f7a5f5b28a864dccd52725ef75fae1c}{strainTag}} == \mbox{\hyperlink{a00499_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}} or \mbox{\hyperlink{a01818_a1f7a5f5b28a864dccd52725ef75fae1c}{strainTag}} == \mbox{\hyperlink{a00499_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e}{StrainTags::greenLagrangian}}) \{}
+\DoxyCodeLine{150       Eigen::Matrix3<ScalarType> E = Impl::maybeFromVoigt(Eraw);}
+\DoxyCodeLine{151       setStrainsToZero(E);}
+\DoxyCodeLine{152       \textcolor{keywordflow}{return} E;}
+\DoxyCodeLine{153     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{154       \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) E               = Impl::maybeFromVoigt(Eraw);}
+\DoxyCodeLine{155       Eigen::Matrix3<ScalarType> Egl = transformStrain<strainTag, StrainTags::greenLagrangian>(E);}
+\DoxyCodeLine{156       setStrainsToZero(Egl);}
+\DoxyCodeLine{157       \textcolor{keywordflow}{return} transformStrain<StrainTags::greenLagrangian, strainTag>(Egl).derived();}
+\DoxyCodeLine{158     \}}
+\DoxyCodeLine{159   \}}
+\DoxyCodeLine{163   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} setStrainsToZero(\textcolor{keyword}{auto}\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{164     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} [i, j] : \mbox{\hyperlink{a01818_adc472e73bd4a5d3d6275e441e03abf9b}{fixedPairs}}) \{}
+\DoxyCodeLine{165       E(i, j) = 0;}
+\DoxyCodeLine{166       E(j, i) = 0;}
+\DoxyCodeLine{167     \}}
+\DoxyCodeLine{168   \}}
+\DoxyCodeLine{169 \};}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{178 \textcolor{keyword}{template} <MatrixIndexPair... strainIndexPair, \textcolor{keyword}{typename} MaterialImpl>}
+\DoxyCodeLine{179 \textcolor{keyword}{auto} \mbox{\hyperlink{a00521_a03d13518406d1cd5bb2a34aca2f95f01}{makeVanishingStrain}}(MaterialImpl mat) \{}
+\DoxyCodeLine{180   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01818}{VanishingStrain}}<std::to\_array(\{strainIndexPair...\}), MaterialImpl>(mat);}
+\DoxyCodeLine{181 \}}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{195 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MaterialImpl>}
+\DoxyCodeLine{196 \textcolor{keyword}{auto} \mbox{\hyperlink{a00521_a5b428881c8ea5104acd909e769b7910b}{planeStrain}}(\textcolor{keyword}{const} MaterialImpl\& mat) \{}
+\DoxyCodeLine{197   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00521_a03d13518406d1cd5bb2a34aca2f95f01}{makeVanishingStrain}}<\mbox{\hyperlink{a01810}{MatrixIndexPair}}\{2, 1\}, \mbox{\hyperlink{a01810}{MatrixIndexPair}}\{2, 0\}, \mbox{\hyperlink{a01810}{MatrixIndexPair}}\{2, 2\}>(mat);}
+\DoxyCodeLine{198 \}}
+\DoxyCodeLine{199 \} \textcolor{comment}{// namespace Ikarus::Materials}}
 
 \end{DoxyCode}

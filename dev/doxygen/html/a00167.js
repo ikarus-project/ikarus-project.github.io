@@ -1,9 +1,8 @@
 var a00167 =
 [
-    [ "Ikarus::NewtonRaphsonWithSubsidiaryFunctionSettings", "a02130.html", "a02130" ],
-    [ "Ikarus::NewtonRaphsonWithSubsidiaryFunctionConfig< LS, UF, IDBCF >", "a02134.html", "a02134" ],
-    [ "Ikarus::NewtonRaphsonWithSubsidiaryFunction< F, LS, UF, IDBCF >", "a02126.html", "a02126" ],
-    [ "createNonlinearSolver", "a00167.html#aae249dcc52532518f85210c207fec191", null ],
-    [ "makeNewtonRaphsonWithSubsidiaryFunction", "a00167.html#af3c1ebc1046beb63f685666512e31950", null ],
-    [ "NewtonRaphsonWithSubsidiaryFunction", "a00167.html#af2b050096cfcafc8ad9f5fc7d2fc2b83", null ]
+    [ "globalIndices", "a00167.html#a44e16df41148f7e4538be224814a3423", null ],
+    [ "globalIndicesFromLocalView", "a00167.html#a2a4ac5503d4288b339457aae427ff661", null ],
+    [ "localSolutionBlockVector", "a00167.html#a899043a23720a93e6ce9be9025c3a4bb", null ],
+    [ "localSolutionBlockVectorComposite", "a00167.html#a2320eb085498437e5b77756b9615dbc8", null ],
+    [ "localSolutionBlockVectorScalar", "a00167.html#ae030e22f45542ff5c9568e7884b38713", null ]
 ];
