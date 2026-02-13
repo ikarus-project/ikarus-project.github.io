@@ -1,0 +1,593 @@
+<!--
+SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de
+SPDX-License-Identifier: LGPL-3.0-or-later
+-->
+<!-- HTML header for doxygen 1.8.13-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="generator" content="Doxygen 1.9.4"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- BEGIN opengraph metadata -->
+    <meta property="og:title" content="Ikarus documentation" />
+    <meta property="og:image" content="https://github.com/ikarus-project/ikarus/blob/e7b4aafc04e24f41c5aa6ee0f18e105d1aebefcc/docs/website/auxiliaryImages/BigLogo.png" />
+    <meta property="og:description" content="Code documentation of the open-source C++ finite element library Ikarus." />
+    <meta property="og:url" content="https://github.com/ikarus-project/ikarus/main/" />
+    <!-- END opengraph metadata -->
+<!--    &lt;!&ndash; BEGIN twitter metadata &ndash;&gt;-->
+<!--    <meta name="twitter:image:src" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
+<!--    <meta name="twitter:title" content="Dumux documentation" />-->
+<!--    <meta name="twitter:description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
+<!--    &lt;!&ndash; END twitter metadata &ndash;&gt;-->
+<!--    &lt;!&ndash; BEGIN Google+ metadata&ndash;&gt;-->
+<!--    <meta itemprop="name" content="Dumux documentation" />-->
+<!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
+<!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
+<!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
+    <title>ikarus: nonlinearelastic.hh Source File</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeFragmentCopyButton.init()
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeParagraphLink.init()
+        DoxygenAwesomeInteractiveToc.init()
+    </script>
+    <script type="text/javascript" src="ikarus-custom.js"></script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/require']
+  },
+  tex: {
+    macros: {    tr: "{\\mathrm{tr}\\,}",
+    BF: "{\\mathbf{F}}",
+    BC: "{\\mathbf{C}}",
+    BS: "{\\mathbf{S}}",
+    BE: "{\\mathbf{E}}",
+    BI: "{\\mathbf{I}}",
+    BBC: "{\\mathbb{C}}",
+    CI: "{\\mathcal{I}}",
+    de: "{\\delta}",
+    al: "{\\alpha}",
+    la: "{\\lambda}",
+    Bvep: "{\\boldsymbol\\varepsilon}",
+    fracpt: ["{\\frac{\\partial #1}{\\partial #2}}",2],
+    },
+    packages: ['base','configmacros','newcommand','require']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="ikarus-custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/-->
+<a href="https://github.com/ikarus-project/ikarus" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<!--MERMAID GRAPHS-->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!--MERMAID GRAPHS-->
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+    <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr style="height: 56px;">
+                <td id="projectlogo"><a href="index.html"><img alt="Logo" src="BigLogo_transparent.png" width="150px"/></a></td>
+                <td id="projectalign" style="padding-left: 0.5em;">
+                    <div id="projectname">
+                        &#160;<span id="projectnumber">version 0.4.8</span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end header part -->
+<!-- Generated by Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('a00320_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">nonlinearelastic.hh</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="a00320.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#if HAVE_DUNE_LOCALFEFUNCTIONS</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">  #include &lt;dune/fufem/boundarypatch.hh&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">  #include &lt;dune/geometry/quadraturerules.hh&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">  #include &lt;dune/geometry/type.hh&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">  #include &lt;dune/localfefunctions/cachedlocalBasis/cachedlocalBasis.hh&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">  #include &lt;dune/localfefunctions/expressions/greenLagrangeStrains.hh&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">  #include &lt;dune/localfefunctions/impl/standardLocalFunction.hh&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">  #include &lt;dune/localfefunctions/manifolds/realTuple.hh&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">  #include &lt;<a class="code" href="a00332.html">ikarus/finiteelements/febase.hh</a>&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">  #include &lt;<a class="code" href="a00167.html">ikarus/finiteelements/fehelper.hh</a>&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">  #include &lt;<a class="code" href="a00329.html">ikarus/finiteelements/ferequirements.hh</a>&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">  #include &lt;<a class="code" href="a00212.html">ikarus/finiteelements/mechanics/loads.hh</a>&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">  #include &lt;<a class="code" href="a00221.html">ikarus/finiteelements/mechanics/materials/strainconversions.hh</a>&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">  #include &lt;<a class="code" href="a00269.html">ikarus/finiteelements/mechanics/materials/stressconversions.hh</a>&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">  #include &lt;<a class="code" href="a00275.html">ikarus/finiteelements/mechanics/materials/tags.hh</a>&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">  #include &lt;<a class="code" href="a00308.html">ikarus/finiteelements/mechanics/strainenhancements/easfunctions.hh</a>&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">  #include &lt;<a class="code" href="a00158.html">ikarus/finiteelements/physicshelper.hh</a>&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">  #include &lt;<a class="code" href="a00077.html">ikarus/utils/defaultfunctions.hh</a>&gt;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">  #include &lt;<a class="code" href="a00020.html">ikarus/utils/eigendunetransformations.hh</a>&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">  #include &lt;<a class="code" href="a00059.html">ikarus/utils/linearalgebrahelper.hh</a>&gt;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">  #include &lt;<a class="code" href="a00074.html">ikarus/utils/quadraturerulehelper.hh</a>&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00510.html">Ikarus</a> {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> PreFE, <span class="keyword">typename</span> FE, <span class="keyword">typename</span> PRE&gt;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">class </span>NonLinearElastic;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">template</span> &lt;Concepts::Material MAT&gt;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a01834.html">   45</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01834.html">NonLinearElasticPre</a></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a01834.html#a4c8087e2be5010d73080ef779b7e28d4">   47</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01834.html#a4c8087e2be5010d73080ef779b7e28d4">Material</a> = MAT;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a01834.html#a983a021a10b97dbdea1f88dc6c7a6c56">   48</a></span>  MAT <a class="code hl_variable" href="a01834.html#a983a021a10b97dbdea1f88dc6c7a6c56">material</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> PreFE, <span class="keyword">typename</span> FE&gt;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a01834.html#a456c36e04e5b50916a299d5a3efceb23">   51</a></span>  <span class="keyword">using </span><a class="code hl_class" href="a01830.html">Skill</a> = <a class="code hl_class" href="a01830.html">NonLinearElastic&lt;PreFE, FE, NonLinearElasticPre&gt;</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> PreFE, <span class="keyword">typename</span> FE, <span class="keyword">typename</span> PRE&gt;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a01830.html">   64</a></span><span class="keyword">class </span><a class="code hl_class" href="a01830.html">NonLinearElastic</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a01558.html">ResultTypeBase</a>&lt;ResultTypes::PK2Stress, ResultTypes::PK2StressFull,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                                               ResultTypes::kirchhoffStress, ResultTypes::cauchyStress&gt;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a01830.html#a4e4da0d13fa890c98119b9719b2e3e79">   68</a></span>  <span class="keyword">using </span><a class="code hl_struct" href="a01562.html">Traits</a>      = <a class="code hl_typedef" href="a01510.html#a826c356a5afb013faffb5f7ac893cff4">PreFE::Traits</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a01830.html#a065dde2d39e9448e9133495f78f7c0c6">   69</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#a065dde2d39e9448e9133495f78f7c0c6">Basis</a>       = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01562.html#a3385bd97c39ebfede2dc6eac609022c8">Traits::Basis</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a01830.html#a187fd5fbc2a5d42fcf9b5b80c5a3759e">   70</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#a187fd5fbc2a5d42fcf9b5b80c5a3759e">FlatBasis</a>   = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01562.html#a81feef959fedef62b2e1daabbd52b5f2">Traits::FlatBasis</a>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a01830.html#a6302108caed08123cb8e56109ae95383">   71</a></span>  <span class="keyword">using </span><a class="code hl_class" href="a01526.html">Requirement</a> = <a class="code hl_class" href="a01526.html">FERequirements&lt;FESolutions::displacement, FEParameter::loadfactor&gt;</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a01830.html#adac120cca783f4cccb83be6606c11db5">   72</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#adac120cca783f4cccb83be6606c11db5">LocalView</a>   = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01562.html#a06bdad066f621e46875af45a22677a3c">Traits::LocalView</a>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a01830.html#a0b822da239b00331cc6f5a952976ef1e">   73</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#a0b822da239b00331cc6f5a952976ef1e">Geometry</a>    = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01562.html#a0b7be1104fba2d190e3fed46f291a851">Traits::Geometry</a>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="a01830.html#a4e116f42a26bae100cd0cc80e8229662">   74</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#a4e116f42a26bae100cd0cc80e8229662">GridView</a>    = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01562.html#a3ec0294824df467074f5070cb58f5a91">Traits::GridView</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="a01830.html#a9026fe0824718ef0a81c36d220a18f91">   75</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#a9026fe0824718ef0a81c36d220a18f91">Element</a>     = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01562.html#ac4668b9c9142defdf3b70cca8eeb30c4">Traits::Element</a>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="a01830.html#a301b03982ef1629b26bac4e6ab522797">   76</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#a301b03982ef1629b26bac4e6ab522797">Material</a>    = PRE::Material;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a01830.html#a91becdb2e38a2e60e5b89ed140326d07">   77</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#a91becdb2e38a2e60e5b89ed140326d07">Pre</a>         = PRE;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a01830.html#ae293c7bd388b1ccb4391066481104220">   79</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#ae293c7bd388b1ccb4391066481104220">LocalBasisType</a> = <span class="keyword">decltype</span>(std::declval&lt;LocalView&gt;().tree().child(0).finiteElement().localBasis());</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST&gt;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">   82</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">VectorXOptRef</a> = std::optional&lt;std::reference_wrapper&lt;const Eigen::VectorX&lt;ST&gt;&gt;&gt;;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a01830.html#a75f37a35f01f4440faec8355c25e85e7">   84</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="a01830.html#a75f37a35f01f4440faec8355c25e85e7">myDim</a>       = <a class="code hl_variable" href="a01562.html#ae15b8efa9f66a3caee81d99dd5c648de">Traits::mydim</a>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a01830.html#ab6d202ad9add3c430c1cd72ab94a8217">   85</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="a01830.html#ab6d202ad9add3c430c1cd72ab94a8217">strainDim</a>   = <a class="code hl_variable" href="a01830.html#a75f37a35f01f4440faec8355c25e85e7">myDim</a> * (<a class="code hl_variable" href="a01830.html#a75f37a35f01f4440faec8355c25e85e7">myDim</a> + 1) / 2;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a01830.html#acc4cb40454bb3dd2b78b283f8bfc13d1">   86</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_variable" href="a01830.html#acc4cb40454bb3dd2b78b283f8bfc13d1">strainType</a> = <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">StrainTags::greenLagrangian</a>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="a01830.html#a81925b6a91a49c25b362a88f9e2b93a0">   87</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_variable" href="a01830.html#a81925b6a91a49c25b362a88f9e2b93a0">stressType</a> = <a class="code hl_enumvalue" href="a00499.html#gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21">StressTags::PK2</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  <span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>&gt; <span class="keyword">class </span>RT&gt;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="a01830.html#ae7bb1ebeaad5a927fdf932c5fe3f3c3d">   90</a></span>  <span class="keyword">using </span><a class="code hl_struct" href="a01546.html">RTWrapperType</a> = <a class="code hl_struct" href="a01546.html">ResultWrapper&lt;RT&lt;typename Traits::ctype, myDim, Traits::worlddim&gt;</a>, <a class="code hl_enumvalue" href="a00510.html#acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110">ResultShape::Vector</a>&gt;;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST = <span class="keywordtype">double</span>&gt;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="a01830.html#ad212a47fbc73d74b35c410f2de87e002">   93</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#ad212a47fbc73d74b35c410f2de87e002">StrainType</a> = Eigen::Vector&lt;ST, strainDim&gt;;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST = <span class="keywordtype">double</span>&gt;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="a01830.html#a20a06da43724c8d2ad8e660866f7ded7">   96</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#a20a06da43724c8d2ad8e660866f7ded7">BopType</a> = Eigen::Matrix&lt;ST, strainDim, myDim&gt;;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST = <span class="keywordtype">double</span>&gt;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a01830.html#a9788649084ac7e8a32172b14c8e54c5a">   99</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01830.html#a9788649084ac7e8a32172b14c8e54c5a">KgType</a> = Eigen::Matrix&lt;ST, myDim, myDim&gt;;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a01830.html#a8ddec62cfc736709c438a23e9dd71961">  105</a></span>  <span class="keyword">explicit</span> <a class="code hl_function" href="a01830.html#a8ddec62cfc736709c438a23e9dd71961">NonLinearElastic</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a91becdb2e38a2e60e5b89ed140326d07">Pre</a>&amp; pre)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>      : mat_{pre.<a class="code hl_function" href="a01830.html#a881c2f56424f21b925f6fee08f2b83b2">material</a>} {}</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="a01830.html#a50f23fc87d7be6cd1c7e8a0662e81040">  112</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a01830.html#a50f23fc87d7be6cd1c7e8a0662e81040">bindImpl</a>() {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; localView = underlying().localView();</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; element   = localView.element();</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keyword">auto</span>&amp; firstChild      = localView.tree().child(0);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; fe        = firstChild.finiteElement();</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    geo_                  = std::make_shared&lt;const Geometry&gt;(element.geometry());</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    numberOfNodes_        = fe.size();</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    order_                = fe.localBasis().order();</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    localBasis_           = Dune::CachedLocalBasis(fe.localBasis());</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">if</span> (underlying().quadratureRule())</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>      localBasis_.bind(underlying().quadratureRule().value(), Dune::bindDerivatives(0, 1));</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>      localBasis_.bind(defaultQuadratureRule&lt;myDim&gt;(element, 2 * order_), Dune::bindDerivatives(0, 1));</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  }</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType = <span class="keywordtype">double</span>&gt;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a01830.html#afa521e1c97803cd8456a9d16ddc36760">  137</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#afa521e1c97803cd8456a9d16ddc36760">displacementFunction</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">Requirement</a>&amp; par, <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">VectorXOptRef&lt;ScalarType&gt;</a>&amp; dx = std::nullopt)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; d = par.<a class="code hl_function" href="a01526.html#a9701fdddf89b019507963dd2f68912da">globalSolution</a>();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keyword">auto</span> disp     = Ikarus::FEHelper::localSolutionBlockVector&lt;Traits&gt;(d, underlying().localView(), dx);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    Dune::StandardLocalFunction uFunction(localBasis_, disp, geo_);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">return</span> uFunction;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>  }</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType = <span class="keywordtype">double</span>&gt;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="a01830.html#a0557b74d237d37ec2fbe85cfff7019f2">  153</a></span>  <span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#a0557b74d237d37ec2fbe85cfff7019f2">strainFunction</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">Requirement</a>&amp; par, <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">VectorXOptRef&lt;ScalarType&gt;</a>&amp; dx = std::nullopt)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">return</span> Dune::greenLagrangeStrains(<a class="code hl_function" href="a01830.html#afa521e1c97803cd8456a9d16ddc36760">displacementFunction</a>(par, dx));</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>  }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType, <span class="keywordtype">int</span> strainDim&gt;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="a01830.html#ac71b3594bd15a334419b201a6735bcae">  166</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#ac71b3594bd15a334419b201a6735bcae">internalEnergy</a>(<span class="keyword">const</span> Eigen::Vector&lt;ScalarType, strainDim&gt;&amp; strain)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">return</span> material&lt;ScalarType&gt;().template storedEnergy&lt;strainType&gt;(strain);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>  }</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType, <span class="keywordtype">int</span> strainDim, <span class="keywordtype">bool</span> voigt = true&gt;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="a01830.html#af80a52513e05b3164c1605ed7d00087a">  180</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#af80a52513e05b3164c1605ed7d00087a">stress</a>(<span class="keyword">const</span> Eigen::Vector&lt;ScalarType, strainDim&gt;&amp; strain)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordflow">return</span> material&lt;ScalarType&gt;().template stresses&lt;strainType, voigt&gt;(strain);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>  }</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType, <span class="keywordtype">int</span> strainDim, <span class="keywordtype">bool</span> voigt = true&gt;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="a01830.html#aaf1eac20d733fcd9f2c7ac68dbbddc5c">  194</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#aaf1eac20d733fcd9f2c7ac68dbbddc5c">materialTangent</a>(<span class="keyword">const</span> Eigen::Vector&lt;ScalarType, strainDim&gt;&amp; strain)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">return</span> material&lt;ScalarType&gt;().template tangentModuli&lt;strainType, voigt&gt;(strain);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  }</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="a01830.html#a6268324f3dce0ad16478747170581a3e">  198</a></span>  <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a0b822da239b00331cc6f5a952976ef1e">Geometry</a>&amp; <a class="code hl_function" href="a01830.html#a6268324f3dce0ad16478747170581a3e">geometry</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *geo_; }</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="a01830.html#afc0d3706a93eefe0238e9053e8421708">  199</a></span>  [[nodiscard]] <span class="keywordtype">size_t</span> <a class="code hl_function" href="a01830.html#afc0d3706a93eefe0238e9053e8421708">numberOfNodes</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> numberOfNodes_; }</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="a01830.html#ae131607ff0fc7856d7635f8e05c6cf70">  200</a></span>  [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="a01830.html#ae131607ff0fc7856d7635f8e05c6cf70">order</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> order_; }</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="a01830.html#a33966ddf7f350e263ac246c8d3a36ce6">  201</a></span>  <span class="keyword">const</span> Dune::CachedLocalBasis&lt;std::remove_cvref_t&lt;LocalBasisType&gt;&gt;&amp; <a class="code hl_function" href="a01830.html#a33966ddf7f350e263ac246c8d3a36ce6">localBasis</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> localBasis_; }</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType = <span class="keywordtype">double</span>&gt;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="a01830.html#a881c2f56424f21b925f6fee08f2b83b2">  204</a></span>  <span class="keyword">decltype</span>(<span class="keyword">auto</span>) <a class="code hl_function" href="a01830.html#a881c2f56424f21b925f6fee08f2b83b2">material</a>() <span class="keyword">const</span> {</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_concept" href="a02471.html">Concepts::AutodiffScalar&lt;ScalarType&gt;</a>)</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>      <span class="keywordflow">return</span> mat_.template rebind&lt;ScalarType&gt;();</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>      <span class="keywordflow">return</span> mat_;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>  }</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> M&gt;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="a01830.html#acf1be667b7ec7e210f9d32d0b92ce6d1">  224</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#acf1be667b7ec7e210f9d32d0b92ce6d1">calculateStress</a>(<span class="keyword">const</span> M&amp; mat, <span class="keyword">const</span> Eigen::Vector&lt;double, strainDim&gt;&amp; strainInVoigt)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordflow">return</span> mat.template stresses&lt;strainType&gt;(enlargeIfReduced&lt;Material&gt;(strainInVoigt)).eval();</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>  }</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>  <span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>&gt; <span class="keyword">class </span>RT&gt;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>  <span class="keyword">requires</span>(supportsResultType&lt;RT&gt;())</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="a01830.html#a7c8edbff09762bdb9cae26d4cf6b0a91">  239</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#a7c8edbff09762bdb9cae26d4cf6b0a91">calculateAtImpl</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">Requirement</a>&amp; req, <span class="keyword">const</span> <a class="code hl_class" href="a02274.html">Dune::FieldVector&lt;double, Traits::mydim&gt;</a>&amp; local,</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                       Dune::PriorityTag&lt;1&gt;) <span class="keyword">const</span> {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_function" href="a01946.html#ae2729275e09106df188360951ba4f9be">FE::isMixed</a>())</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>      <span class="keywordflow">return</span> <a class="code hl_struct" href="a01546.html">RTWrapperType&lt;RT&gt;</a>{};</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keyword">using namespace </span>Dune::DerivativeDirections;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="keyword">using </span><a class="code hl_function" href="a00510.html#abdf1f705005400846826dd7bdaac4f88">Ikarus::transformStrain</a>;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keyword">using </span><a class="code hl_function" href="a00510.html#a15a168e678f7086c461b0aab8eb69349">Ikarus::transformStress</a>;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keyword">const</span> <span class="keyword">auto</span> uFunction = <a class="code hl_function" href="a01830.html#afa521e1c97803cd8456a9d16ddc36760">displacementFunction</a>(req);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keyword">const</span> <span class="keyword">auto</span> H         = uFunction.evaluateDerivative(local, Dune::wrt(spatialAll), Dune::on(gridElement));</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="keyword">const</span> <span class="keyword">auto</span> F         = transformStrain&lt;StrainTags::displacementGradient, StrainTags::deformationGradient&gt;(H).eval();</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keyword">const</span> <span class="keyword">auto</span> E         = transformStrain&lt;StrainTags::displacementGradient, StrainTags::greenLagrangian&gt;(H).eval();</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keyword">decltype</span>(<span class="keyword">auto</span>) mat   = [&amp;]() {</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (isSameResultType&lt;RT, ResultTypes::PK2StressFull&gt; and Material::isReduced)</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        <span class="keywordflow">return</span> mat_.underlying();</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>      <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        <span class="keywordflow">return</span> mat_;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    }();</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keyword">const</span> <span class="keyword">auto</span> PK2Stress = <a class="code hl_function" href="a01830.html#acf1be667b7ec7e210f9d32d0b92ce6d1">calculateStress</a>(mat, <a class="code hl_function" href="a00506.html#gaea992dee85d054f8dc1c99d3a7f4fe06">toVoigt</a>(E)).eval();</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <a class="code hl_struct" href="a01546.html">RTWrapperType&lt;RT&gt;</a> resultWrapper{};</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (isSameResultType&lt;RT, ResultTypes::PK2Stress&gt; or isSameResultType&lt;RT, ResultTypes::PK2StressFull&gt;)</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>      resultWrapper = PK2Stress;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (isSameResultType&lt;RT, ResultTypes::kirchhoffStress&gt; or</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>                       isSameResultType&lt;RT, ResultTypes::cauchyStress&gt;) {</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>      <span class="keyword">const</span> <span class="keyword">auto</span> PK2StressMat = <a class="code hl_function" href="a00506.html#gadc8e9e9f3838d0392a5fcf1e11374ee9">fromVoigt</a>(PK2Stress, <span class="keyword">false</span>).eval();</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>      <span class="keyword">constexpr</span> <a class="code hl_enumeration" href="a00499.html#ga70b4ce43c53cc5e949d49919f437501e">StressTags</a> toStress =</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>          isSameResultType&lt;RT, ResultTypes::kirchhoffStress&gt; ? <a class="code hl_enumvalue" href="a00499.html#gga70b4ce43c53cc5e949d49919f437501eadb46969ba633ea08a9181d8eb6218ba9">StressTags::Kirchhoff</a> : <a class="code hl_enumvalue" href="a00499.html#gga70b4ce43c53cc5e949d49919f437501ea2ee21c55474972b3e65b31a6b0b57dc8">StressTags::Cauchy</a>;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>      resultWrapper = <a class="code hl_function" href="a00506.html#gaea992dee85d054f8dc1c99d3a7f4fe06">toVoigt</a>(transformStress&lt;StressTags::PK2, toStress&gt;(PK2StressMat, F), <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    }</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keywordflow">return</span> resultWrapper;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>  }</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>  <span class="comment">//&gt; CRTP</span></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; underlying()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="a01506.html">FE</a>&amp;<span class="keyword">&gt;</span>(*this); }</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>  <span class="keyword">auto</span>&amp; underlying() { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>FE&amp;<span class="keyword">&gt;</span>(*this); }</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>  std::shared_ptr&lt;const Geometry&gt; geo_;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>  Dune::CachedLocalBasis&lt;std::remove_cvref_t&lt;LocalBasisType&gt;&gt; localBasis_;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>  <a class="code hl_typedef" href="a01830.html#a301b03982ef1629b26bac4e6ab522797">Material</a> mat_;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>  <span class="keywordtype">size_t</span> numberOfNodes_{0};</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>  <span class="keywordtype">int</span> order_{};</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST&gt;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno"><a class="line" href="a01830.html#a9a689a3836b8d6886a44a2113892ed6a">  295</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#a9a689a3836b8d6886a44a2113892ed6a">geometricStiffnessMatrixFunction</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">Requirement</a>&amp; par, <span class="keyword">typename</span> Traits::template MatrixType&lt;ST&gt;&amp; K,</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>                                        <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">VectorXOptRef&lt;ST&gt;</a>&amp; dx = std::nullopt)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <span class="keywordflow">return</span> [&amp;](<span class="keyword">const</span> FE::template <a class="code hl_typedef" href="a01830.html#a9788649084ac7e8a32172b14c8e54c5a">KgType&lt;ST&gt;</a>&amp; kgIJ, <span class="keyword">const</span> <span class="keywordtype">int</span> I, <span class="keyword">const</span> <span class="keywordtype">int</span> J, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; gp) {</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>      <span class="keyword">const</span> <span class="keyword">auto</span> geo          = underlying().localView().element().geometry();</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>      <span class="keyword">const</span> <span class="keywordtype">double</span> intElement = geo.integrationElement(gp.position()) * gp.weight();</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>      K.template block&lt;FE::myDim, FE::myDim&gt;(I * <a class="code hl_variable" href="a01506.html#aad639c76b46707f9ecf9dd58e25827f9">FE::myDim</a>, J * <a class="code hl_variable" href="a01506.html#aad639c76b46707f9ecf9dd58e25827f9">FE::myDim</a>) += kgIJ * intElement;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    };</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>  }</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST&gt;</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno"><a class="line" href="a01830.html#aba3ca045f11c5fcdb98a28bbe1d05c62">  314</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#aba3ca045f11c5fcdb98a28bbe1d05c62">materialStiffnessMatrixFunction</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">Requirement</a>&amp; par, <span class="keyword">typename</span> Traits::template MatrixType&lt;ST&gt;&amp; K,</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>                                       <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">VectorXOptRef&lt;ST&gt;</a>&amp; dx = std::nullopt)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="keywordflow">return</span> [&amp;](<span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#ad212a47fbc73d74b35c410f2de87e002">StrainType&lt;ST&gt;</a>&amp; strain, <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a20a06da43724c8d2ad8e660866f7ded7">BopType&lt;ST&gt;</a>&amp; bopI, <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a20a06da43724c8d2ad8e660866f7ded7">BopType&lt;ST&gt;</a>&amp; bopJ, <span class="keyword">const</span> <span class="keywordtype">int</span> I, <span class="keyword">const</span> <span class="keywordtype">int</span> J,</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>               <span class="keyword">const</span> <span class="keyword">auto</span>&amp; gp) {</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>      <span class="keyword">const</span> <span class="keyword">auto</span> C            = <a class="code hl_function" href="a01830.html#aaf1eac20d733fcd9f2c7ac68dbbddc5c">materialTangent</a>(strain);</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>      <span class="keyword">const</span> <span class="keywordtype">double</span> intElement = geo_-&gt;integrationElement(gp.position()) * gp.weight();</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>      K.template block&lt;myDim, myDim&gt;(I * <a class="code hl_variable" href="a01830.html#a75f37a35f01f4440faec8355c25e85e7">myDim</a>, J * <a class="code hl_variable" href="a01830.html#a75f37a35f01f4440faec8355c25e85e7">myDim</a>) += (bopI.transpose() * C * bopJ) * intElement;</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    };</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>  }</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST&gt;</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno"><a class="line" href="a01830.html#af34413eab84afd6954b1aee47870e4dc">  336</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#af34413eab84afd6954b1aee47870e4dc">internalForcesFunction</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">Requirement</a>&amp; par, <span class="keyword">typename</span> Traits::template VectorType&lt;ST&gt;&amp; force,</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>                              <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">VectorXOptRef&lt;ST&gt;</a>&amp; dx = std::nullopt)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keywordflow">return</span> [&amp;](<span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#ad212a47fbc73d74b35c410f2de87e002">StrainType&lt;ST&gt;</a>&amp; stresses, <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a20a06da43724c8d2ad8e660866f7ded7">BopType&lt;ST&gt;</a>&amp; bopI, <span class="keyword">const</span> <span class="keywordtype">int</span> I, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; gp) {</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>      <span class="keyword">const</span> <span class="keywordtype">double</span> intElement = geo_-&gt;integrationElement(gp.position()) * gp.weight();</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>      force.template segment&lt;myDim&gt;(<a class="code hl_variable" href="a01830.html#a75f37a35f01f4440faec8355c25e85e7">myDim</a> * I) += bopI.transpose() * stresses * intElement;</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    };</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>  }</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span> </div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ST&gt;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno"><a class="line" href="a01830.html#a21d5ce0182badffc25d9a0a5884761fc">  353</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#a21d5ce0182badffc25d9a0a5884761fc">energyFunction</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">Requirement</a>&amp; par, <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">VectorXOptRef&lt;ST&gt;</a>&amp; dx = std::nullopt)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <span class="keywordflow">return</span> [&amp;]() -&gt; ST {</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>      <span class="keyword">using namespace </span>Dune::DerivativeDirections;</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>      <span class="keyword">using namespace </span><a class="code hl_namespace" href="a00536.html">Dune</a>;</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>      ST energy      = 0.0;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>      <span class="keyword">const</span> <span class="keyword">auto</span> eps = <a class="code hl_function" href="a01830.html#a0557b74d237d37ec2fbe85cfff7019f2">strainFunction</a>(par, dx);</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>      <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [gpIndex, gp] : eps.viewOverIntegrationPoints()) {</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>        <span class="keyword">const</span> <span class="keyword">auto</span> EVoigt = eps.evaluate(gpIndex, on(gridElement));</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        energy += <a class="code hl_function" href="a01830.html#ac71b3594bd15a334419b201a6735bcae">internalEnergy</a>(EVoigt) * geo_-&gt;integrationElement(gp.position()) * gp.weight();</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>      }</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>      <span class="keywordflow">return</span> energy;</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    };</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>  }</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType&gt;</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno"><a class="line" href="a01830.html#aff697385f9faf85e1994a214eef7ef19">  376</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a01830.html#aff697385f9faf85e1994a214eef7ef19">calculateMatrixImpl</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">Requirement</a>&amp; par, <span class="keyword">const</span> <a class="code hl_enumeration" href="a00510.html#a390d5311179ec61d163a29c943b3d1a0">MatrixAffordance</a>&amp; affordance,</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>                           <span class="keyword">typename</span> Traits::template MatrixType&lt;&gt; K,</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>                           <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">VectorXOptRef&lt;ScalarType&gt;</a>&amp; dx = std::nullopt)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_function" href="a01946.html#ae2729275e09106df188360951ba4f9be">FE::isMixed</a>())</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>      <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="keyword">using namespace </span>Dune::DerivativeDirections;</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="keyword">using namespace </span><a class="code hl_namespace" href="a00536.html">Dune</a>;</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    <span class="keyword">const</span> <span class="keyword">auto</span> uFunction  = <a class="code hl_function" href="a01830.html#afa521e1c97803cd8456a9d16ddc36760">displacementFunction</a>(par, dx);</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    <span class="keyword">const</span> <span class="keyword">auto</span> eps        = <a class="code hl_function" href="a01830.html#a0557b74d237d37ec2fbe85cfff7019f2">strainFunction</a>(par, dx);</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <span class="keyword">const</span> <span class="keyword">auto</span> kMFunction = materialStiffnessMatrixFunction&lt;ScalarType&gt;(par, K, dx);</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <span class="keyword">const</span> <span class="keyword">auto</span> kGFunction = geometricStiffnessMatrixFunction&lt;ScalarType&gt;(par, K, dx);</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [gpIndex, gp] : eps.viewOverIntegrationPoints()) {</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>      <span class="keyword">const</span> <span class="keyword">auto</span> EVoigt   = (eps.evaluate(gpIndex, on(gridElement))).eval();</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>      <span class="keyword">const</span> <span class="keyword">auto</span> stresses = <a class="code hl_function" href="a01830.html#af80a52513e05b3164c1605ed7d00087a">stress</a>(EVoigt);</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; numberOfNodes_; ++i) {</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>        <span class="keyword">const</span> <span class="keyword">auto</span> bopI = eps.evaluateDerivative(gpIndex, wrt(coeff(i)), on(gridElement));</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; numberOfNodes_; ++j) {</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>          <span class="keyword">const</span> <span class="keyword">auto</span> bopJ = eps.evaluateDerivative(gpIndex, wrt(coeff(j)), on(gridElement));</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>          <span class="keyword">const</span> <span class="keyword">auto</span> kgIJ = eps.evaluateDerivative(gpIndex, wrt(coeff(i, j)), along(stresses), on(gridElement));</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>          kMFunction(EVoigt, bopI, bopJ, i, j, gp);</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>          kGFunction(kgIJ, i, j, gp);</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>        }</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>      }</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    }</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>  }</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span> </div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType&gt;</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno"><a class="line" href="a01830.html#a78d8ba43d3a0e8dd619dfdd6ee9eb72f">  403</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01830.html#a78d8ba43d3a0e8dd619dfdd6ee9eb72f">calculateScalarImpl</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">Requirement</a>&amp; par, <a class="code hl_enumeration" href="a00510.html#af6f894084edd9109762b86222995ef2a">ScalarAffordance</a> affordance,</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>                           <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">VectorXOptRef&lt;ScalarType&gt;</a>&amp; dx = std::nullopt) <span class="keyword">const</span> -&gt; ScalarType {</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_function" href="a01946.html#ae2729275e09106df188360951ba4f9be">FE::isMixed</a>())</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>      <span class="keywordflow">return</span> ScalarType{0.0};</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a01830.html#a21d5ce0182badffc25d9a0a5884761fc">energyFunction</a>(par, dx)();</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>  }</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span> </div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ScalarType&gt;</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno"><a class="line" href="a01830.html#a5e62e6ec43efe86c95342ee377f664f5">  411</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="a01830.html#a5e62e6ec43efe86c95342ee377f664f5">calculateVectorImpl</a>(<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">Requirement</a>&amp; par, <a class="code hl_enumeration" href="a00510.html#aab9e3e38507d1db7602bc750718c302a">VectorAffordance</a> affordance,</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>                           <span class="keyword">typename</span> Traits::template VectorType&lt;ScalarType&gt; force,</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>                           <span class="keyword">const</span> <a class="code hl_typedef" href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">VectorXOptRef&lt;ScalarType&gt;</a>&amp; dx = std::nullopt)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_function" href="a01946.html#ae2729275e09106df188360951ba4f9be">FE::isMixed</a>())</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>      <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>    <span class="keyword">using namespace </span>Dune::DerivativeDirections;</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    <span class="keyword">using namespace </span><a class="code hl_namespace" href="a00536.html">Dune</a>;</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>    <span class="keyword">const</span> <span class="keyword">auto</span> eps          = <a class="code hl_function" href="a01830.html#a0557b74d237d37ec2fbe85cfff7019f2">strainFunction</a>(par, dx);</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>    <span class="keyword">const</span> <span class="keyword">auto</span> fIntFunction = internalForcesFunction&lt;ScalarType&gt;(par, force, dx);</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span> </div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    <span class="comment">// Internal forces</span></div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [gpIndex, gp] : eps.viewOverIntegrationPoints()) {</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>      <span class="keyword">const</span> <span class="keyword">auto</span> EVoigt   = (eps.evaluate(gpIndex, on(gridElement))).eval();</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>      <span class="keyword">const</span> <span class="keyword">auto</span> stresses = <a class="code hl_function" href="a01830.html#af80a52513e05b3164c1605ed7d00087a">stress</a>(EVoigt);</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; numberOfNodes_; ++i) {</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>        <span class="keyword">const</span> <span class="keyword">auto</span> bopI = eps.evaluateDerivative(gpIndex, wrt(coeff(i)), on(gridElement));</div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>        fIntFunction(stresses, bopI, i, gp);</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>      }</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>    }</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>  }</div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>};</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span> </div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span><span class="keyword">template</span> &lt;Concepts::Material MAT&gt;</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno"><a class="line" href="a00510.html#a6f028adf5a1a78301381fe92b241d550">  440</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00510.html#a6f028adf5a1a78301381fe92b241d550">nonLinearElastic</a>(<span class="keyword">const</span> MAT&amp; mat) {</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>  <a class="code hl_struct" href="a01834.html">NonLinearElasticPre&lt;MAT&gt;</a> pre(mat);</div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span> </div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>  <span class="keywordflow">return</span> pre;</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>}</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span> </div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span> </div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span><span class="preprocessor">  #error NonLinearElastic depends on dune-localfefunctions, which is not included</span></div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00020_html"><div class="ttname"><a href="a00020.html">eigendunetransformations.hh</a></div><div class="ttdoc">Helper for transform between Dune linear algebra types and Eigen.</div></div>
+<div class="ttc" id="aa00059_html"><div class="ttname"><a href="a00059.html">linearalgebrahelper.hh</a></div><div class="ttdoc">Helper for the autodiff library.</div></div>
+<div class="ttc" id="aa00074_html"><div class="ttname"><a href="a00074.html">quadraturerulehelper.hh</a></div><div class="ttdoc">Free function for creating a tensor product quadrature rule and other Dune::Quadrature rule utils.</div></div>
+<div class="ttc" id="aa00077_html"><div class="ttname"><a href="a00077.html">defaultfunctions.hh</a></div><div class="ttdoc">Collection of fallback default functions.</div></div>
+<div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">physicshelper.hh</a></div><div class="ttdoc">Material property functions and conversion utilities.</div></div>
+<div class="ttc" id="aa00167_html"><div class="ttname"><a href="a00167.html">fehelper.hh</a></div></div>
+<div class="ttc" id="aa00212_html"><div class="ttname"><a href="a00212.html">loads.hh</a></div><div class="ttdoc">Header file for types of loads in Ikarus finite element mechanics.</div></div>
+<div class="ttc" id="aa00221_html"><div class="ttname"><a href="a00221.html">strainconversions.hh</a></div><div class="ttdoc">Implementation of transformations for different strain measures.</div></div>
+<div class="ttc" id="aa00269_html"><div class="ttname"><a href="a00269.html">stressconversions.hh</a></div><div class="ttdoc">Implementation of transformations for different stress measures.</div></div>
+<div class="ttc" id="aa00275_html"><div class="ttname"><a href="a00275.html">tags.hh</a></div><div class="ttdoc">Definition of several material related enums.</div></div>
+<div class="ttc" id="aa00308_html"><div class="ttname"><a href="a00308.html">easfunctions.hh</a></div><div class="ttdoc">Header file for various EAS functions.</div></div>
+<div class="ttc" id="aa00329_html"><div class="ttname"><a href="a00329.html">ferequirements.hh</a></div><div class="ttdoc">Definition of the LinearElastic class for finite element mechanics computations.</div></div>
+<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">febase.hh</a></div><div class="ttdoc">Contains the FE class, which is used as a base class for all finite elements. It provides information...</div></div>
+<div class="ttc" id="aa00499_html_ga70b4ce43c53cc5e949d49919f437501e"><div class="ttname"><a href="a00499.html#ga70b4ce43c53cc5e949d49919f437501e">Ikarus::StressTags</a></div><div class="ttdeci">StressTags</div><div class="ttdoc">A strongly typed enum class representing the type of the computed stresses.</div><div class="ttdef"><b>Definition:</b> tags.hh:26</div></div>
+<div class="ttc" id="aa00499_html_gga70b4ce43c53cc5e949d49919f437501ea2ee21c55474972b3e65b31a6b0b57dc8"><div class="ttname"><a href="a00499.html#gga70b4ce43c53cc5e949d49919f437501ea2ee21c55474972b3e65b31a6b0b57dc8">Ikarus::StressTags::Cauchy</a></div><div class="ttdeci">@ Cauchy</div></div>
+<div class="ttc" id="aa00499_html_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21"><div class="ttname"><a href="a00499.html#gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21">Ikarus::StressTags::PK2</a></div><div class="ttdeci">@ PK2</div></div>
+<div class="ttc" id="aa00499_html_gga70b4ce43c53cc5e949d49919f437501eadb46969ba633ea08a9181d8eb6218ba9"><div class="ttname"><a href="a00499.html#gga70b4ce43c53cc5e949d49919f437501eadb46969ba633ea08a9181d8eb6218ba9">Ikarus::StressTags::Kirchhoff</a></div><div class="ttdeci">@ Kirchhoff</div></div>
+<div class="ttc" id="aa00499_html_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e"><div class="ttname"><a href="a00499.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">Ikarus::StrainTags::greenLagrangian</a></div><div class="ttdeci">@ greenLagrangian</div></div>
+<div class="ttc" id="aa00506_html_gadc8e9e9f3838d0392a5fcf1e11374ee9"><div class="ttname"><a href="a00506.html#gadc8e9e9f3838d0392a5fcf1e11374ee9">Ikarus::fromVoigt</a></div><div class="ttdeci">auto fromVoigt(const Eigen::Matrix&lt; ST, size, 1, Options, maxSize, 1 &gt; &amp;EVoigt, bool isStrain=true)</div><div class="ttdoc">Converts a vector given in Voigt notation to a matrix.</div><div class="ttdef"><b>Definition:</b> tensorutils.hh:296</div></div>
+<div class="ttc" id="aa00506_html_gaea992dee85d054f8dc1c99d3a7f4fe06"><div class="ttname"><a href="a00506.html#gaea992dee85d054f8dc1c99d3a7f4fe06">Ikarus::toVoigt</a></div><div class="ttdeci">constexpr Eigen::Index toVoigt(Eigen::Index i, Eigen::Index j) noexcept</div><div class="ttdoc">Converts 2D indices to Voigt notation index.</div><div class="ttdef"><b>Definition:</b> tensorutils.hh:182</div></div>
+<div class="ttc" id="aa00510_html"><div class="ttname"><a href="a00510.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
+<div class="ttc" id="aa00510_html_a15a168e678f7086c461b0aab8eb69349"><div class="ttname"><a href="a00510.html#a15a168e678f7086c461b0aab8eb69349">Ikarus::transformStress</a></div><div class="ttdeci">auto transformStress(const Eigen::MatrixBase&lt; DerivedS &gt; &amp;sRaw, const Eigen::MatrixBase&lt; DerivedF &gt; &amp;F)</div><div class="ttdoc">Transform stress measures from one type to another.</div><div class="ttdef"><b>Definition:</b> stressconversions.hh:142</div></div>
+<div class="ttc" id="aa00510_html_a390d5311179ec61d163a29c943b3d1a0"><div class="ttname"><a href="a00510.html#a390d5311179ec61d163a29c943b3d1a0">Ikarus::MatrixAffordance</a></div><div class="ttdeci">MatrixAffordance</div><div class="ttdoc">A strongly typed enum class representing the matrix affordance.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:65</div></div>
+<div class="ttc" id="aa00510_html_a6f028adf5a1a78301381fe92b241d550"><div class="ttname"><a href="a00510.html#a6f028adf5a1a78301381fe92b241d550">Ikarus::nonLinearElastic</a></div><div class="ttdeci">auto nonLinearElastic(const MAT &amp;mat)</div><div class="ttdoc">A helper function to create a non-linear elastic pre finite element.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:440</div></div>
+<div class="ttc" id="aa00510_html_aab9e3e38507d1db7602bc750718c302a"><div class="ttname"><a href="a00510.html#aab9e3e38507d1db7602bc750718c302a">Ikarus::VectorAffordance</a></div><div class="ttdeci">VectorAffordance</div><div class="ttdoc">A strongly typed enum class representing the vector affordance.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:50</div></div>
+<div class="ttc" id="aa00510_html_abdf1f705005400846826dd7bdaac4f88"><div class="ttname"><a href="a00510.html#abdf1f705005400846826dd7bdaac4f88">Ikarus::transformStrain</a></div><div class="ttdeci">auto transformStrain(const Eigen::MatrixBase&lt; Derived &gt; &amp;eRaw)</div><div class="ttdoc">Transform strain from one type to another.</div><div class="ttdef"><b>Definition:</b> strainconversions.hh:119</div></div>
+<div class="ttc" id="aa00510_html_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110"><div class="ttname"><a href="a00510.html#acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110">Ikarus::ResultShape::Vector</a></div><div class="ttdeci">@ Vector</div></div>
+<div class="ttc" id="aa00510_html_af6f894084edd9109762b86222995ef2a"><div class="ttname"><a href="a00510.html#af6f894084edd9109762b86222995ef2a">Ikarus::ScalarAffordance</a></div><div class="ttdeci">ScalarAffordance</div><div class="ttdoc">A strongly typed enum class representing the scalar affordance.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:39</div></div>
+<div class="ttc" id="aa00536_html"><div class="ttname"><a href="a00536.html">Dune</a></div><div class="ttdef"><b>Definition:</b> utils/dirichletvalues.hh:36</div></div>
+<div class="ttc" id="aa01506_html"><div class="ttname"><a href="a01506.html">Ikarus::FE</a></div><div class="ttdoc">FE class is a base class for all finite elements.</div><div class="ttdef"><b>Definition:</b> febase.hh:79</div></div>
+<div class="ttc" id="aa01506_html_aad639c76b46707f9ecf9dd58e25827f9"><div class="ttname"><a href="a01506.html#aad639c76b46707f9ecf9dd58e25827f9">Ikarus::FE::myDim</a></div><div class="ttdeci">static constexpr int myDim</div><div class="ttdef"><b>Definition:</b> febase.hh:95</div></div>
+<div class="ttc" id="aa01510_html_a826c356a5afb013faffb5f7ac893cff4"><div class="ttname"><a href="a01510.html#a826c356a5afb013faffb5f7ac893cff4">Ikarus::PreFE::Traits</a></div><div class="ttdeci">FETraits&lt; BH, useEigenRef, useFlat &gt; Traits</div><div class="ttdef"><b>Definition:</b> febase.hh:38</div></div>
+<div class="ttc" id="aa01526_html"><div class="ttname"><a href="a01526.html">Ikarus::FERequirements</a></div><div class="ttdoc">Class representing the requirements for finite element calculations.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:224</div></div>
+<div class="ttc" id="aa01526_html_a9701fdddf89b019507963dd2f68912da"><div class="ttname"><a href="a01526.html#a9701fdddf89b019507963dd2f68912da">Ikarus::FERequirements::globalSolution</a></div><div class="ttdeci">const SolutionVectorType &amp; globalSolution() const</div><div class="ttdoc">Get the global solution vector.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:314</div></div>
+<div class="ttc" id="aa01546_html"><div class="ttname"><a href="a01546.html">Ikarus::ResultWrapper</a></div><div class="ttdoc">Container that is used for FE Results. It gives access to the stored value, but can also be used to a...</div><div class="ttdef"><b>Definition:</b> feresulttypes.hh:165</div></div>
+<div class="ttc" id="aa01558_html"><div class="ttname"><a href="a01558.html">Ikarus::ResultTypeBase</a></div><div class="ttdoc">Base class for element definitions that provides common functionality for ResultTypes.</div><div class="ttdef"><b>Definition:</b> feresulttypes.hh:278</div></div>
+<div class="ttc" id="aa01562_html"><div class="ttname"><a href="a01562.html">Ikarus::FETraits</a></div><div class="ttdoc">Traits for handling finite elements.</div><div class="ttdef"><b>Definition:</b> fetraits.hh:25</div></div>
+<div class="ttc" id="aa01562_html_a06bdad066f621e46875af45a22677a3c"><div class="ttname"><a href="a01562.html#a06bdad066f621e46875af45a22677a3c">Ikarus::FETraits::LocalView</a></div><div class="ttdeci">typename Basis::LocalView LocalView</div><div class="ttdoc">Type of the local view.</div><div class="ttdef"><b>Definition:</b> fetraits.hh:42</div></div>
+<div class="ttc" id="aa01562_html_a0b7be1104fba2d190e3fed46f291a851"><div class="ttname"><a href="a01562.html#a0b7be1104fba2d190e3fed46f291a851">Ikarus::FETraits::Geometry</a></div><div class="ttdeci">typename Element::Geometry Geometry</div><div class="ttdoc">Type of the element geometry.</div><div class="ttdef"><b>Definition:</b> fetraits.hh:51</div></div>
+<div class="ttc" id="aa01562_html_a3385bd97c39ebfede2dc6eac609022c8"><div class="ttname"><a href="a01562.html#a3385bd97c39ebfede2dc6eac609022c8">Ikarus::FETraits::Basis</a></div><div class="ttdeci">std::conditional_t&lt; useFlat, FlatBasis, UntouchedBasis &gt; Basis</div><div class="ttdoc">Type of the basis version.</div><div class="ttdef"><b>Definition:</b> fetraits.hh:39</div></div>
+<div class="ttc" id="aa01562_html_a3ec0294824df467074f5070cb58f5a91"><div class="ttname"><a href="a01562.html#a3ec0294824df467074f5070cb58f5a91">Ikarus::FETraits::GridView</a></div><div class="ttdeci">typename Basis::GridView GridView</div><div class="ttdoc">Type of the grid view.</div><div class="ttdef"><b>Definition:</b> fetraits.hh:45</div></div>
+<div class="ttc" id="aa01562_html_a81feef959fedef62b2e1daabbd52b5f2"><div class="ttname"><a href="a01562.html#a81feef959fedef62b2e1daabbd52b5f2">Ikarus::FETraits::FlatBasis</a></div><div class="ttdeci">typename BasisHandler::FlatBasis FlatBasis</div><div class="ttdoc">Type of the flat basis.</div><div class="ttdef"><b>Definition:</b> fetraits.hh:33</div></div>
+<div class="ttc" id="aa01562_html_ac4668b9c9142defdf3b70cca8eeb30c4"><div class="ttname"><a href="a01562.html#ac4668b9c9142defdf3b70cca8eeb30c4">Ikarus::FETraits::Element</a></div><div class="ttdeci">typename LocalView::Element Element</div><div class="ttdoc">Type of the grid element.</div><div class="ttdef"><b>Definition:</b> fetraits.hh:48</div></div>
+<div class="ttc" id="aa01562_html_ae15b8efa9f66a3caee81d99dd5c648de"><div class="ttname"><a href="a01562.html#ae15b8efa9f66a3caee81d99dd5c648de">Ikarus::FETraits::mydim</a></div><div class="ttdeci">static constexpr int mydim</div><div class="ttdoc">Dimension of the geometry.</div><div class="ttdef"><b>Definition:</b> fetraits.hh:63</div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">Ikarus::NonLinearElastic</a></div><div class="ttdoc">NonLinearElastic class represents a non-linear elastic finite element.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:66</div></div>
+<div class="ttc" id="aa01830_html_a0557b74d237d37ec2fbe85cfff7019f2"><div class="ttname"><a href="a01830.html#a0557b74d237d37ec2fbe85cfff7019f2">Ikarus::NonLinearElastic::strainFunction</a></div><div class="ttdeci">auto strainFunction(const Requirement &amp;par, const VectorXOptRef&lt; ScalarType &gt; &amp;dx=std::nullopt) const</div><div class="ttdoc">The strain function for the given Requirement.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:153</div></div>
+<div class="ttc" id="aa01830_html_a065dde2d39e9448e9133495f78f7c0c6"><div class="ttname"><a href="a01830.html#a065dde2d39e9448e9133495f78f7c0c6">Ikarus::NonLinearElastic::Basis</a></div><div class="ttdeci">typename Traits::Basis Basis</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:69</div></div>
+<div class="ttc" id="aa01830_html_a0b822da239b00331cc6f5a952976ef1e"><div class="ttname"><a href="a01830.html#a0b822da239b00331cc6f5a952976ef1e">Ikarus::NonLinearElastic::Geometry</a></div><div class="ttdeci">typename Traits::Geometry Geometry</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:73</div></div>
+<div class="ttc" id="aa01830_html_a187fd5fbc2a5d42fcf9b5b80c5a3759e"><div class="ttname"><a href="a01830.html#a187fd5fbc2a5d42fcf9b5b80c5a3759e">Ikarus::NonLinearElastic::FlatBasis</a></div><div class="ttdeci">typename Traits::FlatBasis FlatBasis</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:70</div></div>
+<div class="ttc" id="aa01830_html_a20a06da43724c8d2ad8e660866f7ded7"><div class="ttname"><a href="a01830.html#a20a06da43724c8d2ad8e660866f7ded7">Ikarus::NonLinearElastic::BopType</a></div><div class="ttdeci">Eigen::Matrix&lt; ST, strainDim, myDim &gt; BopType</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:96</div></div>
+<div class="ttc" id="aa01830_html_a21d5ce0182badffc25d9a0a5884761fc"><div class="ttname"><a href="a01830.html#a21d5ce0182badffc25d9a0a5884761fc">Ikarus::NonLinearElastic::energyFunction</a></div><div class="ttdeci">auto energyFunction(const Requirement &amp;par, const VectorXOptRef&lt; ST &gt; &amp;dx=std::nullopt) const</div><div class="ttdoc">Get a lambda function that evaluates the internal energy at a given integration point and its index.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:353</div></div>
+<div class="ttc" id="aa01830_html_a301b03982ef1629b26bac4e6ab522797"><div class="ttname"><a href="a01830.html#a301b03982ef1629b26bac4e6ab522797">Ikarus::NonLinearElastic::Material</a></div><div class="ttdeci">PRE::Material Material</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:76</div></div>
+<div class="ttc" id="aa01830_html_a33966ddf7f350e263ac246c8d3a36ce6"><div class="ttname"><a href="a01830.html#a33966ddf7f350e263ac246c8d3a36ce6">Ikarus::NonLinearElastic::localBasis</a></div><div class="ttdeci">const Dune::CachedLocalBasis&lt; std::remove_cvref_t&lt; LocalBasisType &gt; &gt; &amp; localBasis() const</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:201</div></div>
+<div class="ttc" id="aa01830_html_a3a3a62d6e281c0ad8d1af5c8ef00633a"><div class="ttname"><a href="a01830.html#a3a3a62d6e281c0ad8d1af5c8ef00633a">Ikarus::NonLinearElastic::VectorXOptRef</a></div><div class="ttdeci">std::optional&lt; std::reference_wrapper&lt; const Eigen::VectorX&lt; ST &gt; &gt; &gt; VectorXOptRef</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:82</div></div>
+<div class="ttc" id="aa01830_html_a4e116f42a26bae100cd0cc80e8229662"><div class="ttname"><a href="a01830.html#a4e116f42a26bae100cd0cc80e8229662">Ikarus::NonLinearElastic::GridView</a></div><div class="ttdeci">typename Traits::GridView GridView</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:74</div></div>
+<div class="ttc" id="aa01830_html_a50f23fc87d7be6cd1c7e8a0662e81040"><div class="ttname"><a href="a01830.html#a50f23fc87d7be6cd1c7e8a0662e81040">Ikarus::NonLinearElastic::bindImpl</a></div><div class="ttdeci">void bindImpl()</div><div class="ttdoc">A helper function to bind the local view to the element.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:112</div></div>
+<div class="ttc" id="aa01830_html_a5e62e6ec43efe86c95342ee377f664f5"><div class="ttname"><a href="a01830.html#a5e62e6ec43efe86c95342ee377f664f5">Ikarus::NonLinearElastic::calculateVectorImpl</a></div><div class="ttdeci">void calculateVectorImpl(const Requirement &amp;par, VectorAffordance affordance, typename Traits::template VectorType&lt; ScalarType &gt; force, const VectorXOptRef&lt; ScalarType &gt; &amp;dx=std::nullopt) const</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:411</div></div>
+<div class="ttc" id="aa01830_html_a6268324f3dce0ad16478747170581a3e"><div class="ttname"><a href="a01830.html#a6268324f3dce0ad16478747170581a3e">Ikarus::NonLinearElastic::geometry</a></div><div class="ttdeci">const Geometry &amp; geometry() const</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:198</div></div>
+<div class="ttc" id="aa01830_html_a75f37a35f01f4440faec8355c25e85e7"><div class="ttname"><a href="a01830.html#a75f37a35f01f4440faec8355c25e85e7">Ikarus::NonLinearElastic::myDim</a></div><div class="ttdeci">static constexpr int myDim</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:84</div></div>
+<div class="ttc" id="aa01830_html_a78d8ba43d3a0e8dd619dfdd6ee9eb72f"><div class="ttname"><a href="a01830.html#a78d8ba43d3a0e8dd619dfdd6ee9eb72f">Ikarus::NonLinearElastic::calculateScalarImpl</a></div><div class="ttdeci">auto calculateScalarImpl(const Requirement &amp;par, ScalarAffordance affordance, const VectorXOptRef&lt; ScalarType &gt; &amp;dx=std::nullopt) const -&gt; ScalarType</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:403</div></div>
+<div class="ttc" id="aa01830_html_a7c8edbff09762bdb9cae26d4cf6b0a91"><div class="ttname"><a href="a01830.html#a7c8edbff09762bdb9cae26d4cf6b0a91">Ikarus::NonLinearElastic::calculateAtImpl</a></div><div class="ttdeci">auto calculateAtImpl(const Requirement &amp;req, const Dune::FieldVector&lt; double, Traits::mydim &gt; &amp;local, Dune::PriorityTag&lt; 1 &gt;) const</div><div class="ttdoc">Calculates a requested result at a specific local position.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:239</div></div>
+<div class="ttc" id="aa01830_html_a81925b6a91a49c25b362a88f9e2b93a0"><div class="ttname"><a href="a01830.html#a81925b6a91a49c25b362a88f9e2b93a0">Ikarus::NonLinearElastic::stressType</a></div><div class="ttdeci">static constexpr auto stressType</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:87</div></div>
+<div class="ttc" id="aa01830_html_a881c2f56424f21b925f6fee08f2b83b2"><div class="ttname"><a href="a01830.html#a881c2f56424f21b925f6fee08f2b83b2">Ikarus::NonLinearElastic::material</a></div><div class="ttdeci">decltype(auto) material() const</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:204</div></div>
+<div class="ttc" id="aa01830_html_a8ddec62cfc736709c438a23e9dd71961"><div class="ttname"><a href="a01830.html#a8ddec62cfc736709c438a23e9dd71961">Ikarus::NonLinearElastic::NonLinearElastic</a></div><div class="ttdeci">NonLinearElastic(const Pre &amp;pre)</div><div class="ttdoc">Constructor for the NonLinearElastic class.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:105</div></div>
+<div class="ttc" id="aa01830_html_a9026fe0824718ef0a81c36d220a18f91"><div class="ttname"><a href="a01830.html#a9026fe0824718ef0a81c36d220a18f91">Ikarus::NonLinearElastic::Element</a></div><div class="ttdeci">typename Traits::Element Element</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:75</div></div>
+<div class="ttc" id="aa01830_html_a91becdb2e38a2e60e5b89ed140326d07"><div class="ttname"><a href="a01830.html#a91becdb2e38a2e60e5b89ed140326d07">Ikarus::NonLinearElastic::Pre</a></div><div class="ttdeci">PRE Pre</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:77</div></div>
+<div class="ttc" id="aa01830_html_a9788649084ac7e8a32172b14c8e54c5a"><div class="ttname"><a href="a01830.html#a9788649084ac7e8a32172b14c8e54c5a">Ikarus::NonLinearElastic::KgType</a></div><div class="ttdeci">Eigen::Matrix&lt; ST, myDim, myDim &gt; KgType</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:99</div></div>
+<div class="ttc" id="aa01830_html_a9a689a3836b8d6886a44a2113892ed6a"><div class="ttname"><a href="a01830.html#a9a689a3836b8d6886a44a2113892ed6a">Ikarus::NonLinearElastic::geometricStiffnessMatrixFunction</a></div><div class="ttdeci">auto geometricStiffnessMatrixFunction(const Requirement &amp;par, typename Traits::template MatrixType&lt; ST &gt; &amp;K, const VectorXOptRef&lt; ST &gt; &amp;dx=std::nullopt) const</div><div class="ttdoc">Get a lambda function that evaluates the geometric part of the stiffness matrix (Kg) for a given inte...</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:295</div></div>
+<div class="ttc" id="aa01830_html_aaf1eac20d733fcd9f2c7ac68dbbddc5c"><div class="ttname"><a href="a01830.html#aaf1eac20d733fcd9f2c7ac68dbbddc5c">Ikarus::NonLinearElastic::materialTangent</a></div><div class="ttdeci">auto materialTangent(const Eigen::Vector&lt; ScalarType, strainDim &gt; &amp;strain) const</div><div class="ttdoc">Get the material tangent for the given strain for the given Requirement.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:194</div></div>
+<div class="ttc" id="aa01830_html_ab6d202ad9add3c430c1cd72ab94a8217"><div class="ttname"><a href="a01830.html#ab6d202ad9add3c430c1cd72ab94a8217">Ikarus::NonLinearElastic::strainDim</a></div><div class="ttdeci">static constexpr int strainDim</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:85</div></div>
+<div class="ttc" id="aa01830_html_aba3ca045f11c5fcdb98a28bbe1d05c62"><div class="ttname"><a href="a01830.html#aba3ca045f11c5fcdb98a28bbe1d05c62">Ikarus::NonLinearElastic::materialStiffnessMatrixFunction</a></div><div class="ttdeci">auto materialStiffnessMatrixFunction(const Requirement &amp;par, typename Traits::template MatrixType&lt; ST &gt; &amp;K, const VectorXOptRef&lt; ST &gt; &amp;dx=std::nullopt) const</div><div class="ttdoc">Get a lambda function that evaluates the material part of the stiffness matrix (Ke + Ku) for a given ...</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:314</div></div>
+<div class="ttc" id="aa01830_html_ac71b3594bd15a334419b201a6735bcae"><div class="ttname"><a href="a01830.html#ac71b3594bd15a334419b201a6735bcae">Ikarus::NonLinearElastic::internalEnergy</a></div><div class="ttdeci">auto internalEnergy(const Eigen::Vector&lt; ScalarType, strainDim &gt; &amp;strain) const</div><div class="ttdoc">Get the internal energy for the given strain.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:166</div></div>
+<div class="ttc" id="aa01830_html_acc4cb40454bb3dd2b78b283f8bfc13d1"><div class="ttname"><a href="a01830.html#acc4cb40454bb3dd2b78b283f8bfc13d1">Ikarus::NonLinearElastic::strainType</a></div><div class="ttdeci">static constexpr auto strainType</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:86</div></div>
+<div class="ttc" id="aa01830_html_acf1be667b7ec7e210f9d32d0b92ce6d1"><div class="ttname"><a href="a01830.html#acf1be667b7ec7e210f9d32d0b92ce6d1">Ikarus::NonLinearElastic::calculateStress</a></div><div class="ttdeci">auto calculateStress(const M &amp;mat, const Eigen::Vector&lt; double, strainDim &gt; &amp;strainInVoigt) const</div><div class="ttdoc">Get the PK2 stress for a given strain (in Voigt notation).</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:224</div></div>
+<div class="ttc" id="aa01830_html_ad212a47fbc73d74b35c410f2de87e002"><div class="ttname"><a href="a01830.html#ad212a47fbc73d74b35c410f2de87e002">Ikarus::NonLinearElastic::StrainType</a></div><div class="ttdeci">Eigen::Vector&lt; ST, strainDim &gt; StrainType</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:93</div></div>
+<div class="ttc" id="aa01830_html_adac120cca783f4cccb83be6606c11db5"><div class="ttname"><a href="a01830.html#adac120cca783f4cccb83be6606c11db5">Ikarus::NonLinearElastic::LocalView</a></div><div class="ttdeci">typename Traits::LocalView LocalView</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:72</div></div>
+<div class="ttc" id="aa01830_html_ae131607ff0fc7856d7635f8e05c6cf70"><div class="ttname"><a href="a01830.html#ae131607ff0fc7856d7635f8e05c6cf70">Ikarus::NonLinearElastic::order</a></div><div class="ttdeci">int order() const</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:200</div></div>
+<div class="ttc" id="aa01830_html_ae293c7bd388b1ccb4391066481104220"><div class="ttname"><a href="a01830.html#ae293c7bd388b1ccb4391066481104220">Ikarus::NonLinearElastic::LocalBasisType</a></div><div class="ttdeci">decltype(std::declval&lt; LocalView &gt;().tree().child(0).finiteElement().localBasis()) LocalBasisType</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:79</div></div>
+<div class="ttc" id="aa01830_html_af34413eab84afd6954b1aee47870e4dc"><div class="ttname"><a href="a01830.html#af34413eab84afd6954b1aee47870e4dc">Ikarus::NonLinearElastic::internalForcesFunction</a></div><div class="ttdeci">auto internalForcesFunction(const Requirement &amp;par, typename Traits::template VectorType&lt; ST &gt; &amp;force, const VectorXOptRef&lt; ST &gt; &amp;dx=std::nullopt) const</div><div class="ttdoc">Get a lambda function that evaluates the internal force vector for a given strain,...</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:336</div></div>
+<div class="ttc" id="aa01830_html_af80a52513e05b3164c1605ed7d00087a"><div class="ttname"><a href="a01830.html#af80a52513e05b3164c1605ed7d00087a">Ikarus::NonLinearElastic::stress</a></div><div class="ttdeci">auto stress(const Eigen::Vector&lt; ScalarType, strainDim &gt; &amp;strain) const</div><div class="ttdoc">Get the stress for the given strain.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:180</div></div>
+<div class="ttc" id="aa01830_html_afa521e1c97803cd8456a9d16ddc36760"><div class="ttname"><a href="a01830.html#afa521e1c97803cd8456a9d16ddc36760">Ikarus::NonLinearElastic::displacementFunction</a></div><div class="ttdeci">auto displacementFunction(const Requirement &amp;par, const VectorXOptRef&lt; ScalarType &gt; &amp;dx=std::nullopt) const</div><div class="ttdoc">Get the displacement function for the given Requirement.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:137</div></div>
+<div class="ttc" id="aa01830_html_afc0d3706a93eefe0238e9053e8421708"><div class="ttname"><a href="a01830.html#afc0d3706a93eefe0238e9053e8421708">Ikarus::NonLinearElastic::numberOfNodes</a></div><div class="ttdeci">size_t numberOfNodes() const</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:199</div></div>
+<div class="ttc" id="aa01830_html_aff697385f9faf85e1994a214eef7ef19"><div class="ttname"><a href="a01830.html#aff697385f9faf85e1994a214eef7ef19">Ikarus::NonLinearElastic::calculateMatrixImpl</a></div><div class="ttdeci">void calculateMatrixImpl(const Requirement &amp;par, const MatrixAffordance &amp;affordance, typename Traits::template MatrixType&lt;&gt; K, const VectorXOptRef&lt; ScalarType &gt; &amp;dx=std::nullopt) const</div><div class="ttdoc">Calculate the matrix associated with the given Requirement.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:376</div></div>
+<div class="ttc" id="aa01834_html"><div class="ttname"><a href="a01834.html">Ikarus::NonLinearElasticPre</a></div><div class="ttdoc">A PreFE struct for non-linear elastic elements.</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:46</div></div>
+<div class="ttc" id="aa01834_html_a4c8087e2be5010d73080ef779b7e28d4"><div class="ttname"><a href="a01834.html#a4c8087e2be5010d73080ef779b7e28d4">Ikarus::NonLinearElasticPre::Material</a></div><div class="ttdeci">MAT Material</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:47</div></div>
+<div class="ttc" id="aa01834_html_a983a021a10b97dbdea1f88dc6c7a6c56"><div class="ttname"><a href="a01834.html#a983a021a10b97dbdea1f88dc6c7a6c56">Ikarus::NonLinearElasticPre::material</a></div><div class="ttdeci">MAT material</div><div class="ttdef"><b>Definition:</b> nonlinearelastic.hh:48</div></div>
+<div class="ttc" id="aa01946_html_ae2729275e09106df188360951ba4f9be"><div class="ttname"><a href="a01946.html#ae2729275e09106df188360951ba4f9be">Ikarus::FEMixin&lt; PreFE, Skills... &gt;::isMixed</a></div><div class="ttdeci">static constexpr bool isMixed()</div><div class="ttdef"><b>Definition:</b> mixin.hh:110</div></div>
+<div class="ttc" id="aa02274_html"><div class="ttname"><a href="a02274.html">Dune::FieldVector</a></div><div class="ttdef"><b>Definition:</b> utils/dirichletvalues.hh:38</div></div>
+<div class="ttc" id="aa02471_html"><div class="ttname"><a href="a02471.html">Ikarus::Concepts::AutodiffScalar</a></div><div class="ttdoc">Concept to check if the underlying scalar type is a dual type.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:625</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!--
+SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de
+SPDX-License-Identifier: LGPL-3.0-or-later
+-->
+<!-- HTML footer for doxygen 1.9.6-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+    <ul>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="a00320.html">nonlinearelastic.hh</a></li>
+        <li class="footer">
+            &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
+            (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /
+            code examples: <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">LGPLv3 or later</a>) &#160;
+            <img class="footer" alt="Ikarus" src="BigLogo_transparent.png" height="15"/> 0.4.8
+            &#160; Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    </ul>
+</div>
+<!--MERMAID GRAPHS-->
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+            primaryColor: '#f4f4ff',
+            secondaryColor: 'rgba(244,244,255,0.9)',
+            tertiaryColor: '#F9FAFC',
+        },
+    });
+</script>
+<!--MERMAID GRAPHS-->
+</body>
+</html>

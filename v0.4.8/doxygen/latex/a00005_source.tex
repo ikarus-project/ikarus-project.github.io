@@ -1,0 +1,287 @@
+\hypertarget{a00005_source}{}\doxysection{tensorutils.\+hh}
+\label{a00005_source}\index{tensorutils.hh@{tensorutils.hh}}
+\mbox{\hyperlink{a00005}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <numeric>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <ranges>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <unsupported/Eigen/CXX11/Tensor>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/common/promotiontraits.hh>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03520}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00062}{ikarus/utils/math.hh}}>}}
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{31 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived, \textcolor{keyword}{typename} T, auto rank>}
+\DoxyCodeLine{32 Eigen::Tensor<typename Derived::Scalar, rank> \mbox{\hyperlink{a00506_ga5cfd9d098384fb067d897b3c0499b447}{tensorView}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02210}{Eigen::EigenBase<Derived>}}\& matrix,}
+\DoxyCodeLine{33                                                          \textcolor{keyword}{const} std::array<T, rank>\& dims) \{}
+\DoxyCodeLine{34   \textcolor{keywordflow}{return} Eigen::TensorMap<\textcolor{keyword}{const} Eigen::TensorFixedSize<}
+\DoxyCodeLine{35       \textcolor{keyword}{const} \textcolor{keyword}{typename} Derived::Scalar, Eigen::Sizes<Derived::RowsAtCompileTime, Derived::ColsAtCompileTime>>>(}
+\DoxyCodeLine{36       matrix.derived().eval().data(), dims);}
+\DoxyCodeLine{37 \}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{47 \textcolor{keyword}{auto} \mbox{\hyperlink{a00506_gab2cea9ac847cc3635812467c9d96ceb4}{dyadic}}(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& A\_ij, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& B\_kl) \{}
+\DoxyCodeLine{48   Eigen::array<Eigen::IndexPair<long>, 0> empty\_index\_list = \{\};}
+\DoxyCodeLine{49   \textcolor{keywordflow}{return} A\_ij.contract(B\_kl, empty\_index\_list).eval();}
+\DoxyCodeLine{50 \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{60 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST, \textcolor{keywordtype}{int} size>}
+\DoxyCodeLine{61 \textcolor{keyword}{auto} \mbox{\hyperlink{a00506_gab2cea9ac847cc3635812467c9d96ceb4}{dyadic}}(\textcolor{keyword}{const} Eigen::Vector<ST, size>\& a, \textcolor{keyword}{const} Eigen::Vector<ST, size>\& b) \{}
+\DoxyCodeLine{62   \textcolor{keywordflow}{return} (a * b.transpose()).eval();}
+\DoxyCodeLine{63 \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{72 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType = \textcolor{keywordtype}{double}, \textcolor{keywordtype}{int} dim = 3>}
+\DoxyCodeLine{73 \textcolor{keyword}{auto} \mbox{\hyperlink{a00506_ga1c9618ef351cd986d4f64fde7f52e860}{symmetricIdentityFourthOrder}}() \{}
+\DoxyCodeLine{74   Eigen::TensorFixedSize<ScalarType, Eigen::Sizes<dim, dim, dim, dim>> idTensor;}
+\DoxyCodeLine{75   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; ++i)}
+\DoxyCodeLine{76     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < dim; ++j)}
+\DoxyCodeLine{77       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} k = 0; k < dim; ++k)}
+\DoxyCodeLine{78         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} l = 0; l < dim; ++l)}
+\DoxyCodeLine{79           idTensor(i, j, k, l) = 0.5 * ((i == k) * (j == l) + (i == l) * (j == k));}
+\DoxyCodeLine{80   \textcolor{keywordflow}{return} idTensor;}
+\DoxyCodeLine{81 \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{94 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType = \textcolor{keywordtype}{double}, \textcolor{keywordtype}{int} dim = 3>}
+\DoxyCodeLine{95 \textcolor{keyword}{auto} \mbox{\hyperlink{a00506_ga2368a572348c410fd7e7deb6c6e3964a}{symmetricFourthOrder}}(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& A, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& B) \{}
+\DoxyCodeLine{96   Eigen::TensorFixedSize<ScalarType, Eigen::Sizes<dim, dim, dim, dim>> res;}
+\DoxyCodeLine{97   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; ++i)}
+\DoxyCodeLine{98     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < dim; ++j)}
+\DoxyCodeLine{99       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} k = 0; k < dim; ++k)}
+\DoxyCodeLine{100         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} l = 0; l < dim; ++l)}
+\DoxyCodeLine{101           res(i, j, k, l) = 0.5 * (A(i, k) * B(j, l) + A(i, l) * B(j, k));}
+\DoxyCodeLine{102   \textcolor{keywordflow}{return} res;}
+\DoxyCodeLine{103 \}}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{113 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType = \textcolor{keywordtype}{double}, \textcolor{keywordtype}{int} dim = 3>}
+\DoxyCodeLine{114 \textcolor{keyword}{auto} \mbox{\hyperlink{a00506_gadb08b6f9cc40847b70286dc314a23000}{identityFourthOrder}}() \{}
+\DoxyCodeLine{115   Eigen::TensorFixedSize<ScalarType, Eigen::Sizes<dim, dim, dim, dim>> idTensor;}
+\DoxyCodeLine{116   idTensor.setZero();}
+\DoxyCodeLine{117   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; ++i)}
+\DoxyCodeLine{118     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} k = 0; k < dim; ++k)}
+\DoxyCodeLine{119       idTensor(i, i, k, k) = 1.0;}
+\DoxyCodeLine{120   \textcolor{keywordflow}{return} idTensor;}
+\DoxyCodeLine{121 \}}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{134 \textcolor{keyword}{template} <\textcolor{keyword}{typename} AType, \textcolor{keyword}{typename} BType>}
+\DoxyCodeLine{135 \textcolor{keyword}{auto} \mbox{\hyperlink{a00506_ga8fa2b440586483c1ee0f9b90b9081da2}{fourthOrderIKJL}}(\textcolor{keyword}{const} Eigen::MatrixBase<AType>\& A, \textcolor{keyword}{const} Eigen::MatrixBase<BType>\& B) \{}
+\DoxyCodeLine{136   \textcolor{keyword}{static\_assert}(AType::RowsAtCompileTime == BType::RowsAtCompileTime);}
+\DoxyCodeLine{137   \textcolor{keyword}{static\_assert}(AType::ColsAtCompileTime == BType::ColsAtCompileTime);}
+\DoxyCodeLine{138   \textcolor{keyword}{using }ScalarResultType = \textcolor{keyword}{typename} Dune::PromotionTraits<typename AType::Scalar, typename BType::Scalar>::PromotedType;}
+\DoxyCodeLine{139   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} dim      = AType::RowsAtCompileTime;}
+\DoxyCodeLine{140   Eigen::TensorFixedSize<ScalarResultType, Eigen::Sizes<dim, dim, dim, dim>> res;}
+\DoxyCodeLine{141   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; ++i)}
+\DoxyCodeLine{142     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < dim; ++j)}
+\DoxyCodeLine{143       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} k = 0; k < dim; ++k)}
+\DoxyCodeLine{144         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} l = 0; l < dim; ++l)}
+\DoxyCodeLine{145           res(i, j, k, l) = A(i, k) * B(j, l);}
+\DoxyCodeLine{146   \textcolor{keywordflow}{return} res;}
+\DoxyCodeLine{147 \}}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{157 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType, \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} dim>}
+\DoxyCodeLine{158 \textcolor{keyword}{auto} \mbox{\hyperlink{a00506_gaea03dbfcd8f85ef7af004c7e09244aa9}{symTwoSlots}}(\textcolor{keyword}{const} Eigen::TensorFixedSize<ScalarType, Eigen::Sizes<dim, dim, dim, dim>>\& t,}
+\DoxyCodeLine{159                  \textcolor{keyword}{const} std::array<size\_t, 2>\& slots) \{}
+\DoxyCodeLine{160   std::array<size\_t, 4> shuffleSlot;}
+\DoxyCodeLine{161   std::iota(shuffleSlot.begin(), shuffleSlot.end(), 0);    \textcolor{comment}{// create 0,1,2,3 array}}
+\DoxyCodeLine{162   std::swap(shuffleSlot[slots[0]], shuffleSlot[slots[1]]); \textcolor{comment}{// swap  the given slots}}
+\DoxyCodeLine{163   \textcolor{keywordflow}{return} (0.5 * (t + t.shuffle(shuffleSlot))).eval();}
+\DoxyCodeLine{164 \}}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{180 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} dim = 3>}
+\DoxyCodeLine{181 \textcolor{keyword}{requires}(dim == 2 or dim == 3)}
+\DoxyCodeLine{182 \textcolor{keyword}{constexpr} Eigen::Index \mbox{\hyperlink{a00506_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(Eigen::Index i, Eigen::Index j) \textcolor{keyword}{noexcept} \{}
+\DoxyCodeLine{183   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (dim == 2) \{}
+\DoxyCodeLine{184     \textcolor{keywordflow}{if} (i == j) \textcolor{comment}{// \_00 -\/> 0, \_11 -\/> 1}}
+\DoxyCodeLine{185       \textcolor{keywordflow}{return} i;}
+\DoxyCodeLine{186     \textcolor{keywordflow}{if} ((i == 0 and j == 1) or (i == 1 and j == 0)) \textcolor{comment}{// \_01 and \_10 -\/-\/> 2}}
+\DoxyCodeLine{187       \textcolor{keywordflow}{return} 2;}
+\DoxyCodeLine{188     assert(i < 2 and j < 2 \&\& \textcolor{stringliteral}{"{}For Voigt notation the indices need to be 0 or 1."{}});}
+\DoxyCodeLine{189     \_\_builtin\_unreachable();}
+\DoxyCodeLine{190   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{191     \textcolor{keywordflow}{if} (i == j) \textcolor{comment}{// \_00 -\/> 0, \_11 -\/> 1,  \_22 -\/> 2}}
+\DoxyCodeLine{192       \textcolor{keywordflow}{return} i;}
+\DoxyCodeLine{193     \textcolor{keywordflow}{if} ((i == 1 and j == 2) or (i == 2 and j == 1)) \textcolor{comment}{// \_12 and \_21 -\/-\/> 3}}
+\DoxyCodeLine{194       \textcolor{keywordflow}{return} 3;}
+\DoxyCodeLine{195     \textcolor{keywordflow}{if} ((i == 0 and j == 2) or (i == 2 and j == 0)) \textcolor{comment}{// \_02 and \_20 -\/-\/> 4}}
+\DoxyCodeLine{196       \textcolor{keywordflow}{return} 4;}
+\DoxyCodeLine{197     \textcolor{keywordflow}{if} ((i == 0 and j == 1) or (i == 1 and j == 0)) \textcolor{comment}{// \_01 and \_10 -\/-\/> 5}}
+\DoxyCodeLine{198       \textcolor{keywordflow}{return} 5;}
+\DoxyCodeLine{199     assert(i < 3 and j < 3 \&\& \textcolor{stringliteral}{"{}For Voigt notation the indices need to be 0,1 or 2."{}});}
+\DoxyCodeLine{200     \_\_builtin\_unreachable();}
+\DoxyCodeLine{201   \}}
+\DoxyCodeLine{202 \}}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{218 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType = \textcolor{keywordtype}{double}>}
+\DoxyCodeLine{219 Eigen::Matrix<ScalarType, 6, 6> \mbox{\hyperlink{a00506_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(\textcolor{keyword}{const} Eigen::TensorFixedSize<ScalarType, Eigen::Sizes<3, 3, 3, 3>>\& ft) \{}
+\DoxyCodeLine{220   Eigen::Matrix<ScalarType, 6, 6> mat;}
+\DoxyCodeLine{221   \textcolor{keywordflow}{for} (Eigen::Index i = 0; i < 3; ++i)}
+\DoxyCodeLine{222     \textcolor{keywordflow}{for} (Eigen::Index j = 0; j < 3; ++j)}
+\DoxyCodeLine{223       \textcolor{keywordflow}{for} (Eigen::Index k = 0; k < 3; ++k)}
+\DoxyCodeLine{224         \textcolor{keywordflow}{for} (Eigen::Index l = 0; l < 3; ++l)}
+\DoxyCodeLine{225           mat(\mbox{\hyperlink{a00506_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(i, j), \mbox{\hyperlink{a00506_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(k, l)) = ft(i, j, k, l);}
+\DoxyCodeLine{226   \textcolor{keywordflow}{return} mat;}
+\DoxyCodeLine{227 \}}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{248 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST, \textcolor{keywordtype}{int} size, \textcolor{keywordtype}{int} Options, \textcolor{keywordtype}{int} maxSize>}
+\DoxyCodeLine{249 \textcolor{keyword}{requires}((size > 0 and size <= 3) or (maxSize > 0 and maxSize <= 3 and size == Eigen::Dynamic))}
+\DoxyCodeLine{250 \textcolor{keyword}{auto} \mbox{\hyperlink{a00506_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(\textcolor{keyword}{const} Eigen::Matrix<ST, size, size, Options, maxSize, maxSize>\& E, \textcolor{keywordtype}{bool} isStrain = \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{251   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isFixedSized   = (size != Eigen::Dynamic);}
+\DoxyCodeLine{252   \textcolor{keyword}{const} ST possibleStrainFactor = isStrain ? 2.0 : 1.0;}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} inputSize = isFixedSized ? size : E.rows();}
+\DoxyCodeLine{255   \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) EVoigt  = [\&]() \{}
+\DoxyCodeLine{256     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isFixedSized) \{}
+\DoxyCodeLine{257       Eigen::Vector<ST, (size * (size + 1)) / 2> EVoigt;}
+\DoxyCodeLine{258       EVoigt.template head<size>() = E.diagonal();}
+\DoxyCodeLine{259       \textcolor{keywordflow}{return} EVoigt;}
+\DoxyCodeLine{260     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{261       Eigen::Matrix<ST, Eigen::Dynamic, 1, Options, 6, 1> EVoigt;}
+\DoxyCodeLine{262       EVoigt.resize((inputSize * (inputSize + 1)) / 2);}
+\DoxyCodeLine{263       EVoigt.template head(inputSize) = E.diagonal();}
+\DoxyCodeLine{264       \textcolor{keywordflow}{return} EVoigt;}
+\DoxyCodeLine{265     \}}
+\DoxyCodeLine{266   \}();}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268   \textcolor{keywordflow}{if} (inputSize == 2)}
+\DoxyCodeLine{269     EVoigt(2) = E(0, 1) * possibleStrainFactor;}
+\DoxyCodeLine{270   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (inputSize == 3) \{}
+\DoxyCodeLine{271     EVoigt(inputSize)     = E(1, 2) * possibleStrainFactor;}
+\DoxyCodeLine{272     EVoigt(inputSize + 1) = E(0, 2) * possibleStrainFactor;}
+\DoxyCodeLine{273     EVoigt(inputSize + 2) = E(0, 1) * possibleStrainFactor;}
+\DoxyCodeLine{274   \}}
+\DoxyCodeLine{275   \textcolor{keywordflow}{return} EVoigt;}
+\DoxyCodeLine{276 \}}
+\DoxyCodeLine{277 }
+\DoxyCodeLine{293 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST, \textcolor{keywordtype}{int} size, \textcolor{keywordtype}{int} Options, \textcolor{keywordtype}{int} maxSize>}
+\DoxyCodeLine{294 \textcolor{keyword}{requires}((size == 1 or size == 3 or size == 6) or}
+\DoxyCodeLine{295          ((maxSize == 1 or maxSize == 3 or maxSize == 6) and size == \mbox{\hyperlink{a00527}{Eigen}}::Dynamic))}
+\DoxyCodeLine{296 auto \mbox{\hyperlink{a00506_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(const \mbox{\hyperlink{a00527}{Eigen}}::Matrix<ST, size, 1, Options, maxSize, 1>\& EVoigt, \textcolor{keywordtype}{bool} isStrain = true) \{}
+\DoxyCodeLine{297   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isFixedSized   = (size != Eigen::Dynamic);}
+\DoxyCodeLine{298   \textcolor{keyword}{const} ST possibleStrainFactor = isStrain ? 0.5 : 1.0;}
+\DoxyCodeLine{299 }
+\DoxyCodeLine{300   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} inputSize = isFixedSized ? size : EVoigt.size();}
+\DoxyCodeLine{301   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} matrixSize =}
+\DoxyCodeLine{302       isFixedSized ? (-\/1 + \mbox{\hyperlink{a00510_ae55d4d0c3478ab3ecf54ce905ddf223b}{ct\_sqrt}}(1 + 8 * size)) / 2 : (-\/1 + \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(std::sqrt(1 + 8 * inputSize))) / 2;}
+\DoxyCodeLine{303 }
+\DoxyCodeLine{304   \textcolor{keyword}{auto} E = [\&]() \{}
+\DoxyCodeLine{305     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isFixedSized) \{}
+\DoxyCodeLine{306       Eigen::Matrix<ST, matrixSize, matrixSize> E;}
+\DoxyCodeLine{307       E.diagonal() = EVoigt.template head<matrixSize>();}
+\DoxyCodeLine{308       \textcolor{keywordflow}{return} E;}
+\DoxyCodeLine{309     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{310       Eigen::Matrix<ST, Eigen::Dynamic, Eigen::Dynamic, Options, 3, 3> E;}
+\DoxyCodeLine{311       E.resize(matrixSize, matrixSize);}
+\DoxyCodeLine{312       E.diagonal() = EVoigt.template head(matrixSize);}
+\DoxyCodeLine{313       \textcolor{keywordflow}{return} E;}
+\DoxyCodeLine{314     \}}
+\DoxyCodeLine{315   \}();}
+\DoxyCodeLine{316 }
+\DoxyCodeLine{317   \textcolor{keywordflow}{if} (matrixSize == 2) \{}
+\DoxyCodeLine{318     E(0, 1) = E(1, 0) = EVoigt(2) * possibleStrainFactor;}
+\DoxyCodeLine{319   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (matrixSize == 3) \{}
+\DoxyCodeLine{320     E(2, 1) = E(1, 2) = EVoigt(matrixSize) * possibleStrainFactor;}
+\DoxyCodeLine{321     E(2, 0) = E(0, 2) = EVoigt(matrixSize + 1) * possibleStrainFactor;}
+\DoxyCodeLine{322     E(1, 0) = E(0, 1) = EVoigt(matrixSize + 2) * possibleStrainFactor;}
+\DoxyCodeLine{323   \}}
+\DoxyCodeLine{324 }
+\DoxyCodeLine{325   \textcolor{keywordflow}{return} E;}
+\DoxyCodeLine{326 \}}
+\DoxyCodeLine{327 }
+\DoxyCodeLine{343 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} dim = 3>}
+\DoxyCodeLine{344 \textcolor{keyword}{requires}(dim == 2 or dim == 3)}
+\DoxyCodeLine{345 \textcolor{keyword}{constexpr} std::array<size\_t, 2> \mbox{\hyperlink{a00506_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(\textcolor{keywordtype}{size\_t} i) \{}
+\DoxyCodeLine{346   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (dim == 3) \{}
+\DoxyCodeLine{347     \textcolor{keywordflow}{if} (i < 3) \textcolor{comment}{// \_00 -\/> 0, \_11 -\/> 1,  \_22 -\/> 2}}
+\DoxyCodeLine{348       \textcolor{keywordflow}{return} \{i, i\};}
+\DoxyCodeLine{349     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == 3)}
+\DoxyCodeLine{350       \textcolor{keywordflow}{return} \{1, 2\};}
+\DoxyCodeLine{351     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == 4)}
+\DoxyCodeLine{352       \textcolor{keywordflow}{return} \{0, 2\};}
+\DoxyCodeLine{353     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == 5)}
+\DoxyCodeLine{354       \textcolor{keywordflow}{return} \{0, 1\};}
+\DoxyCodeLine{355     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{356       assert(i < 6 \&\& \textcolor{stringliteral}{"{}For Voigt notation the indices need to be between 0 and 5."{}});}
+\DoxyCodeLine{357       \_\_builtin\_unreachable();}
+\DoxyCodeLine{358     \}}
+\DoxyCodeLine{359   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{360     \textcolor{keywordflow}{if} (i < 2) \textcolor{comment}{// \_00 -\/> 0, \_11 -\/> 1}}
+\DoxyCodeLine{361       \textcolor{keywordflow}{return} \{i, i\};}
+\DoxyCodeLine{362     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == 2)}
+\DoxyCodeLine{363       \textcolor{keywordflow}{return} \{0, 1\};}
+\DoxyCodeLine{364     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{365       assert(i < 3 \&\& \textcolor{stringliteral}{"{}For Voigt notation the indices need to be between 0 and 2."{}});}
+\DoxyCodeLine{366       \_\_builtin\_unreachable();}
+\DoxyCodeLine{367     \}}
+\DoxyCodeLine{368   \}}
+\DoxyCodeLine{369 \}}
+\DoxyCodeLine{370 }
+\DoxyCodeLine{382 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ScalarType, \textcolor{keywordtype}{int} size>}
+\DoxyCodeLine{383 \textcolor{keyword}{auto} \mbox{\hyperlink{a00506_gadc8e9e9f3838d0392a5fcf1e11374ee9}{fromVoigt}}(\textcolor{keyword}{const} Eigen::Matrix<ScalarType, size, size>\& CVoigt) \{}
+\DoxyCodeLine{384   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} dim = (-\/1 + \mbox{\hyperlink{a00510_ae55d4d0c3478ab3ecf54ce905ddf223b}{ct\_sqrt}}(1 + 8 * size)) / 2;}
+\DoxyCodeLine{385   Eigen::TensorFixedSize<ScalarType, Eigen::Sizes<dim, dim, dim, dim>> C;}
+\DoxyCodeLine{386   \textcolor{comment}{// size\_t iR=0,jR=0;}}
+\DoxyCodeLine{387   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < size; ++i) \{}
+\DoxyCodeLine{388     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} j = 0; j < size; ++j) \{}
+\DoxyCodeLine{389       \textcolor{keyword}{auto} firstIndices                                                       = fromVoigt<dim>(i);}
+\DoxyCodeLine{390       \textcolor{keyword}{auto} secondIndices                                                      = fromVoigt<dim>(j);}
+\DoxyCodeLine{391       C(firstIndices[0], firstIndices[1], secondIndices[0], secondIndices[1]) = CVoigt(i, j);}
+\DoxyCodeLine{392     \}}
+\DoxyCodeLine{393   \}}
+\DoxyCodeLine{394   \textcolor{keywordflow}{return} C;}
+\DoxyCodeLine{395 \}}
+\DoxyCodeLine{396 }
+\DoxyCodeLine{408 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{409 \textcolor{keyword}{requires}(GEO::mydimension == 2)}
+\DoxyCodeLine{410 Eigen::Matrix3d \mbox{\hyperlink{a00510_ae05c7db6d3b9b31f0f23f2d62ea52800}{transformationMatrix}}(\textcolor{keyword}{const} GEO\& geometry, \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, 2>}}\& pos) \{}
+\DoxyCodeLine{411   \textcolor{keyword}{const} \textcolor{keyword}{auto} jacobian = toEigen(geometry.jacobianTransposed(pos)).eval();}
+\DoxyCodeLine{412 }
+\DoxyCodeLine{413   \textcolor{keyword}{const} \textcolor{keyword}{auto} J11 = jacobian(0, 0);}
+\DoxyCodeLine{414   \textcolor{keyword}{const} \textcolor{keyword}{auto} J12 = jacobian(0, 1);}
+\DoxyCodeLine{415   \textcolor{keyword}{const} \textcolor{keyword}{auto} J21 = jacobian(1, 0);}
+\DoxyCodeLine{416   \textcolor{keyword}{const} \textcolor{keyword}{auto} J22 = jacobian(1, 1);}
+\DoxyCodeLine{417 }
+\DoxyCodeLine{418   Eigen::Matrix3d T\{}
+\DoxyCodeLine{419       \{      J11 * J11,       J12 * J12,             J11 * J12\},}
+\DoxyCodeLine{420       \{      J21 * J21,       J22 * J22,             J21 * J22\},}
+\DoxyCodeLine{421       \{2.0 * J11 * J21, 2.0 * J12 * J22, J21 * J12 + J11 * J22\}}
+\DoxyCodeLine{422   \};}
+\DoxyCodeLine{423 }
+\DoxyCodeLine{424   \textcolor{keywordflow}{return} T;}
+\DoxyCodeLine{425 \}}
+\DoxyCodeLine{426 }
+\DoxyCodeLine{438 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{439 \textcolor{keyword}{requires}(GEO::mydimension == 3)}
+\DoxyCodeLine{440 Eigen::Matrix<double, 6, 6> \mbox{\hyperlink{a00510_ae05c7db6d3b9b31f0f23f2d62ea52800}{transformationMatrix}}(\textcolor{keyword}{const} GEO\& geometry, \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, 3>}}\& pos) \{}
+\DoxyCodeLine{441   \textcolor{keyword}{const} \textcolor{keyword}{auto} jacobian = toEigen(geometry.jacobianTransposed(pos)).eval();}
+\DoxyCodeLine{442 }
+\DoxyCodeLine{443   \textcolor{keyword}{const} \textcolor{keyword}{auto} J11 = jacobian(0, 0);}
+\DoxyCodeLine{444   \textcolor{keyword}{const} \textcolor{keyword}{auto} J12 = jacobian(0, 1);}
+\DoxyCodeLine{445   \textcolor{keyword}{const} \textcolor{keyword}{auto} J13 = jacobian(0, 2);}
+\DoxyCodeLine{446   \textcolor{keyword}{const} \textcolor{keyword}{auto} J21 = jacobian(1, 0);}
+\DoxyCodeLine{447   \textcolor{keyword}{const} \textcolor{keyword}{auto} J22 = jacobian(1, 1);}
+\DoxyCodeLine{448   \textcolor{keyword}{const} \textcolor{keyword}{auto} J23 = jacobian(1, 2);}
+\DoxyCodeLine{449   \textcolor{keyword}{const} \textcolor{keyword}{auto} J31 = jacobian(2, 0);}
+\DoxyCodeLine{450   \textcolor{keyword}{const} \textcolor{keyword}{auto} J32 = jacobian(2, 1);}
+\DoxyCodeLine{451   \textcolor{keyword}{const} \textcolor{keyword}{auto} J33 = jacobian(2, 2);}
+\DoxyCodeLine{452 }
+\DoxyCodeLine{453   \textcolor{comment}{// clang-\/format off}}
+\DoxyCodeLine{454     Eigen::Matrix<double, 6, 6> T  \{}
+\DoxyCodeLine{455       \{J11 * J11,       J12 * J12,       J13 * J13,             J12 * J13,             J11 * J13,             J11 * J12\},}
+\DoxyCodeLine{456       \{J21 * J21,       J22 * J22,       J23 * J23,             J22 * J23,             J21 * J23,             J21 * J22\},}
+\DoxyCodeLine{457       \{J31 * J31,       J32 * J32,       J33 * J33,             J32 * J33,             J31 * J33,             J31 * J32\},}
+\DoxyCodeLine{458       \{2.0 * J21 * J31, 2.0 * J22 * J32, 2.0 * J23 * J33, J22 * J33 + J32 * J23, J31 * J23 + J21 * J33, J21 * J32 + J31 * J22\},}
+\DoxyCodeLine{459       \{2.0 * J11 * J31, 2.0 * J12 * J32, 2.0 * J13 * J33, J12 * J33 + J32 * J13, J11 * J33 + J31 * J13, J11 * J32 + J31 * J12\},}
+\DoxyCodeLine{460       \{2.0 * J11 * J21, 2.0 * J12 * J22, 2.0 * J13 * J23, J12 * J23 + J22 * J13, J11 * J23 + J21 * J13, J11 * J22 + J12 * J21\}}
+\DoxyCodeLine{461     \};}
+\DoxyCodeLine{462   \textcolor{comment}{// clang-\/format on}}
+\DoxyCodeLine{463 }
+\DoxyCodeLine{464   \textcolor{keywordflow}{return} T;}
+\DoxyCodeLine{465 \}}
+\DoxyCodeLine{466 }
+\DoxyCodeLine{467 \} \textcolor{comment}{// namespace Ikarus}}
+
+\end{DoxyCode}

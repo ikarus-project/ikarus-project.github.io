@@ -1,0 +1,27 @@
+var a00535 =
+[
+    [ "ChangeArgTypeAtPos", "a02426.html", null ],
+    [ "FunctionTraits", "a02414.html", null ],
+    [ "hasType", "a02370.html", null ],
+    [ "Index", "a02406.html", null ],
+    [ "is_tuple< std::tuple< T... > >", "a02366.html", null ],
+    [ "isSharedPtr", "a02374.html", null ],
+    [ "isSpecialization< U, U< T... > >", "a02386.html", null ],
+    [ "isSpecializationNonTypeAndTypes< Type, Type< T, N... > >", "a02390.html", null ],
+    [ "isSpecializationNonTypeNonTypeAndTypes< Type, Type< T, R, N... > >", "a02394.html", null ],
+    [ "isSpecializationNonTypes< Type, Type< N... > >", "a02402.html", null ],
+    [ "isSpecializationTypeNonTypeAndType< Type, Type< T, M, N > >", "a02398.html", null ],
+    [ "isUniquePtr", "a02378.html", null ],
+    [ "Rebind", "a02410.html", null ],
+    [ "remove_pointer", "a02382.html", "a02382" ],
+    [ "ReplaceTypeAtPos", "a02418.html", null ],
+    [ "TupleToFunctionType", "a02422.html", null ],
+    [ "Pointer", "a02483.html", null ],
+    [ "EigenSparseMatrix", "a02484.html", null ],
+    [ "MaybeDereferencedType", "a00535.html#ac043159fa5129b78437c4cc7616ce706", null ],
+    [ "remove_pointer_t", "a00535.html#a472256748675b3006507836bd8034a0e", null ],
+    [ "ReplaceTypeAtPos_t", "a00535.html#ac903f76dfaaaf40abfe1c532850db3d1", null ],
+    [ "ReturnType", "a00508.html#ga0ba1bf25ee478b1b1d9e96c1dcd831a0", null ],
+    [ "TupleToFunctionType_t", "a00535.html#a6b604914727df9d1b05be9a64c56898c", null ],
+    [ "countType", "a00508.html#ga45ac3fa7e384aa760181de7a1377dc14", null ]
+];

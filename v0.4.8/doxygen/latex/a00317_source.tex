@@ -1,0 +1,303 @@
+\hypertarget{a00317_source}{}\doxysection{displacementgradienttransposed.\+hh}
+\label{a00317_source}\index{displacementgradienttransposed.hh@{displacementgradienttransposed.hh}}
+\mbox{\hyperlink{a00317}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/common/fvector.hh>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/localfefunctions/eigenDuneTransformations.hh>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/localfefunctions/expressions/greenLagrangeStrains.hh>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00005}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00522}{Ikarus::EAS}} \{}
+\DoxyCodeLine{30 \textcolor{keyword}{struct }\mbox{\hyperlink{a01842}{DisplacementGradientTransposed}}}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} EAST>}
+\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01842_a7d279af9f44c2cbbf1090036aef2c13c}{computeDisplacementGradient}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction,}
+\DoxyCodeLine{48                                           \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
+\DoxyCodeLine{49                                           \textcolor{keyword}{const} EAST\& easFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha) \{}
+\DoxyCodeLine{50     \textcolor{keyword}{using }ST                = \textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(uFunction)>::ctype;}
+\DoxyCodeLine{51     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim     = GEO::mydimension;}
+\DoxyCodeLine{52     \textcolor{keyword}{using }MatrixType        = Eigen::Matrix<ST, myDim, myDim>;}
+\DoxyCodeLine{53     \textcolor{keyword}{const} MatrixType Hc     = compatibleDisplacementGradient<GEO>(uFunction, gpPos);}
+\DoxyCodeLine{54     \textcolor{keyword}{const} MatrixType Htilde = enhancedDisplacementGradient(geo, uFunction, gpPos, easFunction, alpha);}
+\DoxyCodeLine{55     \textcolor{keyword}{const} MatrixType H      = Hc + Htilde;}
+\DoxyCodeLine{56     \textcolor{keywordflow}{return} H;}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{73   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} EAST>}
+\DoxyCodeLine{74   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01842_a849109ef5847cad06787d2a10041fcde}{value}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
+\DoxyCodeLine{75                     \textcolor{keyword}{const} EAST\& easFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha) \{}
+\DoxyCodeLine{76     \textcolor{keyword}{using }ST                                = \textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(uFunction)>::ctype;}
+\DoxyCodeLine{77     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim                     = GEO::mydimension;}
+\DoxyCodeLine{78     \textcolor{keyword}{const} Eigen::Matrix<ST, myDim, myDim> H = \mbox{\hyperlink{a01842_a7d279af9f44c2cbbf1090036aef2c13c}{computeDisplacementGradient}}(geo, uFunction, gpPos, easFunction, alpha);}
+\DoxyCodeLine{79     \textcolor{keyword}{const} Eigen::Matrix<ST, myDim, myDim> E = 0.5 * (H + H.transpose() + H.transpose() * H);}
+\DoxyCodeLine{80     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00506_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(E, \textcolor{keyword}{true}).eval();}
+\DoxyCodeLine{81   \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{103   \textcolor{keyword}{template} <\textcolor{keywordtype}{int} wrtCoeff, \textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} EAST>}
+\DoxyCodeLine{104   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01842_a55c1fbf8886e733e901791cccce7a4b6}{firstDerivative}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& gpIndex,}
+\DoxyCodeLine{105                               \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos, \textcolor{keyword}{const} EAST\& easFunction,}
+\DoxyCodeLine{106                               \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha, \textcolor{keyword}{const} \textcolor{keywordtype}{int} node = sNaN) \{}
+\DoxyCodeLine{107     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
+\DoxyCodeLine{108     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00536}{Dune}};}
+\DoxyCodeLine{109     \textcolor{keyword}{using }ST                         = \textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(uFunction)>::ctype;}
+\DoxyCodeLine{110     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim              = GEO::mydimension;}
+\DoxyCodeLine{111     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} enhancedStrainSize = EAST::enhancedStrainSize;}
+\DoxyCodeLine{112     \textcolor{keyword}{static\_assert}(myDim == 2 or myDim == 3,}
+\DoxyCodeLine{113                   \textcolor{stringliteral}{"{}An enhancement of displacement gradient (transposed) can only be performed for the 2D or 3D case."{}});}
+\DoxyCodeLine{114     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} strainSize = myDim * (myDim + 1) / 2;}
+\DoxyCodeLine{115     \textcolor{keyword}{using }MatrixType         = Eigen::Matrix<ST, myDim, myDim>;}
+\DoxyCodeLine{116     \textcolor{keyword}{const} \textcolor{keyword}{auto} centerPos     = centerPosition(geo);}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118     \textcolor{keyword}{const} MatrixType F = computeDeformationGradient(geo, uFunction, gpPos, easFunction, alpha)}
+\DoxyCodeLine{119                              .transpose()}
+\DoxyCodeLine{120                              .eval(); \textcolor{comment}{// transposed such that the rows are u\_\{,1\} and u\_\{,2\}}}
+\DoxyCodeLine{121     \textcolor{keyword}{const} \textcolor{keyword}{typename} EAST::HType Harray = easFunction(gpPos);}
+\DoxyCodeLine{122     \textcolor{keyword}{const} \textcolor{keyword}{auto} g0                     = F.row(0);}
+\DoxyCodeLine{123     \textcolor{keyword}{const} \textcolor{keyword}{auto} g1                     = F.row(1);}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 0) \{ \textcolor{comment}{// E,d}}
+\DoxyCodeLine{126       \textcolor{keyword}{const} \textcolor{keyword}{auto} gradUdI  = uFunction.evaluateDerivative(gpPos, wrt(spatialAll, coeff(node)), on(gridElement));}
+\DoxyCodeLine{127       \textcolor{keyword}{const} \textcolor{keyword}{auto} gradUdI0 = uFunction.evaluateDerivative(centerPos, wrt(spatialAll, coeff(node)), on(gridElement));}
+\DoxyCodeLine{128       Eigen::Vector<ST, myDim> dN, dN0, dNtilde;}
+\DoxyCodeLine{129       dNtilde.setZero();}
+\DoxyCodeLine{130       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} i : Dune::range(myDim)) \{}
+\DoxyCodeLine{131         dN[i]  = getDiagonalEntry(gradUdI[i], 0);}
+\DoxyCodeLine{132         dN0[i] = getDiagonalEntry(gradUdI0[i], 0);}
+\DoxyCodeLine{133       \}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} i : Dune::range(myDim))}
+\DoxyCodeLine{136         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} t : Dune::range(enhancedStrainSize))}
+\DoxyCodeLine{137           \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : Dune::range(myDim))}
+\DoxyCodeLine{138             dNtilde[i] += Harray[t](i, p) * alpha[t] * dN0[p];}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140       dN += dNtilde;}
+\DoxyCodeLine{141       Eigen::Matrix<ST, strainSize, myDim> bopI;}
+\DoxyCodeLine{142       bopI.row(0) = dN[0] * g0;}
+\DoxyCodeLine{143       bopI.row(1) = dN[1] * g1;}
+\DoxyCodeLine{144       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (myDim == 2)}
+\DoxyCodeLine{145         bopI.row(2) = dN[1] * g0 + dN[0] * g1;}
+\DoxyCodeLine{146       \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{147         \textcolor{keyword}{const} \textcolor{keyword}{auto} g2 = F.row(2);}
+\DoxyCodeLine{148         bopI.row(2)   = dN[2] * g2;}
+\DoxyCodeLine{149         bopI.row(3)   = dN[2] * g1 + dN[1] * g2;}
+\DoxyCodeLine{150         bopI.row(4)   = dN[2] * g0 + dN[0] * g2;}
+\DoxyCodeLine{151         bopI.row(5)   = dN[1] * g0 + dN[0] * g1;}
+\DoxyCodeLine{152       \}}
+\DoxyCodeLine{153       \textcolor{keywordflow}{return} bopI.eval();}
+\DoxyCodeLine{154     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 1) \{ \textcolor{comment}{// E,a}}
+\DoxyCodeLine{155       \textcolor{keyword}{const} MatrixType Fc0 = MatrixType::Identity() + compatibleDisplacementGradient<GEO>(uFunction, centerPos);}
+\DoxyCodeLine{156       Eigen::Matrix<ST, strainSize, enhancedStrainSize> M;}
+\DoxyCodeLine{157       M.setZero(); \textcolor{comment}{// zeros returned if Harray is empty}}
+\DoxyCodeLine{158       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} q : Dune::range(enhancedStrainSize)) \{}
+\DoxyCodeLine{159         \textcolor{keyword}{const} MatrixType Htilde = Fc0 * Harray[q].transpose();}
+\DoxyCodeLine{160         M(0, q)                 = Htilde.col(0).dot(g0);}
+\DoxyCodeLine{161         M(1, q)                 = Htilde.col(1).dot(g1);}
+\DoxyCodeLine{162         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (myDim == 2)}
+\DoxyCodeLine{163           M(2, q) = Htilde.col(1).dot(g0) + Htilde.col(0).dot(g1);}
+\DoxyCodeLine{164         \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{165           \textcolor{keyword}{const} \textcolor{keyword}{auto} g2 = F.row(2);}
+\DoxyCodeLine{166           M(2, q)       = Htilde.col(2).dot(g2);}
+\DoxyCodeLine{167           M(3, q)       = Htilde.col(2).dot(g1) + Htilde.col(1).dot(g2);}
+\DoxyCodeLine{168           M(4, q)       = Htilde.col(2).dot(g0) + Htilde.col(0).dot(g2);}
+\DoxyCodeLine{169           M(5, q)       = Htilde.col(1).dot(g0) + Htilde.col(0).dot(g1);}
+\DoxyCodeLine{170         \}}
+\DoxyCodeLine{171       \}}
+\DoxyCodeLine{172       \textcolor{keywordflow}{return} M.eval();}
+\DoxyCodeLine{173     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{174       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<GEO>::value,}
+\DoxyCodeLine{175                     \textcolor{stringliteral}{"{}firstDerivative can only be called with wrtCoeff as 0 and 1 indicating first derivative of the "{}}}
+\DoxyCodeLine{176                     \textcolor{stringliteral}{"{}Green-\/Lagrange strain w.r.t d and "{}}}
+\DoxyCodeLine{177                     \textcolor{stringliteral}{"{}alpha, respectively."{}});}
+\DoxyCodeLine{178   \}}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{204   \textcolor{keyword}{template} <\textcolor{keywordtype}{int} wrtCoeff, \textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} ST, \textcolor{keyword}{typename} EAST>}
+\DoxyCodeLine{205   \textcolor{keyword}{static} \textcolor{keyword}{auto} \mbox{\hyperlink{a01842_a62f5380a4873477bd08231cf24ba5d41}{secondDerivative}}(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& localBasis, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& gpIndex,}
+\DoxyCodeLine{206                                \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
+\DoxyCodeLine{207                                \textcolor{keyword}{const} Eigen::Vector<ST, GEO::mydimension*(GEO::mydimension + 1) / 2>\& S,}
+\DoxyCodeLine{208                                \textcolor{keyword}{const} EAST\& easFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha, \textcolor{keyword}{const} \textcolor{keywordtype}{int} I = sNaN, \textcolor{keyword}{const} \textcolor{keywordtype}{int} J = sNaN) \{}
+\DoxyCodeLine{209     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim              = GEO::mydimension;}
+\DoxyCodeLine{210     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} enhancedStrainSize = EAST::enhancedStrainSize;}
+\DoxyCodeLine{211     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
+\DoxyCodeLine{212     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00536}{Dune}};}
+\DoxyCodeLine{213     \textcolor{keyword}{using }MatrixType     = Eigen::Matrix<ST, myDim, myDim>;}
+\DoxyCodeLine{214     \textcolor{keyword}{const} \textcolor{keyword}{auto} centerPos = centerPosition(geo);}
+\DoxyCodeLine{215     \textcolor{keyword}{static\_assert}(myDim == 2 or myDim == 3,}
+\DoxyCodeLine{216                   \textcolor{stringliteral}{"{}An enhancement of displacement gradient (transposed) can only be performed for the 2D or 3D case."{}});}
+\DoxyCodeLine{217     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 0) \{ \textcolor{comment}{// E,dd}}
+\DoxyCodeLine{218       \textcolor{keyword}{const} \textcolor{keyword}{typename} EAST::HType Harray = easFunction(gpPos);}
+\DoxyCodeLine{219       \textcolor{keyword}{const} \textcolor{keyword}{auto} gradUdI  = uFunction.evaluateDerivative(gpPos, wrt(spatialAll, coeff(I)), on(gridElement));}
+\DoxyCodeLine{220       \textcolor{keyword}{const} \textcolor{keyword}{auto} gradUdI0 = uFunction.evaluateDerivative(centerPos, wrt(spatialAll, coeff(I)), on(gridElement));}
+\DoxyCodeLine{221       \textcolor{keyword}{const} \textcolor{keyword}{auto} gradUdJ  = uFunction.evaluateDerivative(gpPos, wrt(spatialAll, coeff(J)), on(gridElement));}
+\DoxyCodeLine{222       \textcolor{keyword}{const} \textcolor{keyword}{auto} gradUdJ0 = uFunction.evaluateDerivative(centerPos, wrt(spatialAll, coeff(J)), on(gridElement));}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224       Eigen::Vector<ST, myDim> dNI, dNI0;}
+\DoxyCodeLine{225       Eigen::Vector<ST, myDim> dNJ, dNJ0;}
+\DoxyCodeLine{226       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} i : Dune::range(myDim)) \{}
+\DoxyCodeLine{227         dNI[i]  = getDiagonalEntry(gradUdI[i], 0);}
+\DoxyCodeLine{228         dNI0[i] = getDiagonalEntry(gradUdI0[i], 0);}
+\DoxyCodeLine{229         dNJ[i]  = getDiagonalEntry(gradUdJ[i], 0);}
+\DoxyCodeLine{230         dNJ0[i] = getDiagonalEntry(gradUdJ0[i], 0);}
+\DoxyCodeLine{231       \}}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233       Eigen::Vector<ST, myDim> dNItilde = Eigen::Vector<ST, myDim>::Zero();}
+\DoxyCodeLine{234       Eigen::Vector<ST, myDim> dNJtilde = Eigen::Vector<ST, myDim>::Zero();}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} t : Dune::range(enhancedStrainSize)) \{}
+\DoxyCodeLine{237         dNItilde += Harray[t] * (alpha[t] * dNI0);}
+\DoxyCodeLine{238         dNJtilde += Harray[t] * (alpha[t] * dNJ0);}
+\DoxyCodeLine{239       \}}
+\DoxyCodeLine{240 }
+\DoxyCodeLine{241       dNI += dNItilde;}
+\DoxyCodeLine{242       dNJ += dNJtilde;}
+\DoxyCodeLine{243       ST val\{0.0\};}
+\DoxyCodeLine{244       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (myDim == 2)}
+\DoxyCodeLine{245         val = S[0] * dNI[0] * dNJ[0] + S[1] * dNI[1] * dNJ[1] + S[2] * (dNI[0] * dNJ[1] + dNI[1] * dNJ[0]);}
+\DoxyCodeLine{246       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{247         val = S[0] * dNI[0] * dNJ[0] + S[1] * dNI[1] * dNJ[1] + S[2] * dNI[2] * dNJ[2] +}
+\DoxyCodeLine{248               S[3] * (dNI[2] * dNJ[1] + dNI[1] * dNJ[2]) + S[4] * (dNI[0] * dNJ[2] + dNI[2] * dNJ[0]) +}
+\DoxyCodeLine{249               S[5] * (dNI[0] * dNJ[1] + dNI[1] * dNJ[0]);}
+\DoxyCodeLine{250 }
+\DoxyCodeLine{251       \textcolor{keyword}{const} MatrixType kg = createScaledIdentityMatrix<ST, myDim, myDim>(val);}
+\DoxyCodeLine{252       \textcolor{keywordflow}{return} kg;}
+\DoxyCodeLine{253     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 1) \{ \textcolor{comment}{// E,aa}}
+\DoxyCodeLine{254       \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} enhancedStrainSize  = EAST::enhancedStrainSize;}
+\DoxyCodeLine{255       \textcolor{keyword}{const} \textcolor{keyword}{typename} EAST::HType Harray = easFunction(gpPos);}
+\DoxyCodeLine{256       \textcolor{keyword}{auto} kg                           = Eigen::Matrix<ST, enhancedStrainSize, enhancedStrainSize>::Zero().eval();}
+\DoxyCodeLine{257       \textcolor{keyword}{const} MatrixType Fc0 = MatrixType::Identity() + compatibleDisplacementGradient<GEO>(uFunction, centerPos);}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{259       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} i : Dune::range(myDim)) \{}
+\DoxyCodeLine{260         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} j : Dune::range(myDim)) \{}
+\DoxyCodeLine{261           \textcolor{keyword}{const} \textcolor{keyword}{auto} sij = 0.5 * S[toVoigt<myDim>(i, j)];}
+\DoxyCodeLine{262           \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : Dune::range(enhancedStrainSize)) \{}
+\DoxyCodeLine{263             \textcolor{keyword}{const} \textcolor{keyword}{auto} Hp = Fc0 * Harray[p].transpose();}
+\DoxyCodeLine{264             \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} q : Dune::range(enhancedStrainSize)) \{}
+\DoxyCodeLine{265               \textcolor{keyword}{const} \textcolor{keyword}{auto} Hq = Fc0 * Harray[q].transpose();}
+\DoxyCodeLine{266               kg(p, q) += sij * (Hp.col(i).transpose() * Hq.col(j) + Hp.col(j).transpose() * Hq.col(i)).sum();}
+\DoxyCodeLine{267             \}}
+\DoxyCodeLine{268           \}}
+\DoxyCodeLine{269         \}}
+\DoxyCodeLine{270       \}}
+\DoxyCodeLine{271       \textcolor{keywordflow}{return} kg;}
+\DoxyCodeLine{272     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (wrtCoeff == 2) \{ \textcolor{comment}{// E,ad}}
+\DoxyCodeLine{273       \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} enhancedStrainSize  = EAST::enhancedStrainSize;}
+\DoxyCodeLine{274       \textcolor{keyword}{const} \textcolor{keyword}{typename} EAST::HType Harray = easFunction(gpPos);}
+\DoxyCodeLine{275       \textcolor{keyword}{auto} kg                           = Eigen::Matrix<ST, enhancedStrainSize, myDim>::Zero().eval();}
+\DoxyCodeLine{276       \textcolor{keyword}{const} \textcolor{keyword}{auto} gradUdI   = uFunction.evaluateDerivative(gpIndex, wrt(spatialAll, coeff(I)), on(gridElement));}
+\DoxyCodeLine{277       \textcolor{keyword}{const} \textcolor{keyword}{auto} gradUdI0  = uFunction.evaluateDerivative(centerPos, wrt(spatialAll, coeff(I)), on(gridElement));}
+\DoxyCodeLine{278       \textcolor{keyword}{const} MatrixType Fc0 = MatrixType::Identity() + compatibleDisplacementGradient<GEO>(uFunction, centerPos);}
+\DoxyCodeLine{279       \textcolor{keyword}{const} MatrixType F   = computeDeformationGradient(geo, uFunction, gpPos, easFunction, alpha);}
+\DoxyCodeLine{280 }
+\DoxyCodeLine{281       Eigen::Vector<ST, myDim> dN0;}
+\DoxyCodeLine{282       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} i : Dune::range(myDim))}
+\DoxyCodeLine{283         dN0[i] = getDiagonalEntry(gradUdI0[i], 0);}
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285       Eigen::Vector<ST, myDim> dNtilde = Eigen::Vector<ST, myDim>::Zero();}
+\DoxyCodeLine{286       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} t : Dune::range(enhancedStrainSize))}
+\DoxyCodeLine{287         dNtilde += Harray[t] * (alpha[t] * dN0);}
+\DoxyCodeLine{288 }
+\DoxyCodeLine{289       std::array<MatrixType, myDim> dNIdT, dNIdT0;}
+\DoxyCodeLine{290       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} i : Dune::range(myDim)) \{}
+\DoxyCodeLine{291         dNIdT[i].setZero();}
+\DoxyCodeLine{292         dNIdT0[i].setZero();}
+\DoxyCodeLine{293         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} j : Dune::range(myDim)) \{}
+\DoxyCodeLine{294           dNIdT[i](i, j)  = getDiagonalEntry(gradUdI[j], 0) + dNtilde[j];}
+\DoxyCodeLine{295           dNIdT0[i](i, j) = getDiagonalEntry(gradUdI0[j], 0);}
+\DoxyCodeLine{296         \}}
+\DoxyCodeLine{297       \}}
+\DoxyCodeLine{298 }
+\DoxyCodeLine{299       std::array<std::array<MatrixType, enhancedStrainSize>, myDim> dNXHtilde;}
+\DoxyCodeLine{300       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& row : dNXHtilde)}
+\DoxyCodeLine{301         std::ranges::fill(row, MatrixType::Zero());}
+\DoxyCodeLine{302       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : Dune::range(enhancedStrainSize)) \{}
+\DoxyCodeLine{303         \textcolor{keyword}{const} \textcolor{keyword}{auto} Htilde = Harray[p].transpose();}
+\DoxyCodeLine{304         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} q : Dune::range(myDim))}
+\DoxyCodeLine{305           dNXHtilde[q][p] += dNIdT0[q] * Htilde;}
+\DoxyCodeLine{306       \}}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{308       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} i : Dune::range(myDim)) \{}
+\DoxyCodeLine{309         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} j : Dune::range(myDim)) \{}
+\DoxyCodeLine{310           \textcolor{keyword}{const} \textcolor{keyword}{auto} sij = 0.5 * S[toVoigt<myDim>(i, j)];}
+\DoxyCodeLine{311           \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : Dune::range(enhancedStrainSize)) \{}
+\DoxyCodeLine{312             \textcolor{keyword}{const} \textcolor{keyword}{auto} Hp = Fc0 * Harray[p].transpose();}
+\DoxyCodeLine{313             \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} q : Dune::range(myDim)) \{}
+\DoxyCodeLine{314               kg(p, q) +=}
+\DoxyCodeLine{315                   sij * (Hp.col(i).transpose() * dNIdT[q].col(j) + Hp.col(j).transpose() * dNIdT[q].col(i) +}
+\DoxyCodeLine{316                          dNXHtilde[q][p].col(i).transpose() * F.col(j) + dNXHtilde[q][p].col(j).transpose() * F.col(i))}
+\DoxyCodeLine{317                             .sum();}
+\DoxyCodeLine{318             \}}
+\DoxyCodeLine{319           \}}
+\DoxyCodeLine{320         \}}
+\DoxyCodeLine{321       \}}
+\DoxyCodeLine{322       \textcolor{keywordflow}{return} kg;}
+\DoxyCodeLine{323     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{324       \textcolor{keyword}{static\_assert}(}
+\DoxyCodeLine{325           Dune::AlwaysFalse<GEO>::value,}
+\DoxyCodeLine{326           \textcolor{stringliteral}{"{}secondDerivative can only be called with wrtCoeff as 0, 1 and 2 indicating second derivative of the "{}}}
+\DoxyCodeLine{327           \textcolor{stringliteral}{"{}Green-\/Lagrange strain w.r.t d and "{}}}
+\DoxyCodeLine{328           \textcolor{stringliteral}{"{}alpha and the mixed derivative, respectively."{}});}
+\DoxyCodeLine{329   \}}
+\DoxyCodeLine{330 }
+\DoxyCodeLine{332   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01842_a8de5e262c9ed8fdb60498498b660d4c8}{name}}() \{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}Displacement Gradient (Transposed)"{}}); \}}
+\DoxyCodeLine{333 }
+\DoxyCodeLine{334 \textcolor{keyword}{private}:}
+\DoxyCodeLine{335   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} sNaN = std::numeric\_limits<int>::signaling\_NaN();}
+\DoxyCodeLine{336 }
+\DoxyCodeLine{337   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{338   \textcolor{keyword}{static} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}} centerPosition(\textcolor{keyword}{const} GEO\& geo) \{}
+\DoxyCodeLine{339     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& referenceElement = Dune::ReferenceElements<double, GEO::mydimension>::general(geo.type());}
+\DoxyCodeLine{340     \textcolor{keyword}{const} \textcolor{keyword}{auto} centerPos         = referenceElement.position(0, 0);}
+\DoxyCodeLine{341     \textcolor{keywordflow}{return} centerPos;}
+\DoxyCodeLine{342   \}}
+\DoxyCodeLine{343 }
+\DoxyCodeLine{344   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO>}
+\DoxyCodeLine{345   \textcolor{keyword}{static} \textcolor{keyword}{auto} compatibleDisplacementGradient(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction,}
+\DoxyCodeLine{346                                              \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos) \{}
+\DoxyCodeLine{347     \textcolor{keyword}{using namespace }Dune::DerivativeDirections;}
+\DoxyCodeLine{348     \textcolor{keyword}{using namespace }\mbox{\hyperlink{a00536}{Dune}};}
+\DoxyCodeLine{349     \textcolor{keywordflow}{return} toEigen(uFunction.evaluateDerivative(gpPos, wrt(spatialAll), on(gridElement))).eval();}
+\DoxyCodeLine{350   \}}
+\DoxyCodeLine{351 }
+\DoxyCodeLine{352   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} EAST>}
+\DoxyCodeLine{353   \textcolor{keyword}{static} \textcolor{keyword}{auto} enhancedDisplacementGradient(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction,}
+\DoxyCodeLine{354                                            \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
+\DoxyCodeLine{355                                            \textcolor{keyword}{const} EAST\& easFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha) \{}
+\DoxyCodeLine{356     \textcolor{keyword}{using }ST                          = \textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(uFunction)>::ctype;}
+\DoxyCodeLine{357     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim               = GEO::mydimension;}
+\DoxyCodeLine{358     \textcolor{keyword}{using }MatrixType                  = Eigen::Matrix<ST, myDim, myDim>;}
+\DoxyCodeLine{359     \textcolor{keyword}{const} \textcolor{keyword}{auto} centerPos              = centerPosition(geo);}
+\DoxyCodeLine{360     \textcolor{keyword}{const} MatrixType Hc0              = compatibleDisplacementGradient<GEO>(uFunction, centerPos);}
+\DoxyCodeLine{361     \textcolor{keyword}{const} MatrixType Fc0              = (MatrixType::Identity() + Hc0).eval();}
+\DoxyCodeLine{362     \textcolor{keyword}{const} \textcolor{keyword}{typename} EAST::HType Harray = easFunction(gpPos);}
+\DoxyCodeLine{363     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} enhancedStrainSize  = EAST::enhancedStrainSize;}
+\DoxyCodeLine{364     \textcolor{keyword}{typename} EAST::AnsatzType Htilde;}
+\DoxyCodeLine{365     Htilde.setZero(); \textcolor{comment}{// zeros returned if Harray is empty}}
+\DoxyCodeLine{366     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} p : Dune::range(enhancedStrainSize))}
+\DoxyCodeLine{367       Htilde += Harray[p] * alpha[p];}
+\DoxyCodeLine{368     \textcolor{keyword}{const} MatrixType Henhanced = (Fc0 * Htilde.transpose()).eval();}
+\DoxyCodeLine{369     \textcolor{keywordflow}{return} Henhanced;}
+\DoxyCodeLine{370   \}}
+\DoxyCodeLine{371 }
+\DoxyCodeLine{372   \textcolor{keyword}{template} <\textcolor{keyword}{typename} GEO, \textcolor{keyword}{typename} EAST>}
+\DoxyCodeLine{373   \textcolor{keyword}{static} \textcolor{keyword}{auto} computeDeformationGradient(\textcolor{keyword}{const} GEO\& geo, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& uFunction,}
+\DoxyCodeLine{374                                          \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, GEO::mydimension>}}\& gpPos,}
+\DoxyCodeLine{375                                          \textcolor{keyword}{const} EAST\& easFunction, \textcolor{keyword}{const} \textcolor{keyword}{auto}\& alpha) \{}
+\DoxyCodeLine{376     \textcolor{keyword}{using }ST            = \textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(uFunction)>::ctype;}
+\DoxyCodeLine{377     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim = GEO::mydimension;}
+\DoxyCodeLine{378     \textcolor{keyword}{using }MatrixType    = Eigen::Matrix<ST, myDim, myDim>;}
+\DoxyCodeLine{379     \textcolor{keyword}{const} MatrixType H  = \mbox{\hyperlink{a01842_a7d279af9f44c2cbbf1090036aef2c13c}{computeDisplacementGradient}}(geo, uFunction, gpPos, easFunction, alpha);}
+\DoxyCodeLine{380     \textcolor{keyword}{const} MatrixType F  = (MatrixType::Identity() + H).eval();}
+\DoxyCodeLine{381     \textcolor{keywordflow}{return} F;}
+\DoxyCodeLine{382   \}}
+\DoxyCodeLine{383 \};}
+\DoxyCodeLine{384 }
+\DoxyCodeLine{385 \} \textcolor{comment}{// namespace Ikarus::EAS}}
+
+\end{DoxyCode}

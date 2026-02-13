@@ -1,0 +1,79 @@
+\hypertarget{a00449_source}{}\doxysection{loadcontrol.\+hh}
+\label{a00449_source}\index{loadcontrol.hh@{loadcontrol.hh}}
+\mbox{\hyperlink{a00449}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/hybridutilities.hh>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00437}{ikarus/controlroutines/controlinfos.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00431}{ikarus/controlroutines/controlroutinebase.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00440}{ikarus/controlroutines/controlroutinefactory.hh}}>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00341}{ikarus/utils/broadcaster/broadcaster.hh}}>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{23 \textcolor{keyword}{class }LoadControl;}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{29 \textcolor{keyword}{struct }\mbox{\hyperlink{a01462}{LoadControlConfig}}}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01462_a2ae5fe40bc992c66ecf6f77cf47df36f}{loadSteps}}\{\};}
+\DoxyCodeLine{32   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01462_aff235e0efbb1f26c7fa6d7db8c1852f3}{tbegin}}\{\};}
+\DoxyCodeLine{33   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01462_a18f4648fe682b18a39d4c3fb43518fb4}{tEnd}}\{\};}
+\DoxyCodeLine{34 \};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{44 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{45 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a5aec737453e85d8a0cd6061b39300694}{createControlRoutine}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01462}{LoadControlConfig}}\& config, NLS\&\& nonlinearSolver) \{}
+\DoxyCodeLine{46   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01458}{LoadControl}}(std::forward<NLS>(nonlinearSolver), config.\mbox{\hyperlink{a01462_a2ae5fe40bc992c66ecf6f77cf47df36f}{loadSteps}}, std::array\{config.tbegin, config.tEnd\});}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{58 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS>}
+\DoxyCodeLine{59 \textcolor{keyword}{class }\mbox{\hyperlink{a01458}{LoadControl}} : \textcolor{keyword}{public} \mbox{\hyperlink{a01442}{ControlRoutineBase}}<typename NLS::DifferentiableFunction>}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61 \textcolor{keyword}{public}:}
+\DoxyCodeLine{63   \textcolor{keyword}{constexpr} std::string \mbox{\hyperlink{a01458_a0819073e26d34868b5580d052ea5804c}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Load Control Method"{}}; \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{72   \mbox{\hyperlink{a01458_a073af96d9cd179a918cf18656be19947}{LoadControl}}(\textcolor{keyword}{const} std::shared\_ptr<NLS>\& \mbox{\hyperlink{a01458_a1df0028dc2a38a90bb01ba85aa901a0d}{nonLinearSolver}}, \textcolor{keywordtype}{int} loadSteps, \textcolor{keyword}{const} std::array<double, 2>\& tbeginEnd)}
+\DoxyCodeLine{73       : nonLinearSolver\_\{\mbox{\hyperlink{a01458_a1df0028dc2a38a90bb01ba85aa901a0d}{nonLinearSolver}}\},}
+\DoxyCodeLine{74         loadSteps\_\{loadSteps\},}
+\DoxyCodeLine{75         parameterBegin\_\{tbeginEnd[0]\},}
+\DoxyCodeLine{76         parameterEnd\_\{tbeginEnd[1]\},}
+\DoxyCodeLine{77         stepSize\_\{(parameterEnd\_ -\/ parameterBegin\_) / loadSteps\_\} \{}
+\DoxyCodeLine{78     \textcolor{keywordflow}{if} (loadSteps\_ <= 0)}
+\DoxyCodeLine{79       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Number of load steps should be greater than zero."{}});}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{87   \mbox{\hyperlink{a01438}{ControlInformation}} \mbox{\hyperlink{a01458_aca267aa96227250abd37487214918f1a}{run}}(\textcolor{keyword}{typename} NLS::Domain\& x);}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{94   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01458_a5b3da9c9c0d2978cfd35e569f1c75e55}{predictor}}(\textcolor{keyword}{typename} NLS::Domain\& x) \textcolor{keyword}{const};}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   \textcolor{comment}{/* \(\backslash\)brief returns the nonlinear solver */}}
+\DoxyCodeLine{97   NLS\& \mbox{\hyperlink{a01458_a1df0028dc2a38a90bb01ba85aa901a0d}{nonLinearSolver}}() \{ \textcolor{keywordflow}{return} *nonLinearSolver\_; \}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{keyword}{private}:}
+\DoxyCodeLine{100   std::shared\_ptr<NLS> nonLinearSolver\_;}
+\DoxyCodeLine{101   \textcolor{keywordtype}{int} loadSteps\_;}
+\DoxyCodeLine{102   \textcolor{keywordtype}{double} parameterBegin\_;}
+\DoxyCodeLine{103   \textcolor{keywordtype}{double} parameterEnd\_;}
+\DoxyCodeLine{104   \textcolor{keywordtype}{double} stepSize\_;}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106   \textcolor{keywordtype}{void} updateAndNotifyControlInfo(\mbox{\hyperlink{a01438}{ControlInformation}}\& info, \textcolor{keyword}{const} \mbox{\hyperlink{a02170}{NonLinearSolverInformation}}\& solverInfo,}
+\DoxyCodeLine{107                                   \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01450}{LoadControl::State}}\& state) \{}
+\DoxyCodeLine{108     info.\mbox{\hyperlink{a01438_aedbd5de28f127726884cb99b067313bf}{solverInfos}}.push\_back(solverInfo);}
+\DoxyCodeLine{109     info.\mbox{\hyperlink{a01438_a4712b189651e59cd46fd43b2e6a326bf}{totalIterations}} += solverInfo.\mbox{\hyperlink{a02170_a81570cd3d9f6589a4d1ba81211f41b99}{iterations}};}
+\DoxyCodeLine{110     this-\/>\mbox{\hyperlink{a02206_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00510_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{ControlMessages::SOLUTION\_CHANGED}}, state);}
+\DoxyCodeLine{111     this-\/>\mbox{\hyperlink{a02206_a0cc3593f3af31f30ea97adc1d040c8f2}{notify}}(\mbox{\hyperlink{a00510_a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2}{ControlMessages::STEP\_ENDED}}, state);}
+\DoxyCodeLine{112   \}}
+\DoxyCodeLine{113 \};}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00428}{ikarus/controlroutines/loadcontrol.inl}}>}}
+
+\end{DoxyCode}

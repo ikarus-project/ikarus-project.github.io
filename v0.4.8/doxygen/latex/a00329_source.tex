@@ -1,0 +1,267 @@
+\hypertarget{a00329_source}{}\doxysection{ferequirements.\+hh}
+\label{a00329_source}\index{ferequirements.hh@{ferequirements.hh}}
+\mbox{\hyperlink{a00329}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <iosfwd>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <dune/common/exceptions.hh>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00155}{ikarus/finiteelements/feresulttypes.hh}}>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03547}{ikarus/utils/basis.hh}}>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00077}{ikarus/utils/defaultfunctions.hh}}>}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00050}{ikarus/utils/makeenum.hh}}>}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{27 \textcolor{comment}{// clang-\/format off}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{34 \textcolor{comment}{// cppcheck-\/suppress MAKE\_ENUM}}
+\DoxyCodeLine{35  \mbox{\hyperlink{a00505_ga14ad7d33267cea1c93f97f3998081657}{MAKE\_ENUM}}(\mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}},}
+\DoxyCodeLine{36             noAffordance,}
+\DoxyCodeLine{37             mechanicalPotentialEnergy,}
+\DoxyCodeLine{38             microMagneticPotentialEnergy}
+\DoxyCodeLine{39       );}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{46   \mbox{\hyperlink{a00505_ga14ad7d33267cea1c93f97f3998081657}{MAKE\_ENUM}}(\mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}},}
+\DoxyCodeLine{47             noAffordance,}
+\DoxyCodeLine{48             \mbox{\hyperlink{a00510_a79f92cdef4ce37a01fd76e7cbc460cb4}{forces}},}
+\DoxyCodeLine{49             microMagneticForces}
+\DoxyCodeLine{50       );}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{57   \mbox{\hyperlink{a00505_ga14ad7d33267cea1c93f97f3998081657}{MAKE\_ENUM}}(\mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}},}
+\DoxyCodeLine{58             noAffordance,}
+\DoxyCodeLine{59             \mbox{\hyperlink{a00510_a5bd2b9f6fec9989fd5e5e9d7e3cd986e}{stiffness}},}
+\DoxyCodeLine{60             materialstiffness,}
+\DoxyCodeLine{61             geometricstiffness,}
+\DoxyCodeLine{62             \mbox{\hyperlink{a00510_a0ceb0c9442d4755cb5c2bd47ea46a22f}{stiffnessdiffBucklingVector}},}
+\DoxyCodeLine{63             microMagneticHessian,}
+\DoxyCodeLine{64             \mbox{\hyperlink{a00510_ad8479f7f6217f57442ec18948b7aece1}{mass}}}
+\DoxyCodeLine{65       );}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{72   \mbox{\hyperlink{a00505_ga14ad7d33267cea1c93f97f3998081657}{MAKE\_ENUM}}(\mbox{\hyperlink{a00497_ga0c1577fd05efee8475b0f7fef795bbbe}{FEParameter}},}
+\DoxyCodeLine{73             noParameter,}
+\DoxyCodeLine{74             loadfactor,}
+\DoxyCodeLine{75             time}
+\DoxyCodeLine{76       );}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{83   \mbox{\hyperlink{a00505_ga14ad7d33267cea1c93f97f3998081657}{MAKE\_ENUM}}(\mbox{\hyperlink{a00497_gaea763c94a1cecbeefc4f8661debcc5a3}{FESolutions}},}
+\DoxyCodeLine{84             noSolution,}
+\DoxyCodeLine{85             displacement,}
+\DoxyCodeLine{86             velocity,}
+\DoxyCodeLine{87             director,}
+\DoxyCodeLine{88             magnetizationAndVectorPotential}
+\DoxyCodeLine{89       );}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 \textcolor{comment}{// clang-\/format on}}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{96 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{97 \textcolor{keyword}{concept }\mbox{\hyperlink{a02428}{FEAffordance}} = std::is\_same\_v<std::remove\_cvref\_t<T>, \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}}> or}
+\DoxyCodeLine{98                        std::is\_same\_v<std::remove\_cvref\_t<T>, \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}}> or}
+\DoxyCodeLine{99                        std::is\_same\_v<std::remove\_cvref\_t<T>, \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}}>;}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{104 \textcolor{keyword}{template} <\mbox{\hyperlink{a02428}{FEAffordance}}... Affordances>}
+\DoxyCodeLine{105 \textcolor{keyword}{requires}(\textcolor{keyword}{sizeof}...(Affordances) <= 3)}
+\DoxyCodeLine{106 struct \mbox{\hyperlink{a01522}{AffordanceCollection}} : public std::tuple<Affordances...>}
+\DoxyCodeLine{107 \{}
+\DoxyCodeLine{108   \textcolor{keyword}{using }\mbox{\hyperlink{a01522_a2b9d60bd2360e957781527f81646ecc9}{Base}} = std::tuple<Affordances...>;}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110   \mbox{\hyperlink{a01522_ac9d8a54a3f26be877cb43cf05fae20a8}{AffordanceCollection}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{111   \textcolor{keyword}{constexpr} \mbox{\hyperlink{a01522_aa0f58694e1148fe110562d59d73c74b9}{AffordanceCollection}}(Affordances... affordances)}
+\DoxyCodeLine{112       : \mbox{\hyperlink{a01522_a2b9d60bd2360e957781527f81646ecc9}{Base}}(affordances...) \{\}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} hasScalarAffordance = \mbox{\hyperlink{a02370}{traits::hasType}}<\mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}}, std::tuple<Affordances...>>::value;}
+\DoxyCodeLine{115   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} hasVectorAffordance = \mbox{\hyperlink{a02370}{traits::hasType}}<\mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}}, std::tuple<Affordances...>>::value;}
+\DoxyCodeLine{116   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} hasMatrixAffordance = \mbox{\hyperlink{a02370}{traits::hasType}}<\mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}}, std::tuple<Affordances...>>::value;}
+\DoxyCodeLine{126   \textcolor{keyword}{template} <FEAffordance Affordance>}
+\DoxyCodeLine{127   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01522_adee1d19ea072ea23bc30baec706bb773}{hasAffordance}}(Affordance\&\& affordances)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{128     \textcolor{keyword}{using }AffordanceRaw = std::remove\_cvref\_t<Affordance>;}
+\DoxyCodeLine{129     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_same\_v<AffordanceRaw, AffordanceCollection>)}
+\DoxyCodeLine{130       \textcolor{keywordflow}{return} affordances == *\textcolor{keyword}{this};}
+\DoxyCodeLine{131     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{132       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_same\_v<AffordanceRaw, ScalarAffordance>) \{}
+\DoxyCodeLine{133         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (hasScalarAffordance)}
+\DoxyCodeLine{134           \textcolor{keywordflow}{return} affordances == std::get<ScalarAffordance>(*\textcolor{keyword}{this});}
+\DoxyCodeLine{135         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{136           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{137       \}}
+\DoxyCodeLine{138       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_same\_v<AffordanceRaw, VectorAffordance>) \{}
+\DoxyCodeLine{139         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (hasVectorAffordance)}
+\DoxyCodeLine{140           \textcolor{keywordflow}{return} affordances == std::get<VectorAffordance>(*\textcolor{keyword}{this});}
+\DoxyCodeLine{141         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{142           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{143       \}}
+\DoxyCodeLine{144       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (std::is\_same\_v<AffordanceRaw, MatrixAffordance>) \{}
+\DoxyCodeLine{145         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (hasMatrixAffordance)}
+\DoxyCodeLine{146           \textcolor{keywordflow}{return} affordances == std::get<MatrixAffordance>(*\textcolor{keyword}{this});}
+\DoxyCodeLine{147         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{148           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{149       \}}
+\DoxyCodeLine{150     \}}
+\DoxyCodeLine{151     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{152   \}}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{154   \textcolor{keyword}{auto} \mbox{\hyperlink{a01522_ac56ebfd26cad078d15800d620a9b1e93}{scalarAffordance}}() const}
+\DoxyCodeLine{155   requires hasScalarAffordance}
+\DoxyCodeLine{156   \{}
+\DoxyCodeLine{157     \textcolor{keywordflow}{return} std::get<ScalarAffordance>(*\textcolor{keyword}{this});}
+\DoxyCodeLine{158   \}}
+\DoxyCodeLine{159   \textcolor{keyword}{auto} \mbox{\hyperlink{a01522_a9e6b82aa35f9d301b9ccdd661dbb8dde}{vectorAffordance}}() const}
+\DoxyCodeLine{160   requires hasVectorAffordance}
+\DoxyCodeLine{161   \{}
+\DoxyCodeLine{162     \textcolor{keywordflow}{return} std::get<VectorAffordance>(*\textcolor{keyword}{this});}
+\DoxyCodeLine{163   \}}
+\DoxyCodeLine{164   \textcolor{keyword}{auto} \mbox{\hyperlink{a01522_af7b6303f0ef9cc6677744559786d8966}{matrixAffordance}}() const}
+\DoxyCodeLine{165   requires hasMatrixAffordance}
+\DoxyCodeLine{166   \{}
+\DoxyCodeLine{167     \textcolor{keywordflow}{return} std::get<MatrixAffordance>(*\textcolor{keyword}{this});}
+\DoxyCodeLine{168   \}}
+\DoxyCodeLine{169 \};}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171 \textcolor{keyword}{inline} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} \mbox{\hyperlink{a00510_a79f92cdef4ce37a01fd76e7cbc460cb4}{forces}} = \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302aa2c05161a7e67e946ddc889571aac4e89}{VectorAffordance::forces}};}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173 \textcolor{keyword}{inline} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}} \mbox{\hyperlink{a00510_a5bd2b9f6fec9989fd5e5e9d7e3cd986e}{stiffness}}                   = \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0a086e8b527490b8abe606a8dd76586ab1}{MatrixAffordance::stiffness}};}
+\DoxyCodeLine{174 \textcolor{keyword}{inline} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}} \mbox{\hyperlink{a00510_a0ceb0c9442d4755cb5c2bd47ea46a22f}{stiffnessdiffBucklingVector}} = \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0adaa7ff7d704732b763943e3355764532}{MatrixAffordance::stiffnessdiffBucklingVector}};}
+\DoxyCodeLine{175 \textcolor{keyword}{inline} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}} \mbox{\hyperlink{a00510_ad8479f7f6217f57442ec18948b7aece1}{mass}}                        = \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0ad90ccffa01275a7a7795fb6d1274e75f}{MatrixAffordance::mass}};}
+\DoxyCodeLine{176 \textcolor{keyword}{inline} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}} \mbox{\hyperlink{a00510_a8c6efe61469638e139724dc7c9bdaa9d}{potentialEnergy}}             = \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2aa814f34f472acef493e9ecf0ffccdcae6}{ScalarAffordance::mechanicalPotentialEnergy}};}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a2597fb8b5ba646668b01bcc4e5f75818}{vectorAffordance}}(\mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}} affordanceM) \{}
+\DoxyCodeLine{179   \textcolor{keywordflow}{if} (affordanceM == \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0a086e8b527490b8abe606a8dd76586ab1}{MatrixAffordance::stiffness}})}
+\DoxyCodeLine{180     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302aa2c05161a7e67e946ddc889571aac4e89}{VectorAffordance::forces}};}
+\DoxyCodeLine{181   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (affordanceM == \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0a1b0fce0a361af9d6e59694b4c51524f9}{MatrixAffordance::microMagneticHessian}})}
+\DoxyCodeLine{182     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302aa3cc975e7798ac76d6af4f624e23c6ddc}{VectorAffordance::microMagneticForces}};}
+\DoxyCodeLine{183   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{184     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302aa9a280b29988e2eac8c0767e0fcefb49c}{VectorAffordance::noAffordance}};}
+\DoxyCodeLine{185 \}}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a9f58a3849d4736e5cc314f6f995fe9e7}{scalarAffordance}}(\mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}} affordanceM) \{}
+\DoxyCodeLine{188   \textcolor{keywordflow}{if} (affordanceM == \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0a086e8b527490b8abe606a8dd76586ab1}{MatrixAffordance::stiffness}})}
+\DoxyCodeLine{189     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2aa814f34f472acef493e9ecf0ffccdcae6}{ScalarAffordance::mechanicalPotentialEnergy}};}
+\DoxyCodeLine{190   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (affordanceM == \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0a1b0fce0a361af9d6e59694b4c51524f9}{MatrixAffordance::microMagneticHessian}})}
+\DoxyCodeLine{191     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2aae45c0886135e58c01a313bda2d69e29a}{ScalarAffordance::microMagneticPotentialEnergy}};}
+\DoxyCodeLine{192   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{193     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2aa9a280b29988e2eac8c0767e0fcefb49c}{ScalarAffordance::noAffordance}};}
+\DoxyCodeLine{194 \}}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a9f58a3849d4736e5cc314f6f995fe9e7}{scalarAffordance}}(\mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} affordanceV) \{}
+\DoxyCodeLine{197   \textcolor{keywordflow}{if} (affordanceV == \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302aa2c05161a7e67e946ddc889571aac4e89}{VectorAffordance::forces}})}
+\DoxyCodeLine{198     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2aa814f34f472acef493e9ecf0ffccdcae6}{ScalarAffordance::mechanicalPotentialEnergy}};}
+\DoxyCodeLine{199   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (affordanceV == \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302aa3cc975e7798ac76d6af4f624e23c6ddc}{VectorAffordance::microMagneticForces}})}
+\DoxyCodeLine{200     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2aae45c0886135e58c01a313bda2d69e29a}{ScalarAffordance::microMagneticPotentialEnergy}};}
+\DoxyCodeLine{201   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{202     \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2aa9a280b29988e2eac8c0767e0fcefb49c}{ScalarAffordance::noAffordance}};}
+\DoxyCodeLine{203 \}}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{205 \textcolor{keyword}{namespace }AffordanceCollections \{}
+\DoxyCodeLine{206   \textcolor{keyword}{inline} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a01522}{AffordanceCollection}} \mbox{\hyperlink{a00517_abd125ab98018456fb4bd3bdfe28466dc}{elastoStatics}}(\mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2aa814f34f472acef493e9ecf0ffccdcae6}{ScalarAffordance::mechanicalPotentialEnergy}},}
+\DoxyCodeLine{207                                                       \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302aa2c05161a7e67e946ddc889571aac4e89}{VectorAffordance::forces}}, \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0a086e8b527490b8abe606a8dd76586ab1}{MatrixAffordance::stiffness}});}
+\DoxyCodeLine{208 \} \textcolor{comment}{// namespace AffordanceCollections}}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{222 \textcolor{keyword}{template} <FESolutions sol, FEParameter para, \textcolor{keyword}{typename} SV = Eigen::VectorXd, \textcolor{keyword}{typename} PM = \textcolor{keywordtype}{double}>}
+\DoxyCodeLine{223 \textcolor{keyword}{class }\mbox{\hyperlink{a01526}{FERequirements}}}
+\DoxyCodeLine{224 \{}
+\DoxyCodeLine{225 \textcolor{keyword}{public}:}
+\DoxyCodeLine{226   \textcolor{keyword}{using }\mbox{\hyperlink{a01526_a438e8f848c50755740ef8ee17620a284}{SolutionVectorType}} = SV; }
+\DoxyCodeLine{227   \textcolor{keyword}{using }\mbox{\hyperlink{a01526_a50a1c42fc0b05811dfc370217fb70169}{ParameterType}}      = PM; }
+\DoxyCodeLine{228 }
+\DoxyCodeLine{232   \mbox{\hyperlink{a01526_a00236d0a4c182e56eb7012ba90deabfa}{FERequirements}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{240   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SV2 = SV, \textcolor{keyword}{typename} PM2 = PM>}
+\DoxyCodeLine{241   \mbox{\hyperlink{a01526_a4533a7aef901ea53b54090fa1a404e7c}{FERequirements}}(SV2\&\& solVec, PM2\&\& \mbox{\hyperlink{a01526_abe2632437241140248ed986d745bd53a}{parameter}})}
+\DoxyCodeLine{242       : sol\_(std::make\_unique<SV>(std::forward<SV2>(solVec))),}
+\DoxyCodeLine{243         parameter\_(std::make\_unique<PM>(std::forward<PM2>(\mbox{\hyperlink{a01526_abe2632437241140248ed986d745bd53a}{parameter}}))) \{\}}
+\DoxyCodeLine{244 }
+\DoxyCodeLine{250   \textcolor{keyword}{template} <\textcolor{keyword}{typename} PB>}
+\DoxyCodeLine{251   \mbox{\hyperlink{a01526_af38e69a7dbbc937eccbb43e8cfc29b26}{FERequirements}}(\textcolor{keyword}{const} \mbox{\hyperlink{a02202}{Ikarus::BasisHandler<PB>}}\& \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}})}
+\DoxyCodeLine{252       : sol\_(std::make\_unique<SV>(SV::Zero(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.flat().\mbox{\hyperlink{a01526_a14c2b879ad3279680489d2fedf5aa96a}{size}}()))),}
+\DoxyCodeLine{253         parameter\_(std::make\_unique<PM>(0.0)) \{\}}
+\DoxyCodeLine{254 }
+\DoxyCodeLine{262   \mbox{\hyperlink{a01526_a2d8e6c9bfe972f431e543d0827c312ed}{FERequirements}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01526}{FERequirements}}\& other)}
+\DoxyCodeLine{263       : sol\_(other.sol\_ ? std::make\_unique<SV>(*other.sol\_) : nullptr),}
+\DoxyCodeLine{264         parameter\_(other.parameter\_ ? std::make\_unique<PM>(*other.parameter\_) : nullptr) \{\}}
+\DoxyCodeLine{265 }
+\DoxyCodeLine{274   \mbox{\hyperlink{a01526}{FERequirements}}\& \mbox{\hyperlink{a01526_a26e357e4885a841b61b19b43f21a81a5}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01526}{FERequirements}}\& other) \{}
+\DoxyCodeLine{275     \textcolor{keywordflow}{if} (\textcolor{keyword}{this} != \&other) \{}
+\DoxyCodeLine{276       sol\_       = other.sol\_ ? std::make\_unique<SV>(*other.sol\_) : \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{277       parameter\_ = other.parameter\_ ? std::make\_unique<PM>(*other.parameter\_) : \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{278     \}}
+\DoxyCodeLine{279     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{280   \}}
+\DoxyCodeLine{281 }
+\DoxyCodeLine{290   \mbox{\hyperlink{a01526}{FERequirements}}\& \mbox{\hyperlink{a01526_aa183270a9a133844c208380d254d3796}{insertParameter}}(\textcolor{keyword}{const} PM\& val) \{}
+\DoxyCodeLine{291     parameter\_ = std::make\_unique<PM>(val);}
+\DoxyCodeLine{292     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{293   \}}
+\DoxyCodeLine{294 }
+\DoxyCodeLine{303   \textcolor{keyword}{template} <\textcolor{keyword}{typename} SV2 = SolutionVectorType>}
+\DoxyCodeLine{304   \mbox{\hyperlink{a01526}{FERequirements}}\& \mbox{\hyperlink{a01526_a628bce13e9dce05097b6a1126b2dada2}{insertGlobalSolution}}(SV2\&\& solVec) \{}
+\DoxyCodeLine{305     sol\_ = std::make\_unique<SV>(std::forward<SV2>(solVec));}
+\DoxyCodeLine{306     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{307   \}}
+\DoxyCodeLine{308 }
+\DoxyCodeLine{314   \textcolor{keyword}{const} \mbox{\hyperlink{a01526_a438e8f848c50755740ef8ee17620a284}{SolutionVectorType}}\& \mbox{\hyperlink{a01526_a9701fdddf89b019507963dd2f68912da}{globalSolution}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{315     \textcolor{keywordflow}{if} (!sol\_)}
+\DoxyCodeLine{316       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Solution vector is not initialized."{}});}
+\DoxyCodeLine{317     \textcolor{keywordflow}{return} *sol\_;}
+\DoxyCodeLine{318   \}}
+\DoxyCodeLine{319 }
+\DoxyCodeLine{325   SV\& \mbox{\hyperlink{a01526_a5d0f016635b556faf2ead5696dd4a510}{globalSolution}}() \{}
+\DoxyCodeLine{326     \textcolor{keywordflow}{if} (!sol\_)}
+\DoxyCodeLine{327       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Solution vector is not initialized."{}});}
+\DoxyCodeLine{328 }
+\DoxyCodeLine{329     \textcolor{keywordflow}{return} *sol\_;}
+\DoxyCodeLine{330   \}}
+\DoxyCodeLine{331 }
+\DoxyCodeLine{337   std::size\_t \mbox{\hyperlink{a01526_a14c2b879ad3279680489d2fedf5aa96a}{size}}() \{}
+\DoxyCodeLine{338     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02458}{Concepts::EigenVector<SolutionVectorType>}})}
+\DoxyCodeLine{339       \textcolor{keywordflow}{return} \mbox{\hyperlink{a01526_a9701fdddf89b019507963dd2f68912da}{globalSolution}}().size();}
+\DoxyCodeLine{340     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{341       \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{342   \}}
+\DoxyCodeLine{343 }
+\DoxyCodeLine{349   \textcolor{keyword}{const} PM\& \mbox{\hyperlink{a01526_abe2632437241140248ed986d745bd53a}{parameter}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{350     \textcolor{keywordflow}{if} (!parameter\_)}
+\DoxyCodeLine{351       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Parameter is not initialized."{}});}
+\DoxyCodeLine{352 }
+\DoxyCodeLine{353     \textcolor{keywordflow}{return} *parameter\_;}
+\DoxyCodeLine{354   \}}
+\DoxyCodeLine{355 }
+\DoxyCodeLine{361   PM\& \mbox{\hyperlink{a01526_ac71fcac23a1711fe80cc52cfc0a26d3c}{parameter}}() \{}
+\DoxyCodeLine{362     \textcolor{keywordflow}{if} (!parameter\_)}
+\DoxyCodeLine{363       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Parameter is not initialized."{}});}
+\DoxyCodeLine{364 }
+\DoxyCodeLine{365     \textcolor{keywordflow}{return} *parameter\_;}
+\DoxyCodeLine{366   \}}
+\DoxyCodeLine{367 }
+\DoxyCodeLine{373   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01526_a13fa6d13d47cc0bdf781477c744312c9}{populated}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} sol\_ and parameter\_; \}}
+\DoxyCodeLine{374 }
+\DoxyCodeLine{382   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{383   SV\& \mbox{\hyperlink{a01526_afcbcf3a8d82d63bea10e53acff1b6340}{operator+=}}(\textcolor{keyword}{const} T\& rhs) \{}
+\DoxyCodeLine{384     \textcolor{keywordflow}{if} (!sol\_)}
+\DoxyCodeLine{385       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Solution vector is not initialized."{}});}
+\DoxyCodeLine{386     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not std::is\_same\_v<T, utils::SyncFERequirements>)}
+\DoxyCodeLine{387       *sol\_ += rhs;}
+\DoxyCodeLine{388     \textcolor{keywordflow}{return} *sol\_;}
+\DoxyCodeLine{389   \}}
+\DoxyCodeLine{390 }
+\DoxyCodeLine{399   \textcolor{keyword}{template} <\textcolor{keyword}{typename} UF>}
+\DoxyCodeLine{400   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01526_a1c0623c3df0b551c83f63d6c3587cc85}{syncParameterAndGlobalSolution}}(UF\&\& updateFunction) \{}
+\DoxyCodeLine{401     updateFunction(*\textcolor{keyword}{this}, \mbox{\hyperlink{a00531_aa0203c56a78244ee2ecf40adec7baff4}{utils::syncFERequirements}});}
+\DoxyCodeLine{402   \}}
+\DoxyCodeLine{403 }
+\DoxyCodeLine{404 \textcolor{keyword}{private}:}
+\DoxyCodeLine{405   std::unique\_ptr<SV> sol\_;       }
+\DoxyCodeLine{406   std::unique\_ptr<PM> parameter\_; }
+\DoxyCodeLine{407 \};}
+\DoxyCodeLine{408 }
+\DoxyCodeLine{409 \} \textcolor{comment}{// namespace Ikarus}}
+
+\end{DoxyCode}
