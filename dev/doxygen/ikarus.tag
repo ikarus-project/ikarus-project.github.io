@@ -3303,8 +3303,8 @@
       <type>void</type>
       <name>obtainLagrangeGlobalNodePositions</name>
       <anchorfile>a00505.html</anchorfile>
-      <anchor>gae9098182120929a0d21cff1c38f5ca84</anchor>
-      <arglist>(const LV &amp;localView, std::vector&lt; Dune::FieldVector&lt; double, size &gt; &gt; &amp;lagrangeNodeGlobalCoords)</arglist>
+      <anchor>ga8daf682700ce109716318abad5c41eba</anchor>
+      <arglist>(const LV &amp;localView, std::vector&lt; Dune::FieldVector&lt; double, LV::Element::Geometry::coorddimension &gt; &gt; &amp;lagrangeNodeGlobalCoords)</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
@@ -22971,8 +22971,8 @@
       <type>void</type>
       <name>obtainLagrangeGlobalNodePositions</name>
       <anchorfile>a00505.html</anchorfile>
-      <anchor>gae9098182120929a0d21cff1c38f5ca84</anchor>
-      <arglist>(const LV &amp;localView, std::vector&lt; Dune::FieldVector&lt; double, size &gt; &gt; &amp;lagrangeNodeGlobalCoords)</arglist>
+      <anchor>ga8daf682700ce109716318abad5c41eba</anchor>
+      <arglist>(const LV &amp;localView, std::vector&lt; Dune::FieldVector&lt; double, LV::Element::Geometry::coorddimension &gt; &gt; &amp;lagrangeNodeGlobalCoords)</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
@@ -23487,8 +23487,8 @@
       <type>void</type>
       <name>obtainLagrangeGlobalNodePositions</name>
       <anchorfile>a00505.html</anchorfile>
-      <anchor>gae9098182120929a0d21cff1c38f5ca84</anchor>
-      <arglist>(const LV &amp;localView, std::vector&lt; Dune::FieldVector&lt; double, size &gt; &gt; &amp;lagrangeNodeGlobalCoords)</arglist>
+      <anchor>ga8daf682700ce109716318abad5c41eba</anchor>
+      <arglist>(const LV &amp;localView, std::vector&lt; Dune::FieldVector&lt; double, LV::Element::Geometry::coorddimension &gt; &gt; &amp;lagrangeNodeGlobalCoords)</arglist>
     </member>
     <member kind="function">
       <type>auto</type>

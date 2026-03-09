@@ -69,7 +69,7 @@ var a00505 =
     [ "Ikarus::increment", "a00505.html#ga5db6e8f04892e85e6b17e276cdbd0e54", null ],
     [ "Ikarus::norm", "a00505.html#ga0ffc0c74dbd9aeee3e53b199a21b828c", null ],
     [ "Ikarus::norm", "a00505.html#gaceb8dc8f6f43516dabf75155b1f22d4c", null ],
-    [ "Ikarus::utils::obtainLagrangeGlobalNodePositions", "a00505.html#gae9098182120929a0d21cff1c38f5ca84", null ],
+    [ "Ikarus::utils::obtainLagrangeGlobalNodePositions", "a00505.html#ga8daf682700ce109716318abad5c41eba", null ],
     [ "Ikarus::operator*", "a00505.html#gacbc60e06e8e43a9bc14660189eb1baa1", null ],
     [ "Ikarus::operator+", "a00505.html#gafe54695fd1436b5f2d75934a6fda8fe8", null ],
     [ "Ikarus::operator+", "a00505.html#ga9377cd2cf3a5ec468d140cb7063efa58", null ],
