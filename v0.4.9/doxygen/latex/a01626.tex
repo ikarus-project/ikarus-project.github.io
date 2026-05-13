@@ -1,0 +1,715 @@
+\hypertarget{a01626}{}\doxysection{Ikarus\+::Displacement\+Pressure\texorpdfstring{$<$}{<} Pre\+FE, FE, PRE \texorpdfstring{$>$}{>} Class Template Reference}
+\label{a01626}\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+
+
+\mbox{\hyperlink{a01626}{Displacement\+Pressure}} class represents a displacement-\/pressure finite element.  
+
+
+
+
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/displacementpressure.\+hh$>$}
+
+
+
+Inheritance diagram for Ikarus\+::Displacement\+Pressure\texorpdfstring{$<$}{<} Pre\+FE, FE, PRE \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01625}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{a01626_a9b0f81dae56c7ebafa3ec3b6f0527ffb}{Traits}} = \mbox{\hyperlink{a01510_a826c356a5afb013faffb5f7ac893cff4}{Pre\+FE\+::\+Traits}}
+\item 
+using \mbox{\hyperlink{a01626_a5881d47a45e9797cf0f4c740b95a3bb8}{Basis}} = typename \mbox{\hyperlink{a01562_a3385bd97c39ebfede2dc6eac609022c8}{Traits\+::\+Basis}}
+\item 
+using \mbox{\hyperlink{a01626_aca56b063196697d40e93128c511fac5a}{Flat\+Basis}} = typename \mbox{\hyperlink{a01562_a81feef959fedef62b2e1daabbd52b5f2}{Traits\+::\+Flat\+Basis}}
+\item 
+using \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} = \mbox{\hyperlink{a01526}{FERequirements}}$<$ \mbox{\hyperlink{a00497_ggaea763c94a1cecbeefc4f8661debcc5a3a0c2d35f5f278a229db5ba41d40120f1c}{FESolutions\+::displacement}}, \mbox{\hyperlink{a00497_gga0c1577fd05efee8475b0f7fef795bbbeaf72bac0ac84c0315e7bcbb8aa84b2ff8}{FEParameter\+::loadfactor}} $>$
+\item 
+using \mbox{\hyperlink{a01626_a96884f549252c94e55504229bfac8bb9}{Local\+View}} = typename \mbox{\hyperlink{a01562_a06bdad066f621e46875af45a22677a3c}{Traits\+::\+Local\+View}}
+\item 
+using \mbox{\hyperlink{a01626_a2f91f298fca54f7c38ddf727fc6e4dad}{Geometry}} = typename \mbox{\hyperlink{a01562_a0b7be1104fba2d190e3fed46f291a851}{Traits\+::\+Geometry}}
+\item 
+using \mbox{\hyperlink{a01626_a93fb67d9325c9b1226a322854c1e02ea}{Grid\+View}} = typename \mbox{\hyperlink{a01562_a3ec0294824df467074f5070cb58f5a91}{Traits\+::\+Grid\+View}}
+\item 
+using \mbox{\hyperlink{a01626_a7aaeb0ef6403eb91e30c0eb47f0527a5}{Element}} = typename \mbox{\hyperlink{a01562_ac4668b9c9142defdf3b70cca8eeb30c4}{Traits\+::\+Element}}
+\item 
+using \mbox{\hyperlink{a01626_ab1418ea5fa66c27d65365bbaa1fc33d1}{Pre}} = PRE
+\item 
+using \mbox{\hyperlink{a01626_a02c3248fc039e733268825a113ec0165}{Local\+Basis\+TypeU}} = decltype(std\+::declval$<$ \mbox{\hyperlink{a01626_a96884f549252c94e55504229bfac8bb9}{Local\+View}} $>$().tree().child(Dune\+::\+Indices\+::\+\_\+0).child(0).finite\+Element().\mbox{\hyperlink{a01626_a921bb4b1036061523710faccdf846e05}{local\+Basis}}())
+\item 
+using \mbox{\hyperlink{a01626_ae02112f13e3edea0a375b3443959fd39}{Local\+Basis\+TypeP}} = decltype(std\+::declval$<$ \mbox{\hyperlink{a01626_a96884f549252c94e55504229bfac8bb9}{Local\+View}} $>$().tree().child(Dune\+::\+Indices\+::\+\_\+1).finite\+Element().\mbox{\hyperlink{a01626_a921bb4b1036061523710faccdf846e05}{local\+Basis}}())
+\item 
+{\footnotesize template$<$typename ST $>$ }\\using \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}} = std\+::optional$<$ std\+::reference\+\_\+wrapper$<$ const Eigen\+::\+VectorX$<$ ST $>$ $>$ $>$
+\item 
+{\footnotesize template$<$template$<$ typename, int, int $>$ class RT$>$ }\\using \mbox{\hyperlink{a01626_ab6bc80211359c5ee11b289fe36610419}{RTWrapper\+Type}} = \mbox{\hyperlink{a01546}{Result\+Wrapper}}$<$ RT$<$ typename \mbox{\hyperlink{a01562_a1b3bb63050509bf769c72be3c790db69}{Traits\+::ctype}}, \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}}, \mbox{\hyperlink{a01562_a5d611e1d48285bac5c5ebd6fda9c7cc7}{Traits\+::worlddim}} $>$, \mbox{\hyperlink{a00510_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{Result\+Shape\+::\+Vector}} $>$
+\item 
+{\footnotesize template$<$typename ST  = double$>$ }\\using \mbox{\hyperlink{a01626_ace22528646bec12f1e6540cd1f17c416}{Strain\+Type}} = Eigen\+::\+Vector$<$ ST, \mbox{\hyperlink{a01626_ab227ad59b7f7aa87cc798a302adb95fb}{strain\+Dim}} $>$
+\item 
+{\footnotesize template$<$typename ST  = double$>$ }\\using \mbox{\hyperlink{a01626_aecdd86731d0e634bd89a2b16ef8c7b40}{Bop\+Type}} = Eigen\+::\+Matrix$<$ ST, \mbox{\hyperlink{a01626_ab227ad59b7f7aa87cc798a302adb95fb}{strain\+Dim}}, \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}} $>$
+\item 
+{\footnotesize template$<$typename ST  = double$>$ }\\using \mbox{\hyperlink{a01626_aa7aaf70546769d6b2ead07ca9d4bc5f9}{Kg\+Type}} = Eigen\+::\+Matrix$<$ ST, \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}}, \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}} $>$
+\item 
+using \mbox{\hyperlink{a01626_a4ff63e86721c5172af0791086ffcd7de}{Material\+Type}} = typename Pre\+::\+Material
+\item 
+{\footnotesize template$<$typename MAT $>$ }\\using \mbox{\hyperlink{a01626_a7fd30d03860f94e6a0d6331782080a06}{Decomposed\+Dev\+Type}} = typename \mbox{\hyperlink{a01682}{Materials\+::\+Decomposed\+Material\+Types}}$<$ \mbox{\hyperlink{a01626_a4ff63e86721c5172af0791086ffcd7de}{Material\+Type}} $>$\+::\+Dev\+Type
+\item 
+{\footnotesize template$<$typename MAT $>$ }\\using \mbox{\hyperlink{a01626_ab1b5f23f07ce4ad9514731cee3d3b2e1}{Decomposed\+Vol\+Type}} = typename \mbox{\hyperlink{a01682}{Materials\+::\+Decomposed\+Material\+Types}}$<$ \mbox{\hyperlink{a01626_a4ff63e86721c5172af0791086ffcd7de}{Material\+Type}} $>$\+::\+Vol\+Type
+\item 
+using \mbox{\hyperlink{a01626_a7bcd569a3cbd62123c50dc4c5aaf1bf8}{DPConstitutive\+Driver\+Type}} = Impl\+::\+DPConstitutive\+Driver$<$ \mbox{\hyperlink{a01626_a7fd30d03860f94e6a0d6331782080a06}{Decomposed\+Dev\+Type}}$<$ \mbox{\hyperlink{a01626_a4ff63e86721c5172af0791086ffcd7de}{Material\+Type}} $>$, \mbox{\hyperlink{a01626_ab1b5f23f07ce4ad9514731cee3d3b2e1}{Decomposed\+Vol\+Type}}$<$ \mbox{\hyperlink{a01626_a4ff63e86721c5172af0791086ffcd7de}{Material\+Type}} $>$ $>$
+\item 
+using \mbox{\hyperlink{a01558_ac43d0000154d9bd08d7fdce3c279ccbb}{Supported\+Result\+Types}} = std\+::tuple$<$ decltype(\mbox{\hyperlink{a00510_a38629395c2d43ba44328b01ce0c0daf3}{make\+RT}}$<$ Result\+Types $>$())... $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{a01626_a2bf445f166ef3b1f846a381a885f2ccf}{Displacement\+Pressure}} (const \mbox{\hyperlink{a01626_ab1418ea5fa66c27d65365bbaa1fc33d1}{Pre}} \&pre)
+\begin{DoxyCompactList}\small\item\em Constructor for the \mbox{\hyperlink{a01626}{Displacement\+Pressure}} class. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type  = double$>$ }\\auto \mbox{\hyperlink{a01626_ad2a322957a7cb3f0fdaa6def309f502b}{displacement\+Function}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&par, const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&dx=std\+::nullopt) const
+\begin{DoxyCompactList}\small\item\em Get the displacement function for the given Requirement. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type  = double$>$ }\\auto \mbox{\hyperlink{a01626_aeb007c4c59b10f6fa84a23c6d560097e}{pressure\+Function}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&par, const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&dx=std\+::nullopt) const
+\begin{DoxyCompactList}\small\item\em Get the pressure function for the given Requirement. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type  = double$>$ }\\auto \mbox{\hyperlink{a01626_ad15adef35f65186d7769f941c2a080e5}{strain\+Function}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&par, const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&dx=std\+::nullopt) const
+\begin{DoxyCompactList}\small\item\em The strain function for the given Requirement. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{a01626_a2f91f298fca54f7c38ddf727fc6e4dad}{Geometry}} \& \mbox{\hyperlink{a01626_a826513bfcded1728e6497e572c4e39a4}{geometry}} () const
+\item 
+size\+\_\+t \mbox{\hyperlink{a01626_a8768562984dd5c1f8b519dd9a4f92935}{number\+Of\+Nodes}} () const
+\item 
+int \mbox{\hyperlink{a01626_a55154bedc554d19576d28c27a8f93de2}{order}} () const
+\item 
+const Dune\+::\+Cached\+Local\+Basis$<$ std\+::remove\+\_\+cvref\+\_\+t$<$ \mbox{\hyperlink{a01626_a02c3248fc039e733268825a113ec0165}{Local\+Basis\+TypeU}} $>$ $>$ \& \mbox{\hyperlink{a01626_a921bb4b1036061523710faccdf846e05}{local\+Basis}} () const
+\item 
+const Dune\+::\+Cached\+Local\+Basis$<$ std\+::remove\+\_\+cvref\+\_\+t$<$ \mbox{\hyperlink{a01626_ae02112f13e3edea0a375b3443959fd39}{Local\+Basis\+TypeP}} $>$ $>$ \& \mbox{\hyperlink{a01626_aff4d861d9764e9fe4ea1818b6c55f94f}{local\+BasisP}} () const
+\item 
+{\footnotesize template$<$typename Scalar\+Type  = double$>$ }\\decltype(auto) \mbox{\hyperlink{a01626_a3c296dfc565166c1b58efa33dc826c38}{constitutive\+Driver}} () const
+\item 
+{\footnotesize template$<$typename D , typename V $>$ }\\auto \mbox{\hyperlink{a01626_a20b7bb7e175706892d7fd73635b4ad76}{calculate\+Stress}} (const D \&dev, const V \&vol, const Eigen\+::\+Vector$<$ double, \mbox{\hyperlink{a01626_ab227ad59b7f7aa87cc798a302adb95fb}{strain\+Dim}} $>$ \&strain\+In\+Voigt, double p) const
+\begin{DoxyCompactList}\small\item\em Get the PK2 stress for a given strain (in Voigt notation). \end{DoxyCompactList}\item 
+{\footnotesize template$<$template$<$ typename, int, int $>$ class RT$>$ \newline
+requires (\mbox{\hyperlink{a01558_af33553a01e6940265639d561c31b7746}{supports\+Result\+Type}}$<$RT$>$())}\\auto \mbox{\hyperlink{a01626_a489a92baa9ad1935f8867484ce5016dc}{calculate\+At\+Impl}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&req, const \mbox{\hyperlink{a02274}{Dune\+::\+Field\+Vector}}$<$ double, \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}} $>$ \&local, Dune\+::\+Priority\+Tag$<$ 1 $>$) const
+\begin{DoxyCompactList}\small\item\em Calculates a requested result at a specific local position. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ST $>$ }\\auto \mbox{\hyperlink{a01626_a67bc2f5ba73a28dc42fd68dac9348e9b}{geometric\+Stiffness\+Matrix\+Function}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&par, typename Traits\+::template Matrix\+Type$<$ ST $>$ \&K, const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ ST $>$ \&dx=std\+::nullopt) const
+\begin{DoxyCompactList}\small\item\em Get a lambda function that evaluates the geometric part of the stiffness matrix (Kg) for a given integration point and its index. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ST $>$ }\\auto \mbox{\hyperlink{a01626_aa4de616b392c809d66fe552d69d6c6f4}{material\+Stiffness\+Matrix\+Function}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&par, typename Traits\+::template Matrix\+Type$<$ ST $>$ \&K, const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ ST $>$ \&dx=std\+::nullopt) const
+\begin{DoxyCompactList}\small\item\em Get a lambda function that evaluates the material part of the stiffness matrix (Ke + Ku) for a given strain, integration point and its index. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ST $>$ }\\auto \mbox{\hyperlink{a01626_adc3b1bc4677a1d6f9f774d92eacdc37a}{internal\+Forces\+Function}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&par, typename Traits\+::template Vector\+Type$<$ ST $>$ \&force, const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ ST $>$ \&dx=std\+::nullopt) const
+\begin{DoxyCompactList}\small\item\em Get a lambda function that evaluates the internal force vector for a given strain, integration point and its index. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename ST $>$ }\\auto \mbox{\hyperlink{a01626_affc97e49a5f8cec3ddb5b013f2c2942c}{energy\+Function}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&par, const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ ST $>$ \&dx=std\+::nullopt) const
+\begin{DoxyCompactList}\small\item\em Get a lambda function that evaluates the internal energy at a given integration point and its index. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static consteval bool \mbox{\hyperlink{a01558_af33553a01e6940265639d561c31b7746}{supports\+Result\+Type}} ()
+\begin{DoxyCompactList}\small\item\em Returns whether a Result\+Type is provided by the element. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr int \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}} = \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}}
+\item 
+static constexpr int \mbox{\hyperlink{a01626_ab227ad59b7f7aa87cc798a302adb95fb}{strain\+Dim}} = \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}} $\ast$ (\mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}} + 1) / 2
+\item 
+static constexpr auto \mbox{\hyperlink{a01626_a0f53728ba39b41381bbfa2a1d151073a}{strain\+Type}} = \mbox{\hyperlink{a00499_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e}{Strain\+Tags\+::green\+Lagrangian}}
+\item 
+static constexpr auto \mbox{\hyperlink{a01626_a3614d09ee5983d48dc0db97fa0e773ab}{stress\+Type}} = \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{Stress\+Tags\+::\+PK2}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{a01626_a9f2f12d4a17bf0516748946f3fe3ff85}{bind\+Impl}} ()
+\begin{DoxyCompactList}\small\item\em A helper function to bind the local view to the element. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type $>$ }\\void \mbox{\hyperlink{a01626_acd6857c4fb9f314a52ce2dfe804d9ec0}{calculate\+Matrix\+Impl}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&par, const \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}} \&affordance, typename Traits\+::template Matrix\+Type$<$$>$ K, const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&dx=std\+::nullopt) const
+\begin{DoxyCompactList}\small\item\em Calculate the matrix associated with the given Requirement. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Scalar\+Type $>$ }\\auto \mbox{\hyperlink{a01626_af107e8ea6d5bb688715be653eb591d48}{calculate\+Scalar\+Impl}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&par, \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{Scalar\+Affordance}} affordance, const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&dx=std\+::nullopt) const -\/$>$ Scalar\+Type
+\item 
+{\footnotesize template$<$typename Scalar\+Type $>$ }\\void \mbox{\hyperlink{a01626_a533168541b41f442e995c45afc0956c2}{calculate\+Vector\+Impl}} (const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&par, \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{Vector\+Affordance}} affordance, typename Traits\+::template Vector\+Type$<$ Scalar\+Type $>$ force, const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&dx=std\+::nullopt) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}}, typename \mbox{\hyperlink{a01506}{FE}}, typename PRE$>$\newline
+class Ikarus\+::\+Displacement\+Pressure$<$ Pre\+FE, FE, PRE $>$}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em \mbox{\hyperlink{a01510}{Pre\+FE}}} & The type of the total pre finite element. \\
+\hline
+{\em \mbox{\hyperlink{a01506}{FE}}} & The type of the finite element. \\
+\hline
+{\em PRE} & The type of the displacement-\/pressure pre finite element. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{a01626_a5881d47a45e9797cf0f4c740b95a3bb8}\label{a01626_a5881d47a45e9797cf0f4c740b95a3bb8}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!Basis@{Basis}}
+\index{Basis@{Basis}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{Basis}{Basis}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Basis =  typename \mbox{\hyperlink{a01562_a3385bd97c39ebfede2dc6eac609022c8}{Traits\+::\+Basis}}}
+
+\mbox{\Hypertarget{a01626_aecdd86731d0e634bd89a2b16ef8c7b40}\label{a01626_aecdd86731d0e634bd89a2b16ef8c7b40}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!BopType@{BopType}}
+\index{BopType@{BopType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{BopType}{BopType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename ST  = double$>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Bop\+Type =  Eigen\+::\+Matrix$<$ST, \mbox{\hyperlink{a01626_ab227ad59b7f7aa87cc798a302adb95fb}{strain\+Dim}}, \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}}$>$}
+
+\mbox{\Hypertarget{a01626_a7fd30d03860f94e6a0d6331782080a06}\label{a01626_a7fd30d03860f94e6a0d6331782080a06}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!DecomposedDevType@{DecomposedDevType}}
+\index{DecomposedDevType@{DecomposedDevType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{DecomposedDevType}{DecomposedDevType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename MAT $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Decomposed\+Dev\+Type =  typename \mbox{\hyperlink{a01682}{Materials\+::\+Decomposed\+Material\+Types}}$<$\mbox{\hyperlink{a01626_a4ff63e86721c5172af0791086ffcd7de}{Material\+Type}}$>$\+::\+Dev\+Type}
+
+\mbox{\Hypertarget{a01626_ab1b5f23f07ce4ad9514731cee3d3b2e1}\label{a01626_ab1b5f23f07ce4ad9514731cee3d3b2e1}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!DecomposedVolType@{DecomposedVolType}}
+\index{DecomposedVolType@{DecomposedVolType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{DecomposedVolType}{DecomposedVolType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename MAT $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Decomposed\+Vol\+Type =  typename \mbox{\hyperlink{a01682}{Materials\+::\+Decomposed\+Material\+Types}}$<$\mbox{\hyperlink{a01626_a4ff63e86721c5172af0791086ffcd7de}{Material\+Type}}$>$\+::\+Vol\+Type}
+
+\mbox{\Hypertarget{a01626_a7bcd569a3cbd62123c50dc4c5aaf1bf8}\label{a01626_a7bcd569a3cbd62123c50dc4c5aaf1bf8}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!DPConstitutiveDriverType@{DPConstitutiveDriverType}}
+\index{DPConstitutiveDriverType@{DPConstitutiveDriverType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{DPConstitutiveDriverType}{DPConstitutiveDriverType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+DPConstitutive\+Driver\+Type =  Impl\+::\+DPConstitutive\+Driver$<$\mbox{\hyperlink{a01626_a7fd30d03860f94e6a0d6331782080a06}{Decomposed\+Dev\+Type}}$<$\mbox{\hyperlink{a01626_a4ff63e86721c5172af0791086ffcd7de}{Material\+Type}}$>$, \mbox{\hyperlink{a01626_ab1b5f23f07ce4ad9514731cee3d3b2e1}{Decomposed\+Vol\+Type}}$<$\mbox{\hyperlink{a01626_a4ff63e86721c5172af0791086ffcd7de}{Material\+Type}}$>$ $>$}
+
+\mbox{\Hypertarget{a01626_a7aaeb0ef6403eb91e30c0eb47f0527a5}\label{a01626_a7aaeb0ef6403eb91e30c0eb47f0527a5}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!Element@{Element}}
+\index{Element@{Element}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{Element}{Element}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Element =  typename \mbox{\hyperlink{a01562_ac4668b9c9142defdf3b70cca8eeb30c4}{Traits\+::\+Element}}}
+
+\mbox{\Hypertarget{a01626_aca56b063196697d40e93128c511fac5a}\label{a01626_aca56b063196697d40e93128c511fac5a}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!FlatBasis@{FlatBasis}}
+\index{FlatBasis@{FlatBasis}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{FlatBasis}{FlatBasis}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Flat\+Basis =  typename \mbox{\hyperlink{a01562_a81feef959fedef62b2e1daabbd52b5f2}{Traits\+::\+Flat\+Basis}}}
+
+\mbox{\Hypertarget{a01626_a2f91f298fca54f7c38ddf727fc6e4dad}\label{a01626_a2f91f298fca54f7c38ddf727fc6e4dad}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!Geometry@{Geometry}}
+\index{Geometry@{Geometry}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{Geometry}{Geometry}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Geometry =  typename \mbox{\hyperlink{a01562_a0b7be1104fba2d190e3fed46f291a851}{Traits\+::\+Geometry}}}
+
+\mbox{\Hypertarget{a01626_a93fb67d9325c9b1226a322854c1e02ea}\label{a01626_a93fb67d9325c9b1226a322854c1e02ea}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!GridView@{GridView}}
+\index{GridView@{GridView}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{GridView}{GridView}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Grid\+View =  typename \mbox{\hyperlink{a01562_a3ec0294824df467074f5070cb58f5a91}{Traits\+::\+Grid\+View}}}
+
+\mbox{\Hypertarget{a01626_aa7aaf70546769d6b2ead07ca9d4bc5f9}\label{a01626_aa7aaf70546769d6b2ead07ca9d4bc5f9}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!KgType@{KgType}}
+\index{KgType@{KgType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{KgType}{KgType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename ST  = double$>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Kg\+Type =  Eigen\+::\+Matrix$<$ST, \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}}, \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}}$>$}
+
+\mbox{\Hypertarget{a01626_ae02112f13e3edea0a375b3443959fd39}\label{a01626_ae02112f13e3edea0a375b3443959fd39}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!LocalBasisTypeP@{LocalBasisTypeP}}
+\index{LocalBasisTypeP@{LocalBasisTypeP}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{LocalBasisTypeP}{LocalBasisTypeP}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Local\+Basis\+TypeP =  decltype(std\+::declval$<$\mbox{\hyperlink{a01626_a96884f549252c94e55504229bfac8bb9}{Local\+View}}$>$().tree().child(Dune\+::\+Indices\+::\+\_\+1).finite\+Element().\mbox{\hyperlink{a01626_a921bb4b1036061523710faccdf846e05}{local\+Basis}}())}
+
+\mbox{\Hypertarget{a01626_a02c3248fc039e733268825a113ec0165}\label{a01626_a02c3248fc039e733268825a113ec0165}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!LocalBasisTypeU@{LocalBasisTypeU}}
+\index{LocalBasisTypeU@{LocalBasisTypeU}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{LocalBasisTypeU}{LocalBasisTypeU}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Local\+Basis\+TypeU =  decltype(std\+::declval$<$\mbox{\hyperlink{a01626_a96884f549252c94e55504229bfac8bb9}{Local\+View}}$>$().tree().child(Dune\+::\+Indices\+::\+\_\+0).child(0).finite\+Element().\mbox{\hyperlink{a01626_a921bb4b1036061523710faccdf846e05}{local\+Basis}}())}
+
+\mbox{\Hypertarget{a01626_a96884f549252c94e55504229bfac8bb9}\label{a01626_a96884f549252c94e55504229bfac8bb9}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!LocalView@{LocalView}}
+\index{LocalView@{LocalView}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{LocalView}{LocalView}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Local\+View =  typename \mbox{\hyperlink{a01562_a06bdad066f621e46875af45a22677a3c}{Traits\+::\+Local\+View}}}
+
+\mbox{\Hypertarget{a01626_a4ff63e86721c5172af0791086ffcd7de}\label{a01626_a4ff63e86721c5172af0791086ffcd7de}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!MaterialType@{MaterialType}}
+\index{MaterialType@{MaterialType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{MaterialType}{MaterialType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Material\+Type =  typename Pre\+::\+Material}
+
+\mbox{\Hypertarget{a01626_ab1418ea5fa66c27d65365bbaa1fc33d1}\label{a01626_ab1418ea5fa66c27d65365bbaa1fc33d1}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!Pre@{Pre}}
+\index{Pre@{Pre}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{Pre}{Pre}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Pre =  PRE}
+
+\mbox{\Hypertarget{a01626_aa5a664f9021e8afed94a676f4c118341}\label{a01626_aa5a664f9021e8afed94a676f4c118341}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!Requirement@{Requirement}}
+\index{Requirement@{Requirement}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{Requirement}{Requirement}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Requirement =  \mbox{\hyperlink{a01526}{FERequirements}}$<$\mbox{\hyperlink{a00497_ggaea763c94a1cecbeefc4f8661debcc5a3a0c2d35f5f278a229db5ba41d40120f1c}{FESolutions\+::displacement}}, \mbox{\hyperlink{a00497_gga0c1577fd05efee8475b0f7fef795bbbeaf72bac0ac84c0315e7bcbb8aa84b2ff8}{FEParameter\+::loadfactor}}$>$}
+
+\mbox{\Hypertarget{a01626_ab6bc80211359c5ee11b289fe36610419}\label{a01626_ab6bc80211359c5ee11b289fe36610419}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!RTWrapperType@{RTWrapperType}}
+\index{RTWrapperType@{RTWrapperType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{RTWrapperType}{RTWrapperType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$template$<$ typename, int, int $>$ class RT$>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+RTWrapper\+Type =  \mbox{\hyperlink{a01546}{Result\+Wrapper}}$<$RT$<$typename \mbox{\hyperlink{a01562_a1b3bb63050509bf769c72be3c790db69}{Traits\+::ctype}}, \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}}, \mbox{\hyperlink{a01562_a5d611e1d48285bac5c5ebd6fda9c7cc7}{Traits\+::worlddim}}$>$, \mbox{\hyperlink{a00510_acfb09bb7db104db62d3d1d2dc3e009b2a57dea6f5039281b7fee517fc43bf3110}{Result\+Shape\+::\+Vector}}$>$}
+
+\mbox{\Hypertarget{a01626_ace22528646bec12f1e6540cd1f17c416}\label{a01626_ace22528646bec12f1e6540cd1f17c416}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!StrainType@{StrainType}}
+\index{StrainType@{StrainType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{StrainType}{StrainType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename ST  = double$>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Strain\+Type =  Eigen\+::\+Vector$<$ST, \mbox{\hyperlink{a01626_ab227ad59b7f7aa87cc798a302adb95fb}{strain\+Dim}}$>$}
+
+\mbox{\Hypertarget{a01558_ac43d0000154d9bd08d7fdce3c279ccbb}\label{a01558_ac43d0000154d9bd08d7fdce3c279ccbb}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!SupportedResultTypes@{SupportedResultTypes}}
+\index{SupportedResultTypes@{SupportedResultTypes}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{SupportedResultTypes}{SupportedResultTypes}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{a01558}{Ikarus\+::\+Result\+Type\+Base}}$<$ Result\+Types $>$\+::\+Supported\+Result\+Types =  std\+::tuple$<$decltype(\mbox{\hyperlink{a00510_a38629395c2d43ba44328b01ce0c0daf3}{make\+RT}}$<$Result\+Types$>$())...$>$\hspace{0.3cm}{\ttfamily [inherited]}}
+
+\mbox{\Hypertarget{a01626_a9b0f81dae56c7ebafa3ec3b6f0527ffb}\label{a01626_a9b0f81dae56c7ebafa3ec3b6f0527ffb}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!Traits@{Traits}}
+\index{Traits@{Traits}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{Traits}{Traits}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Traits =  \mbox{\hyperlink{a01510_a826c356a5afb013faffb5f7ac893cff4}{Pre\+FE\+::\+Traits}}}
+
+\mbox{\Hypertarget{a01626_a55df7167b8512c5c26f3473a3cda6b9d}\label{a01626_a55df7167b8512c5c26f3473a3cda6b9d}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!VectorXOptRef@{VectorXOptRef}}
+\index{VectorXOptRef@{VectorXOptRef}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{VectorXOptRef}{VectorXOptRef}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename ST $>$ \\
+using \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Vector\+XOpt\+Ref =  std\+::optional$<$std\+::reference\+\_\+wrapper$<$const Eigen\+::\+VectorX$<$ST$>$ $>$$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{a01626_a2bf445f166ef3b1f846a381a885f2ccf}\label{a01626_a2bf445f166ef3b1f846a381a885f2ccf}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!DisplacementPressure@{DisplacementPressure}}
+\index{DisplacementPressure@{DisplacementPressure}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{DisplacementPressure()}{DisplacementPressure()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+\mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::\+Displacement\+Pressure (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_ab1418ea5fa66c27d65365bbaa1fc33d1}{Pre}} \&}]{pre }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em pre} & The pre fe \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{a01626_a9f2f12d4a17bf0516748946f3fe3ff85}\label{a01626_a9f2f12d4a17bf0516748946f3fe3ff85}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!bindImpl@{bindImpl}}
+\index{bindImpl@{bindImpl}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{bindImpl()}{bindImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+void \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::bind\+Impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01626_a489a92baa9ad1935f8867484ce5016dc}\label{a01626_a489a92baa9ad1935f8867484ce5016dc}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!calculateAtImpl@{calculateAtImpl}}
+\index{calculateAtImpl@{calculateAtImpl}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{calculateAtImpl()}{calculateAtImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$template$<$ typename, int, int $>$ class RT$>$ \newline
+requires (\mbox{\hyperlink{a01558_af33553a01e6940265639d561c31b7746}{supports\+Result\+Type}}$<$RT$>$())\\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::calculate\+At\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{req,  }\item[{const \mbox{\hyperlink{a02274}{Dune\+::\+Field\+Vector}}$<$ double, \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}} $>$ \&}]{local,  }\item[{Dune\+::\+Priority\+Tag$<$ 1 $>$}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & The Requirement object holding the global solution. \\
+\hline
+{\em local} & Local position vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+calculated result
+\end{DoxyReturn}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em RT} & The type representing the requested result. \\
+\hline
+\end{DoxyTemplParams}
+\mbox{\Hypertarget{a01626_acd6857c4fb9f314a52ce2dfe804d9ec0}\label{a01626_acd6857c4fb9f314a52ce2dfe804d9ec0}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!calculateMatrixImpl@{calculateMatrixImpl}}
+\index{calculateMatrixImpl@{calculateMatrixImpl}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{calculateMatrixImpl()}{calculateMatrixImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename Scalar\+Type $>$ \\
+void \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::calculate\+Matrix\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{const \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{Matrix\+Affordance}} \&}]{affordance,  }\item[{typename Traits\+::template Matrix\+Type$<$$>$}]{K,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Scalar\+Type} & The scalar type for the calculation. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em par} & The Requirement object specifying the requirements for the calculation. \\
+\hline
+{\em K} & The matrix to store the calculated result. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{a01626_af107e8ea6d5bb688715be653eb591d48}\label{a01626_af107e8ea6d5bb688715be653eb591d48}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!calculateScalarImpl@{calculateScalarImpl}}
+\index{calculateScalarImpl@{calculateScalarImpl}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{calculateScalarImpl()}{calculateScalarImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename Scalar\+Type $>$ \\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::calculate\+Scalar\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{\mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{Scalar\+Affordance}}}]{affordance,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const -\/$>$ Scalar\+Type \hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01626_a20b7bb7e175706892d7fd73635b4ad76}\label{a01626_a20b7bb7e175706892d7fd73635b4ad76}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!calculateStress@{calculateStress}}
+\index{calculateStress@{calculateStress}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{calculateStress()}{calculateStress()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename D , typename V $>$ \\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::calculate\+Stress (\begin{DoxyParamCaption}\item[{const D \&}]{dev,  }\item[{const V \&}]{vol,  }\item[{const Eigen\+::\+Vector$<$ double, \mbox{\hyperlink{a01626_ab227ad59b7f7aa87cc798a302adb95fb}{strain\+Dim}} $>$ \&}]{strain\+In\+Voigt,  }\item[{double}]{p }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyNote}{Note}
+The material model passed here could be either the underlying material for the reduced case or the actual material type itself, depending on whether PK2\+Stress or PK2\+Stress\+Full is needed for post-\/processing. 
+
+It is assumed that the material model uses and returns PK2 stress as the stress measure. 
+\end{DoxyNote}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em D} & Type of the deviatoric part of the material \\
+\hline
+{\em V} & Type of the volumetric part of the material \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em dev} & The deviatoric part of the material model. \\
+\hline
+{\em vol} & The volumetric part of the material model. \\
+\hline
+{\em strain\+In\+Voigt} & The strain measure in Voigt notation. \\
+\hline
+{\em p} & The value of the pressure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+PK2 stresses. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01626_a20b7bb7e175706892d7fd73635b4ad76_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01626_a533168541b41f442e995c45afc0956c2}\label{a01626_a533168541b41f442e995c45afc0956c2}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!calculateVectorImpl@{calculateVectorImpl}}
+\index{calculateVectorImpl@{calculateVectorImpl}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{calculateVectorImpl()}{calculateVectorImpl()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename Scalar\+Type $>$ \\
+void \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::calculate\+Vector\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{\mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{Vector\+Affordance}}}]{affordance,  }\item[{typename Traits\+::template Vector\+Type$<$ Scalar\+Type $>$}]{force,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{a01626_a3c296dfc565166c1b58efa33dc826c38}\label{a01626_a3c296dfc565166c1b58efa33dc826c38}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!constitutiveDriver@{constitutiveDriver}}
+\index{constitutiveDriver@{constitutiveDriver}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{constitutiveDriver()}{constitutiveDriver()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename Scalar\+Type  = double$>$ \\
+decltype(auto) \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::constitutive\+Driver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{a01626_ad2a322957a7cb3f0fdaa6def309f502b}\label{a01626_ad2a322957a7cb3f0fdaa6def309f502b}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!displacementFunction@{displacementFunction}}
+\index{displacementFunction@{displacementFunction}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{displacementFunction()}{displacementFunction()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename Scalar\+Type  = double$>$ \\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::displacement\+Function (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Scalar\+Type} & The scalar type for the displacement function. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em par} & The Requirement object. \\
+\hline
+{\em dx} & Optional displacement vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Standard\+Local\+Function representing the displacement function. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01626_ad2a322957a7cb3f0fdaa6def309f502b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01626_affc97e49a5f8cec3ddb5b013f2c2942c}\label{a01626_affc97e49a5f8cec3ddb5b013f2c2942c}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!energyFunction@{energyFunction}}
+\index{energyFunction@{energyFunction}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{energyFunction()}{energyFunction()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename ST $>$ \\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::energy\+Function (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ ST $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em ST} & The scalar type for the material and strain. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em par} & The Requirement object. \\
+\hline
+{\em dx} & Optional displacement vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A lambda function that returns the intenral energy at a given integration point and its index. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01626_affc97e49a5f8cec3ddb5b013f2c2942c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01626_a67bc2f5ba73a28dc42fd68dac9348e9b}\label{a01626_a67bc2f5ba73a28dc42fd68dac9348e9b}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!geometricStiffnessMatrixFunction@{geometricStiffnessMatrixFunction}}
+\index{geometricStiffnessMatrixFunction@{geometricStiffnessMatrixFunction}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{geometricStiffnessMatrixFunction()}{geometricStiffnessMatrixFunction()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename ST $>$ \\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::geometric\+Stiffness\+Matrix\+Function (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{typename Traits\+::template Matrix\+Type$<$ ST $>$ \&}]{K,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ ST $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em ST} & The scalar type for the material and strain. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em par} & The Requirement object. \\
+\hline
+{\em dx} & Optional displacement vector. \\
+\hline
+{\em K} & The matrix to store the calculated result. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A lambda function that evaluates the stiffness matrix for a given strain, integration point and its index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{a01626_a826513bfcded1728e6497e572c4e39a4}\label{a01626_a826513bfcded1728e6497e572c4e39a4}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!geometry@{geometry}}
+\index{geometry@{geometry}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{geometry()}{geometry()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+const \mbox{\hyperlink{a01626_a2f91f298fca54f7c38ddf727fc6e4dad}{Geometry}} \& \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::geometry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{a01626_adc3b1bc4677a1d6f9f774d92eacdc37a}\label{a01626_adc3b1bc4677a1d6f9f774d92eacdc37a}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!internalForcesFunction@{internalForcesFunction}}
+\index{internalForcesFunction@{internalForcesFunction}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{internalForcesFunction()}{internalForcesFunction()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename ST $>$ \\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::internal\+Forces\+Function (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{typename Traits\+::template Vector\+Type$<$ ST $>$ \&}]{force,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ ST $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em ST} & The scalar type for the material and strain. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em par} & The Requirement object. \\
+\hline
+{\em dx} & Optional displacement vector. \\
+\hline
+{\em force} & The vector to store the calculated result. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A lambda function that evaluates the intenral force vector for a given strain, integration point and its index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{a01626_a921bb4b1036061523710faccdf846e05}\label{a01626_a921bb4b1036061523710faccdf846e05}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!localBasis@{localBasis}}
+\index{localBasis@{localBasis}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{localBasis()}{localBasis()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+const Dune\+::\+Cached\+Local\+Basis$<$ std\+::remove\+\_\+cvref\+\_\+t$<$ \mbox{\hyperlink{a01626_a02c3248fc039e733268825a113ec0165}{Local\+Basis\+TypeU}} $>$ $>$ \& \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::local\+Basis (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{a01626_aff4d861d9764e9fe4ea1818b6c55f94f}\label{a01626_aff4d861d9764e9fe4ea1818b6c55f94f}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!localBasisP@{localBasisP}}
+\index{localBasisP@{localBasisP}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{localBasisP()}{localBasisP()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+const Dune\+::\+Cached\+Local\+Basis$<$ std\+::remove\+\_\+cvref\+\_\+t$<$ \mbox{\hyperlink{a01626_ae02112f13e3edea0a375b3443959fd39}{Local\+Basis\+TypeP}} $>$ $>$ \& \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::local\+BasisP (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{a01626_aa4de616b392c809d66fe552d69d6c6f4}\label{a01626_aa4de616b392c809d66fe552d69d6c6f4}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!materialStiffnessMatrixFunction@{materialStiffnessMatrixFunction}}
+\index{materialStiffnessMatrixFunction@{materialStiffnessMatrixFunction}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{materialStiffnessMatrixFunction()}{materialStiffnessMatrixFunction()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename ST $>$ \\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::material\+Stiffness\+Matrix\+Function (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{typename Traits\+::template Matrix\+Type$<$ ST $>$ \&}]{K,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ ST $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em ST} & The scalar type for the material and strain. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em par} & The Requirement object. \\
+\hline
+{\em dx} & Optional displacement vector. \\
+\hline
+{\em K} & The matrix to store the calculated result. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A lambda function that evaluates the stiffness matrix for a given strain, integration point and its index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{a01626_a8768562984dd5c1f8b519dd9a4f92935}\label{a01626_a8768562984dd5c1f8b519dd9a4f92935}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!numberOfNodes@{numberOfNodes}}
+\index{numberOfNodes@{numberOfNodes}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{numberOfNodes()}{numberOfNodes()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+size\+\_\+t \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::number\+Of\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{a01626_a55154bedc554d19576d28c27a8f93de2}\label{a01626_a55154bedc554d19576d28c27a8f93de2}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!order@{order}}
+\index{order@{order}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{order()}{order()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+int \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::order (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{a01626_aeb007c4c59b10f6fa84a23c6d560097e}\label{a01626_aeb007c4c59b10f6fa84a23c6d560097e}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!pressureFunction@{pressureFunction}}
+\index{pressureFunction@{pressureFunction}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{pressureFunction()}{pressureFunction()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename Scalar\+Type  = double$>$ \\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::pressure\+Function (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Scalar\+Type} & The scalar type for the pressure function. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em par} & The Requirement object. \\
+\hline
+{\em dx} & Optional displacement vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Standard\+Local\+Function representing the pressure function. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01626_aeb007c4c59b10f6fa84a23c6d560097e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01626_ad15adef35f65186d7769f941c2a080e5}\label{a01626_ad15adef35f65186d7769f941c2a080e5}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!strainFunction@{strainFunction}}
+\index{strainFunction@{strainFunction}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{strainFunction()}{strainFunction()}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+template$<$typename Scalar\+Type  = double$>$ \\
+auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::strain\+Function (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{a01626_aa5a664f9021e8afed94a676f4c118341}{Requirement}} \&}]{par,  }\item[{const \mbox{\hyperlink{a01626_a55df7167b8512c5c26f3473a3cda6b9d}{Vector\+XOpt\+Ref}}$<$ Scalar\+Type $>$ \&}]{dx = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Scalar\+Type} & The scalar type for the strain function. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em par} & The Requirement object. \\
+\hline
+{\em dx} & Optional displacement vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The strain function calculated using green\+Lagrange\+Strains. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a01626_ad15adef35f65186d7769f941c2a080e5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a01558_af33553a01e6940265639d561c31b7746}\label{a01558_af33553a01e6940265639d561c31b7746}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!supportsResultType@{supportsResultType}}
+\index{supportsResultType@{supportsResultType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{supportsResultType()}{supportsResultType()}}
+{\footnotesize\ttfamily static consteval bool \mbox{\hyperlink{a01558}{Ikarus\+::\+Result\+Type\+Base}}$<$ Result\+Types $>$\+::supports\+Result\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [inherited]}}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em RT} & requested Result\+Type \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}\label{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!myDim@{myDim}}
+\index{myDim@{myDim}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{myDim}{myDim}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+constexpr int \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::my\+Dim = \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{Traits\+::mydim}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{a01626_ab227ad59b7f7aa87cc798a302adb95fb}\label{a01626_ab227ad59b7f7aa87cc798a302adb95fb}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!strainDim@{strainDim}}
+\index{strainDim@{strainDim}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{strainDim}{strainDim}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+constexpr int \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::strain\+Dim = \mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}} $\ast$ (\mbox{\hyperlink{a01626_ae0de52ab734a1f718a12e8d4f9adf54d}{my\+Dim}} + 1) / 2\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{a01626_a0f53728ba39b41381bbfa2a1d151073a}\label{a01626_a0f53728ba39b41381bbfa2a1d151073a}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!strainType@{strainType}}
+\index{strainType@{strainType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{strainType}{strainType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+constexpr auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::strain\+Type = \mbox{\hyperlink{a00499_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e}{Strain\+Tags\+::green\+Lagrangian}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{a01626_a3614d09ee5983d48dc0db97fa0e773ab}\label{a01626_a3614d09ee5983d48dc0db97fa0e773ab}} 
+\index{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}!stressType@{stressType}}
+\index{stressType@{stressType}!Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$@{Ikarus::DisplacementPressure$<$ PreFE, FE, PRE $>$}}
+\doxysubsubsection{\texorpdfstring{stressType}{stressType}}
+{\footnotesize\ttfamily template$<$typename \mbox{\hyperlink{a01510}{Pre\+FE}} , typename \mbox{\hyperlink{a01506}{FE}} , typename PRE $>$ \\
+constexpr auto \mbox{\hyperlink{a01626}{Ikarus\+::\+Displacement\+Pressure}}$<$ \mbox{\hyperlink{a01510}{Pre\+FE}}, \mbox{\hyperlink{a01506}{FE}}, PRE $>$\+::stress\+Type = \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21}{Stress\+Tags\+::\+PK2}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{a00434}{displacementpressure.\+hh}}\end{DoxyCompactItemize}

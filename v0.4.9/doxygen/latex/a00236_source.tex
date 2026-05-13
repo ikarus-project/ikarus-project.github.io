@@ -1,0 +1,86 @@
+\hypertarget{a00236_source}{}\doxysection{vtkcontainertypes.\+hh}
+\label{a00236_source}\index{vtkcontainertypes.hh@{vtkcontainertypes.hh}}
+\mbox{\hyperlink{a00236}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <tuple>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/compositebasis.hh>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/powerbasis.hh>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/subspacebasis.hh>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }Ikarus::Vtk::Impl \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Container>}
+\DoxyCodeLine{22 \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} sizeOfContainer = []() \{}
+\DoxyCodeLine{23   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ std::tuple\_size<Container>::value; \})}
+\DoxyCodeLine{24     \textcolor{keywordflow}{return} std::tuple\_size<Container>::value;}
+\DoxyCodeLine{25   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{26     \textcolor{keywordflow}{return} 1ul;}
+\DoxyCodeLine{27 \}();}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{30 \textcolor{keyword}{struct }ResultContainerPre}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32   \textcolor{keyword}{using }type = double;}
+\DoxyCodeLine{33 \};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{template} <\textcolor{keyword}{class} Basis>}
+\DoxyCodeLine{36 \textcolor{keyword}{struct }ResultContainer}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38   \textcolor{keyword}{using }type = ResultContainerPre<typename Basis::PreBasis>::type;}
+\DoxyCodeLine{39 \};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{comment}{// specialization for composite basis with where the subspace basis are all either power basis or scalar basis}}
+\DoxyCodeLine{42 \textcolor{keyword}{template} <\textcolor{keyword}{class }IMS, \textcolor{keyword}{class}... SPB>}
+\DoxyCodeLine{43 \textcolor{keyword}{struct }ResultContainerPre<\mbox{\hyperlink{a00536}{Dune}}::Functions::CompositePreBasis<IMS, SPB...>>}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \textcolor{keyword}{using }SubPreBases = std::tuple<SPB...>;}
+\DoxyCodeLine{46   \textcolor{keyword}{using }FirstBasis  = std::tuple\_element\_t<0, SubPreBases>;}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{size\_t} size = \textcolor{keyword}{sizeof}...(SPB);}
+\DoxyCodeLine{49   \textcolor{keyword}{using }type                   = std::array<typename ResultContainerPre<FirstBasis>::type, size>;}
+\DoxyCodeLine{50 \};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{comment}{// Subspace basis can either be from a composite or a power basis}}
+\DoxyCodeLine{53 \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis, \textcolor{keyword}{class} PP>}
+\DoxyCodeLine{54 \textcolor{keyword}{struct }ResultContainerSSB}
+\DoxyCodeLine{55 \{}
+\DoxyCodeLine{56   \textcolor{keyword}{using }type = double;}
+\DoxyCodeLine{57 \};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{keyword}{template} <\textcolor{keyword}{class }PP, \textcolor{keyword}{class }IMS, \textcolor{keyword}{class}... SPB>}
+\DoxyCodeLine{60 \textcolor{keyword}{struct }ResultContainerSSB<\mbox{\hyperlink{a00536}{Dune}}::Functions::CompositePreBasis<IMS, SPB...>, PP>}
+\DoxyCodeLine{61 \{}
+\DoxyCodeLine{62   \textcolor{keyword}{using }SubPreBases = std::tuple<SPB...>;}
+\DoxyCodeLine{63   \textcolor{keyword}{using }Basis       = std::tuple\_element\_t<PP\{\}.template get<0>(), SubPreBases>;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{keyword}{using }type = ResultContainerPre<Basis>::type;}
+\DoxyCodeLine{66 \};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{comment}{// Specialization for subspace basis}}
+\DoxyCodeLine{69 \textcolor{keyword}{template} <\textcolor{keyword}{class} RB, \textcolor{keyword}{class} PP>}
+\DoxyCodeLine{70 \textcolor{keyword}{struct }ResultContainer<\mbox{\hyperlink{a00536}{Dune}}::Functions::SubspaceBasis<RB, PP>>}
+\DoxyCodeLine{71 \{}
+\DoxyCodeLine{72   \textcolor{keyword}{using }RBPre = RB::PreBasis;}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \textcolor{keyword}{using }type = ResultContainerSSB<RBPre, PP>::type;}
+\DoxyCodeLine{75 \};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{keyword}{template} <\textcolor{keyword}{class} Basis>}
+\DoxyCodeLine{78 \textcolor{keyword}{using }ResultContainer\_t = \textcolor{keyword}{typename} ResultContainer<Basis>::type;}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{comment}{// specialization for power basis}}
+\DoxyCodeLine{81 \textcolor{keyword}{template} <\textcolor{keyword}{class} IMS, \textcolor{keyword}{class} SPB, std::\textcolor{keywordtype}{size\_t} size>}
+\DoxyCodeLine{82 \textcolor{keyword}{struct }ResultContainerPre<\mbox{\hyperlink{a00536}{Dune}}::Functions::PowerPreBasis<IMS, SPB, size>>}
+\DoxyCodeLine{83 \{}
+\DoxyCodeLine{84   \textcolor{keyword}{using }type = std::array<typename ResultContainerPre<SPB>::type, size>;}
+\DoxyCodeLine{85 \};}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87 \} \textcolor{comment}{// namespace Ikarus::Vtk::Impl}}
+
+\end{DoxyCode}

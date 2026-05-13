@@ -1,0 +1,127 @@
+\hypertarget{a03550_source}{}\doxysection{io/vtkwriter.hh}
+\label{a03550_source}\index{vtkwriter.hh@{vtkwriter.hh}}
+\mbox{\hyperlink{a03550}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00236}{vtkcontainertypes.hh}}"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00233}{vtkdatatag.hh}}"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/common/fvector.hh>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <dune/functions/gridfunctions/discreteglobalbasisfunction.hh>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <dune/grid/yaspgrid.hh>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <dune/vtk/vtkwriter.hh>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <dune/vtk/writers/unstructuredgridwriter.hh>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00239}{ikarus/io/resultfunction.hh}}>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03559}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00525}{Ikarus::Vtk}} \{}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{35 \textcolor{keyword}{template} <\textcolor{keyword}{typename} AS, \textcolor{keyword}{typename} DC, \textcolor{keyword}{typename} Base>}
+\DoxyCodeLine{36 \textcolor{keyword}{requires}(Concepts::FlatAssembler<AS> \&\& Concepts::DataCollector<DC>)}
+\DoxyCodeLine{37 \textcolor{keyword}{struct} \mbox{\hyperlink{a02050}{Writer}} : \textcolor{keyword}{public} Base}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \textcolor{keyword}{public}:}
+\DoxyCodeLine{40   \textcolor{keyword}{using }\mbox{\hyperlink{a02050_a48666f99819393e871c84b4f4bd4b816}{Assembler}}     = AS;}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a02050_aadd66859407a6b1a5d7604e693348c00}{GridView}}      = \textcolor{keyword}{typename} Assembler::GridView;}
+\DoxyCodeLine{42   \textcolor{keyword}{using }\mbox{\hyperlink{a02050_af943a6fe7f917d909b06aaace360c129}{FERequirement}} = \textcolor{keyword}{typename} Assembler::FERequirement;}
+\DoxyCodeLine{43   \textcolor{keyword}{using }\mbox{\hyperlink{a02050_aaac8aafaef3b80c862dd57fbf7b97279}{FEContainer}}   = \textcolor{keyword}{typename} Assembler::FEContainer;}
+\DoxyCodeLine{44   \textcolor{keyword}{using }\mbox{\hyperlink{a02050_a3a3fcd008921213a40a189cf5c947a08}{FEType}}        = \textcolor{keyword}{typename} std::remove\_cvref\_t<FEContainer>::value\_type;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \textcolor{keyword}{using }\mbox{\hyperlink{a02050_a700ee4a5f71f8985ee7e4364372c6895}{DataCollector}} = DC;}
+\DoxyCodeLine{47   \textcolor{keyword}{using }\mbox{\hyperlink{a02050_a7e43687c38b914c1c3805c0ebefff9bd}{VTKWriter}}     = Base;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{55   \textcolor{keyword}{template} <\textcolor{keyword}{class}... Args>}
+\DoxyCodeLine{56   \mbox{\hyperlink{a02050_a7f632eb9736d0518bfccc57782911611}{Writer}}(std::shared\_ptr<AS> assembler, Args... args)}
+\DoxyCodeLine{57       : Base(assembler-\/>gridView(), std::forward<Args>(args)...),}
+\DoxyCodeLine{58         assembler\_(assembler) \{\}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{67   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DC\_, \textcolor{keyword}{class}... Args>}
+\DoxyCodeLine{68   \textcolor{keyword}{requires} \mbox{\hyperlink{a02469}{Concepts::DataCollector<std::decay\_t<DC\_>}}>}
+\DoxyCodeLine{69   \mbox{\hyperlink{a02050_a2bd5df12f7819102911d2ec09ce8a977}{Writer}}(std::shared\_ptr<AS> assembler, DC\_\&\& dc, Args... args)}
+\DoxyCodeLine{70       : Base(std::forward<std::decay\_t<DC\_>>(dc), std::forward<Args>(args)...),}
+\DoxyCodeLine{71         assembler\_(assembler) \{\}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{80   \textcolor{keyword}{template} <\textcolor{keyword}{typename} RF>}
+\DoxyCodeLine{81   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02050_a658290b81fbe3d75d228ea393f5a6d47}{addResultFunction}}(RF\&\& resultFunction, \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273b}{DataTag}} dataTag = \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}}) \{}
+\DoxyCodeLine{82     \textcolor{keywordflow}{if} (dataTag == \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546}{DataTag::asCellData}} or dataTag == \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926}{DataTag::asCellAndPointData}})}
+\DoxyCodeLine{83       Base::addCellData(std::forward<RF>(resultFunction));}
+\DoxyCodeLine{84     \textcolor{keywordflow}{if} (dataTag == \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}} or dataTag == \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926}{DataTag::asCellAndPointData}})}
+\DoxyCodeLine{85       Base::addPointData(std::forward<RF>(resultFunction));}
+\DoxyCodeLine{86   \}}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{94   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}> \textcolor{keyword}{class }RT, \textcolor{keyword}{typename} UserFunction = Ikarus::Impl::DefaultUserFunction>}
+\DoxyCodeLine{95   \textcolor{keyword}{requires}(\mbox{\hyperlink{a02464}{Concepts::ResultType<RT>}})}
+\DoxyCodeLine{96   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02050_a80776ad077f50b77de658392cb8736fe}{addResult}}(\mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273b}{DataTag}} dataTag = \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}}, UserFunction\&\& userFunction = \{\}) \{}
+\DoxyCodeLine{97     \textcolor{keyword}{auto} resFunction = makeResultFunction<RT>(assembler\_, std::forward<UserFunction>(userFunction));}
+\DoxyCodeLine{98     addResultFunction(std::move(resFunction), dataTag);}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{106   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02050_a1e3b740ff000dacda0ade44cc0646d9d}{addAllResults}}(\mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273b}{DataTag}} dataTag = \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}}) \{}
+\DoxyCodeLine{107     \textcolor{keyword}{using }ResultTuple = \textcolor{keyword}{typename} FEType::SupportedResultTypes;}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109     Dune::Hybrid::forEach(ResultTuple(), [\&]<\textcolor{keyword}{typename} RT>(RT i) \{ addResult<RT::template Rebind>(dataTag); \});}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{125   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Basis, \textcolor{keyword}{typename} R>}
+\DoxyCodeLine{126   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02050_a8c9074230eff3e4b2518c4ab657b6c26}{addInterpolation}}(R\&\& vals, Basis\&\& \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keyword}{const} std::string\& name, \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273b}{DataTag}} dataTag = \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}}) \{}
+\DoxyCodeLine{127     \textcolor{keyword}{using }Container = Impl::ResultContainer\_t<std::remove\_cvref\_t<Basis>>;}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129     \textcolor{keyword}{auto} gridFunction =}
+\DoxyCodeLine{130         Dune::Functions::makeDiscreteGlobalBasisFunction<Container>(std::forward<Basis>(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}), std::forward<R>(vals));}
+\DoxyCodeLine{131     \textcolor{keyword}{auto} fieldInfo = Dune::Vtk::FieldInfo(name, Impl::sizeOfContainer<Container>);}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133     \textcolor{keywordflow}{if} (dataTag == \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273ba358ac8d081a81d2a224773e362f76546}{DataTag::asCellData}} or dataTag == \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926}{DataTag::asCellAndPointData}})}
+\DoxyCodeLine{134       Base::addCellData(gridFunction, fieldInfo);}
+\DoxyCodeLine{135     \textcolor{keywordflow}{if} (dataTag == \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b}{DataTag::asPointData}} or dataTag == \mbox{\hyperlink{a00525_af59748ac04116ae85cd64ea8675d273baaebbd52cccfb094252aee95b0cffe926}{DataTag::asCellAndPointData}})}
+\DoxyCodeLine{136       Base::addPointData(gridFunction, fieldInfo);}
+\DoxyCodeLine{137   \}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139 \textcolor{keyword}{private}:}
+\DoxyCodeLine{140   std::shared\_ptr<Assembler> assembler\_;}
+\DoxyCodeLine{141 \};}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{148 \textcolor{keyword}{template} <\textcolor{keyword}{typename} G>}
+\DoxyCodeLine{149 \textcolor{keyword}{struct }\mbox{\hyperlink{a02054}{IsStructured}} : std::false\_type}
+\DoxyCodeLine{150 \{}
+\DoxyCodeLine{151 \};}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{156 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} dim, \textcolor{keyword}{typename} Coordinates>}
+\DoxyCodeLine{157 \textcolor{keyword}{struct }\mbox{\hyperlink{a02054}{IsStructured}}<\mbox{\hyperlink{a00536}{Dune}}::YaspGrid<dim, Coordinates>> : std::true\_type}
+\DoxyCodeLine{158 \{}
+\DoxyCodeLine{159 \};}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{166 \textcolor{keyword}{template} <\textcolor{keyword}{typename} GV>}
+\DoxyCodeLine{167 \textcolor{keyword}{requires} \mbox{\hyperlink{a02470}{Concepts::GridView<GV>}}}
+\DoxyCodeLine{168 \textcolor{keyword}{struct }\mbox{\hyperlink{a02062}{DefaultVTKWriterManager}}}
+\DoxyCodeLine{169 \{}
+\DoxyCodeLine{170   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02062_aab70186996e55b41bd657d71789541c1}{isStructured}} = \mbox{\hyperlink{a02054}{IsStructured<typename GV::Grid>::value}};}
+\DoxyCodeLine{171   \textcolor{keyword}{using }\mbox{\hyperlink{a02062_ab9e11e450e83e9c543ede585890c55d0}{DefaultDataCollector}} =}
+\DoxyCodeLine{172       std::conditional\_t<isStructured, Dune::Vtk::YaspDataCollector<GV>, Dune::Vtk::ContinuousDataCollector<GV>>;}
+\DoxyCodeLine{173 }
+\DoxyCodeLine{174   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DC = DefaultDataCollector>}
+\DoxyCodeLine{175   \textcolor{keyword}{using }\mbox{\hyperlink{a02062_ab81f859a7f02f174a9493d28b1be52a4}{DefaultVTKWriter}} = std::conditional\_t<isStructured, Dune::Vtk::RectilinearGridWriter<typename DC::GridView, DC>,}
+\DoxyCodeLine{176                                               Dune::Vtk::UnstructuredGridWriter<typename DC::GridView, DC>>;}
+\DoxyCodeLine{177 \};}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{179 \textcolor{comment}{// Class template argument deduction guides for VTK::Writer}}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181 \textcolor{keyword}{template} <\textcolor{keyword}{typename} AS, \textcolor{keyword}{class}... Args>}
+\DoxyCodeLine{182 \textcolor{keyword}{requires}(\mbox{\hyperlink{a02465}{Ikarus::Concepts::FlatAssembler<AS>}})}
+\DoxyCodeLine{183 \mbox{\hyperlink{a00525_a6b54a4966e54b45e51358c7b7877a5b5}{Writer}}(std::shared\_ptr<AS>,}
+\DoxyCodeLine{184        Args...) -\/> \mbox{\hyperlink{a02050}{Writer<AS, typename DefaultVTKWriterManager<typename AS::GridView>::DefaultDataCollector}},}
+\DoxyCodeLine{185                           \textcolor{keyword}{typename} \mbox{\hyperlink{a02062}{DefaultVTKWriterManager<typename AS::GridView>::template}} DefaultVTKWriter<>>;}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187 \textcolor{keyword}{template} <\textcolor{keyword}{typename} AS, \textcolor{keyword}{typename} DC, \textcolor{keyword}{class}... Args, Dune::Vtk::IsDataCollector<std::decay\_t<DC>> = \textcolor{keyword}{true}>}
+\DoxyCodeLine{188 \textcolor{keyword}{requires}(\mbox{\hyperlink{a02465}{Ikarus::Concepts::FlatAssembler<AS>}})}
+\DoxyCodeLine{189 \mbox{\hyperlink{a00525_a6b54a4966e54b45e51358c7b7877a5b5}{Writer}}(std::shared\_ptr<AS>, DC\&\&, Args...)}
+\DoxyCodeLine{190     -\/> \mbox{\hyperlink{a02050}{Writer<AS, std::decay\_t<DC>}},}
+\DoxyCodeLine{191               \textcolor{keyword}{typename} \mbox{\hyperlink{a02062}{DefaultVTKWriterManager<typename AS::GridView>::template}} DefaultVTKWriter<std::decay\_t<DC>>>;}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193 \} \textcolor{comment}{// namespace Ikarus::Vtk}}
+
+\end{DoxyCode}

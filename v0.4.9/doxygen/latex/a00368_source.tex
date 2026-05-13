@@ -1,0 +1,58 @@
+\hypertarget{a00368_source}{}\doxysection{numericalmaterialinversion.\+hh}
+\label{a00368_source}\index{numericalmaterialinversion.hh@{numericalmaterialinversion.hh}}
+\mbox{\hyperlink{a00368}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03514}{ikarus/finiteelements/mechanics/materials/interface.hh}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00347}{ikarus/finiteelements/mechanics/materials/materialhelpers.hh}}>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00371}{ikarus/finiteelements/mechanics/materials/strainconversions.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00029}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00521}{Ikarus::Materials}} \{}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{33 \textcolor{keyword}{template} <Concepts::Material Material, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{34 \textcolor{keyword}{auto} \mbox{\hyperlink{a00521_a8fbddf32993e15f5f5c590c599a2b5f3}{numericalMaterialInversion}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01802}{Material}}\& mat, \textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& S,}
+\DoxyCodeLine{35                                 \textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& Estart = Derived::Zero().eval(),}
+\DoxyCodeLine{36                                 \textcolor{keyword}{const} \textcolor{keywordtype}{double} tol = 1e-\/12, \textcolor{keyword}{const} \textcolor{keywordtype}{int} maxIter = 20) \{}
+\DoxyCodeLine{37   \textcolor{keyword}{static\_assert}(Concepts::EigenMatrix33<\textcolor{keyword}{decltype}(S)> or Concepts::EigenMatrix22<\textcolor{keyword}{decltype}(S)>);}
+\DoxyCodeLine{38   \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{a02477}{Concepts::ReferenceConfiguraionStress<Material::stressTag>}} and}
+\DoxyCodeLine{39                 \mbox{\hyperlink{a02476}{Concepts::ReferenceConfiguraionStrain<Material::strainTag>}});}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} dim      = Derived::CompileTimeTraits::RowsAtCompileTime;}
+\DoxyCodeLine{42   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} dimVoigt = (dim * (dim + 1)) / 2;}
+\DoxyCodeLine{43   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} strainTag =}
+\DoxyCodeLine{44       Material::strainTag == \mbox{\hyperlink{a00499_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}} ? \mbox{\hyperlink{a00499_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}} : \mbox{\hyperlink{a00499_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e}{StrainTags::greenLagrangian}};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \textcolor{keyword}{using }ST       = Derived::Scalar;}
+\DoxyCodeLine{47   \textcolor{keyword}{using }VoigtVec = Eigen::Vector<ST, dimVoigt>;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   VoigtVec Es     = \mbox{\hyperlink{a00506_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(Estart.derived()); \textcolor{comment}{// starting value}}
+\DoxyCodeLine{50   VoigtVec Svoigt = \mbox{\hyperlink{a00506_gaea992dee85d054f8dc1c99d3a7f4fe06}{toVoigt}}(S.derived(), \textcolor{keyword}{false});}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{keyword}{auto} r = VoigtVec::Zero().eval();}
+\DoxyCodeLine{53   \textcolor{keyword}{auto} D = Eigen::Matrix<ST, dimVoigt, dimVoigt>::Zero().eval();}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} i : Dune::range(maxIter)) \{}
+\DoxyCodeLine{56     r = (Svoigt -\/ mat.template stresses<strainTag, true>(Es)).eval();}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58     \textcolor{keywordflow}{if} (r.norm() < tol and i > 0)}
+\DoxyCodeLine{59       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{60     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == maxIter)}
+\DoxyCodeLine{61       DUNE\_THROW(}
+\DoxyCodeLine{62           Dune::MathError,}
+\DoxyCodeLine{63           \textcolor{stringliteral}{"{}Numerical material inversion failed to converge within the maximum number of iterations for the material: "{}} +}
+\DoxyCodeLine{64               mat.\mbox{\hyperlink{a01802_a03ae10e8656beed2aa69c8a9d27907e5}{name}}());}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     D = mat.template tangentModuli<strainTag, true>(Es).inverse().eval(); \textcolor{comment}{// voigt}}
+\DoxyCodeLine{67     Es += (D * r).eval();}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69   \textcolor{keywordflow}{return} std::make\_pair(D, transformStrain<strainTag, Material::strainTag>(Es).eval());}
+\DoxyCodeLine{70 \}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \} \textcolor{comment}{// namespace Ikarus::Materials}}
+
+\end{DoxyCode}

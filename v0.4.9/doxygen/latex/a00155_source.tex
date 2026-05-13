@@ -1,0 +1,81 @@
+\hypertarget{a00155_source}{}\doxysection{generalizedeigensolverfactory.\+hh}
+\label{a00155_source}\index{generalizedeigensolverfactory.hh@{generalizedeigensolverfactory.hh}}
+\mbox{\hyperlink{a00155}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00152}{ikarus/solver/eigenvaluesolver/generalizedeigensolver.hh}}>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{24 \textcolor{keyword}{template} <EigenValueSolverType tag, \textcolor{keyword}{typename} MATA, \textcolor{keyword}{typename} MATB>}
+\DoxyCodeLine{25 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>> \&\&}
+\DoxyCodeLine{26          std::same\_as<std::remove\_cvref\_t<MATA>, std::remove\_cvref\_t<MATB>> \&\&}
+\DoxyCodeLine{27          not(tag == \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<std::remove\_cvref\_t<MATA>>))}
+\DoxyCodeLine{28 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a1cc0f8e32e7acced01b70734c92b2ce6}{makeGeneralizedSymEigenSolver}}(MATA\&\& A, MATB\&\& B) \{}
+\DoxyCodeLine{29   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{30   \textcolor{keywordflow}{return} \mbox{\hyperlink{a02086}{GeneralizedSymEigenSolver<tag, MatrixType>}}\{std::forward<MATA>(A), std::forward<MATB>(B)\};}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{44 \textcolor{keyword}{template} <EigenValueSolverType tag, Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB>}
+\DoxyCodeLine{45 \textcolor{keyword}{requires}(std::same\_as<typename AssemblerA::MatrixType, typename AssemblerB::MatrixType> \&\&}
+\DoxyCodeLine{46          not(tag == \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<typename AssemblerA::MatrixType>))}
+\DoxyCodeLine{47 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a1cc0f8e32e7acced01b70734c92b2ce6}{makeGeneralizedSymEigenSolver}}(\textcolor{keyword}{const} std::shared\_ptr<AssemblerA> assemblerA,}
+\DoxyCodeLine{48                                    \textcolor{keyword}{const} std::shared\_ptr<AssemblerB> assemblerB) \{}
+\DoxyCodeLine{49   \mbox{\hyperlink{a00510_a1cc0f8e32e7acced01b70734c92b2ce6}{makeGeneralizedSymEigenSolver}}(assemblerA-\/>matrix(), assemblerB-\/>matrix());}
+\DoxyCodeLine{50 \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{60 \textcolor{keyword}{template} <EigenValueSolverType tag, \textcolor{keyword}{typename} MATA>}
+\DoxyCodeLine{61 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>> \&\&}
+\DoxyCodeLine{62          not(tag == \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<std::remove\_cvref\_t<MATA>>))}
+\DoxyCodeLine{63 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a6d018cded22b7f93826ddbe4282a22f4}{makeIdentitySymEigenSolver}}(MATA\&\& A) \{}
+\DoxyCodeLine{64   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{65   MatrixType I     = MatrixType(A.rows(), A.cols());}
+\DoxyCodeLine{66   I.setIdentity();}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \textcolor{keywordflow}{return} \mbox{\hyperlink{a02086}{GeneralizedSymEigenSolver<tag, MatrixType>}}\{std::forward<MATA>(A), I\};}
+\DoxyCodeLine{69 \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{78 \textcolor{keyword}{template} <EigenValueSolverType tag, Concepts::FlatAssembler AssemblerA>}
+\DoxyCodeLine{79 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<typename AssemblerA::MatrixType> \&\&}
+\DoxyCodeLine{80          not(tag == \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{EigenValueSolverType::Eigen}} \&\& Concepts::SparseEigenMatrix<typename AssemblerA::MatrixType>))}
+\DoxyCodeLine{81 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a6d018cded22b7f93826ddbe4282a22f4}{makeIdentitySymEigenSolver}}(\textcolor{keyword}{const} std::shared\_ptr<AssemblerA>\& assemblerA) \{}
+\DoxyCodeLine{82   \textcolor{keywordflow}{return} makeIdentitySymEigenSolver<tag>(assemblerA-\/>matrix());}
+\DoxyCodeLine{83 \}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{94 \textcolor{keyword}{template} <Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB>}
+\DoxyCodeLine{95 \textcolor{keyword}{requires}(std::same\_as<typename AssemblerA::MatrixType, typename AssemblerB::MatrixType>)}
+\DoxyCodeLine{96 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_af803d89d17f03662003ac40afe2b0a50}{makePartialGeneralizedSymEigenSolver}}(std::shared\_ptr<AssemblerA> assemblerA,}
+\DoxyCodeLine{97                                           std::shared\_ptr<AssemblerB> assemblerB, Eigen::Index nev) \{}
+\DoxyCodeLine{98   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_af803d89d17f03662003ac40afe2b0a50}{makePartialGeneralizedSymEigenSolver}}(assemblerA-\/>matrix(), assemblerB-\/>matrix());}
+\DoxyCodeLine{99 \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{108 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MATA, \textcolor{keyword}{typename} MATB>}
+\DoxyCodeLine{109 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>> \&\&}
+\DoxyCodeLine{110          std::same\_as<std::remove\_cvref\_t<MATA>, std::remove\_cvref\_t<MATB>>)}
+\DoxyCodeLine{111 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_af803d89d17f03662003ac40afe2b0a50}{makePartialGeneralizedSymEigenSolver}}(MATA\&\& A, MATB\&\& B, Eigen::Index nev) \{}
+\DoxyCodeLine{112   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{113   \textcolor{keywordflow}{return} \mbox{\hyperlink{a02098}{PartialGeneralizedSymEigenSolver<MatrixType>}}\{std::forward<MATA>(A), std::forward<MATB>(B), nev\};}
+\DoxyCodeLine{114 \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{123 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MATA>}
+\DoxyCodeLine{124 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>>)}
+\DoxyCodeLine{125 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a64882ae20164dc6c63264d547f313e3e}{makePartialIdentitySymEigenSolver}}(MATA\&\& A, Eigen::Index nev) \{}
+\DoxyCodeLine{126   \textcolor{keyword}{using }MatrixType = std::remove\_cvref\_t<MATA>;}
+\DoxyCodeLine{127   MatrixType I     = MatrixType(A.rows(), A.cols());}
+\DoxyCodeLine{128   I.setIdentity();}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130   \textcolor{keywordflow}{return} \mbox{\hyperlink{a02098}{PartialGeneralizedSymEigenSolver<MatrixType>}}\{std::forward<MATA>(A), I, nev\};}
+\DoxyCodeLine{131 \}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{140 \textcolor{keyword}{template} <Concepts::FlatAssembler AssemblerA>}
+\DoxyCodeLine{141 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a64882ae20164dc6c63264d547f313e3e}{makePartialIdentitySymEigenSolver}}(\textcolor{keyword}{const} std::shared\_ptr<AssemblerA>\& assemblerA, Eigen::Index nev) \{}
+\DoxyCodeLine{142   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00510_a64882ae20164dc6c63264d547f313e3e}{makePartialIdentitySymEigenSolver}}(assemblerA-\/>matrix(), nev);}
+\DoxyCodeLine{143 \}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145 \} \textcolor{comment}{// namespace Ikarus}}
+
+\end{DoxyCode}

@@ -1,0 +1,50 @@
+\hypertarget{a00038_source}{}\doxysection{quadraturerulehelper.\+hh}
+\label{a00038_source}\index{quadraturerulehelper.hh@{quadraturerulehelper.hh}}
+\mbox{\hyperlink{a00038}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <dune/geometry/quadraturerules.hh>}}
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{28 \textcolor{keyword}{template} <\textcolor{keyword}{class} BaseQuadrature, \textcolor{keyword}{class} Quadrature>}
+\DoxyCodeLine{29 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a839e2d8a648318c584c66024e62ddd91}{tensorProductQuadrature}}(\textcolor{keyword}{const} BaseQuadrature\& baseQuad, \textcolor{keyword}{const} Quadrature\& onedQuad) \{}
+\DoxyCodeLine{30   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} baseQuadDim       = BaseQuadrature::d;}
+\DoxyCodeLine{31   \textcolor{keyword}{auto} rule                       = Dune::QuadratureRule<double, baseQuadDim + 1>();}
+\DoxyCodeLine{32   \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} baseQuadSize = baseQuad.size();}
+\DoxyCodeLine{33   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} bqi = 0; bqi < baseQuadSize; ++bqi) \{}
+\DoxyCodeLine{34     \textcolor{keyword}{const} \textcolor{keyword}{typename} Dune::QuadraturePoint<double, baseQuadDim>::Vector\& basePoint = baseQuad[bqi].position();}
+\DoxyCodeLine{35     \textcolor{keyword}{const} \textcolor{keywordtype}{double}\& baseWeight                                                     = baseQuad[bqi].weight();}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keyword}{typename} Dune::QuadraturePoint<double, baseQuadDim + 1>::Vector point;}
+\DoxyCodeLine{38     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < baseQuadDim; ++i)}
+\DoxyCodeLine{39       point[i] = basePoint[i];}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} onedQuadSize = onedQuad.size();}
+\DoxyCodeLine{42     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} oqi = 0; oqi < onedQuadSize; ++oqi) \{}
+\DoxyCodeLine{43       point[baseQuadDim] = onedQuad[oqi].position()[0];}
+\DoxyCodeLine{44       rule.emplace\_back(Dune::QuadraturePoint(point, baseWeight * onedQuad[oqi].weight()));}
+\DoxyCodeLine{45     \}}
+\DoxyCodeLine{46   \}}
+\DoxyCodeLine{47   \textcolor{keywordflow}{return} rule;}
+\DoxyCodeLine{48 \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{61 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} dim, \textcolor{keyword}{typename} Element>}
+\DoxyCodeLine{62 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_aa92ba5c8dfc0123e28236e017c3671d3}{defaultQuadratureRule}}(\textcolor{keyword}{const} Element\& element, \textcolor{keywordtype}{int} order) \{}
+\DoxyCodeLine{63   \textcolor{keyword}{const} \textcolor{keyword}{auto} defaultRule = Dune::QuadratureRules<double, dim>::rule(element.type(), order);}
+\DoxyCodeLine{64   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{ element.impl().getQuadratureRule(order); \})}
+\DoxyCodeLine{65     \textcolor{keywordflow}{if} (element.impl().isTrimmed())}
+\DoxyCodeLine{66       \textcolor{keywordflow}{return} element.impl().getQuadratureRule(order);}
+\DoxyCodeLine{67     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{68       \textcolor{keywordflow}{return} defaultRule;}
+\DoxyCodeLine{69   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{70     \textcolor{keywordflow}{return} defaultRule;}
+\DoxyCodeLine{71 \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{82 \textcolor{keywordtype}{int} \mbox{\hyperlink{a00510_a664c5f26c38c5958545919ecc5bd66c8}{numberOfGaussPointsToOrder}}(\textcolor{keywordtype}{int} nGP) \{ \textcolor{keywordflow}{return} 2 * nGP -\/ 1; \}}
+\DoxyCodeLine{83 \} \textcolor{comment}{// namespace Ikarus}}
+
+\end{DoxyCode}
