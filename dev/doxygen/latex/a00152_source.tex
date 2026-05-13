@@ -1,5 +1,5 @@
-\hypertarget{a00152_source}{}\doxysection{flatassembler.\+hh}
-\label{a00152_source}\index{flatassembler.hh@{flatassembler.hh}}
+\hypertarget{a00152_source}{}\doxysection{generalizedeigensolver.\+hh}
+\label{a00152_source}\index{generalizedeigensolver.hh@{generalizedeigensolver.hh}}
 \mbox{\hyperlink{a00152}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
@@ -7,113 +7,256 @@
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dune/python/common/typeregistry.hh>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <dune/python/pybind11/eigen.h>}}
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl.h>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl\_bind.h>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00389}{ikarus/assembler/dirichletbcenforcement.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00329}{ikarus/finiteelements/ferequirements.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03547}{ikarus/utils/basis.hh}}>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <optional>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Spectra/MatOp/SparseCholesky.h>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Spectra/MatOp/SparseGenMatProd.h>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Spectra/SymEigsSolver.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <Spectra/SymGEigsSolver.h>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <Eigen/SparseCore>}}
 \DoxyCodeLine{20 }
-\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00529}{Ikarus::Python}} \{}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{40 \textcolor{keyword}{template} <\textcolor{keyword}{class }Assembler, \textcolor{keyword}{class}... options>}
-\DoxyCodeLine{41 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00502_ga87d3c6e620be5df59ba6923751caae86}{registerFlatAssembler}}(pybind11::handle scope, pybind11::class\_<Assembler, options...> cls) \{}
-\DoxyCodeLine{42   \textcolor{keyword}{using }pybind11::operator\textcolor{stringliteral}{"{}"{}}\_a;}
-\DoxyCodeLine{43   \textcolor{keyword}{using }FEContainer              = \textcolor{keyword}{typename} Assembler::FEContainer;}
-\DoxyCodeLine{44   \textcolor{keyword}{using }Basis                    = \textcolor{keyword}{typename} Assembler::Basis;}
-\DoxyCodeLine{45   \textcolor{keyword}{using }DirichletValuesType      = \textcolor{keyword}{typename} Assembler::DirichletValuesType;}
-\DoxyCodeLine{46   \textcolor{keyword}{using }AffordanceCollectionType = \textcolor{keyword}{typename} Assembler::AffordanceCollectionType;}
-\DoxyCodeLine{47   \textcolor{keyword}{using }FERequirementType        = \textcolor{keyword}{typename} Assembler::FERequirement;}
-\DoxyCodeLine{48   \textcolor{keyword}{using }SizeType                 = \textcolor{keyword}{typename} Assembler::SizeType;}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50   cls.def(\mbox{\hyperlink{a00510_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} pybind11::list\& fes, \textcolor{keyword}{const} DirichletValuesType\& \mbox{\hyperlink{a00544_a453691a9a22118c4736e30240481a281}{dirichletValues}}) \{}
-\DoxyCodeLine{51             \textcolor{comment}{/*here a copy of the whole vector of fes takes place! There is no way to prevent this if we want that}}
-\DoxyCodeLine{52 \textcolor{comment}{             * the user can pass native python lists here, see}}
-\DoxyCodeLine{53 \textcolor{comment}{             * https://pybind11.readthedocs.io/en/stable/advanced/cast/stl.html */}}
-\DoxyCodeLine{54             FEContainer fesV = fes.template cast<FEContainer>();}
-\DoxyCodeLine{55             \textcolor{keywordflow}{return} \textcolor{keyword}{new} Assembler(std::move(fesV), \mbox{\hyperlink{a00544_a453691a9a22118c4736e30240481a281}{dirichletValues}});}
-\DoxyCodeLine{56           \}),}
-\DoxyCodeLine{57           pybind11::keep\_alive<1, 3>());}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03559}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00080}{ikarus/utils/makeenum.hh}}>}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{29 \mbox{\hyperlink{a00505_ga14ad7d33267cea1c93f97f3998081657}{MAKE\_ENUM}}(\mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4}{EigenValueSolverType}}, Spectra, \mbox{\hyperlink{a00527}{Eigen}});}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{keyword}{template} <EigenValueSolverType SolverType, Concepts::DenseOrSparseEigenMatrix MT>}
+\DoxyCodeLine{32 \textcolor{keyword}{struct }\mbox{\hyperlink{a02086}{GeneralizedSymEigenSolver}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34 \};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{47 \textcolor{keyword}{template} <Concepts::DenseOrSparseEigenMatrix MT>}
+\DoxyCodeLine{48 \textcolor{keyword}{struct }\mbox{\hyperlink{a02086}{GeneralizedSymEigenSolver}}<\mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4}{EigenValueSolverType}}::\mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69}{Spectra}}, MT>}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50   \textcolor{keyword}{using }\mbox{\hyperlink{a02090_a8485726e6883eb6d7252bd9baf0e4627}{ScalarType}}              = \textcolor{keyword}{typename} MT::Scalar;}
+\DoxyCodeLine{51   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isDense = \mbox{\hyperlink{a02459}{Concepts::EigenMatrix<MT>}};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53   \textcolor{keyword}{using }\mbox{\hyperlink{a02090_a34c854289f61047252fa93db012d5f13}{MatrixType}} = MT;}
+\DoxyCodeLine{54   \textcolor{keyword}{using }\mbox{\hyperlink{a02090_a2ad6c5efe033c6628c0fd843cf2effba}{ProductType}} =}
+\DoxyCodeLine{55       std::conditional\_t<isDense, Spectra::DenseSymMatProd<ScalarType>, Spectra::SparseSymMatProd<ScalarType>>;}
+\DoxyCodeLine{56   \textcolor{keyword}{using }\mbox{\hyperlink{a02090_a3f2e96d61612b8932eeef6d7491c27df}{CholeskyType}} =}
+\DoxyCodeLine{57       std::conditional\_t<isDense, Spectra::DenseCholesky<ScalarType>, Spectra::SparseCholesky<ScalarType>>;}
 \DoxyCodeLine{58 }
-\DoxyCodeLine{59   \textcolor{comment}{/* sparse matrices need to be copied to python therefore we remove the reference of the return type, see */}}
-\DoxyCodeLine{60   \textcolor{comment}{/*  https://github.com/pybind/pybind11/blob/cbb876cc7b02c5f57e715cbc2c46ead3d1fbcf79/tests/test\_eigen\_matrix.cpp\#L332-\/L341}}
-\DoxyCodeLine{61 \textcolor{comment}{   */}}
-\DoxyCodeLine{62   cls.def(}
-\DoxyCodeLine{63       \textcolor{stringliteral}{"{}matrix"{}},}
-\DoxyCodeLine{64       [](Assembler\& self, \textcolor{keyword}{const} FERequirementType\& req, \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{Ikarus::MatrixAffordance}} affordance,}
-\DoxyCodeLine{65          \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{Ikarus::DBCOption}} dbcOption) -\/> std::remove\_cvref\_t<\textcolor{keyword}{decltype}(self.matrix(req, affordance))> \{}
-\DoxyCodeLine{66         \textcolor{keywordflow}{return} self.matrix(req, affordance, dbcOption);}
-\DoxyCodeLine{67       \},}
-\DoxyCodeLine{68       pybind11::return\_value\_policy::copy);}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70   cls.def(}
-\DoxyCodeLine{71       \textcolor{stringliteral}{"{}matrix"{}}, [](Assembler\& self) -\/> std::remove\_cvref\_t<\textcolor{keyword}{decltype}(self.matrix())> \{ \textcolor{keywordflow}{return} self.matrix(); \},}
-\DoxyCodeLine{72       pybind11::return\_value\_policy::copy);}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{74   cls.def(}
-\DoxyCodeLine{75       \textcolor{stringliteral}{"{}matrix"{}},}
-\DoxyCodeLine{76       [](Assembler\& self, \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{Ikarus::DBCOption}} dbcOption) -\/> std::remove\_cvref\_t<\textcolor{keyword}{decltype}(self.matrix(dbcOption))> \{}
-\DoxyCodeLine{77         \textcolor{keywordflow}{return} self.matrix(dbcOption);}
-\DoxyCodeLine{78       \},}
-\DoxyCodeLine{79       pybind11::return\_value\_policy::copy);}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{81   cls.def(}
-\DoxyCodeLine{82       \textcolor{stringliteral}{"{}vector"{}},}
-\DoxyCodeLine{83       [](Assembler\& self, \textcolor{keyword}{const} FERequirementType\& req, \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{Ikarus::VectorAffordance}} affordance,}
-\DoxyCodeLine{84          \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{Ikarus::DBCOption}} dbcOption) \{ \textcolor{keywordflow}{return} self.vector(req, affordance, dbcOption); \},}
-\DoxyCodeLine{85       pybind11::return\_value\_policy::reference);}
+\DoxyCodeLine{59   \textcolor{keyword}{using }\mbox{\hyperlink{a02090_aad2054eef570f156a7e829177771d366}{SolverType}} = Spectra::SymGEigsSolver<ProductType, CholeskyType, Spectra::GEigsMode::Cholesky>;}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{69   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MATA, \textcolor{keyword}{typename} MATB>}
+\DoxyCodeLine{70   \textcolor{keyword}{requires}(\mbox{\hyperlink{a02461}{Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>}}>)}
+\DoxyCodeLine{71   \mbox{\hyperlink{a02090_aa522db16d040aff20999cbdb4a4ad9e7}{GeneralizedSymEigenSolver}}(MATA\&\& A, MATB\&\& B)}
+\DoxyCodeLine{72       : nev\_(A.rows()),}
+\DoxyCodeLine{73         nevsPartition\_(\textcolor{keyword}{static\_cast<}Eigen::Index\textcolor{keyword}{>}(std::ceil(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(nev\_) / 2)),}
+\DoxyCodeLine{74                        \textcolor{keyword}{static\_cast<}Eigen::Index\textcolor{keyword}{>}(nev\_ -\/ std::ceil(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(nev\_) / 2))),}
+\DoxyCodeLine{75         aOP\_(std::forward<MATA>(A)),}
+\DoxyCodeLine{76         bOP\_(std::forward<MATB>(B)),}
+\DoxyCodeLine{77         solverSmallest\_(aOP\_, bOP\_, nevsPartition\_.first, std::min(nevsPartition\_.second * 2, nev\_)),}
+\DoxyCodeLine{78         solverGreatest\_(aOP\_, bOP\_, nevsPartition\_.second, nevsPartition\_.second * 2) \{}
+\DoxyCodeLine{79     \textcolor{keywordflow}{if} ((A.cols() != B.cols()) or (A.rows() != B.rows()) or (A.cols() != A.rows()))}
+\DoxyCodeLine{80       DUNE\_THROW(Dune::InvalidStateException,}
+\DoxyCodeLine{81                  \textcolor{stringliteral}{"{}GeneralizedSymEigenSolver: The passed matrices should have the same size"{}});}
+\DoxyCodeLine{82     eigenvalues\_.resize(nev\_);}
+\DoxyCodeLine{83     eigenvectors\_.resize(A.rows(), nev\_);}
+\DoxyCodeLine{84     assert(nevsPartition\_.first + nevsPartition\_.second == nev\_);}
+\DoxyCodeLine{85   \}}
 \DoxyCodeLine{86 }
-\DoxyCodeLine{87   cls.def(\textcolor{stringliteral}{"{}vector"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.vector(); \}, pybind11::return\_value\_policy::reference);}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89   cls.def(}
-\DoxyCodeLine{90       \textcolor{stringliteral}{"{}vector"{}}, [](Assembler\& self, \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{Ikarus::DBCOption}} dbcOption) \{ \textcolor{keywordflow}{return} self.vector(dbcOption); \},}
-\DoxyCodeLine{91       pybind11::return\_value\_policy::reference);}
-\DoxyCodeLine{92 }
-\DoxyCodeLine{93   cls.def(}
-\DoxyCodeLine{94       \textcolor{stringliteral}{"{}scalar"{}},}
-\DoxyCodeLine{95       [](Assembler\& self, \textcolor{keyword}{const} FERequirementType\& req, \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{Ikarus::ScalarAffordance}} affordance) \{}
-\DoxyCodeLine{96         \textcolor{keywordflow}{return} self.scalar(req, affordance);}
-\DoxyCodeLine{97       \},}
-\DoxyCodeLine{98       pybind11::return\_value\_policy::copy);}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{100   cls.def(\textcolor{stringliteral}{"{}scalar"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.scalar(); \}, pybind11::return\_value\_policy::copy);}
-\DoxyCodeLine{101 }
-\DoxyCodeLine{102   cls.def(}
-\DoxyCodeLine{103       \textcolor{stringliteral}{"{}createFullVector"{}},}
-\DoxyCodeLine{104       [](Assembler\& self, Eigen::Ref<const Eigen::VectorXd> redVec) \{ \textcolor{keywordflow}{return} self.createFullVector(redVec); \},}
-\DoxyCodeLine{105       pybind11::return\_value\_policy::move);}
-\DoxyCodeLine{106   cls.def(\textcolor{stringliteral}{"{}reducedSize"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.reducedSize(); \}, pybind11::return\_value\_policy::copy);}
-\DoxyCodeLine{107   cls.def(\textcolor{stringliteral}{"{}bind"{}}, [](Assembler\& self, \textcolor{keyword}{const} FERequirementType\& req, AffordanceCollectionType affordance,}
-\DoxyCodeLine{108                      \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption = \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}}) \{ \textcolor{keywordflow}{return} self.bind(req, affordance, dbcOption); \});}
-\DoxyCodeLine{109   cls.def(\textcolor{stringliteral}{"{}bind"{}}, [](Assembler\& self, \textcolor{keyword}{const} FERequirementType\& req) \{ \textcolor{keywordflow}{return} self.bind(req); \});}
-\DoxyCodeLine{110   cls.def(\textcolor{stringliteral}{"{}bind"{}}, [](Assembler\& self, \textcolor{keyword}{const} AffordanceCollectionType affordance) \{ \textcolor{keywordflow}{return} self.bind(affordance); \});}
-\DoxyCodeLine{111   cls.def(\textcolor{stringliteral}{"{}bind"{}}, [](Assembler\& self, \textcolor{keyword}{const} \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eec}{DBCOption}} dbcOption) \{ \textcolor{keywordflow}{return} self.bind(dbcOption); \});}
-\DoxyCodeLine{112   cls.def(\textcolor{stringliteral}{"{}bound"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.bound(); \});}
-\DoxyCodeLine{113   cls.def(\textcolor{stringliteral}{"{}boundToRequirement"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.boundToRequirement(); \});}
-\DoxyCodeLine{114   cls.def(\textcolor{stringliteral}{"{}boundToAffordanceCollection"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.boundToAffordanceCollection(); \});}
-\DoxyCodeLine{115   cls.def(\textcolor{stringliteral}{"{}boundToDBCOption"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.boundToDBCOption(); \});}
-\DoxyCodeLine{116   cls.def(\textcolor{stringliteral}{"{}requirement"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.requirement(); \});}
-\DoxyCodeLine{117   cls.def(\textcolor{stringliteral}{"{}affordanceCollection"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.affordanceCollection(); \});}
-\DoxyCodeLine{118   cls.def(\textcolor{stringliteral}{"{}dBCOption"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.dBCOption(); \});}
-\DoxyCodeLine{119   cls.def\_property\_readonly(\textcolor{stringliteral}{"{}size"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.size(); \});}
-\DoxyCodeLine{120   cls.def(\textcolor{stringliteral}{"{}\_\_len\_\_"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.size(); \});}
-\DoxyCodeLine{121   cls.def(\textcolor{stringliteral}{"{}constraintsBelow"{}}, [](Assembler\& self, SizeType i) \{ \textcolor{keywordflow}{return} self.constraintsBelow(i); \});}
-\DoxyCodeLine{122   cls.def(\textcolor{stringliteral}{"{}isConstrained"{}}, [](Assembler\& self, SizeType i) \{ \textcolor{keywordflow}{return} self.isConstrained(i); \});}
-\DoxyCodeLine{123   cls.def\_property\_readonly(\textcolor{stringliteral}{"{}gridView"{}}, [](Assembler\& self) \{ \textcolor{keywordflow}{return} self.gridView(); \});}
-\DoxyCodeLine{124 \}}
-\DoxyCodeLine{125 }
-\DoxyCodeLine{126 \textcolor{preprocessor}{\#define MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION(name)                                              \(\backslash\)}}
-\DoxyCodeLine{127 \textcolor{preprocessor}{  template <class Assembler, class... options>                                               \(\backslash\)}}
-\DoxyCodeLine{128 \textcolor{preprocessor}{  void register\#\#name(pybind11::handle scope, pybind11::class\_<Assembler, options...> cls) \{ \(\backslash\)}}
-\DoxyCodeLine{129 \textcolor{preprocessor}{    registerFlatAssembler(scope, cls);                                                       \(\backslash\)}}
-\DoxyCodeLine{130 \textcolor{preprocessor}{  \}}}
-\DoxyCodeLine{131 }
-\DoxyCodeLine{132 \mbox{\hyperlink{a00152_adda74d8564a01c0a9851a4379308a8b2}{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION}}(\mbox{\hyperlink{a01422}{SparseFlatAssembler}});}
-\DoxyCodeLine{133 \mbox{\hyperlink{a00152_adda74d8564a01c0a9851a4379308a8b2}{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION}}(\mbox{\hyperlink{a01426}{DenseFlatAssembler}});}
-\DoxyCodeLine{134 }
-\DoxyCodeLine{135 \} \textcolor{comment}{// namespace Ikarus::Python}}
+\DoxyCodeLine{95   \textcolor{keyword}{template} <Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB>}
+\DoxyCodeLine{96   \mbox{\hyperlink{a02090_ab12080272383db20d35bcd196a2ac5bf}{GeneralizedSymEigenSolver}}(std::shared\_ptr<AssemblerA> assemblerA, \textcolor{keyword}{const} std::shared\_ptr<AssemblerB>\& assemblerB)}
+\DoxyCodeLine{97       : \mbox{\hyperlink{a02086}{GeneralizedSymEigenSolver}}(assemblerA-\/>matrix(), assemblerB-\/>matrix()) \{\}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{107   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02090_a881ce0379cd715e2ed3c2cf5235b2a80}{compute}}(Eigen::Index maxit = 1000, \mbox{\hyperlink{a02090_a8485726e6883eb6d7252bd9baf0e4627}{ScalarType}} tolerance = 1e-\/10) \{}
+\DoxyCodeLine{108     solverSmallest\_.init();}
+\DoxyCodeLine{109     solverSmallest\_.compute(Spectra::SortRule::SmallestAlge, maxit, tolerance, Spectra::SortRule::SmallestAlge);}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111     solverGreatest\_.init();}
+\DoxyCodeLine{112     solverGreatest\_.compute(Spectra::SortRule::LargestAlge, maxit, tolerance, Spectra::SortRule::SmallestAlge);}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114     computed\_ = solverSmallest\_.info() == Spectra::CompInfo::Successful and}
+\DoxyCodeLine{115                 solverGreatest\_.info() == Spectra::CompInfo::Successful;}
+\DoxyCodeLine{116     \textcolor{keywordflow}{if} (not computed\_)}
+\DoxyCodeLine{117       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119     eigenvalues\_.head(nevsPartition\_.first)      = solverSmallest\_.eigenvalues();}
+\DoxyCodeLine{120     eigenvectors\_.leftCols(nevsPartition\_.first) = solverSmallest\_.eigenvectors();}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122     eigenvalues\_.tail(nevsPartition\_.second)       = solverGreatest\_.eigenvalues();}
+\DoxyCodeLine{123     eigenvectors\_.rightCols(nevsPartition\_.second) = solverGreatest\_.eigenvectors();}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125     \textcolor{keywordflow}{return} computed\_;}
+\DoxyCodeLine{126   \}}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{133   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02090_ac4d3a189e6868e3a7a627faa87410cda}{eigenvalues}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{134     assertCompute();}
+\DoxyCodeLine{135     \textcolor{keywordflow}{return} eigenvalues\_;}
+\DoxyCodeLine{136   \}}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{143   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02090_a0da3b9692e200b0366d22b1873046265}{eigenvectors}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{144     assertCompute();}
+\DoxyCodeLine{145     \textcolor{keywordflow}{return} eigenvectors\_;}
+\DoxyCodeLine{146   \}}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{149   Eigen::Index \mbox{\hyperlink{a02090_a3a2cce50d798d9606488ce04e1ed3b1b}{nev}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} nev\_; \}}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151 \textcolor{keyword}{private}:}
+\DoxyCodeLine{152   Eigen::Index nev\_;}
+\DoxyCodeLine{153   std::pair<Eigen::Index, Eigen::Index> nevsPartition\_;}
+\DoxyCodeLine{154   ProductType aOP\_;}
+\DoxyCodeLine{155   CholeskyType bOP\_;}
+\DoxyCodeLine{156   SolverType solverSmallest\_;}
+\DoxyCodeLine{157   SolverType solverGreatest\_;}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159   Eigen::VectorXd eigenvalues\_;}
+\DoxyCodeLine{160   Eigen::MatrixXd eigenvectors\_;}
+\DoxyCodeLine{161 }
+\DoxyCodeLine{162   \textcolor{keywordtype}{bool} computed\_\{\};}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164   \textcolor{keywordtype}{void} assertCompute()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{165     \textcolor{keywordflow}{if} (not computed\_)}
+\DoxyCodeLine{166       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Eigenvalues and -\/vectors not yet computed, please call compute() first"{}});}
+\DoxyCodeLine{167   \}}
+\DoxyCodeLine{168 \};}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{177 \textcolor{keyword}{template} <Concepts::EigenMatrix MT>}
+\DoxyCodeLine{178 \textcolor{keyword}{struct }\mbox{\hyperlink{a02086}{GeneralizedSymEigenSolver}}<\mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4}{EigenValueSolverType}}::\mbox{\hyperlink{a00527}{Eigen}}, MT>}
+\DoxyCodeLine{179 \{}
+\DoxyCodeLine{180   \textcolor{keyword}{using }\mbox{\hyperlink{a02094_acb730c16433e6c478ca52f87b3de64fa}{ScalarType}} = \textcolor{keyword}{typename} MT::Scalar;}
+\DoxyCodeLine{181   \textcolor{keyword}{using }\mbox{\hyperlink{a02094_a24ec96630301a7cc83c79402d9960e7e}{MatrixType}} = MT;}
+\DoxyCodeLine{182   \textcolor{keyword}{using }\mbox{\hyperlink{a02094_ac4705f97e9192b82c9125045150c7df8}{SolverType}} = Eigen::GeneralizedSelfAdjointEigenSolver<MatrixType>;}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{192   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MATA, \textcolor{keyword}{typename} MATB>}
+\DoxyCodeLine{193   \textcolor{keyword}{requires}(\mbox{\hyperlink{a02459}{Concepts::EigenMatrix<std::remove\_cvref\_t<MATA>}}>)}
+\DoxyCodeLine{194   \mbox{\hyperlink{a02094_a0e40e35371464734b3e81defd6518a8d}{GeneralizedSymEigenSolver}}(MATA\&\& A, MATB\&\& B)}
+\DoxyCodeLine{195       : matA\_(std::forward<MATA>(A)),}
+\DoxyCodeLine{196         matB\_(std::forward<MATB>(B)),}
+\DoxyCodeLine{197         solver\_(A.size()) \{}
+\DoxyCodeLine{198     \textcolor{keywordflow}{if} ((A.cols() != B.cols()) or (A.rows() != B.rows()) or (A.cols() != A.rows()))}
+\DoxyCodeLine{199       DUNE\_THROW(Dune::InvalidStateException,}
+\DoxyCodeLine{200                  \textcolor{stringliteral}{"{}GeneralizedSymEigenSolver: The passed matrices should have the same size"{}});}
+\DoxyCodeLine{201   \}}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{211   \textcolor{keyword}{template} <Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB>}
+\DoxyCodeLine{212   \mbox{\hyperlink{a02094_a39fd88c9f56c29eb706f20d9724f3617}{GeneralizedSymEigenSolver}}(std::shared\_ptr<AssemblerA> assemblerA, std::shared\_ptr<AssemblerB> assemblerB)}
+\DoxyCodeLine{213       : \mbox{\hyperlink{a02086}{GeneralizedSymEigenSolver}}(assemblerA-\/>matrix(), assemblerB-\/>matrix()) \{\}}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{223   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02094_a3361c081b688b9409fd8ce0bb1b7e941}{compute}}(\textcolor{keywordtype}{int} options = Eigen::ComputeEigenvectors) \{}
+\DoxyCodeLine{224     solver\_.compute(matA\_, matB\_, options);}
+\DoxyCodeLine{225     computed\_ = \textcolor{keyword}{true}; \textcolor{comment}{// SelfAdjointEigenSolver will always be successful if prerequisites are met}}
+\DoxyCodeLine{226     \textcolor{keywordflow}{return} computed\_;}
+\DoxyCodeLine{227   \}}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{234   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02094_ac1b4e531a28bfa6421cb502737a6e7bd}{eigenvalues}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{235     assertCompute();}
+\DoxyCodeLine{236     \textcolor{keywordflow}{return} solver\_.eigenvalues();}
+\DoxyCodeLine{237   \}}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{244   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a02094_a3f737f055b0b95a618a7688b947fe600}{eigenvectors}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{245     assertCompute();}
+\DoxyCodeLine{246     \textcolor{keywordflow}{return} solver\_.eigenvectors();}
+\DoxyCodeLine{247   \}}
+\DoxyCodeLine{248 }
+\DoxyCodeLine{250   Eigen::Index \mbox{\hyperlink{a02094_a186e0b90c15cd0ced10e709915e9106d}{nev}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} matA\_.rows(); \}}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252 \textcolor{keyword}{private}:}
+\DoxyCodeLine{253   MatrixType matA\_;}
+\DoxyCodeLine{254   MatrixType matB\_;}
+\DoxyCodeLine{255   SolverType solver\_;}
+\DoxyCodeLine{256   \textcolor{keywordtype}{bool} computed\_\{\};}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258   \textcolor{keywordtype}{void} assertCompute()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{259     \textcolor{keywordflow}{if} (not computed\_)}
+\DoxyCodeLine{260       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Eigenvalues and -\/vectors not yet computed, please call compute() first"{}});}
+\DoxyCodeLine{261   \}}
+\DoxyCodeLine{262 \};}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{264 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{265   \textcolor{keywordtype}{void} assertNev(std::optional<Eigen::Index> nev, Eigen::Index nevMax) \{}
+\DoxyCodeLine{266     \textcolor{keywordflow}{if} (nev.has\_value() and nev.value() > nevMax)}
+\DoxyCodeLine{267       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}You can not ask for more eigenvalues or eigenvectors than calculated."{}});}
+\DoxyCodeLine{268   \}}
+\DoxyCodeLine{269 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{270 }
+\DoxyCodeLine{279 \textcolor{keyword}{template} <Concepts::DenseOrSparseEigenMatrix MT>}
+\DoxyCodeLine{280 \textcolor{keyword}{struct }\mbox{\hyperlink{a02098}{PartialGeneralizedSymEigenSolver}}}
+\DoxyCodeLine{281 \{}
+\DoxyCodeLine{282   \textcolor{keyword}{using }\mbox{\hyperlink{a02098_a513c516ce20c278d62cf1f57ac7fad30}{ScalarType}}              = \textcolor{keyword}{typename} MT::Scalar;}
+\DoxyCodeLine{283   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02098_a3ab49bfc95265b5d34a7561dce57e281}{isDense}} = \mbox{\hyperlink{a02459}{Concepts::EigenMatrix<MT>}};}
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285   \textcolor{keyword}{using }\mbox{\hyperlink{a02098_a5b6d6b65d94fcffcfb735d3895a8cc72}{MatrixType}} = MT;}
+\DoxyCodeLine{286   \textcolor{keyword}{using }\mbox{\hyperlink{a02098_ad605a2caddd2d5e4ab66bb49fb15ed46}{ProductType}} =}
+\DoxyCodeLine{287       std::conditional\_t<isDense, Spectra::DenseSymMatProd<ScalarType>, Spectra::SparseSymMatProd<ScalarType>>;}
+\DoxyCodeLine{288   \textcolor{keyword}{using }\mbox{\hyperlink{a02098_a4bdbd71bd692358a71a84764c6502a1a}{CholeskyType}} =}
+\DoxyCodeLine{289       std::conditional\_t<isDense, Spectra::DenseCholesky<ScalarType>, Spectra::SparseCholesky<ScalarType>>;}
+\DoxyCodeLine{290 }
+\DoxyCodeLine{291   \textcolor{keyword}{using }\mbox{\hyperlink{a02098_a01afabce671be52c16e84f044ef4bdc6}{SolverType}} = Spectra::SymGEigsSolver<ProductType, CholeskyType, Spectra::GEigsMode::Cholesky>;}
+\DoxyCodeLine{292 }
+\DoxyCodeLine{301   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MATA, \textcolor{keyword}{typename} MATB>}
+\DoxyCodeLine{302   \textcolor{keyword}{requires}(\mbox{\hyperlink{a02461}{Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>}}>)}
+\DoxyCodeLine{303   \mbox{\hyperlink{a02098_afd6f6b240369c7c78dc49d281b0d030e}{PartialGeneralizedSymEigenSolver}}(MATA\&\& A, MATB\&\& B, Eigen::Index \mbox{\hyperlink{a02098_a0cb9ba2cd8c3b4bff1d21e48afdd9235}{nev}})}
+\DoxyCodeLine{304       : nev\_(\mbox{\hyperlink{a02098_a0cb9ba2cd8c3b4bff1d21e48afdd9235}{nev}}),}
+\DoxyCodeLine{305         aOP\_(std::forward<MATA>(A)),}
+\DoxyCodeLine{306         bOP\_(std::forward<MATB>(B)),}
+\DoxyCodeLine{307         solver\_(aOP\_, bOP\_, \mbox{\hyperlink{a02098_a0cb9ba2cd8c3b4bff1d21e48afdd9235}{nev}}, 2 * \mbox{\hyperlink{a02098_a0cb9ba2cd8c3b4bff1d21e48afdd9235}{nev}} <= A.cols() ? 2 * \mbox{\hyperlink{a02098_a0cb9ba2cd8c3b4bff1d21e48afdd9235}{nev}} : A.cols()) \{}
+\DoxyCodeLine{308     \textcolor{keywordflow}{if} ((A.cols() != B.cols()) or (A.rows() != B.rows()) or (A.cols() != A.rows()))}
+\DoxyCodeLine{309       DUNE\_THROW(Dune::InvalidStateException,}
+\DoxyCodeLine{310                  \textcolor{stringliteral}{"{}PartialGeneralizedSymEigenSolver: The passed matrices should have the same size"{}});}
+\DoxyCodeLine{311   \}}
+\DoxyCodeLine{312 }
+\DoxyCodeLine{321   \textcolor{keyword}{template} <Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB>}
+\DoxyCodeLine{322   \mbox{\hyperlink{a02098_a30255ff06e25ffd6755ebbe9cf1d970e}{PartialGeneralizedSymEigenSolver}}(std::shared\_ptr<AssemblerA> assemblerA, std::shared\_ptr<AssemblerB> assemblerB,}
+\DoxyCodeLine{323                                    Eigen::Index \mbox{\hyperlink{a02098_a0cb9ba2cd8c3b4bff1d21e48afdd9235}{nev}})}
+\DoxyCodeLine{324       : \mbox{\hyperlink{a02098}{PartialGeneralizedSymEigenSolver}}(assemblerA-\/>matrix(), assemblerB-\/>matrix(), \mbox{\hyperlink{a02098_a0cb9ba2cd8c3b4bff1d21e48afdd9235}{nev}}) \{\}}
+\DoxyCodeLine{325 }
+\DoxyCodeLine{336   \textcolor{keywordtype}{bool} \mbox{\hyperlink{a02098_a09889ed1e8f82818aa2eaf27184945e7}{compute}}(Spectra::SortRule selection = Spectra::SortRule::SmallestAlge,}
+\DoxyCodeLine{337                Spectra::SortRule sortRule = Spectra::SortRule::SmallestAlge, Eigen::Index maxit = 1000,}
+\DoxyCodeLine{338                \mbox{\hyperlink{a02098_a513c516ce20c278d62cf1f57ac7fad30}{ScalarType}} tolerance = 1e-\/10) \{}
+\DoxyCodeLine{339     solver\_.init();}
+\DoxyCodeLine{340     solver\_.compute(selection, maxit, tolerance, sortRule);}
+\DoxyCodeLine{341 }
+\DoxyCodeLine{342     computed\_ = solver\_.info() == Spectra::CompInfo::Successful;}
+\DoxyCodeLine{343     \textcolor{keywordflow}{return} computed\_;}
+\DoxyCodeLine{344   \}}
+\DoxyCodeLine{345 }
+\DoxyCodeLine{351   Eigen::VectorXd \mbox{\hyperlink{a02098_a62935b3cc34d0da062d5d92b810cfb13}{eigenvalues}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{352     assertCompute();}
+\DoxyCodeLine{353     \textcolor{keywordflow}{return} solver\_.eigenvalues();}
+\DoxyCodeLine{354   \}}
+\DoxyCodeLine{355 }
+\DoxyCodeLine{362   \textcolor{keyword}{auto} \mbox{\hyperlink{a02098_af76d2d1284135cb2eeb833abbcb7b66d}{eigenvectors}}(std::optional<Eigen::Index> \_nev = std::nullopt)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{363     Impl::assertNev(\_nev, nev\_);}
+\DoxyCodeLine{364     assertCompute();}
+\DoxyCodeLine{365     \textcolor{keywordflow}{return} solver\_.eigenvectors(\_nev.value\_or(nev\_));}
+\DoxyCodeLine{366   \}}
+\DoxyCodeLine{367 }
+\DoxyCodeLine{368   Eigen::Index \mbox{\hyperlink{a02098_a0cb9ba2cd8c3b4bff1d21e48afdd9235}{nev}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} nev\_; \}}
+\DoxyCodeLine{369 }
+\DoxyCodeLine{370 \textcolor{keyword}{private}:}
+\DoxyCodeLine{371   Eigen::Index nev\_;}
+\DoxyCodeLine{372   \mbox{\hyperlink{a02098_ad605a2caddd2d5e4ab66bb49fb15ed46}{ProductType}} aOP\_;}
+\DoxyCodeLine{373   \mbox{\hyperlink{a02098_a4bdbd71bd692358a71a84764c6502a1a}{CholeskyType}} bOP\_;}
+\DoxyCodeLine{374   \mbox{\hyperlink{a02098_a01afabce671be52c16e84f044ef4bdc6}{SolverType}} solver\_;}
+\DoxyCodeLine{375 }
+\DoxyCodeLine{376   \textcolor{keywordtype}{bool} computed\_\{\};}
+\DoxyCodeLine{377 }
+\DoxyCodeLine{378   \textcolor{keywordtype}{void} assertCompute()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{379     \textcolor{keywordflow}{if} (not computed\_)}
+\DoxyCodeLine{380       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Eigenvalues and -\/vectors not yet computed, please call compute() first"{}});}
+\DoxyCodeLine{381   \}}
+\DoxyCodeLine{382 \};}
+\DoxyCodeLine{383 }
+\DoxyCodeLine{384 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
+\DoxyCodeLine{385 \textcolor{keyword}{template} <Concepts::FlatAssembler AssemblerA, Concepts::FlatAssembler AssemblerB>}
+\DoxyCodeLine{386 \textcolor{keyword}{requires}(std::same\_as<typename AssemblerA::MatrixType, typename AssemblerB::MatrixType>)}
+\DoxyCodeLine{387 PartialGeneralizedSymEigenSolver(std::shared\_ptr<AssemblerA> as1, std::shared\_ptr<AssemblerB> as2,}
+\DoxyCodeLine{388                                  Eigen::Index nev) -\/> PartialGeneralizedSymEigenSolver<typename AssemblerA::MatrixType>;}
+\DoxyCodeLine{389 }
+\DoxyCodeLine{390 \textcolor{keyword}{template} <\textcolor{keyword}{typename} MATA, \textcolor{keyword}{typename} MATB>}
+\DoxyCodeLine{391 \textcolor{keyword}{requires}(Concepts::DenseOrSparseEigenMatrix<std::remove\_cvref\_t<MATA>> \&\&}
+\DoxyCodeLine{392          std::same\_as<std::remove\_cvref\_t<MATA>, std::remove\_cvref\_t<MATB>>)}
+\DoxyCodeLine{393 PartialGeneralizedSymEigenSolver(MATA\&\&, MATB\&\&,}
+\DoxyCodeLine{394                                  Eigen::Index) -\/> PartialGeneralizedSymEigenSolver<std::remove\_cvref\_t<MATA>>;}
+\DoxyCodeLine{395 }
+\DoxyCodeLine{396 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{397 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

@@ -1,43 +1,24 @@
-\hypertarget{a00077_source}{}\doxysection{defaultfunctions.\+hh}
-\label{a00077_source}\index{defaultfunctions.hh@{defaultfunctions.hh}}
+\hypertarget{a00077_source}{}\doxysection{eigensparseaddon.\+hh}
+\label{a00077_source}\index{eigensparseaddon.hh@{eigensparseaddon.hh}}
 \mbox{\hyperlink{a00077}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{a00059}{linearalgebrahelper.hh}}"{}}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <type\_traits>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00531}{Ikarus::utils}} \{}
-\DoxyCodeLine{27 \textcolor{keyword}{struct }\mbox{\hyperlink{a02238}{SolverDefault}}}
-\DoxyCodeLine{28 \{}
-\DoxyCodeLine{29   \textcolor{keyword}{template} <\textcolor{keyword}{typename} A, \textcolor{keyword}{typename} B>}
-\DoxyCodeLine{30   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a02238_a4797d17bf96aa9e387567878a9591d7a}{operator()}}(A\&\& a, B\&\& b)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{31     \textcolor{keywordflow}{return} a / b;}
-\DoxyCodeLine{32   \}}
-\DoxyCodeLine{33 \};}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{40 \textcolor{keyword}{struct }\mbox{\hyperlink{a02242}{SyncFERequirements}}}
-\DoxyCodeLine{41 \{}
-\DoxyCodeLine{42 \} \textcolor{keyword}{inline} \textcolor{keyword}{constexpr} \mbox{\hyperlink{a00531_aa0203c56a78244ee2ecf40adec7baff4}{syncFERequirements}};}
-\DoxyCodeLine{43 }
-\DoxyCodeLine{48 \textcolor{keyword}{struct }\mbox{\hyperlink{a02246}{IDBCForceDefault}}}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50 \};}
-\DoxyCodeLine{51 }
-\DoxyCodeLine{64 \textcolor{keyword}{struct }\mbox{\hyperlink{a02250}{UpdateDefault}}}
-\DoxyCodeLine{65 \{}
-\DoxyCodeLine{66   \textcolor{keyword}{template} <\textcolor{keyword}{typename} A, \textcolor{keyword}{typename} B = SyncFERequirements>}
-\DoxyCodeLine{67   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{void} \mbox{\hyperlink{a02250_af7ec0d9b021956d2b0f9c63952d0b5e3}{operator()}}(A\&\& a, B\&\& b = \{\}) \textcolor{keyword}{const} \{}
-\DoxyCodeLine{68     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not std::is\_same\_v<B, SyncFERequirements>) \{}
-\DoxyCodeLine{69       \textcolor{keyword}{using }Ikarus::operator+=;}
-\DoxyCodeLine{70       a += b;}
-\DoxyCodeLine{71     \}}
-\DoxyCodeLine{72   \}}
-\DoxyCodeLine{73 \};}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75 \} \textcolor{comment}{// namespace Ikarus::utils}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{19 \textcolor{keyword}{inline} Index \mbox{\hyperlink{a00077_a6cfefe8fc3c51b09b7633cf8397a67e9}{getLinearIndex}}(Index row, Index col)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{20   eigen\_assert(row >= 0 \&\& row < rows() \&\& col >= 0 \&\& col < cols());}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22   \textcolor{keyword}{const} Index outer = IsRowMajor ? row : col;}
+\DoxyCodeLine{23   \textcolor{keyword}{const} Index inner = IsRowMajor ? col : row;}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25   Index start = m\_outerIndex[outer];}
+\DoxyCodeLine{26   Index end   = m\_innerNonZeros ? m\_outerIndex[outer] + m\_innerNonZeros[outer] : m\_outerIndex[outer + 1];}
+\DoxyCodeLine{27   eigen\_assert(end >= start \&\& \textcolor{stringliteral}{"{}you probably called coeffRef on a non finalized matrix"{}});}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29   Index p = m\_data.searchLowerIndex(start, end -\/ 1, StorageIndex(inner));}
+\DoxyCodeLine{30   \textcolor{keywordflow}{return} p;}
+\DoxyCodeLine{31 \}}
 
 \end{DoxyCode}

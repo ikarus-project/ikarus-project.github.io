@@ -1,4 +1,6 @@
 var a00164 =
 [
-    [ "Ikarus::FETraits< BH, useRef, useFlat >", "a01562.html", "a01562" ]
+    [ "Ikarus::Python::SparseMatrixWrapper< T >", "a02078.html", "a02078" ],
+    [ "registerAssemblerManipulator", "a00164.html#aad35f78683b64303a28d3b8b4f83aa37", null ],
+    [ "registerSparseMatrixWrapper", "a00164.html#a09b4a81e2d6d0619406854f6dc3fc8f7", null ]
 ];

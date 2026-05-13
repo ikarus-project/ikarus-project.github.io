@@ -1,5 +1,5 @@
 var a03547 =
 [
-    [ "makeBasis", "a03547.html#aa8350697b25edf5034483b28fb0c3f76", null ],
-    [ "makeBasis", "a03547.html#a9acabb8291c86afe74e8617830e033de", null ]
+    [ "Ikarus::DeriveSizeType< T >", "a02282.html", "a02282" ],
+    [ "Ikarus::DeriveSizeType< std::vector< bool > >", "a02286.html", "a02286" ]
 ];

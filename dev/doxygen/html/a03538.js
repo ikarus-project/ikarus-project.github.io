@@ -1,4 +1,4 @@
 var a03538 =
 [
-    [ "Ikarus::EAS::DisplacementGradient", "a01838.html", "a01838" ]
+    [ "registerBasisHandler", "a03538.html#ga2f6146bb687ad25cfb413fbcfd470788", null ]
 ];

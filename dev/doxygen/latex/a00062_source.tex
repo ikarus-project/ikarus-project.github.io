@@ -1,35 +1,135 @@
-\hypertarget{a00062_source}{}\doxysection{math.\+hh}
-\label{a00062_source}\index{math.hh@{math.hh}}
+\hypertarget{a00062_source}{}\doxysection{flatprebasis.\+hh}
+\label{a00062_source}\index{flatprebasis.hh@{flatprebasis.hh}}
 \mbox{\hyperlink{a00062}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
-\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
-\DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <concepts>}}
-\DoxyCodeLine{11 }
-\DoxyCodeLine{12 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
-\DoxyCodeLine{13 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{23   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{24   \textcolor{keyword}{constexpr} T sqrt\_helper(T x, T lo, T hi) \{}
-\DoxyCodeLine{25     \textcolor{keywordflow}{if} (lo == hi)}
-\DoxyCodeLine{26       \textcolor{keywordflow}{return} lo;}
-\DoxyCodeLine{27 }
-\DoxyCodeLine{28     \textcolor{keyword}{const} T mid = (lo + hi + 1) / 2;}
-\DoxyCodeLine{29 }
-\DoxyCodeLine{30     \textcolor{keywordflow}{if} (x / mid < mid)}
-\DoxyCodeLine{31       \textcolor{keywordflow}{return} sqrt\_helper<T>(x, lo, mid -\/ 1);}
-\DoxyCodeLine{32     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{33       \textcolor{keywordflow}{return} sqrt\_helper(x, mid, hi);}
-\DoxyCodeLine{34   \}}
-\DoxyCodeLine{35 }
-\DoxyCodeLine{36 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{37 }
-\DoxyCodeLine{45 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{46 \textcolor{keyword}{requires} std::integral<T>}
-\DoxyCodeLine{47 \textcolor{keyword}{constexpr} T \mbox{\hyperlink{a00510_ae55d4d0c3478ab3ecf54ce905ddf223b}{ct\_sqrt}}(T x) \{}
-\DoxyCodeLine{48   \textcolor{keywordflow}{return} Impl::sqrt\_helper<T>(x, 0, x / 2 + 1);}
-\DoxyCodeLine{49 \}}
-\DoxyCodeLine{50 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{1 \textcolor{comment}{// Original File: https://gitlab.mn.tu-\/dresden.de/amdis/amdis-\/core/-\//blob/master/amdis/functions/FlatPreBasis.hpp}}
+\DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2023 Copyright (c)  AMDiS}}
+\DoxyCodeLine{3 \textcolor{comment}{// SPDX-\/License-\/Identifier: MIT}}
+\DoxyCodeLine{4 \textcolor{comment}{// Modifications:}}
+\DoxyCodeLine{5 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
+\DoxyCodeLine{6 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <cstddef>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <utility>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <dune/common/indices.hh>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/basistags.hh>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/compositebasis.hh>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <dune/functions/functionspacebases/powerbasis.hh>}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{38 \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{39 \textcolor{keyword}{struct }\mbox{\hyperlink{a02298}{FlatPreBasis}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a02298_a448426468de3637416804f6ef6f8ce90}{type}} = PreBasis;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{44   \textcolor{keyword}{template} <\textcolor{keyword}{class} PB>}
+\DoxyCodeLine{45   \textcolor{keyword}{static} \mbox{\hyperlink{a02298_a448426468de3637416804f6ef6f8ce90}{type}} \mbox{\hyperlink{a02298_a9c133ba014522aa8c8d90f2a3835c7e1}{create}}(PB \textcolor{keyword}{const}\& preBasis) \{}
+\DoxyCodeLine{46     \textcolor{keywordflow}{return} \mbox{\hyperlink{a02298_a448426468de3637416804f6ef6f8ce90}{type}}(preBasis.gridView());}
+\DoxyCodeLine{47   \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{const} PreBasis\& \mbox{\hyperlink{a02298_af5414357864c26a827136edac1a085f4}{create}}(\textcolor{keyword}{const} PreBasis\& preBasis) \{ \textcolor{keywordflow}{return} preBasis; \}}
+\DoxyCodeLine{51 \};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{54 \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{55 \textcolor{keyword}{using }\mbox{\hyperlink{a00510_a98cbe3aef4b3238ea7de77ee9c4c19ac}{FlatPreBasis\_t}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a02298_a448426468de3637416804f6ef6f8ce90}{FlatPreBasis<PreBasis>::type}};}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{58 \textcolor{keyword}{template} <\textcolor{keyword}{class} IMS>}
+\DoxyCodeLine{59 \textcolor{keyword}{struct }\mbox{\hyperlink{a02302}{FlatIndexMergingStrategy}}}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61   \textcolor{keyword}{using }\mbox{\hyperlink{a02302_aa18699c386a7d8e60d0f53cbc4a83261}{type}} = IMS;}
+\DoxyCodeLine{62 \};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{comment}{// specialization for BlockedInterleaved}}
+\DoxyCodeLine{65 \textcolor{keyword}{template} <>}
+\DoxyCodeLine{66 \textcolor{keyword}{struct }\mbox{\hyperlink{a02302}{FlatIndexMergingStrategy}}<\mbox{\hyperlink{a00536}{Dune}}::Functions::BasisFactory::BlockedInterleaved>}
+\DoxyCodeLine{67 \{}
+\DoxyCodeLine{68   \textcolor{keyword}{using }\mbox{\hyperlink{a02306_a0a464466ec348e17886e7c49c03964d6}{type}} = Dune::Functions::BasisFactory::FlatInterleaved;}
+\DoxyCodeLine{69 \};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{comment}{// specialization for BlockedLexicographic}}
+\DoxyCodeLine{72 \textcolor{keyword}{template} <>}
+\DoxyCodeLine{73 \textcolor{keyword}{struct }\mbox{\hyperlink{a02302}{FlatIndexMergingStrategy}}<\mbox{\hyperlink{a00536}{Dune}}::Functions::BasisFactory::BlockedLexicographic>}
+\DoxyCodeLine{74 \{}
+\DoxyCodeLine{75   \textcolor{keyword}{using }\mbox{\hyperlink{a02310_add1dc46010d8b320cd215e331a3f1fa4}{type}} = Dune::Functions::BasisFactory::FlatLexicographic;}
+\DoxyCodeLine{76 \};}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{comment}{// specialization for composite bases}}
+\DoxyCodeLine{79 \textcolor{keyword}{template} <\textcolor{keyword}{class }IMS, \textcolor{keyword}{class}... SPB>}
+\DoxyCodeLine{80 \textcolor{keyword}{struct }\mbox{\hyperlink{a02298}{FlatPreBasis}}<\mbox{\hyperlink{a00536}{Dune}}::Functions::CompositePreBasis<IMS, SPB...>>}
+\DoxyCodeLine{81 \{}
+\DoxyCodeLine{82   \textcolor{keyword}{using }\mbox{\hyperlink{a02314_a2387375090283dac7ebbfb8bc58e1994}{FIMS}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a02302_aa18699c386a7d8e60d0f53cbc4a83261}{FlatIndexMergingStrategy<IMS>::type}};}
+\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{a02314_a5b93764f4d9fd3897ad37658526e37fd}{type}} = Dune::Functions::CompositePreBasis<FIMS, FlatPreBasis\_t<SPB>...>;}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85   \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{86   \textcolor{keyword}{static} \mbox{\hyperlink{a02314_a5b93764f4d9fd3897ad37658526e37fd}{type}} \mbox{\hyperlink{a02314_aaaf91aed22e7c32c6f2c26ff961ae3e1}{create}}(\textcolor{keyword}{const} PreBasis\& preBasis) \{}
+\DoxyCodeLine{87     \textcolor{keywordflow}{return} \mbox{\hyperlink{a02298_a9c133ba014522aa8c8d90f2a3835c7e1}{create}}(preBasis, std::index\_sequence\_for<SPB...>\{\});}
+\DoxyCodeLine{88   \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   \textcolor{keyword}{template} <\textcolor{keyword}{class }PreBasis, std::size\_t... I>}
+\DoxyCodeLine{91   \textcolor{keyword}{static} \mbox{\hyperlink{a02314_a5b93764f4d9fd3897ad37658526e37fd}{type}} \mbox{\hyperlink{a02314_aab16d08ac65576f292078b2c4f135645}{create}}(\textcolor{keyword}{const} PreBasis\& preBasis, std::index\_sequence<I...>) \{}
+\DoxyCodeLine{92     \textcolor{keywordflow}{return} \mbox{\hyperlink{a02298_a448426468de3637416804f6ef6f8ce90}{type}}(\mbox{\hyperlink{a02298}{FlatPreBasis<SPB>::create}}(preBasis.subPreBasis(Dune::index\_constant<I>\{\}))...);}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94 \};}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96 \textcolor{comment}{// specialization for power bases}}
+\DoxyCodeLine{97 \textcolor{keyword}{template} <\textcolor{keyword}{class} IMS, \textcolor{keyword}{class} SPB, std::\textcolor{keywordtype}{size\_t} C>}
+\DoxyCodeLine{98 \textcolor{keyword}{struct }\mbox{\hyperlink{a02298}{FlatPreBasis}}<\mbox{\hyperlink{a00536}{Dune}}::Functions::PowerPreBasis<IMS, SPB, C>>}
+\DoxyCodeLine{99 \{}
+\DoxyCodeLine{100   \textcolor{keyword}{using }\mbox{\hyperlink{a02318_aef8f8b43a63a4bf4c7c3bc193c4ee1f0}{FIMS}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a02302_aa18699c386a7d8e60d0f53cbc4a83261}{FlatIndexMergingStrategy<IMS>::type}};}
+\DoxyCodeLine{101   \textcolor{keyword}{using }\mbox{\hyperlink{a02318_ae56d4cd604948715e51d517f27d7f0c9}{type}} = Dune::Functions::PowerPreBasis<FIMS, FlatPreBasis\_t<SPB>, C>;}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103   \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{104   \textcolor{keyword}{static} \mbox{\hyperlink{a02318_ae56d4cd604948715e51d517f27d7f0c9}{type}} \mbox{\hyperlink{a02318_ad2ce954f09e165f4440f6e4139ed0b85}{create}}(\textcolor{keyword}{const} PreBasis\& preBasis) \{}
+\DoxyCodeLine{105     \textcolor{keywordflow}{return} \mbox{\hyperlink{a02298_a448426468de3637416804f6ef6f8ce90}{type}}(\mbox{\hyperlink{a02298}{FlatPreBasis<SPB>::create}}(preBasis.subPreBasis()));}
+\DoxyCodeLine{106   \}}
+\DoxyCodeLine{107 \};}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{111 \textcolor{keyword}{template} <\textcolor{keyword}{class} PreBasis>}
+\DoxyCodeLine{112 \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) \mbox{\hyperlink{a00505_ga0728039472747184e9eb2ec0992a4a2b}{flatPreBasis}}(\textcolor{keyword}{const} PreBasis\& preBasis) \{}
+\DoxyCodeLine{113   \textcolor{keywordflow}{return} \mbox{\hyperlink{a02298_a9c133ba014522aa8c8d90f2a3835c7e1}{FlatPreBasis<PreBasis>::create}}(preBasis);}
+\DoxyCodeLine{114 \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116 \textcolor{keyword}{namespace }utils \{}
+\DoxyCodeLine{117   \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{118     \textcolor{keyword}{template} <\textcolor{keyword}{typename} Tree>}
+\DoxyCodeLine{119     \textcolor{keyword}{struct }PreBasisInfo}
+\DoxyCodeLine{120     \{}
+\DoxyCodeLine{121     \};}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123     \textcolor{keyword}{template} <\textcolor{keyword}{typename} Tree>}
+\DoxyCodeLine{124     \textcolor{keyword}{requires}(Tree::isLeaf)}
+\DoxyCodeLine{125     \textcolor{keyword}{struct} PreBasisInfo<Tree>}
+\DoxyCodeLine{126     \{}
+\DoxyCodeLine{127       \textcolor{keyword}{static} \textcolor{keyword}{constexpr} std::size\_t size = 0;}
+\DoxyCodeLine{128       \textcolor{keyword}{using }NodalSolutionType           = double;}
+\DoxyCodeLine{129     \};}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131     \textcolor{keyword}{template} <\textcolor{keyword}{typename} Tree>}
+\DoxyCodeLine{132     \textcolor{keyword}{requires}(Tree::isPower)}
+\DoxyCodeLine{133     \textcolor{keyword}{struct} PreBasisInfo<Tree>}
+\DoxyCodeLine{134     \{}
+\DoxyCodeLine{135       \textcolor{keyword}{static} \textcolor{keyword}{constexpr} std::size\_t size = Tree::degree();}
+\DoxyCodeLine{136       \textcolor{keyword}{using }NodalSolutionType           = Eigen::Vector<double, size>;}
+\DoxyCodeLine{137     \};}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139     \textcolor{keyword}{template} <\textcolor{keyword}{typename} Tree>}
+\DoxyCodeLine{140     \textcolor{keyword}{requires}(Tree::isComposite)}
+\DoxyCodeLine{141     \textcolor{keyword}{struct} PreBasisInfo<Tree>}
+\DoxyCodeLine{142     \{}
+\DoxyCodeLine{143       \textcolor{keyword}{using }ChildTreeType = Tree::template Child<0>::Type;}
+\DoxyCodeLine{144       \textcolor{keyword}{static\_assert}(not ChildTreeType::isComposite, \textcolor{stringliteral}{"{}Cannot handle a composite basis within a composite basis."{}});}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146       \textcolor{keyword}{static} \textcolor{keyword}{constexpr} std::size\_t size = PreBasisInfo<ChildTreeType>::size;}
+\DoxyCodeLine{147       \textcolor{keyword}{using }NodalSolutionType           = PreBasisInfo<ChildTreeType>::NodalSolutionType;}
+\DoxyCodeLine{148     \};}
+\DoxyCodeLine{149   \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{150 \} \textcolor{comment}{// namespace utils}}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152 \} \textcolor{comment}{// end namespace Ikarus}}
 
 \end{DoxyCode}

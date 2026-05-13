@@ -1,150 +1,108 @@
-\hypertarget{a00455_source}{}\doxysection{pathfollowing.\+hh}
-\label{a00455_source}\index{pathfollowing.hh@{pathfollowing.hh}}
+\hypertarget{a00455_source}{}\doxysection{febase.\+hh}
+\label{a00455_source}\index{febase.hh@{febase.hh}}
 \mbox{\hyperlink{a00455}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
-\DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00446}{ikarus/controlroutines/adaptivestepsizing.hh}}>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00437}{ikarus/controlroutines/controlinfos.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00431}{ikarus/controlroutines/controlroutinebase.hh}}>}}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00440}{ikarus/controlroutines/controlroutinefactory.hh}}>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00443}{ikarus/controlroutines/pathfollowingfunctions.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00416}{ikarus/solver/nonlinearsolver/newtonraphsonwithscalarsubsidiaryfunction.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00413}{ikarus/solver/nonlinearsolver/nonlinearsolverfactory.hh}}>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00344}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
-\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00029}{ikarus/utils/differentiablefunctionfactory.hh}}>}}
-\DoxyCodeLine{22 }
-\DoxyCodeLine{23 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
-\DoxyCodeLine{24 }
-\DoxyCodeLine{30 \textcolor{keyword}{template} <\textcolor{keyword}{typename} D>}
-\DoxyCodeLine{31 \textcolor{keyword}{struct }\mbox{\hyperlink{a01466}{PathFollowingState}}}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a01466_aaf06c06697db573f10222173fc8d70af}{Domain}} = D;}
-\DoxyCodeLine{34 }
-\DoxyCodeLine{35   \textcolor{keyword}{const} \mbox{\hyperlink{a01466_aaf06c06697db573f10222173fc8d70af}{Domain}}\& \mbox{\hyperlink{a01466_a86de29d69928db78bcad0f1b52a63965}{domain}};}
-\DoxyCodeLine{36   \textcolor{keyword}{const} \mbox{\hyperlink{a01438}{ControlInformation}}\& \mbox{\hyperlink{a01466_a7f77db2bee39d79bf48a4fc60b84590a}{information}};}
-\DoxyCodeLine{37   \textcolor{keyword}{const} \mbox{\hyperlink{a01482}{SubsidiaryArgs}}\& \mbox{\hyperlink{a01466_ab2abd1a958044ec4d412efa82c4a1ede}{subsidiaryArgs}};}
-\DoxyCodeLine{38 }
-\DoxyCodeLine{39   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01466_a8e1b8b12cc435ee7e0a6432ab74ad43f}{loadStep}}\{-\/1\};}
-\DoxyCodeLine{40   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01466_a3dcb62d0cf736628c90706c29f62da1f}{stepSize}}\{\};}
-\DoxyCodeLine{41 \};}
-\DoxyCodeLine{42 }
-\DoxyCodeLine{43 \textcolor{keyword}{namespace }Impl \{}
-\DoxyCodeLine{56   \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PF = ArcLength, \textcolor{keyword}{typename} ASS>}
-\DoxyCodeLine{57   \textcolor{keyword}{consteval} \textcolor{keywordtype}{bool} checkPathFollowingTemplates() \{}
-\DoxyCodeLine{58     \textcolor{keywordflow}{return} Concepts::PathFollowingStrategy<PF, std::remove\_cvref\_t<NLS>, SubsidiaryArgs> and}
-\DoxyCodeLine{59            Concepts::AdaptiveStepSizingStrategy<ASS, NonLinearSolverInformation, SubsidiaryArgs,}
-\DoxyCodeLine{60                                                 std::remove\_cvref\_t<typename NLS::DifferentiableFunction>> and}
-\DoxyCodeLine{61            Concepts::NonLinearSolverCheckForPathFollowing<NLS>;}
-\DoxyCodeLine{62   \}}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{64   \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{65   \textcolor{keyword}{struct }PathFollowingStateFactory}
-\DoxyCodeLine{66   \{}
-\DoxyCodeLine{67   \textcolor{keyword}{private}:}
-\DoxyCodeLine{68     \textcolor{keyword}{using }SignatureTraits = \textcolor{keyword}{typename} F::Traits;}
-\DoxyCodeLine{69     \textcolor{keyword}{using }Domain          = \textcolor{keyword}{typename} SignatureTraits::Domain;}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{71   \textcolor{keyword}{public}:}
-\DoxyCodeLine{72     \textcolor{keyword}{using }type = PathFollowingState<Domain>;}
-\DoxyCodeLine{73   \};}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75 \} \textcolor{comment}{// namespace Impl}}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{82 \textcolor{keyword}{template} <\textcolor{keyword}{typename} F>}
-\DoxyCodeLine{83 \textcolor{keyword}{using }\mbox{\hyperlink{a01466}{PathFollowingStateType}} = \mbox{\hyperlink{a01466}{Impl::PathFollowingStateFactory<F>::type}};}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PF, \textcolor{keyword}{typename} ASS>}
-\DoxyCodeLine{86 \textcolor{keyword}{requires}(Impl::checkPathFollowingTemplates<NLS, PF, ASS>())}
-\DoxyCodeLine{87 \textcolor{keyword}{class} \mbox{\hyperlink{a01474}{PathFollowing}};}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{96 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PF\_ = ArcLength, \textcolor{keyword}{typename} ASS\_ = AdaptiveStepSizing::NoOp>}
-\DoxyCodeLine{97 \textcolor{keyword}{struct }\mbox{\hyperlink{a01478}{PathFollowingConfig}}}
-\DoxyCodeLine{98 \{}
-\DoxyCodeLine{99   \textcolor{keyword}{using }\mbox{\hyperlink{a01478_ae8815581a5879dbd1fc9722590d4cdd3}{PF}}  = PF\_;}
-\DoxyCodeLine{100   \textcolor{keyword}{using }\mbox{\hyperlink{a01478_ad17b1974f8ef19d7f7078dfa489dd6e1}{ASS}} = ASS\_;}
-\DoxyCodeLine{101 }
-\DoxyCodeLine{102   \textcolor{keywordtype}{int} \mbox{\hyperlink{a01478_af4dd889493d4c52b6a6ad9db9c174574}{steps}}\{\};}
-\DoxyCodeLine{103   \textcolor{keywordtype}{double} \mbox{\hyperlink{a01478_a81216825fc8066d2055dd1e6201c4aff}{stepSize}}\{\};}
-\DoxyCodeLine{104   \mbox{\hyperlink{a01478_ae8815581a5879dbd1fc9722590d4cdd3}{PF}} \mbox{\hyperlink{a01478_aa4fb4fa9616c8e2996e0b0523e30fa7a}{pathFollowingFunction}}\{\};}
-\DoxyCodeLine{105   \mbox{\hyperlink{a01478_ad17b1974f8ef19d7f7078dfa489dd6e1}{ASS}} \mbox{\hyperlink{a01478_a7ffac719560deefbffff024765eac413}{adaptiveStepSizingFunction}}\{\};}
-\DoxyCodeLine{106 \};}
-\DoxyCodeLine{107 }
-\DoxyCodeLine{108 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
-\DoxyCodeLine{109 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}) -\/> PathFollowingConfig<>;}
-\DoxyCodeLine{110 }
-\DoxyCodeLine{111 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PF>}
-\DoxyCodeLine{112 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}, PF) -\/> PathFollowingConfig<PF>;}
-\DoxyCodeLine{113 }
-\DoxyCodeLine{114 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PF, \textcolor{keyword}{typename} ASS>}
-\DoxyCodeLine{115 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}, PF, ASS) -\/> PathFollowingConfig<PF, ASS>;}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{117 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ASS>}
-\DoxyCodeLine{118 PathFollowingConfig(\textcolor{keywordtype}{int}, \textcolor{keywordtype}{double}, ArcLength, ASS) -\/> PathFollowingConfig<ArcLength, ASS>;}
-\DoxyCodeLine{119 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{130 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PFConfig>}
-\DoxyCodeLine{131 \textcolor{keyword}{requires} traits::isSpecialization<PathFollowingConfig, std::remove\_cvref\_t<PFConfig>>::value}
-\DoxyCodeLine{132 \textcolor{keyword}{auto} \mbox{\hyperlink{a00510_a5aec737453e85d8a0cd6061b39300694}{createControlRoutine}}(PFConfig\&\& config, NLS\&\& nonlinearSolver) \{}
-\DoxyCodeLine{133   \textcolor{keywordflow}{return} \mbox{\hyperlink{a01474}{PathFollowing<typename std::remove\_cvref\_t<NLS>::element\_type}}, \textcolor{keyword}{typename} PFConfig::PF, \textcolor{keyword}{typename} PFConfig::ASS>(}
-\DoxyCodeLine{134       std::forward<NLS>(nonlinearSolver), config.steps, config.stepSize, config.pathFollowingFunction,}
-\DoxyCodeLine{135       config.adaptiveStepSizingFunction);}
-\DoxyCodeLine{136 \}}
-\DoxyCodeLine{137 }
-\DoxyCodeLine{167 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NLS, \textcolor{keyword}{typename} PF = ArcLength, \textcolor{keyword}{typename} ASS = AdaptiveStepSizing::NoOp>}
-\DoxyCodeLine{168 \textcolor{keyword}{requires}(Impl::checkPathFollowingTemplates<NLS, PF, ASS>())}
-\DoxyCodeLine{169 \textcolor{keyword}{class} \mbox{\hyperlink{a01474}{PathFollowing}} : \textcolor{keyword}{public} \mbox{\hyperlink{a01442}{ControlRoutineBase}}<\textcolor{keyword}{typename} NLS::DifferentiableFunction,}
-\DoxyCodeLine{170                                                 \mbox{\hyperlink{a01466}{PathFollowingStateType<typename NLS::DifferentiableFunction>}}>}
-\DoxyCodeLine{171 }
-\DoxyCodeLine{172 \{}
-\DoxyCodeLine{173 \textcolor{keyword}{public}:}
-\DoxyCodeLine{175   \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} \mbox{\hyperlink{a01474_a31b9c556cef2540c66676589b230ef5d}{name}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} std::string(\textcolor{stringliteral}{"{}Path following with "{}} + pathFollowingType\_.name()); \}}
-\DoxyCodeLine{176 }
-\DoxyCodeLine{185   \mbox{\hyperlink{a01474_af73474b0eccdddd65e046ebe813566f9}{PathFollowing}}(\textcolor{keyword}{const} std::shared\_ptr<NLS>\& nls, \textcolor{keywordtype}{int} steps, \textcolor{keywordtype}{double} stepSize, PF pathFollowingType = \mbox{\hyperlink{a01486}{ArcLength}}\{\},}
-\DoxyCodeLine{186                 ASS adaptiveStepSizing = \{\})}
-\DoxyCodeLine{187       : nonLinearSolver\_\{nls\},}
-\DoxyCodeLine{188         steps\_\{steps\},}
-\DoxyCodeLine{189         stepSize\_\{stepSize\},}
-\DoxyCodeLine{190         pathFollowingType\_\{pathFollowingType\},}
-\DoxyCodeLine{191         adaptiveStepSizing\_\{adaptiveStepSizing\} \{}
-\DoxyCodeLine{192     \textcolor{keywordflow}{if} (steps\_ <= 0)}
-\DoxyCodeLine{193       DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}Number of steps should be greater than zero."{}});}
-\DoxyCodeLine{194   \}}
-\DoxyCodeLine{195 }
-\DoxyCodeLine{203   [[nodiscard]] ControlInformation run(\textcolor{keyword}{typename} NLS::Domain\& d);}
-\DoxyCodeLine{204 }
-\DoxyCodeLine{205   \textcolor{comment}{/* \(\backslash\)brief returns the nonlinear solver */}}
-\DoxyCodeLine{206   NLS\& \mbox{\hyperlink{a01474_a6c40405d18d6dfab95c80b9871905331}{nonLinearSolver}}() \{ \textcolor{keywordflow}{return} *nonLinearSolver\_; \}}
-\DoxyCodeLine{207 }
-\DoxyCodeLine{212   \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01474_a3df869c5a5329092cfa90a444f54da02}{subsidiaryArgs}}() \{ \textcolor{keywordflow}{return} subsidiaryArgs\_; \}}
-\DoxyCodeLine{213 }
-\DoxyCodeLine{218   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01474_a7485492addfa19dcc77042cbf62ed943}{subsidiaryArgs}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} subsidiaryArgs\_; \}}
-\DoxyCodeLine{219 }
-\DoxyCodeLine{220 \textcolor{keyword}{private}:}
-\DoxyCodeLine{221   std::shared\_ptr<NLS> nonLinearSolver\_;}
-\DoxyCodeLine{222 }
-\DoxyCodeLine{223   \textcolor{keywordtype}{int} steps\_;}
-\DoxyCodeLine{224   \textcolor{keywordtype}{double} stepSize\_;}
-\DoxyCodeLine{225   PF pathFollowingType\_;}
-\DoxyCodeLine{226   ASS adaptiveStepSizing\_;}
-\DoxyCodeLine{227   \mbox{\hyperlink{a01482}{SubsidiaryArgs}} subsidiaryArgs\_;}
-\DoxyCodeLine{228 }
-\DoxyCodeLine{229   \textcolor{keywordtype}{void} updateAndNotifyControlInfo(\mbox{\hyperlink{a01438}{ControlInformation}}\& info, \textcolor{keyword}{const} \mbox{\hyperlink{a02170}{NonLinearSolverInformation}}\& solverInfo,}
-\DoxyCodeLine{230                                   \textcolor{keyword}{const} \textcolor{keyword}{typename} \mbox{\hyperlink{a01466}{PathFollowing::State}}\& state) \{}
-\DoxyCodeLine{231     info.\mbox{\hyperlink{a01438_aedbd5de28f127726884cb99b067313bf}{solverInfos}}.push\_back(solverInfo);}
-\DoxyCodeLine{232     info.\mbox{\hyperlink{a01438_a4712b189651e59cd46fd43b2e6a326bf}{totalIterations}} += solverInfo.\mbox{\hyperlink{a02170_a81570cd3d9f6589a4d1ba81211f41b99}{iterations}};}
-\DoxyCodeLine{233     this-\/>notify(\mbox{\hyperlink{a00510_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{ControlMessages::SOLUTION\_CHANGED}}, state);}
-\DoxyCodeLine{234     this-\/>notify(\mbox{\hyperlink{a00510_a35fa62fd2d4186a9750af3d0692f2893ae2b2386af3d7379bd2ddde735d5867b2}{ControlMessages::STEP\_ENDED}}, state);}
-\DoxyCodeLine{235   \}}
-\DoxyCodeLine{236 \};}
-\DoxyCodeLine{237 }
-\DoxyCodeLine{238 \} \textcolor{comment}{// namespace Ikarus}}
-\DoxyCodeLine{239 }
-\DoxyCodeLine{240 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00452}{ikarus/controlroutines/pathfollowing.inl}}>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00452}{ikarus/finiteelements/ferequirements.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00284}{ikarus/finiteelements/fetraits.hh}}>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00449}{ikarus/finiteelements/mixin.hh}}>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... Skills>}
+\DoxyCodeLine{22 \textcolor{keyword}{class }FE;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{31 \textcolor{keyword}{template} <\textcolor{keyword}{typename} BH, \textcolor{keywordtype}{bool} useFlat = true, \textcolor{keywordtype}{bool} useEigenRef = false>}
+\DoxyCodeLine{32 \textcolor{keyword}{struct }\mbox{\hyperlink{a01510}{PreFE}}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34   \textcolor{keyword}{using }\mbox{\hyperlink{a01510_a96f8fe069706faeb6233e8ad31588b66}{BasisHandler}}                      = BH;}
+\DoxyCodeLine{35   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01510_ac62b5b022663d48416e0560803590259}{worldDim}}           = BasisHandler::Basis::worlddim;}
+\DoxyCodeLine{36   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01510_a4227356aa324e40ecd1c09da5e56cb00}{useEigenReference}} = useEigenRef;}
+\DoxyCodeLine{37   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} \mbox{\hyperlink{a01510_a67f4db661ba63b8be2f15903c52f3ffd}{useFlatBasis}}      = useFlat;}
+\DoxyCodeLine{38   \textcolor{keyword}{using }\mbox{\hyperlink{a01562}{Traits}}                            = \mbox{\hyperlink{a01562}{FETraits<BH, useEigenRef, useFlat>}};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... \mbox{\hyperlink{a01962}{Skills}}>}
+\DoxyCodeLine{41   \textcolor{keyword}{using }\mbox{\hyperlink{a01510_ac7266f723a312adbd690b47d5cd06a60}{FE}} = \mbox{\hyperlink{a01510_ac7266f723a312adbd690b47d5cd06a60}{FE}}<\mbox{\hyperlink{a01510}{PreFE}}, \mbox{\hyperlink{a01962}{Skills}}...>;}
+\DoxyCodeLine{42 \};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{45   \textcolor{comment}{// Since base classes are initialized, in declaration order before member variables, we have to make sure the}}
+\DoxyCodeLine{46   \textcolor{comment}{// localview\_ object of FE is defined. To do this we add this artificial inheritance by inheriting below first from}}
+\DoxyCodeLine{47   \textcolor{comment}{// FEInit, which initializes the localview object first, siche we the other FEMixin base class constructors are called}}
+\DoxyCodeLine{48   \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{typename} FE>}
+\DoxyCodeLine{49   \textcolor{keyword}{struct }FEInit}
+\DoxyCodeLine{50   \{}
+\DoxyCodeLine{51     \textcolor{keyword}{using }Traits       = \mbox{\hyperlink{a01510_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};              }
+\DoxyCodeLine{52     \textcolor{keyword}{using }\mbox{\hyperlink{a02202}{BasisHandler}} = \mbox{\hyperlink{a01562_a129085c175bca28f94c71699b734ba04}{Traits::BasisHandler}};       }
+\DoxyCodeLine{53     \textcolor{keyword}{using }LocalView    = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}}; }
+\DoxyCodeLine{54     \textcolor{keyword}{friend} \mbox{\hyperlink{a01506}{FE}};}
+\DoxyCodeLine{55     FEInit(\textcolor{keyword}{const} \mbox{\hyperlink{a02202}{BasisHandler}}\& basisHandler)}
+\DoxyCodeLine{56         : localView\_\{[\&]() -\/> LocalView \{}
+\DoxyCodeLine{57             \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a01562_ac93d8ec6254e0ca3668966e7a56886ac}{Traits::useFlatBasis}})}
+\DoxyCodeLine{58               \textcolor{keywordflow}{return} basisHandler.\mbox{\hyperlink{a02202_a259a6b38e59d58970716c03ac511d3c5}{flat}}().localView();}
+\DoxyCodeLine{59             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{60               \textcolor{keywordflow}{return} basisHandler.\mbox{\hyperlink{a02202_aa3e286f5563f510fc4b0eaa005eb0a2b}{untouched}}().localView();}
+\DoxyCodeLine{61           \}()\} \{\}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \textcolor{keyword}{private}:}
+\DoxyCodeLine{64     LocalView localView\_;}
+\DoxyCodeLine{65   \};}
+\DoxyCodeLine{66 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{77 \textcolor{keyword}{template} <\textcolor{keyword}{typename} PreFE, \textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class}... Skills>}
+\DoxyCodeLine{78 \textcolor{keyword}{class }\mbox{\hyperlink{a01506}{FE}} : \textcolor{keyword}{private} Impl::FEInit<PreFE, FE<PreFE, Skills...>>, \textcolor{keyword}{public} \mbox{\hyperlink{a01946}{FEMixin}}<PreFE, Skills...>}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80   \textcolor{keyword}{friend} Impl::FEInit<PreFE, FE>;}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{83   \textcolor{keyword}{using }\mbox{\hyperlink{a01946}{Mixin}} = \mbox{\hyperlink{a01946}{FEMixin}}<\mbox{\hyperlink{a01510}{PreFE}}, \mbox{\hyperlink{a01962}{Skills}}...>; }
+\DoxyCodeLine{84   \textcolor{keyword}{friend} \mbox{\hyperlink{a01506_a9651c0af07c052fe9be5546ad04fec26}{Mixin}};}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{keyword}{public}:}
+\DoxyCodeLine{87   \textcolor{keyword}{using }\mbox{\hyperlink{a01562}{Traits}}       = \mbox{\hyperlink{a01510_a826c356a5afb013faffb5f7ac893cff4}{PreFE::Traits}};                }
+\DoxyCodeLine{88   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_a26398fefb73f4d51895e26152e368cf8}{BasisHandler}} = \mbox{\hyperlink{a01562_a129085c175bca28f94c71699b734ba04}{Traits::BasisHandler}};         }
+\DoxyCodeLine{89   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}    = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_a06bdad066f621e46875af45a22677a3c}{Traits::LocalView}};   }
+\DoxyCodeLine{90   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_a636f6e2bb1a51cd89f190d3744cdb7dd}{GridView}}     = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_a3ec0294824df467074f5070cb58f5a91}{Traits::GridView}};    }
+\DoxyCodeLine{91   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_afcc1624cabc2a1e553af2eb4dd02190d}{GlobalIndex}}  = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_a77e825e03f2fae2bb4272c7888e478b6}{Traits::GlobalIndex}}; }
+\DoxyCodeLine{92   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_ae329d665e853b0286679e97418d3acad}{GridElement}}  = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_ac4668b9c9142defdf3b70cca8eeb30c4}{Traits::Element}};     }
+\DoxyCodeLine{93   \textcolor{keyword}{using }typename \mbox{\hyperlink{a01946_a86c0fea1b37e487f3c78cde6facca9c3}{Mixin::Requirement}};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01506_aad639c76b46707f9ecf9dd58e25827f9}{myDim}}    = \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{Traits::mydim}};}
+\DoxyCodeLine{96   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} \mbox{\hyperlink{a01506_a6b85ca6e6596543374c9ab104a471cec}{worldDim}} = \mbox{\hyperlink{a01562_a5d611e1d48285bac5c5ebd6fda9c7cc7}{Traits::worlddim}};}
+\DoxyCodeLine{97   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_a327f5479545f9b5d615c07ce535b0007}{PreTuple}}                = std::tuple<typename Skills<PreFE, FE>::Pre...>;}
+\DoxyCodeLine{98   \textcolor{keyword}{using }\mbox{\hyperlink{a01506_a0791b693c48c68f2b5e42802404c4dc1}{IntegrationRule}}         = Dune::QuadratureRule<double, myDim>;}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{106   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01506_a395b4b566b17bb390d82de3c89c00e9d}{FE}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01506_a26398fefb73f4d51895e26152e368cf8}{BasisHandler}}\& basisHandler, \textcolor{keyword}{typename} \mbox{\hyperlink{a01962}{Skills<PreFE, FE>::Pre}}... skillsArgs)}
+\DoxyCodeLine{107       : Impl::FEInit<\mbox{\hyperlink{a01510}{PreFE}}, \mbox{\hyperlink{a01506}{FE}}>(basisHandler),}
+\DoxyCodeLine{108         \mbox{\hyperlink{a01946}{FEMixin}}<\mbox{\hyperlink{a01510}{PreFE}}, \mbox{\hyperlink{a01962}{Skills}}...>(std::forward<typename \mbox{\hyperlink{a01962}{Skills}}<\mbox{\hyperlink{a01510}{PreFE}}, \mbox{\hyperlink{a01506}{FE}}>::Pre>(skillsArgs)...) \{\}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{114   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01506_a3a23d70495e802f44ba4b9923804dda0}{bind}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01506_ae329d665e853b0286679e97418d3acad}{GridElement}}\& element) \{}
+\DoxyCodeLine{115     this-\/>localView\_.bind(element);}
+\DoxyCodeLine{116     \mbox{\hyperlink{a01946_ad64afd529f274032176261fea660b027}{Mixin::bind}}();}
+\DoxyCodeLine{117   \}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{125   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01506_af71ce688b600890677c97ed5fec0e04a}{bind}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01506_a0791b693c48c68f2b5e42802404c4dc1}{IntegrationRule}}\& rule, \textcolor{keyword}{const} \mbox{\hyperlink{a01506_ae329d665e853b0286679e97418d3acad}{GridElement}}\& element) \{}
+\DoxyCodeLine{126     rule\_ = rule;}
+\DoxyCodeLine{127     \mbox{\hyperlink{a01946_ad64afd529f274032176261fea660b027}{bind}}(element);}
+\DoxyCodeLine{128   \}}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{133   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{a01506_addc98f87fd0541caa6a243eecc6c9670}{quadratureRule}}() \{ \textcolor{keywordflow}{return} rule\_; \}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{139   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{a01506_a1e05d6a5e50e3afd57c27adc0620e5b8}{size}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_.size(); \}}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{145   \textcolor{keyword}{const} \mbox{\hyperlink{a01506_ae329d665e853b0286679e97418d3acad}{GridElement}}\& \mbox{\hyperlink{a01506_ae84fc54bd26077a2edb0ec07361d0716}{gridElement}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_.element(); \}}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{151   \textcolor{keyword}{const} \mbox{\hyperlink{a01506_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}\& \mbox{\hyperlink{a01506_a1425316afd592244682b9ccc48cf59ef}{localView}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} this-\/>localView\_; \}}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{157   \mbox{\hyperlink{a01506_a772703dae1bc76a8b862c5e1aee93b09}{LocalView}}\& \mbox{\hyperlink{a01506_aa82acd5684364d92165b89e63d0eefb4}{localView}}() \{ \textcolor{keywordflow}{return} this-\/>localView\_; \}}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159 \textcolor{keyword}{private}:}
+\DoxyCodeLine{160   std::optional<IntegrationRule> rule\_ = std::nullopt;}
+\DoxyCodeLine{161 \};}
+\DoxyCodeLine{162 \} \textcolor{comment}{// namespace Ikarus}}
 
 \end{DoxyCode}

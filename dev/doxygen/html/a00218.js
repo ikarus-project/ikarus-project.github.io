@@ -1,4 +1,6 @@
 var a00218 =
 [
-    [ "numericalMaterialInversion", "a00218.html#a8fbddf32993e15f5f5c590c599a2b5f3", null ]
+    [ "Ikarus::ScalarManipulator< Wrapper, Assembler >", "a01366.html", "a01366" ],
+    [ "Ikarus::VectorManipulator< Wrapper, Assembler >", "a01370.html", "a01370" ],
+    [ "Ikarus::MatrixManipulator< Wrapper, Assembler >", "a01374.html", "a01374" ]
 ];

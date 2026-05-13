@@ -1,24 +1,35 @@
-\hypertarget{a00140}{}\doxysection{fe.\+hh File Reference}
-\label{a00140}\index{fe.hh@{fe.hh}}
-{\ttfamily \#include $<$dune/python/common/typeregistry.\+hh$>$}\newline
-{\ttfamily \#include $<$dune/python/functions/globalbasis.\+hh$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/eigen.\+h$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/functional.\+h$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/pybind11.\+h$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/stl.\+h$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/fefactory.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/python/finiteelements/registerferequirements.\+hh$>$}\newline
+\hypertarget{a00140}{}\doxysection{newtonraphsonwithscalarsubsidiaryfunction.\+hh File Reference}
+\label{a00140}\index{newtonraphsonwithscalarsubsidiaryfunction.hh@{newtonraphsonwithscalarsubsidiaryfunction.hh}}
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/pathfollowingfunctions.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/nonlinearsolverbase.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/nonlinearsolverstate.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/solverinfos.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/broadcaster/broadcaster.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/broadcaster/broadcastermessages.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{a02130}{Ikarus\+::\+Newton\+Raphson\+With\+Subsidiary\+Function\+Settings}}
+\item 
+struct \mbox{\hyperlink{a02134}{Ikarus\+::\+Newton\+Raphson\+With\+Subsidiary\+Function\+Config$<$ LS, UF, IDBCF $>$}}
+\begin{DoxyCompactList}\small\item\em Settings for the Newton-\/\+Raphson solver with subsidiary function. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{a02126}{Ikarus\+::\+Newton\+Raphson\+With\+Subsidiary\+Function$<$ F, LS, UF, IDBCF $>$}}
+\begin{DoxyCompactList}\small\item\em Newton-\/\+Raphson solver with subsidiary function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{a00510}{Ikarus}}
-\item 
-namespace \mbox{\hyperlink{a00529}{Ikarus\+::\+Python}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class FE , class... options$>$ }\\void \mbox{\hyperlink{a00529_a0c58c17676c73945cb11eff8a80309ae}{Ikarus\+::\+Python\+::register\+Calculate\+At}} (pybind11\+::handle scope, pybind11\+::class\+\_\+$<$ FE, options... $>$ cls, auto result\+Types\+Tuple)
-\begin{DoxyCompactList}\small\item\em Registers the calculate\+At method for a finite element class in \mbox{\hyperlink{a00529}{Python}}. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class FE , class... options$>$ }\\void \mbox{\hyperlink{a00502_gac8bb4a818dee7342efbc5e174e35b840}{Ikarus\+::\+Python\+::register\+FE}} (pybind11\+::handle scope, pybind11\+::class\+\_\+$<$ FE, options... $>$ cls)
-\begin{DoxyCompactList}\small\item\em Register \mbox{\hyperlink{a00529}{Python}} bindings for the \mbox{\hyperlink{a01506}{FE}} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$typename F , typename NRConfig $>$ \newline
+requires traits\+::is\+Specialization$<$Newton\+Raphson\+With\+Subsidiary\+Function\+Config, std\+::remove\+\_\+cvref\+\_\+t$<$NRConfig$>$$>$}\\\+::value auto \mbox{\hyperlink{a00510_aae249dcc52532518f85210c207fec191}{Ikarus\+::create\+Nonlinear\+Solver}} (NRConfig \&\&config, F \&\&f)
+\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a02114}{Newton\+Raphson}} with subsidiary function solver instance. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F , typename LS  = utils\+::\+Solver\+Default, typename UF  = utils\+::\+Update\+Default, typename IDBCF  = utils\+::\+IDBCForce\+Default$>$ }\\auto \mbox{\hyperlink{a00510_af3c1ebc1046beb63f685666512e31950}{Ikarus\+::make\+Newton\+Raphson\+With\+Subsidiary\+Function}} (const F \&f, LS \&\&linear\+Solver=\{\}, UF \&\&update\+Function=\{\}, IDBCF \&\&idbc\+Force\+Function=\{\})
+\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a02114}{Newton\+Raphson}} with subsidiary function solver instance. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F , typename LS  = utils\+::\+Solver\+Default, typename UF  = utils\+::\+Update\+Default, typename IDBCF  = utils\+::\+IDBCForce\+Default$>$ }\\\mbox{\hyperlink{a00510_af2b050096cfcafc8ad9f5fc7d2fc2b83}{Ikarus\+::\+Newton\+Raphson\+With\+Subsidiary\+Function}} (const F \&f, LS \&\&linear\+Solver=\{\}, UF \&\&update\+Function=\{\}, IDBCF \&\&idbc\+Force\+Function=\{\}) -\/$>$ Newton\+Raphson\+With\+Subsidiary\+Function$<$ F, std\+::remove\+\_\+cvref\+\_\+t$<$ LS $>$, std\+::remove\+\_\+cvref\+\_\+t$<$ UF $>$, std\+::remove\+\_\+cvref\+\_\+t$<$ IDBCF $>$ $>$
+\end{DoxyCompactItemize}

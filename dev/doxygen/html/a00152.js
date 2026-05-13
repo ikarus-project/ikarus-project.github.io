@@ -1,7 +1,14 @@
 var a00152 =
 [
-    [ "MAKE_ASSEMBLER_REGISTERY_FUNCTION", "a00152.html#adda74d8564a01c0a9851a4379308a8b2", null ],
-    [ "registerDenseFlatAssembler", "a00152.html#a2b0faffde20690631657489c79ec809b", null ],
-    [ "registerFlatAssembler", "a00152.html#ga87d3c6e620be5df59ba6923751caae86", null ],
-    [ "registerSparseFlatAssembler", "a00152.html#aeab1c5f959a22f95b40b0a7576f9c896", null ]
+    [ "Ikarus::GeneralizedSymEigenSolver< SolverType, MT >", "a02086.html", null ],
+    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Spectra, MT >", "a02090.html", "a02090" ],
+    [ "Ikarus::GeneralizedSymEigenSolver< EigenValueSolverType::Eigen, MT >", "a02094.html", "a02094" ],
+    [ "Ikarus::PartialGeneralizedSymEigenSolver< MT >", "a02098.html", "a02098" ],
+    [ "EigenValueSolverType", "a00152.html#a76f328509ccf00e93bba2416f01620e4", [
+      [ "BEGIN", "a00152.html#a76f328509ccf00e93bba2416f01620e4a19aad9f2fe3ce0023298ab83f7e75775", null ],
+      [ "Spectra", "a00152.html#a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69", null ],
+      [ "Eigen", "a00152.html#a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833", null ],
+      [ "END", "a00152.html#a76f328509ccf00e93bba2416f01620e4ab1a326c06d88bf042f73d70f50197905", null ]
+    ] ],
+    [ "toString", "a00152.html#acc08b9ea0e95d84b7f5b9cc272eb453f", null ]
 ];

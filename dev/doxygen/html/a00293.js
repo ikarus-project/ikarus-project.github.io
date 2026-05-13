@@ -1,5 +1,6 @@
 var a00293 =
 [
-    [ "Ikarus::LinearElasticPre< MAT >", "a01662.html", "a01662" ],
-    [ "linearElastic", "a00293.html#af9e2c0087fa5819ca15d064776034a6f", null ]
+    [ "Ikarus::FEFactory< BH, SK, useFlat, useEigenRef >", "a01518.html", "a01518" ],
+    [ "makeFE", "a00293.html#a59639a9a20f036a4f1c0794f65595662", null ],
+    [ "makeFEWithUnTouchedBasis", "a00293.html#aa80712fed165a22f02670f195488fe5f", null ]
 ];

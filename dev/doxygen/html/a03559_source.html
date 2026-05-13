@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: vtkwriter.hh Source File</title>
+    <title>ikarus: concepts.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,7 +155,7 @@ $(document).ready(function(){initNavTree('a03559_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">python/io/vtkwriter.hh</div></div>
+  <div class="headertitle"><div class="title">utils/concepts.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a03559.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
@@ -163,79 +163,541 @@ $(document).ready(function(){initNavTree('a03559_source.html',''); initResizable
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;dune/python/common/typeregistry.hh&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;dune/python/pybind11/eigen.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;dune/python/pybind11/functional.h&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;dune/python/pybind11/pybind11.h&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;dune/python/pybind11/stl.h&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;dune/python/pybind11/stl_bind.h&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;dune/vtk/vtkwriter.hh&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;concepts&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;dune/functions/functionspacebases/basistags.hh&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;dune/functions/functionspacebases/lagrangebasis.hh&gt;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a00329.html">ikarus/finiteelements/ferequirements.hh</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a00368.html">ikarus/io/vtkdatatag.hh</a>&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a03556.html">ikarus/io/vtkwriter.hh</a>&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00529.html">Ikarus::Python</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">template</span> &lt;<span class="keyword">class </span><a class="code hl_function" href="a00525.html#a6b54a4966e54b45e51358c7b7877a5b5">Writer</a>, <span class="keyword">class</span>... options&gt;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a00502.html#ga9f62f91fc33b1f9e17756c2ac7b30077">   50</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00502.html#ga9f62f91fc33b1f9e17756c2ac7b30077">registerVtkWriter</a>(pybind11::handle scope, pybind11::class_&lt;Writer, options...&gt; cls) {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="keyword">using </span>pybind11::operator<span class="stringliteral">&quot;&quot;</span>_a;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">using </span><a class="code hl_enumeration" href="a00525.html#af59748ac04116ae85cd64ea8675d273b">Ikarus::Vtk::DataTag</a>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keyword">using </span>Assembler     = <span class="keyword">typename</span> Writer::Assembler;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keyword">using </span><a class="code hl_class" href="a01506.html">FE</a>            = <span class="keyword">typename</span> Writer::FEType;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keyword">using </span>GridView      = <span class="keyword">typename</span> Writer::GridView;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="keyword">using </span>VirtualizedGF = Dune::Vtk::GridFunction&lt;GridView&gt;;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  cls.def(<a class="code hl_function" href="a00510.html#ac8243891c1b961e50a066140ab79a142">pybind11::init</a>(</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>              [](std::shared_ptr&lt;Assembler&gt; assembler, Dune::Vtk::FormatTypes format, Dune::Vtk::DataTypes datatype,</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                 Dune::Vtk::DataTypes headertype) { <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="a00525.html#a6b54a4966e54b45e51358c7b7877a5b5">Writer</a>(assembler, format, datatype, headertype); }),</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>          pybind11::arg(<span class="stringliteral">&quot;assembler&quot;</span>), pybind11::arg(<span class="stringliteral">&quot;format&quot;</span>) = Dune::Vtk::FormatTypes::BINARY,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>          pybind11::arg(<span class="stringliteral">&quot;datatype&quot;</span>)   = Dune::Vtk::DataTypes::FLOAT32,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>          pybind11::arg(<span class="stringliteral">&quot;headertype&quot;</span>) = Dune::Vtk::DataTypes::UINT32, pybind11::keep_alive&lt;1, 2&gt;());</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  cls.def(<span class="stringliteral">&quot;setFormat&quot;</span>, &amp;Writer::setFormat);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  cls.def(<span class="stringliteral">&quot;setDatatype&quot;</span>, &amp;Writer::setDatatype);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  cls.def(<span class="stringliteral">&quot;setHeadertype&quot;</span>, &amp;Writer::setHeadertype);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  cls.def(</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>      <span class="stringliteral">&quot;addAllResults&quot;</span>, [](<a class="code hl_function" href="a00525.html#a6b54a4966e54b45e51358c7b7877a5b5">Writer</a>&amp; self, <a class="code hl_enumeration" href="a00525.html#af59748ac04116ae85cd64ea8675d273b">DataTag</a> dataTag = <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">Vtk::DataTag::asPointData</a>) { self.addAllResults(dataTag); },</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>      pybind11::arg(<span class="stringliteral">&quot;dataTag&quot;</span>) = <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">Vtk::DataTag::asPointData</a>);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <span class="keyword">auto</span> addResultImpl = [](<a class="code hl_function" href="a00525.html#a6b54a4966e54b45e51358c7b7877a5b5">Writer</a>&amp; self, <span class="keyword">const</span> std::string&amp; resType, <span class="keyword">auto</span> type) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">bool</span> success = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    Dune::Hybrid::forEach(<span class="keyword">typename</span> <a class="code hl_typedef" href="a01946.html#ada59c15363d83f6e635ecd6e1672d6a4">FE::SupportedResultTypes</a>(), [&amp;]&lt;<span class="keyword">typename</span> RT&gt;(RT i) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>      <span class="keywordflow">if</span> (resType == <a class="code hl_function" href="a00510.html#aef80b6b5b45dcfbea4f722f51a84f53f">toString</a>(i)) {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        success = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        self.template addResult&lt;RT::template Rebind&gt;(type);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>      }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    });</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span> (not success)</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      DUNE_THROW(Dune::NotImplemented, <span class="stringliteral">&quot;Element &quot;</span> + Dune::className&lt;FE&gt;() + <span class="stringliteral">&quot; doesn&#39;t support ResultType &quot;</span> + resType);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  };</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  cls.def(</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>      <span class="stringliteral">&quot;addResult&quot;</span>,</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>      [&amp;](<a class="code hl_function" href="a00525.html#a6b54a4966e54b45e51358c7b7877a5b5">Writer</a>&amp; self, <span class="keyword">const</span> std::string&amp; resType, <a class="code hl_enumeration" href="a00525.html#af59748ac04116ae85cd64ea8675d273b">DataTag</a> tag = <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">Vtk::DataTag::asPointData</a>) {</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        addResultImpl(self, resType, tag);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>      },</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      pybind11::arg(<span class="stringliteral">&quot;resType&quot;</span>), pybind11::arg(<span class="stringliteral">&quot;tag&quot;</span>) = <a class="code hl_enumvalue" href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">Vtk::DataTag::asPointData</a>);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>} <span class="comment">// namespace Ikarus::Python</span></div>
-<div class="ttc" id="aa00329_html"><div class="ttname"><a href="a00329.html">ferequirements.hh</a></div><div class="ttdoc">Definition of the LinearElastic class for finite element mechanics computations.</div></div>
-<div class="ttc" id="aa00368_html"><div class="ttname"><a href="a00368.html">vtkdatatag.hh</a></div></div>
-<div class="ttc" id="aa00502_html_ga9f62f91fc33b1f9e17756c2ac7b30077"><div class="ttname"><a href="a00502.html#ga9f62f91fc33b1f9e17756c2ac7b30077">Ikarus::Python::registerVtkWriter</a></div><div class="ttdeci">void registerVtkWriter(pybind11::handle scope, pybind11::class_&lt; Writer, options... &gt; cls)</div><div class="ttdoc">Register Python bindings for a VtkWriter class.  .</div><div class="ttdef"><b>Definition:</b> python/io/vtkwriter.hh:50</div></div>
-<div class="ttc" id="aa00510_html_ac8243891c1b961e50a066140ab79a142"><div class="ttname"><a href="a00510.html#ac8243891c1b961e50a066140ab79a142">Ikarus::init</a></div><div class="ttdeci">void init(int argc, char **argv, bool enableFileLogger=true)</div><div class="ttdoc">Initializes the Ikarus framework.</div><div class="ttdef"><b>Definition:</b> init.hh:82</div></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;Eigen/Sparse&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;autodiff/forward/dual/dual.hpp&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a00224.html">ikarus/assembler/dirichletbcenforcement.hh</a>&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;<a class="code" href="a00377.html">ikarus/finiteelements/mechanics/materials/tags.hh</a>&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;<a class="code" href="a00011.html">ikarus/utils/traits.hh</a>&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00527.html">Eigen</a> {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a02210.html">   30</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02210.html">EigenBase</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00510.html">Ikarus</a> {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">struct </span>ControlInformation;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">struct </span>NonLinearSolverInformation;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived&gt;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a00510.html#ac2c6469be19ce4ef2e630bfa1c5a5e24">   39</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00510.html#ac2c6469be19ce4ef2e630bfa1c5a5e24">transpose</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a02210.html">Eigen::EigenBase&lt;Derived&gt;</a>&amp; A);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">namespace </span>Concepts {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a02433.html">   49</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02433.html">EigenType</a> = std::is_base_of_v&lt;Eigen::MatrixBase&lt;std::decay_t&lt;T&gt;&gt;, std::decay_t&lt;T&gt;&gt;;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Basis&gt;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a02434.html">   60</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02434.html">FlatInterLeavedBasis</a> = <span class="keyword">requires</span> {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::is_same_v&lt;typename Basis::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::FlatInterleaved&gt;;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  };</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keyword">namespace </span>Impl {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keyword">typename</span>&gt; <span class="keyword">class </span>U, <span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">struct </span>LagrangeNodeHelper : std::false_type</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    };</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keyword">typename</span>&gt; <span class="keyword">class </span>U, <span class="keyword">typename</span> GV, <span class="keywordtype">int</span> k, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">struct </span>LagrangeNodeHelper&lt;U, U&lt;GV, k, R&gt;&gt; : std::true_type</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    };</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keyword">typename</span>&gt; <span class="keyword">class </span>U, <span class="keyword">typename</span> T, <span class="keywordtype">int</span> k&gt;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">struct </span>LagrangeNodeHelperOfOrder : std::false_type</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    };</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keyword">typename</span>&gt; <span class="keyword">class </span>U, <span class="keyword">typename</span> GV, <span class="keywordtype">int</span> k, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">struct </span>LagrangeNodeHelperOfOrder&lt;U, U&lt;GV, k, R&gt;, k&gt; : std::true_type</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    };</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  } <span class="comment">// namespace Impl</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> N&gt;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a02435.html">   92</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02435.html">LagrangeNode</a> = Impl::LagrangeNodeHelper&lt;Dune::Functions::LagrangeNode, N&gt;::value;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> N, <span class="keywordtype">int</span> order&gt;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a02436.html">  102</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02436.html">LagrangeNodeOfOrder</a> = Impl::LagrangeNodeHelperOfOrder&lt;Dune::Functions::LagrangeNode, N, order&gt;::value;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> B&gt;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="a02437.html">  113</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02437.html">FlatLexicographicBasis</a> = <span class="keyword">requires</span> {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    std::is_same_v&lt;typename B::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::FlatLexicographic&gt;;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>  };</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> B&gt;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="a02438.html">  126</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02438.html">FlatIndexBasis</a> = <a class="code hl_concept" href="a02437.html">FlatLexicographicBasis&lt;B&gt;</a> or <a class="code hl_concept" href="a02434.html">FlatInterLeavedBasis&lt;B&gt;</a>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Basis&gt;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a02439.html">  137</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02439.html">BlockedInterLeavedBasis</a> = <span class="keyword">requires</span> {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    std::is_same_v&lt;typename Basis::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::BlockedInterleaved&gt;;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  };</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> B&gt;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="a02440.html">  150</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02440.html">BlockedLexicographicBasis</a> = <span class="keyword">requires</span> {</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    std::is_same_v&lt;typename B::PreBasis::IndexMergingStrategy, Dune::Functions::BasisFactory::BlockedLexicographic&gt;;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  };</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> DLB&gt;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="a02441.html">  160</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02441.html">DuneLocalBasis</a> = <span class="keyword">requires</span>(DLB&amp; duneLocalBasis) {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keyword">typename</span> DLB::Traits::RangeType;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keyword">typename</span> DLB::Traits::JacobianType;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    DLB::Traits::dimDomain;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">typename</span> DLB::Traits::DomainType;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keyword">typename</span> DLB::Traits::DomainFieldType;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keyword">typename</span> DLB::Traits::RangeFieldType;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    duneLocalBasis.evaluateFunction(std::declval&lt;typename DLB::Traits::DomainType&gt;(),</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                                    std::declval&lt;std::vector&lt;typename DLB::Traits::RangeType&gt;&amp;&gt;());</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    duneLocalBasis.evaluateJacobian(std::declval&lt;typename DLB::Traits::DomainType&gt;(),</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                                    std::declval&lt;std::vector&lt;typename DLB::Traits::JacobianType&gt;&amp;&gt;());</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>  };</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> B&gt;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="a02442.html">  185</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02442.html">BlockedIndexBasis</a> = <a class="code hl_concept" href="a02440.html">BlockedLexicographicBasis&lt;B&gt;</a> or <a class="code hl_concept" href="a02439.html">BlockedInterLeavedBasis&lt;B&gt;</a>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> PF, <span class="keyword">typename</span> NLS, <span class="keyword">typename</span> SA&gt;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="a02443.html">  195</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02443.html">PathFollowingStrategy</a> = <span class="keyword">requires</span>(PF pft, NLS nls, SA args, <span class="keyword">typename</span> NLS::Domain req) {</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    { pft(req, nls, args) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    { pft.initialPrediction(req, nls, args) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    { pft.intermediatePrediction(req, nls, args) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>  };</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ASS, <span class="keyword">typename</span> NLSI, <span class="keyword">typename</span> SA, <span class="keyword">typename</span> DifferentiableFunction&gt;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno"><a class="line" href="a02444.html">  210</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02444.html">AdaptiveStepSizingStrategy</a> =</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>      <span class="keyword">requires</span>(ASS adaptiveStepSizing, NLSI info, SA args, DifferentiableFunction nop) {</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        { adaptiveStepSizing(info, args, nop) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        { adaptiveStepSizing.targetIterations() } -&gt; std::same_as&lt;int&gt;;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        { adaptiveStepSizing.setTargetIterations(std::declval&lt;int&gt;()) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>      };</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> LS, <span class="keyword">typename</span> M, <span class="keyword">typename</span> V&gt;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno"><a class="line" href="a02445.html">  226</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02445.html">LinearSolverCheck</a> = <span class="keyword">requires</span>(LS linearSolver, M A, V vec) {</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    linearSolver.analyzePattern(A);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    linearSolver.factorize(A);</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    linearSolver.solve(vec, vec);</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>  };</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> NLS&gt;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="a02446.html">  240</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02446.html">NonLinearSolverCheckForPathFollowing</a> = <span class="keyword">requires</span> {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    not(std::is_same_v&lt;typename NLS::DifferentiableFunction::Domain, double&gt; and</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        ((traits::isSpecializationTypeAndNonTypes&lt;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>             Eigen::Matrix, <span class="keyword">typename</span> NLS::DifferentiableFunction::Traits::template Range&lt;1&gt;&gt;::value) or</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>         (traits::isSpecializationTypeNonTypeAndType&lt;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>             Eigen::SparseMatrix, <span class="keyword">typename</span> NLS::DifferentiableFunction::Traits::template Range&lt;1&gt;&gt;::value)));</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>  };</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> L, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="a02447.html">  256</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02447.html">MultiplyAble</a> = <span class="keyword">requires</span>(L x, R y) { x* y; };</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> L, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="a02448.html">  266</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02448.html">AddAble</a> = <span class="keyword">requires</span>(L x, R y) { x + y; };</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> L, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno"><a class="line" href="a02449.html">  276</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02449.html">SubstractAble</a> = <span class="keyword">requires</span>(L x, R y) { x - y; };</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> L, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno"><a class="line" href="a02450.html">  287</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02450.html">MultiplyAssignAble</a> = <span class="keyword">requires</span>(L x, R y) { x *= y; };</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> L, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno"><a class="line" href="a02451.html">  298</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02451.html">DivideAssignAble</a> = <span class="keyword">requires</span>(L x, R y) { x /= y; };</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> L, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno"><a class="line" href="a02452.html">  309</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02452.html">AddAssignAble</a> = <span class="keyword">requires</span>(L x, R y) { x += y; };</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> L, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno"><a class="line" href="a02453.html">  320</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02453.html">SubstractAssignAble</a> = <span class="keyword">requires</span>(L x, R y) { x -= y; };</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> L, <span class="keyword">typename</span> R&gt;</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno"><a class="line" href="a02454.html">  330</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02454.html">DivideAble</a> = <span class="keyword">requires</span>(L x, R y) { x / y; };</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> L&gt;</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno"><a class="line" href="a02455.html">  339</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02455.html">NegateAble</a> = <span class="keyword">requires</span>(L x) { -x; };</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> L&gt;</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno"><a class="line" href="a02456.html">  348</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02456.html">TransposeAble</a> = <span class="keyword">requires</span>(L x) { <a class="code hl_function" href="a00510.html#ac2c6469be19ce4ef2e630bfa1c5a5e24">transpose</a>(x); };</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Op, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno"><a class="line" href="a02457.html">  357</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02457.html">IsFunctorWithArgs</a> = <span class="keyword">requires</span>(Op op, Args... args) { op(args...); };</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> V&gt;</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno"><a class="line" href="a02458.html">  365</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02458.html">EigenVector</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(V::IsVectorAtCompileTime);</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> M&gt;</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno"><a class="line" href="a02459.html">  373</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02459.html">EigenMatrix</a> = traits::isSpecializationTypeAndNonTypes&lt;Eigen::Matrix, M&gt;::value;</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span> </div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> M&gt;</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno"><a class="line" href="a02460.html">  381</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02460.html">SparseEigenMatrix</a> = traits::isSpecializationTypeNonTypeAndType&lt;Eigen::SparseMatrix, M&gt;::value;</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span> </div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> M&gt;</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno"><a class="line" href="a02461.html">  389</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02461.html">DenseOrSparseEigenMatrix</a> = <a class="code hl_concept" href="a02460.html">SparseEigenMatrix&lt;M&gt;</a> or <a class="code hl_concept" href="a02459.html">EigenMatrix&lt;M&gt;</a>;</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span> </div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno"><a class="line" href="a03559.html#ac8757039febcebb4741b376dc8258d6d">  391</a></span><span class="preprocessor">#define MAKE_EIGEN_FIXED_VECTOR_CONCEPT(Size) \</span></div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="preprocessor">  template &lt;typename V&gt;                       \</span></div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span><span class="preprocessor">  concept EigenVector##Size =                 \</span></div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span><span class="preprocessor">      static_cast&lt;bool&gt;(V::IsVectorAtCompileTime) and static_cast&lt;bool&gt;(V::SizeAtCompileTime == Size);</span></div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span> </div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>  <a class="code hl_define" href="a03559.html#ac8757039febcebb4741b376dc8258d6d">MAKE_EIGEN_FIXED_VECTOR_CONCEPT</a>(1)</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>  <a class="code hl_define" href="a03559.html#ac8757039febcebb4741b376dc8258d6d">MAKE_EIGEN_FIXED_VECTOR_CONCEPT</a>(2)</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>  <a class="code hl_define" href="a03559.html#ac8757039febcebb4741b376dc8258d6d">MAKE_EIGEN_FIXED_VECTOR_CONCEPT</a>(3)</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>  <a class="code hl_define" href="a03559.html#ac8757039febcebb4741b376dc8258d6d">MAKE_EIGEN_FIXED_VECTOR_CONCEPT</a>(4)</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>  <a class="code hl_define" href="a03559.html#ac8757039febcebb4741b376dc8258d6d">MAKE_EIGEN_FIXED_VECTOR_CONCEPT</a>(5)</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>  <a class="code hl_define" href="a03559.html#ac8757039febcebb4741b376dc8258d6d">MAKE_EIGEN_FIXED_VECTOR_CONCEPT</a>(6)</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span> </div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno"><a class="line" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">  403</a></span><span class="preprocessor">#define MAKE_EIGEN_FIXED_MATRIX_CONCEPT(Size1, Size2)                                                           \</span></div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span><span class="preprocessor">  template &lt;typename M&gt;                                                                                         \</span></div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span><span class="preprocessor">  concept EigenMatrix##Size1##Size2 = static_cast&lt;bool&gt;(std::remove_cvref_t&lt;M&gt;::RowsAtCompileTime == Size1) and \</span></div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span><span class="preprocessor">                                      static_cast&lt;bool&gt;(std::remove_cvref_t&lt;M&gt;::ColsAtCompileTime == Size2);</span></div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span> </div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(1, 1)</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span> </div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(1, 2)</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(2, 2)</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span> </div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(1, 3)</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(2, 3)</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(3, 2)</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(3, 3)</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span> </div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(1, 4)</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(2, 4)</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(3, 4)</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(4, 2)</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(4, 3)</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(4, 4)</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span> </div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(1, 5)</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(2, 5)</div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(3, 5)</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(4, 5)</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(5, 2)</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(5, 3)</div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(5, 4)</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(5, 5)</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span> </div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(1, 6)</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(2, 6)</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(3, 6)</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(4, 6)</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(5, 6)</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(6, 2)</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(6, 3)</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(6, 4)</div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(6, 5)</div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>  <a class="code hl_define" href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a>(6, 6)</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span> </div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno"><a class="line" href="a03559.html#aba360f830591dbc713b7fa692d614101">  445</a></span><span class="preprocessor">#define MAKE_EIGEN_FIXED_MATRIX_OR_VOIGT_CONCEPT(Size1, Size2) \</span></div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span><span class="preprocessor">  template &lt;typename M&gt;                                        \</span></div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span><span class="preprocessor">  concept EigenMatrixOrVoigtNotation##Size1 = EigenMatrix##Size1##Size1&lt;M&gt; or EigenVector##Size2&lt;M&gt;;</span></div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span> </div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>  <a class="code hl_define" href="a03559.html#aba360f830591dbc713b7fa692d614101">MAKE_EIGEN_FIXED_MATRIX_OR_VOIGT_CONCEPT</a>(1, 1)</div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>  <a class="code hl_define" href="a03559.html#aba360f830591dbc713b7fa692d614101">MAKE_EIGEN_FIXED_MATRIX_OR_VOIGT_CONCEPT</a>(2, 3)</div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>  <a class="code hl_define" href="a03559.html#aba360f830591dbc713b7fa692d614101">MAKE_EIGEN_FIXED_MATRIX_OR_VOIGT_CONCEPT</a>(3, 6)</div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span> </div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>  namespace Impl {</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>    <span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>...&gt; <span class="keyword">class </span>MaterialToCheck, <span class="keyword">typename</span> Material&gt;</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>    <span class="keyword">consteval</span> <span class="keywordtype">bool</span> isMaterial() {</div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (traits::isSpecialization&lt;MaterialToCheck, Material&gt;::value)</div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span> </div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (Material::isReduced) {</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (traits::isSpecialization&lt;MaterialToCheck, typename Material::Underlying&gt;::value) {</div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>          <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>          <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>        }</div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>      } <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>    }</div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>  } <span class="comment">// namespace Impl</span></div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span> </div>
+<div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span>  <span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>...&gt; <span class="keyword">class </span>MaterialToCheck, <span class="keyword">typename</span> <a class="code hl_enumvalue" href="a00499.html#gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206">Material</a>&gt;</div>
+<div class="line"><a id="l00483" name="l00483"></a><span class="lineno"><a class="line" href="a02462.html">  483</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02462.html">IsMaterial</a> = Impl::isMaterial&lt;MaterialToCheck, Material&gt;();</div>
+<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span> </div>
+<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>  <span class="keyword">namespace </span>Impl {</div>
+<div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span>    <span class="keyword">concept </span><a class="code hl_concept" href="a02464.html">ResultType</a> = <span class="keyword">requires</span>(T t) {</div>
+<div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span>      <span class="keyword">typename</span> T::type;                             <span class="comment">// The nested type &#39;type&#39;</span></div>
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>      <span class="keyword">typename</span> T::Vectorizer;                       <span class="comment">// The nested type &#39;Vectorizer&#39;</span></div>
+<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span>      <span class="keyword">typename</span> T::Matricizer;                       <span class="comment">// The nested type &#39;Matricizer&#39;</span></div>
+<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>      { <a class="code hl_function" href="a00510.html#aef80b6b5b45dcfbea4f722f51a84f53f">toString</a>(t) } -&gt; std::same_as&lt;std::string&gt;; <span class="comment">// The toString function</span></div>
+<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span>    };</div>
+<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span>  } <span class="comment">// namespace Impl</span></div>
+<div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span> </div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>  <span class="keyword">template</span> &lt;<span class="keyword">template</span> &lt;<span class="keyword">typename</span>, <span class="keywordtype">int</span>, <span class="keywordtype">int</span>&gt; <span class="keyword">typename</span> RT&gt;</div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno"><a class="line" href="a02464.html">  505</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02464.html">ResultType</a> =</div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>      Impl::ResultType&lt;RT&lt;double, 1, 1&gt;&gt; or Impl::ResultType&lt;RT&lt;double, 1, 2&gt;&gt; or Impl::ResultType&lt;RT&lt;double, 1, 3&gt;&gt; or</div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>      Impl::ResultType&lt;RT&lt;double, 2, 3&gt;&gt; or Impl::ResultType&lt;RT&lt;double, 3, 3&gt;&gt;;</div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span> </div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno"><a class="line" href="a02465.html">  517</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02465.html">FlatAssembler</a> = <span class="keyword">requires</span>(T t, <span class="keyword">const</span> <span class="keyword">typename</span> T::FERequirement&amp; req,</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>                                   <span class="keyword">typename</span> T::AffordanceCollectionType affordance, <a class="code hl_enumeration" href="a00510.html#a9f83fad9f4c149f249165a13f2370eec">DBCOption</a> dbcOption) {</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    { t.requirement() } -&gt; std::convertible_to&lt;const typename T::FERequirement&amp;&gt;;</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    { t.affordanceCollection() } -&gt; std::convertible_to&lt;typename T::AffordanceCollectionType&gt;;</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    { t.dBCOption() } -&gt; std::convertible_to&lt;DBCOption&gt;;</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span> </div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    { t.bind(req, affordance, dbcOption) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    { t.bind(req) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    { t.bind(affordance) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>    { t.bind(dbcOption) } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span> </div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>    { t.bound() } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    { t.boundToRequirement() } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>    { t.boundToAffordanceCollection() } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    { t.boundToDBCOption() } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    { t.estimateOfConnectivity() } -&gt; std::convertible_to&lt;size_t&gt;;</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span> </div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    { t.createFullVector(std::declval&lt;Eigen::Ref&lt;const Eigen::VectorXd&gt;&gt;()) } -&gt; std::convertible_to&lt;Eigen::VectorXd&gt;;</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>    { t.constraintsBelow(std::declval&lt;size_t&gt;()) } -&gt; std::convertible_to&lt;size_t&gt;;</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>    { t.isConstrained(std::declval&lt;size_t&gt;()) } -&gt; std::convertible_to&lt;bool&gt;;</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    { t.size() } -&gt; std::convertible_to&lt;size_t&gt;;</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    { t.reducedSize() } -&gt; std::convertible_to&lt;size_t&gt;;</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>  };</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span> </div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno"><a class="line" href="a02466.html">  548</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02466.html">ScalarFlatAssembler</a> =</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>      <a class="code hl_concept" href="a02465.html">Concepts::FlatAssembler&lt;T&gt;</a> and <span class="keyword">requires</span>(T t, <span class="keyword">const</span> <span class="keyword">typename</span> T::FERequirement&amp; req,</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>                                              <span class="keyword">typename</span> T::AffordanceCollectionType affordance, <a class="code hl_enumeration" href="a00510.html#a9f83fad9f4c149f249165a13f2370eec">DBCOption</a> dbcOption) {</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>        { t.scalar(req, affordance.scalarAffordance()) } -&gt; std::convertible_to&lt;const double&amp;&gt;;</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>        { t.scalar() } -&gt; std::convertible_to&lt;const double&amp;&gt;;</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>      };</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span> </div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno"><a class="line" href="a02467.html">  562</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02467.html">VectorFlatAssembler</a> = <a class="code hl_concept" href="a02466.html">Concepts::ScalarFlatAssembler&lt;T&gt;</a> and</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>                                <span class="keyword">requires</span>(T t, <span class="keyword">const</span> <span class="keyword">typename</span> T::FERequirement&amp; req,</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>                                         <span class="keyword">typename</span> T::AffordanceCollectionType affordance, <a class="code hl_enumeration" href="a00510.html#a9f83fad9f4c149f249165a13f2370eec">DBCOption</a> dbcOption) {</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>                                  {</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>                                    t.vector(req, affordance.vectorAffordance(), dbcOption)</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>                                  } -&gt; std::convertible_to&lt;const Eigen::VectorXd&amp;&gt;;</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>                                  { t.vector(dbcOption) } -&gt; std::convertible_to&lt;const Eigen::VectorXd&amp;&gt;;</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>                                  { t.vector() } -&gt; std::convertible_to&lt;const Eigen::VectorXd&amp;&gt;;</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>                                };</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span> </div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno"><a class="line" href="a02468.html">  579</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02468.html">MatrixFlatAssembler</a> = <a class="code hl_concept" href="a02467.html">Concepts::VectorFlatAssembler&lt;T&gt;</a> and</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>                                <span class="keyword">requires</span>(T t, <span class="keyword">const</span> <span class="keyword">typename</span> T::FERequirement&amp; req,</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>                                         <span class="keyword">typename</span> T::AffordanceCollectionType affordance, <a class="code hl_enumeration" href="a00510.html#a9f83fad9f4c149f249165a13f2370eec">DBCOption</a> dbcOption) {</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>                                  { t.matrix(req, affordance.matrixAffordance(), dbcOption) };</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>                                  { t.matrix(dbcOption) };</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>                                  { t.matrix() };</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>                                };</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span> </div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>  <span class="comment">// adapted from /dune/dune-vtk/dune/vtk/utility/concepts.hh</span></div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>  <span class="keyword">template</span> &lt;<span class="keyword">class</span> DC&gt;</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno"><a class="line" href="a02469.html">  589</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02469.html">DataCollector</a> = <span class="keyword">requires</span>(DC dc) {</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>    <span class="keyword">typename</span> DC::GridView;</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    { dc.update() } -&gt; std::same_as&lt;void&gt;;</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    { dc.numPoints() } -&gt; std::convertible_to&lt;std::uint64_t&gt;;</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    { dc.numCells() } -&gt; std::convertible_to&lt;std::uint64_t&gt;;</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    { dc.gridView() } -&gt; std::same_as&lt;const typename DC::GridView&amp;&gt;;</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>  };</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span> </div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>  <span class="keyword">template</span> &lt;<span class="keyword">class</span> GV&gt;</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno"><a class="line" href="a02470.html">  598</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02470.html">GridView</a> = <span class="keyword">requires</span>(GV g) {</div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>    <span class="keyword">typename</span> GV::Grid;</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>    GV::dimension;</div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>    GV::dimensionworld;</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span> </div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    { g.grid() };</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>  };</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span> </div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>  <span class="keyword">namespace </span>Impl {</div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>    <span class="keyword">struct </span>is_dual : std::false_type</div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    {</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>    };</div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span> </div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    <span class="comment">// Specialization for Dual&lt;T, U&gt;: this will be true for Dual types</span></div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    <span class="keyword">struct </span>is_dual&lt;autodiff::detail::Dual&lt;T, U&gt;&gt; : std::true_type</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    {</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    };</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>  } <span class="comment">// namespace Impl</span></div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span> </div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno"><a class="line" href="a02471.html">  625</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02471.html">AutodiffScalar</a> = Impl::is_dual&lt;T&gt;::value;</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span> </div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno"><a class="line" href="a02472.html">  633</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02472.html">SmartPointer</a> = traits::isSharedPtr&lt;T&gt;::value || traits::isUniquePtr&lt;T&gt;::value;</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span> </div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno"><a class="line" href="a02473.html">  641</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02473.html">PointerOrSmartPointer</a> = <a class="code hl_concept" href="a02472.html">SmartPointer&lt;T&gt;</a> || <a class="code hl_concept" href="a02483.html">traits::Pointer&lt;T&gt;</a>;</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span> </div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> S&gt;</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno"><a class="line" href="a02474.html">  649</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02474.html">ControlRoutineState</a> = <span class="keyword">requires</span>(S s) {</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>    <span class="keyword">typename</span> S::Domain;</div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span> </div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>    { s.information } -&gt; std::same_as&lt;const ControlInformation&amp;&gt;;</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    { s.loadStep } -&gt; std::convertible_to&lt;int&gt;;</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>    { s.stepSize } -&gt; std::convertible_to&lt;double&gt;;</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    { s.domain } -&gt; std::same_as&lt;const typename S::Domain&amp;&gt;;</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>  };</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span> </div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> S&gt;</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno"><a class="line" href="a02475.html">  664</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02475.html">NonLinearSolverState</a> = <span class="keyword">requires</span>(S s) {</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>    <span class="keyword">typename</span> S::Domain;</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>    <span class="keyword">typename</span> S::CorrectionType;</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span> </div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>    { s.information } -&gt; std::same_as&lt;const NonLinearSolverInformation&amp;&gt;;</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>    { s.domain } -&gt; std::same_as&lt;const typename S::Domain&amp;&gt;;</div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>    { s.correction } -&gt; std::same_as&lt;const typename S::CorrectionType&amp;&gt;;</div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>  };</div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span> </div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>  <span class="keyword">template</span> &lt;StrainTags tag&gt;</div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno"><a class="line" href="a02476.html">  677</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02476.html">ReferenceConfiguraionStrain</a> = (tag == <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">StrainTags::greenLagrangian</a>) or</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>                                        (tag == <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8faea40a9960a7a89c4f366beeab85d07d2">StrainTags::rightCauchyGreenTensor</a>) or (tag == <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">StrainTags::linear</a>);</div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span> </div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>  <span class="keyword">template</span> &lt;StressTags tag&gt;</div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno"><a class="line" href="a02477.html">  684</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02477.html">ReferenceConfiguraionStress</a> = (tag == <a class="code hl_enumvalue" href="a00499.html#gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21">StressTags::PK2</a>) or (tag == <a class="code hl_enumvalue" href="a00499.html#gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa">StressTags::linear</a>);</div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span> </div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno"><a class="line" href="a00534.html">  686</a></span>  <span class="keyword">namespace </span>Formulations {</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>    <span class="keyword">template</span> &lt;StrainTags T1, StressTags T2&gt;</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno"><a class="line" href="a02478.html">  694</a></span>    <span class="keyword">concept </span><a class="code hl_concept" href="a02478.html">TotalLagrangian</a> = (T1 == <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">StrainTags::linear</a> and T2 == <a class="code hl_enumvalue" href="a00499.html#gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa">StressTags::linear</a>) or</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>                              (T1 == <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">StrainTags::greenLagrangian</a> and T2 == <a class="code hl_enumvalue" href="a00499.html#gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21">StressTags::PK2</a>);</div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span> </div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>    <span class="keyword">template</span> &lt;StrainTags T1, StressTags T2&gt;</div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno"><a class="line" href="a02479.html">  704</a></span>    <span class="keyword">concept </span><a class="code hl_concept" href="a02479.html">TwoPoint</a> =</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>        (T1 == <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa61fc106262d2e2049866894bb4f862a5">StrainTags::deformationGradient</a> or T1 == <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa0eb1f1f7a6a355c2f4260b74c21d80f3">StrainTags::displacementGradient</a>) and T2 == <a class="code hl_enumvalue" href="a00499.html#gga70b4ce43c53cc5e949d49919f437501eac34dd77ffb9238275b93ea1897664a7e">StressTags::PK1</a>;</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>  } <span class="comment">// namespace Formulations</span></div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span> </div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> M&gt;</div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno"><a class="line" href="a02480.html">  715</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02480.html">Material</a> = <span class="keyword">requires</span>(M m, Eigen::Matrix3d C) {</div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>    M::strainTag;</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>    M::stressTag;</div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>    M::tangentModuliTag;</div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>    M::derivativeFactor;</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>    M::isReduced;</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span> </div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>    <span class="keyword">typename</span> M::ScalarType;</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span> </div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>    { m.name() } -&gt; std::convertible_to&lt;std::string&gt;;</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>    { m.materialParameters() } -&gt; std::same_as&lt;typename M::MaterialParameters&gt;;</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>    { m.template storedEnergy&lt;M::strainTag&gt;(C) } -&gt; std::same_as&lt;typename M::ScalarType&gt;;</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>    { m.template stresses&lt;M::strainTag&gt;(C) };</div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>    { m.template tangentModuli&lt;M::strainTag&gt;(C) };</div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>  };</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span> </div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> MAT&gt;</div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno"><a class="line" href="a02481.html">  738</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02481.html">GeometricallyLinearMaterial</a> = <a class="code hl_concept" href="a02480.html">Material&lt;MAT&gt;</a> &amp;&amp; (MAT::strainTag == <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">StrainTags::linear</a>);</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span> </div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ES&gt;</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno"><a class="line" href="a02482.html">  747</a></span>  <span class="keyword">concept </span><a class="code hl_concept" href="a02482.html">EigenValueSolver</a> = <span class="keyword">requires</span>(ES es) {</div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>    <span class="keyword">typename</span> ES::MatrixType;</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>    <span class="keyword">typename</span> ES::ScalarType;</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>    { es.compute() } -&gt; std::same_as&lt;bool&gt;;</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>    { es.eigenvalues() } -&gt; std::convertible_to&lt;Eigen::VectorX&lt;typename ES::ScalarType&gt;&gt;;</div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>    { es.eigenvectors() } -&gt; std::convertible_to&lt;Eigen::MatrixX&lt;typename ES::ScalarType&gt;&gt;;</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>    { es.nev() } -&gt; std::convertible_to&lt;int&gt;;</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>  };</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span> </div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>} <span class="comment">// namespace Concepts</span></div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span> </div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno"><a class="line" href="a00535.html">  758</a></span><span class="keyword">namespace </span>traits {</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span><span class="preprocessor">#ifndef DOXYGEN</span></div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span> </div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>  <span class="comment">// Primary template: for non-pointer types.</span></div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keywordtype">bool</span> = Concepts::Po<span class="keywordtype">int</span>erOrSmartPo<span class="keywordtype">int</span>er&lt;T&gt;&gt;</div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>  <span class="keyword">struct </span>MaybeDereference</div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>  {</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    <span class="keyword">using </span>type = T;</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>  };</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span> </div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>  <span class="comment">// Specialization: for pointer (or smart pointer) types.</span></div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>  <span class="keyword">struct </span>MaybeDereference&lt;T, true&gt;</div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>  {</div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>    <span class="comment">// We know T is pointer-like, so *std::declval&lt;T&amp;&gt;() is well-formed.</span></div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>    <span class="keyword">using </span>type = std::remove_reference_t&lt;decltype(*std::declval&lt;T&amp;&gt;())&gt;;</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>  };</div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span> </div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno"><a class="line" href="a00535.html#ac043159fa5129b78437c4cc7616ce706">  778</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a00535.html#ac043159fa5129b78437c4cc7616ce706">MaybeDereferencedType</a> = <span class="keyword">typename</span> MaybeDereference&lt;T&gt;::type;</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span> </div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>} <span class="comment">// namespace traits</span></div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span> </div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>} <span class="comment">// namespace Ikarus</span></div>
+<div class="ttc" id="aa00011_html"><div class="ttname"><a href="a00011.html">traits.hh</a></div><div class="ttdoc">Contains stl-like type traits.</div></div>
+<div class="ttc" id="aa00224_html"><div class="ttname"><a href="a00224.html">dirichletbcenforcement.hh</a></div></div>
+<div class="ttc" id="aa00377_html"><div class="ttname"><a href="a00377.html">tags.hh</a></div><div class="ttdoc">Definition of several material related enums.</div></div>
+<div class="ttc" id="aa00499_html_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206"><div class="ttname"><a href="a00499.html#gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206">Ikarus::TangentModuliTags::Material</a></div><div class="ttdeci">@ Material</div></div>
+<div class="ttc" id="aa00499_html_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa"><div class="ttname"><a href="a00499.html#gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa">Ikarus::StressTags::linear</a></div><div class="ttdeci">@ linear</div></div>
+<div class="ttc" id="aa00499_html_gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21"><div class="ttname"><a href="a00499.html#gga70b4ce43c53cc5e949d49919f437501eab13248d68ac5516c015337b68346fc21">Ikarus::StressTags::PK2</a></div><div class="ttdeci">@ PK2</div></div>
+<div class="ttc" id="aa00499_html_gga70b4ce43c53cc5e949d49919f437501eac34dd77ffb9238275b93ea1897664a7e"><div class="ttname"><a href="a00499.html#gga70b4ce43c53cc5e949d49919f437501eac34dd77ffb9238275b93ea1897664a7e">Ikarus::StressTags::PK1</a></div><div class="ttdeci">@ PK1</div></div>
+<div class="ttc" id="aa00499_html_ggacef1e451de1a99845c59d7391064fb8fa0eb1f1f7a6a355c2f4260b74c21d80f3"><div class="ttname"><a href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa0eb1f1f7a6a355c2f4260b74c21d80f3">Ikarus::StrainTags::displacementGradient</a></div><div class="ttdeci">@ displacementGradient</div></div>
+<div class="ttc" id="aa00499_html_ggacef1e451de1a99845c59d7391064fb8fa61fc106262d2e2049866894bb4f862a5"><div class="ttname"><a href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa61fc106262d2e2049866894bb4f862a5">Ikarus::StrainTags::deformationGradient</a></div><div class="ttdeci">@ deformationGradient</div></div>
+<div class="ttc" id="aa00499_html_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa"><div class="ttname"><a href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">Ikarus::StrainTags::linear</a></div><div class="ttdeci">@ linear</div></div>
+<div class="ttc" id="aa00499_html_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e"><div class="ttname"><a href="a00499.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">Ikarus::StrainTags::greenLagrangian</a></div><div class="ttdeci">@ greenLagrangian</div></div>
+<div class="ttc" id="aa00499_html_ggacef1e451de1a99845c59d7391064fb8faea40a9960a7a89c4f366beeab85d07d2"><div class="ttname"><a href="a00499.html#ggacef1e451de1a99845c59d7391064fb8faea40a9960a7a89c4f366beeab85d07d2">Ikarus::StrainTags::rightCauchyGreenTensor</a></div><div class="ttdeci">@ rightCauchyGreenTensor</div></div>
+<div class="ttc" id="aa00510_html"><div class="ttname"><a href="a00510.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
+<div class="ttc" id="aa00510_html_a9f83fad9f4c149f249165a13f2370eec"><div class="ttname"><a href="a00510.html#a9f83fad9f4c149f249165a13f2370eec">Ikarus::DBCOption</a></div><div class="ttdeci">DBCOption</div><div class="ttdef"><b>Definition:</b> dirichletbcenforcement.hh:8</div></div>
+<div class="ttc" id="aa00510_html_ac2c6469be19ce4ef2e630bfa1c5a5e24"><div class="ttname"><a href="a00510.html#ac2c6469be19ce4ef2e630bfa1c5a5e24">Ikarus::transpose</a></div><div class="ttdeci">auto transpose(const Eigen::EigenBase&lt; Derived &gt; &amp;A)</div></div>
 <div class="ttc" id="aa00510_html_aef80b6b5b45dcfbea4f722f51a84f53f"><div class="ttname"><a href="a00510.html#aef80b6b5b45dcfbea4f722f51a84f53f">Ikarus::toString</a></div><div class="ttdeci">constexpr std::string toString(DBCOption _e)</div><div class="ttdef"><b>Definition:</b> dirichletbcenforcement.hh:8</div></div>
-<div class="ttc" id="aa00525_html_a6b54a4966e54b45e51358c7b7877a5b5"><div class="ttname"><a href="a00525.html#a6b54a4966e54b45e51358c7b7877a5b5">Ikarus::Vtk::Writer</a></div><div class="ttdeci">Writer(std::shared_ptr&lt; AS &gt;, Args...) -&gt; Writer&lt; AS, typename DefaultVTKWriterManager&lt; typename AS::GridView &gt;::DefaultDataCollector, typename DefaultVTKWriterManager&lt; typename AS::GridView &gt;::template DefaultVTKWriter&lt;&gt; &gt;</div></div>
-<div class="ttc" id="aa00525_html_af59748ac04116ae85cd64ea8675d273b"><div class="ttname"><a href="a00525.html#af59748ac04116ae85cd64ea8675d273b">Ikarus::Vtk::DataTag</a></div><div class="ttdeci">DataTag</div><div class="ttdoc">Tag enum indicating cell data or point data.</div><div class="ttdef"><b>Definition:</b> vtkdatatag.hh:13</div></div>
-<div class="ttc" id="aa00525_html_af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b"><div class="ttname"><a href="a00525.html#af59748ac04116ae85cd64ea8675d273ba68cd52d11d0547e9fa755ed70680591b">Ikarus::Vtk::DataTag::asPointData</a></div><div class="ttdeci">@ asPointData</div></div>
-<div class="ttc" id="aa00529_html"><div class="ttname"><a href="a00529.html">Ikarus::Python</a></div><div class="ttdef"><b>Definition:</b> flatassembler.hh:21</div></div>
-<div class="ttc" id="aa01506_html"><div class="ttname"><a href="a01506.html">Ikarus::FE</a></div><div class="ttdoc">FE class is a base class for all finite elements.</div><div class="ttdef"><b>Definition:</b> febase.hh:79</div></div>
-<div class="ttc" id="aa01946_html_ada59c15363d83f6e635ecd6e1672d6a4"><div class="ttname"><a href="a01946.html#ada59c15363d83f6e635ecd6e1672d6a4">Ikarus::FEMixin&lt; PreFE, Skills... &gt;::SupportedResultTypes</a></div><div class="ttdeci">decltype(std::tuple_cat(computeSupportedResultTypes&lt; Skills...&lt; PreFE, typename PreFE::template FE&lt; Skills... ... &gt; &gt; &gt;()...)) SupportedResultTypes</div><div class="ttdoc">Type alias for the supported result types by the mixin.</div><div class="ttdef"><b>Definition:</b> mixin.hh:69</div></div>
-<div class="ttc" id="aa03556_html"><div class="ttname"><a href="a03556.html">vtkwriter.hh</a></div><div class="ttdoc">Ikarus VTK Writer for finite element results.</div></div>
+<div class="ttc" id="aa00527_html"><div class="ttname"><a href="a00527.html">Eigen</a></div><div class="ttdef"><b>Definition:</b> truncatedconjugategradient.hh:24</div></div>
+<div class="ttc" id="aa00535_html_ac043159fa5129b78437c4cc7616ce706"><div class="ttname"><a href="a00535.html#ac043159fa5129b78437c4cc7616ce706">Ikarus::traits::MaybeDereferencedType</a></div><div class="ttdeci">typename MaybeDereference&lt; T &gt;::type MaybeDereferencedType</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:778</div></div>
+<div class="ttc" id="aa02210_html"><div class="ttname"><a href="a02210.html">Eigen::EigenBase</a></div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:30</div></div>
+<div class="ttc" id="aa02433_html"><div class="ttname"><a href="a02433.html">Ikarus::Concepts::EigenType</a></div><div class="ttdoc">Concept to check if a type is derived from Eigen::MatrixBase.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:49</div></div>
+<div class="ttc" id="aa02434_html"><div class="ttname"><a href="a02434.html">Ikarus::Concepts::FlatInterLeavedBasis</a></div><div class="ttdoc">Concept to check if a basis uses FlatInterleaved indexing strategy.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:60</div></div>
+<div class="ttc" id="aa02435_html"><div class="ttname"><a href="a02435.html">Ikarus::Concepts::LagrangeNode</a></div><div class="ttdoc">Concept to check if a node in a basis tree is a Lagrangian node.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:92</div></div>
+<div class="ttc" id="aa02436_html"><div class="ttname"><a href="a02436.html">Ikarus::Concepts::LagrangeNodeOfOrder</a></div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:102</div></div>
+<div class="ttc" id="aa02437_html"><div class="ttname"><a href="a02437.html">Ikarus::Concepts::FlatLexicographicBasis</a></div><div class="ttdoc">Concept to check if a basis uses FlatLexicographic indexing strategy.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:113</div></div>
+<div class="ttc" id="aa02438_html"><div class="ttname"><a href="a02438.html">Ikarus::Concepts::FlatIndexBasis</a></div><div class="ttdoc">Concept to check if a basis uses FlatIndex indexing strategy.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:126</div></div>
+<div class="ttc" id="aa02439_html"><div class="ttname"><a href="a02439.html">Ikarus::Concepts::BlockedInterLeavedBasis</a></div><div class="ttdoc">Concept to check if a basis uses BlockedInterleaved indexing strategy.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:137</div></div>
+<div class="ttc" id="aa02440_html"><div class="ttname"><a href="a02440.html">Ikarus::Concepts::BlockedLexicographicBasis</a></div><div class="ttdoc">Concept to check if a basis uses BlockedLexicographic indexing strategy.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:150</div></div>
+<div class="ttc" id="aa02441_html"><div class="ttname"><a href="a02441.html">Ikarus::Concepts::DuneLocalBasis</a></div><div class="ttdoc">Concept to check if a local basis is a duneLocalBasis.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:160</div></div>
+<div class="ttc" id="aa02442_html"><div class="ttname"><a href="a02442.html">Ikarus::Concepts::BlockedIndexBasis</a></div><div class="ttdoc">Concept to check if a basis uses either BlockedLexicographic or BlockedInterleaved indexing strategy.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:185</div></div>
+<div class="ttc" id="aa02443_html"><div class="ttname"><a href="a02443.html">Ikarus::Concepts::PathFollowingStrategy</a></div><div class="ttdoc">Concept defining the requirements for a path-following strategy.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:195</div></div>
+<div class="ttc" id="aa02444_html"><div class="ttname"><a href="a02444.html">Ikarus::Concepts::AdaptiveStepSizingStrategy</a></div><div class="ttdoc">Concept to check if a type implements all the needed functions to be an adaptive step sizing method.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:210</div></div>
+<div class="ttc" id="aa02445_html"><div class="ttname"><a href="a02445.html">Ikarus::Concepts::LinearSolverCheck</a></div><div class="ttdoc">Concept to check if a linear solver implements all the needed functions for given vector and matrix t...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:226</div></div>
+<div class="ttc" id="aa02446_html"><div class="ttname"><a href="a02446.html">Ikarus::Concepts::NonLinearSolverCheckForPathFollowing</a></div><div class="ttdoc">Concept to check if a non-linear solver with its non-linear operator satisfies requirements for path ...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:240</div></div>
+<div class="ttc" id="aa02447_html"><div class="ttname"><a href="a02447.html">Ikarus::Concepts::MultiplyAble</a></div><div class="ttdoc">Concept defining the requirements for types that support multiplication.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:256</div></div>
+<div class="ttc" id="aa02448_html"><div class="ttname"><a href="a02448.html">Ikarus::Concepts::AddAble</a></div><div class="ttdoc">Concept defining the requirements for types that support addition.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:266</div></div>
+<div class="ttc" id="aa02449_html"><div class="ttname"><a href="a02449.html">Ikarus::Concepts::SubstractAble</a></div><div class="ttdoc">Concept defining the requirements for types that support subtraction.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:276</div></div>
+<div class="ttc" id="aa02450_html"><div class="ttname"><a href="a02450.html">Ikarus::Concepts::MultiplyAssignAble</a></div><div class="ttdoc">Concept defining the requirements for types that support in-place multiplication.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:287</div></div>
+<div class="ttc" id="aa02451_html"><div class="ttname"><a href="a02451.html">Ikarus::Concepts::DivideAssignAble</a></div><div class="ttdoc">Concept defining the requirements for types that support in-place division.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:298</div></div>
+<div class="ttc" id="aa02452_html"><div class="ttname"><a href="a02452.html">Ikarus::Concepts::AddAssignAble</a></div><div class="ttdoc">Concept defining the requirements for types that support in-place addition.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:309</div></div>
+<div class="ttc" id="aa02453_html"><div class="ttname"><a href="a02453.html">Ikarus::Concepts::SubstractAssignAble</a></div><div class="ttdoc">Concept defining the requirements for types that support in-place subtraction.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:320</div></div>
+<div class="ttc" id="aa02454_html"><div class="ttname"><a href="a02454.html">Ikarus::Concepts::DivideAble</a></div><div class="ttdoc">Concept defining the requirements for types that support division.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:330</div></div>
+<div class="ttc" id="aa02455_html"><div class="ttname"><a href="a02455.html">Ikarus::Concepts::NegateAble</a></div><div class="ttdoc">Concept defining the requirements for types that support negation.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:339</div></div>
+<div class="ttc" id="aa02456_html"><div class="ttname"><a href="a02456.html">Ikarus::Concepts::TransposeAble</a></div><div class="ttdoc">Concept defining the requirements for types that support transposition.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:348</div></div>
+<div class="ttc" id="aa02457_html"><div class="ttname"><a href="a02457.html">Ikarus::Concepts::IsFunctorWithArgs</a></div><div class="ttdoc">Concept defining the requirements for functors with arguments.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:357</div></div>
+<div class="ttc" id="aa02458_html"><div class="ttname"><a href="a02458.html">Ikarus::Concepts::EigenVector</a></div><div class="ttdoc">Concept defining the requirements for Eigen vectors.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:365</div></div>
+<div class="ttc" id="aa02459_html"><div class="ttname"><a href="a02459.html">Ikarus::Concepts::EigenMatrix</a></div><div class="ttdoc">Concept defining the requirements for Eigen matrices. This also includes Eigen vectors.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:373</div></div>
+<div class="ttc" id="aa02460_html"><div class="ttname"><a href="a02460.html">Ikarus::Concepts::SparseEigenMatrix</a></div><div class="ttdoc">Concept defining the requirements for sparse Eigen matrices.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:381</div></div>
+<div class="ttc" id="aa02461_html"><div class="ttname"><a href="a02461.html">Ikarus::Concepts::DenseOrSparseEigenMatrix</a></div><div class="ttdoc">Concept defining the requirements for sparse or dense Eigen matrices.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:389</div></div>
+<div class="ttc" id="aa02462_html"><div class="ttname"><a href="a02462.html">Ikarus::Concepts::IsMaterial</a></div><div class="ttdoc">Concept defining the requirements for a material type.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:483</div></div>
+<div class="ttc" id="aa02464_html"><div class="ttname"><a href="a02464.html">Ikarus::Concepts::ResultType</a></div><div class="ttdoc">A concept to check if a template type satisfies the ResultType requirements.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:505</div></div>
+<div class="ttc" id="aa02465_html"><div class="ttname"><a href="a02465.html">Ikarus::Concepts::FlatAssembler</a></div><div class="ttdoc">Concept representing the requirements for a FlatAssembler.A type T satisfies FlatAssembler if it prov...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:517</div></div>
+<div class="ttc" id="aa02466_html"><div class="ttname"><a href="a02466.html">Ikarus::Concepts::ScalarFlatAssembler</a></div><div class="ttdoc">Concept representing the requirements for a ScalarFlatAssembler.A type T satisfies ScalarFlatAssemble...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:548</div></div>
+<div class="ttc" id="aa02467_html"><div class="ttname"><a href="a02467.html">Ikarus::Concepts::VectorFlatAssembler</a></div><div class="ttdoc">Concept representing the requirements for a VectorFlatAssembler.A type T satisfies VectorFlatAssemble...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:562</div></div>
+<div class="ttc" id="aa02468_html"><div class="ttname"><a href="a02468.html">Ikarus::Concepts::MatrixFlatAssembler</a></div><div class="ttdoc">Concept representing the requirements for a MatrixFlatAssembler.A type T satisfies MatrixFlatAssemble...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:579</div></div>
+<div class="ttc" id="aa02469_html"><div class="ttname"><a href="a02469.html">Ikarus::Concepts::DataCollector</a></div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:589</div></div>
+<div class="ttc" id="aa02470_html"><div class="ttname"><a href="a02470.html">Ikarus::Concepts::GridView</a></div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:598</div></div>
+<div class="ttc" id="aa02471_html"><div class="ttname"><a href="a02471.html">Ikarus::Concepts::AutodiffScalar</a></div><div class="ttdoc">Concept to check if the underlying scalar type is a dual type.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:625</div></div>
+<div class="ttc" id="aa02472_html"><div class="ttname"><a href="a02472.html">Ikarus::Concepts::SmartPointer</a></div><div class="ttdoc">Concept to check if the type is either a unique_ptr or a shared_ptr.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:633</div></div>
+<div class="ttc" id="aa02473_html"><div class="ttname"><a href="a02473.html">Ikarus::Concepts::PointerOrSmartPointer</a></div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:641</div></div>
+<div class="ttc" id="aa02474_html"><div class="ttname"><a href="a02474.html">Ikarus::Concepts::ControlRoutineState</a></div><div class="ttdoc">Concept to check if a type represents a control routine state.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:649</div></div>
+<div class="ttc" id="aa02475_html"><div class="ttname"><a href="a02475.html">Ikarus::Concepts::NonLinearSolverState</a></div><div class="ttdoc">Concept to check if a type represents a nonlinear solver state.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:664</div></div>
+<div class="ttc" id="aa02476_html"><div class="ttname"><a href="a02476.html">Ikarus::Concepts::ReferenceConfiguraionStrain</a></div><div class="ttdoc">Returns true if a given straintag is related only to the reference configuration.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:677</div></div>
+<div class="ttc" id="aa02477_html"><div class="ttname"><a href="a02477.html">Ikarus::Concepts::ReferenceConfiguraionStress</a></div><div class="ttdoc">Returns true if a given stresstag is related only to the reference configuration.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:684</div></div>
+<div class="ttc" id="aa02478_html"><div class="ttname"><a href="a02478.html">Ikarus::Concepts::Formulations::TotalLagrangian</a></div><div class="ttdoc">Concept to check if the underlying strain and stress tag correspond to a total Lagrangian formulation...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:694</div></div>
+<div class="ttc" id="aa02479_html"><div class="ttname"><a href="a02479.html">Ikarus::Concepts::Formulations::TwoPoint</a></div><div class="ttdoc">Concept to check if the underlying strain and stress tag correspond to a two point formulation.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:704</div></div>
+<div class="ttc" id="aa02480_html"><div class="ttname"><a href="a02480.html">Ikarus::Concepts::Material</a></div><div class="ttdoc">Concept representing a material interface.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:715</div></div>
+<div class="ttc" id="aa02481_html"><div class="ttname"><a href="a02481.html">Ikarus::Concepts::GeometricallyLinearMaterial</a></div><div class="ttdoc">Concepts defining the requirements for a material to be geometrically linear This is the case when th...</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:738</div></div>
+<div class="ttc" id="aa02482_html"><div class="ttname"><a href="a02482.html">Ikarus::Concepts::EigenValueSolver</a></div><div class="ttdoc">Concept representing an eigenvalue solver interface.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:747</div></div>
+<div class="ttc" id="aa02483_html"><div class="ttname"><a href="a02483.html">Ikarus::traits::Pointer</a></div><div class="ttdoc">Concept to check if a type is a pointer or nullptr_t.</div><div class="ttdef"><b>Definition:</b> traits.hh:30</div></div>
+<div class="ttc" id="aa03559_html_a5556bdb5e6cc63333c07f9ef487fb478"><div class="ttname"><a href="a03559.html#a5556bdb5e6cc63333c07f9ef487fb478">MAKE_EIGEN_FIXED_MATRIX_CONCEPT</a></div><div class="ttdeci">#define MAKE_EIGEN_FIXED_MATRIX_CONCEPT(Size1, Size2)</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:403</div></div>
+<div class="ttc" id="aa03559_html_aba360f830591dbc713b7fa692d614101"><div class="ttname"><a href="a03559.html#aba360f830591dbc713b7fa692d614101">MAKE_EIGEN_FIXED_MATRIX_OR_VOIGT_CONCEPT</a></div><div class="ttdeci">#define MAKE_EIGEN_FIXED_MATRIX_OR_VOIGT_CONCEPT(Size1, Size2)</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:445</div></div>
+<div class="ttc" id="aa03559_html_ac8757039febcebb4741b376dc8258d6d"><div class="ttname"><a href="a03559.html#ac8757039febcebb4741b376dc8258d6d">MAKE_EIGEN_FIXED_VECTOR_CONCEPT</a></div><div class="ttdeci">#define MAKE_EIGEN_FIXED_VECTOR_CONCEPT(Size)</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:391</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -246,7 +708,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_6063e92d97cad5a47908d6a96069b24d.html">python</a></li><li class="navelem"><a class="el" href="dir_ff4f584412513f878bb5eba63d77a3b8.html">io</a></li><li class="navelem"><a class="el" href="a03559.html">vtkwriter.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a03559.html">concepts.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

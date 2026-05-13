@@ -1,4 +1,4 @@
 var a00284 =
 [
-    [ "Ikarus::Materials::MatrixIndexPair", "a01810.html", "a01810" ]
+    [ "Ikarus::FETraits< BH, useRef, useFlat >", "a01562.html", "a01562" ]
 ];

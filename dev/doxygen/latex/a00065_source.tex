@@ -1,133 +1,81 @@
-\hypertarget{a00065_source}{}\doxysection{functionhelper.\+hh}
-\label{a00065_source}\index{functionhelper.hh@{functionhelper.hh}}
+\hypertarget{a00065_source}{}\doxysection{lambertw.\+hh}
+\label{a00065_source}\index{lambertw.hh@{lambertw.hh}}
 \mbox{\hyperlink{a00065}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <ranges>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <cmath>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <limits>}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/grid/utility/hierarchicsearch.hh>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/common/exceptions.hh>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/common/float\_cmp.hh>}}
 \DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03520}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00014}{ikarus/utils/flatprebasis.hh}}>}}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00080}{ikarus/utils/traversal.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03559}{ikarus/utils/concepts.hh}}>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00538}{Ikarus::util}} \{}
 \DoxyCodeLine{19 }
-\DoxyCodeLine{20 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00531}{Ikarus::utils}} \{}
-\DoxyCodeLine{29 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LV>}
-\DoxyCodeLine{30 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00505_ga8daf682700ce109716318abad5c41eba}{obtainLagrangeGlobalNodePositions}}(}
-\DoxyCodeLine{31     \textcolor{keyword}{const} LV\& localView,}
-\DoxyCodeLine{32     std::vector<\mbox{\hyperlink{a02274}{Dune::FieldVector<double, LV::Element::Geometry::coorddimension>}}>\& lagrangeNodeGlobalCoords) \{}
-\DoxyCodeLine{33   \textcolor{keyword}{auto} fT = [\&]([[maybe\_unused]] \textcolor{keywordtype}{int} nodeNumber,}
-\DoxyCodeLine{34                 \mbox{\hyperlink{a02274}{Dune::FieldVector<double, LV::Element::mydimension>}}\&\& localCoordinate) \{}
-\DoxyCodeLine{35     lagrangeNodeGlobalCoords.emplace\_back(localView.element().geometry().global(localCoordinate));}
-\DoxyCodeLine{36     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{37   \};}
-\DoxyCodeLine{38   \mbox{\hyperlink{a00531_ad8f6a5b5d6fb5a916fd5791adf5ef4d9}{forEachLagrangeNodePosition}}(localView, fT);}
-\DoxyCodeLine{39 \}}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{60 \textcolor{keyword}{template} <\textcolor{keywordtype}{int} worldDim, \textcolor{keyword}{typename} Basis, Dune::FloatCmp::CmpStyle cmpStyle = Dune::FloatCmp::CmpStyle::absolute>}
-\DoxyCodeLine{61 \textcolor{keyword}{auto} \mbox{\hyperlink{a00505_ga334aa3c552eca9519c71f6b5aac1c5b8}{globalIndexFromGlobalPosition}}(\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, worldDim>}}\& pos) \{}
-\DoxyCodeLine{62   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} tol           = 1e-\/8;}
-\DoxyCodeLine{63   \textcolor{keyword}{using }LocalView                = std::remove\_cvref\_t<\textcolor{keyword}{decltype}(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.localView())>;}
-\DoxyCodeLine{64   \textcolor{keyword}{using }MultiIndex               = \textcolor{keyword}{typename} LocalView::MultiIndex;}
-\DoxyCodeLine{65   \textcolor{keyword}{using }Element                  = \textcolor{keyword}{typename} LocalView::Element;}
-\DoxyCodeLine{66   \textcolor{keyword}{using }Tree                     = LocalView::Tree;}
-\DoxyCodeLine{67   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isScalar = Tree::isLeaf;}
-\DoxyCodeLine{68   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isPower  = Tree::isPower;}
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }Impl \{}
+\DoxyCodeLine{21   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{22   T log1p(T x) \{}
+\DoxyCodeLine{23     \textcolor{keywordflow}{return} log(T(1.0) + x);}
+\DoxyCodeLine{24   \}}
+\DoxyCodeLine{25 \} \textcolor{comment}{// namespace Impl}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{41 \textcolor{keyword}{template} <\textcolor{keyword}{typename} ST = \textcolor{keywordtype}{double}>}
+\DoxyCodeLine{42 ST \mbox{\hyperlink{a00538_a5dd4fe61d5a2366ba3e8bf4d55d451e1}{lambertW0}}(ST z, \textcolor{keywordtype}{int} maxIterations = 20, ST eps = std::numeric\_limits<ST>::epsilon()) \{}
+\DoxyCodeLine{43   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not \mbox{\hyperlink{a02471}{Concepts::AutodiffScalar<ST>}}) \{}
+\DoxyCodeLine{44     \textcolor{keywordflow}{if} (std::isnan(z))}
+\DoxyCodeLine{45       \textcolor{keywordflow}{return} std::numeric\_limits<ST>::quiet\_NaN();}
+\DoxyCodeLine{46     \textcolor{keywordflow}{if} (std::isinf(z))}
+\DoxyCodeLine{47       \textcolor{keywordflow}{return} z;}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \textcolor{keyword}{const} ST branchPoint = -\/1.0 / std::exp(1.0);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{comment}{// If z equals -\/1/e then W(z) = -\/1.}}
+\DoxyCodeLine{53   \textcolor{keywordflow}{if} (Dune::FloatCmp::eq(z, branchPoint))}
+\DoxyCodeLine{54     \textcolor{keywordflow}{return} -\/1.0;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \textcolor{comment}{// For branch 0 the domain is z >= -\/1/e.}}
+\DoxyCodeLine{57   \textcolor{keywordflow}{if} (z < branchPoint)}
+\DoxyCodeLine{58     DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}lambertW0: z must be >= -\/1/e for branch 0"{}});}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{comment}{// Choose an initial guess x0. See https://en.wikipedia.org/wiki/Lambert\_W\_function.}}
+\DoxyCodeLine{61   ST x0;}
+\DoxyCodeLine{62   \textcolor{keywordflow}{if} (Dune::FloatCmp::gt(z, ST(1.0))) \{}
+\DoxyCodeLine{63     ST lx  = log(z);}
+\DoxyCodeLine{64     ST llx = log(lx);}
+\DoxyCodeLine{65     x0     = lx -\/ llx -\/ 0.5 * Impl::log1p<ST>(-\/llx / lx);}
+\DoxyCodeLine{66   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{67     x0 = 0.567 * z;}
+\DoxyCodeLine{68   \}}
 \DoxyCodeLine{69 }
-\DoxyCodeLine{70   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (Tree::isComposite) \{}
-\DoxyCodeLine{71     Dune::Hybrid::forEach(}
-\DoxyCodeLine{72         Dune::Hybrid::integralRange(Dune::index\_constant<std::tuple\_size\_v<typename Basis::PreBasis::SubPreBases>>()),}
-\DoxyCodeLine{73         [\&](\textcolor{keyword}{const} \textcolor{keyword}{auto} i) \{}
-\DoxyCodeLine{74           \textcolor{keyword}{static\_assert}(}
-\DoxyCodeLine{75               not Tree::template Child<i>::Type::isComposite,}
-\DoxyCodeLine{76               \textcolor{stringliteral}{"{}globalIndexFromGlobalPosition is not implemented to handle a composite basis within a composite basis."{}});}
-\DoxyCodeLine{77         \});}
-\DoxyCodeLine{78   \}}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{80   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} std::size\_t numChildren = Impl::PreBasisInfo<Tree>::size;}
-\DoxyCodeLine{81   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} myDim                      = Element::mydimension;}
-\DoxyCodeLine{82   Dune::HierarchicSearch hSearch(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.gridView().grid(), \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.gridView().indexSet());}
-\DoxyCodeLine{83   std::conditional\_t<isScalar, std::optional<MultiIndex>, std::optional<std::array<MultiIndex, numChildren>>>}
-\DoxyCodeLine{84       \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}};}
-\DoxyCodeLine{85   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& ele = hSearch.findEntity(pos);}
-\DoxyCodeLine{86   \textcolor{keyword}{auto} localView  = \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.localView();}
-\DoxyCodeLine{87   localView.bind(ele);}
-\DoxyCodeLine{88   \textcolor{keyword}{const} \textcolor{keyword}{auto} geo   = localView.element().geometry();}
-\DoxyCodeLine{89   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& node = [\&]() \{}
-\DoxyCodeLine{90     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isScalar or isPower)}
-\DoxyCodeLine{91       \textcolor{keywordflow}{return} localView.tree();}
-\DoxyCodeLine{92     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{93       \textcolor{keywordflow}{return} localView.tree().template child<0>();}
-\DoxyCodeLine{94   \}();}
-\DoxyCodeLine{95 }
-\DoxyCodeLine{96   Impl::checkLagrangeNode<isScalar>(node);}
-\DoxyCodeLine{97 }
-\DoxyCodeLine{98   \textcolor{keyword}{auto} fT = [\&](\textcolor{keywordtype}{int} nodeNumber, \mbox{\hyperlink{a02274}{Dune::FieldVector<double, myDim>}}\&\& localCoordinate) \{}
-\DoxyCodeLine{99     \textcolor{keywordflow}{if} (Dune::FloatCmp::eq<\mbox{\hyperlink{a02274}{Dune::FieldVector<double, worldDim>}}, cmpStyle>(geo.global(localCoordinate), pos, tol)) \{}
-\DoxyCodeLine{100       \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}}.emplace();}
-\DoxyCodeLine{101       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (isScalar)}
-\DoxyCodeLine{102         \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}}.value() = localView.index(node.localIndex(nodeNumber));}
-\DoxyCodeLine{103       \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{104         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < numChildren; j++)}
-\DoxyCodeLine{105           \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}}.value()[j] = localView.index(node.child(j).localIndex(nodeNumber));}
-\DoxyCodeLine{106       \}}
-\DoxyCodeLine{107       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{108     \}}
-\DoxyCodeLine{109     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{110   \};}
-\DoxyCodeLine{111   \mbox{\hyperlink{a00531_ad8f6a5b5d6fb5a916fd5791adf5ef4d9}{forEachLagrangeNodePosition}}(localView, fT);}
-\DoxyCodeLine{112   \textcolor{keywordflow}{if} (not \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}}.has\_value())}
-\DoxyCodeLine{113     DUNE\_THROW(Dune::InvalidStateException, \textcolor{stringliteral}{"{}No Lagrange node found at the given position in the grid."{}});}
-\DoxyCodeLine{114   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00515_a44e16df41148f7e4538be224814a3423}{globalIndices}}.value();}
-\DoxyCodeLine{115 \}}
-\DoxyCodeLine{116 }
-\DoxyCodeLine{125 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FE>}
-\DoxyCodeLine{126 \textcolor{keyword}{auto} \mbox{\hyperlink{a00505_ga30df35336d19b00bc5db2a0b52ce650e}{referenceElementSubEntityPositions}}(\mbox{\hyperlink{a01506}{FE}}\& fe, \textcolor{keywordtype}{int} codim) \{}
-\DoxyCodeLine{127   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} dim            = \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{FE::Traits::mydim}};}
-\DoxyCodeLine{128   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& element          = fe.\mbox{\hyperlink{a01506_ae84fc54bd26077a2edb0ec07361d0716}{gridElement}}();}
-\DoxyCodeLine{129   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& referenceElement = Dune::referenceElement<double, dim>(element.type());}
-\DoxyCodeLine{130   \textcolor{keyword}{const} \textcolor{keywordtype}{int} numberOfVertices   = referenceElement.size(codim);}
-\DoxyCodeLine{131 }
-\DoxyCodeLine{132   \textcolor{keyword}{auto} getPosition = [=](\textcolor{keyword}{const} \textcolor{keywordtype}{int} i) \{ \textcolor{keywordflow}{return} referenceElement.position(i, codim); \};}
-\DoxyCodeLine{133   \textcolor{keywordflow}{return} std::views::transform(std::views::iota(0, numberOfVertices), getPosition);}
-\DoxyCodeLine{134 \}}
-\DoxyCodeLine{135 }
-\DoxyCodeLine{143 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FE>}
-\DoxyCodeLine{144 \textcolor{keyword}{auto} \mbox{\hyperlink{a00505_ga8c05dce8a66fc4efbe31674b87d18298}{referenceElementVertexPositions}}(\mbox{\hyperlink{a01506}{FE}}\& fe) \{}
-\DoxyCodeLine{145   \textcolor{keywordflow}{return} \mbox{\hyperlink{a00505_ga30df35336d19b00bc5db2a0b52ce650e}{referenceElementSubEntityPositions}}(fe, \mbox{\hyperlink{a01562_ae15b8efa9f66a3caee81d99dd5c648de}{FE::Traits::mydim}});}
-\DoxyCodeLine{146 \}}
-\DoxyCodeLine{147 }
-\DoxyCodeLine{155 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
-\DoxyCodeLine{156 \textcolor{keyword}{decltype}(\textcolor{keyword}{auto}) \mbox{\hyperlink{a00531_af8ee685bd6d75a8b5f737eafd53860ae}{maybeDeref}}(T\& t) \{}
-\DoxyCodeLine{157   \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\mbox{\hyperlink{a02473}{Concepts::PointerOrSmartPointer<T>}})}
-\DoxyCodeLine{158     \textcolor{keywordflow}{return} *t;}
-\DoxyCodeLine{159   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{160     \textcolor{keywordflow}{return} t;}
-\DoxyCodeLine{161 \}}
-\DoxyCodeLine{162 }
-\DoxyCodeLine{168 \textcolor{keyword}{template} <\textcolor{keyword}{typename} A>}
-\DoxyCodeLine{169 \textcolor{keyword}{requires}(std::is\_pointer\_v<std::remove\_cvref\_t<A>> || \mbox{\hyperlink{a02374}{traits::isSharedPtr<std::remove\_cvref\_t<A>}}>::value)}
-\DoxyCodeLine{170 \textcolor{keyword}{auto} \mbox{\hyperlink{a00531_a8a9dd9a34514881c4b30b3fdc62a62f9}{obtainForcesDueToIDBC}}(\textcolor{keyword}{const} A\& assembler) \{}
-\DoxyCodeLine{171   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& K = assembler-\/>matrix(\mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eeca65e65c8ab0d8609ce12fc68a03cb8e00}{DBCOption::Raw}});}
-\DoxyCodeLine{172   \textcolor{keyword}{auto}\& dv      = assembler-\/>dirichletValues();}
-\DoxyCodeLine{173   \textcolor{keyword}{auto} newInc   = Eigen::VectorXd::Zero(dv.size()).eval();}
-\DoxyCodeLine{174   dv.evaluateInhomogeneousBoundaryConditionDerivative(newInc, 1.0);}
-\DoxyCodeLine{175 }
-\DoxyCodeLine{176   Eigen::VectorXd F\_dirichlet;}
-\DoxyCodeLine{177   F\_dirichlet = K * newInc;}
-\DoxyCodeLine{178 }
-\DoxyCodeLine{179   \textcolor{keywordflow}{if} (assembler-\/>dBCOption() == \mbox{\hyperlink{a00510_a9f83fad9f4c149f249165a13f2370eecabbd47109890259c0127154db1af26c75}{DBCOption::Full}})}
-\DoxyCodeLine{180     assembler-\/>dirichletValues().setZeroAtConstrainedDofs(F\_dirichlet);}
-\DoxyCodeLine{181   \textcolor{keywordflow}{else}}
-\DoxyCodeLine{182     F\_dirichlet = assembler-\/>createReducedVector(F\_dirichlet);}
-\DoxyCodeLine{183   \textcolor{keywordflow}{return} F\_dirichlet;}
-\DoxyCodeLine{184 \}}
-\DoxyCodeLine{185 }
-\DoxyCodeLine{186 \} \textcolor{comment}{// namespace Ikarus::utils}}
+\DoxyCodeLine{70   \textcolor{comment}{// Begin Halley's iterative method. See https://en.wikipedia.org/wiki/Halley\%27s\_method.}}
+\DoxyCodeLine{71   ST x        = x0;}
+\DoxyCodeLine{72   ST lastDiff = 0.0;}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} iter = 0; iter < maxIterations; ++iter) \{}
+\DoxyCodeLine{75     \textcolor{keyword}{const} ST ex          = exp(x);}
+\DoxyCodeLine{76     \textcolor{keyword}{const} ST f           = x * ex -\/ z;}
+\DoxyCodeLine{77     \textcolor{keyword}{const} ST fPrime      = ex * (x + 1.0);}
+\DoxyCodeLine{78     \textcolor{keyword}{const} ST fPrimePrime = ex * (x + 2.0);}
+\DoxyCodeLine{79     \textcolor{keyword}{const} ST denom       = fPrime -\/ ((1.0 / 2.0) * (fPrimePrime / fPrime) * f);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keyword}{const} ST newX = x -\/ f / denom;}
+\DoxyCodeLine{82     \textcolor{keyword}{const} ST diff = abs(newX -\/ x);}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84     \textcolor{comment}{// Check for convergence:}}
+\DoxyCodeLine{85     \textcolor{keywordflow}{if} (Dune::FloatCmp::le<ST>(diff, 3 * eps * abs(x)) || Dune::FloatCmp::eq<ST>(diff, lastDiff))}
+\DoxyCodeLine{86       \textcolor{keywordflow}{return} newX;}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88     lastDiff = diff;}
+\DoxyCodeLine{89     x        = newX;}
+\DoxyCodeLine{90   \}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92   DUNE\_THROW(Dune::MathError, \textcolor{stringliteral}{"{}lambertW0: failed to converge within the maximum number of iterations"{}});}
+\DoxyCodeLine{93 \}}
+\DoxyCodeLine{94 \} \textcolor{comment}{// namespace Ikarus::util}}
 
 \end{DoxyCode}

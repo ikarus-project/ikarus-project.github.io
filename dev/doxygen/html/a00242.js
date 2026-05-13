@@ -1,4 +1,4 @@
 var a00242 =
 [
-    [ "Ogden", "a00242.html#a7759118d563e476dc3b7e737df439f4d", null ]
+    [ "Ikarus::Experimental::AutoDiffMAT< RealMAT, forceAutoDiffV, forceAutoDiffS >", "a01498.html", "a01498" ]
 ];

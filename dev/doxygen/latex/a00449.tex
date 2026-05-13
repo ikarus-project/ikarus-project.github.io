@@ -1,24 +1,28 @@
-\hypertarget{a00449}{}\doxysection{loadcontrol.\+hh File Reference}
-\label{a00449}\index{loadcontrol.hh@{loadcontrol.hh}}
+\hypertarget{a00449}{}\doxysection{mixin.\+hh File Reference}
+\label{a00449}\index{mixin.hh@{mixin.hh}}
 
 
-Defines the Load\+Control class.  
+Implementation of the finite element CRTP mixin class.  
 
 
-{\ttfamily \#include $<$memory$>$}\newline
-{\ttfamily \#include $<$dune/common/hybridutilities.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/controlroutines/controlinfos.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/controlroutines/controlroutinebase.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/controlroutines/controlroutinefactory.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/broadcaster/broadcaster.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/controlroutines/loadcontrol.\+inl$>$}\newline
+{\ttfamily \#include $<$dune/common/tuplevector.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/fetraits.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/assumedstress.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/enhancedassumedstrains.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/broadcaster/broadcastermessages.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/functionhelper.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/listener/listener.\+hh$>$}\newline
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{a01462}{Ikarus\+::\+Load\+Control\+Config}}
-\begin{DoxyCompactList}\small\item\em Config for the Load-\/\+Control control routine. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{a01458}{Ikarus\+::\+Load\+Control$<$ NLS $>$}}
-\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{a01458}{Load\+Control}} control routine increases the parameter of the fe requirements given in run function and solves the corresponding differentiable function f for its root and calls a nonlinear solver. controlroutines This class represents the \mbox{\hyperlink{a01458}{Load\+Control}} control routine. It increments the parameter of the fe requirement and utilizes a nonlinear solver, such as Newton\textquotesingle{}s method, to solve the resulting system at each step. \end{DoxyCompactList}\end{DoxyCompactItemize}
+struct \mbox{\hyperlink{a01946}{Ikarus\+::\+FEMixin$<$ Pre\+FE, Skills $>$}}
+\begin{DoxyCompactList}\small\item\em CRTP mixin class for finite elements with additional skills. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{a01954}{Ikarus\+::\+FEMixin$<$ Pre\+FE, Skills $>$\+::\+Requirement\+Type$<$ false, T $>$}}
+\item 
+struct \mbox{\hyperlink{a01958}{Ikarus\+::\+FEMixin$<$ Pre\+FE, Skills $>$\+::\+Requirement\+Type$<$ true, T $>$}}
+\item 
+struct \mbox{\hyperlink{a01962}{Ikarus\+::\+Skills$<$ ARGS $>$}}
+\begin{DoxyCompactList}\small\item\em Struct representing a collection of skills. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -27,5 +31,7 @@ namespace \mbox{\hyperlink{a00510}{Ikarus}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename NLS $>$ }\\auto \mbox{\hyperlink{a00510_a5aec737453e85d8a0cd6061b39300694}{Ikarus\+::create\+Control\+Routine}} (const Load\+Control\+Config \&config, NLS \&\&nonlinear\+Solver)
-\begin{DoxyCompactList}\small\item\em Function to create a load control instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$typename... Args$>$ }\\auto \mbox{\hyperlink{a00510_aefa492686bced0d5d9235bdb112f482e}{Ikarus\+::skills}} (const Args \&... args)
+\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a01962}{Skills}} instance with the given skills. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args1, typename... Args2$>$ }\\auto \mbox{\hyperlink{a00510_a4f5729471c2a5801482188e6d42009ea}{Ikarus\+::merge}} (const Skills$<$ Args1... $>$ \&sk1, const Skills$<$ Args2... $>$ \&sk2)
+\begin{DoxyCompactList}\small\item\em Function to merge two \mbox{\hyperlink{a01962}{Skills}} instances. \end{DoxyCompactList}\end{DoxyCompactItemize}

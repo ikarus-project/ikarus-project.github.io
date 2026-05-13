@@ -29,7 +29,7 @@ var searchData=
   ['registerneumannboundaryloadpre_26',['registerNeumannBoundaryLoadPre',['../a00529.html#a813121e686b5d64d6ef1e11bd4bfc59b',1,'Ikarus::Python']]],
   ['registernonlinearelasticpre_27',['registerNonLinearElasticPre',['../a00529.html#ab45b29a3ca18f1c8bf87263c60d14711',1,'Ikarus::Python']]],
   ['registerpreelement_28',['registerPreElement',['../a00545.html#a1d8c10a2e7cb015749a1707172477715',1,'ikarus::finite_elements']]],
-  ['registerscalarwrapper_29',['registerScalarWrapper',['../a00479.html#ac2c47f2dc30578300b98d15f90379897',1,'_ikarus.cc']]],
+  ['registerscalarwrapper_29',['registerScalarWrapper',['../a00476.html#ac2c47f2dc30578300b98d15f90379897',1,'_ikarus.cc']]],
   ['registersparseflatassembler_30',['registerSparseFlatAssembler',['../a00529.html#aeab1c5f959a22f95b40b0a7576f9c896',1,'Ikarus::Python']]],
   ['registersparsematrixwrapper_31',['registerSparseMatrixWrapper',['../a00529.html#a09b4a81e2d6d0619406854f6dc3fc8f7',1,'Ikarus::Python']]],
   ['registertrusspre_32',['registerTrussPre',['../a00529.html#a5004d72f594d4ceecaebb33ee71f80cf',1,'Ikarus::Python']]],

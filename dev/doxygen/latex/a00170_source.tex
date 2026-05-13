@@ -1,5 +1,5 @@
-\hypertarget{a00170_source}{}\doxysection{autodifffe.\+hh}
-\label{a00170_source}\index{autodifffe.hh@{autodifffe.hh}}
+\hypertarget{a00170_source}{}\doxysection{fe.\+hh}
+\label{a00170_source}\index{fe.hh@{fe.hh}}
 \mbox{\hyperlink{a00170}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
@@ -7,164 +7,106 @@
 \DoxyCodeLine{3 }
 \DoxyCodeLine{9 \textcolor{preprocessor}{\#pragma once}}
 \DoxyCodeLine{10 }
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <autodiff/forward/dual/dual.hpp>}}
-\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <autodiff/forward/dual/eigen.hpp>}}
-\DoxyCodeLine{13 }
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00329}{ikarus/finiteelements/ferequirements.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00053}{ikarus/utils/traits.hh}}>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{26 \textcolor{keyword}{template} <\textcolor{keyword}{typename} FEImpl, \textcolor{keywordtype}{bool} forceAutoDiff = false>}
-\DoxyCodeLine{27 \textcolor{keyword}{class }\mbox{\hyperlink{a01502}{AutoDiffFE}} : \textcolor{keyword}{public} FEImpl}
-\DoxyCodeLine{28 \{}
-\DoxyCodeLine{29 \textcolor{keyword}{public}:}
-\DoxyCodeLine{30   \textcolor{keyword}{using }\mbox{\hyperlink{a01502_ac6509944238101aef666b1614df1d443}{RealFE}}       = FEImpl;                        }
-\DoxyCodeLine{31   \textcolor{keyword}{using }\mbox{\hyperlink{a01502_ace1636b5cd13f380d0865682480e81b2}{BasisHandler}} = \textcolor{keyword}{typename} RealFE::BasisHandler; }
-\DoxyCodeLine{32   \textcolor{keyword}{using }\mbox{\hyperlink{a01502_a4e63c92eb684ddda330b4cd3cb5b769e}{Traits}}       = \textcolor{keyword}{typename} RealFE::Traits;       }
-\DoxyCodeLine{33   \textcolor{keyword}{using }\mbox{\hyperlink{a01502_ae985fb2fdb86d514700c4d57f03e97d5}{LocalView}}    = \textcolor{keyword}{typename} Traits::LocalView;    }
-\DoxyCodeLine{34   \textcolor{keyword}{using }\mbox{\hyperlink{a01502_af1d3fa6b651ee728bd39a33c3c3da250}{Element}}      = \textcolor{keyword}{typename} Traits::Element;      }
-\DoxyCodeLine{35   \textcolor{keyword}{using }\mbox{\hyperlink{a01502_afa810836d72e1475c93b3b5a7122b540}{Requirement}}  = \textcolor{keyword}{typename} RealFE::Requirement;  }
-\DoxyCodeLine{36 \textcolor{keyword}{private}:}
-\DoxyCodeLine{37   \textcolor{keyword}{using }Mixin = FEImpl::Mixin;}
-\DoxyCodeLine{38 }
-\DoxyCodeLine{39 \textcolor{keyword}{public}:}
-\DoxyCodeLine{48   \textcolor{keyword}{friend} \textcolor{keywordtype}{void} \mbox{\hyperlink{a01502_ab362ff410a785df25fea3442f897932e}{calculateMatrix}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01502}{AutoDiffFE}}\& self, \textcolor{keyword}{const} \mbox{\hyperlink{a01502_afa810836d72e1475c93b3b5a7122b540}{Requirement}}\& par, \textcolor{keyword}{const} \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}}\& affordance,}
-\DoxyCodeLine{49                               \textcolor{keyword}{typename} Traits::template MatrixType<> h) \{}
-\DoxyCodeLine{50     self.\mbox{\hyperlink{a01502_ab362ff410a785df25fea3442f897932e}{calculateMatrix}}(par, affordance, h);}
-\DoxyCodeLine{51   \}}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{61   \textcolor{keyword}{friend} \textcolor{keywordtype}{void} \mbox{\hyperlink{a01502_a66f3c9c144a7eccbe60b1b9e494b5cd5}{calculateVector}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01502}{AutoDiffFE}}\& self, \textcolor{keyword}{const} \mbox{\hyperlink{a01502_afa810836d72e1475c93b3b5a7122b540}{Requirement}}\& par, \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} affordance,}
-\DoxyCodeLine{62                               \textcolor{keyword}{typename} Traits::template VectorType<double> g) \{}
-\DoxyCodeLine{63     self.\mbox{\hyperlink{a01502_a66f3c9c144a7eccbe60b1b9e494b5cd5}{calculateVector}}(par, affordance, g);}
-\DoxyCodeLine{64   \}}
-\DoxyCodeLine{65 }
-\DoxyCodeLine{74   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MT, \textcolor{keyword}{typename} BC>}
-\DoxyCodeLine{75   \textcolor{keyword}{auto} \mbox{\hyperlink{a01502_afc32bd395acc3b2bc9a701681566bf0b}{subscribeTo}}(BC\& bc) \{}
-\DoxyCodeLine{76     \textcolor{keywordflow}{return} \mbox{\hyperlink{a01502_a8bd5af319955bc66a08c074858df2303}{realFE}}().template subscribeTo<MT>(bc);}
-\DoxyCodeLine{77   \}}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{89   \textcolor{keyword}{friend} \textcolor{keywordtype}{void} \mbox{\hyperlink{a01502_ab515dd8db1ec299afff0c7884d1d7103}{calculateLocalSystem}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01502}{AutoDiffFE}}\& self, \textcolor{keyword}{const} \mbox{\hyperlink{a01502_afa810836d72e1475c93b3b5a7122b540}{Requirement}}\& par, \textcolor{keyword}{const} \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}}\& affordanceM,}
-\DoxyCodeLine{90                                    \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} affordanceV, \textcolor{keyword}{typename} Traits::template MatrixType<> h,}
-\DoxyCodeLine{91                                    \textcolor{keyword}{typename} Traits::template VectorType<> g) \{}
-\DoxyCodeLine{92     self.\mbox{\hyperlink{a01502_ab515dd8db1ec299afff0c7884d1d7103}{calculateLocalSystem}}(par, affordanceM, affordanceV, h, g);}
-\DoxyCodeLine{93   \}}
-\DoxyCodeLine{94 }
-\DoxyCodeLine{103   \textcolor{keyword}{friend} \textcolor{keyword}{auto} \mbox{\hyperlink{a01502_a7c880870399ba4c1e4d62fafef04fda3}{calculateScalar}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01502}{AutoDiffFE}}\& self, \textcolor{keyword}{const} \mbox{\hyperlink{a01502_afa810836d72e1475c93b3b5a7122b540}{Requirement}}\& par, \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}} affordance) \{}
-\DoxyCodeLine{104     \textcolor{keywordflow}{return} self.\mbox{\hyperlink{a01502_a7c880870399ba4c1e4d62fafef04fda3}{calculateScalar}}(par, affordance);}
-\DoxyCodeLine{105   \}}
-\DoxyCodeLine{106 }
-\DoxyCodeLine{112   \textcolor{keyword}{const} \mbox{\hyperlink{a01502_ac6509944238101aef666b1614df1d443}{RealFE}}\& \mbox{\hyperlink{a01502_a8bd5af319955bc66a08c074858df2303}{realFE}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
-\DoxyCodeLine{113 }
-\DoxyCodeLine{119   \mbox{\hyperlink{a01502_ac6509944238101aef666b1614df1d443}{RealFE}}\& \mbox{\hyperlink{a01502_a8eabf67c2202c225891dee92efb12495}{realFE}}() \{ \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{128   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>}
-\DoxyCodeLine{129   \textcolor{keyword}{explicit} \mbox{\hyperlink{a01502_a26248faa29dc3165140f3647f94c5d4a}{AutoDiffFE}}(Args\&\&... args)}
-\DoxyCodeLine{130       : \mbox{\hyperlink{a01502_ac6509944238101aef666b1614df1d443}{RealFE}}\{std::forward<Args>(args)...\} \{\}}
-\DoxyCodeLine{131 }
-\DoxyCodeLine{132 \textcolor{keyword}{private}:}
-\DoxyCodeLine{133   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01502_ab362ff410a785df25fea3442f897932e}{calculateMatrix}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01502_afa810836d72e1475c93b3b5a7122b540}{Requirement}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}}\& affordance,}
-\DoxyCodeLine{134                        \textcolor{keyword}{typename} Traits::template MatrixType<> h)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{135     \textcolor{comment}{// real element implements calculateMatrix by itself, then we simply forward the call}}
-\DoxyCodeLine{136 }
-\DoxyCodeLine{137     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires}(Eigen::VectorXd v) \{}
-\DoxyCodeLine{138                     \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }Mixin\&\textcolor{keyword}{>}(std::declval<AutoDiffFE>())}
-\DoxyCodeLine{139                         .\textcolor{keyword}{template} calculateMatrixImpl<double>(req, affordance, h, v);}
-\DoxyCodeLine{140                   \} and not forceAutoDiff) \{}
-\DoxyCodeLine{141       \textcolor{keywordflow}{return} Mixin::template calculateMatrixImpl<double>(req, affordance, h);}
-\DoxyCodeLine{142     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires}(Eigen::VectorXdual v) \{}
-\DoxyCodeLine{143                            \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }Mixin\&\textcolor{keyword}{>}(std::declval<AutoDiffFE>())}
-\DoxyCodeLine{144                                .\textcolor{keyword}{template} calculateVectorImpl<autodiff::dual>(}
-\DoxyCodeLine{145                                    req, \mbox{\hyperlink{a00510_a2597fb8b5ba646668b01bcc4e5f75818}{vectorAffordance}}(affordance),}
-\DoxyCodeLine{146                                    std::declval<typename Traits::template VectorType<autodiff::dual>>(), v);}
-\DoxyCodeLine{147                          \}) \{}
-\DoxyCodeLine{148       \textcolor{comment}{// real element implements calculateVector by itself, therefore we only need first order derivatives}}
-\DoxyCodeLine{149       Eigen::VectorXdual dx(this-\/>localView().size());}
-\DoxyCodeLine{150       Eigen::VectorXdual g(this-\/>localView().size());}
-\DoxyCodeLine{151       dx.setZero();}
-\DoxyCodeLine{152       \textcolor{keyword}{auto} f = [\textcolor{keyword}{this}, \&req, affordance, \&g](\textcolor{keyword}{auto}\& x) -\/> \textcolor{keyword}{auto}\& \{}
-\DoxyCodeLine{153         \textcolor{comment}{// Since req is const as a function argument, we can not make this lambda capture by mutable reference}}
-\DoxyCodeLine{154         \textcolor{comment}{// But we have to do this since for efficiency reason we reuse the g vector}}
-\DoxyCodeLine{155         \textcolor{comment}{// therefore, the only remaining option is to cast the const away from g}}
-\DoxyCodeLine{156         Eigen::VectorXdual\& gref = \textcolor{keyword}{const\_cast<}Eigen::VectorXdual\&\textcolor{keyword}{>}(g);}
-\DoxyCodeLine{157         gref.setZero();}
-\DoxyCodeLine{158         Mixin::template calculateVectorImpl<autodiff::dual>(req, \mbox{\hyperlink{a00510_a2597fb8b5ba646668b01bcc4e5f75818}{vectorAffordance}}(affordance), gref, x);}
-\DoxyCodeLine{159         \textcolor{keywordflow}{return} g;}
-\DoxyCodeLine{160       \};}
-\DoxyCodeLine{161       jacobian(f, autodiff::wrt(dx), at(dx), g, h);}
-\DoxyCodeLine{162     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires}(\textcolor{keyword}{typename} Traits::template VectorType<autodiff::dual2nd> v) \{}
-\DoxyCodeLine{163                            \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }Mixin\&\textcolor{keyword}{>}(std::declval<AutoDiffFE>())}
-\DoxyCodeLine{164                                .\textcolor{keyword}{template} calculateScalarImpl<autodiff::dual2nd>(req, \mbox{\hyperlink{a00510_a9f58a3849d4736e5cc314f6f995fe9e7}{scalarAffordance}}(affordance), v);}
-\DoxyCodeLine{165                          \}) \{}
-\DoxyCodeLine{166       \textcolor{comment}{// real element implements calculateScalar by itself, therefore we need second order derivatives}}
-\DoxyCodeLine{167       Eigen::VectorXdual2nd dx(this-\/>localView().size());}
-\DoxyCodeLine{168       Eigen::VectorXd g;}
-\DoxyCodeLine{169       autodiff::dual2nd e;}
-\DoxyCodeLine{170       dx.setZero();}
-\DoxyCodeLine{171       \textcolor{keyword}{auto} f = [\textcolor{keyword}{this}, \&req, affordance](\textcolor{keyword}{auto}\& x) \{}
-\DoxyCodeLine{172         \textcolor{keywordflow}{return} Mixin::template calculateScalarImpl<autodiff::dual2nd>(req, \mbox{\hyperlink{a00510_a9f58a3849d4736e5cc314f6f995fe9e7}{scalarAffordance}}(affordance), x);}
-\DoxyCodeLine{173       \};}
-\DoxyCodeLine{174       hessian(f, autodiff::wrt(dx), at(dx), e, g, h);}
-\DoxyCodeLine{175     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{176       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<AutoDiffFE>::value,}
-\DoxyCodeLine{177                     \textcolor{stringliteral}{"{}Appropriate calculateScalarImpl or calculateVectorImpl functions are not implemented for the "{}}}
-\DoxyCodeLine{178                     \textcolor{stringliteral}{"{}chosen element."{}});}
-\DoxyCodeLine{179   \}}
-\DoxyCodeLine{180 }
-\DoxyCodeLine{181   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01502_a66f3c9c144a7eccbe60b1b9e494b5cd5}{calculateVector}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01502_afa810836d72e1475c93b3b5a7122b540}{Requirement}}\& req, \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} affordance,}
-\DoxyCodeLine{182                        \textcolor{keyword}{typename} Traits::template VectorType<> g)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{183     \textcolor{comment}{// real element implements calculateVector by itself, then we simply forward the call}}
-\DoxyCodeLine{184     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{}
-\DoxyCodeLine{185                     \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }Mixin\&\textcolor{keyword}{>}(std::declval<AutoDiffFE>())}
-\DoxyCodeLine{186                         .\textcolor{keyword}{template} calculateVectorImpl<double>(}
-\DoxyCodeLine{187                             req, affordance, std::declval<\textcolor{keyword}{typename} Traits::template VectorType<double>>(),}
-\DoxyCodeLine{188                             std::declval<const Eigen::VectorXd\&>());}
-\DoxyCodeLine{189                   \} and not forceAutoDiff) \{}
-\DoxyCodeLine{190       \textcolor{keywordflow}{return} Mixin::template calculateVectorImpl<double>(req, affordance, g);}
-\DoxyCodeLine{191     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{}
-\DoxyCodeLine{192                            \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }Mixin\&\textcolor{keyword}{>}(std::declval<AutoDiffFE>())}
-\DoxyCodeLine{193                                .\textcolor{keyword}{template} calculateScalarImpl<autodiff::dual>(req, \mbox{\hyperlink{a00510_a9f58a3849d4736e5cc314f6f995fe9e7}{scalarAffordance}}(affordance),}
-\DoxyCodeLine{194                                                                              std::declval<const Eigen::VectorXdual\&>());}
-\DoxyCodeLine{195                          \}) \{}
-\DoxyCodeLine{196       \textcolor{comment}{// real element implements calculateScalar by itself but no calculateVectorImpl, therefore we need first order}}
-\DoxyCodeLine{197       \textcolor{comment}{// derivatives}}
-\DoxyCodeLine{198       Eigen::VectorXdual dx(this-\/>localView().size());}
-\DoxyCodeLine{199       dx.setZero();}
-\DoxyCodeLine{200       autodiff::dual e;}
-\DoxyCodeLine{201       \textcolor{keyword}{auto} f = [\textcolor{keyword}{this}, \&req, affordance](\textcolor{keyword}{auto}\& x) \{}
-\DoxyCodeLine{202         \textcolor{keywordflow}{return} Mixin::template calculateScalarImpl<autodiff::dual>(req, \mbox{\hyperlink{a00510_a9f58a3849d4736e5cc314f6f995fe9e7}{scalarAffordance}}(affordance), x);}
-\DoxyCodeLine{203       \};}
-\DoxyCodeLine{204       gradient(f, autodiff::wrt(dx), at(dx), e, g);}
-\DoxyCodeLine{205     \} \textcolor{keywordflow}{else}}
-\DoxyCodeLine{206       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<AutoDiffFE>::value,}
-\DoxyCodeLine{207                     \textcolor{stringliteral}{"{}Appropriate calculateScalarImpl function is not implemented for the "{}}}
-\DoxyCodeLine{208                     \textcolor{stringliteral}{"{}chosen element."{}});}
-\DoxyCodeLine{209   \}}
-\DoxyCodeLine{210 }
-\DoxyCodeLine{211   [[nodiscard]] \textcolor{keywordtype}{double} \mbox{\hyperlink{a01502_a7c880870399ba4c1e4d62fafef04fda3}{calculateScalar}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01502_afa810836d72e1475c93b3b5a7122b540}{Requirement}}\& par, \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{ScalarAffordance}} affordance)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{212     \textcolor{comment}{// real element implements calculateScalar by itself, then we simply forward the call}}
-\DoxyCodeLine{213     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (\textcolor{keyword}{requires} \{}
-\DoxyCodeLine{214                     \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const }Mixin\&\textcolor{keyword}{>}(std::declval<AutoDiffFE>())}
-\DoxyCodeLine{215                         .\textcolor{keyword}{template} calculateScalarImpl<double>(par, affordance);}
-\DoxyCodeLine{216                   \}) \{}
-\DoxyCodeLine{217       \textcolor{comment}{// real element only implements the protected calculateScalarImpl by itself, thus we call that one.}}
-\DoxyCodeLine{218       \textcolor{keywordflow}{return} Mixin::template calculateScalarImpl<double>(par, affordance);}
-\DoxyCodeLine{219     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{220       \textcolor{keyword}{static\_assert}(Dune::AlwaysFalse<AutoDiffFE>::value,}
-\DoxyCodeLine{221                     \textcolor{stringliteral}{"{}Appropriate calculateScalar and calculateScalarImpl functions are not implemented for the "{}}}
-\DoxyCodeLine{222                     \textcolor{stringliteral}{"{}chosen element."{}});}
-\DoxyCodeLine{223     \}}
-\DoxyCodeLine{224   \}}
-\DoxyCodeLine{225 }
-\DoxyCodeLine{226   \textcolor{keywordtype}{void} \mbox{\hyperlink{a01502_ab515dd8db1ec299afff0c7884d1d7103}{calculateLocalSystem}}(\textcolor{keyword}{const} \mbox{\hyperlink{a01502_afa810836d72e1475c93b3b5a7122b540}{Requirement}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{MatrixAffordance}}\& affordanceM, \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{VectorAffordance}} affordanceV,}
-\DoxyCodeLine{227                             \textcolor{keyword}{typename} Traits::template MatrixType<> h, \textcolor{keyword}{typename} Traits::template VectorType<> g)\textcolor{keyword}{ const }\{}
-\DoxyCodeLine{228     assert(\mbox{\hyperlink{a00510_a9f58a3849d4736e5cc314f6f995fe9e7}{scalarAffordance}}(affordanceM) == \mbox{\hyperlink{a00510_a9f58a3849d4736e5cc314f6f995fe9e7}{scalarAffordance}}(affordanceV));}
-\DoxyCodeLine{229     Eigen::VectorXdual2nd dx(this-\/>localView().size());}
-\DoxyCodeLine{230     dx.setZero();}
-\DoxyCodeLine{231     \textcolor{keyword}{auto} f = [\&](\textcolor{keyword}{auto}\& x) \{ \textcolor{keywordflow}{return} Mixin::calculateScalarImpl(req, \mbox{\hyperlink{a00510_a9f58a3849d4736e5cc314f6f995fe9e7}{scalarAffordance}}(affordanceV), x); \};}
-\DoxyCodeLine{232     hessian(f, autodiff::wrt(dx), at(dx), g, h);}
-\DoxyCodeLine{233   \}}
-\DoxyCodeLine{234 \};}
-\DoxyCodeLine{235 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <dune/python/common/typeregistry.hh>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <dune/python/functions/globalbasis.hh>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/python/pybind11/eigen.h>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/python/pybind11/functional.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <dune/python/pybind11/pybind11.h>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <dune/python/pybind11/stl.h>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00293}{ikarus/finiteelements/fefactory.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00173}{ikarus/python/finiteelements/registerferequirements.hh}}>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00529}{Ikarus::Python}} \{}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{50 \textcolor{keyword}{template} <\textcolor{keyword}{class }FE, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{51 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00529_a0c58c17676c73945cb11eff8a80309ae}{registerCalculateAt}}(pybind11::handle scope, pybind11::class\_<FE, options...> cls, \textcolor{keyword}{auto} resultTypesTuple) \{}
+\DoxyCodeLine{52   \textcolor{keyword}{using }Traits         = \textcolor{keyword}{typename} \mbox{\hyperlink{a01506_a70c7907448f7e13ff55b8fb123f3ee0c}{FE::Traits}};}
+\DoxyCodeLine{53   \textcolor{keyword}{using }\mbox{\hyperlink{a01526}{FERequirements}} = \textcolor{keyword}{typename} \mbox{\hyperlink{a01946_a86c0fea1b37e487f3c78cde6facca9c3}{FE::Requirement}};}
+\DoxyCodeLine{54   cls.def(}
+\DoxyCodeLine{55       \textcolor{stringliteral}{"{}calculateAt"{}},}
+\DoxyCodeLine{56       [\&](\mbox{\hyperlink{a01506}{FE}}\& self, \textcolor{keyword}{const} \mbox{\hyperlink{a01526}{FERequirements}}\& req, \textcolor{keyword}{const} \mbox{\hyperlink{a02274}{Dune::FieldVector<double, Traits::mydim>}}\& local,}
+\DoxyCodeLine{57           std::string resType) \{}
+\DoxyCodeLine{58         Eigen::VectorXd result;}
+\DoxyCodeLine{59         \textcolor{keywordtype}{bool} success = \textcolor{keyword}{false};}
+\DoxyCodeLine{60         Dune::Hybrid::forEach(resultTypesTuple, [\&]<\textcolor{keyword}{typename} RT>(RT i) \{}
+\DoxyCodeLine{61           \textcolor{keywordflow}{if} (resType == \mbox{\hyperlink{a00510_aef80b6b5b45dcfbea4f722f51a84f53f}{toString}}(i)) \{}
+\DoxyCodeLine{62             success = \textcolor{keyword}{true};}
+\DoxyCodeLine{63             result  = self.template calculateAt<RT::template Rebind>(req, local).asVec();}
+\DoxyCodeLine{64           \}}
+\DoxyCodeLine{65         \});}
+\DoxyCodeLine{66         \textcolor{keywordflow}{if} (success)}
+\DoxyCodeLine{67           \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{68         DUNE\_THROW(Dune::NotImplemented, \textcolor{stringliteral}{"{}Element "{}} + Dune::className<FE>() + \textcolor{stringliteral}{"{} doesn't support ResultType "{}} + resType);}
+\DoxyCodeLine{69       \},}
+\DoxyCodeLine{70       pybind11::arg(\textcolor{stringliteral}{"{}feRequirements"{}}), pybind11::arg(\textcolor{stringliteral}{"{}local"{}}), pybind11::arg(\textcolor{stringliteral}{"{}resultType"{}}));}
+\DoxyCodeLine{71 \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{86 \textcolor{keyword}{template} <\textcolor{keyword}{class }\mbox{\hyperlink{a01506}{FE}}, \textcolor{keyword}{class}... options>}
+\DoxyCodeLine{87 \textcolor{keywordtype}{void} \mbox{\hyperlink{a00502_gac8bb4a818dee7342efbc5e174e35b840}{registerFE}}(pybind11::handle scope, pybind11::class\_<FE, options...> cls) \{}
+\DoxyCodeLine{88   \textcolor{keyword}{using }BH          = \textcolor{keyword}{typename} \mbox{\hyperlink{a01506_a26398fefb73f4d51895e26152e368cf8}{FE::BasisHandler}};}
+\DoxyCodeLine{89   \textcolor{keyword}{using }GridElement = \textcolor{keyword}{typename} \mbox{\hyperlink{a01506_ae329d665e853b0286679e97418d3acad}{FE::GridElement}};}
+\DoxyCodeLine{90   \textcolor{keyword}{using }Requirement = \textcolor{keyword}{typename} \mbox{\hyperlink{a01946_a86c0fea1b37e487f3c78cde6facca9c3}{FE::Requirement}};}
+\DoxyCodeLine{91   \textcolor{keyword}{using }FlatBasis   = \textcolor{keyword}{typename} \mbox{\hyperlink{a01562_a81feef959fedef62b2e1daabbd52b5f2}{FE::Traits::FlatBasis}};}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \textcolor{keywordtype}{int} index = 0;}
+\DoxyCodeLine{94   cls.def(\mbox{\hyperlink{a00510_ac8243891c1b961e50a066140ab79a142}{pybind11::init}}([](\textcolor{keyword}{const} BH\& basisHandler, \textcolor{keyword}{typename} \mbox{\hyperlink{a01506_a327f5479545f9b5d615c07ce535b0007}{FE::PreTuple}} argsTuple) \{}
+\DoxyCodeLine{95             \textcolor{keyword}{auto} unpackTuple = [\&]<\textcolor{keyword}{typename}... Arg>(Arg\&\&... args) \{}
+\DoxyCodeLine{96               \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{a01506}{FE}}(basisHandler, std::forward<Arg>(args)...);}
+\DoxyCodeLine{97             \};}
+\DoxyCodeLine{98             \textcolor{keywordflow}{return} std::apply(unpackTuple, argsTuple);}
+\DoxyCodeLine{99           \}),}
+\DoxyCodeLine{100           pybind11::keep\_alive<1, 2>());}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102   cls.def(\textcolor{stringliteral}{"{}bind"{}}, [](\mbox{\hyperlink{a01506}{FE}}\& self, \textcolor{keyword}{const} GridElement\& e) \{ self.\mbox{\hyperlink{a01506_a3a23d70495e802f44ba4b9923804dda0}{bind}}(e); \});}
+\DoxyCodeLine{103   cls.def(\textcolor{stringliteral}{"{}updateState"{}},}
+\DoxyCodeLine{104           [](\mbox{\hyperlink{a01506}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, Eigen::Ref<Eigen::VectorXd> dx) \{ self.\mbox{\hyperlink{a01946_a37c9abe267940c5374402d6e4624cf21}{updateState}}(req, dx); \});}
+\DoxyCodeLine{105   cls.def(\textcolor{stringliteral}{"{}calculateScalar"{}}, [](\mbox{\hyperlink{a01506}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00510_af6f894084edd9109762b86222995ef2a}{Ikarus::ScalarAffordance}} affordance) \{}
+\DoxyCodeLine{106     \textcolor{keywordflow}{return} calculateScalar(self, req, affordance);}
+\DoxyCodeLine{107   \});}
+\DoxyCodeLine{108   cls.def(\textcolor{stringliteral}{"{}calculateVector"{}}, [](\mbox{\hyperlink{a01506}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00510_aab9e3e38507d1db7602bc750718c302a}{Ikarus::VectorAffordance}} affordance,}
+\DoxyCodeLine{109                                 Eigen::Ref<Eigen::VectorXd> vec) \{ calculateVector(self, req, affordance, vec); \});}
+\DoxyCodeLine{110   cls.def(}
+\DoxyCodeLine{111       \textcolor{stringliteral}{"{}calculateMatrix"{}},}
+\DoxyCodeLine{112       [](\mbox{\hyperlink{a01506}{FE}}\& self, \textcolor{keyword}{const} Requirement\& req, \mbox{\hyperlink{a00510_a390d5311179ec61d163a29c943b3d1a0}{Ikarus::MatrixAffordance}} affordance, Eigen::Ref<Eigen::MatrixXd> mat) \{}
+\DoxyCodeLine{113         calculateMatrix(self, req, affordance, mat);}
+\DoxyCodeLine{114       \},}
+\DoxyCodeLine{115       pybind11::arg(\textcolor{stringliteral}{"{}Requirement"{}}), pybind11::arg(\textcolor{stringliteral}{"{}MatrixAffordance"{}}), pybind11::arg(\textcolor{stringliteral}{"{}elementMatrix"{}}).noconvert());}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117   pybind11::module scopedf = pybind11::module::import(\textcolor{stringliteral}{"{}dune.functions"{}});}
+\DoxyCodeLine{118   \textcolor{keyword}{using }LocalViewWrapper   = Dune::Python::LocalViewWrapper<FlatBasis>;}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120   \textcolor{keyword}{auto} includes    = Dune::Python::IncludeFiles\{\textcolor{stringliteral}{"{}dune/python/functions/globalbasis.hh"{}}\};}
+\DoxyCodeLine{121   \textcolor{keyword}{auto} [lv, isNew] = Dune::Python::insertClass<LocalViewWrapper>(}
+\DoxyCodeLine{122       scopedf, \textcolor{stringliteral}{"{}LocalViewWrapper"{}},}
+\DoxyCodeLine{123       Dune::Python::GenerateTypeName(\textcolor{stringliteral}{"{}Dune::Python::LocalViewWrapperWrapper"{}}, Dune::MetaType<FlatBasis>()), includes);}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125   \textcolor{keywordflow}{if} (isNew) \{}
+\DoxyCodeLine{126     lv.def(\textcolor{stringliteral}{"{}bind"{}}, \&LocalViewWrapper::bind);}
+\DoxyCodeLine{127     lv.def(\textcolor{stringliteral}{"{}unbind"{}}, \&LocalViewWrapper::unbind);}
+\DoxyCodeLine{128     lv.def(\textcolor{stringliteral}{"{}index"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& localView, \textcolor{keywordtype}{int} index) \{ \textcolor{keywordflow}{return} localView.index(index); \});}
+\DoxyCodeLine{129     lv.def(\textcolor{stringliteral}{"{}\_\_len\_\_"{}}, [](LocalViewWrapper\& self) -\/> \textcolor{keywordtype}{int} \{ \textcolor{keywordflow}{return} self.size(); \});}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131     Dune::Python::Functions::registerTree<typename LocalViewWrapper::Tree>(lv);}
+\DoxyCodeLine{132     lv.def(\textcolor{stringliteral}{"{}tree"{}}, [](\textcolor{keyword}{const} LocalViewWrapper\& view) \{ \textcolor{keywordflow}{return} view.tree(); \});}
+\DoxyCodeLine{133   \}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135   cls.def(}
+\DoxyCodeLine{136       \textcolor{stringliteral}{"{}localView"{}},}
+\DoxyCodeLine{137       [](\mbox{\hyperlink{a01506}{FE}}\& self) -\/> LocalViewWrapper \{}
+\DoxyCodeLine{138         \textcolor{keyword}{auto} lvWrapped = LocalViewWrapper(self.\mbox{\hyperlink{a01506_a1425316afd592244682b9ccc48cf59ef}{localView}}().globalBasis());}
+\DoxyCodeLine{139         \textcolor{comment}{// this can be simplified when https://gitlab.dune-\/project.org/staging/dune-\/functions/-\//merge\_requests/418}}
+\DoxyCodeLine{140         \textcolor{comment}{// becomes available}}
+\DoxyCodeLine{141         \textcolor{comment}{// pybind11::object obj = pybind11::cast(self.localView().element());}}
+\DoxyCodeLine{142         lvWrapped.base().bind(self.\mbox{\hyperlink{a01506_a1425316afd592244682b9ccc48cf59ef}{localView}}().element());}
+\DoxyCodeLine{143         \textcolor{keywordflow}{return} lvWrapped;}
+\DoxyCodeLine{144       \},}
+\DoxyCodeLine{145       pybind11::keep\_alive<0, 1>());}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147   \mbox{\hyperlink{a00529_a0c58c17676c73945cb11eff8a80309ae}{registerCalculateAt}}(scope, cls, \textcolor{keyword}{typename} \mbox{\hyperlink{a01946_ada59c15363d83f6e635ecd6e1672d6a4}{FE::SupportedResultTypes}}());}
+\DoxyCodeLine{148   \mbox{\hyperlink{a00529_a32c3989a8ef1dbc581313ef17a0c6f5b}{registerFERequirement}}(scope, cls);}
+\DoxyCodeLine{149 \}}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151 \} \textcolor{comment}{// namespace Ikarus::Python}}
 
 \end{DoxyCode}

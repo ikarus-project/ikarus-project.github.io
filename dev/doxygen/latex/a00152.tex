@@ -1,54 +1,47 @@
-\hypertarget{a00152}{}\doxysection{flatassembler.\+hh File Reference}
-\label{a00152}\index{flatassembler.hh@{flatassembler.hh}}
+\hypertarget{a00152}{}\doxysection{generalizedeigensolver.\+hh File Reference}
+\label{a00152}\index{generalizedeigensolver.hh@{generalizedeigensolver.hh}}
 
 
-\mbox{\hyperlink{a00540}{Python}} bindings for assemblers.  
+Implementation of wrapper classes for solving a generalized eigenvalue problem.  
 
 
-{\ttfamily \#include $<$dune/python/common/typeregistry.\+hh$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/eigen.\+h$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/pybind11.\+h$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/stl.\+h$>$}\newline
-{\ttfamily \#include $<$dune/python/pybind11/stl\+\_\+bind.\+h$>$}\newline
-{\ttfamily \#include $<$ikarus/assembler/dirichletbcenforcement.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/ferequirements.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/basis.\+hh$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$Spectra/\+Mat\+Op/\+Sparse\+Cholesky.\+h$>$}\newline
+{\ttfamily \#include $<$Spectra/\+Mat\+Op/\+Sparse\+Gen\+Mat\+Prod.\+h$>$}\newline
+{\ttfamily \#include $<$Spectra/\+Sym\+Eigs\+Solver.\+h$>$}\newline
+{\ttfamily \#include $<$Spectra/\+Sym\+GEigs\+Solver.\+h$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Sparse\+Core$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/makeenum.\+hh$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{a02086}{Ikarus\+::\+Generalized\+Sym\+Eigen\+Solver$<$ Solver\+Type, MT $>$}}
+\item 
+struct \mbox{\hyperlink{a02090}{Ikarus\+::\+Generalized\+Sym\+Eigen\+Solver$<$ Eigen\+Value\+Solver\+Type\+::\+Spectra, MT $>$}}
+\begin{DoxyCompactList}\small\item\em This class implements a wrapper to the Spectra generalized eigen solver for square real symmetric matrices, i.\+e. to solve $ Ax = \lambda Bx$, where A is symmetric and B is positive definite. It calculates the full spectrum of eigenvalues. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{a02094}{Ikarus\+::\+Generalized\+Sym\+Eigen\+Solver$<$ Eigen\+Value\+Solver\+Type\+::\+Eigen, MT $>$}}
+\begin{DoxyCompactList}\small\item\em This class implements a wrapper to the \mbox{\hyperlink{a00527}{Eigen}} generalized eigen solver for square real symmetric matrices, i.\+e. to solve $ Ax = \lambda Bx$, where A is symmetric and B is positive definite. A and B have to be dense matrices. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{a02098}{Ikarus\+::\+Partial\+Generalized\+Sym\+Eigen\+Solver$<$ MT $>$}}
+\begin{DoxyCompactList}\small\item\em This class implements a wrapper to the Spectra generalized eigen solver for square real symmetric matrices, i.\+e. to solve $ Ax = \lambda Bx$, where A is symmetric and B is positive definite. It calculates a selection of eigenvalues. At most $ n - 1 $, where $ n $ is the number of rows/cols of the matrices. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{a00510}{Ikarus}}
-\item 
-namespace \mbox{\hyperlink{a00529}{Ikarus\+::\+Python}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Macros}
+\doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{a00152_adda74d8564a01c0a9851a4379308a8b2}{MAKE\+\_\+\+ASSEMBLER\+\_\+\+REGISTERY\+\_\+\+FUNCTION}}(name)
-\end{DoxyCompactItemize}
+enum class \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4}{Ikarus\+::\+Eigen\+Value\+Solver\+Type}} \{ \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a19aad9f2fe3ce0023298ab83f7e75775}{Ikarus\+::\+BEGIN}}
+, \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a58cfa0f9df6b562cf96fe03fc6a42b69}{Ikarus\+::\+Spectra}}
+, \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4a1b2efdb21877547bdee38ea88f1cf833}{Ikarus\+::\+Eigen}}
+, \mbox{\hyperlink{a00510_a76f328509ccf00e93bba2416f01620e4ab1a326c06d88bf042f73d70f50197905}{Ikarus\+::\+END}}
+ \}
+\begin{DoxyCompactList}\small\item\em A strongly typed enum class representing the type of solver to use for the eigenvalue problem. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$class Assembler , class... options$>$ }\\void \mbox{\hyperlink{a00502_ga87d3c6e620be5df59ba6923751caae86}{Ikarus\+::\+Python\+::register\+Flat\+Assembler}} (pybind11\+::handle scope, pybind11\+::class\+\_\+$<$ Assembler, options... $>$ cls)
-\begin{DoxyCompactList}\small\item\em Register \mbox{\hyperlink{a00529}{Python}} bindings for a assembler class. ~\newline
-. \end{DoxyCompactList}\item 
-{\footnotesize template$<$class Assembler , class... options$>$ }\\void \mbox{\hyperlink{a00529_aeab1c5f959a22f95b40b0a7576f9c896}{Ikarus\+::\+Python\+::register\+Sparse\+Flat\+Assembler}} (pybind11\+::handle scope, pybind11\+::class\+\_\+$<$ Assembler, options... $>$ cls)
-\item 
-{\footnotesize template$<$class Assembler , class... options$>$ }\\void \mbox{\hyperlink{a00529_a2b0faffde20690631657489c79ec809b}{Ikarus\+::\+Python\+::register\+Dense\+Flat\+Assembler}} (pybind11\+::handle scope, pybind11\+::class\+\_\+$<$ Assembler, options... $>$ cls)
+constexpr std\+::string \mbox{\hyperlink{a00510_acc08b9ea0e95d84b7f5b9cc272eb453f}{Ikarus\+::to\+String}} (Eigen\+Value\+Solver\+Type \+\_\+e)
 \end{DoxyCompactItemize}
-
-
-\doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{a00152_adda74d8564a01c0a9851a4379308a8b2}\label{a00152_adda74d8564a01c0a9851a4379308a8b2}} 
-\index{flatassembler.hh@{flatassembler.hh}!MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION@{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION}}
-\index{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION@{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION}!flatassembler.hh@{flatassembler.hh}}
-\doxysubsubsection{\texorpdfstring{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION}{MAKE\_ASSEMBLER\_REGISTERY\_FUNCTION}}
-{\footnotesize\ttfamily \#define MAKE\+\_\+\+ASSEMBLER\+\_\+\+REGISTERY\+\_\+\+FUNCTION(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{class }Assembler, \textcolor{keyword}{class}... options>                                               \(\backslash\)}
-\DoxyCodeLine{  void \textcolor{keyword}{register}\#\#name(pybind11::handle scope, pybind11::class\_<Assembler, options...> cls) \{ \(\backslash\)}
-\DoxyCodeLine{    registerFlatAssembler(scope, cls);                                                       \(\backslash\)}
-\DoxyCodeLine{  \}}
-
-\end{DoxyCode}

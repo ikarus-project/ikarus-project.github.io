@@ -1,7 +1,9 @@
 var a00032 =
 [
-    [ "Ikarus::utils::CheckFlags", "a02330.html", "a02330" ],
-    [ "checkGradient", "a00032.html#ga9552c352e9fa0eeca4b3ae3d1dd1f585", null ],
-    [ "checkHessian", "a00032.html#gaaf21900c80f097360a624da5505eddf9", null ],
-    [ "checkJacobian", "a00032.html#ga9ebceb909ac3c21db81ccd0dbbf03a33", null ]
+    [ "globalIndexFromGlobalPosition", "a00032.html#ga334aa3c552eca9519c71f6b5aac1c5b8", null ],
+    [ "maybeDeref", "a00032.html#af8ee685bd6d75a8b5f737eafd53860ae", null ],
+    [ "obtainForcesDueToIDBC", "a00032.html#a8a9dd9a34514881c4b30b3fdc62a62f9", null ],
+    [ "obtainLagrangeGlobalNodePositions", "a00032.html#ga8daf682700ce109716318abad5c41eba", null ],
+    [ "referenceElementSubEntityPositions", "a00032.html#ga30df35336d19b00bc5db2a0b52ce650e", null ],
+    [ "referenceElementVertexPositions", "a00032.html#ga8c05dce8a66fc4efbe31674b87d18298", null ]
 ];

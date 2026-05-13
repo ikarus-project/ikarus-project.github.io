@@ -1,29 +1,43 @@
-\hypertarget{a00269}{}\doxysection{stressconversions.\+hh File Reference}
-\label{a00269}\index{stressconversions.hh@{stressconversions.hh}}
+\hypertarget{a00269}{}\doxysection{pathfollowing.\+hh File Reference}
+\label{a00269}\index{pathfollowing.hh@{pathfollowing.hh}}
 
 
-Implementation of transformations for different stress measures.  
+Defines the Path\+Following class.  
 
 
-{\ttfamily \#include \char`\"{}tags.\+hh\char`\"{}}\newline
-{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/materialhelpers.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/tensorutils.\+hh$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/adaptivestepsizing.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/controlinfos.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/controlroutinebase.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/controlroutinefactory.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/pathfollowingfunctions.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/newtonraphsonwithscalarsubsidiaryfunction.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/solver/nonlinearsolver/nonlinearsolverfactory.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/broadcaster/broadcastermessages.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/differentiablefunctionfactory.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/controlroutines/pathfollowing.\+inl$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{a01466}{Ikarus\+::\+Path\+Following\+State$<$ D $>$}}
+\begin{DoxyCompactList}\small\item\em State for path following control routine. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{a01478}{Ikarus\+::\+Path\+Following\+Config$<$ PF\+\_\+, ASS\+\_\+ $>$}}
+\begin{DoxyCompactList}\small\item\em Config for the Path-\/\+Following control routine. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{a01474}{Ikarus\+::\+Path\+Following$<$ NLS, PF, ASS $>$}}
+\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{a01474}{Path\+Following}} control routine for path-\/following analysis. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{a00510}{Ikarus}}
 \end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename F $>$ }\\using \mbox{\hyperlink{a00510_a55422e7318ffa2a289aee49663f1e2e1}{Ikarus\+::\+Path\+Following\+State\+Type}} = Impl\+::\+Path\+Following\+State\+Factory$<$ F $>$\+::type
+\begin{DoxyCompactList}\small\item\em Helper to deduce the correct types for \mbox{\hyperlink{a01450}{Control\+Routine\+State}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00510_aac5f712024c37b9014278c6b91b79f41}{Ikarus\+::create\+PK2\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create PK2 stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00510_acda5fb24a857866c8be72dcb94edc70f}{Ikarus\+::create\+PK1\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create PK1 stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00510_ac072123f9f65284646424ff6fb2a3661}{Ikarus\+::create\+Kirchhoff\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create Kirchhoff stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00510_ad5371a3a1c5123b3241a103c6c844b88}{Ikarus\+::create\+Cauchy\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&s\+MB, const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Create Cauchy stress matrix based on the input. \end{DoxyCompactList}\item 
-{\footnotesize template$<$Stress\+Tags from, Stress\+Tags to, typename DerivedS , typename DerivedF $>$ }\\auto \mbox{\hyperlink{a00510_a15a168e678f7086c461b0aab8eb69349}{Ikarus\+::transform\+Stress}} (const Eigen\+::\+Matrix\+Base$<$ DerivedS $>$ \&s\+Raw, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&F)
-\begin{DoxyCompactList}\small\item\em Transform stress measures from one type to another. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$typename NLS , typename PFConfig $>$ \newline
+requires traits\+::is\+Specialization$<$Path\+Following\+Config, std\+::remove\+\_\+cvref\+\_\+t$<$PFConfig$>$$>$}\\\+::value auto \mbox{\hyperlink{a00510_a8e39557c3fe94302f5bf3ecb457d27f0}{Ikarus\+::create\+Control\+Routine}} (PFConfig \&\&config, NLS \&\&nonlinear\+Solver)
+\begin{DoxyCompactList}\small\item\em Function to create a path following instance. \end{DoxyCompactList}\end{DoxyCompactItemize}

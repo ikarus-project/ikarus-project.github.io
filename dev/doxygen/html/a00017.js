@@ -1,6 +1,8 @@
 var a00017 =
 [
-    [ "Ikarus::DifferentiableFunction< Range(D), DerivativeTraits, F, FF... >", "a02266.html", "a02266" ],
-    [ "functions", "a00017.html#ab787b670f0d338c870988f417cf85f76", null ],
-    [ "makeDifferentiableFunction", "a00017.html#a7c304a58fc833d46ac3d8a7dc74f8ed0", null ]
+    [ "toDune", "a00017.html#a4e9e21776afdaaa93c4a9d19554976fa", null ],
+    [ "toDune", "a00017.html#a83633e77ee5a35cb31a7cd2f02aedb7f", null ],
+    [ "toDune", "a00017.html#a0fdba7f3ebe4bf1ada6618f450b50221", null ],
+    [ "toEigenMap", "a00017.html#aaa7e8e9b8bd8247afecc24cdd54ec658", null ],
+    [ "toEigenMap", "a00017.html#aaac71220182c301ee8c864f2a507c3db", null ]
 ];

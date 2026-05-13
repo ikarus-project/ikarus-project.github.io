@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: quadraturerulehelper.hh Source File</title>
+    <title>ikarus: traversal.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,57 +155,93 @@ $(document).ready(function(){initNavTree('a00074_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">quadraturerulehelper.hh</div></div>
+  <div class="headertitle"><div class="title">traversal.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00074.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;dune/geometry/quadraturerules.hh&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00510.html">Ikarus</a> {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> BaseQuadrature, <span class="keyword">class</span> Quadrature&gt;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a00510.html#a839e2d8a648318c584c66024e62ddd91">   29</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00510.html#a839e2d8a648318c584c66024e62ddd91">tensorProductQuadrature</a>(<span class="keyword">const</span> BaseQuadrature&amp; baseQuad, <span class="keyword">const</span> Quadrature&amp; onedQuad) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keyword">constexpr</span> <span class="keywordtype">int</span> baseQuadDim       = BaseQuadrature::d;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keyword">auto</span> rule                       = Dune::QuadratureRule&lt;double, baseQuadDim + 1&gt;();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> baseQuadSize = baseQuad.size();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> bqi = 0; bqi &lt; baseQuadSize; ++bqi) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">const</span> <span class="keyword">typename</span> Dune::QuadraturePoint&lt;double, baseQuadDim&gt;::Vector&amp; basePoint = baseQuad[bqi].position();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; baseWeight                                                     = baseQuad[bqi].weight();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">typename</span> Dune::QuadraturePoint&lt;double, baseQuadDim + 1&gt;::Vector point;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; baseQuadDim; ++i)</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      point[i] = basePoint[i];</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> onedQuadSize = onedQuad.size();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> oqi = 0; oqi &lt; onedQuadSize; ++oqi) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>      point[baseQuadDim] = onedQuad[oqi].position()[0];</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>      rule.emplace_back(Dune::QuadraturePoint(point, baseWeight * onedQuad[oqi].weight()));</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keywordflow">return</span> rule;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">template</span> &lt;<span class="keywordtype">int</span> dim, <span class="keyword">typename</span> Element&gt;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a00510.html#aa92ba5c8dfc0123e28236e017c3671d3">   62</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00510.html#aa92ba5c8dfc0123e28236e017c3671d3">defaultQuadratureRule</a>(<span class="keyword">const</span> Element&amp; element, <span class="keywordtype">int</span> order) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keyword">const</span> <span class="keyword">auto</span> defaultRule = Dune::QuadratureRules&lt;double, dim&gt;::rule(element.type(), order);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">requires</span> { element.impl().getQuadratureRule(order); })</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">if</span> (element.impl().isTrimmed())</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      <span class="keywordflow">return</span> element.impl().getQuadratureRule(order);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>      <span class="keywordflow">return</span> defaultRule;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">return</span> defaultRule;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a00510.html#a664c5f26c38c5958545919ecc5bd66c8">   82</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a00510.html#a664c5f26c38c5958545919ecc5bd66c8">numberOfGaussPointsToOrder</a>(<span class="keywordtype">int</span> nGP) { <span class="keywordflow">return</span> 2 * nGP - 1; }</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>} <span class="comment">// namespace Ikarus</span></div>
-<div class="ttc" id="aa00510_html"><div class="ttname"><a href="a00510.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa00510_html_a664c5f26c38c5958545919ecc5bd66c8"><div class="ttname"><a href="a00510.html#a664c5f26c38c5958545919ecc5bd66c8">Ikarus::numberOfGaussPointsToOrder</a></div><div class="ttdeci">int numberOfGaussPointsToOrder(int nGP)</div><div class="ttdoc">A helper function to convert the number of Gauss integration points to the polynomial order of the fu...</div><div class="ttdef"><b>Definition:</b> quadraturerulehelper.hh:82</div></div>
-<div class="ttc" id="aa00510_html_a839e2d8a648318c584c66024e62ddd91"><div class="ttname"><a href="a00510.html#a839e2d8a648318c584c66024e62ddd91">Ikarus::tensorProductQuadrature</a></div><div class="ttdeci">auto tensorProductQuadrature(const BaseQuadrature &amp;baseQuad, const Quadrature &amp;onedQuad)</div><div class="ttdoc">Computes the tensor product quadrature rule using a base and one-dimensional quadrature rule.</div><div class="ttdef"><b>Definition:</b> quadraturerulehelper.hh:29</div></div>
-<div class="ttc" id="aa00510_html_aa92ba5c8dfc0123e28236e017c3671d3"><div class="ttname"><a href="a00510.html#aa92ba5c8dfc0123e28236e017c3671d3">Ikarus::defaultQuadratureRule</a></div><div class="ttdeci">auto defaultQuadratureRule(const Element &amp;element, int order)</div><div class="ttdoc">A helper function to provide a default quadrature rule for integration.</div><div class="ttdef"><b>Definition:</b> quadraturerulehelper.hh:62</div></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a03559.html">ikarus/utils/concepts.hh</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00531.html">Ikarus::utils</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keyword">class</span> TreePath, <span class="keyword">class</span> PowerFunc, <span class="keyword">class</span> LeafFunc&gt;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a00531.html#a63742d75d099b93da7ddf6e78a3c1f56">   31</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00531.html#a63742d75d099b93da7ddf6e78a3c1f56">forEachLeafOrPowerLeafNode</a>(T&amp;&amp; tree, TreePath&amp;&amp; treePath, PowerFunc&amp;&amp; powerFunc, LeafFunc&amp;&amp; leafFunc) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keyword">using </span>Tree = std::decay_t&lt;T&gt;;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (Tree::isLeaf) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    leafFunc(tree, treePath);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (Tree::isPower) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (Tree::template Child&lt;Dune::Indices::_0&gt;::Type::isLeaf) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>      powerFunc(tree, treePath);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; tree.degree(); ++i) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">auto</span> childTreePath = Dune::TypeTree::push_back(treePath, i);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_function" href="a00531.html#a63742d75d099b93da7ddf6e78a3c1f56">forEachLeafOrPowerLeafNode</a>(tree.child(i), childTreePath, powerFunc, leafFunc);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">auto</span> indices = std::make_index_sequence&lt;Tree::degree()&gt;{};</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    Dune::Hybrid::forEach(indices, [&amp;](<span class="keyword">auto</span> i) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>      <span class="keyword">auto</span> childTreePath = Dune::TypeTree::push_back(treePath, i);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      <a class="code hl_function" href="a00531.html#a63742d75d099b93da7ddf6e78a3c1f56">forEachLeafOrPowerLeafNode</a>(tree.child(i), childTreePath, powerFunc, leafFunc);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    });</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">namespace </span>Impl {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> isScalar, <span class="keyword">typename</span> NT&gt;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keywordtype">void</span> checkLagrangeNode(<span class="keyword">const</span> NT&amp; node) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (isScalar) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>      <span class="keyword">static_assert</span>(<a class="code hl_concept" href="a02435.html">Concepts::LagrangeNode</a>&lt;std::remove_cvref_t&lt;<span class="keyword">decltype</span>(node)&gt;&gt;, <span class="stringliteral">&quot;Only supported for Lagrange basis&quot;</span>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      <span class="keyword">static_assert</span>(Concepts::LagrangeNode&lt;std::remove_cvref_t&lt;<span class="keyword">decltype</span>(node.child(0))&gt;&gt;,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                    <span class="stringliteral">&quot;Only supported for Lagrange basis&quot;</span>);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace Impl</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> LV, <span class="keyword">typename</span> F, <span class="keywordtype">int</span> myDim = LV::Element::mydimension&gt;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">requires</span>(std::convertible_to&lt;F, std::function&lt;bool(<span class="keywordtype">int</span>, <a class="code hl_class" href="a02274.html">Dune::FieldVector&lt;double, myDim&gt;</a> &amp;&amp;)&gt;&gt;)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a00531.html#ad8f6a5b5d6fb5a916fd5791adf5ef4d9">   77</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00531.html#ad8f6a5b5d6fb5a916fd5791adf5ef4d9">forEachLagrangeNodePosition</a>(<span class="keyword">const</span> LV&amp; localView, F&amp;&amp; f) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  <span class="keyword">using </span>Tree                     = LV::Tree;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> isScalar = Tree::isLeaf;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> isPower  = Tree::isPower;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; node               = [&amp;]() {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (isScalar or isPower)</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>      <span class="keywordflow">return</span> localView.tree();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      <span class="keywordflow">return</span> localView.tree().template child&lt;0&gt;();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  }();</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  Impl::checkLagrangeNode&lt;isScalar&gt;(node);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  assert(localView.bound() &amp;&amp; <span class="stringliteral">&quot;The local view must be bound to an element&quot;</span>);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; localFE = [&amp;]() {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (isScalar)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      <span class="keywordflow">return</span> node.finiteElement();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>      <span class="keywordflow">return</span> node.child(0).finiteElement();</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  }();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  std::vector&lt;Dune::FieldVector&lt;double, myDim&gt;&gt; lagrangeNodeCoords;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  lagrangeNodeCoords.resize(localFE.size());</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  std::vector&lt;double&gt; out;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; myDim; i++) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">auto</span> ithCoord = [&amp;i](<span class="keyword">const</span> <a class="code hl_class" href="a02274.html">Dune::FieldVector&lt;double, myDim&gt;</a>&amp; x) { <span class="keywordflow">return</span> x[i]; };</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    localFE.localInterpolation().interpolate(ithCoord, out);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">for</span> (std::size_t j = 0; j &lt; out.size(); j++)</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>      lagrangeNodeCoords[j][i] = out[j];</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>  }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> nodeNumber = 0; <span class="keyword">auto</span>&amp; nCoord : lagrangeNodeCoords)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">if</span> (f(nodeNumber++, std::move(nCoord)))</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>      <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>} <span class="comment">// namespace Ikarus::utils</span></div>
+<div class="ttc" id="aa00531_html"><div class="ttname"><a href="a00531.html">Ikarus::utils</a></div><div class="ttdef"><b>Definition:</b> algorithms.hh:17</div></div>
+<div class="ttc" id="aa00531_html_a63742d75d099b93da7ddf6e78a3c1f56"><div class="ttname"><a href="a00531.html#a63742d75d099b93da7ddf6e78a3c1f56">Ikarus::utils::forEachLeafOrPowerLeafNode</a></div><div class="ttdeci">void forEachLeafOrPowerLeafNode(T &amp;&amp;tree, TreePath &amp;&amp;treePath, PowerFunc &amp;&amp;powerFunc, LeafFunc &amp;&amp;leafFunc)</div><div class="ttdoc">A function which loops over all the nodes of a tree and performs different actions for a power node (...</div><div class="ttdef"><b>Definition:</b> traversal.hh:31</div></div>
+<div class="ttc" id="aa00531_html_ad8f6a5b5d6fb5a916fd5791adf5ef4d9"><div class="ttname"><a href="a00531.html#ad8f6a5b5d6fb5a916fd5791adf5ef4d9">Ikarus::utils::forEachLagrangeNodePosition</a></div><div class="ttdeci">void forEachLagrangeNodePosition(const LV &amp;localView, F &amp;&amp;f)</div><div class="ttdoc">A helper function that helps in traversing over the local coordinates of an element and call a user-d...</div><div class="ttdef"><b>Definition:</b> traversal.hh:77</div></div>
+<div class="ttc" id="aa02274_html"><div class="ttname"><a href="a02274.html">Dune::FieldVector</a></div><div class="ttdef"><b>Definition:</b> utils/dirichletvalues.hh:38</div></div>
+<div class="ttc" id="aa02435_html"><div class="ttname"><a href="a02435.html">Ikarus::Concepts::LagrangeNode</a></div><div class="ttdoc">Concept to check if a node in a basis tree is a Lagrangian node.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:92</div></div>
+<div class="ttc" id="aa03559_html"><div class="ttname"><a href="a03559.html">concepts.hh</a></div><div class="ttdoc">Several concepts.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -216,7 +252,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a00074.html">quadraturerulehelper.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_36505a9bfb81f81ed7a4e794d4cf597e.html">utils</a></li><li class="navelem"><a class="el" href="a00074.html">traversal.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

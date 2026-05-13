@@ -1,87 +1,129 @@
-\hypertarget{a00356_source}{}\doxysection{nonlinearsolverlogger.\+hh}
-\label{a00356_source}\index{nonlinearsolverlogger.hh@{nonlinearsolverlogger.hh}}
+\hypertarget{a00356_source}{}\doxysection{mueslismall.\+hh}
+\label{a00356_source}\index{mueslismall.hh@{mueslismall.hh}}
 \mbox{\hyperlink{a00356}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <spdlog/spdlog.h>}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00344}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03520}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00347}{ikarus/utils/listener/listener.hh}}>}}
-\DoxyCodeLine{16 }
-\DoxyCodeLine{17 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
-\DoxyCodeLine{18 }
-\DoxyCodeLine{22 \textcolor{keyword}{class }\mbox{\hyperlink{a02354}{NonLinearSolverLogger}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02350}{Listener}}}
-\DoxyCodeLine{23 \{}
-\DoxyCodeLine{24 \textcolor{keyword}{public}:}
-\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} BC>}
-\DoxyCodeLine{26   \mbox{\hyperlink{a02354}{NonLinearSolverLogger}}\& \mbox{\hyperlink{a02354_a85a6115d67cb908c480e4d9e3b2bbd64}{subscribeTo}}(BC\& bc) \{}
-\DoxyCodeLine{27     this-\/>\mbox{\hyperlink{a02350_a199840d6ead51d771d5522acff779a4f}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00510_a662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keyword}{const} BC::State\& state) \{ this-\/>\mbox{\hyperlink{a02354_a8497b574aac79647dca0c8b9ddbdc5bc}{update}}(message, state); \});}
-\DoxyCodeLine{28     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{29   \}}
-\DoxyCodeLine{30 }
-\DoxyCodeLine{37   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02354_a8497b574aac79647dca0c8b9ddbdc5bc}{update}}(\mbox{\hyperlink{a00510_a662b2b6a80547adf4b9ce8b30d87fab5}{NonLinearSolverMessages}} message, \textcolor{keyword}{const} \mbox{\hyperlink{a02475}{Concepts::NonLinearSolverState}} \textcolor{keyword}{auto}\& state) \{}
-\DoxyCodeLine{38     \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} isDomainAVector = \mbox{\hyperlink{a02458}{Concepts::EigenVector}}<\textcolor{keyword}{typename} std::remove\_cvref\_t<\textcolor{keyword}{decltype}(state)>::Domain>;}
-\DoxyCodeLine{39     \textcolor{keywordflow}{switch} (message) \{}
-\DoxyCodeLine{40       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00510_a662b2b6a80547adf4b9ce8b30d87fab5afaee4ca3c30ee18148ce3ada37466498}{NonLinearSolverMessages::INIT}}:}
-\DoxyCodeLine{41         init<isDomainAVector>();}
-\DoxyCodeLine{42         \textcolor{keywordflow}{break};}
-\DoxyCodeLine{43       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00510_a662b2b6a80547adf4b9ce8b30d87fab5a073d71a89cce6d4b9775987fdbb22815}{NonLinearSolverMessages::ITERATION\_ENDED}}:}
-\DoxyCodeLine{44         iterationEnded<isDomainAVector>();}
-\DoxyCodeLine{45         \textcolor{keywordflow}{break};}
-\DoxyCodeLine{46       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00510_a662b2b6a80547adf4b9ce8b30d87fab5a721c68980ba6c47122945477a56d7a14}{NonLinearSolverMessages::RESIDUALNORM\_UPDATED}}:}
-\DoxyCodeLine{47         rNorm\_ = state.information.residualNorm;}
-\DoxyCodeLine{48         \textcolor{keywordflow}{break};}
-\DoxyCodeLine{49       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00510_a662b2b6a80547adf4b9ce8b30d87fab5a0d30d757bf062e88728ebe7f8e2b2577}{NonLinearSolverMessages::SOLUTION\_CHANGED}}:}
-\DoxyCodeLine{50         \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (not isDomainAVector)}
-\DoxyCodeLine{51           lambda\_ = state.domain.parameter();}
-\DoxyCodeLine{52         \textcolor{keywordflow}{break};}
-\DoxyCodeLine{53       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00510_a662b2b6a80547adf4b9ce8b30d87fab5a07a63a77745ab72a7e89fb22a8bcfd78}{NonLinearSolverMessages::CORRECTIONNORM\_UPDATED}}:}
-\DoxyCodeLine{54         dNorm\_ = state.information.correctionNorm;}
-\DoxyCodeLine{55         \textcolor{keywordflow}{break};}
-\DoxyCodeLine{56       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00510_a662b2b6a80547adf4b9ce8b30d87fab5a15380ac35d47cdbcbd64aada4bc21931}{NonLinearSolverMessages::FINISHED\_SUCESSFULLY}}:}
-\DoxyCodeLine{57         finishedSuccessfully(state.information.iterations);}
-\DoxyCodeLine{58         \textcolor{keywordflow}{break};}
-\DoxyCodeLine{59       \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{60         \textcolor{keywordflow}{break};}
-\DoxyCodeLine{61     \}}
-\DoxyCodeLine{62   \}}
-\DoxyCodeLine{63 }
-\DoxyCodeLine{64 \textcolor{keyword}{private}:}
-\DoxyCodeLine{65   \textcolor{keywordtype}{int} iters\_\{0\};}
-\DoxyCodeLine{66   \textcolor{keywordtype}{double} dNorm\_\{0\};}
-\DoxyCodeLine{67   \textcolor{keywordtype}{double} rNorm\_\{0\};}
-\DoxyCodeLine{68   \textcolor{keywordtype}{double} lambda\_\{0\};}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} isDomainAVector>}
-\DoxyCodeLine{71   \textcolor{keywordtype}{void} init() \{}
-\DoxyCodeLine{72     iters\_ = 1;}
-\DoxyCodeLine{73     rNorm\_ = 0.0;}
-\DoxyCodeLine{74     dNorm\_ = 0.0;}
-\DoxyCodeLine{75     spdlog::info(\textcolor{stringliteral}{"{}Non-\/linear solver started:"{}});}
-\DoxyCodeLine{76     \textcolor{keywordflow}{if} (not isDomainAVector) \{}
-\DoxyCodeLine{77       spdlog::info(\textcolor{stringliteral}{"{}\{:<11\} \{:<20\} \{:<20\} \{:<20\}"{}}, \textcolor{stringliteral}{"{}Ite"{}}, \textcolor{stringliteral}{"{}normR"{}}, \textcolor{stringliteral}{"{}normD"{}}, \textcolor{stringliteral}{"{}lambda"{}});}
-\DoxyCodeLine{78       spdlog::info(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}});}
-\DoxyCodeLine{79     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{80       spdlog::info(\textcolor{stringliteral}{"{}\{:<11\} \{:<20\} \{:<20\}"{}}, \textcolor{stringliteral}{"{}Ite"{}}, \textcolor{stringliteral}{"{}normR"{}}, \textcolor{stringliteral}{"{}normD"{}});}
-\DoxyCodeLine{81       spdlog::info(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}});}
-\DoxyCodeLine{82     \}}
-\DoxyCodeLine{83   \}}
-\DoxyCodeLine{84 }
-\DoxyCodeLine{85   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} isDomainAVector>}
-\DoxyCodeLine{86   \textcolor{keywordtype}{void} iterationEnded() \{}
-\DoxyCodeLine{87     \textcolor{keywordflow}{if} (not isDomainAVector)}
-\DoxyCodeLine{88       spdlog::info(\textcolor{stringliteral}{"{}\{\} \{:<10d\} \{:<20.2e\} \{:<20.2e\} \{:<20.2e\}"{}}, \textcolor{stringliteral}{"{}"{}}, iters\_, rNorm\_, dNorm\_, lambda\_);}
-\DoxyCodeLine{89     \textcolor{keywordflow}{else}}
-\DoxyCodeLine{90       spdlog::info(\textcolor{stringliteral}{"{}\{\} \{:<10d\} \{:<20.2e\} \{:<20.2e\}"{}}, \textcolor{stringliteral}{"{}"{}}, iters\_, rNorm\_, dNorm\_);}
-\DoxyCodeLine{91     ++iters\_;}
-\DoxyCodeLine{92   \}}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{94   \textcolor{keywordtype}{void} finishedSuccessfully(\textcolor{keywordtype}{int} numberOfIterations) \{ spdlog::info(\textcolor{stringliteral}{"{}Number of iterations: \{\}"{}}, numberOfIterations); \}}
-\DoxyCodeLine{95 \};}
-\DoxyCodeLine{96 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#if ENABLE\_MUESLI}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{  \#include <muesli/muesli.h>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{  \#include <Eigen/Eigen>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a03514}{ikarus/finiteelements/mechanics/materials/interface.hh}}>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00353}{ikarus/finiteelements/mechanics/materials/muesli/mueslihelpers.hh}}>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00029}{ikarus/utils/tensorutils.hh}}>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00521}{Ikarus::Materials}} \{}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{30 \textcolor{keyword}{template} <\textcolor{keyword}{typename} SM = muesli::elasticIsotropicMaterial>}
+\DoxyCodeLine{31 \textcolor{keyword}{requires}(std::is\_base\_of\_v<muesli::smallStrainMaterial, SM>)}
+\DoxyCodeLine{32 \textcolor{keyword}{struct} SmallStrain : \textcolor{keyword}{public} Material<SmallStrain<SM>>}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34   \textcolor{keyword}{using }MaterialModel      = SM;}
+\DoxyCodeLine{35   \textcolor{keyword}{using }ScalarType         = double;}
+\DoxyCodeLine{36   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} dim = 3;}
+\DoxyCodeLine{37   \textcolor{keyword}{using }StrainMatrix       = Eigen::Matrix<ScalarType, dim, dim>;}
+\DoxyCodeLine{38   \textcolor{keyword}{using }StressMatrix       = StrainMatrix;}
+\DoxyCodeLine{39   \textcolor{keyword}{using }MaterialTensor     = Eigen::TensorFixedSize<ScalarType, Eigen::Sizes<dim, dim, dim, dim>>;}
+\DoxyCodeLine{40   \textcolor{keyword}{using }MaterialParameters = muesli::materialProperties;}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} strainTag              = \mbox{\hyperlink{a00499_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa}{StrainTags::linear}};}
+\DoxyCodeLine{43   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} stressTag              = \mbox{\hyperlink{a00499_gga70b4ce43c53cc5e949d49919f437501ea9a932b3cb396238423eb2f33ec17d6aa}{StressTags::linear}};}
+\DoxyCodeLine{44   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keyword}{auto} tangentModuliTag       = \mbox{\hyperlink{a00499_gga05ac785124262c1e323d2f937d520a1bad92a8333dd3ccb895cc65f7455b71206}{TangentModuliTags::Material}};}
+\DoxyCodeLine{45   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} energyAcceptsVoigt     = \textcolor{keyword}{false};}
+\DoxyCodeLine{46   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} stressToVoigt          = \textcolor{keyword}{false};}
+\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} stressAcceptsVoigt     = \textcolor{keyword}{false};}
+\DoxyCodeLine{48   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} moduliToVoigt          = \textcolor{keyword}{false};}
+\DoxyCodeLine{49   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{bool} moduliAcceptsVoigt     = \textcolor{keyword}{false};}
+\DoxyCodeLine{50   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} derivativeFactorImpl = 1;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   [[nodiscard]] \textcolor{keyword}{constexpr} \textcolor{keyword}{static} std::string nameImpl() noexcept \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}SmallStrain: "{}} + materialName<SM>(); \}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{58   \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
+\DoxyCodeLine{59   \textcolor{keyword}{requires}(std::same\_as<MaterialModel, muesli::elasticIsotropicMaterial>)}
+\DoxyCodeLine{60   \textcolor{keyword}{explicit} SmallStrain(\textcolor{keyword}{const} MPT\& mpt)}
+\DoxyCodeLine{61       : materialParameter\_\{propertiesFromIkarusMaterialParameters(mpt)\},}
+\DoxyCodeLine{62         material\_\{Dune::className<SM>(), materialParameter\_\},}
+\DoxyCodeLine{63         mp\_\{material\_.createMaterialPoint()\} \{\}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{69   \textcolor{keyword}{explicit} SmallStrain(\textcolor{keyword}{const} MaterialParameters\& mpt)}
+\DoxyCodeLine{70       : materialParameter\_\{mpt\},}
+\DoxyCodeLine{71         material\_\{\mbox{\hyperlink{a00536}{Dune}}::className<SM>(), mpt\},}
+\DoxyCodeLine{72         mp\_\{material\_.createMaterialPoint()\} \{\}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{77   MaterialParameters materialParametersImpl()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} materialParameter\_; \}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{85   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{86   ScalarType storedEnergyImpl(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{87     \textcolor{keyword}{static\_assert}(Concepts::EigenMatrixOrVoigtNotation3<Derived>);}
+\DoxyCodeLine{88     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!Concepts::EigenVector<Derived>) \{}
+\DoxyCodeLine{89       updateState(E);}
+\DoxyCodeLine{90       \textcolor{keywordflow}{return} mp\_-\/>storedEnergy();}
+\DoxyCodeLine{91     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{92       \textcolor{keyword}{static\_assert}(!Concepts::EigenVector<Derived>,}
+\DoxyCodeLine{93                     \textcolor{stringliteral}{"{}MuesliSmallStrain energy can only be called with a matrix and not a vector in Voigt notation"{}});}
+\DoxyCodeLine{94   \}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{103   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{104   \textcolor{keyword}{auto} stressesImpl(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{105     \textcolor{keyword}{static\_assert}(Concepts::EigenMatrixOrVoigtNotation3<Derived>);}
+\DoxyCodeLine{106     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!voigt) \{}
+\DoxyCodeLine{107       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!Concepts::EigenVector<Derived>) \{}
+\DoxyCodeLine{108         updateState(E);}
+\DoxyCodeLine{109         istensor stress;}
+\DoxyCodeLine{110         mp\_-\/>stress(stress);}
+\DoxyCodeLine{111         \textcolor{keywordflow}{return} toEigenMatrix(stress);}
+\DoxyCodeLine{112       \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{113         \textcolor{keyword}{static\_assert}(!Concepts::EigenVector<Derived>,}
+\DoxyCodeLine{114                       \textcolor{stringliteral}{"{}MuesliSmallStrain can only be called with a matrix and not a vector in Voigt notation"{}});}
+\DoxyCodeLine{115     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{116       \textcolor{keyword}{static\_assert}(voigt == \textcolor{keyword}{false}, \textcolor{stringliteral}{"{}MuesliSmallStrain does not support returning stresses in Voigt notation"{}});}
+\DoxyCodeLine{117   \}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{126   \textcolor{keyword}{template} <\textcolor{keywordtype}{bool} voigt, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{127   \textcolor{keyword}{auto} tangentModuliImpl(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{128     \textcolor{keyword}{static\_assert}(Concepts::EigenMatrixOrVoigtNotation3<Derived>);}
+\DoxyCodeLine{129     \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!voigt) \{}
+\DoxyCodeLine{130       \textcolor{keywordflow}{if} \textcolor{keyword}{constexpr} (!Concepts::EigenVector<Derived>) \{}
+\DoxyCodeLine{131         updateState(E);}
+\DoxyCodeLine{132         itensor4 tangentModuli;}
+\DoxyCodeLine{133         mp\_-\/>tangentTensor(tangentModuli);}
+\DoxyCodeLine{134         \textcolor{keywordflow}{return} toEigenTensor(tangentModuli);}
+\DoxyCodeLine{135       \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{136         \textcolor{keyword}{static\_assert}(!Concepts::EigenVector<Derived>,}
+\DoxyCodeLine{137                       \textcolor{stringliteral}{"{}MuesliSmallStrain can only be called with a matrix and not a vector in Voigt notation"{}});}
+\DoxyCodeLine{138     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{139       \textcolor{keyword}{static\_assert}(voigt == \textcolor{keyword}{false}, \textcolor{stringliteral}{"{}MuesliSmallStrain does not support returning tangent moduli in Voigt notation"{}});}
+\DoxyCodeLine{140   \}}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{146   \textcolor{keyword}{auto}\& material()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} material\_; \}}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{152   \textcolor{keyword}{auto}\& materialPoint()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} mp\_; \}}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{154   SmallStrain(\textcolor{keyword}{const} SmallStrain\& other)}
+\DoxyCodeLine{155       : materialParameter\_\{other.materialParameter\_\},}
+\DoxyCodeLine{156         material\_\{\mbox{\hyperlink{a00536}{Dune}}::className<SM>(), materialParameter\_\},}
+\DoxyCodeLine{157         mp\_\{material\_.createMaterialPoint()\} \{\}}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159 \textcolor{keyword}{private}:}
+\DoxyCodeLine{160   MaterialParameters materialParameter\_;}
+\DoxyCodeLine{161   MaterialModel material\_;}
+\DoxyCodeLine{162   std::unique\_ptr<muesli::smallStrainMP> mp\_;}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{165   \textcolor{keywordtype}{void} updateState(\textcolor{keyword}{const} Eigen::MatrixBase<Derived>\& E)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{166     mp\_-\/>updateCurrentState(0.0, toistensor(E.derived()));}
+\DoxyCodeLine{167   \}}
+\DoxyCodeLine{168 \};}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170 \} \textcolor{comment}{// namespace Ikarus::Materials}}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{173 \textcolor{preprocessor}{  \#error Muesli materials depends on the Muesli library, which is not included}}
+\DoxyCodeLine{174 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

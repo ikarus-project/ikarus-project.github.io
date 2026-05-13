@@ -1,4 +1,4 @@
 var a00176 =
 [
-    [ "Ikarus::PS::PK2Stress", "a01578.html", "a01578" ]
+    [ "ScalarWrapper< T >", "a02082.html", "a02082" ]
 ];

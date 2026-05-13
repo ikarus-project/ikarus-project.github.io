@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: fefactory.hh Source File</title>
+    <title>ikarus: registerferequirements.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,70 +155,72 @@ $(document).ready(function(){initNavTree('a00173_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">fefactory.hh</div></div>
+  <div class="headertitle"><div class="title">registerferequirements.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00173.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00332.html">ikarus/finiteelements/febase.hh</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00510.html">Ikarus</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> BH, <span class="keyword">typename</span> SK, <span class="keywordtype">bool</span> useFlat = true, <span class="keywordtype">bool</span> useEigenRef = false&gt;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a01518.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a01518.html">FEFactory</a></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a01518.html#ae4167551b40097429f804066c4973256">   24</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="a01518.html#ae4167551b40097429f804066c4973256">Skills</a> = SK;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;dune/python/common/typeregistry.hh&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;dune/python/pybind11/pybind11.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00176.html">ikarus/python/finiteelements/scalarwrapper.hh</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00529.html">Ikarus::Python</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>FE, <span class="keyword">class</span>... options&gt;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a00529.html#a32c3989a8ef1dbc581313ef17a0c6f5b">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00529.html#a32c3989a8ef1dbc581313ef17a0c6f5b">registerFERequirement</a>(pybind11::handle scope, pybind11::class_&lt;FE, options...&gt; cls) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keyword">using </span><a class="code hl_class" href="a01526.html">FERequirements</a>     = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01946.html#a86c0fea1b37e487f3c78cde6facca9c3">FE::Requirement</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="keyword">using </span>SolutionVectorType = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01526.html#a438e8f848c50755740ef8ee17620a284">FERequirements::SolutionVectorType</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keyword">using </span>ParameterType      = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01526.html#a50a1c42fc0b05811dfc370217fb70169">FERequirements::ParameterType</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">using </span>ParameterType = <span class="keyword">typename</span> <a class="code hl_typedef" href="a01526.html#a50a1c42fc0b05811dfc370217fb70169">FERequirements::ParameterType</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">using namespace </span>pybind11::literals;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  cls.def(</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>      <span class="stringliteral">&quot;createRequirement&quot;</span>, [](pybind11::object <span class="comment">/* self */</span>) { <span class="keywordflow">return</span> <a class="code hl_class" href="a01526.html">FERequirements</a>(); },</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>      pybind11::return_value_policy::copy);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">const</span> BH* basisHandler_;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  SK skills_;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keyword">auto</span> includes     = Dune::Python::IncludeFiles{<span class="stringliteral">&quot;ikarus/finiteelements/ferequirements.hh&quot;</span>};</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">auto</span> [req, isNew] = Dune::Python::insertClass&lt;FERequirements&gt;(</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>      scope, <span class="stringliteral">&quot;FERequirements&quot;</span>, Dune::Python::GenerateTypeName(Dune::className&lt;FERequirements&gt;()), includes);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> SK2 = SK&gt;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a01518.html#aacbb6c8ee45484144edb78306da79456">   37</a></span>  <a class="code hl_function" href="a01518.html#aacbb6c8ee45484144edb78306da79456">FEFactory</a>(<span class="keyword">const</span> BH&amp; basisHandler, <span class="keyword">const</span> SK2&amp; sk)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>      : basisHandler_{&amp;basisHandler},</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        skills_{sk} {}</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a01518.html#aa324bf69fc6e9d878cdaf1b2a8667196">   41</a></span>  <span class="keyword">auto</span> <a class="code hl_function" href="a01518.html#aa324bf69fc6e9d878cdaf1b2a8667196">operator()</a>() {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> std::apply(</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        [&amp;]&lt;<span class="keyword">typename</span>... Args&gt;(Args&amp;&amp;... args) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>          <span class="comment">// the template would not be needed,</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>          <span class="comment">// when https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1814r0.html</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>          <span class="comment">// will be implemented in clang. It is already implemented in gcc 12.2</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>          <span class="keyword">typename</span> <a class="code hl_struct" href="a01510.html">PreFE&lt;BH, useFlat, useEigenRef&gt;::template</a> <a class="code hl_class" href="a01506.html">FE&lt;std::decay_t&lt;Args&gt;::template</a> Skill...&gt; fe(</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>              *basisHandler_, std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>          <span class="keywordflow">return</span> fe;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        },</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        skills_.args);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> useFlat = true, <span class="keywordtype">bool</span> useEigenRef = false, <span class="keyword">typename</span> BH, <span class="keyword">typename</span> SK&gt;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a00510.html#a59639a9a20f036a4f1c0794f65595662">   68</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00510.html#a59639a9a20f036a4f1c0794f65595662">makeFE</a>(<span class="keyword">const</span> BH&amp; basisHandler, <span class="keyword">const</span> SK&amp; sk) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <a class="code hl_struct" href="a01518.html">FEFactory&lt;BH, SK, useFlat, useEigenRef&gt;</a> factory(basisHandler, sk);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keywordflow">return</span> factory();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> useEigenRef = false, <span class="keyword">typename</span> BH, <span class="keyword">typename</span> SK&gt;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a00510.html#aa80712fed165a22f02670f195488fe5f">   85</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00510.html#aa80712fed165a22f02670f195488fe5f">makeFEWithUnTouchedBasis</a>(<span class="keyword">const</span> BH&amp; basisHandler, SK&amp;&amp; sk) {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <a class="code hl_struct" href="a01518.html">FEFactory&lt;BH, SK, false, useEigenRef&gt;</a> factory(basisHandler, std::forward&lt;SK&gt;(sk));</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  <span class="keywordflow">return</span> factory();</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>} <span class="comment">// namespace Ikarus</span></div>
-<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">febase.hh</a></div><div class="ttdoc">Contains the FE class, which is used as a base class for all finite elements. It provides information...</div></div>
-<div class="ttc" id="aa00510_html"><div class="ttname"><a href="a00510.html">Ikarus</a></div><div class="ttdef"><b>Definition:</b> assemblermanipulatorbuildingblocks.hh:22</div></div>
-<div class="ttc" id="aa00510_html_a59639a9a20f036a4f1c0794f65595662"><div class="ttname"><a href="a00510.html#a59639a9a20f036a4f1c0794f65595662">Ikarus::makeFE</a></div><div class="ttdeci">auto makeFE(const BH &amp;basisHandler, const SK &amp;sk)</div><div class="ttdoc">A function to create a finite element using the flat version of the basis.</div><div class="ttdef"><b>Definition:</b> fefactory.hh:68</div></div>
-<div class="ttc" id="aa00510_html_aa80712fed165a22f02670f195488fe5f"><div class="ttname"><a href="a00510.html#aa80712fed165a22f02670f195488fe5f">Ikarus::makeFEWithUnTouchedBasis</a></div><div class="ttdeci">auto makeFEWithUnTouchedBasis(const BH &amp;basisHandler, SK &amp;&amp;sk)</div><div class="ttdoc">A function to create a finite element using the untouched version of the basis.</div><div class="ttdef"><b>Definition:</b> fefactory.hh:85</div></div>
-<div class="ttc" id="aa01506_html"><div class="ttname"><a href="a01506.html">Ikarus::FE</a></div><div class="ttdoc">FE class is a base class for all finite elements.</div><div class="ttdef"><b>Definition:</b> febase.hh:79</div></div>
-<div class="ttc" id="aa01510_html"><div class="ttname"><a href="a01510.html">Ikarus::PreFE</a></div><div class="ttdoc">PreFE struct acts as a convenient wrapper for the FE class to access different type traits.</div><div class="ttdef"><b>Definition:</b> febase.hh:33</div></div>
-<div class="ttc" id="aa01518_html"><div class="ttname"><a href="a01518.html">Ikarus::FEFactory</a></div><div class="ttdoc">FEFactory is a convenient wrapper to forward arguments to PreFE and create and construct a factory of...</div><div class="ttdef"><b>Definition:</b> fefactory.hh:23</div></div>
-<div class="ttc" id="aa01518_html_aa324bf69fc6e9d878cdaf1b2a8667196"><div class="ttname"><a href="a01518.html#aa324bf69fc6e9d878cdaf1b2a8667196">Ikarus::FEFactory::operator()</a></div><div class="ttdeci">auto operator()()</div><div class="ttdef"><b>Definition:</b> fefactory.hh:41</div></div>
-<div class="ttc" id="aa01518_html_aacbb6c8ee45484144edb78306da79456"><div class="ttname"><a href="a01518.html#aacbb6c8ee45484144edb78306da79456">Ikarus::FEFactory::FEFactory</a></div><div class="ttdeci">FEFactory(const BH &amp;basisHandler, const SK2 &amp;sk)</div><div class="ttdoc">constructor for FEFactory</div><div class="ttdef"><b>Definition:</b> fefactory.hh:37</div></div>
-<div class="ttc" id="aa01518_html_ae4167551b40097429f804066c4973256"><div class="ttname"><a href="a01518.html#ae4167551b40097429f804066c4973256">Ikarus::FEFactory::Skills</a></div><div class="ttdeci">SK Skills</div><div class="ttdef"><b>Definition:</b> fefactory.hh:24</div></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keywordflow">if</span> (isNew) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    req.def(<a class="code hl_function" href="a00510.html#ac8243891c1b961e50a066140ab79a142">pybind11::init</a>());</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    req.def(pybind11::init&lt;SolutionVectorType&amp;, ParameterType&amp;&gt;());</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    req.def(</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="stringliteral">&quot;insertGlobalSolution&quot;</span>,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        [](<a class="code hl_class" href="a01526.html">FERequirements</a>&amp; self, SolutionVectorType solVec) { self.<a class="code hl_function" href="a01526.html#a628bce13e9dce05097b6a1126b2dada2">insertGlobalSolution</a>(solVec); },</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="stringliteral">&quot;solutionVector&quot;</span>_a.noconvert());</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    req.def(</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="stringliteral">&quot;globalSolution&quot;</span>, [](<a class="code hl_class" href="a01526.html">FERequirements</a>&amp; self) { <span class="keywordflow">return</span> self.<a class="code hl_function" href="a01526.html#a9701fdddf89b019507963dd2f68912da">globalSolution</a>(); },</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        pybind11::return_value_policy::reference_internal);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    req.def(</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="stringliteral">&quot;insertParameter&quot;</span>,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        [](<a class="code hl_class" href="a01526.html">FERequirements</a>&amp; self, <a class="code hl_class" href="a02082.html">ScalarWrapper&lt;double&gt;</a>&amp; parVal) { self.<a class="code hl_function" href="a01526.html#aa183270a9a133844c208380d254d3796">insertParameter</a>(parVal.<a class="code hl_function" href="a02082.html#a0f885d047f898e549e8ece9cac3adea8">value</a>()); },</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        pybind11::keep_alive&lt;1, 2&gt;(), <span class="stringliteral">&quot;parameterValue&quot;</span>_a.noconvert());</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    req.def(<span class="stringliteral">&quot;parameter&quot;</span>, [](<span class="keyword">const</span> <a class="code hl_class" href="a01526.html">FERequirements</a>&amp; self) { <span class="keywordflow">return</span> self.<a class="code hl_function" href="a01526.html#abe2632437241140248ed986d745bd53a">parameter</a>(); });</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <span class="comment">// namespace Ikarus::Python</span></div>
+<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">scalarwrapper.hh</a></div><div class="ttdoc">Provides a wrapper for scalar types to support passing by reference in Python bindings.</div></div>
+<div class="ttc" id="aa00510_html_ac8243891c1b961e50a066140ab79a142"><div class="ttname"><a href="a00510.html#ac8243891c1b961e50a066140ab79a142">Ikarus::init</a></div><div class="ttdeci">void init(int argc, char **argv, bool enableFileLogger=true)</div><div class="ttdoc">Initializes the Ikarus framework.</div><div class="ttdef"><b>Definition:</b> init.hh:82</div></div>
+<div class="ttc" id="aa00529_html"><div class="ttname"><a href="a00529.html">Ikarus::Python</a></div><div class="ttdef"><b>Definition:</b> flatassembler.hh:21</div></div>
+<div class="ttc" id="aa00529_html_a32c3989a8ef1dbc581313ef17a0c6f5b"><div class="ttname"><a href="a00529.html#a32c3989a8ef1dbc581313ef17a0c6f5b">Ikarus::Python::registerFERequirement</a></div><div class="ttdeci">void registerFERequirement(pybind11::handle scope, pybind11::class_&lt; FE, options... &gt; cls)</div><div class="ttdef"><b>Definition:</b> registerferequirements.hh:14</div></div>
+<div class="ttc" id="aa01526_html"><div class="ttname"><a href="a01526.html">Ikarus::FERequirements</a></div><div class="ttdoc">Class representing the requirements for finite element calculations.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:224</div></div>
+<div class="ttc" id="aa01526_html_a438e8f848c50755740ef8ee17620a284"><div class="ttname"><a href="a01526.html#a438e8f848c50755740ef8ee17620a284">Ikarus::FERequirements::SolutionVectorType</a></div><div class="ttdeci">SV SolutionVectorType</div><div class="ttdoc">Type of the solution vector.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:226</div></div>
+<div class="ttc" id="aa01526_html_a50a1c42fc0b05811dfc370217fb70169"><div class="ttname"><a href="a01526.html#a50a1c42fc0b05811dfc370217fb70169">Ikarus::FERequirements::ParameterType</a></div><div class="ttdeci">PM ParameterType</div><div class="ttdoc">Type of the parameter.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:227</div></div>
+<div class="ttc" id="aa01526_html_a628bce13e9dce05097b6a1126b2dada2"><div class="ttname"><a href="a01526.html#a628bce13e9dce05097b6a1126b2dada2">Ikarus::FERequirements::insertGlobalSolution</a></div><div class="ttdeci">FERequirements &amp; insertGlobalSolution(SV2 &amp;&amp;solVec)</div><div class="ttdoc">Insert a global solution vector into the requirements.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:304</div></div>
+<div class="ttc" id="aa01526_html_a9701fdddf89b019507963dd2f68912da"><div class="ttname"><a href="a01526.html#a9701fdddf89b019507963dd2f68912da">Ikarus::FERequirements::globalSolution</a></div><div class="ttdeci">const SolutionVectorType &amp; globalSolution() const</div><div class="ttdoc">Get the global solution vector.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:314</div></div>
+<div class="ttc" id="aa01526_html_aa183270a9a133844c208380d254d3796"><div class="ttname"><a href="a01526.html#aa183270a9a133844c208380d254d3796">Ikarus::FERequirements::insertParameter</a></div><div class="ttdeci">FERequirements &amp; insertParameter(const PM &amp;val)</div><div class="ttdoc">Insert a parameter into the requirements.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:290</div></div>
+<div class="ttc" id="aa01526_html_abe2632437241140248ed986d745bd53a"><div class="ttname"><a href="a01526.html#abe2632437241140248ed986d745bd53a">Ikarus::FERequirements::parameter</a></div><div class="ttdeci">const PM &amp; parameter() const</div><div class="ttdoc">Get the parameter value.</div><div class="ttdef"><b>Definition:</b> ferequirements.hh:349</div></div>
+<div class="ttc" id="aa01946_html_a86c0fea1b37e487f3c78cde6facca9c3"><div class="ttname"><a href="a01946.html#a86c0fea1b37e487f3c78cde6facca9c3">Ikarus::FEMixin&lt; PreFE, Skills... &gt;::Requirement</a></div><div class="ttdeci">RequirementType&lt; requirementDetected &gt;::type Requirement</div><div class="ttdef"><b>Definition:</b> mixin.hh:94</div></div>
+<div class="ttc" id="aa02082_html"><div class="ttname"><a href="a02082.html">ScalarWrapper</a></div><div class="ttdoc">A wrapper class for scalar types to facilitate reference passing in Python bindings.</div><div class="ttdef"><b>Definition:</b> scalarwrapper.hh:27</div></div>
+<div class="ttc" id="aa02082_html_a0f885d047f898e549e8ece9cac3adea8"><div class="ttname"><a href="a02082.html#a0f885d047f898e549e8ece9cac3adea8">ScalarWrapper::value</a></div><div class="ttdeci">const RawScalarType &amp; value() const</div><div class="ttdoc">Gets the wrapped scalar value as a constant reference.</div><div class="ttdef"><b>Definition:</b> scalarwrapper.hh:47</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -229,7 +231,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="a00173.html">fefactory.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_6063e92d97cad5a47908d6a96069b24d.html">python</a></li><li class="navelem"><a class="el" href="dir_3f77d910b8992c2715464d60b82eb4e5.html">finiteelements</a></li><li class="navelem"><a class="el" href="a00173.html">registerferequirements.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

@@ -1,4 +1,4 @@
 var a00191 =
 [
-    [ "Ikarus::DefaultMembraneStrain", "a01826.html", "a01826" ]
+    [ "Ikarus::NonLinearSolverLogger", "a02354.html", "a02354" ]
 ];

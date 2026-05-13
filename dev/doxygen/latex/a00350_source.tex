@@ -1,77 +1,75 @@
-\hypertarget{a00350_source}{}\doxysection{controlvtkwriter.\+hh}
-\label{a00350_source}\index{controlvtkwriter.hh@{controlvtkwriter.hh}}
+\hypertarget{a00350_source}{}\doxysection{mueslimaterials.\+hh}
+\label{a00350_source}\index{mueslimaterials.hh@{mueslimaterials.hh}}
 \mbox{\hyperlink{a00350}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1 \textcolor{comment}{// SPDX-\/FileCopyrightText: 2021-\/2026 The Ikarus Developers ikarus@ibb.uni-\/stuttgart.de}}
 \DoxyCodeLine{2 \textcolor{comment}{// SPDX-\/License-\/Identifier: LGPL-\/3.0-\/or-\/later}}
 \DoxyCodeLine{3 }
 \DoxyCodeLine{10 \textcolor{preprocessor}{\#pragma once}}
-\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <string>}}
-\DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <dune/functions/gridfunctions/discreteglobalbasisfunction.hh>}}
-\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <dune/grid/io/file/vtk/subsamplingvtkwriter.hh>}}
-\DoxyCodeLine{15 }
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#if ENABLE\_MUESLI}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00359}{ikarus/finiteelements/mechanics/materials/muesli/mueslifinite.hh}}>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00353}{ikarus/finiteelements/mechanics/materials/muesli/mueslihelpers.hh}}>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{  \#include <\mbox{\hyperlink{a00356}{ikarus/finiteelements/mechanics/materials/muesli/mueslismall.hh}}>}}
 \DoxyCodeLine{17 }
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00344}{ikarus/utils/broadcaster/broadcastermessages.hh}}>}}
-\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a03520}{ikarus/utils/concepts.hh}}>}}
-\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{a00347}{ikarus/utils/listener/listener.hh}}>}}
-\DoxyCodeLine{21 }
-\DoxyCodeLine{22 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00510}{Ikarus}} \{}
-\DoxyCodeLine{23 }
-\DoxyCodeLine{31 \textcolor{keyword}{template} <\textcolor{keyword}{typename} B>}
-\DoxyCodeLine{32 \textcolor{keyword}{class }\mbox{\hyperlink{a02342}{ControlSubsamplingVertexVTKWriter}} : \textcolor{keyword}{public} \mbox{\hyperlink{a02350}{Listener}}}
-\DoxyCodeLine{33 \{}
-\DoxyCodeLine{34   \textcolor{keyword}{using }Basis                     = B;}
-\DoxyCodeLine{35   \textcolor{keyword}{static} \textcolor{keyword}{constexpr} \textcolor{keywordtype}{int} components = Basis::LocalView::Tree::degree() == 0 ? 1 : Basis::LocalView::Tree::degree();}
-\DoxyCodeLine{36 }
-\DoxyCodeLine{37 \textcolor{keyword}{public}:}
-\DoxyCodeLine{46   \mbox{\hyperlink{a02342_aa9bc2f8915db560b403dc97a151d3e35}{ControlSubsamplingVertexVTKWriter}}(\textcolor{keyword}{const} Basis\& \mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}, \textcolor{keywordtype}{int} refinementLevels = 0)}
-\DoxyCodeLine{47       : basis\_\{\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}\},}
-\DoxyCodeLine{48         vtkWriter\_(\mbox{\hyperlink{a00543_a0f9f04fa9d98e890cb6d4fe62ff889a4}{basis}}.gridView(), \mbox{\hyperlink{a00536}{Dune}}::refinementLevels(refinementLevels)) \{\}}
-\DoxyCodeLine{49 }
-\DoxyCodeLine{50   \textcolor{keyword}{template} <\textcolor{keyword}{typename} BC>}
-\DoxyCodeLine{51   \mbox{\hyperlink{a02342}{ControlSubsamplingVertexVTKWriter}}\& \mbox{\hyperlink{a02342_a3dae604f656fc27f82a60b713d1fb0cf}{subscribeTo}}(BC\& bc) \{}
-\DoxyCodeLine{52     this-\/>\mbox{\hyperlink{a02350_a199840d6ead51d771d5522acff779a4f}{subscribe}}(bc, [\&](\mbox{\hyperlink{a00510_a35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message, \textcolor{keyword}{const} BC::State\& state) \{ this-\/>\mbox{\hyperlink{a02342_a03d2c1668d6894f3e4f3c5d3ef1c54f6}{update}}(message, state); \});}
-\DoxyCodeLine{53     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
-\DoxyCodeLine{54   \}}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{65   \textcolor{keyword}{auto} \mbox{\hyperlink{a02342_afec0c3fe2aa8cac3e9970d8c9720c219}{setFieldInfo}}(std::string\&\& name, Dune::VTK::FieldInfo::Type type, std::size\_t size,}
-\DoxyCodeLine{66                     Dune::VTK::Precision prec = Dune::VTK::Precision::float32) \{}
-\DoxyCodeLine{67     fieldInfo\_      = Dune::VTK::FieldInfo(std::move(name), type, size, prec);}
-\DoxyCodeLine{68     isFieldInfoSet\_ = \textcolor{keyword}{true};}
-\DoxyCodeLine{69   \}}
-\DoxyCodeLine{70 }
-\DoxyCodeLine{76   \textcolor{keyword}{auto} \mbox{\hyperlink{a02342_a8061e516e4c6626a2f6ea160e692e4e1}{setFileNamePrefix}}(std::string\&\& name) \{ prefixString\_ = std::move(name); \}}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{87   \textcolor{keywordtype}{void} \mbox{\hyperlink{a02342_a03d2c1668d6894f3e4f3c5d3ef1c54f6}{update}}(\mbox{\hyperlink{a00510_a35fa62fd2d4186a9750af3d0692f2893}{ControlMessages}} message, \textcolor{keyword}{const} \mbox{\hyperlink{a02474}{Concepts::ControlRoutineState}} \textcolor{keyword}{auto}\& state) \{}
-\DoxyCodeLine{88     assert(isFieldInfoSet\_ \&\& \textcolor{stringliteral}{"{}You need to call setFieldInfo first!"{}});}
-\DoxyCodeLine{89     \textcolor{keywordflow}{switch} (message) \{}
-\DoxyCodeLine{90       \textcolor{keywordflow}{case} \mbox{\hyperlink{a00510_a35fa62fd2d4186a9750af3d0692f2893a0d30d757bf062e88728ebe7f8e2b2577}{ControlMessages::SOLUTION\_CHANGED}}: \{}
-\DoxyCodeLine{91         \textcolor{keyword}{auto} disp = Dune::Functions::makeDiscreteGlobalBasisFunction<Dune::FieldVector<double, components>>(}
-\DoxyCodeLine{92             basis\_, state.domain.globalSolution());}
-\DoxyCodeLine{93         vtkWriter\_.addVertexData(disp, fieldInfo\_);}
-\DoxyCodeLine{94         vtkWriter\_.write(prefixString\_ + std::to\_string(step\_++));}
-\DoxyCodeLine{95       \} \textcolor{keywordflow}{break};}
-\DoxyCodeLine{96       \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{97         \textcolor{keywordflow}{break}; \textcolor{comment}{// default: do nothing when notified}}
-\DoxyCodeLine{98     \}}
-\DoxyCodeLine{99   \}}
-\DoxyCodeLine{100 }
-\DoxyCodeLine{101 \textcolor{keyword}{private}:}
-\DoxyCodeLine{102   \textcolor{keyword}{const} Basis\& basis\_;}
-\DoxyCodeLine{103   Dune::SubsamplingVTKWriter<typename Basis::GridView> vtkWriter\_;}
-\DoxyCodeLine{104   \textcolor{keywordtype}{int} step\_\{0\};}
-\DoxyCodeLine{105   Dune::VTK::FieldInfo fieldInfo\_\{\textcolor{stringliteral}{"{}Default"{}}, Dune::VTK::FieldInfo::Type::scalar, 1\};}
-\DoxyCodeLine{106   std::string prefixString\_\{\};}
-\DoxyCodeLine{107   \textcolor{keywordtype}{bool} isFieldInfoSet\_\{\textcolor{keyword}{false}\};}
-\DoxyCodeLine{108 \};}
-\DoxyCodeLine{109 }
-\DoxyCodeLine{110 \textcolor{preprocessor}{\#ifndef DOXYGEN}}
-\DoxyCodeLine{111 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Basis>}
-\DoxyCodeLine{112 ControlSubsamplingVertexVTKWriter(\textcolor{keyword}{const} Basis\&, \textcolor{keywordtype}{int}) -\/> ControlSubsamplingVertexVTKWriter<Basis>;}
-\DoxyCodeLine{113 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{114 }
-\DoxyCodeLine{115 \} \textcolor{comment}{// namespace Ikarus}}
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }\mbox{\hyperlink{a00521}{Ikarus::Materials}} \{}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{27 \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
+\DoxyCodeLine{28 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliLinearElasticity(\textcolor{keyword}{const} MPT\& mpt) \{}
+\DoxyCodeLine{29   \textcolor{keyword}{auto} muesliParameters = propertiesFromIkarusMaterialParameters(mpt);}
+\DoxyCodeLine{30   \textcolor{keywordflow}{return} SmallStrain<muesli::elasticIsotropicMaterial>(muesliParameters);}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{41 \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
+\DoxyCodeLine{42 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliNeoHooke(\textcolor{keyword}{const} MPT\& mpt, \textcolor{keywordtype}{bool} useDeviatoricStretches = \textcolor{keyword}{false}) \{}
+\DoxyCodeLine{43   \textcolor{keyword}{auto} muesliParameters = propertiesFromIkarusMaterialParameters(mpt);}
+\DoxyCodeLine{44   \textcolor{keywordflow}{if} (useDeviatoricStretches)}
+\DoxyCodeLine{45     addTag(muesliParameters, \textcolor{stringliteral}{"{}subtype regularized"{}});}
+\DoxyCodeLine{46   \textcolor{keywordflow}{return} FiniteStrain<muesli::neohookeanMaterial>(muesliParameters);}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{56 \textcolor{keyword}{template} <Concepts::MPTuple MPT>}
+\DoxyCodeLine{57 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliSVK(\textcolor{keyword}{const} MPT\& mpt) \{}
+\DoxyCodeLine{58   \textcolor{keyword}{auto} muesliParameters = propertiesFromIkarusMaterialParameters(mpt);}
+\DoxyCodeLine{59   \textcolor{keywordflow}{return} FiniteStrain<muesli::svkMaterial>(muesliParameters);}
+\DoxyCodeLine{60 \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{71 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliArrudaBoyce(\textcolor{keywordtype}{double} C1, \textcolor{keywordtype}{double} lambda\_m, \textcolor{keywordtype}{double} K, \textcolor{keywordtype}{bool} compressible = \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{72   \textcolor{keyword}{auto} muesliParameters = muesli::materialProperties\{\};}
+\DoxyCodeLine{73   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c1"{}}, C1\});}
+\DoxyCodeLine{74   muesliParameters.insert(\{\textcolor{stringliteral}{"{}lambdam"{}}, lambda\_m\});}
+\DoxyCodeLine{75   muesliParameters.insert(\{\textcolor{stringliteral}{"{}bulk"{}}, K\});}
+\DoxyCodeLine{76   \textcolor{keywordflow}{if} (compressible)}
+\DoxyCodeLine{77     addTag(muesliParameters, \textcolor{stringliteral}{"{}compressible"{}});}
+\DoxyCodeLine{78   \textcolor{keywordflow}{return} FiniteStrain<muesli::arrudaboyceMaterial>(muesliParameters);}
+\DoxyCodeLine{79 \}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{89 \textcolor{keyword}{inline} \textcolor{keyword}{auto} makeMuesliYeoh(std::array<double, 3> C, \textcolor{keywordtype}{double} K, \textcolor{keywordtype}{bool} compressible = \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{90   \textcolor{keyword}{auto} muesliParameters = muesli::materialProperties\{\};}
+\DoxyCodeLine{91   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c1"{}}, C[0]\});}
+\DoxyCodeLine{92   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c2"{}}, C[1]\});}
+\DoxyCodeLine{93   muesliParameters.insert(\{\textcolor{stringliteral}{"{}c3"{}}, C[2]\});}
+\DoxyCodeLine{94   muesliParameters.insert(\{\textcolor{stringliteral}{"{}bulk"{}}, K\});}
+\DoxyCodeLine{95   \textcolor{keywordflow}{if} (compressible)}
+\DoxyCodeLine{96     addTag(muesliParameters, \textcolor{stringliteral}{"{}compressible"{}});}
+\DoxyCodeLine{97   \textcolor{keywordflow}{return} FiniteStrain<muesli::yeohMaterial>(muesliParameters);}
+\DoxyCodeLine{98 \}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{107 \textcolor{keyword}{inline} \textcolor{keyword}{auto} \mbox{\hyperlink{a00521_a7ac025ab0f41d2021008bd54e51135b1}{makeMooneyRivlin}}(std::array<double, 3> alpha, \textcolor{keywordtype}{bool} incompressible = \textcolor{keyword}{false}) \{}
+\DoxyCodeLine{108   \textcolor{keyword}{auto} muesliParameters = muesli::materialProperties\{\};}
+\DoxyCodeLine{109   muesliParameters.insert(\{\textcolor{stringliteral}{"{}alpha0"{}}, alpha[0]\});}
+\DoxyCodeLine{110   muesliParameters.insert(\{\textcolor{stringliteral}{"{}alpha1"{}}, alpha[1]\});}
+\DoxyCodeLine{111   muesliParameters.insert(\{\textcolor{stringliteral}{"{}alpha2"{}}, alpha[2]\});}
+\DoxyCodeLine{112   \textcolor{keywordflow}{if} (incompressible)}
+\DoxyCodeLine{113     addTag(muesliParameters, \textcolor{stringliteral}{"{}incompressible"{}});}
+\DoxyCodeLine{114   \textcolor{keywordflow}{return} FiniteStrain<muesli::mooneyMaterial>(muesliParameters);}
+\DoxyCodeLine{115 \}}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \} \textcolor{comment}{// namespace Ikarus::Materials}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{120 \textcolor{preprocessor}{  \#error Muesli materials depends on the Muesli library, which is not included}}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

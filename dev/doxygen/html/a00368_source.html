@@ -26,7 +26,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!--    <meta itemprop="description" content="Code documentation of the open-source C++ porous media simulator Dumux." />-->
 <!--    <meta itemprop="image" content="https://git.iws.uni-stuttgart.de/dumux-repositories/dumux/-/raw/8affa5aac19a76f615e74918332484e1c603c43e/doc/logo/dumux_logo_small.png" />-->
 <!--    &lt;!&ndash; END Google+ metadata &ndash;&gt;-->
-    <title>ikarus: vtkdatatag.hh Source File</title>
+    <title>ikarus: numericalmaterialinversion.hh Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -155,23 +155,74 @@ $(document).ready(function(){initNavTree('a00368_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">vtkdatatag.hh</div></div>
+  <div class="headertitle"><div class="title">numericalmaterialinversion.hh</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00368.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2021-2026 The Ikarus Developers ikarus@ibb.uni-stuttgart.de</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: LGPL-3.0-or-later</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00050.html">ikarus/utils/makeenum.hh</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00525.html">Ikarus::Vtk</a> {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a00525.html#af59748ac04116ae85cd64ea8675d273b">   13</a></span><a class="code hl_define" href="a00505.html#ga14ad7d33267cea1c93f97f3998081657">MAKE_ENUM</a>(<a class="code hl_enumeration" href="a00525.html#af59748ac04116ae85cd64ea8675d273b">DataTag</a>, asCellData, asPointData, asCellAndPointData);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>} <span class="comment">// namespace Ikarus::Vtk</span></div>
-<div class="ttc" id="aa00050_html"><div class="ttname"><a href="a00050.html">makeenum.hh</a></div><div class="ttdoc">Implementation of the make enum macro.</div></div>
-<div class="ttc" id="aa00505_html_ga14ad7d33267cea1c93f97f3998081657"><div class="ttname"><a href="a00505.html#ga14ad7d33267cea1c93f97f3998081657">MAKE_ENUM</a></div><div class="ttdeci">#define MAKE_ENUM(type,...)</div><div class="ttdoc">Macro to create an enumeration with a string conversion function.The macro creates an enum class with...</div><div class="ttdef"><b>Definition:</b> makeenum.hh:40</div></div>
-<div class="ttc" id="aa00525_html"><div class="ttname"><a href="a00525.html">Ikarus::Vtk</a></div><div class="ttdef"><b>Definition:</b> vtkcontainertypes.hh:19</div></div>
-<div class="ttc" id="aa00525_html_af59748ac04116ae85cd64ea8675d273b"><div class="ttname"><a href="a00525.html#af59748ac04116ae85cd64ea8675d273b">Ikarus::Vtk::DataTag</a></div><div class="ttdeci">DataTag</div><div class="ttdoc">Tag enum indicating cell data or point data.</div><div class="ttdef"><b>Definition:</b> vtkdatatag.hh:13</div></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a03514.html">ikarus/finiteelements/mechanics/materials/interface.hh</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00347.html">ikarus/finiteelements/mechanics/materials/materialhelpers.hh</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00371.html">ikarus/finiteelements/mechanics/materials/strainconversions.hh</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00029.html">ikarus/utils/tensorutils.hh</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00521.html">Ikarus::Materials</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">template</span> &lt;Concepts::Material Material, <span class="keyword">typename</span> Derived&gt;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a00521.html#a8fbddf32993e15f5f5c590c599a2b5f3">   34</a></span><span class="keyword">auto</span> <a class="code hl_function" href="a00521.html#a8fbddf32993e15f5f5c590c599a2b5f3">numericalMaterialInversion</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a01802.html">Material</a>&amp; mat, <span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; S,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                                <span class="keyword">const</span> Eigen::MatrixBase&lt;Derived&gt;&amp; Estart = Derived::Zero().eval(),</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                                <span class="keyword">const</span> <span class="keywordtype">double</span> tol = 1e-12, <span class="keyword">const</span> <span class="keywordtype">int</span> maxIter = 20) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">static_assert</span>(Concepts::EigenMatrix33&lt;<span class="keyword">decltype</span>(S)&gt; or Concepts::EigenMatrix22&lt;<span class="keyword">decltype</span>(S)&gt;);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keyword">static_assert</span>(<a class="code hl_concept" href="a02477.html">Concepts::ReferenceConfiguraionStress&lt;Material::stressTag&gt;</a> and</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                <a class="code hl_concept" href="a02476.html">Concepts::ReferenceConfiguraionStrain&lt;Material::strainTag&gt;</a>);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="keyword">constexpr</span> <span class="keywordtype">int</span> dim      = Derived::CompileTimeTraits::RowsAtCompileTime;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keyword">constexpr</span> <span class="keywordtype">int</span> dimVoigt = (dim * (dim + 1)) / 2;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keyword">constexpr</span> <span class="keyword">auto</span> strainTag =</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>      Material::strainTag == <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">StrainTags::linear</a> ? <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">StrainTags::linear</a> : <a class="code hl_enumvalue" href="a00499.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">StrainTags::greenLagrangian</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keyword">using </span>ST       = Derived::Scalar;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">using </span>VoigtVec = Eigen::Vector&lt;ST, dimVoigt&gt;;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  VoigtVec Es     = <a class="code hl_function" href="a00506.html#gaea992dee85d054f8dc1c99d3a7f4fe06">toVoigt</a>(Estart.derived()); <span class="comment">// starting value</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  VoigtVec Svoigt = <a class="code hl_function" href="a00506.html#gaea992dee85d054f8dc1c99d3a7f4fe06">toVoigt</a>(S.derived(), <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="keyword">auto</span> r = VoigtVec::Zero().eval();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">auto</span> D = Eigen::Matrix&lt;ST, dimVoigt, dimVoigt&gt;::Zero().eval();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : Dune::range(maxIter)) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    r = (Svoigt - mat.template stresses&lt;strainTag, true&gt;(Es)).eval();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">if</span> (r.norm() &lt; tol and i &gt; 0)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (i == maxIter)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      DUNE_THROW(</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>          Dune::MathError,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>          <span class="stringliteral">&quot;Numerical material inversion failed to converge within the maximum number of iterations for the material: &quot;</span> +</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>              mat.<a class="code hl_function" href="a01802.html#a03ae10e8656beed2aa69c8a9d27907e5">name</a>());</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    D = mat.template tangentModuli&lt;strainTag, true&gt;(Es).inverse().eval(); <span class="comment">// voigt</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    Es += (D * r).eval();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordflow">return</span> std::make_pair(D, transformStrain&lt;strainTag, Material::strainTag&gt;(Es).eval());</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace Ikarus::Materials</span></div>
+<div class="ttc" id="aa00029_html"><div class="ttname"><a href="a00029.html">tensorutils.hh</a></div><div class="ttdoc">Helper for the Eigen::Tensor types.</div></div>
+<div class="ttc" id="aa00347_html"><div class="ttname"><a href="a00347.html">materialhelpers.hh</a></div><div class="ttdoc">helper functions used by material model implementations.</div></div>
+<div class="ttc" id="aa00371_html"><div class="ttname"><a href="a00371.html">strainconversions.hh</a></div><div class="ttdoc">Implementation of transformations for different strain measures.</div></div>
+<div class="ttc" id="aa00499_html_ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa"><div class="ttname"><a href="a00499.html#ggacef1e451de1a99845c59d7391064fb8fa9a932b3cb396238423eb2f33ec17d6aa">Ikarus::StrainTags::linear</a></div><div class="ttdeci">@ linear</div></div>
+<div class="ttc" id="aa00499_html_ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e"><div class="ttname"><a href="a00499.html#ggacef1e451de1a99845c59d7391064fb8faca3f1e4bb21fd00a3d29c5d8aff8e11e">Ikarus::StrainTags::greenLagrangian</a></div><div class="ttdeci">@ greenLagrangian</div></div>
+<div class="ttc" id="aa00506_html_gaea992dee85d054f8dc1c99d3a7f4fe06"><div class="ttname"><a href="a00506.html#gaea992dee85d054f8dc1c99d3a7f4fe06">Ikarus::toVoigt</a></div><div class="ttdeci">constexpr Eigen::Index toVoigt(Eigen::Index i, Eigen::Index j) noexcept</div><div class="ttdoc">Converts 2D indices to Voigt notation index.</div><div class="ttdef"><b>Definition:</b> tensorutils.hh:182</div></div>
+<div class="ttc" id="aa00521_html"><div class="ttname"><a href="a00521.html">Ikarus::Materials</a></div><div class="ttdef"><b>Definition:</b> decomposehyperelastic.hh:15</div></div>
+<div class="ttc" id="aa00521_html_a8fbddf32993e15f5f5c590c599a2b5f3"><div class="ttname"><a href="a00521.html#a8fbddf32993e15f5f5c590c599a2b5f3">Ikarus::Materials::numericalMaterialInversion</a></div><div class="ttdeci">auto numericalMaterialInversion(const Material &amp;mat, const Eigen::MatrixBase&lt; Derived &gt; &amp;S, const Eigen::MatrixBase&lt; Derived &gt; &amp;Estart=Derived::Zero().eval(), const double tol=1e-12, const int maxIter=20)</div><div class="ttdoc">Computes numerically an approximation of the complementary strain energy function and returns the mat...</div><div class="ttdef"><b>Definition:</b> numericalmaterialinversion.hh:34</div></div>
+<div class="ttc" id="aa01802_html"><div class="ttname"><a href="a01802.html">Ikarus::Materials::Material</a></div><div class="ttdoc">Interface classf or materials.</div><div class="ttdef"><b>Definition:</b> finiteelements/mechanics/materials/interface.hh:113</div></div>
+<div class="ttc" id="aa01802_html_a03ae10e8656beed2aa69c8a9d27907e5"><div class="ttname"><a href="a01802.html#a03ae10e8656beed2aa69c8a9d27907e5">Ikarus::Materials::Material::name</a></div><div class="ttdeci">static constexpr std::string name()</div><div class="ttdoc">Get the name of the implemented material.</div><div class="ttdef"><b>Definition:</b> finiteelements/mechanics/materials/interface.hh:161</div></div>
+<div class="ttc" id="aa02476_html"><div class="ttname"><a href="a02476.html">Ikarus::Concepts::ReferenceConfiguraionStrain</a></div><div class="ttdoc">Returns true if a given straintag is related only to the reference configuration.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:677</div></div>
+<div class="ttc" id="aa02477_html"><div class="ttname"><a href="a02477.html">Ikarus::Concepts::ReferenceConfiguraionStress</a></div><div class="ttdoc">Returns true if a given stresstag is related only to the reference configuration.</div><div class="ttdef"><b>Definition:</b> utils/concepts.hh:684</div></div>
+<div class="ttc" id="aa03514_html"><div class="ttname"><a href="a03514.html">interface.hh</a></div><div class="ttdoc">Contains the Material interface class and related template functions for material properties.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!--
@@ -182,7 +233,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
     <ul>
-        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_cd0257e5a0a5e21e0bd17a30fdd07a18.html">io</a></li><li class="navelem"><a class="el" href="a00368.html">vtkdatatag.hh</a></li>
+        <li class="navelem"><a class="el" href="dir_5bec9ec6c6b8ab3f2f9d60d2ff21ed81.html">ikarus</a></li><li class="navelem"><a class="el" href="dir_f5e28093cb075fb92f2345f7d8607df6.html">finiteelements</a></li><li class="navelem"><a class="el" href="dir_d9d7fab038fcca5270fe0241ec433d4d.html">mechanics</a></li><li class="navelem"><a class="el" href="dir_fc403fdb7d4f9d9b203e31bf1b8a15f4.html">materials</a></li><li class="navelem"><a class="el" href="a00368.html">numericalmaterialinversion.hh</a></li>
         <li class="footer">
             &copy; Copyright 2021-<script>document.write(new Date().getFullYear())</script> <a href="https://github.com/ikarus-project/ikarus/blob/main/LICENSE.md">Ikarus project contributors</a>
             (doc pages: <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> /

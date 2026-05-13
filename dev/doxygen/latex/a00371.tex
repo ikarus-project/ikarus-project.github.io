@@ -1,20 +1,15 @@
-\hypertarget{a00371}{}\doxysection{resultfunction.\+hh File Reference}
-\label{a00371}\index{resultfunction.hh@{resultfunction.hh}}
+\hypertarget{a00371}{}\doxysection{strainconversions.\+hh File Reference}
+\label{a00371}\index{strainconversions.hh@{strainconversions.hh}}
 
 
-\mbox{\hyperlink{a00510}{Ikarus}} Result Function for Stress and other finite element results.  
+Implementation of transformations for different strain measures.  
 
 
-{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
-{\ttfamily \#include $<$dune/vtk/gridfunctions/vtkfunctionwrapper.\+hh$>$}\newline
-{\ttfamily \#include $<$dune/vtk/vtkwriter.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/finiteelements/ferequirements.\+hh$>$}\newline
-{\ttfamily \#include $<$ikarus/utils/concepts.\+hh$>$}\newline
-\doxysubsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-class \mbox{\hyperlink{a02018}{Ikarus\+::\+Result\+Function$<$ AS, RT, User\+Function $>$}}
-\begin{DoxyCompactList}\small\item\em Wrapper to evaluate results for a vtkwriter. Works both out-\/of-\/the-\/box with {\ttfamily Dune\+::\+VTK} and {\ttfamily Dune\+::\+Vtk}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\ttfamily \#include \char`\"{}tags.\+hh\char`\"{}}\newline
+{\ttfamily \#include $<$unsupported/\+Eigen/\+Matrix\+Functions$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Core$>$}\newline
+{\ttfamily \#include $<$ikarus/finiteelements/mechanics/materials/materialhelpers.\+hh$>$}\newline
+{\ttfamily \#include $<$ikarus/utils/tensorutils.\+hh$>$}\newline
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,9 +18,11 @@ namespace \mbox{\hyperlink{a00510}{Ikarus}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$template$<$ typename, int, int $>$ class RT, typename User\+Function  = Impl\+::\+Default\+User\+Function, Concepts\+::\+Flat\+Assembler AS$>$ }\\auto \mbox{\hyperlink{a00510_aba0432efad1cef6c956ccf108829682c}{Ikarus\+::make\+Result\+Function}} (std\+::shared\+\_\+ptr$<$ AS $>$ assembler, Dune\+::\+VTK\+::\+Precision prec=Dune\+::\+VTK\+::\+Precision\+::float64, User\+Function \&\&user\+Function=\{\})
-\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a02018}{Result\+Function}} as a shared\+\_\+ptr. \end{DoxyCompactList}\item 
-{\footnotesize template$<$template$<$ typename, int, int $>$ class RT, typename User\+Function , Concepts\+::\+Flat\+Assembler AS$>$ }\\auto \mbox{\hyperlink{a00510_aa4430d7f94a172d765fba38d393450a0}{Ikarus\+::make\+Result\+Function}} (std\+::shared\+\_\+ptr$<$ AS $>$ assembler, User\+Function \&\&user\+Function)
-\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a02018}{Result\+Function}} as a shared\+\_\+ptr. \end{DoxyCompactList}\item 
-{\footnotesize template$<$template$<$ typename, int, int $>$ class RT, typename User\+Function  = Impl\+::\+Default\+User\+Function, Concepts\+::\+Flat\+Assembler AS$>$ }\\auto \mbox{\hyperlink{a00510_ad8472943b9877db27039331c847154f1}{Ikarus\+::make\+Result\+Vtk\+Function}} (std\+::shared\+\_\+ptr$<$ AS $>$ assembler, User\+Function \&\&user\+Function=\{\})
-\begin{DoxyCompactList}\small\item\em Function to create a \mbox{\hyperlink{a02018}{Result\+Function}} as a gridfunction that can be used with dune-\/vtk. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\footnotesize template$<$Strain\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00510_a723edca47f0ba6c4c13c34e80cd57a9b}{Ikarus\+::create\+Green\+Lagrangian\+Strains}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&e\+MB)
+\begin{DoxyCompactList}\small\item\em Create Green-\/\+Lagrangian strain based on the input. \end{DoxyCompactList}\item 
+{\footnotesize template$<$Strain\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00510_a0c71be63a6a44b758b39371299e790ce}{Ikarus\+::create\+Deformation\+Gradient}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&e\+MB)
+\begin{DoxyCompactList}\small\item\em Create the deformation gradient based on the input. \end{DoxyCompactList}\item 
+{\footnotesize template$<$Strain\+Tags tag, typename Derived $>$ }\\Derived \mbox{\hyperlink{a00510_a18dcccfb95299fa47afebb3495a065c0}{Ikarus\+::create\+Right\+Cauchy\+Green}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&e\+MB)
+\begin{DoxyCompactList}\small\item\em Create right Cauchy-\/\+Green tensor based on the input. \end{DoxyCompactList}\item 
+{\footnotesize template$<$Strain\+Tags from, Strain\+Tags to, typename Derived $>$ }\\auto \mbox{\hyperlink{a00510_abdf1f705005400846826dd7bdaac4f88}{Ikarus\+::transform\+Strain}} (const Eigen\+::\+Matrix\+Base$<$ Derived $>$ \&e\+Raw)
+\begin{DoxyCompactList}\small\item\em Transform strain from one type to another. \end{DoxyCompactList}\end{DoxyCompactItemize}
